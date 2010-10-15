@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<processBundle-config>
+
+    <processBundle beanIdentifier="casesBPMProcessBundle" processManagerType="cases" />
+    
+    <tasks>
+        <task name="applicationForFishingLicense" initial="true">
+            <viewResource resourceIdentifier="forms/applicationForFishingLicense.xhtml" viewType="xforms" viewResourceType="xforms" />
+        </task>
+        <task name="saveDocumentKey">
+            <viewResource resourceIdentifier="forms/saveDocumentKey.xhtml" viewType="xforms" viewResourceType="xforms" />
+        </task>
+        <task name="licenseRuling">
+            <viewResource resourceIdentifier="forms/licenseRuling.xhtml" viewType="xforms" viewResourceType="xforms" />
+        </task>
+        <task name="issueLicense">
+            <viewResource resourceIdentifier="forms/issueLicense.xhtml" viewType="xforms" viewResourceType="xforms" />
+        </task>
+    </tasks>
+    
+</processBundle-config>
