@@ -21,6 +21,9 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
+  <node name="end-state2" x="144" y="678" width="22" height="24"/>
+  <node name="endProcess" x="205" y="1115" width="132" height="36"/>
+  <node name="end-state3" x="597" y="1122" width="23" height="22"/>
   <node name="updateCaseStatusToHandlingInProgress" x="186" y="313" width="211" height="36">
     <edge>
       <label x="5" y="-10"/>
@@ -49,7 +52,6 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="end-state2" x="144" y="678" width="22" height="24"/>
   <node name="checkIfApplicantIsInDebt" x="203" y="103" width="151" height="36">
     <edge>
       <label x="5" y="-10"/>
@@ -85,8 +87,6 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="endProcess" x="205" y="1115" width="132" height="36"/>
-  <node name="end-state3" x="597" y="1122" width="23" height="22"/>
   <node name="fork1" x="480" y="955" width="23" height="24">
     <edge>
       <label x="-126" y="-19"/>

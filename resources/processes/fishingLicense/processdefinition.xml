@@ -52,7 +52,7 @@
     </event>
   
    <start-state name="applicationForFishingLicense">
-     <task name="applicationForFishingLicense">
+     <task name="applicationForFishingLicenseTask">
          <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
 			<handlerName>jsonAssignmentHandler</handlerName>
 			<propertyMap key-type='java.lang.String' value-type='java.lang.String'>
@@ -68,22 +68,25 @@
 		 </assignment>
          
          <controller>
-            <variable name="string_ownerFullName" access="read" ></variable>
-            <variable name="string_ownerSocialNumber" access="read"></variable>
-            <variable name="string_ownerAddress" access="read"></variable>
-            <variable name="string_ownerPostCode" access="read"></variable>
-            <variable name="string_ownerMunicipality" access="read"></variable>
+            <variable name="string_ownerFullName" access="read,write" ></variable>
+            <variable name="string_ownerSocialNumber" access="read,write"></variable>
+            <variable name="string_ownerAddress" access="read,write"></variable>
+            <variable name="string_ownerPostCode" access="read,write"></variable>
+            <variable name="string_ownerMunicipality" access="read,write"></variable>
             <variable name="string_ownerPhone" access="read,write"></variable>
             <variable name="string_ownerFax" access="read,write"></variable>
             <variable name="string_ownerEmailAddress" access="read,write"></variable>
             <variable name="string_ownerComments" access="read,write"></variable>
             <variable name="string_caseIdentifier" access="read"></variable>
+            
+            <variable name="string_typeOfFishingLicense" access="read,write"></variable>
+            <variable name="string_vessel" access="read,write"></variable>
          </controller>
       </task>
       <transition to="checkIfApplicantIsInDebt"></transition>
    </start-state>
    <task-node name="licenseRuling">
-      <task name="licenseRuling">
+      <task name="licenseRulingTask">
          <controller>
             <variable name="string_rulingText" access="read,write"></variable>
             <variable name="files_processRullingAttachments"></variable>
@@ -205,7 +208,7 @@
 		</action>
     </event>
    <task-node name="saveDocumentKey">
-	  <task name="saveDocumentKey">
+	  <task name="saveDocumentKeyTask">
 	     <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
 			<handlerName>jsonAssignmentHandler</handlerName>
 			<propertyMap key-type='java.lang.String' value-type='java.lang.String'>
@@ -340,7 +343,7 @@
 	</node>
 
 	<task-node name="issueLicense">
-		<task name="issueLicense"></task>
+		<task name="issueLicenseTask"></task>
 		<transition to="sendLicenseToApplicant"></transition>
 	</task-node>
 	
