@@ -44,7 +44,7 @@ public class FishingLicenseUser {
 	 */
 	public String getApplicationValid() {
 		
-		return "false";
+		return "true";
 	}
 	
 	public static final class VesselData {

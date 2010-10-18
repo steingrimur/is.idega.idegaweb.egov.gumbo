@@ -253,9 +253,9 @@ Sigllingamálastofnun or Fiskistofa</fbc_37-help>
                     <fbc_72-text lang="is_IS">Fyrirsögn</fbc_72-text>
                     <fbc_72-text lang="en">Conditions for granting the fishing license</fbc_72-text>
                     <fbc_73-text lang="is_IS">thw what</fbc_73-text>
-                    <fbc_73-text lang="en">App is valid</fbc_73-text>
+                    <fbc_73-text lang="en">Valid</fbc_73-text>
                     <fbc_74-text lang="is_IS">thw what</fbc_74-text>
-                    <fbc_74-text lang="en">App is invalid</fbc_74-text>
+                    <fbc_74-text lang="en">The vessel does not have a valid "haffærisskírteini". Please contact Fiskistofa. It is not possible to submit the application under these conditions.</fbc_74-text>
                 </localized_strings>
             </xf:instance>
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
@@ -586,7 +586,7 @@ Sigllingamálastofnun or Fiskistofa</fbc_37-help>
                         <xf:group bind="fbc_73_bind">
 	                        <xf:output model="data_model" ref="instance('localized_strings')/fbc_73-text[@lang=instance('localized_strings')/current_language]"/>
                         </xf:group>
-                        <xf:group bind="fbc_74_bind">
+                        <xf:group bind="fbc_74_bind" class="xformErrors">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_74-text[@lang=instance('localized_strings')/current_language]"/>
                         </xf:group>
                         
