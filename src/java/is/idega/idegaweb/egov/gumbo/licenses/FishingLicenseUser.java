@@ -28,7 +28,7 @@ public class FishingLicenseUser {
 		
 		return new VesselData()
 
-		.setRegistryNr("reg nr "+vesselId)
+		.setRegistryNr("reg nr " + vesselId)
 
 		.setName("vessel name")
 
@@ -37,6 +37,14 @@ public class FishingLicenseUser {
 		.setOwnersName("owners name")
 
 		.setOwnersSocialSecurityNr("owners soc id");
+	}
+	
+	/**
+	 * @return string "true" if application is valid for submission, "false" otherwise
+	 */
+	public String getApplicationValid() {
+		
+		return "false";
 	}
 	
 	public static final class VesselData {
