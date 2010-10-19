@@ -374,7 +374,7 @@ Sigllingamálastofnun or Fiskistofa</fbc_37-help>
             <idega:setError ev:event="idega-validation-error"
                 id="formSetErrorHandler" ref="instance('error-instance')/error"/>
             <idega:switch>
-                <idega:case id="fbc_1" show="instance('control-instance')/generatePdf='true'">
+                <idega:case id="fbc_1">
                     <xf:group appearance="full">
                         <xf:output model="submission_model" ref="instance('data-instance')/Identifier_number_fbc_23">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_23-title[@lang=instance('localized_strings')/current_language]"/>
