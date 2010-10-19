@@ -23,15 +23,15 @@
                     <Address_fbc_44 mapping="string_ownerAddress"/>
                     <Post_code_fbc_45 mapping="string_ownerPostCode"/>
                     <Place_fbc_46 mapping="string_ownerMunicipality"/>
-                    <licenseTypeLabel/>
+                    <licenseTypeLabel mapping="string_licenseTypeLabel"/>
                     <vesselData>
-                        <registryNr></registryNr>
-                        <name></name>
-                        <identificationLetters></identificationLetters>
-                        <ownersName></ownersName>
-                        <ownersSocialSecurityNr></ownersSocialSecurityNr>
+                        <registryNr mapping="string_vesselRegistryNr"></registryNr>
+                        <name mapping="string_vesselName"></name>
+                        <identificationLetters mapping="string_vesselIdentificationLetters"></identificationLetters>
+                        <ownersName mapping="string_vesselOwnersName"></ownersName>
+                        <ownersSocialSecurityNr mapping="string_vesselOwnersSocialSecurityNr"></ownersSocialSecurityNr>
                     </vesselData>
-                    <appValid/>
+                    <appValid>false</appValid>
                     <appInvalid/>
                 </data>
             </xf:instance>
@@ -89,19 +89,19 @@
                 required="instance('control-instance')/required = 'true'" type="xs:string"/>
             <xf:bind id="fbc_38_bind" nodeset="Your_comments_fbc_38"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
-            <xf:bind id="fbc_42_bind" nodeset="Name_fbc_42" type="string"/>
+            <xf:bind id="fbc_42_bind" nodeset="Name_fbc_42" type="string" readonly="instance('control-instance')/readonly = 'true'"/>
             <xf:instance id="fbc_42_autofill-instance"
                 relevant="false()" src="context:fb-afk-loginSession.user.name"/>
-            <xf:bind id="fbc_43_bind" nodeset="Social_security_number_fbc_43"/>
+            <xf:bind id="fbc_43_bind" nodeset="Social_security_number_fbc_43" readonly="instance('control-instance')/readonly = 'true'"/>
             <xf:instance id="fbc_43_autofill-instance"
                 relevant="false()" src="context:fb-afk-loginSession.user.personalID"/>
-            <xf:bind id="fbc_44_bind" nodeset="Address_fbc_44"/>
+            <xf:bind id="fbc_44_bind" nodeset="Address_fbc_44" readonly="instance('control-instance')/readonly = 'true'"/>
             <xf:instance id="fbc_44_autofill-instance"
                 relevant="false()" src="context:fb-afk-loginSession.user.usersMainAddress.streetAddress"/>
-            <xf:bind id="fbc_45_bind" nodeset="Post_code_fbc_45"/>
+            <xf:bind id="fbc_45_bind" nodeset="Post_code_fbc_45" readonly="instance('control-instance')/readonly = 'true'"/>
             <xf:instance id="fbc_45_autofill-instance"
                 relevant="false()" src="context:fb-afk-loginSession.user.usersMainAddress.postalCode.postalCode"/>
-            <xf:bind id="fbc_46_bind" nodeset="Place_fbc_46"/>
+            <xf:bind id="fbc_46_bind" nodeset="Place_fbc_46" readonly="instance('control-instance')/readonly = 'true'"/>
             <xf:instance id="fbc_46_autofill-instance"
                 relevant="false()" src="context:fb-afk-loginSession.user.usersMainAddress.commune.communeName"/>
             <xf:bind id="fbc_58_bind" nodeset="licenseTypeLabel"/>
@@ -111,10 +111,10 @@
             <xf:bind id="fbc_64_bind" nodeset="vesselData/ownersName"/>
             <xf:bind id="fbc_65_bind" nodeset="vesselData/ownersSocialSecurityNr"/>
             <xf:bind id="bind-controlsButton" idega:shared="true"
-                nodeset="instance('control-instance')/controlsButton" relevant="instance('control-instance')/generatePdf != 'true'"/>
+                nodeset="instance('control-instance')/controlsButton" relevant="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"/>
                 
-            <xf:bind id="fbc_73_bind" nodeset="appValid" relevant="instance('control-instance')/applicationValid = 'true'" />
-            <xf:bind id="fbc_74_bind" nodeset="appInvalid" relevant="instance('control-instance')/applicationValid = 'false'" />
+            <xf:bind id="fbc_73_bind" nodeset="appValid" relevant="instance('data-instance')/appValid = 'true' or instance('control-instance')/applicationValid = 'true'" />
+            <xf:bind id="fbc_74_bind" nodeset="appInvalid" relevant="instance('data-instance')/appValid != 'true' and instance('control-instance')/applicationValid = 'false'" />
         </xf:model>
         <xf:model id="data_model">
             <xf:instance id="localized_strings" xmlns="">
@@ -272,7 +272,18 @@ Sigllingamálastofnun or Fiskistofa</fbc_37-help>
                 <idega:setvalue
                     ref="instance('fbc_37_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('fishingLicenseUser.getVesselsForUser()')"/>
                 <idega:setvalue
-                    ref="instance('control-instance')/applicationValid" value="idega:resolveExpression('fishingLicenseUser.getApplicationValid()')"/>
+                    ref="instance('control-instance')/applicationValid" value="idega:resolveExpression('fishingLicenseUser.getApplicationValid()')" if="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"/>
+            </xf:action>
+            
+            <xf:action ev:event="xforms-ready" if="instance('control-instance')/generatePdf = 'true' or instance('control-instance')/readonly = 'true'">
+            
+                <idega:setvalue ref="instance('data-instance')/appValid" value="'true'" />
+                    
+                    <xf:dispatch name="xforms-rebuild" target="submission_model"/>
+                    <xf:dispatch name="xforms-recalculate" target="submission_model"/>
+                                    <xf:dispatch
+                                    name="xforms-revalidate" target="submission_model"/>
+                                    <xf:dispatch name="xforms-refresh" target="submission_model"/>
             </xf:action>
             <xf:instance id="fbc_35_lds" xmlns="">
                 <local_src>
@@ -324,7 +335,7 @@ Sigllingamálastofnun or Fiskistofa</fbc_37-help>
             <xf:instance id="x-autofill-model-instance" xmlns="">
                 <foo/>
             </xf:instance>
-            <xf:action ev:event="xforms-ready">
+            <xf:action ev:event="xforms-ready" if="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'">
                 <xf:setvalue bind="fbc_17_bind"
                     id="fbc_17-autofill-setvalue"
                     model="submission_model" value="instance('fbc_17_autofill-instance')/fb-afk-collection-string-loginSession.user.phones.number"/>
@@ -350,6 +361,7 @@ Sigllingamálastofnun or Fiskistofa</fbc_37-help>
                     id="fbc_46-autofill-setvalue"
                     model="submission_model" value="instance('fbc_46_autofill-instance')/fb-afk-loginSession.user.usersMainAddress.commune.communeName"/>
             </xf:action>
+            <idega:toggle case="fbc_41" ev:event="xforms-ready" if="instance('control-instance')/generatePdf = 'true' or instance('control-instance')/readonly='true'"/>
         </xf:model>
     </head>
     <body>
@@ -610,11 +622,11 @@ Sigllingamálastofnun or Fiskistofa</fbc_37-help>
                                     <xf:dispatch
                                     name="xforms-revalidate" target="data_model"/>
                                     <xf:dispatch name="xforms-refresh" target="data_model"/>
-                                    <xf:action if="count-non-empty(instance('error-instance')/error)=0 and instance('error-instance')/applicationValid='true'">
+                                    <xf:action if="count-non-empty(instance('error-instance')/error)=0 and instance('control-instance')/applicationValid='true'">
                                     <xf:send submission="submit_data_submission"/>
                                     </xf:action>
                                     <xf:dispatch
-                                    if="count-non-empty(instance('error-instance')/error)!=0 or instance('error-instance')/applicationValid!='true'"
+                                    if="count-non-empty(instance('error-instance')/error)!=0 or instance('control-instance')/applicationValid!='true'"
                                     name="idega-submit-error" target="idega-submission-error"/>
                                 </xf:action>
                             </xf:trigger>
