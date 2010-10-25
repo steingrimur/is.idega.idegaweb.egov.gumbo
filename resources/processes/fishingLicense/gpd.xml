@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="FishingLicense" width="774" height="1151">
+<root-container name="FishingLicense" width="847" height="1376">
   <node name="applicationForFishingLicense" x="195" y="37" width="164" height="34">
     <edge>
       <label x="-16" y="-9"/>
@@ -22,8 +22,8 @@
     </edge>
   </node>
   <node name="end-state2" x="144" y="678" width="22" height="24"/>
-  <node name="endProcess" x="216" y="1114" width="132" height="36"/>
-  <node name="end-state3" x="615" y="1123" width="23" height="22"/>
+  <node name="endProcess" x="216" y="1339" width="132" height="36"/>
+  <node name="end-state3" x="615" y="1348" width="23" height="22"/>
   <node name="updateCaseStatusToHandlingInProgress" x="186" y="313" width="211" height="36">
     <edge>
       <label x="5" y="-10"/>
@@ -57,37 +57,37 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="sendLicenseFeeClaim" x="399" y="622" width="178" height="36">
+  <node name="sendLicenseFeeClaim" x="403" y="613" width="178" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="waitForPayment" x="423" y="700" width="132" height="36">
+  <node name="waitForPayment" x="426" y="675" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="updateCaseStatusToRegisteredPayment" x="389" y="776" width="207" height="36">
+  <node name="updateCaseStatusToRegisteredPayment" x="388" y="735" width="207" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="sendLicenseToApplicant" x="385" y="895" width="212" height="36">
+  <node name="sendLicenseToApplicant" x="385" y="912" width="212" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="runInvalidateLicenseTimer" x="210" y="992" width="149" height="36">
+  <node name="runInvalidateLicenseTimer" x="210" y="1217" width="149" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="runInvalidationWarningNotificationTimer" x="510" y="998" width="231" height="36">
+  <node name="runInvalidationWarningNotificationTimer" x="510" y="1223" width="231" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="fork1" x="480" y="955" width="23" height="24">
+  <node name="fork1" x="480" y="1180" width="23" height="24">
     <edge>
       <label x="-126" y="-19"/>
     </edge>
@@ -95,17 +95,36 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="sendInvalidationWarningNotification" x="525" y="1057" width="199" height="36">
+  <node name="sendInvalidationWarningNotification" x="525" y="1282" width="199" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="updateCaseStatusToInvalid" x="185" y="1052" width="189" height="36">
+  <node name="updateCaseStatusToInvalid" x="185" y="1277" width="189" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="issueLicense" x="425" y="836" width="132" height="36">
+  <node name="issueLicense" x="425" y="853" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="getLicenseExpirationDate" x="401" y="973" width="179" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="ifLicenseExpirationDateIsDefined" x="395" y="1059" width="195" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="waitForever" x="714" y="1061" width="132" height="36"/>
+  <node name="invalidateExistingLicenseIfAny" x="390" y="793" width="198" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>

@@ -320,11 +320,11 @@
 	</state>
 
 	<node name="updateCaseStatusToRegisteredPayment">
-		<transition to="issueLicense"></transition>
+		<transition to="invalidateExistingLicenseIfAny"></transition>
 	</node>
 
 	<node name="sendLicenseToApplicant">
-		<transition to="fork1"></transition>
+		<transition to="getLicenseExpirationDate"></transition>
 	</node>
 
 	<state name="runInvalidateLicenseTimer">
@@ -350,6 +350,21 @@
 
 	<node name="issueLicense">
 		<transition to="sendLicenseToApplicant"></transition>
+	</node>
+
+	<node name="getLicenseExpirationDate">
+		<transition to="ifLicenseExpirationDateIsDefined"></transition>
+	</node>
+
+	<decision name="ifLicenseExpirationDateIsDefined">
+		<transition to="fork1" name="true"></transition>
+		<transition to="waitForever" name="false"></transition>
+	</decision>
+
+	<state name="waitForever"></state>
+
+	<node name="invalidateExistingLicenseIfAny">
+		<transition to="issueLicense"></transition>
 	</node>
 	
 	<idg:roles xmlns:idg="http://idega.com/bpm">

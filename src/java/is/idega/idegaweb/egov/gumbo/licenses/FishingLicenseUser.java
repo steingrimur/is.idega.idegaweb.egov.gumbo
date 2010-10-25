@@ -62,6 +62,11 @@ public class FishingLicenseUser {
 		return "true";
 	}
 	
+	public String getIsInDebt() {
+		
+		return "true";
+	}
+	
 	public static final class VesselData {
 		
 		private String registryNr;

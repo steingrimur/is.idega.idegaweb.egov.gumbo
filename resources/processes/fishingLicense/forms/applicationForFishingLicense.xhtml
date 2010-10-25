@@ -33,6 +33,7 @@
                     <appValid>false</appValid>
                     <appInvalid/>
                     <hasLicenseText/>
+                    <debtMessageContainer/>
                 </data>
             </xf:instance>
             <xf:instance id="control-instance">
@@ -44,6 +45,7 @@
                     <Submit_fbc_69/>
                     <controlsButton/>
                     <applicationValid>false</applicationValid>
+                    <userIsInDebt>false</userIsInDebt>
                 </control>
             </xf:instance>
             <xf:bind id="errorsGroup"
@@ -116,6 +118,7 @@
             <xf:bind id="fbc_73_bind" nodeset="appValid" relevant="instance('data-instance')/appValid = 'true' or instance('control-instance')/applicationValid = 'true'"/>
             <xf:bind id="fbc_74_bind" nodeset="appInvalid" relevant="instance('data-instance')/appValid != 'true' and instance('control-instance')/applicationValid = 'false'"/>
             <xf:bind id="fbc_75_bind" nodeset="hasLicenseText" relevant="hasLicenseText != ''"/>
+            <xf:bind id="debtMessageContainer" nodeset="debtMessageContainer" relevant="instance('control-instance')/userIsInDebt != 'false'"/>
         </xf:model>
         <xf:model id="data_model">
             <xf:instance id="localized_strings" xmlns="">
@@ -255,8 +258,8 @@ Sigllingamálastofnun or Fiskistofa</fbc_37-help>
                     <fbc_73-text lang="en">Valid</fbc_73-text>
                     <fbc_74-text lang="is_IS">thw what</fbc_74-text>
                     <fbc_74-text lang="en">The vessel does not have a valid "haffærisskírteini". Please contact Siglingamálastofnun. It is not possible to submit the application under these conditions.</fbc_74-text>
-                    <fbc_73-label lang="is_IS">Text output</fbc_73-label>
-                    <fbc_73-label lang="en">Text output</fbc_73-label>
+                    <debtMessage lang="is_IS">Text output</debtMessage>
+                    <debtMessage lang="en">You have a debt at Fiskistofa</debtMessage>
                 </localized_strings>
             </xf:instance>
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
@@ -275,9 +278,16 @@ Sigllingamálastofnun or Fiskistofa</fbc_37-help>
                 <idega:setvalue
                     if="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"
                     ref="instance('control-instance')/applicationValid" value="idega:resolveExpression('fishingLicenseUser.getApplicationValid()')"/>
+                    <idega:setvalue
+                    if="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"
+                    ref="instance('control-instance')/applicationValid" value="idega:resolveExpression('fishingLicenseUser.getApplicationValid()')"/>
                 <idega:setvalue
                     if="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"
                     ref="instance('data-instance')/hasLicenseText" value="idega:resolveExpression('fishingLicenseUser.getHasLicenseText()')"/>
+                    
+                <idega:setvalue
+                    if="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"
+                    ref="instance('control-instance')/userIsInDebt" value="idega:resolveExpression('fishingLicenseUser.getIsInDebt()')"/>
             </xf:action>
             <xf:action ev:event="xforms-ready" if="instance('control-instance')/generatePdf = 'true' or instance('control-instance')/readonly = 'true'">
                 <idega:setvalue ref="instance('data-instance')/appValid" value="'true'"/>
@@ -633,6 +643,9 @@ Sigllingamálastofnun or Fiskistofa</fbc_37-help>
                     <xf:group appearance="full">
                         <xf:label model="data_model" ref="instance('localized_strings')/page-2-label[@lang=instance('localized_strings')/current_language]"/>
                         <xf:output model="data_model" ref="instance('localized_strings')/page-2-info[@lang=instance('localized_strings')/current_language]"/>
+                        <xf:group bind="debtMessageContainer">
+                            <xf:output model="data_model" ref="instance('localized_strings')/debtMessage[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:group>
                     </xf:group>
                 </idega:case>
             </idega:switch>
