@@ -85,7 +85,6 @@
             <variable name="string_vessel" access="read,write"></variable>
             <variable name="string_vesselRegistryNr" access="read,write"></variable>
             <variable name="string_vesselName" access="read,write"></variable>
-            <variable name="string_vesselIdentificationLetters" access="read,write"></variable>
             <variable name="string_vesselOwnersName" access="read,write"></variable>
             <variable name="string_vesselOwnersSocialSecurityNr" access="read,write"></variable>
          </controller>
@@ -349,10 +348,9 @@
 		<transition to="endProcess"></transition>
 	</node>
 
-	<task-node name="issueLicense">
-		<task name="issueLicenseTask"></task>
+	<node name="issueLicense">
 		<transition to="sendLicenseToApplicant"></transition>
-	</task-node>
+	</node>
 	
 	<idg:roles xmlns:idg="http://idega.com/bpm">
         <role name="bpm_committee_caseHandler">

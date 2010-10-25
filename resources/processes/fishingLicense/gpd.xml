@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="FishingLicense" width="774" height="1152">
+<root-container name="FishingLicense" width="774" height="1151">
   <node name="applicationForFishingLicense" x="195" y="37" width="164" height="34">
     <edge>
       <label x="-16" y="-9"/>
@@ -22,8 +22,8 @@
     </edge>
   </node>
   <node name="end-state2" x="144" y="678" width="22" height="24"/>
-  <node name="endProcess" x="205" y="1115" width="132" height="36"/>
-  <node name="end-state3" x="597" y="1122" width="23" height="22"/>
+  <node name="endProcess" x="216" y="1114" width="132" height="36"/>
+  <node name="end-state3" x="615" y="1123" width="23" height="22"/>
   <node name="updateCaseStatusToHandlingInProgress" x="186" y="313" width="211" height="36">
     <edge>
       <label x="5" y="-10"/>
@@ -95,17 +95,17 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="sendInvalidationWarningNotification" x="517" y="1054" width="199" height="36">
+  <node name="sendInvalidationWarningNotification" x="525" y="1057" width="199" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="updateCaseStatusToInvalid" x="180" y="1048" width="189" height="36">
+  <node name="updateCaseStatusToInvalid" x="185" y="1052" width="189" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="issueLicense" x="378" y="833" width="221" height="36">
+  <node name="issueLicense" x="425" y="836" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>

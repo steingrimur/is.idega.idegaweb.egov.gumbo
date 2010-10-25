@@ -10,7 +10,7 @@
         <xf:model id="submission_model" schema="#fb-schema">
             <xf:instance id="data-instance" xmlns="">
                 <data>
-                    <form_id>210</form_id>
+                    <form_id>510</form_id>
                     <Phone_number_fbc_17 mapping="string_ownerPhone"/>
                     <Identifier_number_fbc_23 mapping="string_caseIdentifier"/>
                     <Email_fbc_33 mapping="string_ownerEmailAddress" xsi:nil="true"/>
@@ -25,14 +25,14 @@
                     <Place_fbc_46 mapping="string_ownerMunicipality"/>
                     <licenseTypeLabel mapping="string_licenseTypeLabel"/>
                     <vesselData>
-                        <registryNr mapping="string_vesselRegistryNr"></registryNr>
-                        <name mapping="string_vesselName"></name>
-                        <identificationLetters mapping="string_vesselIdentificationLetters"></identificationLetters>
-                        <ownersName mapping="string_vesselOwnersName"></ownersName>
-                        <ownersSocialSecurityNr mapping="string_vesselOwnersSocialSecurityNr"></ownersSocialSecurityNr>
+                        <registryNr mapping="string_vesselRegistryNr"/>
+                        <name mapping="string_vesselName"/>
+                        <ownersName mapping="string_vesselOwnersName"/>
+                        <ownersSocialSecurityNr mapping="string_vesselOwnersSocialSecurityNr"/>
                     </vesselData>
                     <appValid>false</appValid>
                     <appInvalid/>
+                    <hasLicenseText/>
                 </data>
             </xf:instance>
             <xf:instance id="control-instance">
@@ -89,10 +89,12 @@
                 required="instance('control-instance')/required = 'true'" type="xs:string"/>
             <xf:bind id="fbc_38_bind" nodeset="Your_comments_fbc_38"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
-            <xf:bind id="fbc_42_bind" nodeset="Name_fbc_42" type="string" readonly="instance('control-instance')/readonly = 'true'"/>
+            <xf:bind id="fbc_42_bind" nodeset="Name_fbc_42"
+                readonly="instance('control-instance')/readonly = 'true'" type="string"/>
             <xf:instance id="fbc_42_autofill-instance"
                 relevant="false()" src="context:fb-afk-loginSession.user.name"/>
-            <xf:bind id="fbc_43_bind" nodeset="Social_security_number_fbc_43" readonly="instance('control-instance')/readonly = 'true'"/>
+            <xf:bind id="fbc_43_bind"
+                nodeset="Social_security_number_fbc_43" readonly="instance('control-instance')/readonly = 'true'"/>
             <xf:instance id="fbc_43_autofill-instance"
                 relevant="false()" src="context:fb-afk-loginSession.user.personalID"/>
             <xf:bind id="fbc_44_bind" nodeset="Address_fbc_44" readonly="instance('control-instance')/readonly = 'true'"/>
@@ -107,14 +109,13 @@
             <xf:bind id="fbc_58_bind" nodeset="licenseTypeLabel"/>
             <xf:bind id="fbc_61_bind" nodeset="vesselData/name"/>
             <xf:bind id="fbc_62_bind" nodeset="vesselData/registryNr"/>
-            <xf:bind id="fbc_63_bind" nodeset="vesselData/identificationLetters"/>
             <xf:bind id="fbc_64_bind" nodeset="vesselData/ownersName"/>
             <xf:bind id="fbc_65_bind" nodeset="vesselData/ownersSocialSecurityNr"/>
             <xf:bind id="bind-controlsButton" idega:shared="true"
                 nodeset="instance('control-instance')/controlsButton" relevant="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"/>
-                
-            <xf:bind id="fbc_73_bind" nodeset="appValid" relevant="instance('data-instance')/appValid = 'true' or instance('control-instance')/applicationValid = 'true'" />
-            <xf:bind id="fbc_74_bind" nodeset="appInvalid" relevant="instance('data-instance')/appValid != 'true' and instance('control-instance')/applicationValid = 'false'" />
+            <xf:bind id="fbc_73_bind" nodeset="appValid" relevant="instance('data-instance')/appValid = 'true' or instance('control-instance')/applicationValid = 'true'"/>
+            <xf:bind id="fbc_74_bind" nodeset="appInvalid" relevant="instance('data-instance')/appValid != 'true' and instance('control-instance')/applicationValid = 'false'"/>
+            <xf:bind id="fbc_75_bind" nodeset="hasLicenseText" relevant="hasLicenseText != ''"/>
         </xf:model>
         <xf:model id="data_model">
             <xf:instance id="localized_strings" xmlns="">
@@ -219,8 +220,6 @@
                     <fbc_61-label lang="en">Name</fbc_61-label>
                     <fbc_62-label lang="is_IS">Text output</fbc_62-label>
                     <fbc_62-label lang="en">Vessel registry nr.</fbc_62-label>
-                    <fbc_63-label lang="is_IS">Text output</fbc_63-label>
-                    <fbc_63-label lang="en">Identification letters</fbc_63-label>
                     <fbc_64-label lang="is_IS">Text output</fbc_64-label>
                     <fbc_64-label lang="en">Owner's name</fbc_64-label>
                     <fbc_65-label lang="is_IS">Text output</fbc_65-label>
@@ -255,7 +254,9 @@ Sigllingamálastofnun or Fiskistofa</fbc_37-help>
                     <fbc_73-text lang="is_IS">thw what</fbc_73-text>
                     <fbc_73-text lang="en">Valid</fbc_73-text>
                     <fbc_74-text lang="is_IS">thw what</fbc_74-text>
-                    <fbc_74-text lang="en">The vessel does not have a valid "haffærisskírteini". Please contact Fiskistofa. It is not possible to submit the application under these conditions.</fbc_74-text>
+                    <fbc_74-text lang="en">The vessel does not have a valid "haffærisskírteini". Please contact Siglingamálastofnun. It is not possible to submit the application under these conditions.</fbc_74-text>
+                    <fbc_73-label lang="is_IS">Text output</fbc_73-label>
+                    <fbc_73-label lang="en">Text output</fbc_73-label>
                 </localized_strings>
             </xf:instance>
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
@@ -268,22 +269,22 @@ Sigllingamálastofnun or Fiskistofa</fbc_37-help>
                     model="submission_model"
                     ref="instance('control-instance')/required" value="'false'"/>
                 <idega:setvalue
-                    ref="instance('fbc_35_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('fishingLicensesService.getTypesOfFishingLicenses()')"/>
+                    ref="instance('fbc_35_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('fishingLicenseUser.getTypesOfFishingLicenses()')"/>
                 <idega:setvalue
                     ref="instance('fbc_37_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('fishingLicenseUser.getVesselsForUser()')"/>
                 <idega:setvalue
-                    ref="instance('control-instance')/applicationValid" value="idega:resolveExpression('fishingLicenseUser.getApplicationValid()')" if="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"/>
+                    if="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"
+                    ref="instance('control-instance')/applicationValid" value="idega:resolveExpression('fishingLicenseUser.getApplicationValid()')"/>
+                <idega:setvalue
+                    if="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"
+                    ref="instance('data-instance')/hasLicenseText" value="idega:resolveExpression('fishingLicenseUser.getHasLicenseText()')"/>
             </xf:action>
-            
             <xf:action ev:event="xforms-ready" if="instance('control-instance')/generatePdf = 'true' or instance('control-instance')/readonly = 'true'">
-            
-                <idega:setvalue ref="instance('data-instance')/appValid" value="'true'" />
-                    
-                    <xf:dispatch name="xforms-rebuild" target="submission_model"/>
-                    <xf:dispatch name="xforms-recalculate" target="submission_model"/>
-                                    <xf:dispatch
-                                    name="xforms-revalidate" target="submission_model"/>
-                                    <xf:dispatch name="xforms-refresh" target="submission_model"/>
+                <idega:setvalue ref="instance('data-instance')/appValid" value="'true'"/>
+                <xf:dispatch name="xforms-rebuild" target="submission_model"/>
+                <xf:dispatch name="xforms-recalculate" target="submission_model"/>
+                <xf:dispatch name="xforms-revalidate" target="submission_model"/>
+                <xf:dispatch name="xforms-refresh" target="submission_model"/>
             </xf:action>
             <xf:instance id="fbc_35_lds" xmlns="">
                 <local_src>
@@ -317,7 +318,6 @@ Sigllingamálastofnun or Fiskistofa</fbc_37-help>
             <xf:instance id="fbc_37_eds" xmlns="">
                 <ext_src/>
             </xf:instance>
-            
         </xf:model>
         <xs:schema id="fb-schema">
             <xs:simpleType name="fbc_32fb_email">
@@ -437,6 +437,8 @@ Sigllingamálastofnun or Fiskistofa</fbc_37-help>
                         <div class="fbc_header_text" id="fbc_19" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_19-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
+                        <xf:output bind="fbc_75_bind" id="fbc_73" type="fbc_text_output">
+                        </xf:output>
                         <xf:select1 appearance="minimal"
                             bind="fbc_35_bind" id="fbc_35" type="fbc_single_select_minimal">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_35-label[@lang=instance('localized_strings')/current_language]"/>
@@ -480,13 +482,11 @@ Sigllingamálastofnun or Fiskistofa</fbc_37-help>
                                 name="idega-validate" target="fbc_37"/>
                             <xf:dispatch ev:event="xforms-value-changed"
                                 name="idega-validate" target="fbc_37"/>
-                                
                             <idega:setvalue
                                 ev:event="xforms-value-changed"
                                 multiple="true()"
                                 placeResponseDocument="true()"
                                 ref="instance('data-instance')/vesselData" value="idega:resolveBeanProperties('fishingLicenseUser.getUserVesselData({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
-                                
                             <idega:validator ev:event="idega-validate">
                                 <idega:message errorType="required"
                                     model="data_model" value="instance('localized_strings')/fbc_37-required[@lang=instance('localized_strings')/current_language]"/>
@@ -577,9 +577,6 @@ Sigllingamálastofnun or Fiskistofa</fbc_37-help>
                         <xf:output bind="fbc_61_bind" id="fbc_61" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_61-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
-                        <xf:output bind="fbc_63_bind" id="fbc_63" type="fbc_text_output">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_63-label[@lang=instance('localized_strings')/current_language]"/>
-                        </xf:output>
                         <xf:output bind="fbc_64_bind" id="fbc_64" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_64-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
@@ -596,12 +593,11 @@ Sigllingamálastofnun or Fiskistofa</fbc_37-help>
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_72-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
                         <xf:group bind="fbc_73_bind">
-	                        <xf:output model="data_model" ref="instance('localized_strings')/fbc_73-text[@lang=instance('localized_strings')/current_language]"/>
+                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_73-text[@lang=instance('localized_strings')/current_language]"/>
                         </xf:group>
                         <xf:group bind="fbc_74_bind" class="xformErrors">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_74-text[@lang=instance('localized_strings')/current_language]"/>
                         </xf:group>
-                        
                         <div class="fbc_button_area" id="fbc_67" type="fbc_button_area">
                             <xf:trigger bind="bind-controlsButton"
                                 id="fbc_68" type="fbc_button_previous">

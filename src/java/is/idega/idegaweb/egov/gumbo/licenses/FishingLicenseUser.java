@@ -32,11 +32,26 @@ public class FishingLicenseUser {
 
 		.setName("vessel name")
 
-		.setIdentificationLetters("ident letters")
-
 		.setOwnersName("owners name")
 
 		.setOwnersSocialSecurityNr("owners soc id");
+	}
+	
+	/**
+	 * @return types of licenses depending on logged in user
+	 */
+	public List<Item> getTypesOfFishingLicenses() {
+		
+		final List<Item> items = new ArrayList<Item>(2);
+		
+		items.add(new Item("aflamarks", "Aflamarks"));
+		items.add(new Item("krokaaflamarks", "Krókaaflamarks"));
+		
+		return items;
+	}
+	
+	public String getHasLicenseText() {
+		return "";
 	}
 	
 	/**
@@ -51,7 +66,6 @@ public class FishingLicenseUser {
 		
 		private String registryNr;
 		private String name;
-		private String identificationLetters;
 		private String ownersName;
 		private String ownersSocialSecurityNr;
 		
@@ -70,15 +84,6 @@ public class FishingLicenseUser {
 		
 		public VesselData setName(String name) {
 			this.name = name;
-			return this;
-		}
-		
-		public String getIdentificationLetters() {
-			return identificationLetters;
-		}
-		
-		public VesselData setIdentificationLetters(String identificationLetters) {
-			this.identificationLetters = identificationLetters;
 			return this;
 		}
 		

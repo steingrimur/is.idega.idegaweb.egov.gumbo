@@ -14,9 +14,6 @@
         <task name="licenseRulingTask">
             <viewResource resourceIdentifier="forms/licenseRuling.xhtml" viewType="xforms" viewResourceType="xforms" />
         </task>
-        <task name="issueLicenseTask">
-            <viewResource resourceIdentifier="forms/issueLicense.xhtml" viewType="xforms" viewResourceType="xforms" />
-        </task>
     </tasks>
     
 </processBundle-config>
