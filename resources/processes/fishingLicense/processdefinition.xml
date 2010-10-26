@@ -89,7 +89,7 @@
             <variable name="string_vesselOwnersSocialSecurityNr" access="read,write"></variable>
          </controller>
       </task>
-      <transition to="checkIfApplicantIsInDebt"></transition>
+      <transition to="notifyFinancialControllerIfThereIsADebt"></transition>
    </start-state>
    <task-node name="licenseRuling">
       <task name="licenseRulingTask">
@@ -307,7 +307,12 @@
 		<transition to="end-state2"></transition>
 	</node>
 
-	<node name="checkIfApplicantIsInDebt">
+	<node name="notifyFinancialControllerIfThereIsADebt">
+		<event type="node-enter">
+			<action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+	            <handlerName>notifyFinancialControllerIfThereIsADebt</handlerName>
+	        </action>
+		</event>
 		<transition to="saveDocumentKey"></transition>
 	</node>
 
