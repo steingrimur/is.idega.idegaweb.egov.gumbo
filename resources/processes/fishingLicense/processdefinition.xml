@@ -113,7 +113,8 @@
 			</propertyMap>
 		</assignment>
       </task>
-		<transition to="fork2"></transition>
+		<transition to="updateCaseStatusToLicenseDenied" name="denied"></transition>
+		<transition to="updateCaseStatusToLicenseGrantedClaimUnpaid" name="granted"></transition>
    </task-node>
 
    <event type="handlerAssignedToCase">
@@ -203,16 +204,6 @@
 			    </propertyMap>
 		</action>
     </event>
-    <event type="postStartActivity">
-        <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
-			<handlerName>casesStatusHandler</handlerName>
-			<propertyMap key-type='java.lang.String' value-type='java.lang.String'>
-			   	 <entry><key>caseStatusMappedName</key><value>caseStatusInProgress</value></entry>
-			  	<entry><key>ifCaseStatusMappedName</key><value>caseStatusOpened</value></entry>
-			  	<entry><key>processInstanceId</key><value>#{mainProcessInstanceId}</value></entry>
-			</propertyMap>
-		</action>
-    </event>
    <task-node name="saveDocumentKey">
 	  <task name="saveDocumentKeyTask">
 	     <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
@@ -236,57 +227,28 @@
 
 	<node name="notifyFinanceDepartment">
       <event type="node-enter">
-         <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
-				<handlerName>sendCaseMessagesHandler</handlerName>
-				<propertyMap key-type='java.lang.String' value-type='java.lang.String'>
-			        <entry>
-			        	<key>inlineSubject</key>
-			        	<value>
-			        		${
-			        		Map subjectMap = new HashMap();
-			        		subjectMap.put("en", "New application ({1}) in the category {0} created");
-			        		subjectMap.put("is_IS", "Ný umsókn ({1}) í flokknum {0}");
-			        		return subjectMap;
-			        		}
-                		</value>
-                	</entry>
-                	<entry>
-			        	<key>inlineMessage</key>
-			        	<value>
-			        		${
-			        		Map messageMap = new HashMap();
-			        		messageMap.put("en", "Hello, {0}.\n\nNew {1} case with identifier {2} has been created. You may access this case by following this link: {3}.\n\nGood Luck.");
-			        		messageMap.put("is_IS", "Sæl/ll, {0}.\n\nNýtt erindi í flokknum : {1} með málsnúmerið {2} hefur verið stofnað. Ef þú ert innskráður notandi getur þú farið beint í málalistann með þessum hlekk : {3}.");
-			        		return messageMap;
-			        		}
-                		</value>
-                	</entry>
-                	<entry>
-                        <key>subjectValues</key>
-                        <value>
-                            {list: {mv: [{type: "bean", value: "piw.processDefinitionW.startTaskName"}, {type: "bean", value: "piw.processIdentifier"}]}}
-                        </value>
-                    </entry>
-                	<entry>
-			        	<key>messageValues</key>
-			        	<value>
-			        		{list: {mv: [{type: "bean", value: "user.name"}, {type: "bean", value: "piw.processDefinitionW.startTaskName"}, {type: "bean", value: "piw.processIdentifier"}, {type: "bean", value: "caseUser.urlToTheCase"}]}}
-                		</value>
-                	</entry>
-                	<entry><key>sendToRoles</key><value>bpm_committee_handler</value></entry>
-			    </propertyMap>
-		 </action>
-      </event>
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>notifyFinancialDepartment</handlerName>
+            </action>
+        </event>
    	  <transition to="updateCaseStatusToHandlingInProgress"></transition>
    </node>
 
-	<end-state name="end-state2"></end-state>
+	<end-state name="end-state2" end-complete-process="true"></end-state>
 
 	<end-state name="endProcess"></end-state>
 
 	<end-state name="end-state3"></end-state>
 	
 	<node name="updateCaseStatusToHandlingInProgress">
+	   <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>casesStatusHandler</handlerName>
+                <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                    <entry><key>caseStatusMappedName</key><value>caseStatusInProcess</value></entry>
+                </propertyMap>
+            </action>
+        </event>
 		<transition to="licenseRuling"></transition>
 	</node>
 
@@ -294,16 +256,52 @@
 		<transition to="sendLicenseFeeClaim"></transition>
 	</node>
 
-	<fork name="fork2">
-		<transition to="updateCaseStatusToLicenseGrantedClaimUnpaid" name="granted"></transition>
-		<transition to="updateCaseStatusToLicenseDenied" name="denied"></transition>
-	</fork>
-
 	<node name="updateCaseStatusToLicenseDenied">
+	   <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>casesStatusHandler</handlerName>
+                <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                    <entry><key>caseStatusMappedName</key><value>caseStatusDenied</value></entry>
+                </propertyMap>
+            </action>
+        </event>
 		<transition to="informApplicantAboutDeny"></transition>
 	</node>
 
 	<node name="informApplicantAboutDeny">
+	   <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy">
+                <handlerName>sendCaseMessagesHandler</handlerName>
+                <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                    <entry>
+                        <key>inlineSubject</key>
+                        <value>
+                            ${
+                            Map subjectMap = new HashMap();
+                            subjectMap.put("en", "Fishing license denied");
+                            subjectMap.put("is_IS", "Fishing license denied");
+                            return subjectMap;
+                            }
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>inlineMessage</key>
+                        <value>
+                            ${
+                            
+                            Map messageMap = new HashMap();
+                            messageMap.put("en", "Your application for a fishing license has been denied.");
+                            messageMap.put("is_IS", "Your application for a fishing license has been denied.");
+                            
+                            return messageMap;
+                            
+                            }
+                        </value>
+                    </entry>
+                    <entry><key>sendToRoles</key><value>bpm_fishingLicense_owner</value></entry>
+                </propertyMap>
+            </action>
+        </event>
 		<transition to="end-state2"></transition>
 	</node>
 
