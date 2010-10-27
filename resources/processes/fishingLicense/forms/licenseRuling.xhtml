@@ -10,8 +10,8 @@
         <xf:model id="submission_model" schema="#fb-schema">
             <xf:instance id="data-instance" xmlns="">
                 <data>
-                    <form_id>161796</form_id>
-                    <Ruling_text_fbc_5 mapping="string_rulingText">Kærunefnd lausafjár- og þjónustukaupa hefur nú gefið álit í máli  _______, vegna ágreinings í viðskiptum milli _____________, og  _______________ og sendir þér hér með álitið. Álitið verður bráðlega birt á heimasíðu Neytendastofu, en þar munu engin nöfn koma fram. Er það von nefndarinnar að málið leysist farsællega en bendum á að álitið er ekki bindandi. Okkar þætti vænt um að fá upplýsingar um málalok, annað hvort með bréfi eða í tölvupósti.f.h. kærunefndar lausafjár- og þjónustukaupa _________________.</Ruling_text_fbc_5>
+                    <form_id>559</form_id>
+                    <Ruling_text_fbc_5 mapping="string_rulingText"></Ruling_text_fbc_5>
                     <Multi_file_upload_with_description_fbc_8 mapping="files_processRullingAttachments">
                         <group/>
                         <entry filename="" mediatype="">
@@ -21,7 +21,7 @@
                             <description/>
                         </entry>
                     </Multi_file_upload_with_description_fbc_8>
-                    <submissionButton/>
+                    <actionTaken mapping="string_actionTaken"/>
                 </data>
             </xf:instance>
             <xf:instance id="control-instance">
@@ -29,6 +29,7 @@
                     <readonly>false</readonly>
                     <submission>false</submission>
                     <generatePdf>false</generatePdf>
+                    <submissionButton/>
                     <submissionButton/>
                 </control>
             </xf:instance>
@@ -55,9 +56,10 @@
                 <xf:bind id="fbc_8-entries"
                     nodeset="../entry[position() != last()]" type="xs:anyURI"/>
             </xf:bind>
-            <xf:bind id="submissionButton-bind"
-                nodeset="submissionButton" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
             <xf:bind id="fbc_5_bind" nodeset="Ruling_text_fbc_5" readonly="instance('control-instance')/readonly = 'true'"/>
+            <xf:bind id="bind-submissionButton" idega:shared="true"
+                nodeset="instance('control-instance')/submissionButton" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
+            <xf:bind id="actionTaken" nodeset="actionTaken" shared="true"/>
         </xf:model>
         <xf:model id="data_model">
             <xf:instance id="localized_strings" xmlns="">
@@ -70,8 +72,6 @@
                     <form-title lang="is_IS">Álit Kærunefndar lausafjár- og þjónustukaupa</form-title>
                     <page-2-label lang="en">Submitted</page-2-label>
                     <page-2-label lang="is_IS">Sent</page-2-label>
-                    <page-1-submit-label lang="en">Submit</page-1-submit-label>
-                    <page-1-submit-label lang="is_IS">Senda niðurstöðu</page-1-submit-label>
                     <page-2-info lang="en">Form submitted, thank You!</page-2-info>
                     <page-2-info lang="is_IS">Niðurstaða málsins hefur verið vistuð og skilaboð send málsaðilum. Málinu telst nú lokið en þó ekki lokað. Nú bætist við eftirfylgnimöguleiki þar sem hægt er að senda öllum málsaðilum fyrirspurn.</page-2-info>
                     <fbc_5-title lang="is_IS">Niðurstaða</fbc_5-title>
@@ -92,6 +92,10 @@
                     <fbc_8-paragraph-text lang="en">Additional information can be sent with the form as attachments</fbc_8-paragraph-text>
                     <fbc_8-filename-label lang="is_IS">Skráarnafn</fbc_8-filename-label>
                     <fbc_8-filename-label lang="en">Uploaded file name</fbc_8-filename-label>
+                    <fbc_9-label lang="is_IS">Senda</fbc_9-label>
+                    <fbc_9-label lang="en">Grant</fbc_9-label>
+                    <fbc_10-label lang="is_IS">Senda</fbc_10-label>
+                    <fbc_10-label lang="en">Deny</fbc_10-label>
                 </localized_strings>
             </xf:instance>
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
@@ -178,12 +182,36 @@
                             </xf:repeat>
                         </xf:group>
                         <div class="fbc_button_area" id="fbc_2" type="fbc_button_area">
-                            <xf:trigger bind="submissionButton-bind"
-                                class="fbc_button_submit" id="fbc_3" type="fbc_button_submit">
-                                <xf:label model="data_model" ref="instance('localized_strings')/page-1-submit-label[@lang=instance('localized_strings')/current_language]"/>
+                            <xf:trigger bind="bind-submissionButton"
+                                class="fbc_button_submit" id="fbc_9" type="fbc_button_submit">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_9-label[@lang=instance('localized_strings')/current_language]"/>
                                 <xf:action ev:event="DOMActivate">
                                     <xf:setvalue
                                     ref="instance('control-instance')/submission" value="'true'"/>
+                                    <xf:setvalue bind="actionTaken">granted</xf:setvalue>
+                                    <idega:dispatch
+                                    name="idega-validate" target="//h:body//*[starts-with(@id, 'fbc_')]"/>
+                                    <xf:dispatch name="xforms-rebuild" target="data_model"/>
+                                    <xf:dispatch
+                                    name="xforms-recalculate" target="data_model"/>
+                                    <xf:dispatch
+                                    name="xforms-revalidate" target="data_model"/>
+                                    <xf:dispatch name="xforms-refresh" target="data_model"/>
+                                    <xf:action if="count-non-empty(instance('error-instance')/error)=0">
+                                    <xf:send submission="submit_data_submission"/>
+                                    </xf:action>
+                                    <xf:dispatch
+                                    if="count-non-empty(instance('error-instance')/error)!=0"
+                                    name="idega-submit-error" target="idega-submission-error"/>
+                                </xf:action>
+                            </xf:trigger>
+                            <xf:trigger bind="bind-submissionButton"
+                                class="fbc_button_submit" id="fbc_10" type="fbc_button_submit">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-label[@lang=instance('localized_strings')/current_language]"/>
+                                <xf:action ev:event="DOMActivate">
+                                    <xf:setvalue
+                                    ref="instance('control-instance')/submission" value="'true'"/>
+                                    <xf:setvalue bind="actionTaken">denied</xf:setvalue>
                                     <idega:dispatch
                                     name="idega-validate" target="//h:body//*[starts-with(@id, 'fbc_')]"/>
                                     <xf:dispatch name="xforms-rebuild" target="data_model"/>
