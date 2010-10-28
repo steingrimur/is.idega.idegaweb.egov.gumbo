@@ -1,0 +1,30 @@
+<html
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+>
+<ui:component>
+	<table id="shipsViewer" cellpadding="0" cellspacing="0" width="100%">
+		<thead>
+			<tr>
+				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['ship_number']}" /></th>
+				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['ship_name']}" /></th>
+				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['ship_home_port']}" /></th>
+				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['ship_length']}" /></th>
+				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['ship_brutto_tons']}" /></th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<ui:repeat value="#{gumboBean.ships}" var="ship">
+				<tr>
+					<td><h:outputText value="#{ship.skipNr}" /></td>
+					<td><h:outputText value="#{ship.nafn}" /></td>
+					<td><h:outputText value="#{ship.heimahofn}" /></td>
+					<td><h:outputText value="#{ship.lengd}" /></td>
+					<td><h:outputText value="#{ship.bruttotonn}" /></td>
+				</tr>
+			</ui:repeat>
+		</tbody>	
+	</table>
+</ui:component>
+</html>
