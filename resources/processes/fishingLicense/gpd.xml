@@ -67,7 +67,7 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="sendLicenseToApplicant" x="385" y="912" width="212" height="36">
+  <node name="sendLicenseToApplicant" x="383" y="956" width="212" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
@@ -101,11 +101,6 @@
     </edge>
   </node>
   <node name="issueLicense" x="425" y="853" width="132" height="36">
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-  </node>
-  <node name="getLicenseExpirationDate" x="401" y="973" width="179" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>

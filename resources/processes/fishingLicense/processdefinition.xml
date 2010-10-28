@@ -253,6 +253,14 @@
 	</node>
 
 	<node name="updateCaseStatusToLicenseGrantedClaimUnpaid">
+	   <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>casesStatusHandler</handlerName>
+                <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                    <entry><key>caseStatusMappedName</key><value>caseStatusGranted</value></entry>
+                </propertyMap>
+            </action>
+        </event>
 		<transition to="sendLicenseFeeClaim"></transition>
 	</node>
 
@@ -315,6 +323,11 @@
 	</node>
 
 	<node name="sendLicenseFeeClaim">
+	   <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>sendLicenseFeeClaim</handlerName>
+            </action>
+        </event>
 		<transition to="waitForPayment"></transition>
 	</node>
 
@@ -323,19 +336,38 @@
 	</state>
 
 	<node name="updateCaseStatusToRegisteredPayment">
+	   <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>casesStatusHandler</handlerName>
+                <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                    <entry><key>caseStatus</key><value>CASE_STATUS_PAYMENT_REGISTERED</value></entry>
+                </propertyMap>
+            </action>
+        </event>
 		<transition to="invalidateExistingLicenseIfAny"></transition>
 	</node>
 
 	<node name="sendLicenseToApplicant">
-		<transition to="getLicenseExpirationDate"></transition>
+	   <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>sendLicenseToApplicant</handlerName>
+            </action>
+        </event>
+		<transition to="ifLicenseExpirationDateIsDefined"></transition>
 	</node>
 
 	<state name="runInvalidateLicenseTimer">
-		<transition to="updateCaseStatusToInvalid"></transition>
+	   <timer duedate='#{date_licenseExpireDate}'
+              transition='invalidate'>
+       </timer>
+		<transition to="updateCaseStatusToInvalid" name="invalidate"></transition>
 	</state>
 
 	<state name="runInvalidationWarningNotificationTimer">
-		<transition to="sendInvalidationWarningNotification"></transition>
+	   <timer duedate='#{date_licenseExpireRemindDate}'
+              transition='reminded'>
+       </timer>
+		<transition to="sendInvalidationWarningNotification" name="reminded"></transition>
 	</state>
 
 	<fork name="fork1">
@@ -352,14 +384,15 @@
 	</node>
 
 	<node name="issueLicense">
+	   <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>issueLicense</handlerName>
+            </action>
+        </event>
 		<transition to="sendLicenseToApplicant"></transition>
 	</node>
 
-	<node name="getLicenseExpirationDate">
-		<transition to="ifLicenseExpirationDateIsDefined"></transition>
-	</node>
-
-	<decision name="ifLicenseExpirationDateIsDefined">
+	<decision name="ifLicenseExpirationDateIsDefined" expression='#{date_licenseExpireDate != null && date_licenseExpireRemindDate != null}'>
 		<transition to="fork1" name="true"></transition>
 		<transition to="waitForever" name="false"></transition>
 	</decision>
@@ -367,6 +400,11 @@
 	<state name="waitForever"></state>
 
 	<node name="invalidateExistingLicenseIfAny">
+	   <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>invalidateExistingLicenseIfAny</handlerName>
+            </action>
+        </event>
 		<transition to="issueLicense"></transition>
 	</node>
 	
