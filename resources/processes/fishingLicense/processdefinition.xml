@@ -104,9 +104,8 @@
 				<entry><key>expression</key>
 					<value>
                {taskAssignment: {roles: {role: [
-                   {roleName: "bpm_committee_handler", accesses: {access: [read, write]}},
-                   {roleName: "bpm_committee_owner", accesses: {access: [read]}},
-                   {roleName: "bpm_committee_invited", accesses: {access: [read]}}
+                   {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}},
+                   {roleName: "bpm_fishingLicense_owner", accesses: {access: [read]}}
                 ]} }}
             </value>
 				</entry>
@@ -153,10 +152,10 @@
                 	<entry>
 			        	<key>messageValues</key>
 			        	<value>
-			        		{list: {mv: [{type: "bean", value: "user.name"}, {type: "roleUsers", value: "{role: {roleName: \"bpm_committee_caseHandler\"}}"}, {type: "bean", value: "piw.processDefinitionW.startTaskName"}, {type: "bean", value: "piw.processIdentifier"}, {type: "bean", value: "piw.processDescription"}]}}
+			        		{list: {mv: [{type: "bean", value: "user.name"}, {type: "roleUsers", value: "{role: {roleName: \"bpm_fishingLicense_caseHandler\"}}"}, {type: "bean", value: "piw.processDefinitionW.startTaskName"}, {type: "bean", value: "piw.processIdentifier"}, {type: "bean", value: "piw.processDescription"}]}}
                 		</value>
                 	</entry>
-                	<entry><key>sendToRoles</key><value>bpm_committee_owner bpm_committee_handler</value></entry>
+                	<entry><key>sendToRoles</key><value>bpm_fishingLicense_owner bpm_fishingLicense_handler</value></entry>
 			    </propertyMap>
 			</action>
     </event>
@@ -164,7 +163,7 @@
 		<action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
 				<handlerName>caseHandlerAssignmentHandler</handlerName>
 				<propertyMap key-type='java.lang.String' value-type='java.lang.String'>
-			      	<entry><key>caseHandlerRoleExp</key><value>{role: {roleName: "bpm_committee_caseHandler"}}</value></entry>
+			      	<entry><key>caseHandlerRoleExp</key><value>{role: {roleName: "bpm_fishingLicense_caseHandler"}}</value></entry>
 			        <entry>
 			        	<key>inlineSubject</key>
 			        	<value>
@@ -200,7 +199,7 @@
 			        		{list: {mv: [{type: "bean", value: "user.name"}, {type: "bean", value: "piw.processDefinitionW.startTaskName"}, {type: "bean", value: "piw.processIdentifier"}, {type: "bean", value: "piw.processDescription"}]}}
                 		</value>
                 	</entry>
-                	<entry><key>sendToRoles</key><value>bpm_committee_handler</value></entry>
+                	<entry><key>sendToRoles</key><value>bpm_fishingLicense_handler</value></entry>
 			    </propertyMap>
 		</action>
     </event>
@@ -212,7 +211,7 @@
 				<entry><key>expression</key>
 					<value>
                 {taskAssignment: {roles: {role: [
-	            {roleName: "bpm_committee_handler", accesses: {access: [read, write]}}
+	            {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}}
 	        	]} }}
             </value>
 				</entry>
@@ -236,9 +235,7 @@
 
 	<end-state name="end-state2" end-complete-process="true"></end-state>
 
-	<end-state name="endProcess"></end-state>
-
-	<end-state name="end-state3"></end-state>
+	<end-state name="end-state1" end-complete-process="true"></end-state>
 	
 	<node name="updateCaseStatusToHandlingInProgress">
 	   <event type="node-enter">
@@ -340,11 +337,11 @@
             <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
                 <handlerName>casesStatusHandler</handlerName>
                 <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
-                    <entry><key>caseStatus</key><value>CASE_STATUS_PAYMENT_REGISTERED</value></entry>
+                    <entry><key>caseStatusMappedName</key><value>caseStatusClosed</value></entry>
                 </propertyMap>
             </action>
         </event>
-		<transition to="invalidateExistingLicenseIfAny"></transition>
+		<transition to="issueLicense"></transition>
 	</node>
 
 	<node name="sendLicenseToApplicant">
@@ -356,13 +353,6 @@
 		<transition to="ifLicenseExpirationDateIsDefined"></transition>
 	</node>
 
-	<state name="runInvalidateLicenseTimer">
-	   <timer duedate='#{date_licenseExpireDate}'
-              transition='invalidate'>
-       </timer>
-		<transition to="updateCaseStatusToInvalid" name="invalidate"></transition>
-	</state>
-
 	<state name="runInvalidationWarningNotificationTimer">
 	   <timer duedate='#{date_licenseExpireRemindDate}'
               transition='reminded'>
@@ -370,17 +360,41 @@
 		<transition to="sendInvalidationWarningNotification" name="reminded"></transition>
 	</state>
 
-	<fork name="fork1">
-		<transition to="runInvalidateLicenseTimer" name="toRunInvalidateLicenseTimer"></transition>
-		<transition to="runInvalidationWarningNotificationTimer" name="toRunInvalidationWarningNotificationTimer"></transition>
-	</fork>
-
 	<node name="sendInvalidationWarningNotification">
-		<transition to="end-state3"></transition>
-	</node>
-
-	<node name="updateCaseStatusToInvalid">
-		<transition to="endProcess"></transition>
+	   <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy">
+                <handlerName>sendCaseMessagesHandler</handlerName>
+                <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                    <entry>
+                        <key>inlineSubject</key>
+                        <value>
+                            ${
+                            Map subjectMap = new HashMap();
+                            subjectMap.put("en", "Please update your fishing license");
+                            subjectMap.put("is_IS", "Please update your fishing license");
+                            return subjectMap;
+                            }
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>inlineMessage</key>
+                        <value>
+                            ${
+                            
+                            Map messageMap = new HashMap();
+                            messageMap.put("en", "Please update your fishing license");
+                            messageMap.put("is_IS", "Please update your fishing license");
+                            
+                            return messageMap;
+                            
+                            }
+                        </value>
+                    </entry>
+                    <entry><key>sendToRoles</key><value>bpm_fishingLicense_owner</value></entry>
+                </propertyMap>
+            </action>
+        </event>
+		<transition to="end-state1"></transition>
 	</node>
 
 	<node name="issueLicense">
@@ -392,42 +406,25 @@
 		<transition to="sendLicenseToApplicant"></transition>
 	</node>
 
-	<decision name="ifLicenseExpirationDateIsDefined" expression='#{date_licenseExpireDate != null && date_licenseExpireRemindDate != null}'>
-		<transition to="fork1" name="true"></transition>
-		<transition to="waitForever" name="false"></transition>
+	<decision name="ifLicenseExpirationDateIsDefined" expression='#{date_licenseExpireRemindDate != null}'>
+		<transition to="runInvalidationWarningNotificationTimer" name="true"></transition>
+		<transition to="end-state1" name="false"></transition>
 	</decision>
-
-	<state name="waitForever"></state>
-
-	<node name="invalidateExistingLicenseIfAny">
-	   <event type="node-enter">
-            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
-                <handlerName>invalidateExistingLicenseIfAny</handlerName>
-            </action>
-        </event>
-		<transition to="issueLicense"></transition>
-	</node>
 	
 	<idg:roles xmlns:idg="http://idega.com/bpm">
-        <role name="bpm_committee_caseHandler">
+        <role name="bpm_fishingLicense_caseHandler">
           <labels>
             <label lang="en">caseHandler</label>
             <label lang="is_IS">Umsjónarmaður</label>
           </labels>
         </role>
-        <role name="bpm_committee_handler" createNative="true">
+        <role name="bpm_fishingLicense_handler" createNative="true">
           <labels>
             <label lang="en">handler</label>
             <label lang="is_IS">Kærunefnd</label>
           </labels>
         </role>
-        <role name="bpm_committee_invited">
-          <labels>
-            <label lang="en">invited</label>
-            <label lang="is_IS">Gagnaðili</label>
-          </labels>
-        </role>
-        <role name="bpm_committee_owner">
+        <role name="bpm_fishingLicense_owner">
           <labels>
             <label lang="en">owner</label>
             <label lang="is_IS">Álitsbeiðandi</label>

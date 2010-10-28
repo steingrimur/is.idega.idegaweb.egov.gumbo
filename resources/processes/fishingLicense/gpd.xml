@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="FishingLicense" width="847" height="1376">
+<root-container name="FishingLicense" width="713" height="1288">
   <node name="applicationForFishingLicense" x="195" y="37" width="164" height="34">
     <edge>
       <label x="-16" y="-9"/>
@@ -25,8 +25,6 @@
     </edge>
   </node>
   <node name="end-state2" x="144" y="678" width="22" height="24"/>
-  <node name="endProcess" x="216" y="1339" width="132" height="36"/>
-  <node name="end-state3" x="615" y="1348" width="23" height="22"/>
   <node name="updateCaseStatusToHandlingInProgress" x="186" y="313" width="211" height="36">
     <edge>
       <label x="5" y="-10"/>
@@ -72,32 +70,15 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="runInvalidateLicenseTimer" x="210" y="1217" width="149" height="36">
+  <node name="runInvalidationWarningNotificationTimer" x="381" y="1172" width="231" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="runInvalidationWarningNotificationTimer" x="510" y="1223" width="231" height="36">
+  <node name="sendInvalidationWarningNotification" x="397" y="1251" width="199" height="36">
     <edge>
       <label x="5" y="-10"/>
-    </edge>
-  </node>
-  <node name="fork1" x="480" y="1180" width="23" height="24">
-    <edge>
-      <label x="-126" y="-19"/>
-    </edge>
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-  </node>
-  <node name="sendInvalidationWarningNotification" x="525" y="1282" width="199" height="36">
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-  </node>
-  <node name="updateCaseStatusToInvalid" x="185" y="1277" width="189" height="36">
-    <edge>
-      <label x="5" y="-10"/>
+      <bendpoint w1="201" h1="0" w2="1" h2="188"/>
     </edge>
   </node>
   <node name="issueLicense" x="425" y="853" width="132" height="36">
@@ -113,10 +94,5 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="waitForever" x="714" y="1061" width="132" height="36"/>
-  <node name="invalidateExistingLicenseIfAny" x="390" y="793" width="198" height="36">
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-  </node>
+  <node name="end-state1" x="689" y="1068" width="23" height="24"/>
 </root-container>
