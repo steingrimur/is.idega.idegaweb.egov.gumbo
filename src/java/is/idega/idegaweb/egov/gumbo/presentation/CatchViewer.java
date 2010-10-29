@@ -1,10 +1,11 @@
 package is.idega.idegaweb.egov.gumbo.presentation;
 
-import java.rmi.RemoteException;
-
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.bean.GumboBean;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
+
+import java.math.BigDecimal;
+import java.rmi.RemoteException;
 
 import javax.faces.context.FacesContext;
 
@@ -21,10 +22,11 @@ import com.idega.presentation.IWContext;
 import com.idega.util.PresentationUtil;
 import com.idega.util.expression.ELUtil;
 
-public class ShipsViewer extends IWBaseComponent {
+public class CatchViewer extends IWBaseComponent {
 
-	public static final String PERSONAL_ID = "5411850389";
-	
+	private static final String PARAMETER_CATCH_ID = "prm_catch_id";
+	private static final String PARAMETER_PORT = "prm_port";
+
 	private IWBundle iwb;
 	
 	private ICPage page;
@@ -43,11 +45,23 @@ public class ShipsViewer extends IWBaseComponent {
 		
 		PresentationUtil.addStyleSheetToHeader(iwc, iwb.getVirtualPathWithFileNameString("style/gumbo.css"));
 
+		BigDecimal catchNumber = null;
+		if (iwc.isParameterSet(PARAMETER_CATCH_ID)) {
+			catchNumber = new BigDecimal(iwc.getParameter(PARAMETER_CATCH_ID));
+		}
+
+		BigDecimal port = null;
+		if (iwc.isParameterSet(PARAMETER_PORT)) {
+			port = new BigDecimal(iwc.getParameter(PARAMETER_PORT));
+		}
+
 		try {
 			BuilderService service = BuilderServiceFactory.getBuilderService(iwc);
 			
 			GumboBean bean = getBeanInstance("gumboBean");
-			bean.setShips(getClient().getShipInfoByCompanySSN(PERSONAL_ID));
+			if (catchNumber != null && port != null) {
+				bean.setCatchInfo(getClient().getCatchInfoByNumberAndPort(catchNumber, port));
+			}
 			if (getPage() != null) {
 				bean.setResponseURL(service.getPageURI(getPage()));
 			}
@@ -57,7 +71,7 @@ public class ShipsViewer extends IWBaseComponent {
 		}
 		
 		FaceletComponent facelet = (FaceletComponent) iwc.getApplication().createComponent(FaceletComponent.COMPONENT_TYPE);
-		facelet.setFaceletURI(iwb.getFaceletURI("ships/viewAll.xhtml"));
+		facelet.setFaceletURI(iwb.getFaceletURI("catches/viewByNumberAndPort.xhtml"));
 		add(facelet);
 	}	
 	

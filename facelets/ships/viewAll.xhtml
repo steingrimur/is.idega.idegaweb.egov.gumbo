@@ -1,0 +1,18 @@
+<html
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+>
+<ui:component>
+	<ul id="shipsViewer">
+		<ui:repeat value="#{gumboBean.ships}" var="ship">
+			<li>
+				<h:outputLink value="#{gumboBean.responseURL}">
+					<f:param name="prm_ship_id" value="#{ship.skipNr}" />
+					<h:outputText value="#{ship.skipNr} - #{ship.nafn}" />
+				</h:outputLink>
+			</li>
+		</ui:repeat>
+	</ul>
+</ui:component>
+</html>

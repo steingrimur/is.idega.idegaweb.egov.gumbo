@@ -3,6 +3,8 @@ package is.idega.idegaweb.egov.gumbo.webservice.client.business;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.FSWebServiceLANDANIR_PortType;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.FSWebServiceLANDANIR_ServiceLocator;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.GetlandanirbyskipElement;
+import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.GetlondunafliElement;
+import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunAfliTypeUser;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser;
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.FSWebServiceSKIP_PortType;
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.FSWebServiceSKIP_ServiceLocator;
@@ -12,12 +14,12 @@ import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.Calendar;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import com.idega.idegaweb.IWMainApplication;
-import com.idega.util.IWTimestamp;
 
 @Scope("singleton")
 @Service("dofWSClient")
@@ -79,10 +81,21 @@ public class DOFWSClient {
 		return null;
 	}
 	
-	public LondunTypeUser[] getCatchInfoByShipNumber(BigDecimal shipNumber, IWTimestamp from, IWTimestamp to) {
+	public LondunTypeUser[] getCatchInfoByShipNumber(BigDecimal shipNumber, Calendar from, Calendar to) {
 		try {
-			GetlandanirbyskipElement parameter = new GetlandanirbyskipElement(shipNumber, from.getCalendar(), to.getCalendar());
+			GetlandanirbyskipElement parameter = new GetlandanirbyskipElement(shipNumber, from, to);
 			return getCatchPort().getlandanirbyskip(parameter);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public LondunAfliTypeUser[] getCatchInfoByNumberAndPort(BigDecimal catchNumber, BigDecimal port) {
+		try {
+			GetlondunafliElement parameter = new GetlondunafliElement(port, catchNumber);
+			return getCatchPort().getlondunafli(parameter);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}

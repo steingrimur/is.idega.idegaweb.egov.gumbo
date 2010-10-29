@@ -1,0 +1,35 @@
+<html
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+>
+<ui:component>
+	<table id="catchInfoViewer" cellpadding="0" cellspacing="0" width="100%">
+		<thead>
+			<tr>
+				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['type']}" /></th>
+				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_unbutchered']}" /></th>
+				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_butchered']}" /></th>
+				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_to_quota']}" /></th>
+				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_substandard']}" /></th>
+				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_line_kickback']}" /></th>
+				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_VS_catch']}" /></th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<ui:repeat value="#{gumboBean.catchInfo}" var="catch">
+				<tr>
+					<td><h:outputText value="#{catch.fisktegundHeiti}" /></td>
+					<td><h:outputText value="#{catch.oslaegt}" /></td>
+					<td><h:outputText value="#{catch.slaegt}" /></td>
+					<td><h:outputText value="#{catch.afliTilKvota}" /></td>
+					<td><h:outputText value="#{catch.undirmal}" /></td>
+					<td><h:outputText value="#{catch.linuIvilnun}" /></td>
+					<td><h:outputText value="#{catch.hafroafli}" /></td>
+				</tr>
+			</ui:repeat>
+		</tbody>	
+	</table>
+</ui:component>
+</html>
