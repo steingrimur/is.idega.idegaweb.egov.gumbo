@@ -67,6 +67,26 @@ public class FishingLicenseUser {
 		return "true";
 	}
 	
+	public String getUserVesselHasValidLicense(String vesselId) {
+		
+		return "false";
+	}
+	
+	public String getFishingCompanyHasValidLicense() {
+		
+		return "false";
+	}
+	
+	public String getFishingQuotaWithinLimits() {
+		
+		return "false";
+	}
+	
+	public String getFishingArea() {
+		
+		return "13th fishing zone";
+	}
+	
 	public static final class VesselData {
 		
 		private String registryNr;

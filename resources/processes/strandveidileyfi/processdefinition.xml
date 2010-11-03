@@ -84,6 +84,9 @@
             <variable name="string_vesselName" access="read,write"></variable>
             <variable name="string_vesselOwnersName" access="read,write"></variable>
             <variable name="string_vesselOwnersSocialSecurityNr" access="read,write"></variable>
+            
+            <variable name="string_fishingArea" access="read,write"></variable>
+            <variable name="date_validityFrom" access="read,write"></variable>
          </controller>
       </task>
       <transition to="notifyFinancialControllerIfThereIsADebt"></transition>
