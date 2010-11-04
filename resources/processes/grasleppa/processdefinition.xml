@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition
+  xmlns=""  name="Grasleppa">
+  
+  <event type="process-start">
+         <script>
+            <expression>
+                String handlerRoleName = "bpm_fishingLicense_handler";
+                String ownerRoleName = "bpm_fishingLicense_owner";
+                
+                String remindBefore = "2 weeks";
+            </expression>
+            <variable name='handlerRoleName' access='write' />
+            <variable name='ownerRoleName' access='write' />
+            <variable name='remindBefore' access='write' />
+         </script>
+  </event>
+  <event type="process-start">
+    <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+            <handlerName>rolesAssignmentHandler</handlerName>
+                    <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                        <entry>
+                            <key>assignmentExpression</key>
+                            <value>
+                               ${
+                               String handlerRoleName = resolver.get("handlerRoleName");
+                               String handlerNativeRoleName = handlerRoleName;
+                               
+                               return
+                               "{rolesAssignment: {roles: {role: ["+
+                               "     {roleName: \""+handlerRoleName+"\", identities: {identity: [{identityType: ROLE, identityId: \""+handlerNativeRoleName+"\"}]}}"+
+                               " ]} }}";
+                               }
+                            </value>
+                    </entry>
+                </propertyMap>
+        </action>
+  </event>
+  <event type="process-start">
+        <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+            <handlerName>rightsManagementRolesAssignmentHandler</handlerName>
+                <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                    <entry>
+                        <key>assignmentExpression</key>
+                        <value>
+                        {rightsAssignment: {roles: {role: [
+                            {roleName: "bpm_fishingLicense_handler", accesses: {access: [modifyPermissions, caseHandler]}},
+                            {roleName: "bpm_fishingLicense_handler", accesses: {access: [seeContacts]}, rolesContacts: {string: ["all"]}}
+                        ]} }}
+                        </value>
+                </entry>
+            </propertyMap>
+        </action>
+    </event>
+  
+   <start-state name="applicationForFishingLicense">
+     <task name="applicationForFishingLicenseTask">
+         <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+			<handlerName>jsonAssignmentHandler</handlerName>
+			<propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+				<entry><key>expression</key>
+					<value>
+		                {taskAssignment: {roles: {role: [
+		                   {roleName: "bpm_fishingLicense_handler", accesses: {access: [read]}},
+		                   {roleName: "bpm_fishingLicense_owner", accesses: {access: [read, write]}, assignIdentities: {string: ["current_user"]}}
+		                ]} }}
+            		</value>
+				</entry>
+			</propertyMap>
+		 </assignment>
+         
+         <controller>
+            <variable name="string_ownerFullName" access="read,write" ></variable>
+            <variable name="string_ownerSocialNumber" access="read,write"></variable>
+            <variable name="string_ownerAddress" access="read,write"></variable>
+            <variable name="string_ownerPostCode" access="read,write"></variable>
+            <variable name="string_ownerMunicipality" access="read,write"></variable>
+            <variable name="string_ownerPhone" access="read,write"></variable>
+            <variable name="string_ownerFax" access="read,write"></variable>
+            <variable name="string_ownerEmailAddress" access="read,write"></variable>
+            <variable name="string_ownerComments" access="read,write"></variable>
+            <variable name="string_caseIdentifier" access="read"></variable>
+            
+            <variable name="string_vessel" access="read,write"></variable>
+            <variable name="string_vesselRegistryNr" access="read,write"></variable>
+            <variable name="string_vesselName" access="read,write"></variable>
+            <variable name="string_vesselOwnersName" access="read,write"></variable>
+            <variable name="string_vesselOwnersSocialSecurityNr" access="read,write"></variable>
+            
+            <variable name="string_fishingAreaLabel" access="read,write"></variable>
+            <variable name="date_validityFrom" access="read,write"></variable>
+         </controller>
+      </task>
+      <event type="node-leave">
+           <script>
+                <expression>
+                    cardExpireRemindDate = com.idega.jbpm.proxy.JbpmHandlerProxy.bean("calendarOps").substract(validityTo, remindBefore);
+                </expression>
+                <variable name='date_cardExpireRemindDate' access='write' mapped-name='cardExpireRemindDate' />
+                <variable name='date_validityTo' access='read' mapped-name='validityTo' />
+                <variable name='remindBefore' access='read' />
+             </script>
+        </event>
+      <transition to="notifyFinancialControllerIfThereIsADebt"></transition>
+   </start-state>
+   <task-node name="licenseRuling">
+      <task name="licenseRulingTask">
+         <controller>
+            <variable name="string_rulingText" access="read,write"></variable>
+            <variable name="files_processRullingAttachments"></variable>
+            
+         </controller>
+        <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+			<handlerName>jsonAssignmentHandler</handlerName>
+			<propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+				<entry><key>expression</key>
+					<value>
+               {taskAssignment: {roles: {role: [
+                   {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}},
+                   {roleName: "bpm_fishingLicense_owner", accesses: {access: [read]}}
+                ]} }}
+            </value>
+				</entry>
+			</propertyMap>
+		</assignment>
+      </task>
+		<transition to="updateCaseStatusToLicenseDenied" name="denied"></transition>
+		<transition to="updateCaseStatusToLicenseGrantedClaimUnpaid" name="granted"></transition>
+   </task-node>
+
+   <event type="handlerAssignedToCase">
+         <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+				<handlerName>caseHandlerAssignmentHandler</handlerName>
+				<propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+			        <entry>
+			        	<key>inlineSubject</key>
+			        	<value>
+			       			${
+			        		Map subjectMap = new HashMap();
+			        		subjectMap.put("en", "Handler was assigned to the case");
+			        		subjectMap.put("is_IS", "Mál ({0}, {1}) í flokknum {2} ");
+			        		return subjectMap;
+			        		}
+			        		
+                		</value>
+                	</entry>
+                	<entry>
+			        	<key>inlineMessage</key>
+			        	<value>
+			        	${
+			        		Map messageMap = new HashMap();
+			        		messageMap.put("en", "Hi, {0}.\n Handler {1} was assigned to the case {2} with identifier {3} and description {4}");
+			        		messageMap.put("is_IS", "Sæl/ll, {0}.\n{1} hefur tekið að sér málið með nafnið : {4} ({3}) í flokknum : {2}.");
+			        		return messageMap;
+			        		}
+                		</value>
+                	</entry>
+                		<entry>
+                        <key>subjectValues</key>
+                        <value>
+                            {list: {mv: [{type: "bean", value: "piw.processDescription"}, {type: "bean", value: "piw.processIdentifier"},{type: "bean", value: "piw.processDefinitionW.startTaskName"}]}}
+                        </value>
+                    </entry>
+                	<entry>
+			        	<key>messageValues</key>
+			        	<value>
+			        		{list: {mv: [{type: "bean", value: "user.name"}, {type: "roleUsers", value: "{role: {roleName: \"bpm_fishingLicense_caseHandler\"}}"}, {type: "bean", value: "piw.processDefinitionW.startTaskName"}, {type: "bean", value: "piw.processIdentifier"}, {type: "bean", value: "piw.processDescription"}]}}
+                		</value>
+                	</entry>
+                	<entry><key>sendToRoles</key><value>bpm_fishingLicense_owner bpm_fishingLicense_handler</value></entry>
+			    </propertyMap>
+			</action>
+    </event>
+    <event type="handlerUnassignedFromCase">
+		<action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+				<handlerName>caseHandlerAssignmentHandler</handlerName>
+				<propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+			      	<entry><key>caseHandlerRoleExp</key><value>{role: {roleName: "bpm_fishingLicense_caseHandler"}}</value></entry>
+			        <entry>
+			        	<key>inlineSubject</key>
+			        	<value>
+			        		${
+			        		Map subjectMap = new HashMap();
+			        		subjectMap.put("en", "Handler was unassigned from the case");
+			        		subjectMap.put("is_IS", "Umsjónarmannaskipti á máli ({0}, {1})");
+			        		return subjectMap;
+			        		}
+			        		
+                		</value>
+                	</entry>
+                	<entry>
+			        	<key>inlineMessage</key>
+			        	<value>
+			        		${
+			        		Map messageMap = new HashMap();
+			        		messageMap.put("en", "Hi, {0}.\n Handler was unassigned from the case {1} with identifier {2} and description {3}");
+			        		messageMap.put("is_IS", "Sæl/ll, {0}.\nUmsjónarmannaskipti hafa átt sér stað fyrir málið með nafnið: {3} ({2}) í flokknum {1}.");
+			        		return messageMap;
+			        		}
+                		</value>
+                	</entry>
+                	 	<entry>
+                        <key>subjectValues</key>
+                        <value>
+                            {list: {mv: [{type: "bean", value: "piw.processDescription"}, {type: "bean", value: "piw.processIdentifier"}]}}
+                        </value>
+                    </entry>
+                	<entry>
+			        	<key>messageValues</key>
+			        	<value>
+			        		{list: {mv: [{type: "bean", value: "user.name"}, {type: "bean", value: "piw.processDefinitionW.startTaskName"}, {type: "bean", value: "piw.processIdentifier"}, {type: "bean", value: "piw.processDescription"}]}}
+                		</value>
+                	</entry>
+                	<entry><key>sendToRoles</key><value>bpm_fishingLicense_handler</value></entry>
+			    </propertyMap>
+		</action>
+    </event>
+   <task-node name="saveDocumentKey">
+	  <task name="saveDocumentKeyTask">
+	     <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+			<handlerName>jsonAssignmentHandler</handlerName>
+			<propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+				<entry><key>expression</key>
+					<value>
+                {taskAssignment: {roles: {role: [
+	            {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}}
+	        	]} }}
+            </value>
+				</entry>
+			</propertyMap>
+		</assignment>
+	 	<controller>
+            <variable name="string_documentKey" access="read,write,required"></variable>
+         </controller>
+	</task>
+		<transition to="notifyFinanceDepartment"></transition>
+</task-node>
+
+	<node name="notifyFinanceDepartment">
+      <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>notifyFinancialDepartment</handlerName>
+            </action>
+        </event>
+   	  <transition to="updateCaseStatusToHandlingInProgress"></transition>
+   </node>
+
+	<end-state name="end-state2" end-complete-process="true"></end-state>
+
+	<end-state name="end-state1" end-complete-process="true"></end-state>
+	
+	<node name="updateCaseStatusToHandlingInProgress">
+	   <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>casesStatusHandler</handlerName>
+                <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                    <entry><key>caseStatusMappedName</key><value>caseStatusInProcess</value></entry>
+                </propertyMap>
+            </action>
+        </event>
+		<transition to="licenseRuling"></transition>
+	</node>
+
+	<node name="updateCaseStatusToLicenseGrantedClaimUnpaid">
+	   <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>casesStatusHandler</handlerName>
+                <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                    <entry><key>caseStatusMappedName</key><value>caseStatusGranted</value></entry>
+                </propertyMap>
+            </action>
+        </event>
+		<transition to="sendLicenseFeeClaim"></transition>
+	</node>
+
+	<node name="updateCaseStatusToLicenseDenied">
+	   <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>casesStatusHandler</handlerName>
+                <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                    <entry><key>caseStatusMappedName</key><value>caseStatusDenied</value></entry>
+                </propertyMap>
+            </action>
+        </event>
+		<transition to="informApplicantAboutDeny"></transition>
+	</node>
+
+	<node name="informApplicantAboutDeny">
+	   <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy">
+                <handlerName>sendCaseMessagesHandler</handlerName>
+                <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                    <entry>
+                        <key>inlineSubject</key>
+                        <value>
+                            ${
+                            Map subjectMap = new HashMap();
+                            subjectMap.put("en", "Fishing license denied");
+                            subjectMap.put("is_IS", "Fishing license denied");
+                            return subjectMap;
+                            }
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>inlineMessage</key>
+                        <value>
+                            ${
+                            
+                            Map messageMap = new HashMap();
+                            messageMap.put("en", "Your application for a fishing license has been denied.");
+                            messageMap.put("is_IS", "Your application for a fishing license has been denied.");
+                            
+                            return messageMap;
+                            
+                            }
+                        </value>
+                    </entry>
+                    <entry><key>sendToRoles</key><value>bpm_fishingLicense_owner</value></entry>
+                </propertyMap>
+            </action>
+        </event>
+		<transition to="end-state2"></transition>
+	</node>
+
+	<node name="notifyFinancialControllerIfThereIsADebt">
+		<event type="node-enter">
+			<action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+	            <handlerName>notifyFinancialControllerIfThereIsADebt</handlerName>
+	        </action>
+		</event>
+		<transition to="saveDocumentKey"></transition>
+	</node>
+
+	<node name="sendLicenseFeeClaim">
+	   <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>sendLicenseFeeClaim</handlerName>
+            </action>
+        </event>
+		<transition to="waitForPayment"></transition>
+	</node>
+
+	<state name="waitForPayment">
+		<transition to="updateCaseStatusToRegisteredPayment"></transition>
+	</state>
+
+	<node name="updateCaseStatusToRegisteredPayment">
+	   <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>casesStatusHandler</handlerName>
+                <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                    <entry><key>caseStatusMappedName</key><value>caseStatusClosed</value></entry>
+                </propertyMap>
+            </action>
+        </event>
+		<transition to="issueLicense"></transition>
+	</node>
+
+	<node name="sendLicenseToApplicant">
+	   <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>sendLicenseToApplicant</handlerName>
+            </action>
+        </event>
+		<transition to="runInvalidationWarningNotificationTimer"></transition>
+	</node>
+
+	<state name="runInvalidationWarningNotificationTimer">
+	   <timer duedate='#{date_cardExpireRemindDate}'
+              transition='reminded'>
+       </timer>
+		<transition to="sendInvalidationWarningNotification" name="reminded"></transition>
+	</state>
+
+	<node name="sendInvalidationWarningNotification">
+	   <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy">
+                <handlerName>sendCaseMessagesHandler</handlerName>
+                <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                    <entry>
+                        <key>inlineSubject</key>
+                        <value>
+                            ${
+                            Map subjectMap = new HashMap();
+                            subjectMap.put("en", "Please update your fishing license");
+                            subjectMap.put("is_IS", "Please update your fishing license");
+                            return subjectMap;
+                            }
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>inlineMessage</key>
+                        <value>
+                            ${
+                            
+                            Map messageMap = new HashMap();
+                            messageMap.put("en", "Please update your fishing license");
+                            messageMap.put("is_IS", "Please update your fishing license");
+                            
+                            return messageMap;
+                            
+                            }
+                        </value>
+                    </entry>
+                    <entry><key>sendToRoles</key><value>bpm_fishingLicense_owner</value></entry>
+                </propertyMap>
+            </action>
+        </event>
+		<transition to="end-state1"></transition>
+	</node>
+
+	<node name="issueLicense">
+	   <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>issueLicense</handlerName>
+            </action>
+        </event>
+		<transition to="sendLicenseToApplicant"></transition>
+	</node>
+	
+	<idg:roles xmlns:idg="http://idega.com/bpm">
+        <role name="bpm_fishingLicense_caseHandler">
+          <labels>
+            <label lang="en">caseHandler</label>
+            <label lang="is_IS">Umsjónarmaður</label>
+          </labels>
+        </role>
+        <role name="bpm_fishingLicense_handler" createNative="true">
+          <labels>
+            <label lang="en">handler</label>
+            <label lang="is_IS">Kærunefnd</label>
+          </labels>
+        </role>
+        <role name="bpm_fishingLicense_owner">
+          <labels>
+            <label lang="en">owner</label>
+            <label lang="is_IS">Álitsbeiðandi</label>
+          </labels>
+        </role>
+    </idg:roles>
+</process-definition>

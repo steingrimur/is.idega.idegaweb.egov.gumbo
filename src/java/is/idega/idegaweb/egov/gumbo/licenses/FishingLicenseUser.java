@@ -50,16 +50,38 @@ public class FishingLicenseUser {
 		return items;
 	}
 	
+	public List<Item> getFishingAreas() {
+		
+		final List<Item> items = new ArrayList<Item>(2);
+		
+		items.add(new Item("area1", "Fishing area 1"));
+		items.add(new Item("area2", "Fishing area 2"));
+		
+		return items;
+	}
+	
 	public String getHasLicenseText() {
 		return "";
 	}
 	
 	/**
-	 * @return string "true" if application is valid for submission, "false" otherwise
+	 * used in the forms: general fishing license, strandveidileyfi, grasleppa
+	 * 
+	 * @return string "true" or "false"
 	 */
-	public String getApplicationValid() {
+	public String getVesselHasValidHaffairisskirteini(String vesselId) {
 		
-		return "true";
+		return "false";
+	}
+	
+	/**
+	 * used in the forms: grasleppa
+	 * 
+	 * @return string "true" or "false"
+	 */
+	public String getVesselHasValidGeneralFishingLicense(String vesselId) {
+		
+		return "false";
 	}
 	
 	public String getIsInDebt() {

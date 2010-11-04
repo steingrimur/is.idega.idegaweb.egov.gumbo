@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root-container name="Grasleppa" width="616" height="1248">
+  <node name="applicationForFishingLicense" x="195" y="37" width="164" height="34">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="licenseRuling" x="223" y="399" width="140" height="40">
+    <edge>
+      <label x="-39" y="-17"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="saveDocumentKey" x="217" y="172" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="notifyFinanceDepartment" x="178" y="243" width="220" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="end-state2" x="144" y="678" width="22" height="24"/>
+  <node name="end-state1" x="481" y="1223" width="23" height="24"/>
+  <node name="updateCaseStatusToHandlingInProgress" x="186" y="313" width="211" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="updateCaseStatusToLicenseGrantedClaimUnpaid" x="368" y="555" width="247" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="updateCaseStatusToLicenseDenied" x="49" y="549" width="220" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="informApplicantAboutDeny" x="46" y="619" width="223" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="notifyFinancialControllerIfThereIsADebt" x="160" y="104" width="235" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="sendLicenseFeeClaim" x="403" y="613" width="178" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="waitForPayment" x="426" y="675" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="updateCaseStatusToRegisteredPayment" x="388" y="735" width="207" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="sendLicenseToApplicant" x="383" y="956" width="212" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="runInvalidationWarningNotificationTimer" x="378" y="1064" width="231" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="sendInvalidationWarningNotification" x="399" y="1150" width="199" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="issueLicense" x="425" y="853" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+</root-container>
