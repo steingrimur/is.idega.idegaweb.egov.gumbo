@@ -38,6 +38,8 @@ public class FishingLicenseUser {
 	}
 	
 	/**
+	 * used in the forms: general fishing license
+	 * 
 	 * @return types of licenses depending on logged in user
 	 */
 	public List<Item> getTypesOfFishingLicenses() {
@@ -50,6 +52,11 @@ public class FishingLicenseUser {
 		return items;
 	}
 	
+	/**
+	 * used in the forms: grasleppa
+	 * 
+	 * @return fishing areas depending on logged in user
+	 */
 	public List<Item> getFishingAreas() {
 		
 		final List<Item> items = new ArrayList<Item>(2);
@@ -60,6 +67,12 @@ public class FishingLicenseUser {
 		return items;
 	}
 	
+	/**
+	 * used in the forms: general fishing license
+	 * 
+	 * @return text informing user that he has some kind of a license (which is not in the available
+	 *         selection of license types). empty - if user doesn't have any license.
+	 */
 	public String getHasLicenseText() {
 		return "";
 	}
@@ -71,7 +84,7 @@ public class FishingLicenseUser {
 	 */
 	public String getVesselHasValidHaffairisskirteini(String vesselId) {
 		
-		return "false";
+		return "true";
 	}
 	
 	/**
@@ -84,22 +97,45 @@ public class FishingLicenseUser {
 		return "false";
 	}
 	
+	/**
+	 * used in forms: general fishing license, strandveidileyfi, grasleppa
+	 * <p>
+	 * informs the user that he's in debt for fiskistofa (after he submits the application)
+	 * </p>
+	 * 
+	 * @return string true or false
+	 */
 	public String getIsInDebt() {
 		
 		return "true";
 	}
 	
-	public String getUserVesselHasValidLicense(String vesselId) {
+	/**
+	 * used in forms: strandveidileyfi
+	 * 
+	 * @return string true or false
+	 */
+	public String getVesselHasValidStrandveidileyfi(String vesselId) {
 		
 		return "false";
 	}
 	
-	public String getFishingCompanyHasValidLicense() {
+	/**
+	 * used in forms: strandveidileyfi
+	 * 
+	 * @return string true or false
+	 */
+	public String getFishingCompanyHasValidStrandveidileyfi() {
 		
 		return "false";
 	}
 	
-	public String getFishingQuotaWithinLimits() {
+	/**
+	 * used in forms: strandveidileyfi
+	 * 
+	 * @return string true or false
+	 */
+	public String getFishingQuotaWithinLimits(String vesselId) {
 		
 		return "true";
 	}
