@@ -515,7 +515,7 @@ Sigllingamálastofnun or Fiskistofa</fbc_37-help>
                                     ref="instance('data-instance')/validityFrom" value="instance('data-instance')/From_date_fbc_101"/>
                             </xf:action>
                             
-                            <idega:validator ev:event="idega-validate" validateif=". = '' or ( days-from-date(.) &gt; days-from-date(concat(substring(now(), 1, 4), '-05-01'))-1 and days-from-date(.) &lt; days-from-date(concat(substring(now(), 1, 4), '-08-31'))+1 )" componentId="fbc_101">
+                            <idega:validator ev:event="idega-validate" validateif=". = '' or ( days-from-date(.) &gt; days-from-date(concat(substring(., 1, 4), '-05-01'))-1 and days-from-date(.) &lt; days-from-date(concat(substring(., 1, 4), '-08-31'))+1 )" componentId="fbc_101">
                                 <idega:message errorType="required"
                                     model="data_model" value="instance('localized_strings')/fbc_101-required[@lang=instance('localized_strings')/current_language]"/>
                                 <idega:message errorType="custom"
