@@ -79,7 +79,7 @@ public class FishingLicenseUser {
 	
 	public String getFishingQuotaWithinLimits() {
 		
-		return "false";
+		return "true";
 	}
 	
 	public String getFishingArea() {

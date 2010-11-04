@@ -34,6 +34,8 @@
                     <companyLicenseInvalid/>
                     <quotaWithinLimits>true</quotaWithinLimits>
                     <quotaNotWithinLimits/>
+                    <vesselHasValidLicense>false</vesselHasValidLicense>
+                    <vesselHasNotValidLicense/>
                     <debtMessageContainer/>
                     <saveFormData>
                         <submissionId/>
@@ -138,6 +140,9 @@
             
             <xf:bind id="fbc_106_bind" nodeset="quotaWithinLimits" relevant="instance('data-instance')/quotaWithinLimits = 'true'"/>
             <xf:bind id="fbc_107_bind" nodeset="quotaNotWithinLimits" relevant="instance('data-instance')/quotaWithinLimits != 'true'"/>
+            
+            <xf:bind id="fbc_108_bind" nodeset="vesselHasValidLicense" relevant="instance('data-instance')/vesselHasValidLicense = 'true'"/>
+            <xf:bind id="fbc_109_bind" nodeset="vesselHasNotValidLicense" relevant="instance('data-instance')/vesselHasValidLicense != 'true'"/>
             
             <xf:bind id="debtMessageContainer"
                 nodeset="debtMessageContainer" relevant="instance('control-instance')/userIsInDebt != 'false'"/>
@@ -283,10 +288,16 @@ Sigllingamálastofnun or Fiskistofa</fbc_37-help>
                     <fbc_74-text lang="en">The vessel does not have a valid "haffærisskírteini". Please contact Siglingamálastofnun. It is not possible to submit the application under these conditions.</fbc_74-text>
                     <fbc_104-text lang="is_IS">thw what</fbc_104-text>
                     <fbc_104-text lang="en">The company already has a valid "Strandveidileyfi". Please contact Fiskistofa. It is not possible to submit the application under these conditions.</fbc_104-text>
+                    <fbc_108-text lang="is_IS">thw what</fbc_108-text>
+                    <fbc_108-text lang="en">The vessel already has a valid "Strandveidileyfi". Please contact Fiskistofa. It is not possible to submit the application under these conditions.</fbc_108-text>
                     <fbc_105-text lang="is_IS">False</fbc_105-text>
                     <fbc_105-text lang="en">False</fbc_105-text>
                     <fbc_105-label lang="is_IS">The Fishing company has a valid "strandveiðileyfi"</fbc_105-label>
                     <fbc_105-label lang="en">The Fishing company has a valid "strandveiðileyfi"</fbc_105-label>
+                    <fbc_109-text lang="is_IS">False</fbc_109-text>
+                    <fbc_109-text lang="en">False</fbc_109-text>
+                    <fbc_109-label lang="is_IS">The vessel has a valid "strandveiðileyfi"</fbc_109-label>
+                    <fbc_109-label lang="en">The vessel has a valid "strandveiðileyfi"</fbc_109-label>
                     <fbc_106-text lang="is_IS">True</fbc_106-text>
                     <fbc_106-text lang="en">True</fbc_106-text>
                     <fbc_106-label lang="is_IS">Fishing quota within limits</fbc_106-label>
@@ -535,6 +546,11 @@ Sigllingamálastofnun or Fiskistofa</fbc_37-help>
                                 multiple="true()"
                                 placeResponseDocument="true()"
                                 ref="instance('data-instance')/vesselData" value="idega:resolveBeanProperties('fishingLicenseUser.getUserVesselData({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
+                            <idega:setvalue
+                                ev:event="xforms-value-changed"
+                                multiple="true()"
+                                placeResponseDocument="true()"
+                                ref="instance('data-instance')/vesselHasValidLicense" value="idega:resolveExpression('fishingLicenseUser.getUserVesselHasValidLicense({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
                             <idega:validator ev:event="idega-validate">
                                 <idega:message errorType="required"
                                     model="data_model" value="instance('localized_strings')/fbc_37-required[@lang=instance('localized_strings')/current_language]"/>
@@ -652,6 +668,15 @@ Sigllingamálastofnun or Fiskistofa</fbc_37-help>
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_74-text[@lang=instance('localized_strings')/current_language]"/>
                         </xf:group>
                         
+                        <xf:group bind="fbc_108_bind" class="xformErrors">
+                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_108-text[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:group>
+                        <xf:group bind="fbc_109_bind">
+                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_109-text[@lang=instance('localized_strings')/current_language]">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_109-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                        </xf:group>
+                        
                         <xf:group bind="fbc_104_bind" class="xformErrors">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_104-text[@lang=instance('localized_strings')/current_language]"/>
                         </xf:group>
@@ -690,11 +715,11 @@ Sigllingamálastofnun or Fiskistofa</fbc_37-help>
                                     <xf:dispatch
                                     name="xforms-revalidate" target="data_model"/>
                                     <xf:dispatch name="xforms-refresh" target="data_model"/>
-                                    <xf:action if="count-non-empty(instance('error-instance')/error)=0 and instance('data-instance')/appValid='true' and instance('data-instance')/companyLicenseValid!='true' and instance('data-instance')/quotaWithinLimits='true'">
+                                    <xf:action if="count-non-empty(instance('error-instance')/error)=0 and instance('data-instance')/appValid='true' and instance('data-instance')/companyLicenseValid!='true' and instance('data-instance')/vesselHasValidLicense!='true' and instance('data-instance')/quotaWithinLimits='true'">
                                     <xf:send submission="submit_data_submission"/>
                                     </xf:action>
                                     <xf:dispatch
-                                    if="count-non-empty(instance('error-instance')/error)!=0 or instance('data-instance')/appValid!='true' or instance('data-instance')/companyLicenseValid='true' or instance('data-instance')/quotaWithinLimits!='true'"
+                                    if="count-non-empty(instance('error-instance')/error)!=0 or instance('data-instance')/appValid!='true' or instance('data-instance')/companyLicenseValid='true' or instance('data-instance')/vesselHasValidLicense='true' or instance('data-instance')/quotaWithinLimits!='true'"
                                     name="idega-submit-error" target="idega-submission-error"/>
                                 </xf:action>
                             </xf:trigger>
