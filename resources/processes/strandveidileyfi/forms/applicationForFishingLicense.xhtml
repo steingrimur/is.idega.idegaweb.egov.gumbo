@@ -43,6 +43,7 @@
                     <From_date_fbc_101 xsi:nil="true"/>
                     <fishingArea mapping="string_fishingArea" />
                     <validityFrom mapping="date_validityFrom" />
+                    <validityTo mapping="date_validityTo" />
                 </data>
             </xf:instance>
             <xf:instance id="control-instance">
@@ -513,6 +514,8 @@ Sigllingamálastofnun or Fiskistofa</fbc_37-help>
                                     name="idega-validate" target="fbc_101"/>
                                 <xf:setvalue 
                                     ref="instance('data-instance')/validityFrom" value="instance('data-instance')/From_date_fbc_101"/>
+                                <xf:setvalue 
+                                    ref="instance('data-instance')/validityTo" value="concat(substring(instance('data-instance')/From_date_fbc_101, 1, 4), '-08-31')"/>
                             </xf:action>
                             
                             <idega:validator ev:event="idega-validate" validateif=". = '' or ( days-from-date(.) &gt; days-from-date(concat(substring(., 1, 4), '-05-01'))-1 and days-from-date(.) &lt; days-from-date(concat(substring(., 1, 4), '-08-31'))+1 )" componentId="fbc_101">

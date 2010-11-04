@@ -8,9 +8,12 @@
             <expression>
                 String handlerRoleName = "bpm_fishingLicense_handler";
                 String ownerRoleName = "bpm_fishingLicense_owner";
+                
+                String remindBefore = "2 weeks";
             </expression>
             <variable name='handlerRoleName' access='write' />
             <variable name='ownerRoleName' access='write' />
+            <variable name='remindBefore' access='write' />
          </script>
   </event>
   <event type="process-start">
@@ -87,8 +90,19 @@
             
             <variable name="string_fishingArea" access="read,write"></variable>
             <variable name="date_validityFrom" access="read,write"></variable>
+            <variable name="date_validityTo" access="read,write"></variable>
          </controller>
       </task>
+      <event type="node-leave">
+           <script>
+                <expression>
+                    cardExpireRemindDate = com.idega.jbpm.proxy.JbpmHandlerProxy.bean("calendarOps").substract(validityTo, remindBefore);
+                </expression>
+                <variable name='date_cardExpireRemindDate' access='write' mapped-name='cardExpireRemindDate' />
+                <variable name='date_validityTo' access='read' mapped-name='validityTo' />
+                <variable name='remindBefore' access='read' />
+             </script>
+        </event>
       <transition to="notifyFinancialControllerIfThereIsADebt"></transition>
    </start-state>
    <task-node name="licenseRuling">
@@ -350,11 +364,11 @@
                 <handlerName>sendLicenseToApplicant</handlerName>
             </action>
         </event>
-		<transition to="ifLicenseExpirationDateIsDefined"></transition>
+		<transition to="runInvalidationWarningNotificationTimer"></transition>
 	</node>
 
 	<state name="runInvalidationWarningNotificationTimer">
-	   <timer duedate='#{date_licenseExpireRemindDate}'
+	   <timer duedate='#{date_cardExpireRemindDate}'
               transition='reminded'>
        </timer>
 		<transition to="sendInvalidationWarningNotification" name="reminded"></transition>
@@ -405,11 +419,6 @@
         </event>
 		<transition to="sendLicenseToApplicant"></transition>
 	</node>
-
-	<decision name="ifLicenseExpirationDateIsDefined" expression='#{date_licenseExpireRemindDate != null}'>
-		<transition to="runInvalidationWarningNotificationTimer" name="true"></transition>
-		<transition to="end-state1" name="false"></transition>
-	</decision>
 	
 	<idg:roles xmlns:idg="http://idega.com/bpm">
         <role name="bpm_fishingLicense_caseHandler">
