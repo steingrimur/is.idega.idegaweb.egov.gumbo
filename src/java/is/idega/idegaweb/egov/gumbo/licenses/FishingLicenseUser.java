@@ -94,7 +94,7 @@ public class FishingLicenseUser {
 	 */
 	public String getVesselHasValidGeneralFishingLicense(String vesselId) {
 		
-		return "false";
+		return "true";
 	}
 	
 	/**

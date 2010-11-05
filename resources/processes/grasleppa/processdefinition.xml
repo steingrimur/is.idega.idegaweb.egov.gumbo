@@ -9,11 +9,11 @@
                 String handlerRoleName = "bpm_fishingLicense_handler";
                 String ownerRoleName = "bpm_fishingLicense_owner";
                 
-                String remindBefore = "2 weeks";
+                String remindAfter = "50 weeks";
             </expression>
             <variable name='handlerRoleName' access='write' />
             <variable name='ownerRoleName' access='write' />
-            <variable name='remindBefore' access='write' />
+            <variable name='remindAfter' access='write' />
          </script>
   </event>
   <event type="process-start">
@@ -95,11 +95,11 @@
       <event type="node-leave">
            <script>
                 <expression>
-                    cardExpireRemindDate = com.idega.jbpm.proxy.JbpmHandlerProxy.bean("calendarOps").substract(validityTo, remindBefore);
+                    cardExpireRemindDate = com.idega.jbpm.proxy.JbpmHandlerProxy.bean("calendarOps").add(validityFrom, remindAfter);
                 </expression>
                 <variable name='date_cardExpireRemindDate' access='write' mapped-name='cardExpireRemindDate' />
-                <variable name='date_validityTo' access='read' mapped-name='validityTo' />
-                <variable name='remindBefore' access='read' />
+                <variable name='date_validityFrom' access='read' mapped-name='validityFrom' />
+                <variable name='remindAfter' access='read' />
              </script>
         </event>
       <transition to="notifyFinancialControllerIfThereIsADebt"></transition>
