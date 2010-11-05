@@ -96,7 +96,7 @@
          <controller>
             <variable name="string_rulingText" access="read,write"></variable>
             <variable name="files_processRullingAttachments"></variable>
-            
+            <variable name="string_documentKey" access="read,write,required"></variable>
          </controller>
         <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
 			<handlerName>jsonAssignmentHandler</handlerName>
@@ -113,7 +113,8 @@
 		</assignment>
       </task>
 		<transition to="updateCaseStatusToLicenseDenied" name="denied"></transition>
-		<transition to="updateCaseStatusToLicenseGrantedClaimUnpaid" name="granted"></transition>
+		<transition to="notifyFinanceDepartment" name="granted"></transition>
+		<transition to="fork1" name="pend"></transition>
    </task-node>
 
    <event type="handlerAssignedToCase">
@@ -203,52 +204,21 @@
 			    </propertyMap>
 		</action>
     </event>
-   <task-node name="saveDocumentKey">
-	  <task name="saveDocumentKeyTask">
-	     <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
-			<handlerName>jsonAssignmentHandler</handlerName>
-			<propertyMap key-type='java.lang.String' value-type='java.lang.String'>
-				<entry><key>expression</key>
-					<value>
-                {taskAssignment: {roles: {role: [
-	            {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}}
-	        	]} }}
-            </value>
-				</entry>
-			</propertyMap>
-		</assignment>
-	 	<controller>
-            <variable name="string_documentKey" access="read,write,required"></variable>
-         </controller>
-	</task>
-		<transition to="notifyFinanceDepartment"></transition>
-</task-node>
-
-	<node name="notifyFinanceDepartment">
+   <node name="notifyFinanceDepartment">
       <event type="node-enter">
             <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
                 <handlerName>notifyFinancialDepartment</handlerName>
             </action>
         </event>
-   	  <transition to="updateCaseStatusToHandlingInProgress"></transition>
+   	  <transition to="updateCaseStatusToLicenseGrantedClaimUnpaid"></transition>
    </node>
 
 	<end-state name="end-state2" end-complete-process="true"></end-state>
 
 	<end-state name="end-state1" end-complete-process="true"></end-state>
-	
-	<node name="updateCaseStatusToHandlingInProgress">
-	   <event type="node-enter">
-            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
-                <handlerName>casesStatusHandler</handlerName>
-                <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
-                    <entry><key>caseStatusMappedName</key><value>caseStatusInProcess</value></entry>
-                </propertyMap>
-            </action>
-        </event>
-		<transition to="licenseRuling"></transition>
-	</node>
 
+	<end-state name="end-state3"></end-state>
+	
 	<node name="updateCaseStatusToLicenseGrantedClaimUnpaid">
 	   <event type="node-enter">
             <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
@@ -316,7 +286,7 @@
 	            <handlerName>notifyFinancialControllerIfThereIsADebt</handlerName>
 	        </action>
 		</event>
-		<transition to="saveDocumentKey"></transition>
+		<transition to="licenseRuling"></transition>
 	</node>
 
 	<node name="sendLicenseFeeClaim">
@@ -368,6 +338,15 @@
             </action>
         </event>
 		<transition to="sendLicenseToApplicant"></transition>
+	</node>
+
+	<fork name="fork1">
+		<transition to="licenseRuling"></transition>
+		<transition to="sendMessageToApplicant" name="toSendMessageToApplicant"></transition>
+	</fork>
+
+	<node name="sendMessageToApplicant">
+		<transition to="end-state3"></transition>
 	</node>
 	
 	<idg:roles xmlns:idg="http://idega.com/bpm">
