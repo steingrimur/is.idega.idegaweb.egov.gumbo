@@ -127,7 +127,7 @@ public class FishingLicenseUser {
 	 */
 	public String getCompanyHasValidGrasleppa() {
 		
-		return "true";
+		return "false";
 	}
 	
 	/**
