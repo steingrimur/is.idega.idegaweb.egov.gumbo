@@ -121,6 +121,16 @@ public class FishingLicenseUser {
 	}
 	
 	/**
+	 * used in forms: grasleppa
+	 * 
+	 * @return string true or false
+	 */
+	public String getCompanyHasValidGrasleppa() {
+		
+		return "true";
+	}
+	
+	/**
 	 * used in forms: strandveidileyfi
 	 * 
 	 * @return string true or false
@@ -140,6 +150,11 @@ public class FishingLicenseUser {
 		return "true";
 	}
 	
+	/**
+	 * used in forms: strandveidileyfi
+	 * 
+	 * @return label of the company's fishing area
+	 */
 	public String getFishingArea() {
 		
 		return "13th fishing zone";
