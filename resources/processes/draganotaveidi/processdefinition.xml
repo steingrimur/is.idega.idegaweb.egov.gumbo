@@ -8,9 +8,13 @@
             <expression>
                 String handlerRoleName = "bpm_fishingLicense_handler";
                 String ownerRoleName = "bpm_fishingLicense_owner";
+                
+                String remindBefore = "2 weeks";
+                
             </expression>
             <variable name='handlerRoleName' access='write' />
             <variable name='ownerRoleName' access='write' />
+            <variable name='remindBefore' access='write' />
          </script>
   </event>
   <event type="process-start">
@@ -328,6 +332,11 @@
 	</node>
 
 	<state name="waitForPayment">
+	   <event type="node-leave">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>setDraganotveidiValidPeriod</handlerName>
+            </action>
+       </event>
 		<transition to="updateCaseStatusToRegisteredPayment"></transition>
 	</state>
 
@@ -401,6 +410,16 @@
             <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
                 <handlerName>issueLicense</handlerName>
             </action>
+        </event>
+        <event type="node-leave">
+           <script>
+                <expression>
+                    cardExpireRemindDate = com.idega.jbpm.proxy.JbpmHandlerProxy.bean("calendarOps").substract(validityTo, remindBefore);
+                </expression>
+                <variable name='date_cardExpireRemindDate' access='write' mapped-name='cardExpireRemindDate' />
+                <variable name='date_validityTo' access='read' mapped-name='validityTo' />
+                <variable name='remindBefore' access='read' />
+             </script>
         </event>
 		<transition to="sendLicenseToApplicant"></transition>
 	</node>
