@@ -355,6 +355,14 @@
 
 	<node name="issueLicense">
 	   <event type="node-enter">
+           <script>
+                <expression>
+                    validityFrom = new java.util.Date();
+                </expression>
+                <variable name='date_validityFrom' access='write' mapped-name='validityFrom' />
+             </script>
+      </event>
+	   <event type="node-enter">
             <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
                 <handlerName>issueLicense</handlerName>
             </action>
