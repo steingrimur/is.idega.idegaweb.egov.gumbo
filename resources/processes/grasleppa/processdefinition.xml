@@ -101,7 +101,7 @@
                 <variable name='date_validityFrom' access='read' mapped-name='validityFrom' />
                 <variable name='remindAfter' access='read' />
              </script>
-        </event>
+      </event>
       <transition to="notifyFinancialControllerIfThereIsADebt"></transition>
    </start-state>
    <task-node name="licenseRuling">

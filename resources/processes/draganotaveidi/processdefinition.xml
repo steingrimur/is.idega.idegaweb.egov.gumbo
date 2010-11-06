@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <process-definition
-  xmlns=""  name="FishingLicense">
+  xmlns=""  name="Draganotaveidi">
   
   <event type="process-start">
          <script>
             <expression>
                 String handlerRoleName = "bpm_fishingLicense_handler";
                 String ownerRoleName = "bpm_fishingLicense_owner";
+                
+                String remindBefore = "2 weeks";
+                
             </expression>
             <variable name='handlerRoleName' access='write' />
             <variable name='ownerRoleName' access='write' />
+            <variable name='remindBefore' access='write' />
          </script>
   </event>
   <event type="process-start">
@@ -79,14 +83,13 @@
             <variable name="string_ownerComments" access="read,write"></variable>
             <variable name="string_caseIdentifier" access="read"></variable>
             
-            <variable name="string_typeOfFishingLicense" access="read,write"></variable>
-            <variable name="string_licenseTypeLabel" access="read,write"></variable>
-            
             <variable name="string_vessel" access="read,write"></variable>
             <variable name="string_vesselRegistryNr" access="read,write"></variable>
             <variable name="string_vesselName" access="read,write"></variable>
             <variable name="string_vesselOwnersName" access="read,write"></variable>
             <variable name="string_vesselOwnersSocialSecurityNr" access="read,write"></variable>
+            
+            <variable name="string_fishingAreaLabel" access="read,write"></variable>
          </controller>
       </task>
       <transition to="notifyFinancialControllerIfThereIsADebt"></transition>
@@ -96,7 +99,7 @@
          <controller>
             <variable name="string_rulingText" access="read,write"></variable>
             <variable name="files_processRullingAttachments"></variable>
-            <variable name="string_documentKey" access="read,write,required"></variable>
+            
          </controller>
         <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
 			<handlerName>jsonAssignmentHandler</handlerName>
@@ -113,8 +116,7 @@
 		</assignment>
       </task>
 		<transition to="updateCaseStatusToLicenseDenied" name="denied"></transition>
-		<transition to="notifyFinanceDepartment" name="granted"></transition>
-		<transition to="fork1" name="pend"></transition>
+		<transition to="updateCaseStatusToLicenseGrantedClaimUnpaid" name="granted"></transition>
    </task-node>
 
    <event type="handlerAssignedToCase">
@@ -204,21 +206,52 @@
 			    </propertyMap>
 		</action>
     </event>
-   <node name="notifyFinanceDepartment">
+   <task-node name="saveDocumentKey">
+	  <task name="saveDocumentKeyTask">
+	     <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+			<handlerName>jsonAssignmentHandler</handlerName>
+			<propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+				<entry><key>expression</key>
+					<value>
+                {taskAssignment: {roles: {role: [
+	            {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}}
+	        	]} }}
+            </value>
+				</entry>
+			</propertyMap>
+		</assignment>
+	 	<controller>
+            <variable name="string_documentKey" access="read,write,required"></variable>
+         </controller>
+	</task>
+		<transition to="notifyFinanceDepartment"></transition>
+</task-node>
+
+	<node name="notifyFinanceDepartment">
       <event type="node-enter">
             <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
                 <handlerName>notifyFinancialDepartment</handlerName>
             </action>
         </event>
-   	  <transition to="updateCaseStatusToLicenseGrantedClaimUnpaid"></transition>
+   	  <transition to="updateCaseStatusToHandlingInProgress"></transition>
    </node>
 
 	<end-state name="end-state2" end-complete-process="true"></end-state>
 
 	<end-state name="end-state1" end-complete-process="true"></end-state>
-
-	<end-state name="end-state3"></end-state>
 	
+	<node name="updateCaseStatusToHandlingInProgress">
+	   <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>casesStatusHandler</handlerName>
+                <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                    <entry><key>caseStatusMappedName</key><value>caseStatusInProcess</value></entry>
+                </propertyMap>
+            </action>
+        </event>
+		<transition to="licenseRuling"></transition>
+	</node>
+
 	<node name="updateCaseStatusToLicenseGrantedClaimUnpaid">
 	   <event type="node-enter">
             <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
@@ -286,7 +319,7 @@
 	            <handlerName>notifyFinancialControllerIfThereIsADebt</handlerName>
 	        </action>
 		</event>
-		<transition to="licenseRuling"></transition>
+		<transition to="saveDocumentKey"></transition>
 	</node>
 
 	<node name="sendLicenseFeeClaim">
@@ -299,6 +332,11 @@
 	</node>
 
 	<state name="waitForPayment">
+	   <event type="node-leave">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>setDraganotveidiValidPeriod</handlerName>
+            </action>
+       </event>
 		<transition to="updateCaseStatusToRegisteredPayment"></transition>
 	</state>
 
@@ -320,33 +358,70 @@
                 <handlerName>sendLicenseToApplicant</handlerName>
             </action>
         </event>
+		<transition to="runInvalidationWarningNotificationTimer"></transition>
+	</node>
+
+	<state name="runInvalidationWarningNotificationTimer">
+	   <timer duedate='#{date_cardExpireRemindDate}'
+              transition='reminded'>
+       </timer>
+		<transition to="sendInvalidationWarningNotification" name="reminded"></transition>
+	</state>
+
+	<node name="sendInvalidationWarningNotification">
+	   <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy">
+                <handlerName>sendCaseMessagesHandler</handlerName>
+                <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                    <entry>
+                        <key>inlineSubject</key>
+                        <value>
+                            ${
+                            Map subjectMap = new HashMap();
+                            subjectMap.put("en", "Please update your fishing license");
+                            subjectMap.put("is_IS", "Please update your fishing license");
+                            return subjectMap;
+                            }
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>inlineMessage</key>
+                        <value>
+                            ${
+                            
+                            Map messageMap = new HashMap();
+                            messageMap.put("en", "Please update your fishing license");
+                            messageMap.put("is_IS", "Please update your fishing license");
+                            
+                            return messageMap;
+                            
+                            }
+                        </value>
+                    </entry>
+                    <entry><key>sendToRoles</key><value>bpm_fishingLicense_owner</value></entry>
+                </propertyMap>
+            </action>
+        </event>
 		<transition to="end-state1"></transition>
 	</node>
 
 	<node name="issueLicense">
 	   <event type="node-enter">
-           <script>
-                <expression>
-                    validityFrom = new java.util.Date();
-                </expression>
-                <variable name='date_validityFrom' access='write' mapped-name='validityFrom' />
-             </script>
-      </event>
-	   <event type="node-enter">
             <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
                 <handlerName>issueLicense</handlerName>
             </action>
         </event>
+        <event type="node-leave">
+           <script>
+                <expression>
+                    cardExpireRemindDate = com.idega.jbpm.proxy.JbpmHandlerProxy.bean("calendarOps").substract(validityTo, remindBefore);
+                </expression>
+                <variable name='date_cardExpireRemindDate' access='write' mapped-name='cardExpireRemindDate' />
+                <variable name='date_validityTo' access='read' mapped-name='validityTo' />
+                <variable name='remindBefore' access='read' />
+             </script>
+        </event>
 		<transition to="sendLicenseToApplicant"></transition>
-	</node>
-
-	<fork name="fork1">
-		<transition to="licenseRuling"></transition>
-		<transition to="sendMessageToApplicant" name="toSendMessageToApplicant"></transition>
-	</fork>
-
-	<node name="sendMessageToApplicant">
-		<transition to="end-state3"></transition>
 	</node>
 	
 	<idg:roles xmlns:idg="http://idega.com/bpm">

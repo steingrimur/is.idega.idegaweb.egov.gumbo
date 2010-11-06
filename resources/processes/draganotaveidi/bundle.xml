@@ -8,6 +8,9 @@
         <task name="applicationForFishingLicenseTask" initial="true">
             <viewResource resourceIdentifier="forms/applicationForFishingLicense.xhtml" viewType="xforms" viewResourceType="xforms" />
         </task>
+        <task name="saveDocumentKeyTask">
+            <viewResource resourceIdentifier="forms/saveDocumentKey.xhtml" viewType="xforms" viewResourceType="xforms" />
+        </task>
         <task name="licenseRulingTask">
             <viewResource resourceIdentifier="forms/licenseRuling.xhtml" viewType="xforms" viewResourceType="xforms" />
         </task>

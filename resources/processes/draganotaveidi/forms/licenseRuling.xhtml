@@ -10,8 +10,8 @@
         <xf:model id="submission_model" schema="#fb-schema">
             <xf:instance id="data-instance" xmlns="">
                 <data>
-                    <form_id>927</form_id>
-                    <Message_fbc_5 mapping="string_rulingText"/>
+                    <form_id>559</form_id>
+                    <Ruling_text_fbc_5 mapping="string_rulingText"></Ruling_text_fbc_5>
                     <Multi_file_upload_with_description_fbc_8 mapping="files_processRullingAttachments">
                         <group/>
                         <entry filename="" mediatype="">
@@ -22,12 +22,10 @@
                         </entry>
                     </Multi_file_upload_with_description_fbc_8>
                     <actionTaken mapping="string_actionTaken"/>
-                    <Document_key_fbc_12 mapping="string_documentKey"/>
                 </data>
             </xf:instance>
             <xf:instance id="control-instance">
                 <control xmlns="">
-                    <required>true</required>
                     <readonly>false</readonly>
                     <submission>false</submission>
                     <generatePdf>false</generatePdf>
@@ -58,13 +56,10 @@
                 <xf:bind id="fbc_8-entries"
                     nodeset="../entry[position() != last()]" type="xs:anyURI"/>
             </xf:bind>
-            <xf:bind id="fbc_5_bind" nodeset="Message_fbc_5" readonly="instance('control-instance')/readonly = 'true'"/>
+            <xf:bind id="fbc_5_bind" nodeset="Ruling_text_fbc_5" readonly="instance('control-instance')/readonly = 'true'"/>
             <xf:bind id="bind-submissionButton" idega:shared="true"
                 nodeset="instance('control-instance')/submissionButton" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
             <xf:bind id="actionTaken" nodeset="actionTaken" shared="true"/>
-            <xf:bind id="fbc_12_bind" nodeset="Document_key_fbc_12"
-                readonly="instance('control-instance')/readonly = 'true'"
-                required="instance('control-instance')/required = 'true'" type="xs:string"/>
         </xf:model>
         <xf:model id="data_model">
             <xf:instance id="localized_strings" xmlns="">
@@ -80,7 +75,7 @@
                     <page-2-info lang="en">Form submitted, thank You!</page-2-info>
                     <page-2-info lang="is_IS">Niðurstaða málsins hefur verið vistuð og skilaboð send málsaðilum. Málinu telst nú lokið en þó ekki lokað. Nú bætist við eftirfylgnimöguleiki þar sem hægt er að senda öllum málsaðilum fyrirspurn.</page-2-info>
                     <fbc_5-title lang="is_IS">Niðurstaða</fbc_5-title>
-                    <fbc_5-title lang="en">Message</fbc_5-title>
+                    <fbc_5-title lang="en">Ruling text</fbc_5-title>
                     <fbc_8-title lang="is_IS">Viðhengi</fbc_8-title>
                     <fbc_8-title lang="en">Attachements</fbc_8-title>
                     <fbc_8-label lang="is_IS">Bæta við viðhengi</fbc_8-label>
@@ -101,16 +96,6 @@
                     <fbc_9-label lang="en">Grant</fbc_9-label>
                     <fbc_10-label lang="is_IS">Senda</fbc_10-label>
                     <fbc_10-label lang="en">Deny</fbc_10-label>
-                    <fbc_11-text lang="is_IS">Fyrirsögn</fbc_11-text>
-                    <fbc_11-text lang="en">Select document key</fbc_11-text>
-                    <fbc_12-label lang="is_IS">Fellilist</fbc_12-label>
-                    <fbc_12-label lang="en">Document key</fbc_12-label>
-                    <fbc_12-required lang="is_IS">Það þarf að fylla út reitinn X</fbc_12-required>
-                    <fbc_12-required lang="en">The field X is required</fbc_12-required>
-                    <fbc_13-text lang="is_IS">Fyrirsögn</fbc_13-text>
-                    <fbc_13-text lang="en">Case ruling</fbc_13-text>
-                    <fbc_14-label lang="is_IS">Senda</fbc_14-label>
-                    <fbc_14-label lang="en">Pend</fbc_14-label>
                 </localized_strings>
             </xf:instance>
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
@@ -119,23 +104,6 @@
                     ref="instance('localized_strings')/current_language" value="instance('locale-instance')/fb-afk-loginSession.currentLocale"/>
                 <idega:dispatch name="idega-xforms-ready" target="//h:body//*[starts-with(@id, 'fbc_')]"/>
             </xf:action>
-            <xf:instance id="fbc_12_lds" xmlns="">
-                <local_src> 
-	                <localizedEntries lang="en">
-			        <item> 
-			            <itemLabel>3.1.1 Veiðileyfi og aflaheimildir</itemLabel>
-			            <itemValue>3.1.1</itemValue> 
-			        </item> 
-			        </localizedEntries>
-			        <localizedEntries lang="is_IS">
-			            <itemLabel>3.1.1 Veiðileyfi og aflaheimildir</itemLabel>
-			            <itemValue>3.1.1</itemValue>
-			        </localizedEntries> 
-		         </local_src>
-            </xf:instance>
-            <xf:instance id="fbc_12_eds" xmlns="">
-                <ext_src/>
-            </xf:instance>
         </xf:model>
         <xs:schema id="fb-schema"/>
     </head>
@@ -151,33 +119,10 @@
             <idega:switch>
                 <idega:case id="fbc_1" show="instance('control-instance')/generatePdf='true'">
                     <xf:group appearance="full">
-                        <!-- upload -->
-                        <div class="fbc_header_text" id="fbc_11" type="fbc_header_text">
-                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_11-text[@lang=instance('localized_strings')/current_language]"/>
-                        </div>
-                        <xf:select1 appearance="minimal"
-                            bind="fbc_12_bind" id="fbc_12" type="fbc_single_select_minimal">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_12-label[@lang=instance('localized_strings')/current_language]"/>
-                            <xf:itemset model="data_model" nodeset="instance('fbc_12_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
-                                <xf:label ref="itemLabel"/>
-                                <xf:value ref="itemValue"/>
-                            </xf:itemset>
-                            <xf:dispatch ev:event="idega-xforms-ready"
-                                name="idega-validate" target="fbc_12"/>
-                            <xf:dispatch ev:event="xforms-value-changed"
-                                name="idega-validate" target="fbc_12"/>
-                            <idega:validator ev:event="idega-validate">
-                                <idega:message errorType="required"
-                                    model="data_model" value="instance('localized_strings')/fbc_12-required[@lang=instance('localized_strings')/current_language]"/>
-                            </idega:validator>
-                            <xf:alert ref="instance('error-instance')/error[@for='fbc_12']"/>
-                        </xf:select1>
-                        <div class="fbc_header_text" id="fbc_13" type="fbc_header_text">
-                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_13-text[@lang=instance('localized_strings')/current_language]"/>
-                        </div>
                         <xf:textarea bind="fbc_5_bind" id="fbc_5">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_5-title[@lang=instance('localized_strings')/current_language]"/>
                         </xf:textarea>
+                        <!-- upload -->
                         <xf:group appearance="full" bind="fbc_8_bind"
                             id="fbc_8" type="fbc_multiupload">
                             <idega:dispatch
@@ -267,29 +212,6 @@
                                     <xf:setvalue
                                     ref="instance('control-instance')/submission" value="'true'"/>
                                     <xf:setvalue bind="actionTaken">denied</xf:setvalue>
-                                    <idega:dispatch
-                                    name="idega-validate" target="//h:body//*[starts-with(@id, 'fbc_')]"/>
-                                    <xf:dispatch name="xforms-rebuild" target="data_model"/>
-                                    <xf:dispatch
-                                    name="xforms-recalculate" target="data_model"/>
-                                    <xf:dispatch
-                                    name="xforms-revalidate" target="data_model"/>
-                                    <xf:dispatch name="xforms-refresh" target="data_model"/>
-                                    <xf:action if="count-non-empty(instance('error-instance')/error)=0">
-                                    <xf:send submission="submit_data_submission"/>
-                                    </xf:action>
-                                    <xf:dispatch
-                                    if="count-non-empty(instance('error-instance')/error)!=0"
-                                    name="idega-submit-error" target="idega-submission-error"/>
-                                </xf:action>
-                            </xf:trigger>
-                            <xf:trigger bind="bind-submissionButton"
-                                class="fbc_button_submit" id="fbc_14" type="fbc_button_submit">
-                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_14-label[@lang=instance('localized_strings')/current_language]"/>
-                                <xf:action ev:event="DOMActivate">
-                                    <xf:setvalue
-                                    ref="instance('control-instance')/submission" value="'true'"/>
-                                    <xf:setvalue bind="actionTaken">pend</xf:setvalue>
                                     <idega:dispatch
                                     name="idega-validate" target="//h:body//*[starts-with(@id, 'fbc_')]"/>
                                     <xf:dispatch name="xforms-rebuild" target="data_model"/>

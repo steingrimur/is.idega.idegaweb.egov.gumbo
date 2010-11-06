@@ -68,6 +68,23 @@ public class FishingLicenseUser {
 	}
 	
 	/**
+	 * used in the forms: draganotaveidi
+	 * 
+	 * @return TODO: Areas are defined in the Admin environment in the solution. Now there are 4
+	 *         areas: A: Out of the Verstfjords and Breidafjordur B: Out of the north coast C: Out
+	 *         of north-east coast and Eastfjords D: Out of the south- and vestcoast
+	 */
+	public List<Item> getFishingAreasForDraganotaveidi() {
+		
+		final List<Item> items = new ArrayList<Item>(2);
+		
+		items.add(new Item("area1", "Fishing area for draganotaveidi 1"));
+		items.add(new Item("area2", "Fishing area for draganotaveidi 2"));
+		
+		return items;
+	}
+	
+	/**
 	 * used in the forms: general fishing license
 	 * 
 	 * @return text informing user that he has some kind of a license (which is not in the available
@@ -121,13 +138,33 @@ public class FishingLicenseUser {
 	}
 	
 	/**
+	 * used in forms: draganotaveidi
+	 * 
+	 * @return string true or false
+	 */
+	public String getCompanyAddressFallsInArea(String areaId) {
+		
+		return "true";
+	}
+	
+	/**
+	 * used in forms: draganotaveidi
+	 * 
+	 * @return string true or false
+	 */
+	public String getVesselHasValidAflamarksleyfi(String vesselId) {
+		
+		return "true";
+	}
+	
+	/**
 	 * used in forms: grasleppa
 	 * 
 	 * @return string true or false
 	 */
 	public String getCompanyHasValidGrasleppa() {
 		
-		return "true";
+		return "false";
 	}
 	
 	/**
