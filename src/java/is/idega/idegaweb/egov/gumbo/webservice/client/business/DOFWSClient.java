@@ -12,14 +12,18 @@ import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.GetskipinfobyutgerdE
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
 
 import java.math.BigDecimal;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.Calendar;
+
+import javax.xml.rpc.ServiceException;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import com.idega.idegaweb.IWMainApplication;
+import com.idega.util.IWTimestamp;
 
 @Scope("singleton")
 @Service("dofWSClient")
@@ -101,5 +105,27 @@ public class DOFWSClient {
 		}
 		
 		return null;
+	}
+	
+	public static void main(String[] arguments) {
+		try {
+			FSWebServiceLANDANIR_ServiceLocator locator = new FSWebServiceLANDANIR_ServiceLocator();
+			FSWebServiceLANDANIR_PortType port = locator.getFSWebServiceLANDANIRSoap12HttpPort(new URL("http://hafrok.hafro.is/FSWebServices/FSWebServiceLANDANIRSoap12HttpPort"));
+			
+			GetlandanirbyskipElement parameter = new GetlandanirbyskipElement(new BigDecimal(1578), new IWTimestamp(1, 1, 2010).getCalendar(), new IWTimestamp(31, 12, 2010).getCalendar());
+			LondunTypeUser[] array = port.getlandanirbyskip(parameter);
+			for (LondunTypeUser afli : array) {
+				System.out.println(afli.getKomunr() + " - " + afli.getHofn());
+			}
+		}
+		catch (ServiceException se) {
+			se.printStackTrace();
+		}
+		catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		catch (RemoteException re) {
+			re.printStackTrace();
+		}
 	}
 }
