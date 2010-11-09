@@ -61,8 +61,13 @@ public class FishingLicenseUser {
 		
 		final List<Item> items = new ArrayList<Item>(2);
 		
-		items.add(new Item("area1", "Fishing area 1"));
-		items.add(new Item("area2", "Fishing area 2"));
+		items.add(new Item("A", "Faxaflói"));
+		items.add(new Item("B", "Breyðafjörður"));
+		items.add(new Item("C", "Vestfirðir"));
+		items.add(new Item("D", "Húnaflói"));
+		items.add(new Item("E", "Norðurland"));
+		items.add(new Item("F", "Austurland"));
+		items.add(new Item("G", "Suðurland"));
 		
 		return items;
 	}

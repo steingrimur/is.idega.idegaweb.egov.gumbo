@@ -1,7 +1,6 @@
 package is.idega.idegaweb.egov.gumbo.licenses;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import org.jbpm.graph.def.ActionHandler;
 import org.jbpm.graph.exe.ExecutionContext;
@@ -18,7 +17,7 @@ public class SetDraganotveidiValidPeriod implements ActionHandler {
 	@Override
 	public void execute(ExecutionContext executionContext) throws Exception {
 		
-		final Period period;
+		final Inteval period;
 		
 		final Calendar now = Calendar.getInstance();
 		now.set(Calendar.HOUR, 0);
@@ -34,7 +33,7 @@ public class SetDraganotveidiValidPeriod implements ActionHandler {
 		
 		if (now.after(mayStart) && now.before(augEnd)) {
 			
-			period = new Period(now.getTime(), augEnd.getTime());
+			period = new Inteval(now.getTime(), augEnd.getTime());
 			
 		} else {
 			
@@ -45,26 +44,7 @@ public class SetDraganotveidiValidPeriod implements ActionHandler {
 		executionContext.setVariable("date_validityTo", period.getTo());
 	}
 	
-	private static final class Period {
-		
-		private final Date from;
-		private final Date to;
-		
-		public Period(Date from, Date to) {
-			this.from = from;
-			this.to = to;
-		}
-		
-		public Date getFrom() {
-			return from;
-		}
-		
-		public Date getTo() {
-			return to;
-		}
-	}
-	
-	private Period findNearestPeriod(Calendar now) {
+	private Inteval findNearestPeriod(Calendar now) {
 		
 		final int year;
 		
@@ -82,6 +62,6 @@ public class SetDraganotveidiValidPeriod implements ActionHandler {
 		final Calendar augEnd = Calendar.getInstance();
 		augEnd.set(year, Calendar.AUGUST, 31, 0, 0, 0);
 		
-		return new Period(mayStart.getTime(), augEnd.getTime());
+		return new Inteval(mayStart.getTime(), augEnd.getTime());
 	}
 }

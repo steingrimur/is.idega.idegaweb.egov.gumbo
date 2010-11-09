@@ -89,7 +89,9 @@
             <variable name="string_vesselOwnersSocialSecurityNr" access="read,write"></variable>
             
             <variable name="string_fishingAreaLabel" access="read,write"></variable>
-            <variable name="date_validityFrom" access="read,write"></variable>
+            
+            <variable name="date_licenseValidFrom" access="read,write"></variable>
+            <variable name="date_licenseValidTo" access="read,write"></variable>
          </controller>
       </task>
       <event type="node-leave">

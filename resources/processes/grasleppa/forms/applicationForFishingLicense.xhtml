@@ -41,10 +41,13 @@
                     <saveFormData>
                         <submissionId/>
                     </saveFormData>
-                    <From_date_fbc_101 xsi:nil="true"/>
-                    <validityFrom mapping="date_validityFrom"/>
                     <Select_the_fishing_area_fbc_110/>
                     <fishingAreaLabel mapping="string_fishingAreaLabel"/>
+                    <licenseInterval>
+                        <from mapping="date_licenseValidFrom"></from>
+                        <to mapping="date_licenseValidTo"></to>
+                    </licenseInterval>
+                    <licenseIntervalVisible />
                 </data>
             </xf:instance>
             <xf:instance id="control-instance">
@@ -138,10 +141,7 @@
             <xf:bind id="fbc_107_bind" nodeset="vesselHasNotValidGeneralFishingLicense" relevant="instance('data-instance')/vesselHasValidGeneralFishingLicense != 'true'"/>
             <xf:bind id="debtMessageContainer"
                 nodeset="debtMessageContainer" relevant="instance('control-instance')/userIsInDebt != 'false'"/>
-            <xf:bind id="fbc_101_bind" nodeset="From_date_fbc_101"
-                required="instance('control-instance')/required = 'true'" type="date"/>
             <xf:bind id="fbc_102_bind" nodeset="fishingAreaLabel"/>
-            <xf:bind id="fbc_103_bind" nodeset="validityFrom"/>
             <xf:bind id="fbc_110_bind"
                 nodeset="Select_the_fishing_area_fbc_110"
                 readonly="instance('control-instance')/readonly = 'true'"
@@ -149,6 +149,10 @@
                 
             <xf:bind id="fbc_111_bind" nodeset="companyHasValidGrasleppa" relevant="instance('data-instance')/companyHasValidGrasleppa = 'true'"/>
             <xf:bind id="fbc_112_bind" nodeset="companyHasNotValidGrasleppa" relevant="instance('data-instance')/companyHasValidGrasleppa != 'true'"/>
+            
+            <xf:bind id="fbc_113_bind" nodeset="licenseIntervalVisible" relevant="instance('data-instance')/licenseInterval/from != '' and instance('data-instance')/licenseInterval/to != ''"/>
+            <xf:bind id="fbc_114_bind" nodeset="licenseInterval/from" />
+            <xf:bind id="fbc_115_bind" nodeset="licenseInterval/to" />
         </xf:model>
         <xf:model id="data_model">
             <xf:instance id="localized_strings" xmlns="">
@@ -312,15 +316,8 @@ Sigllingamálastofnun or Fiskistofa</fbc_37-help>
                     <page-4-label lang="is_IS">Hlekkur sendur</page-4-label>
                     <page-4-info lang="en">Link sent, thank You!</page-4-info>
                     <page-4-info lang="is_IS">Hlekkur á umsóknina hefur verið sendur á netfangið sem þú skráðir</page-4-info>
-                    <fbc_101-label lang="is_IS">Date </fbc_101-label>
-                    <fbc_101-label lang="en">From date</fbc_101-label>
-                    <fbc_101-required lang="is_IS">Það þarf að fylla út reitinn X</fbc_101-required>
-                    <fbc_101-required lang="en">The field X is required</fbc_101-required>
-                    <fbc_101-help lang="en">Please select the "from date" for the fishing license from the small calendar.</fbc_101-help>
                     <fbc_102-label lang="is_IS">Fishing area</fbc_102-label>
                     <fbc_102-label lang="en">Fishing area</fbc_102-label>
-                    <fbc_103-label lang="is_IS">Validity from</fbc_103-label>
-                    <fbc_103-label lang="en">Validity from</fbc_103-label>
                     <fbc_110-label lang="is_IS">Fellilist</fbc_110-label>
                     <fbc_110-label lang="en">Select the fishing area</fbc_110-label>
                     <fbc_110-help lang="is_IS">Please select the  fishing area, which you plan to utilize</fbc_110-help>
@@ -333,6 +330,10 @@ Sigllingamálastofnun or Fiskistofa</fbc_37-help>
                     <fbc_112-text lang="en">False</fbc_112-text>
                     <fbc_112-label lang="is_IS">The Fishing company has a valid "grasleppa"</fbc_112-label>
                     <fbc_112-label lang="en">The Fishing company has a valid "grasleppa"</fbc_112-label>
+                    <fbc_114-label lang="is_IS">License is valid from</fbc_114-label>
+                    <fbc_114-label lang="en">License is valid from</fbc_114-label>
+                    <fbc_115-label lang="is_IS">License is valid to</fbc_115-label>
+                    <fbc_115-label lang="en">License is valid to</fbc_115-label>
                 </localized_strings>
             </xf:instance>
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
@@ -505,24 +506,15 @@ Sigllingamálastofnun or Fiskistofa</fbc_37-help>
                         <div class="fbc_header_text" id="fbc_19" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_19-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
-                        <xf:input bind="fbc_101_bind" id="fbc_101" type="fbc_date">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_101-label[@lang=instance('localized_strings')/current_language]"/>
-                            <xf:dispatch ev:event="idega-xforms-ready"
-                                name="idega-validate" target="fbc_101"/>
-                            <xf:action ev:event="xforms-value-changed">
-                                <xf:dispatch name="idega-validate" target="fbc_101"/>
-                                <xf:setvalue
-                                    ref="instance('data-instance')/validityFrom" value="instance('data-instance')/From_date_fbc_101"/>
-                            </xf:action>
-                            <idega:validator ev:event="idega-validate">
-                                <idega:message errorType="required"
-                                    model="data_model" value="instance('localized_strings')/fbc_101-required[@lang=instance('localized_strings')/current_language]"/>
-                            </idega:validator>
-                            <xf:alert ref="instance('error-instance')/error[@for='fbc_101']"/>
-                            <xf:help>
-                                <xf:output ref="instance('localized_strings')/fbc_101-help[@lang=instance('localized_strings')/current_language]"/>
-                            </xf:help>
-                        </xf:input>
+                        <xf:group bind="fbc_113_bind">
+                            <xf:output model="data_model" bind="fbc_114_bind">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_114-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output model="data_model" bind="fbc_115_bind">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_115-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                        </xf:group>
+                        
                         <xf:select1 appearance="minimal"
                             bind="fbc_110_bind" id="fbc_110" type="fbc_single_select_minimal">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_110-label[@lang=instance('localized_strings')/current_language]"/>
@@ -538,6 +530,11 @@ Sigllingamálastofnun or Fiskistofa</fbc_37-help>
                                 ev:event="xforms-value-changed"
                                 multiple="true()"
                                 ref="instance('data-instance')/fishingAreaLabel" value="instance('fbc_110_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/Select_the_fishing_area_fbc_110]/itemLabel"/>
+                            <idega:setvalue
+                                ev:event="xforms-value-changed"
+                                multiple="true()"
+                                placeResponseDocument="true()"
+                                ref="instance('data-instance')/licenseInterval" value="idega:resolveBeanProperties('fishingLicensesService.getLicenseIntervalForGrasleppa({0})', '#{instance(`data-instance`)/Select_the_fishing_area_fbc_110}')"/>
                             
                             <xf:dispatch ev:event="idega-xforms-ready"
                                 name="idega-validate" target="fbc_110"/>
@@ -656,9 +653,14 @@ Sigllingamálastofnun or Fiskistofa</fbc_37-help>
                         <div class="fbc_header_text" id="fbc_57" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_57-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
-                        <xf:output bind="fbc_103_bind" id="fbc_103" type="fbc_text_output">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_103-label[@lang=instance('localized_strings')/current_language]"/>
-                        </xf:output>
+                        <xf:group bind="fbc_113_bind">
+                            <xf:output model="data_model" bind="fbc_114_bind">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_114-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output model="data_model" bind="fbc_115_bind">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_115-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                        </xf:group>
                         <xf:output bind="fbc_102_bind" id="fbc_102" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_102-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
