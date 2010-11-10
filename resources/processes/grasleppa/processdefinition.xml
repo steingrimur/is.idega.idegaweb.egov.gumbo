@@ -269,7 +269,7 @@
                             ${
                             Map subjectMap = new HashMap();
                             subjectMap.put("en", "Fishing license denied");
-                            subjectMap.put("is_IS", "Fishing license denied");
+                            subjectMap.put("is_IS", "Umsókn þinni um veiðileyfi hefur verið hafnað");
                             return subjectMap;
                             }
                         </value>
@@ -281,7 +281,7 @@
                             
                             Map messageMap = new HashMap();
                             messageMap.put("en", "Your application for a fishing license has been denied.");
-                            messageMap.put("is_IS", "Your application for a fishing license has been denied.");
+                            messageMap.put("is_IS", "Umsókn þinni um veiðileyfi hefur verið hafnað.");
                             
                             return messageMap;
                             
@@ -356,7 +356,7 @@
                             ${
                             Map subjectMap = new HashMap();
                             subjectMap.put("en", "Please update your fishing license");
-                            subjectMap.put("is_IS", "Please update your fishing license");
+                            subjectMap.put("is_IS", "Vinsamlega endurnýjið veiðileyfi fyrir komandi fiskveiðiár");
                             return subjectMap;
                             }
                         </value>
@@ -368,7 +368,7 @@
                             
                             Map messageMap = new HashMap();
                             messageMap.put("en", "Please update your fishing license");
-                            messageMap.put("is_IS", "Please update your fishing license");
+                            messageMap.put("is_IS", "Vinsamlega endurnýjið veiðileyfi fyrir komandi fiskveiðiár.");
                             
                             return messageMap;
                             
@@ -402,7 +402,7 @@
                             ${
                             Map subjectMap = new HashMap();
                             subjectMap.put("en", "Application was suspended");
-                            subjectMap.put("is_IS", "Application was suspended");
+                            subjectMap.put("is_IS", "Umsókn þín er í skoðun hjá Fiskistofu");
                             return subjectMap;
                             }
                             
@@ -414,7 +414,7 @@
                             ${
                             Map messageMap = new HashMap();
                             messageMap.put("en", "Application was suspended. Message from the handler: "+resolver.get("string_rulingText"));
-                            messageMap.put("is_IS", "Application was suspended. Message from the handler: "+resolver.get("string_rulingText"));
+                            messageMap.put("is_IS", "Umsókn þín er í skoðun hjá Fiskistofu. "+resolver.get("string_rulingText"));
                             return messageMap;
                             }
                         </value>

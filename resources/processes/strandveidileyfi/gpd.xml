@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="Strandveidileyfi" width="678" height="1248">
+<root-container name="Strandveidileyfi" width="1054" height="1248">
   <node name="applicationForFishingLicense" x="195" y="37" width="164" height="34">
     <edge>
       <label x="5" y="-10"/>
@@ -24,6 +24,7 @@
   </node>
   <node name="end-state2" x="144" y="678" width="22" height="24"/>
   <node name="end-state1" x="481" y="1223" width="23" height="24"/>
+  <node name="end-state3" x="550" y="345" width="24" height="24"/>
   <node name="updateCaseStatusToLicenseGrantedClaimUnpaid" x="368" y="555" width="247" height="36">
     <edge>
       <label x="5" y="-10"/>
@@ -93,5 +94,4 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="end-state3" x="550" y="345" width="24" height="24"/>
 </root-container>
