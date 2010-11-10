@@ -28,8 +28,6 @@ public class Inteval {
 		public XFormsInteval(String from, String to) {
 			this.from = from;
 			this.to = to;
-			
-			System.out.println("XFormsInteval, from: " + from + ", to: " + to);
 		}
 		
 		public String getFrom() {

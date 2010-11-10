@@ -124,8 +124,6 @@ public class FishingLicensesService {
 	
 	private XFormsInteval fromIntervalToXFormsInterval(Inteval iv) {
 		
-		System.out.println("iv, from: " + iv.getFrom() + ", to: " + iv.getTo());
-		
 		return new XFormsInteval(getDateConverter()
 		        .convertDateToComplyWithXForms(iv.getFrom()),
 		        getDateConverter().convertDateToComplyWithXForms(iv.getTo()));
