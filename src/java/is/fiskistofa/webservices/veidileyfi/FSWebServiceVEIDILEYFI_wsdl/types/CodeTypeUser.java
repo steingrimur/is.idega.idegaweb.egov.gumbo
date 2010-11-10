@@ -1,5 +1,5 @@
 /**
- * CheckReplyTypeUser.java
+ * CodeTypeUser.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
@@ -7,65 +7,65 @@
 
 package is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types;
 
-public class CheckReplyTypeUser  extends is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types.CheckReplyTypeBase  implements java.io.Serializable {
-    private java.lang.String message;
+public class CodeTypeUser  extends is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types.CodeTypeBase  implements java.io.Serializable {
+    private java.lang.String code;
 
-    private java.math.BigDecimal isok;
+    private java.lang.String text;
 
-    public CheckReplyTypeUser() {
+    public CodeTypeUser() {
     }
 
-    public CheckReplyTypeUser(
-           java.lang.String message,
-           java.math.BigDecimal isok) {
-        this.message = message;
-        this.isok = isok;
-    }
-
-
-    /**
-     * Gets the message value for this CheckReplyTypeUser.
-     * 
-     * @return message
-     */
-    public java.lang.String getMessage() {
-        return message;
+    public CodeTypeUser(
+           java.lang.String code,
+           java.lang.String text) {
+        this.code = code;
+        this.text = text;
     }
 
 
     /**
-     * Sets the message value for this CheckReplyTypeUser.
+     * Gets the code value for this CodeTypeUser.
      * 
-     * @param message
+     * @return code
      */
-    public void setMessage(java.lang.String message) {
-        this.message = message;
+    public java.lang.String getCode() {
+        return code;
     }
 
 
     /**
-     * Gets the isok value for this CheckReplyTypeUser.
+     * Sets the code value for this CodeTypeUser.
      * 
-     * @return isok
+     * @param code
      */
-    public java.math.BigDecimal getIsok() {
-        return isok;
+    public void setCode(java.lang.String code) {
+        this.code = code;
     }
 
 
     /**
-     * Sets the isok value for this CheckReplyTypeUser.
+     * Gets the text value for this CodeTypeUser.
      * 
-     * @param isok
+     * @return text
      */
-    public void setIsok(java.math.BigDecimal isok) {
-        this.isok = isok;
+    public java.lang.String getText() {
+        return text;
+    }
+
+
+    /**
+     * Sets the text value for this CodeTypeUser.
+     * 
+     * @param text
+     */
+    public void setText(java.lang.String text) {
+        this.text = text;
     }
 
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
-        if (!(obj instanceof CheckReplyTypeUser)) return false;
-        CheckReplyTypeUser other = (CheckReplyTypeUser) obj;
+        if (!(obj instanceof CodeTypeUser)) return false;
+        CodeTypeUser other = (CodeTypeUser) obj;
         if (obj == null) return false;
         if (this == obj) return true;
         if (__equalsCalc != null) {
@@ -74,12 +74,12 @@ public class CheckReplyTypeUser  extends is.fiskistofa.webservices.veidileyfi.FS
         __equalsCalc = obj;
         boolean _equals;
         _equals = super.equals(obj) && 
-            ((this.message==null && other.getMessage()==null) || 
-             (this.message!=null &&
-              this.message.equals(other.getMessage()))) &&
-            ((this.isok==null && other.getIsok()==null) || 
-             (this.isok!=null &&
-              this.isok.equals(other.getIsok())));
+            ((this.code==null && other.getCode()==null) || 
+             (this.code!=null &&
+              this.code.equals(other.getCode()))) &&
+            ((this.text==null && other.getText()==null) || 
+             (this.text!=null &&
+              this.text.equals(other.getText())));
         __equalsCalc = null;
         return _equals;
     }
@@ -91,11 +91,11 @@ public class CheckReplyTypeUser  extends is.fiskistofa.webservices.veidileyfi.FS
         }
         __hashCodeCalc = true;
         int _hashCode = super.hashCode();
-        if (getMessage() != null) {
-            _hashCode += getMessage().hashCode();
+        if (getCode() != null) {
+            _hashCode += getCode().hashCode();
         }
-        if (getIsok() != null) {
-            _hashCode += getIsok().hashCode();
+        if (getText() != null) {
+            _hashCode += getText().hashCode();
         }
         __hashCodeCalc = false;
         return _hashCode;
@@ -103,20 +103,20 @@ public class CheckReplyTypeUser  extends is.fiskistofa.webservices.veidileyfi.FS
 
     // Type metadata
     private static org.apache.axis.description.TypeDesc typeDesc =
-        new org.apache.axis.description.TypeDesc(CheckReplyTypeUser.class, true);
+        new org.apache.axis.description.TypeDesc(CodeTypeUser.class, true);
 
     static {
-        typeDesc.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/types/", "CheckReplyTypeUser"));
+        typeDesc.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/types/", "CodeTypeUser"));
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("message");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/types/", "message"));
+        elemField.setFieldName("code");
+        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/types/", "code"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("isok");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/types/", "isok"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "decimal"));
+        elemField.setFieldName("text");
+        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/types/", "text"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
     }

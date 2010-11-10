@@ -1,47 +1,47 @@
 /**
- * GethefuraflamarksveidilResponseElement.java
+ * GetskiphefurgilthaffaeriResponseElement.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types;
+package is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl;
 
-public class GethefuraflamarksveidilResponseElement  implements java.io.Serializable {
-    private is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types.CheckReplyTypeUser result;
+public class GetskiphefurgilthaffaeriResponseElement  implements java.io.Serializable {
+    private is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.CheckReplyTypeUser result;
 
-    public GethefuraflamarksveidilResponseElement() {
+    public GetskiphefurgilthaffaeriResponseElement() {
     }
 
-    public GethefuraflamarksveidilResponseElement(
-           is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types.CheckReplyTypeUser result) {
+    public GetskiphefurgilthaffaeriResponseElement(
+           is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.CheckReplyTypeUser result) {
            this.result = result;
     }
 
 
     /**
-     * Gets the result value for this GethefuraflamarksveidilResponseElement.
+     * Gets the result value for this GetskiphefurgilthaffaeriResponseElement.
      * 
      * @return result
      */
-    public is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types.CheckReplyTypeUser getResult() {
+    public is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.CheckReplyTypeUser getResult() {
         return result;
     }
 
 
     /**
-     * Sets the result value for this GethefuraflamarksveidilResponseElement.
+     * Sets the result value for this GetskiphefurgilthaffaeriResponseElement.
      * 
      * @param result
      */
-    public void setResult(is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types.CheckReplyTypeUser result) {
+    public void setResult(is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.CheckReplyTypeUser result) {
         this.result = result;
     }
 
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
-        if (!(obj instanceof GethefuraflamarksveidilResponseElement)) return false;
-        GethefuraflamarksveidilResponseElement other = (GethefuraflamarksveidilResponseElement) obj;
+        if (!(obj instanceof GetskiphefurgilthaffaeriResponseElement)) return false;
+        GetskiphefurgilthaffaeriResponseElement other = (GetskiphefurgilthaffaeriResponseElement) obj;
         if (obj == null) return false;
         if (this == obj) return true;
         if (__equalsCalc != null) {
@@ -73,14 +73,14 @@ public class GethefuraflamarksveidilResponseElement  implements java.io.Serializ
 
     // Type metadata
     private static org.apache.axis.description.TypeDesc typeDesc =
-        new org.apache.axis.description.TypeDesc(GethefuraflamarksveidilResponseElement.class, true);
+        new org.apache.axis.description.TypeDesc(GetskiphefurgilthaffaeriResponseElement.class, true);
 
     static {
-        typeDesc.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/types/", ">gethefuraflamarksveidilResponseElement"));
+        typeDesc.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", ">getskiphefurgilthaffaeriResponseElement"));
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("result");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/types/", "result"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/types/", "CheckReplyTypeUser"));
+        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "result"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "CheckReplyTypeUser"));
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
     }

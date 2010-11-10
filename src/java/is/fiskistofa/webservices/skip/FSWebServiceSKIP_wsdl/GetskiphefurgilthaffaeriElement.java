@@ -1,21 +1,21 @@
 /**
- * GethefurveidileyfiElement.java
+ * GetskiphefurgilthaffaeriElement.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types;
+package is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl;
 
-public class GethefurveidileyfiElement  implements java.io.Serializable {
+public class GetskiphefurgilthaffaeriElement  implements java.io.Serializable {
     private java.math.BigDecimal pSkipNr;
 
     private java.util.Calendar pDags;
 
-    public GethefurveidileyfiElement() {
+    public GetskiphefurgilthaffaeriElement() {
     }
 
-    public GethefurveidileyfiElement(
+    public GetskiphefurgilthaffaeriElement(
            java.math.BigDecimal pSkipNr,
            java.util.Calendar pDags) {
            this.pSkipNr = pSkipNr;
@@ -24,7 +24,7 @@ public class GethefurveidileyfiElement  implements java.io.Serializable {
 
 
     /**
-     * Gets the pSkipNr value for this GethefurveidileyfiElement.
+     * Gets the pSkipNr value for this GetskiphefurgilthaffaeriElement.
      * 
      * @return pSkipNr
      */
@@ -34,7 +34,7 @@ public class GethefurveidileyfiElement  implements java.io.Serializable {
 
 
     /**
-     * Sets the pSkipNr value for this GethefurveidileyfiElement.
+     * Sets the pSkipNr value for this GetskiphefurgilthaffaeriElement.
      * 
      * @param pSkipNr
      */
@@ -44,7 +44,7 @@ public class GethefurveidileyfiElement  implements java.io.Serializable {
 
 
     /**
-     * Gets the pDags value for this GethefurveidileyfiElement.
+     * Gets the pDags value for this GetskiphefurgilthaffaeriElement.
      * 
      * @return pDags
      */
@@ -54,7 +54,7 @@ public class GethefurveidileyfiElement  implements java.io.Serializable {
 
 
     /**
-     * Sets the pDags value for this GethefurveidileyfiElement.
+     * Sets the pDags value for this GetskiphefurgilthaffaeriElement.
      * 
      * @param pDags
      */
@@ -64,8 +64,8 @@ public class GethefurveidileyfiElement  implements java.io.Serializable {
 
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
-        if (!(obj instanceof GethefurveidileyfiElement)) return false;
-        GethefurveidileyfiElement other = (GethefurveidileyfiElement) obj;
+        if (!(obj instanceof GetskiphefurgilthaffaeriElement)) return false;
+        GetskiphefurgilthaffaeriElement other = (GetskiphefurgilthaffaeriElement) obj;
         if (obj == null) return false;
         if (this == obj) return true;
         if (__equalsCalc != null) {
@@ -103,19 +103,19 @@ public class GethefurveidileyfiElement  implements java.io.Serializable {
 
     // Type metadata
     private static org.apache.axis.description.TypeDesc typeDesc =
-        new org.apache.axis.description.TypeDesc(GethefurveidileyfiElement.class, true);
+        new org.apache.axis.description.TypeDesc(GetskiphefurgilthaffaeriElement.class, true);
 
     static {
-        typeDesc.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/types/", ">gethefurveidileyfiElement"));
+        typeDesc.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", ">getskiphefurgilthaffaeriElement"));
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("PSkipNr");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/types/", "pSkipNr"));
+        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "pSkipNr"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "decimal"));
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("PDags");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/types/", "pDags"));
+        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "pDags"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "dateTime"));
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);

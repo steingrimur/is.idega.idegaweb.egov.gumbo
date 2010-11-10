@@ -5,9 +5,9 @@
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfi_wsdl;
+package is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl;
 
-public class FSWebServiceVEIDILEYFI_ServiceLocator extends org.apache.axis.client.Service implements is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfi_wsdl.FSWebServiceVEIDILEYFI_Service {
+public class FSWebServiceVEIDILEYFI_ServiceLocator extends org.apache.axis.client.Service implements is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.FSWebServiceVEIDILEYFI_Service {
 
     public FSWebServiceVEIDILEYFI_ServiceLocator() {
     }
@@ -39,7 +39,7 @@ public class FSWebServiceVEIDILEYFI_ServiceLocator extends org.apache.axis.clien
         FSWebServiceVEIDILEYFISoap12HttpPortWSDDServiceName = name;
     }
 
-    public is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfi_wsdl.FSWebServiceVEIDILEYFI_PortType getFSWebServiceVEIDILEYFISoap12HttpPort() throws javax.xml.rpc.ServiceException {
+    public is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.FSWebServiceVEIDILEYFI_PortType getFSWebServiceVEIDILEYFISoap12HttpPort() throws javax.xml.rpc.ServiceException {
        java.net.URL endpoint;
         try {
             endpoint = new java.net.URL(FSWebServiceVEIDILEYFISoap12HttpPort_address);
@@ -50,9 +50,9 @@ public class FSWebServiceVEIDILEYFI_ServiceLocator extends org.apache.axis.clien
         return getFSWebServiceVEIDILEYFISoap12HttpPort(endpoint);
     }
 
-    public is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfi_wsdl.FSWebServiceVEIDILEYFI_PortType getFSWebServiceVEIDILEYFISoap12HttpPort(java.net.URL portAddress) throws javax.xml.rpc.ServiceException {
+    public is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.FSWebServiceVEIDILEYFI_PortType getFSWebServiceVEIDILEYFISoap12HttpPort(java.net.URL portAddress) throws javax.xml.rpc.ServiceException {
         try {
-            is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfi_wsdl.FSWebServiceVEIDILEYFISoap12HttpStub _stub = new is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfi_wsdl.FSWebServiceVEIDILEYFISoap12HttpStub(portAddress, this);
+            is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.FSWebServiceVEIDILEYFISoap12HttpStub _stub = new is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.FSWebServiceVEIDILEYFISoap12HttpStub(portAddress, this);
             _stub.setPortName(getFSWebServiceVEIDILEYFISoap12HttpPortWSDDServiceName());
             return _stub;
         }
@@ -72,8 +72,8 @@ public class FSWebServiceVEIDILEYFI_ServiceLocator extends org.apache.axis.clien
      */
     public java.rmi.Remote getPort(Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
         try {
-            if (is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfi_wsdl.FSWebServiceVEIDILEYFI_PortType.class.isAssignableFrom(serviceEndpointInterface)) {
-                is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfi_wsdl.FSWebServiceVEIDILEYFISoap12HttpStub _stub = new is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfi_wsdl.FSWebServiceVEIDILEYFISoap12HttpStub(new java.net.URL(FSWebServiceVEIDILEYFISoap12HttpPort_address), this);
+            if (is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.FSWebServiceVEIDILEYFI_PortType.class.isAssignableFrom(serviceEndpointInterface)) {
+                is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.FSWebServiceVEIDILEYFISoap12HttpStub _stub = new is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.FSWebServiceVEIDILEYFISoap12HttpStub(new java.net.URL(FSWebServiceVEIDILEYFISoap12HttpPort_address), this);
                 _stub.setPortName(getFSWebServiceVEIDILEYFISoap12HttpPortWSDDServiceName());
                 return _stub;
             }

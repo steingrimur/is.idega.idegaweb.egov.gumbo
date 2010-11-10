@@ -1,5 +1,5 @@
 /**
- * GethefuraflamarksveidilResponseElement.java
+ * GetstrandvlcodeforutgerdElement.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
@@ -7,41 +7,41 @@
 
 package is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types;
 
-public class GethefuraflamarksveidilResponseElement  implements java.io.Serializable {
-    private is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types.CheckReplyTypeUser result;
+public class GetstrandvlcodeforutgerdElement  implements java.io.Serializable {
+    private java.lang.String pUtgerdKt;
 
-    public GethefuraflamarksveidilResponseElement() {
+    public GetstrandvlcodeforutgerdElement() {
     }
 
-    public GethefuraflamarksveidilResponseElement(
-           is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types.CheckReplyTypeUser result) {
-           this.result = result;
-    }
-
-
-    /**
-     * Gets the result value for this GethefuraflamarksveidilResponseElement.
-     * 
-     * @return result
-     */
-    public is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types.CheckReplyTypeUser getResult() {
-        return result;
+    public GetstrandvlcodeforutgerdElement(
+           java.lang.String pUtgerdKt) {
+           this.pUtgerdKt = pUtgerdKt;
     }
 
 
     /**
-     * Sets the result value for this GethefuraflamarksveidilResponseElement.
+     * Gets the pUtgerdKt value for this GetstrandvlcodeforutgerdElement.
      * 
-     * @param result
+     * @return pUtgerdKt
      */
-    public void setResult(is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types.CheckReplyTypeUser result) {
-        this.result = result;
+    public java.lang.String getPUtgerdKt() {
+        return pUtgerdKt;
+    }
+
+
+    /**
+     * Sets the pUtgerdKt value for this GetstrandvlcodeforutgerdElement.
+     * 
+     * @param pUtgerdKt
+     */
+    public void setPUtgerdKt(java.lang.String pUtgerdKt) {
+        this.pUtgerdKt = pUtgerdKt;
     }
 
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
-        if (!(obj instanceof GethefuraflamarksveidilResponseElement)) return false;
-        GethefuraflamarksveidilResponseElement other = (GethefuraflamarksveidilResponseElement) obj;
+        if (!(obj instanceof GetstrandvlcodeforutgerdElement)) return false;
+        GetstrandvlcodeforutgerdElement other = (GetstrandvlcodeforutgerdElement) obj;
         if (obj == null) return false;
         if (this == obj) return true;
         if (__equalsCalc != null) {
@@ -50,9 +50,9 @@ public class GethefuraflamarksveidilResponseElement  implements java.io.Serializ
         __equalsCalc = obj;
         boolean _equals;
         _equals = true && 
-            ((this.result==null && other.getResult()==null) || 
-             (this.result!=null &&
-              this.result.equals(other.getResult())));
+            ((this.pUtgerdKt==null && other.getPUtgerdKt()==null) || 
+             (this.pUtgerdKt!=null &&
+              this.pUtgerdKt.equals(other.getPUtgerdKt())));
         __equalsCalc = null;
         return _equals;
     }
@@ -64,8 +64,8 @@ public class GethefuraflamarksveidilResponseElement  implements java.io.Serializ
         }
         __hashCodeCalc = true;
         int _hashCode = 1;
-        if (getResult() != null) {
-            _hashCode += getResult().hashCode();
+        if (getPUtgerdKt() != null) {
+            _hashCode += getPUtgerdKt().hashCode();
         }
         __hashCodeCalc = false;
         return _hashCode;
@@ -73,14 +73,14 @@ public class GethefuraflamarksveidilResponseElement  implements java.io.Serializ
 
     // Type metadata
     private static org.apache.axis.description.TypeDesc typeDesc =
-        new org.apache.axis.description.TypeDesc(GethefuraflamarksveidilResponseElement.class, true);
+        new org.apache.axis.description.TypeDesc(GetstrandvlcodeforutgerdElement.class, true);
 
     static {
-        typeDesc.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/types/", ">gethefuraflamarksveidilResponseElement"));
+        typeDesc.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/types/", ">getstrandvlcodeforutgerdElement"));
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("result");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/types/", "result"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/types/", "CheckReplyTypeUser"));
+        elemField.setFieldName("PUtgerdKt");
+        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/types/", "pUtgerdKt"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
     }

@@ -1,5 +1,5 @@
 /**
- * CheckReplyTypeBase.java
+ * CodeTypeBase.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
@@ -7,14 +7,14 @@
 
 package is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types;
 
-public class CheckReplyTypeBase  implements java.io.Serializable {
-    public CheckReplyTypeBase() {
+public class CodeTypeBase  implements java.io.Serializable {
+    public CodeTypeBase() {
     }
 
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
-        if (!(obj instanceof CheckReplyTypeBase)) return false;
-        CheckReplyTypeBase other = (CheckReplyTypeBase) obj;
+        if (!(obj instanceof CodeTypeBase)) return false;
+        CodeTypeBase other = (CodeTypeBase) obj;
         if (obj == null) return false;
         if (this == obj) return true;
         if (__equalsCalc != null) {
@@ -40,10 +40,10 @@ public class CheckReplyTypeBase  implements java.io.Serializable {
 
     // Type metadata
     private static org.apache.axis.description.TypeDesc typeDesc =
-        new org.apache.axis.description.TypeDesc(CheckReplyTypeBase.class, true);
+        new org.apache.axis.description.TypeDesc(CodeTypeBase.class, true);
 
     static {
-        typeDesc.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/types/", "CheckReplyTypeBase"));
+        typeDesc.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/types/", "CodeTypeBase"));
     }
 
     /**

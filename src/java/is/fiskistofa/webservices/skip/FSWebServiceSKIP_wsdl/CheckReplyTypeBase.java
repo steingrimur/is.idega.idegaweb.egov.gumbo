@@ -5,7 +5,7 @@
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types;
+package is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl;
 
 public class CheckReplyTypeBase  implements java.io.Serializable {
     public CheckReplyTypeBase() {
@@ -43,7 +43,7 @@ public class CheckReplyTypeBase  implements java.io.Serializable {
         new org.apache.axis.description.TypeDesc(CheckReplyTypeBase.class, true);
 
     static {
-        typeDesc.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/types/", "CheckReplyTypeBase"));
+        typeDesc.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "CheckReplyTypeBase"));
     }
 
     /**
