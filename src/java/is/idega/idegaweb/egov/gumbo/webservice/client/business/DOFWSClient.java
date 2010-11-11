@@ -1,5 +1,9 @@
 package is.idega.idegaweb.egov.gumbo.webservice.client.business;
 
+import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.FSWebServiceAFLAMARK_PortType;
+import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.FSWebServiceAFLAMARK_ServiceLocator;
+import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.types.AflamarkTypeUser;
+import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.types.GetaflamarkElement;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.FSWebServiceLANDANIR_PortType;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.FSWebServiceLANDANIR_ServiceLocator;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.GetlandanirbyskipElement;
@@ -34,6 +38,9 @@ public class DOFWSClient {
 	private static final String CATCH_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices/FSWebServiceLANDANIRSoap12HttpPort";
 	private static final String CATCH_ENDPOINT_ATTRIBUTE_NAME = "dofws_catch_endpoint";
 
+	private static final String CATCH_QUOTA_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices/FSWebServiceAFLAMARKSoap12HttpPort";
+	private static final String CATCH_QUOTA_ENDPOINT_ATTRIBUTE_NAME = "dofws_catch_quota_endpoint";
+
 	private FSWebServiceSKIP_PortType getShipPort() {
 		try {
 			String endPoint = IWMainApplication
@@ -63,6 +70,26 @@ public class DOFWSClient {
 
 			FSWebServiceLANDANIR_ServiceLocator locator = new FSWebServiceLANDANIR_ServiceLocator();
 			FSWebServiceLANDANIR_PortType port = locator.getFSWebServiceLANDANIRSoap12HttpPort(new URL(endPoint));
+
+			//((org.apache.axis.client.Stub) port).setTimeout(timeout)
+
+			return port;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+	
+	private FSWebServiceAFLAMARK_PortType getCatchQuotaPort() {
+		try {
+			String endPoint = IWMainApplication
+					.getDefaultIWApplicationContext().getApplicationSettings()
+					.getProperty(CATCH_QUOTA_ENDPOINT_ATTRIBUTE_NAME,
+							CATCH_QUOTA_DEFAULT_ENDPOINT);
+
+			FSWebServiceAFLAMARK_ServiceLocator locator = new FSWebServiceAFLAMARK_ServiceLocator();
+			FSWebServiceAFLAMARK_PortType port = locator.getFSWebServiceAFLAMARKSoap12HttpPort(new URL(endPoint));
 
 			//((org.apache.axis.client.Stub) port).setTimeout(timeout)
 
@@ -107,15 +134,26 @@ public class DOFWSClient {
 		return null;
 	}
 	
+	public AflamarkTypeUser[] getCatchQuota(BigDecimal shipNumber, String period) {
+		try {
+			GetaflamarkElement parameter = new GetaflamarkElement(shipNumber, period);
+			return getCatchQuotaPort().getaflamark(parameter);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
 	public static void main(String[] arguments) {
 		try {
-			FSWebServiceLANDANIR_ServiceLocator locator = new FSWebServiceLANDANIR_ServiceLocator();
-			FSWebServiceLANDANIR_PortType port = locator.getFSWebServiceLANDANIRSoap12HttpPort(new URL("http://hafrok.hafro.is/FSWebServices/FSWebServiceLANDANIRSoap12HttpPort"));
+			FSWebServiceAFLAMARK_ServiceLocator locator = new FSWebServiceAFLAMARK_ServiceLocator();
+			FSWebServiceAFLAMARK_PortType port = locator.getFSWebServiceAFLAMARKSoap12HttpPort(new URL("http://hafrok.hafro.is/FSWebServices/FSWebServiceAFLAMARKSoap12HttpPort"));
 			
-			GetlandanirbyskipElement parameter = new GetlandanirbyskipElement(new BigDecimal(1578), new IWTimestamp(1, 1, 2010).getCalendar(), new IWTimestamp(31, 12, 2010).getCalendar());
-			LondunTypeUser[] array = port.getlandanirbyskip(parameter);
-			for (LondunTypeUser afli : array) {
-				System.out.println(afli.getKomunr() + " - " + afli.getHofn());
+			GetaflamarkElement parameter = new GetaflamarkElement(new BigDecimal(1578), "0910");
+			AflamarkTypeUser[] array = port.getaflamark(parameter);
+			for (AflamarkTypeUser afli : array) {
+				System.out.println(afli.getKvotategundHeiti() + " - " + afli.getAflamark());
 			}
 		}
 		catch (ServiceException se) {

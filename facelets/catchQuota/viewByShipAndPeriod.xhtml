@@ -1,0 +1,87 @@
+<html
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:c="http://xmlns.idega.com/com.idega.core"
+		xmlns:g="http://xmlns.idega.com/is.idega.idegaweb.egov.gumbo"
+>
+<ui:component>
+	<form id="catchQuota" class="adminForm" action="" method="post">
+		<div class="formItem">
+			<label for="prm_ship_number"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['ship']}" /></label>
+			<c:selectOne name="prm_ship_number">
+				<ui:repeat value="#{gumboBean.ships}" var="ship">
+					<c:selectOption content="#{ship.skipNr}" name="#{ship.nafn}" selected="#{ship.skipNr eq gumboBean.shipNumber}" />
+				</ui:repeat>
+			</c:selectOne>
+		</div>
+		<div class="formItem">
+			<label for="prm_period"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['period']}" /></label>
+			<c:selectOne name="prm_period">
+				<ui:repeat value="#{g:getPeriods()}" var="period">
+					<c:selectOption content="#{period.period}" name="#{period.name}" selected="#{period.period eq gumboBean.period}" />
+				</ui:repeat>
+			</c:selectOne>
+		</div>
+		<div class="submit">
+			<input type="submit" name="prm_submit" value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['get']}" />
+		</div>
+
+		<table cellpadding="0" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th class="type"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_type']}" /></th>
+					<th class="allocation"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_allocation']}" /></th>
+					<th class="specialAllocation"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_special_allocation']}" /></th>
+					<th class="betweenYears"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_between_years']}" /></th>
+					<th class="betweenShips"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_between_ships']}" /></th>
+					<th class="quota"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_quota']}" /></th>
+					<th class="catch"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch']}" /></th>
+				</tr>
+			</thead>
+	
+			<tbody>
+				<ui:repeat value="#{gumboBean.catchQuota}" var="catch">
+					<tr>
+						<td class="type"><h:outputText value="#{catch.kvotategundHeiti}" /></td>
+						<td class="allocation"><h:outputText value="#{catch.uthlutun}"><f:convertNumber /></h:outputText></td>
+						<td class="specialAllocation"><h:outputText value="#{catch.serstokUthlutun}"><f:convertNumber /></h:outputText></td>
+						<td class="betweenYears"><h:outputText value="#{catch.milliAra}"><f:convertNumber /></h:outputText></td>
+						<td class="betweenShips"><h:outputText value="#{catch.milliSkipa}"><f:convertNumber /></h:outputText></td>
+						<td class="quota"><h:outputText value="#{catch.aflamark}"><f:convertNumber /></h:outputText></td>
+						<td class="catch"><h:outputText value="#{catch.afli}"><f:convertNumber /></h:outputText></td>
+					</tr>
+				</ui:repeat>
+			</tbody>	
+		</table>
+
+		<table cellpadding="0" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th class="type"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_type']}" /></th>
+					<th class="status"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_status']}" /></th>
+					<th class="moval"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_moval']}" /></th>
+					<th class="newStatus"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_new_status']}" /></th>
+					<th class="nextYear"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_next_year']}" /></th>
+					<th class="aboveQuota"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_above_quota']}" /></th>
+					<th class="unused"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_unused']}" /></th>
+				</tr>
+			</thead>
+	
+			<tbody>
+				<ui:repeat value="#{gumboBean.catchQuota}" var="catch">
+					<tr>
+						<td class="type"><h:outputText value="#{catch.kvotategundHeiti}" /></td>
+						<td class="status"><h:outputText value="#{catch.stada}"><f:convertNumber /></h:outputText></td>
+						<td class="moval"><h:outputText value="#{catch.tilfaersla}"><f:convertNumber /></h:outputText></td>
+						<td class="newStatus"><h:outputText value="#{catch.nyStada}"><f:convertNumber /></h:outputText></td>
+						<td class="nextYear"><h:outputText value="#{catch.ANaestaAr}"><f:convertNumber /></h:outputText></td>
+						<td class="aboveQuota"><h:outputText value="#{catch.umframafli}"><f:convertNumber /></h:outputText></td>
+						<td class="unused"><h:outputText value="#{catch.onotad}"><f:convertNumber /></h:outputText></td>
+					</tr>
+				</ui:repeat>
+			</tbody>	
+		</table>
+	</form>	
+</ui:component>
+</html>
