@@ -5,16 +5,16 @@
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types;
+package is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfi_wsdl.types;
 
 public class GethefurutgerdgrasleppuvlbyktResponseElement  implements java.io.Serializable {
-    private is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types.CheckReplyTypeUser result;
+    private is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfi_wsdl.types.CheckReplyTypeUser result;
 
     public GethefurutgerdgrasleppuvlbyktResponseElement() {
     }
 
     public GethefurutgerdgrasleppuvlbyktResponseElement(
-           is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types.CheckReplyTypeUser result) {
+           is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfi_wsdl.types.CheckReplyTypeUser result) {
            this.result = result;
     }
 
@@ -24,7 +24,7 @@ public class GethefurutgerdgrasleppuvlbyktResponseElement  implements java.io.Se
      * 
      * @return result
      */
-    public is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types.CheckReplyTypeUser getResult() {
+    public is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfi_wsdl.types.CheckReplyTypeUser getResult() {
         return result;
     }
 
@@ -34,7 +34,7 @@ public class GethefurutgerdgrasleppuvlbyktResponseElement  implements java.io.Se
      * 
      * @param result
      */
-    public void setResult(is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types.CheckReplyTypeUser result) {
+    public void setResult(is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfi_wsdl.types.CheckReplyTypeUser result) {
         this.result = result;
     }
 
