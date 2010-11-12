@@ -5,16 +5,16 @@
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfi_wsdl.types;
+package is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types;
 
 public class GetdragnotvlcodeforutgerdResponseElement  implements java.io.Serializable {
-    private is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfi_wsdl.types.CodeTypeUser result;
+    private is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types.CodeTypeUser result;
 
     public GetdragnotvlcodeforutgerdResponseElement() {
     }
 
     public GetdragnotvlcodeforutgerdResponseElement(
-           is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfi_wsdl.types.CodeTypeUser result) {
+           is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types.CodeTypeUser result) {
            this.result = result;
     }
 
@@ -24,7 +24,7 @@ public class GetdragnotvlcodeforutgerdResponseElement  implements java.io.Serial
      * 
      * @return result
      */
-    public is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfi_wsdl.types.CodeTypeUser getResult() {
+    public is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types.CodeTypeUser getResult() {
         return result;
     }
 
@@ -34,7 +34,7 @@ public class GetdragnotvlcodeforutgerdResponseElement  implements java.io.Serial
      * 
      * @param result
      */
-    public void setResult(is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfi_wsdl.types.CodeTypeUser result) {
+    public void setResult(is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types.CodeTypeUser result) {
         this.result = result;
     }
 

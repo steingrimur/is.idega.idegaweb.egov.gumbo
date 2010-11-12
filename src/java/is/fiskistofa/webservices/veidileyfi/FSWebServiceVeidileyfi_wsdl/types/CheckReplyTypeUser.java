@@ -5,9 +5,9 @@
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfi_wsdl.types;
+package is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types;
 
-public class CheckReplyTypeUser  extends is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfi_wsdl.types.CheckReplyTypeBase  implements java.io.Serializable {
+public class CheckReplyTypeUser  extends is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types.CheckReplyTypeBase  implements java.io.Serializable {
     private java.lang.String message;
 
     private java.math.BigDecimal isok;
