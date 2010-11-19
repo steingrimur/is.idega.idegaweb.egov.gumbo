@@ -25,10 +25,23 @@
                         <list>
                             <row>
                                 <socialSecurityNr/>
-                                <name/>
-                                <address/>
-                                <postCode/>
-                                <place/>
+                                <violationPersonData>
+	                                <name/>
+	                                <address/>
+	                                <postalCode/>
+	                                <place/>
+                                </violationPersonData>
+                                <typeOfPermission></typeOfPermission>
+                            </row>
+                            <row>
+                                <socialSecurityNr/>
+                                <violationPersonData>
+                                    <name/>
+                                    <address/>
+                                    <postalCode/>
+                                    <place/>
+                                </violationPersonData>
+                                <typeOfPermission></typeOfPermission>
                             </row>
                         </list>
                         <trigger/>
@@ -44,6 +57,7 @@
                     <Comments_fbc_103/>
                     <GPS_location_fbc_104/>
                     <Violation_type_fbc_105/>
+                    <tmpSocialNumber>1234</tmpSocialNumber>
                 </data>
             </xf:instance>
             <xf:instance id="control-instance">
@@ -350,26 +364,35 @@
                                     <xf:delete at="last()-1" nodeset="../list/row"/>
                                 </xf:action>
                         </xf:trigger>
-                        <xf:repeat appearance="compact" bind="fbc_106_bind" id="fbc_106_repeat_id">
+                        <xf:repeat appearance="full" bind="fbc_106_bind" id="fbc_106_repeat_id">
 	                        <xf:input ref="./socialSecurityNr" id="fbc_101" type="fbc_text">
 	                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_101-label[@lang=instance('localized_strings')/current_language]"/>
+	                            
+	                            <xf:setvalue
+                                ev:event="xforms-value-changed"
+                                ref="instance('data-instance')/tmpSocialNumber" value="instance('data-instance')/violationPersons/list/row[index('fbc_106_repeat_id')]/socialSecurityNr"/>
+	                            <idega:setvalue
+                                ev:event="xforms-value-changed"
+                                multiple="true()"
+                                placeResponseDocument="true()"
+                                ref="../violationPersonData" value="idega:resolveBeanProperties('violationService.getViolationPersonData({0})', '#{instance(`data-instance`)/tmpSocialNumber}')"/>
 	                        </xf:input>
-	                        <xf:output ref="./name" id="fbc_42" type="fbc_text_output">
+	                        <xf:output ref="./violationPersonData/name" id="fbc_42" type="fbc_text_output">
 	                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_42-label[@lang=instance('localized_strings')/current_language]"/>
 	                        </xf:output>
-	                        <xf:output ref="./address" id="fbc_44" type="fbc_text_output">
+	                        <xf:output ref="./violationPersonData/address" id="fbc_44" type="fbc_text_output">
 	                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_44-label[@lang=instance('localized_strings')/current_language]"/>
 	                        </xf:output>
-	                        <xf:output ref="./postCode" id="fbc_45" type="fbc_text_output">
+	                        <xf:output ref="./violationPersonData/postalCode" id="fbc_45" type="fbc_text_output">
 	                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_45-label[@lang=instance('localized_strings')/current_language]"/>
 	                        </xf:output>
-	                        <xf:output ref="./place" id="fbc_46" type="fbc_text_output">
+	                        <xf:output ref="./violationPersonData/place" id="fbc_46" type="fbc_text_output">
 	                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_46-label[@lang=instance('localized_strings')/current_language]"/>
 	                        </xf:output>
                         </xf:repeat>
                         <hr class="fbc_separator" id="fbc_18" type="fbc_separator"/>
-                        <div class="fbc_header_text" id="fbc_19" type="fbc_header_text">
-                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_19-text[@lang=instance('localized_strings')/current_language]"/>
+                        <div class="fbc_header_text" id="fbc_19" >
+                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_19-text[@lang=instance('localized_strings')/current_language]" type="fbc_header_text"/>
                         </div>
                         <xf:input bind="fbc_102_bind" id="fbc_102" type="fbc_date">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_102-label[@lang=instance('localized_strings')/current_language]"/>
