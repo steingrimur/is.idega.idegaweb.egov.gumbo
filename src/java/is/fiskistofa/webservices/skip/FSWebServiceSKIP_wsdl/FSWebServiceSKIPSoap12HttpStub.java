@@ -16,13 +16,24 @@ public class FSWebServiceSKIPSoap12HttpStub extends org.apache.axis.client.Stub 
     static org.apache.axis.description.OperationDesc [] _operations;
 
     static {
-        _operations = new org.apache.axis.description.OperationDesc[3];
+        _operations = new org.apache.axis.description.OperationDesc[4];
         _initOperationDesc1();
     }
 
     private static void _initOperationDesc1(){
         org.apache.axis.description.OperationDesc oper;
         org.apache.axis.description.ParameterDesc param;
+        oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("getskiphefurgilthaffaeri");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "getskiphefurgilthaffaeriElement"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", ">getskiphefurgilthaffaeriElement"), is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.GetskiphefurgilthaffaeriElement.class, false, false);
+        oper.addParameter(param);
+        oper.setReturnType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", ">getskiphefurgilthaffaeriResponseElement"));
+        oper.setReturnClass(is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.GetskiphefurgilthaffaeriResponseElement.class);
+        oper.setReturnQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "getskiphefurgilthaffaeriResponseElement"));
+        oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
+        oper.setUse(org.apache.axis.constants.Use.LITERAL);
+        _operations[0] = oper;
+
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("getskipinfo");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "getskipinfoElement"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", ">getskipinfoElement"), is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.GetskipinfoElement.class, false, false);
@@ -32,7 +43,7 @@ public class FSWebServiceSKIPSoap12HttpStub extends org.apache.axis.client.Stub 
         oper.setReturnQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "getskipinfoResponseElement"));
         oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[0] = oper;
+        _operations[1] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("getskipinfobyutgerd");
@@ -45,7 +56,7 @@ public class FSWebServiceSKIPSoap12HttpStub extends org.apache.axis.client.Stub 
         param.setItemQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "result"));
         oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[1] = oper;
+        _operations[2] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("getskipnrbyutgerd");
@@ -58,7 +69,7 @@ public class FSWebServiceSKIPSoap12HttpStub extends org.apache.axis.client.Stub 
         param.setItemQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "result"));
         oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[2] = oper;
+        _operations[3] = oper;
 
     }
 
@@ -91,6 +102,20 @@ public class FSWebServiceSKIPSoap12HttpStub extends org.apache.axis.client.Stub 
             java.lang.Class simpledf = org.apache.axis.encoding.ser.SimpleDeserializerFactory.class;
             java.lang.Class simplelistsf = org.apache.axis.encoding.ser.SimpleListSerializerFactory.class;
             java.lang.Class simplelistdf = org.apache.axis.encoding.ser.SimpleListDeserializerFactory.class;
+            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", ">getskiphefurgilthaffaeriElement");
+            cachedSerQNames.add(qName);
+            cls = is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.GetskiphefurgilthaffaeriElement.class;
+            cachedSerClasses.add(cls);
+            cachedSerFactories.add(beansf);
+            cachedDeserFactories.add(beandf);
+
+            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", ">getskiphefurgilthaffaeriResponseElement");
+            cachedSerQNames.add(qName);
+            cls = is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.GetskiphefurgilthaffaeriResponseElement.class;
+            cachedSerClasses.add(cls);
+            cachedSerFactories.add(beansf);
+            cachedDeserFactories.add(beandf);
+
             qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", ">getskipinfobyutgerdElement");
             cachedSerQNames.add(qName);
             cls = is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.GetskipinfobyutgerdElement.class;
@@ -136,6 +161,20 @@ public class FSWebServiceSKIPSoap12HttpStub extends org.apache.axis.client.Stub 
             qName2 = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "result");
             cachedSerFactories.add(new org.apache.axis.encoding.ser.ArraySerializerFactory(qName, qName2));
             cachedDeserFactories.add(new org.apache.axis.encoding.ser.ArrayDeserializerFactory());
+
+            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "CheckReplyTypeBase");
+            cachedSerQNames.add(qName);
+            cls = is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.CheckReplyTypeBase.class;
+            cachedSerClasses.add(cls);
+            cachedSerFactories.add(beansf);
+            cachedDeserFactories.add(beandf);
+
+            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "CheckReplyTypeUser");
+            cachedSerQNames.add(qName);
+            cls = is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.CheckReplyTypeUser.class;
+            cachedSerClasses.add(cls);
+            cachedSerFactories.add(beansf);
+            cachedDeserFactories.add(beandf);
 
             qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "SkipInfoTypeBase");
             cachedSerQNames.add(qName);
@@ -217,12 +256,46 @@ public class FSWebServiceSKIPSoap12HttpStub extends org.apache.axis.client.Stub 
         }
     }
 
-    public is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.GetskipinfoResponseElement getskipinfo(is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.GetskipinfoElement parameters) throws java.rmi.RemoteException {
+    public is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.GetskiphefurgilthaffaeriResponseElement getskiphefurgilthaffaeri(is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.GetskiphefurgilthaffaeriElement parameters) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
         _call.setOperation(_operations[0]);
+        _call.setUseSOAPAction(true);
+        _call.setSOAPActionURI("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl/getskiphefurgilthaffaeri");
+        _call.setEncodingStyle(null);
+        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP12_CONSTANTS);
+        _call.setOperationName(new javax.xml.namespace.QName("", "getskiphefurgilthaffaeri"));
+
+        setRequestHeaders(_call);
+        setAttachments(_call);
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {parameters});
+
+        if (_resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)_resp;
+        }
+        else {
+            extractAttachments(_call);
+            try {
+                return (is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.GetskiphefurgilthaffaeriResponseElement) _resp;
+            } catch (java.lang.Exception _exception) {
+                return (is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.GetskiphefurgilthaffaeriResponseElement) org.apache.axis.utils.JavaUtils.convert(_resp, is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.GetskiphefurgilthaffaeriResponseElement.class);
+            }
+        }
+  } catch (org.apache.axis.AxisFault axisFaultException) {
+  throw axisFaultException;
+}
+    }
+
+    public is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.GetskipinfoResponseElement getskipinfo(is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.GetskipinfoElement parameters) throws java.rmi.RemoteException {
+        if (super.cachedEndpoint == null) {
+            throw new org.apache.axis.NoEndPointException();
+        }
+        org.apache.axis.client.Call _call = createCall();
+        _call.setOperation(_operations[1]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl/getskipinfo");
         _call.setEncodingStyle(null);
@@ -256,7 +329,7 @@ public class FSWebServiceSKIPSoap12HttpStub extends org.apache.axis.client.Stub 
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[1]);
+        _call.setOperation(_operations[2]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl/getskipinfobyutgerd");
         _call.setEncodingStyle(null);
@@ -290,7 +363,7 @@ public class FSWebServiceSKIPSoap12HttpStub extends org.apache.axis.client.Stub 
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[2]);
+        _call.setOperation(_operations[3]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl/getskipnrbyutgerd");
         _call.setEncodingStyle(null);

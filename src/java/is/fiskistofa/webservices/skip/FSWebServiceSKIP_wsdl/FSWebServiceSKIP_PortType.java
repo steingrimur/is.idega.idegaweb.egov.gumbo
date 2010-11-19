@@ -8,6 +8,7 @@
 package is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl;
 
 public interface FSWebServiceSKIP_PortType extends java.rmi.Remote {
+    public is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.GetskiphefurgilthaffaeriResponseElement getskiphefurgilthaffaeri(is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.GetskiphefurgilthaffaeriElement parameters) throws java.rmi.RemoteException;
     public is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.GetskipinfoResponseElement getskipinfo(is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.GetskipinfoElement parameters) throws java.rmi.RemoteException;
     public is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser[] getskipinfobyutgerd(is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.GetskipinfobyutgerdElement parameters) throws java.rmi.RemoteException;
     public java.math.BigDecimal[] getskipnrbyutgerd(is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.GetskipnrbyutgerdElement parameters) throws java.rmi.RemoteException;

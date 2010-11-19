@@ -1,32 +1,59 @@
 package is.idega.idegaweb.egov.gumbo.licenses;
 
+import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
+import is.idega.idegaweb.egov.gumbo.GumboConstants;
+import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import com.idega.core.business.DefaultSpringBean;
+import com.idega.idegaweb.IWBundle;
+import com.idega.idegaweb.IWResourceBundle;
+import com.idega.user.data.User;
+import com.idega.util.expression.ELUtil;
 import com.idega.util.text.Item;
 
 @Service("fishingLicenseUser")
 @Scope(BeanDefinition.SCOPE_SINGLETON)
-public class FishingLicenseUser {
+public class FishingLicenseUser extends DefaultSpringBean {
+	
+	@Autowired
+	private DOFWSClient client;
 	
 	public List<Item> getVesselsForUser() {
-		
-		final List<Item> items = new ArrayList<Item>(3);
-		
-		items.add(new Item("id1", "vessel 1 by user"));
-		items.add(new Item("id2", "vessel 2 by user"));
-		items.add(new Item("id3", "vessel 3 by user"));
+		List<Item> items = null;
+		User user = getCurrentUser();
+		SkipInfoTypeUser vessels[] = getClient().getShipInfoByCompanySSN(user.getPersonalID());
+		if (vessels != null && vessels.length > 0) {
+			items = new ArrayList<Item>(vessels.length);
+			for (int i = 0; i < vessels.length; i++) {
+				SkipInfoTypeUser vessel = vessels[i];
+				items.add(new Item(vessel.getSkipNr().toString(), vessel.getNafn()));
+			}
+		}
 		
 		return items;
 	}
 	
 	public VesselData getUserVesselData(String vesselId) {
+		VesselData data = new VesselData();
 		
-		return new VesselData()
+		SkipInfoTypeUser wsRes = getClient().getShipInfo(vesselId);
+		if (wsRes != null) {
+			data.setName(wsRes.getNafn());
+			data.setOwnersName(wsRes.getEigandiNafn());
+			data.setOwnersSocialSecurityNr(wsRes.getEigandiKt());
+			data.setRegistryNr(wsRes.getSkipNr().toString());
+		}
+		
+		return data;
+/*		return new VesselData()
 
 		.setRegistryNr("reg nr " + vesselId)
 
@@ -34,7 +61,7 @@ public class FishingLicenseUser {
 
 		.setOwnersName("owners name")
 
-		.setOwnersSocialSecurityNr("owners soc id");
+		.setOwnersSocialSecurityNr("owners soc id");*/
 	}
 	
 	/**
@@ -43,11 +70,13 @@ public class FishingLicenseUser {
 	 * @return types of licenses depending on logged in user
 	 */
 	public List<Item> getTypesOfFishingLicenses() {
+		IWBundle iwb = getBundle(GumboConstants.IW_BUNDLE_IDENTIFIER);
+		IWResourceBundle iwrb = getResourceBundle(iwb); 
 		
 		final List<Item> items = new ArrayList<Item>(2);
 		
-		items.add(new Item("aflamarks", "Aflamarks"));
-		items.add(new Item("krokaaflamarks", "Krókaaflamarks"));
+		items.add(new Item("aflamarks", iwrb.getLocalizedString("LICENSE_TYPE_AFLAMARK", "Aflamarks")));
+		items.add(new Item("krokaaflamarks", iwrb.getLocalizedString("LICENSE_TYPE_KROKAFLAMARK", "Krókaaflamarks")));
 		
 		return items;
 	}
@@ -58,16 +87,18 @@ public class FishingLicenseUser {
 	 * @return fishing areas depending on logged in user
 	 */
 	public List<Item> getFishingAreas() {
+		IWBundle iwb = getBundle(GumboConstants.IW_BUNDLE_IDENTIFIER);
+		IWResourceBundle iwrb = getResourceBundle(iwb); 
 		
 		final List<Item> items = new ArrayList<Item>(2);
 		
-		items.add(new Item("A", "Faxaflói"));
-		items.add(new Item("B", "Breyðafjörður"));
-		items.add(new Item("C", "Vestfirðir"));
-		items.add(new Item("D", "Húnaflói"));
-		items.add(new Item("E", "Norðurland"));
-		items.add(new Item("F", "Austurland"));
-		items.add(new Item("G", "Suðurland"));
+		items.add(new Item("A", iwrb.getLocalizedString("AREA_A", "Faxaflói")));
+		items.add(new Item("B", iwrb.getLocalizedString("AREA_B", "Breiðafjörður")));
+		items.add(new Item("C", iwrb.getLocalizedString("AREA_C", "Vestfirðir")));
+		items.add(new Item("D", iwrb.getLocalizedString("AREA_D", "Húnaflói")));
+		items.add(new Item("E", iwrb.getLocalizedString("AREA_E", "Norðurland")));
+		items.add(new Item("F", iwrb.getLocalizedString("AREA_F", "Austurland")));
+		items.add(new Item("G", iwrb.getLocalizedString("AREA_G", "Suðurland")));
 		
 		return items;
 	}
@@ -105,8 +136,12 @@ public class FishingLicenseUser {
 	 * @return string "true" or "false"
 	 */
 	public String getVesselHasValidHaffairisskirteini(String vesselId) {
-		
-		return "true";
+		boolean res = getClient().getHasValidSeafaringLicense(vesselId);
+		if (res) {
+			return "true";			
+		} else {			
+			return "false";			
+		}
 	}
 	
 	/**
@@ -115,8 +150,13 @@ public class FishingLicenseUser {
 	 * @return string "true" or "false"
 	 */
 	public String getVesselHasValidGeneralFishingLicense(String vesselId) {
+		boolean res = getClient().getHasValidGeneralFishingLicense(vesselId);
 		
-		return "true";
+		if (res) {
+			return "true";			
+		} else {			
+			return "false";			
+		}
 	}
 	
 	/**
@@ -129,7 +169,7 @@ public class FishingLicenseUser {
 	 */
 	public String getIsInDebt() {
 		
-		return "true";
+		return "false";
 	}
 	
 	/**
@@ -138,8 +178,13 @@ public class FishingLicenseUser {
 	 * @return string true or false
 	 */
 	public String getVesselHasValidStrandveidileyfi(String vesselId) {
+		boolean res = getClient().getHasValidCoastFishingLicense(vesselId);
 		
-		return "false";
+		if (res) {
+			return "true";			
+		} else {			
+			return "false";			
+		}
 	}
 	
 	/**
@@ -158,8 +203,13 @@ public class FishingLicenseUser {
 	 * @return string true or false
 	 */
 	public String getVesselHasValidAflamarksleyfi(String vesselId) {
+		boolean res = getClient().getHasValidQuotaLimitFishingLicense(vesselId);
 		
-		return "true";
+		if (res) {
+			return "true";			
+		} else {			
+			return "false";			
+		}
 	}
 	
 	/**
@@ -245,5 +295,13 @@ public class FishingLicenseUser {
 			this.ownersSocialSecurityNr = ownersSocialSecurityNr;
 			return this;
 		}
+	}
+	
+	private DOFWSClient getClient() {
+		if (this.client == null) {
+			ELUtil.getInstance().autowire(this);
+		}
+		
+		return this.client;
 	}
 }

@@ -5,7 +5,7 @@
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfi_wsdl.types;
+package is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types;
 
 public class GethefurstrandveidileyfiElement  implements java.io.Serializable {
     private java.math.BigDecimal pSkipNr;
@@ -106,16 +106,16 @@ public class GethefurstrandveidileyfiElement  implements java.io.Serializable {
         new org.apache.axis.description.TypeDesc(GethefurstrandveidileyfiElement.class, true);
 
     static {
-        typeDesc.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfi.wsdl/types/", ">gethefurstrandveidileyfiElement"));
+        typeDesc.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/types/", ">gethefurstrandveidileyfiElement"));
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("PSkipNr");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfi.wsdl/types/", "pSkipNr"));
+        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/types/", "pSkipNr"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "decimal"));
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("PDags");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfi.wsdl/types/", "pDags"));
+        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/types/", "pDags"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "dateTime"));
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);

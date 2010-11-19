@@ -5,16 +5,16 @@
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfi_wsdl.types;
+package is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types;
 
 public class GethefurveidileyfiResponseElement  implements java.io.Serializable {
-    private is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfi_wsdl.types.CheckReplyTypeUser result;
+    private is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types.CheckReplyTypeUser result;
 
     public GethefurveidileyfiResponseElement() {
     }
 
     public GethefurveidileyfiResponseElement(
-           is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfi_wsdl.types.CheckReplyTypeUser result) {
+           is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types.CheckReplyTypeUser result) {
            this.result = result;
     }
 
@@ -24,7 +24,7 @@ public class GethefurveidileyfiResponseElement  implements java.io.Serializable 
      * 
      * @return result
      */
-    public is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfi_wsdl.types.CheckReplyTypeUser getResult() {
+    public is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types.CheckReplyTypeUser getResult() {
         return result;
     }
 
@@ -34,7 +34,7 @@ public class GethefurveidileyfiResponseElement  implements java.io.Serializable 
      * 
      * @param result
      */
-    public void setResult(is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfi_wsdl.types.CheckReplyTypeUser result) {
+    public void setResult(is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types.CheckReplyTypeUser result) {
         this.result = result;
     }
 
@@ -76,11 +76,11 @@ public class GethefurveidileyfiResponseElement  implements java.io.Serializable 
         new org.apache.axis.description.TypeDesc(GethefurveidileyfiResponseElement.class, true);
 
     static {
-        typeDesc.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfi.wsdl/types/", ">gethefurveidileyfiResponseElement"));
+        typeDesc.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/types/", ">gethefurveidileyfiResponseElement"));
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("result");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfi.wsdl/types/", "result"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfi.wsdl/types/", "CheckReplyTypeUser"));
+        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/types/", "result"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/types/", "CheckReplyTypeUser"));
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
     }
