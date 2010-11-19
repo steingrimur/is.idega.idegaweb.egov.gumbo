@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,6 @@ import com.idega.core.business.DefaultSpringBean;
 import com.idega.idegaweb.IWBundle;
 import com.idega.idegaweb.IWResourceBundle;
 import com.idega.user.data.User;
-import com.idega.util.expression.ELUtil;
 import com.idega.util.text.Item;
 
 @Service("fishingLicenseUser")
@@ -24,17 +24,20 @@ import com.idega.util.text.Item;
 public class FishingLicenseUser extends DefaultSpringBean {
 	
 	@Autowired
+	@Qualifier(DOFWSClient.MOCK)
 	private DOFWSClient client;
 	
 	public List<Item> getVesselsForUser() {
 		List<Item> items = null;
 		User user = getCurrentUser();
-		SkipInfoTypeUser vessels[] = getClient().getShipInfoByCompanySSN(user.getPersonalID());
+		SkipInfoTypeUser vessels[] = getClient().getShipInfoByCompanySSN(
+		    user.getPersonalID());
 		if (vessels != null && vessels.length > 0) {
 			items = new ArrayList<Item>(vessels.length);
 			for (int i = 0; i < vessels.length; i++) {
 				SkipInfoTypeUser vessel = vessels[i];
-				items.add(new Item(vessel.getSkipNr().toString(), vessel.getNafn()));
+				items.add(new Item(vessel.getSkipNr().toString(), vessel
+				        .getNafn()));
 			}
 		}
 		
@@ -53,15 +56,6 @@ public class FishingLicenseUser extends DefaultSpringBean {
 		}
 		
 		return data;
-/*		return new VesselData()
-
-		.setRegistryNr("reg nr " + vesselId)
-
-		.setName("vessel name")
-
-		.setOwnersName("owners name")
-
-		.setOwnersSocialSecurityNr("owners soc id");*/
 	}
 	
 	/**
@@ -71,12 +65,14 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 */
 	public List<Item> getTypesOfFishingLicenses() {
 		IWBundle iwb = getBundle(GumboConstants.IW_BUNDLE_IDENTIFIER);
-		IWResourceBundle iwrb = getResourceBundle(iwb); 
+		IWResourceBundle iwrb = getResourceBundle(iwb);
 		
 		final List<Item> items = new ArrayList<Item>(2);
 		
-		items.add(new Item("aflamarks", iwrb.getLocalizedString("LICENSE_TYPE_AFLAMARK", "Aflamarks")));
-		items.add(new Item("krokaaflamarks", iwrb.getLocalizedString("LICENSE_TYPE_KROKAFLAMARK", "Krókaaflamarks")));
+		items.add(new Item("aflamarks", iwrb.getLocalizedString(
+		    "LICENSE_TYPE_AFLAMARK", "Aflamarks")));
+		items.add(new Item("krokaaflamarks", iwrb.getLocalizedString(
+		    "LICENSE_TYPE_KROKAFLAMARK", "Krókaaflamarks")));
 		
 		return items;
 	}
@@ -88,12 +84,13 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 */
 	public List<Item> getFishingAreas() {
 		IWBundle iwb = getBundle(GumboConstants.IW_BUNDLE_IDENTIFIER);
-		IWResourceBundle iwrb = getResourceBundle(iwb); 
+		IWResourceBundle iwrb = getResourceBundle(iwb);
 		
 		final List<Item> items = new ArrayList<Item>(2);
 		
 		items.add(new Item("A", iwrb.getLocalizedString("AREA_A", "Faxaflói")));
-		items.add(new Item("B", iwrb.getLocalizedString("AREA_B", "Breiðafjörður")));
+		items.add(new Item("B", iwrb.getLocalizedString("AREA_B",
+		    "Breiðafjörður")));
 		items.add(new Item("C", iwrb.getLocalizedString("AREA_C", "Vestfirðir")));
 		items.add(new Item("D", iwrb.getLocalizedString("AREA_D", "Húnaflói")));
 		items.add(new Item("E", iwrb.getLocalizedString("AREA_E", "Norðurland")));
@@ -138,9 +135,9 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	public String getVesselHasValidHaffairisskirteini(String vesselId) {
 		boolean res = getClient().getHasValidSeafaringLicense(vesselId);
 		if (res) {
-			return "true";			
-		} else {			
-			return "false";			
+			return "true";
+		} else {
+			return "false";
 		}
 	}
 	
@@ -153,9 +150,9 @@ public class FishingLicenseUser extends DefaultSpringBean {
 		boolean res = getClient().getHasValidGeneralFishingLicense(vesselId);
 		
 		if (res) {
-			return "true";			
-		} else {			
-			return "false";			
+			return "true";
+		} else {
+			return "false";
 		}
 	}
 	
@@ -181,9 +178,9 @@ public class FishingLicenseUser extends DefaultSpringBean {
 		boolean res = getClient().getHasValidCoastFishingLicense(vesselId);
 		
 		if (res) {
-			return "true";			
-		} else {			
-			return "false";			
+			return "true";
+		} else {
+			return "false";
 		}
 	}
 	
@@ -200,16 +197,15 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	/**
 	 * used in forms: draganotaveidi
 	 * 
-	 * @return string true or false
+	 * @return Result With Message
 	 */
-	public String getVesselHasValidAflamarksleyfi(String vesselId) {
-		boolean res = getClient().getHasValidQuotaLimitFishingLicense(vesselId);
+	public ResultWithMessage getVesselHasValidAflamarksleyfi(String vesselId) {
 		
-		if (res) {
-			return "true";			
-		} else {			
-			return "false";			
-		}
+		final boolean res = getClient().getHasValidQuotaLimitFishingLicense(
+		    vesselId);
+		
+		return res ? new ResultWithMessage(res, "positive message")
+		        : new ResultWithMessage(res, "negative message");
 	}
 	
 	/**
@@ -297,11 +293,27 @@ public class FishingLicenseUser extends DefaultSpringBean {
 		}
 	}
 	
-	private DOFWSClient getClient() {
-		if (this.client == null) {
-			ELUtil.getInstance().autowire(this);
+	public static final class ResultWithMessage {
+		
+		private final String message;
+		private final String result;
+		
+		public ResultWithMessage(boolean result, String message) {
+			
+			this.message = message;
+			this.result = result ? "true" : "false";
 		}
 		
-		return this.client;
+		public String getMessage() {
+			return message;
+		}
+		
+		public String getResult() {
+			return result;
+		}
+	}
+	
+	private DOFWSClient getClient() {
+		return client;
 	}
 }
