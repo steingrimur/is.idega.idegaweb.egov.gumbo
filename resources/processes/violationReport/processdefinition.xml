@@ -68,12 +68,6 @@
 		 </assignment>
          
          <controller>
-            <variable name="string_violatorPersonSocialNumber" access="read,write"></variable>
-            
-            <variable name="string_violatorPersonFullName" access="read,write" ></variable>
-            <variable name="string_violatorPersonAddress" access="read,write"></variable>
-            <variable name="string_violatorPersonPostCode" access="read,write"></variable>
-            <variable name="string_violatorPersonMunicipality" access="read,write"></variable>
             <variable name="string_ownerComments" access="read,write"></variable>
             <variable name="string_caseIdentifier" access="read"></variable>
             
@@ -86,6 +80,11 @@
             <variable name="string_vesselName" access="read,write"></variable>
             <variable name="string_vesselOwnersName" access="read,write"></variable>
             <variable name="string_vesselOwnersSocialSecurityNr" access="read,write"></variable>
+            
+            <variable name="date_violationDate" access="read,write"></variable>
+            <variable name="string_violationDateLabel" access="read,write"></variable>
+            <variable name="string_violationTime" access="read,write"></variable>
+            <variable name="string_violationTimeLabel" access="read,write"></variable>
          </controller>
       </task>
       <transition to="state1"></transition>
