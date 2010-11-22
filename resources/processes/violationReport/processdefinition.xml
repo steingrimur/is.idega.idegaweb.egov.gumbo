@@ -84,7 +84,7 @@
             <variable name="string_vesselOwnersSocialSecurityNr" access="read,write"></variable>
          </controller>
       </task>
-      <transition to="end-state3"></transition>
+      <transition to="state1"></transition>
    </start-state>
    <event type="handlerAssignedToCase">
          <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
@@ -173,7 +173,12 @@
 			    </propertyMap>
 		</action>
     </event>
-   <end-state name="end-state3"></end-state>
+   <state name="state1">
+		<transition to="end-state3"></transition>
+	</state>
+
+
+	<end-state name="end-state3"></end-state>
 	
 	<idg:roles xmlns:idg="http://idega.com/bpm">
         <role name="bpm_fishingLicense_caseHandler">

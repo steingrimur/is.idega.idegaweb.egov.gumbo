@@ -31,6 +31,11 @@
 	                                <postalCode/>
 	                                <place/>
                                 </violationPersonData>
+                                
+                                <violationPersonName />
+                                <violationPersonAddress/>
+                                <violationPersonPostalCode/>
+                                <violationPersonPlace/>
                                 <typeOfPermission></typeOfPermission>
                             </row>
                             <row>
@@ -41,6 +46,11 @@
                                     <postalCode/>
                                     <place/>
                                 </violationPersonData>
+                                
+                                <violationPersonName />
+                                <violationPersonAddress/>
+                                <violationPersonPostalCode/>
+                                <violationPersonPlace/>
                                 <typeOfPermission></typeOfPermission>
                             </row>
                         </list>
@@ -266,6 +276,8 @@
                     <fbc_104-label lang="en">GPS location</fbc_104-label>
                     <fbc_105-label lang="is_IS">Listi</fbc_105-label>
                     <fbc_105-label lang="en">Violation type</fbc_105-label>
+                    <fbc_109-label lang="is_IS">Type of weighing permission</fbc_109-label>
+                    <fbc_109-label lang="en">Type of weighing permission</fbc_109-label>
                     
                     <violationPersons-insert-label lang="en">Insert</violationPersons-insert-label>
                     <violationPersons-insert-label lang="is_IS">Bæta við röð</violationPersons-insert-label>
@@ -376,19 +388,39 @@
                                 multiple="true()"
                                 placeResponseDocument="true()"
                                 ref="../violationPersonData" value="idega:resolveBeanProperties('violationService.getViolationPersonData({0})', '#{instance(`data-instance`)/tmpSocialNumber}')"/>
+                                <xf:setvalue
+                                ev:event="xforms-value-changed"
+                                ref="../violationPersonName" value="../violationPersonData/name"/>
+                                <xf:setvalue
+                                ev:event="xforms-value-changed"
+                                ref="../violationPersonAddress" value="../violationPersonData/address"/>
+                                <xf:setvalue
+                                ev:event="xforms-value-changed"
+                                ref="../violationPersonPostalCode" value="../violationPersonData/postalCode"/>
+                                <xf:setvalue
+                                ev:event="xforms-value-changed"
+                                ref="../violationPersonPlace" value="../violationPersonData/place"/>
+                                <idega:setvalue
+                                ev:event="xforms-value-changed"
+                                multiple="true()"
+                                placeResponseDocument="true()"
+                                ref="../typeOfPermission" value="idega:resolveExpression('violationService.getTypeLabelOfPermissionForViolationPerson({0})', '#{instance(`data-instance`)/tmpSocialNumber}')"/>
 	                        </xf:input>
-	                        <xf:output ref="./violationPersonData/name" id="fbc_42" type="fbc_text_output">
+	                        <xf:output ref="./violationPersonName" id="fbc_42" type="fbc_text_output">
 	                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_42-label[@lang=instance('localized_strings')/current_language]"/>
 	                        </xf:output>
-	                        <xf:output ref="./violationPersonData/address" id="fbc_44" type="fbc_text_output">
+	                        <xf:output ref="./violationPersonAddress" id="fbc_44" type="fbc_text_output">
 	                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_44-label[@lang=instance('localized_strings')/current_language]"/>
 	                        </xf:output>
-	                        <xf:output ref="./violationPersonData/postalCode" id="fbc_45" type="fbc_text_output">
+	                        <xf:output ref="./violationPersonPostalCode" id="fbc_45" type="fbc_text_output">
 	                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_45-label[@lang=instance('localized_strings')/current_language]"/>
 	                        </xf:output>
-	                        <xf:output ref="./violationPersonData/place" id="fbc_46" type="fbc_text_output">
+	                        <xf:output ref="./violationPersonPlace" id="fbc_46" type="fbc_text_output">
 	                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_46-label[@lang=instance('localized_strings')/current_language]"/>
 	                        </xf:output>
+	                        <xf:output ref="./typeOfPermission" id="fbc_109" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_109-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
                         </xf:repeat>
                         <hr class="fbc_separator" id="fbc_18" type="fbc_separator"/>
                         <div class="fbc_header_text" id="fbc_19" >
@@ -482,6 +514,29 @@
                 </idega:case>
                 <idega:case id="fbc_41" show="instance('control-instance')/generatePdf='true'">
                     <xf:group appearance="full">
+                    
+                    
+                        <xf:repeat appearance="full" bind="fbc_106_bind" id="fbc_110_repeat_id">
+                            <xf:output ref="./socialSecurityNr" id="fbc_111" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_101-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output ref="./violationPersonName" id="fbc_112" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_42-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output ref="./violationPersonAddress" id="fbc_113" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_44-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output ref="./violationPersonPostalCode" id="fbc_114" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_45-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output ref="./violationPersonPlace" id="fbc_115" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_46-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output ref="./typeOfPermission" id="fbc_116" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_109-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                        </xf:repeat>
+                    
                         <xf:label model="data_model" ref="instance('localized_strings')/fbc_41-label[@lang=instance('localized_strings')/current_language]"/>
                         <div class="fbc_header_text" id="fbc_48" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_48-text[@lang=instance('localized_strings')/current_language]"/>
