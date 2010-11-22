@@ -18,11 +18,41 @@ public class ViolationService {
 		        .setPostalCode("1245 " + socialNr) : new PersonData(socialNr);
 	}
 	
+	public PersonData getViolationCompanyData(String socialNr) {
+		
+		return !StringUtil.isEmpty(socialNr) ? new PersonData(socialNr)
+		        .setName("violator company name")
+		        .setAddress("address 1234 " + socialNr).setPlace("landan")
+		        .setPostalCode("1245 " + socialNr) : new PersonData(socialNr);
+	}
+	
+	public PersonData getViolationOtherPartyData(String socialNr) {
+		
+		return !StringUtil.isEmpty(socialNr) ? new PersonData(socialNr)
+		        .setName("violator other party name")
+		        .setAddress("address 1234 " + socialNr).setPlace("landan")
+		        .setPostalCode("1245 " + socialNr) : new PersonData(socialNr);
+	}
+	
 	public String getTypeLabelOfPermissionForViolationPerson(String socialNr) {
 		
 		// endurvigtun, heimavigtun, vigtun eftir slægingu, ofl.
 		
-		return "some type: " + socialNr;
+		return "some type for person: " + socialNr;
+	}
+	
+	public String getTypeLabelOfPermissionForViolationCompany(String socialNr) {
+		
+		// endurvigtun, heimavigtun, vigtun eftir slægingu, ofl.
+		
+		return "some type for company: " + socialNr;
+	}
+	
+	public String getTypeLabelOfPermissionForViolationOtherParty(String socialNr) {
+		
+		// endurvigtun, heimavigtun, vigtun eftir slægingu, ofl.
+		
+		return "some type for other party: " + socialNr;
 	}
 	
 	public static final class PersonData {

@@ -77,6 +77,10 @@
             <variable name="string_ownerComments" access="read,write"></variable>
             <variable name="string_caseIdentifier" access="read"></variable>
             
+            <variable name="objlist_violationPersons" access="read,write"></variable>
+            <variable name="objlist_violationCompanies" access="read,write"></variable>
+            <variable name="objlist_violationOtherParties" access="read,write"></variable>
+            
             <variable name="string_vessel" access="read,write"></variable>
             <variable name="string_vesselRegistryNr" access="read,write"></variable>
             <variable name="string_vesselName" access="read,write"></variable>
