@@ -1,10 +1,14 @@
 package is.idega.idegaweb.egov.gumbo.bpm.violation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import com.idega.util.StringUtil;
+import com.idega.util.text.Item;
 
 @Service("violationService")
 @Scope(BeanDefinition.SCOPE_SINGLETON)
@@ -32,6 +36,17 @@ public class ViolationService {
 		        .setName("violator other party name")
 		        .setAddress("address 1234 " + socialNr).setPlace("landan")
 		        .setPostalCode("1245 " + socialNr) : new PersonData(socialNr);
+	}
+	
+	public List<Item> getViolationTypes() {
+		final List<Item> items = new ArrayList<Item>();
+		
+		items.add(new Item("type1", "Violation type 1"));
+		items.add(new Item("subtype1", " ---- Violation subtype 1"));
+		items.add(new Item("type2", "Violation type 2"));
+		items.add(new Item("subtype", " ---- Violation subtype 2"));
+		
+		return items;
 	}
 	
 	public String getTypeLabelOfPermissionForViolationPerson(String socialNr) {

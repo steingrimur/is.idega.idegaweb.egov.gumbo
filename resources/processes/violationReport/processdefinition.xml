@@ -85,6 +85,8 @@
             <variable name="string_violationDateLabel" access="read,write"></variable>
             <variable name="string_violationTime" access="read,write"></variable>
             <variable name="string_violationTimeLabel" access="read,write"></variable>
+            <variable name="list_violationTypes" access="read,write"></variable>
+            
          </controller>
       </task>
       <transition to="state1"></transition>
