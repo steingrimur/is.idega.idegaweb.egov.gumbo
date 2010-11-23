@@ -54,5 +54,9 @@
       <groupId>com.idega.block.addon</groupId>
       <artifactId>com.idega.bpm</artifactId>
     </dependency>         
+    <dependency>
+      <groupId>com.idega.block.egov</groupId>
+      <artifactId>is.idega.idegaweb.egov.company</artifactId>
+    </dependency>    
   </dependencies>
 </project>
