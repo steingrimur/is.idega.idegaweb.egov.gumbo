@@ -10,7 +10,7 @@
         <xf:model id="submission_model" schema="#fb-schema">
             <xf:instance id="data-instance" xmlns="">
                 <data>
-                    <form_id>1134</form_id>
+                    <form_id>1233</form_id>
                     <Identifier_number_fbc_23 mapping="string_caseIdentifier"/>
                     <Harbour_nr_fbc_37 mapping="string_vessel"/>
                     <Commentsdetails_fbc_38 mapping="string_ownerComments"/>
@@ -20,30 +20,118 @@
                         <ownersName mapping="string_vesselOwnersName"/>
                         <ownersSocialSecurityNr mapping="string_vesselOwnersSocialSecurityNr"/>
                     </vesselData>
-                    
                     <violationPersons mapping="objlist_violationPersons">
                         <list>
                             <row>
                                 <socialSecurityNr/>
-                                <name/>
-                                <address/>
-                                <postCode/>
-                                <place/>
+                                <violationPersonData>
+                                    <name/>
+                                    <address/>
+                                    <postalCode/>
+                                    <place/>
+                                </violationPersonData>
+                                <violationPersonName/>
+                                <violationPersonAddress/>
+                                <violationPersonPostalCode/>
+                                <violationPersonPlace/>
+                                <typeOfPermission/>
+                            </row>
+                            <row>
+                                <socialSecurityNr/>
+                                <violationPersonData>
+                                    <name/>
+                                    <address/>
+                                    <postalCode/>
+                                    <place/>
+                                </violationPersonData>
+                                <violationPersonName/>
+                                <violationPersonAddress/>
+                                <violationPersonPostalCode/>
+                                <violationPersonPlace/>
+                                <typeOfPermission/>
                             </row>
                         </list>
                         <trigger/>
                     </violationPersons>
-                    
+                    <violationCompanies mapping="objlist_violationCompanies">
+                        <list>
+                            <row>
+                                <socialSecurityNr/>
+                                <violationPersonData>
+                                    <name/>
+                                    <address/>
+                                    <postalCode/>
+                                    <place/>
+                                </violationPersonData>
+                                <violationPersonName/>
+                                <violationPersonAddress/>
+                                <violationPersonPostalCode/>
+                                <violationPersonPlace/>
+                                <typeOfPermission/>
+                            </row>
+                            <row>
+                                <socialSecurityNr/>
+                                <violationPersonData>
+                                    <name/>
+                                    <address/>
+                                    <postalCode/>
+                                    <place/>
+                                </violationPersonData>
+                                <violationPersonName/>
+                                <violationPersonAddress/>
+                                <violationPersonPostalCode/>
+                                <violationPersonPlace/>
+                                <typeOfPermission/>
+                            </row>
+                        </list>
+                        <trigger/>
+                    </violationCompanies>
+                    <violationOtherParties mapping="objlist_violationOtherParties">
+                        <list>
+                            <row>
+                                <socialSecurityNr/>
+                                <violationPersonData>
+                                    <name/>
+                                    <address/>
+                                    <postalCode/>
+                                    <place/>
+                                </violationPersonData>
+                                <violationPersonName/>
+                                <violationPersonAddress/>
+                                <violationPersonPostalCode/>
+                                <violationPersonPlace/>
+                                <typeOfPermission/>
+                            </row>
+                            <row>
+                                <socialSecurityNr/>
+                                <violationPersonData>
+                                    <name/>
+                                    <address/>
+                                    <postalCode/>
+                                    <place/>
+                                </violationPersonData>
+                                <violationPersonName/>
+                                <violationPersonAddress/>
+                                <violationPersonPostalCode/>
+                                <violationPersonPlace/>
+                                <typeOfPermission/>
+                            </row>
+                        </list>
+                        <trigger/>
+                    </violationOtherParties>
                     <vesselHasValidHaffairisskirteini>true</vesselHasValidHaffairisskirteini>
                     <vesselHasNotValidHaffairisskirteini/>
                     <debtMessageContainer/>
                     <saveFormData>
                         <submissionId/>
                     </saveFormData>
-                    <Violation_date_fbc_102 xsi:nil="true"/>
-                    <Comments_fbc_103/>
+                    <Violation_date_fbc_102 mapping="date_violationDate" xsi:nil="true"/>
+                    <violationDateLabel mapping="string_violationDateLabel"/>
+                    <Violation_time_fbc_153 mapping="string_violationTime"/>
+                    <violationTimeLabel mapping="string_violationTimeLabel"/>
                     <GPS_location_fbc_104/>
                     <Violation_type_fbc_105/>
+                    <tmpSocialNumber>1234</tmpSocialNumber>
                 </data>
             </xf:instance>
             <xf:instance id="control-instance">
@@ -116,17 +204,28 @@
                 nodeset="vesselHasNotValidHaffairisskirteini" relevant="instance('data-instance')/vesselHasValidHaffairisskirteini != 'true'"/>
             <xf:bind id="debtMessageContainer"
                 nodeset="debtMessageContainer" relevant="instance('control-instance')/userIsInDebt != 'false'"/>
-            <xf:bind id="fbc_102_bind" nodeset="Violation_date_fbc_102" type="date"/>
-            <xf:bind id="fbc_103_bind" nodeset="Comments_fbc_103"
-                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+            <xf:bind id="fbc_102_bind" nodeset="Violation_date_fbc_102"
+                required="instance('control-instance')/required = 'true'" type="date"/>
+            <xf:bind id="fbc_154_bind" nodeset="violationDateLabel"/>
+            <xf:bind id="fbc_153_bind" nodeset="Violation_time_fbc_153"
+                required="instance('control-instance')/required = 'true'" type="xs:string"/>
+            <xf:bind id="fbc_155_bind" nodeset="violationTimeLabel"/>
             <xf:bind id="fbc_104_bind" nodeset="GPS_location_fbc_104"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
             <xf:bind id="fbc_105_bind" nodeset="Violation_type_fbc_105"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
-                
-            <xf:bind id="fbc_106_bind" readonly="instance('control-instance')/readonly = 'true'" nodeset="violationPersons/list/row[position() != last()]"/>
-            <xf:bind id="fbc_106_trigger" nodeset="violationPersons/trigger" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
-                
+            <xf:bind id="fbc_106_bind"
+                nodeset="violationPersons/list/row[position() != last()]" readonly="instance('control-instance')/readonly = 'true'"/>
+            <xf:bind id="fbc_106_trigger"
+                nodeset="violationPersons/trigger" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
+            <xf:bind id="fbc_120_bind"
+                nodeset="violationCompanies/list/row[position() != last()]" readonly="instance('control-instance')/readonly = 'true'"/>
+            <xf:bind id="fbc_118_trigger"
+                nodeset="violationCompanies/trigger" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
+            <xf:bind id="fbc_139_bind"
+                nodeset="violationOtherParties/list/row[position() != last()]" readonly="instance('control-instance')/readonly = 'true'"/>
+            <xf:bind id="fbc_137_trigger"
+                nodeset="violationOtherParties/trigger" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
         </xf:model>
         <xf:model id="data_model">
             <xf:instance id="localized_strings" xmlns="">
@@ -185,8 +284,6 @@
                     <fbc_45-label lang="en">Post code</fbc_45-label>
                     <fbc_46-label lang="is_IS">Text output</fbc_46-label>
                     <fbc_46-label lang="en">Place</fbc_46-label>
-                    <fbc_48-text lang="is_IS">Fyrirsögn</fbc_48-text>
-                    <fbc_48-text lang="en">Fishing company</fbc_48-text>
                     <fbc_57-text lang="is_IS">Fyrirsögn</fbc_57-text>
                     <fbc_57-text lang="en">Fishing license</fbc_57-text>
                     <fbc_59-text lang="is_IS">Fyrirsögn</fbc_59-text>
@@ -246,17 +343,60 @@
                     <fbc_101-label lang="en">Social security nr.</fbc_101-label>
                     <fbc_102-label lang="is_IS">Date </fbc_102-label>
                     <fbc_102-label lang="en">Violation date</fbc_102-label>
-                    <fbc_103-label lang="is_IS">Textasvæði</fbc_103-label>
-                    <fbc_103-label lang="en">Comments</fbc_103-label>
+                    <fbc_153-label lang="is_IS">Violation time </fbc_153-label>
+                    <fbc_153-label lang="en">Violation time</fbc_153-label>
+                    <fbc_155-label lang="is_IS">Violation time </fbc_155-label>
+                    <fbc_155-label lang="en">Violation time</fbc_155-label>
                     <fbc_104-label lang="is_IS">Textareitur</fbc_104-label>
                     <fbc_104-label lang="en">GPS location</fbc_104-label>
                     <fbc_105-label lang="is_IS">Listi</fbc_105-label>
                     <fbc_105-label lang="en">Violation type</fbc_105-label>
-                    
+                    <fbc_109-label lang="is_IS">Type of weighing permission</fbc_109-label>
+                    <fbc_109-label lang="en">Type of weighing permission</fbc_109-label>
+                    <fbc_117-text lang="en">Violation - Company</fbc_117-text>
+                    <fbc_117-text lang="is_IS">Violation - Company</fbc_117-text>
+                    <fbc_136-text lang="en">Violation - Other persons/companies involved</fbc_136-text>
+                    <fbc_136-text lang="is_IS">Violation - Other persons/companies involved</fbc_136-text>
+                    <fbc_121-label lang="is_IS">Textareitur</fbc_121-label>
+                    <fbc_121-label lang="en">Social security nr.</fbc_121-label>
+                    <fbc_122-label lang="is_IS">Text output</fbc_122-label>
+                    <fbc_122-label lang="en">Name</fbc_122-label>
+                    <fbc_123-label lang="is_IS">Text output</fbc_123-label>
+                    <fbc_123-label lang="en">Address</fbc_123-label>
+                    <fbc_124-label lang="is_IS">Text output</fbc_124-label>
+                    <fbc_124-label lang="en">Post code</fbc_124-label>
+                    <fbc_125-label lang="is_IS">Text output</fbc_125-label>
+                    <fbc_125-label lang="en">Place</fbc_125-label>
+                    <fbc_126-label lang="is_IS">Type of weighing permission</fbc_126-label>
+                    <fbc_126-label lang="en">Type of weighing permission</fbc_126-label>
+                    <fbc_140-label lang="is_IS">Textareitur</fbc_140-label>
+                    <fbc_140-label lang="en">Social security nr.</fbc_140-label>
+                    <fbc_141-label lang="is_IS">Text output</fbc_141-label>
+                    <fbc_141-label lang="en">Name</fbc_141-label>
+                    <fbc_142-label lang="is_IS">Text output</fbc_142-label>
+                    <fbc_142-label lang="en">Address</fbc_142-label>
+                    <fbc_143-label lang="is_IS">Text output</fbc_143-label>
+                    <fbc_143-label lang="en">Post code</fbc_143-label>
+                    <fbc_144-label lang="is_IS">Text output</fbc_144-label>
+                    <fbc_144-label lang="en">Place</fbc_144-label>
+                    <fbc_145-label lang="is_IS">Type of weighing permission</fbc_145-label>
+                    <fbc_145-label lang="en">Type of weighing permission</fbc_145-label>
                     <violationPersons-insert-label lang="en">Insert</violationPersons-insert-label>
                     <violationPersons-insert-label lang="is_IS">Bæta við röð</violationPersons-insert-label>
                     <violationPersons-delete-label lang="en">Delete</violationPersons-delete-label>
                     <violationPersons-delete-label lang="is_IS">Eyða röð</violationPersons-delete-label>
+                    <violationCompanies-insert-label lang="en">Insert</violationCompanies-insert-label>
+                    <violationCompanies-insert-label lang="is_IS">Bæta við röð</violationCompanies-insert-label>
+                    <violationCompanies-delete-label lang="en">Delete</violationCompanies-delete-label>
+                    <violationCompanies-delete-label lang="is_IS">Eyða röð</violationCompanies-delete-label>
+                    <violationOtherParties-insert-label lang="en">Insert</violationOtherParties-insert-label>
+                    <violationOtherParties-insert-label lang="is_IS">Bæta við röð</violationOtherParties-insert-label>
+                    <violationOtherParties-delete-label lang="en">Delete</violationOtherParties-delete-label>
+                    <violationOtherParties-delete-label lang="is_IS">Eyða röð</violationOtherParties-delete-label>
+                    <fbc_102-required lang="is_IS">Það þarf að fylla út reitinn X</fbc_102-required>
+                    <fbc_102-required lang="en">The field X is required</fbc_102-required>
+                    <fbc_153-required lang="is_IS">Það þarf að fylla út reitinn X</fbc_153-required>
+                    <fbc_153-required lang="en">The field X is required</fbc_153-required>
                 </localized_strings>
             </xf:instance>
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
@@ -312,8 +452,7 @@
             <xf:instance id="x-autofill-model-instance" xmlns="">
                 <foo/>
             </xf:instance>
-            <xf:action ev:event="xforms-ready" if="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'">
-            </xf:action>
+            <xf:action ev:event="xforms-ready" if="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"/>
             <idega:toggle case="fbc_41" ev:event="xforms-ready" if="instance('control-instance')/generatePdf = 'true' or instance('control-instance')/readonly='true'"/>
         </xf:model>
     </head>
@@ -333,50 +472,244 @@
                         <xf:output model="submission_model" ref="instance('data-instance')/Identifier_number_fbc_23">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_23-title[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
-                        <!-- upload -->
                         <div class="fbc_header_text" id="fbc_5" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_5-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
-                        
                         <xf:trigger bind="fbc_106_trigger" id="fbc_107">
-                                <xf:label model="data_model" ref="instance('localized_strings')/violationPersons-insert-label[@lang=instance('localized_strings')/current_language]"/>
-                                <xf:action>
-                                    <xf:insert at="last()" nodeset="../list/row" position="after"/>
-                                </xf:action>
-                            </xf:trigger>
-                            <xf:trigger bind="fbc_106_trigger" id="fbc_108">
-                                <xf:label model="data_model" ref="instance('localized_strings')/violationPersons-delete-label[@lang=instance('localized_strings')/current_language]"/>
-                                <xf:action>
-                                    <xf:delete at="last()-1" nodeset="../list/row"/>
-                                </xf:action>
+                            <xf:label model="data_model" ref="instance('localized_strings')/violationPersons-insert-label[@lang=instance('localized_strings')/current_language]"/>
+                            <xf:action>
+                                <xf:insert at="last()"
+                                    nodeset="../list/row" position="after"/>
+                            </xf:action>
                         </xf:trigger>
-                        <xf:repeat appearance="compact" bind="fbc_106_bind" id="fbc_106_repeat_id">
-	                        <xf:input ref="./socialSecurityNr" id="fbc_101" type="fbc_text">
-	                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_101-label[@lang=instance('localized_strings')/current_language]"/>
-	                        </xf:input>
-	                        <xf:output ref="./name" id="fbc_42" type="fbc_text_output">
-	                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_42-label[@lang=instance('localized_strings')/current_language]"/>
-	                        </xf:output>
-	                        <xf:output ref="./address" id="fbc_44" type="fbc_text_output">
-	                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_44-label[@lang=instance('localized_strings')/current_language]"/>
-	                        </xf:output>
-	                        <xf:output ref="./postCode" id="fbc_45" type="fbc_text_output">
-	                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_45-label[@lang=instance('localized_strings')/current_language]"/>
-	                        </xf:output>
-	                        <xf:output ref="./place" id="fbc_46" type="fbc_text_output">
-	                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_46-label[@lang=instance('localized_strings')/current_language]"/>
-	                        </xf:output>
+                        <xf:trigger bind="fbc_106_trigger" id="fbc_108">
+                            <xf:label model="data_model" ref="instance('localized_strings')/violationPersons-delete-label[@lang=instance('localized_strings')/current_language]"/>
+                            <xf:action>
+                                <xf:delete at="last()-1" nodeset="../list/row"/>
+                            </xf:action>
+                        </xf:trigger>
+                        <xf:repeat appearance="full" bind="fbc_106_bind" id="fbc_106_repeat_id">
+                            <xf:input id="fbc_101"
+                                ref="./socialSecurityNr" type="fbc_text">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_101-label[@lang=instance('localized_strings')/current_language]"/>
+                                <xf:setvalue
+                                    ev:event="xforms-value-changed"
+                                    ref="instance('data-instance')/tmpSocialNumber" value="instance('data-instance')/violationPersons/list/row[index('fbc_106_repeat_id')]/socialSecurityNr"/>
+                                <idega:setvalue
+                                    ev:event="xforms-value-changed"
+                                    multiple="true()"
+                                    placeResponseDocument="true()"
+                                    ref="../violationPersonData" value="idega:resolveBeanProperties('violationService.getViolationPersonData({0})', '#{instance(`data-instance`)/tmpSocialNumber}')"/>
+                                <xf:setvalue
+                                    ev:event="xforms-value-changed"
+                                    ref="../violationPersonName" value="../violationPersonData/name"/>
+                                <xf:setvalue
+                                    ev:event="xforms-value-changed"
+                                    ref="../violationPersonAddress" value="../violationPersonData/address"/>
+                                <xf:setvalue
+                                    ev:event="xforms-value-changed"
+                                    ref="../violationPersonPostalCode" value="../violationPersonData/postalCode"/>
+                                <xf:setvalue
+                                    ev:event="xforms-value-changed"
+                                    ref="../violationPersonPlace" value="../violationPersonData/place"/>
+                                <idega:setvalue
+                                    ev:event="xforms-value-changed"
+                                    multiple="true()"
+                                    placeResponseDocument="true()"
+                                    ref="../typeOfPermission" value="idega:resolveExpression('violationService.getTypeLabelOfPermissionForViolationPerson({0})', '#{instance(`data-instance`)/tmpSocialNumber}')"/>
+                            </xf:input>
+                            <xf:output id="fbc_42"
+                                ref="./violationPersonName" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_42-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output id="fbc_44"
+                                ref="./violationPersonAddress" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_44-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output id="fbc_45"
+                                ref="./violationPersonPostalCode" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_45-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output id="fbc_46"
+                                ref="./violationPersonPlace" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_46-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output id="fbc_109"
+                                ref="./typeOfPermission" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_109-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                        </xf:repeat>
+                        <div class="fbc_header_text" id="fbc_117" type="fbc_header_text">
+                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_117-text[@lang=instance('localized_strings')/current_language]"/>
+                        </div>
+                        <xf:trigger bind="fbc_118_trigger" id="fbc_118">
+                            <xf:label model="data_model" ref="instance('localized_strings')/violationCompanies-insert-label[@lang=instance('localized_strings')/current_language]"/>
+                            <xf:action>
+                                <xf:insert at="last()"
+                                    nodeset="../list/row" position="after"/>
+                            </xf:action>
+                        </xf:trigger>
+                        <xf:trigger bind="fbc_118_trigger" id="fbc_119">
+                            <xf:label model="data_model" ref="instance('localized_strings')/violationCompanies-insert-label[@lang=instance('localized_strings')/current_language]"/>
+                            <xf:action>
+                                <xf:delete at="last()-1" nodeset="../list/row"/>
+                            </xf:action>
+                        </xf:trigger>
+                        <xf:repeat appearance="full" bind="fbc_120_bind" id="fbc_120_repeat_id">
+                            <xf:input id="fbc_121"
+                                ref="./socialSecurityNr" type="fbc_text">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_121-label[@lang=instance('localized_strings')/current_language]"/>
+                                <xf:setvalue
+                                    ev:event="xforms-value-changed"
+                                    ref="instance('data-instance')/tmpSocialNumber" value="instance('data-instance')/violationCompanies/list/row[index('fbc_120_repeat_id')]/socialSecurityNr"/>
+                                <idega:setvalue
+                                    ev:event="xforms-value-changed"
+                                    multiple="true()"
+                                    placeResponseDocument="true()"
+                                    ref="../violationPersonData" value="idega:resolveBeanProperties('violationService.getViolationCompanyData({0})', '#{instance(`data-instance`)/tmpSocialNumber}')"/>
+                                <xf:setvalue
+                                    ev:event="xforms-value-changed"
+                                    ref="../violationPersonName" value="../violationPersonData/name"/>
+                                <xf:setvalue
+                                    ev:event="xforms-value-changed"
+                                    ref="../violationPersonAddress" value="../violationPersonData/address"/>
+                                <xf:setvalue
+                                    ev:event="xforms-value-changed"
+                                    ref="../violationPersonPostalCode" value="../violationPersonData/postalCode"/>
+                                <xf:setvalue
+                                    ev:event="xforms-value-changed"
+                                    ref="../violationPersonPlace" value="../violationPersonData/place"/>
+                                <idega:setvalue
+                                    ev:event="xforms-value-changed"
+                                    multiple="true()"
+                                    placeResponseDocument="true()"
+                                    ref="../typeOfPermission" value="idega:resolveExpression('violationService.getTypeLabelOfPermissionForViolationCompany({0})', '#{instance(`data-instance`)/tmpSocialNumber}')"/>
+                            </xf:input>
+                            <xf:output id="fbc_122"
+                                ref="./violationPersonName" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_122-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output id="fbc_123"
+                                ref="./violationPersonAddress" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_123-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output id="fbc_124"
+                                ref="./violationPersonPostalCode" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_124-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output id="fbc_125"
+                                ref="./violationPersonPlace" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_125-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output id="fbc_126"
+                                ref="./typeOfPermission" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_126-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                        </xf:repeat>
+                        <div class="fbc_header_text" id="fbc_136" type="fbc_header_text">
+                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_136-text[@lang=instance('localized_strings')/current_language]"/>
+                        </div>
+                        <xf:trigger bind="fbc_137_trigger" id="fbc_137">
+                            <xf:label model="data_model" ref="instance('localized_strings')/violationOtherParties-insert-label[@lang=instance('localized_strings')/current_language]"/>
+                            <xf:action>
+                                <xf:insert at="last()"
+                                    nodeset="../list/row" position="after"/>
+                            </xf:action>
+                        </xf:trigger>
+                        <xf:trigger bind="fbc_137_trigger" id="fbc_138">
+                            <xf:label model="data_model" ref="instance('localized_strings')/violationOtherParties-delete-label[@lang=instance('localized_strings')/current_language]"/>
+                            <xf:action>
+                                <xf:delete at="last()-1" nodeset="../list/row"/>
+                            </xf:action>
+                        </xf:trigger>
+                        <xf:repeat appearance="full" bind="fbc_139_bind" id="fbc_139_repeat_id">
+                            <xf:input id="fbc_140"
+                                ref="./socialSecurityNr" type="fbc_text">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_140-label[@lang=instance('localized_strings')/current_language]"/>
+                                <xf:setvalue
+                                    ev:event="xforms-value-changed"
+                                    ref="instance('data-instance')/tmpSocialNumber" value="instance('data-instance')/violationOtherParties/list/row[index('fbc_139_repeat_id')]/socialSecurityNr"/>
+                                <idega:setvalue
+                                    ev:event="xforms-value-changed"
+                                    multiple="true()"
+                                    placeResponseDocument="true()"
+                                    ref="../violationPersonData" value="idega:resolveBeanProperties('violationService.getViolationOtherPartyData({0})', '#{instance(`data-instance`)/tmpSocialNumber}')"/>
+                                <xf:setvalue
+                                    ev:event="xforms-value-changed"
+                                    ref="../violationPersonName" value="../violationPersonData/name"/>
+                                <xf:setvalue
+                                    ev:event="xforms-value-changed"
+                                    ref="../violationPersonAddress" value="../violationPersonData/address"/>
+                                <xf:setvalue
+                                    ev:event="xforms-value-changed"
+                                    ref="../violationPersonPostalCode" value="../violationPersonData/postalCode"/>
+                                <xf:setvalue
+                                    ev:event="xforms-value-changed"
+                                    ref="../violationPersonPlace" value="../violationPersonData/place"/>
+                                <idega:setvalue
+                                    ev:event="xforms-value-changed"
+                                    multiple="true()"
+                                    placeResponseDocument="true()"
+                                    ref="../typeOfPermission" value="idega:resolveExpression('violationService.getTypeLabelOfPermissionForViolationOtherParty({0})', '#{instance(`data-instance`)/tmpSocialNumber}')"/>
+                            </xf:input>
+                            <xf:output id="fbc_141"
+                                ref="./violationPersonName" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_141-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output id="fbc_142"
+                                ref="./violationPersonAddress" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_142-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output id="fbc_143"
+                                ref="./violationPersonPostalCode" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_143-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output id="fbc_144"
+                                ref="./violationPersonPlace" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_144-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output id="fbc_145"
+                                ref="./typeOfPermission" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_145-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
                         </xf:repeat>
                         <hr class="fbc_separator" id="fbc_18" type="fbc_separator"/>
-                        <div class="fbc_header_text" id="fbc_19" type="fbc_header_text">
-                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_19-text[@lang=instance('localized_strings')/current_language]"/>
+                        <div class="fbc_header_text" id="fbc_19">
+                            <xf:output model="data_model"
+                                ref="instance('localized_strings')/fbc_19-text[@lang=instance('localized_strings')/current_language]" type="fbc_header_text"/>
                         </div>
                         <xf:input bind="fbc_102_bind" id="fbc_102" type="fbc_date">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_102-label[@lang=instance('localized_strings')/current_language]"/>
+                            <xf:dispatch ev:event="idega-xforms-ready"
+                                name="idega-validate" target="fbc_102"/>
+                            <xf:dispatch ev:event="xforms-value-changed"
+                                name="idega-validate" target="fbc_102"/>
+                                
+                            <xf:setvalue ev:event="xforms-value-changed"
+                                    ref="instance('data-instance')/violationDateLabel" value="instance('data-instance')/Violation_date_fbc_102"/>
+                                
+                            <idega:validator ev:event="idega-validate">
+                                <idega:message errorType="required"
+                                    model="data_model" value="instance('localized_strings')/fbc_102-required[@lang=instance('localized_strings')/current_language]"/>
+                            </idega:validator>
+                            <xf:alert ref="instance('error-instance')/error[@for='fbc_102']"/>
                         </xf:input>
-                        <xf:textarea bind="fbc_103_bind" id="fbc_103" type="fbc_textarea">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_103-label[@lang=instance('localized_strings')/current_language]"/>
-                        </xf:textarea>
+                        <xf:input bind="fbc_153_bind" id="fbc_153" type="fbc_date">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_153-label[@lang=instance('localized_strings')/current_language]"/>
+                            <xf:dispatch ev:event="idega-xforms-ready"
+                                name="idega-validate" target="fbc_153"/>
+                            <xf:dispatch ev:event="xforms-value-changed"
+                                name="idega-validate" target="fbc_153"/>
+                                
+                            <xf:setvalue ev:event="xforms-value-changed"
+                                    ref="instance('data-instance')/violationTimeLabel" value="instance('data-instance')/Violation_time_fbc_153"/>
+                                
+                            <idega:validator ev:event="idega-validate">
+                                <idega:message errorType="required"
+                                    model="data_model" value="instance('localized_strings')/fbc_153-required[@lang=instance('localized_strings')/current_language]"/>
+                            </idega:validator>
+                            <xf:alert ref="instance('error-instance')/error[@for='fbc_153']"/>
+                        </xf:input>
                         <div class="fbc_header_text" id="fbc_36" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_36-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
@@ -459,10 +792,103 @@
                 </idega:case>
                 <idega:case id="fbc_41" show="instance('control-instance')/generatePdf='true'">
                     <xf:group appearance="full">
+                        <div class="fbc_header_text" id="fbc_134" type="fbc_header_text">
+                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_5-text[@lang=instance('localized_strings')/current_language]"/>
+                        </div>
+                        <xf:repeat appearance="full" bind="fbc_106_bind" id="fbc_110_repeat_id">
+                            <xf:output id="fbc_111"
+                                ref="./socialSecurityNr" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_101-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output id="fbc_112"
+                                ref="./violationPersonName" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_42-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output id="fbc_113"
+                                ref="./violationPersonAddress" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_44-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output id="fbc_114"
+                                ref="./violationPersonPostalCode" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_45-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output id="fbc_115"
+                                ref="./violationPersonPlace" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_46-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output id="fbc_116"
+                                ref="./typeOfPermission" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_109-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                        </xf:repeat>
+                        <div class="fbc_header_text" id="fbc_135" type="fbc_header_text">
+                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_117-text[@lang=instance('localized_strings')/current_language]"/>
+                        </div>
+                        <xf:repeat appearance="full" bind="fbc_120_bind" id="fbc_127_repeat_id">
+                            <xf:output id="fbc_128"
+                                ref="./socialSecurityNr" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_121-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output id="fbc_129"
+                                ref="./violationPersonName" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_122-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output id="fbc_130"
+                                ref="./violationPersonAddress" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_123-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output id="fbc_131"
+                                ref="./violationPersonPostalCode" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_124-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output id="fbc_132"
+                                ref="./violationPersonPlace" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_125-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output id="fbc_133"
+                                ref="./typeOfPermission" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_126-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                        </xf:repeat>
+                        <div class="fbc_header_text" id="fbc_146" type="fbc_header_text">
+                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_136-text[@lang=instance('localized_strings')/current_language]"/>
+                        </div>
+                        <xf:repeat appearance="full" bind="fbc_139_bind" id="fbc_147_repeat_id">
+                            <xf:output id="fbc_128"
+                                ref="./socialSecurityNr" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_140-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output id="fbc_148"
+                                ref="./violationPersonName" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_141-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output id="fbc_149"
+                                ref="./violationPersonAddress" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_142-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output id="fbc_150"
+                                ref="./violationPersonPostalCode" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_143-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output id="fbc_151"
+                                ref="./violationPersonPlace" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_144-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output id="fbc_152"
+                                ref="./typeOfPermission" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_145-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                        </xf:repeat>
                         <xf:label model="data_model" ref="instance('localized_strings')/fbc_41-label[@lang=instance('localized_strings')/current_language]"/>
                         <div class="fbc_header_text" id="fbc_48" type="fbc_header_text">
-                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_48-text[@lang=instance('localized_strings')/current_language]"/>
+                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_19-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
+                        <xf:output bind="fbc_154_bind" id="fbc_154" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_102-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                        <xf:output bind="fbc_155_bind" id="fbc_155" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_155-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
                         <div class="fbc_header_text" id="fbc_57" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_57-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
