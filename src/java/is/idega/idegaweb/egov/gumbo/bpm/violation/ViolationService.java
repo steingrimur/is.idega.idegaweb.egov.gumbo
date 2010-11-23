@@ -49,6 +49,15 @@ public class ViolationService {
 		return items;
 	}
 	
+	public List<Item> getHarbours() {
+		final List<Item> items = new ArrayList<Item>();
+		
+		items.add(new Item("harbour1", "Harbour 1"));
+		items.add(new Item("harbour2", "Harbour 2"));
+		
+		return items;
+	}
+	
 	public String getTypeLabelOfPermissionForViolationPerson(String socialNr) {
 		
 		// endurvigtun, heimavigtun, vigtun eftir slægingu, ofl.

@@ -62,12 +62,12 @@ public class DOFWSClientMock implements DOFWSClient {
 	
 	@Override
 	public boolean getHasValidSeafaringLicense(String shipID) {
-		throw new UnsupportedOperationException();
+		return true;
 	}
 	
 	@Override
 	public boolean getHasValidGeneralFishingLicense(String shipID) {
-		throw new UnsupportedOperationException();
+		return true;
 	}
 	
 	@Override
