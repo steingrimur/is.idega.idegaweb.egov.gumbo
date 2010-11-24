@@ -88,6 +88,7 @@
             <variable name="string_violationPostalCode" access="read,write"></variable>
             <variable name="string_violationPlace" access="read,write"></variable>
             <variable name="string_violationUmBorSkipi" access="read,write"></variable>
+            <variable name="string_violationUmBorSkipiLabel" access="read,write"></variable>
             <variable name="string_officerComments" access="read,write"></variable>
             
          </controller>

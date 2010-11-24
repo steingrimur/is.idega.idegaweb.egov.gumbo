@@ -10,9 +10,8 @@
         <xf:model id="submission_model" schema="#fb-schema">
             <xf:instance id="data-instance" xmlns="">
                 <data>
-                    <form_id>1280</form_id>
+                    <form_id>1300</form_id>
                     <Identifier_number_fbc_23 mapping="string_caseIdentifier"/>
-                    
                     <violationPersons mapping="objlist_violationPersons">
                         <list>
                             <row>
@@ -112,8 +111,6 @@
                         </list>
                         <trigger/>
                     </violationOtherParties>
-                    <vesselHasValidHaffairisskirteini>true</vesselHasValidHaffairisskirteini>
-                    <vesselHasNotValidHaffairisskirteini/>
                     <saveFormData>
                         <submissionId/>
                     </saveFormData>
@@ -124,7 +121,6 @@
                     <tmpSocialNumber>1234</tmpSocialNumber>
                     <Violation_type_fbc_156 mapping="list_violationTypes"/>
                     <Violation_types_summary/>
-                    
                     <GPS_location_latitude_fbc_104 mapping="string_locationLatitude"/>
                     <GPS_location_longitude_fbc_159 mapping="string_locationLongitude"/>
                     <Harbour_nr_fbc_37 mapping="string_harbourNr"/>
@@ -133,7 +129,23 @@
                     <Postal_code_fbc_161 mapping="string_violationPostalCode"/>
                     <Place_fbc_162 mapping="string_violationPlace"/>
                     <Um_bor__skipi_fbc_163 mapping="string_violationUmBorSkipi"/>
+                    <Um_bor__skipi_true/>
+                    <Um_bor__skipi_false/>
                     <Commentsdetails_fbc_38 mapping="string_officerComments"/>
+                    
+                    <equipmentsAndLicenses mapping="objlist_equipmentsAndLicenses">
+                        <list>
+                            <row>
+                                <registrationNr />
+                                <description />
+                            </row>
+                            <row>
+                                <registrationNr />
+                                <description />
+                            </row>
+                        </list>
+                        <trigger/>
+                    </equipmentsAndLicenses>
                 </data>
             </xf:instance>
             <xf:instance id="control-instance">
@@ -181,8 +193,6 @@
                 nodeset="instance('control-instance')/Submit_fbc_69" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
             <xf:bind id="fbc_37_bind" nodeset="Harbour_nr_fbc_37"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
-            <xf:bind id="fbc_38_bind" nodeset="Commentsdetails_fbc_38"
-                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
             <xf:instance id="fbc_42_autofill-instance"
                 relevant="false()" src="context:fb-afk-loginSession.user.name"/>
             <xf:instance id="fbc_43_autofill-instance"
@@ -195,10 +205,6 @@
                 relevant="false()" src="context:fb-afk-loginSession.user.usersMainAddress.commune.communeName"/>
             <xf:bind id="bind-controlsButton" idega:shared="true"
                 nodeset="instance('control-instance')/controlsButton" relevant="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"/>
-            <xf:bind id="fbc_73_bind"
-                nodeset="vesselHasValidHaffairisskirteini" relevant="instance('data-instance')/vesselHasValidHaffairisskirteini = 'true'"/>
-            <xf:bind id="fbc_74_bind"
-                nodeset="vesselHasNotValidHaffairisskirteini" relevant="instance('data-instance')/vesselHasValidHaffairisskirteini != 'true'"/>
             <xf:bind id="fbc_102_bind" nodeset="Violation_date_fbc_102"
                 required="instance('control-instance')/required = 'true'" type="date"/>
             <xf:bind id="fbc_154_bind" nodeset="violationDateLabel"/>
@@ -234,7 +240,19 @@
             <xf:bind id="fbc_162_bind" nodeset="Place_fbc_162"/>
             <xf:bind id="fbc_163_bind" nodeset="Um_bor__skipi_fbc_163"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
-            <xf:bind id="fbc_166_bind" nodeset="HarbourLabel" />
+            <xf:bind id="fbc_163_skipiTrue_bind"
+                nodeset="Um_bor__skipi_true" relevant="instance('data-instance')/Um_bor__skipi_fbc_163 != ''"/>
+            <xf:bind id="fbc_163_skipiFalse_bind"
+                nodeset="Um_bor__skipi_false" relevant="instance('data-instance')/Um_bor__skipi_fbc_163 = ''"/>
+            <xf:bind id="fbc_38_bind" nodeset="Commentsdetails_fbc_38"
+                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+            <xf:bind id="fbc_166_bind" nodeset="HarbourLabel"/>
+            
+            <xf:bind id="fbc_179_trigger"
+                nodeset="equipmentsAndLicenses/trigger" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
+                
+            <xf:bind id="fbc_181_bind"
+                nodeset="equipmentsAndLicenses/list/row[position() != last()]" readonly="instance('control-instance')/readonly = 'true'"/>
         </xf:model>
         <xf:model id="data_model">
             <xf:instance id="localized_strings" xmlns="">
@@ -302,18 +320,6 @@
                     <fbc_37-required lang="is_IS">Það þarf að fylla út reitinn X</fbc_37-required>
                     <fbc_37-required lang="en">The field X is required</fbc_37-required>
                     <fbc_37-help lang="en"/>
-                    <fbc_70-text lang="is_IS">Fyrirsögn</fbc_70-text>
-                    <fbc_70-text lang="en">Comments</fbc_70-text>
-                    <fbc_71-label lang="is_IS">Text output</fbc_71-label>
-                    <fbc_71-label lang="en">Comments</fbc_71-label>
-                    <fbc_72-text lang="is_IS">Fyrirsögn</fbc_72-text>
-                    <fbc_72-text lang="en">Conditions for granting the fishing license</fbc_72-text>
-                    <fbc_73-text lang="is_IS">True</fbc_73-text>
-                    <fbc_73-text lang="en">True</fbc_73-text>
-                    <fbc_73-label lang="is_IS">Valid "Haffærisskirteini"</fbc_73-label>
-                    <fbc_73-label lang="en">Valid "Haffærisskirteini"</fbc_73-label>
-                    <fbc_74-text lang="is_IS">thw what</fbc_74-text>
-                    <fbc_74-text lang="en">The vessel does not have a valid "haffærisskírteini". Please contact Siglingamálastofnun. It is not possible to submit the application under these conditions.</fbc_74-text>
                     <page-3-label lang="en">The form was saved</page-3-label>
                     <page-3-label lang="is_IS">Umsóknin var vistuð og þú getur nálgast hana aftur með hlekknum hér að neðan</page-3-label>
                     <page-3-info lang="en"/>
@@ -386,6 +392,10 @@
                     <violationOtherParties-insert-label lang="is_IS">Bæta við röð</violationOtherParties-insert-label>
                     <violationOtherParties-delete-label lang="en">Delete</violationOtherParties-delete-label>
                     <violationOtherParties-delete-label lang="is_IS">Eyða röð</violationOtherParties-delete-label>
+                    <equipmentsAndLicenses-insert-label lang="en">Insert</equipmentsAndLicenses-insert-label>
+                    <equipmentsAndLicenses-insert-label lang="is_IS">Bæta við röð</equipmentsAndLicenses-insert-label>
+                    <equipmentsAndLicenses-delete-label lang="en">Delete</equipmentsAndLicenses-delete-label>
+                    <equipmentsAndLicenses-delete-label lang="is_IS">Eyða röð</equipmentsAndLicenses-delete-label>
                     <fbc_102-required lang="is_IS">Það þarf að fylla út reitinn X</fbc_102-required>
                     <fbc_102-required lang="en">The field X is required</fbc_102-required>
                     <fbc_153-required lang="is_IS">Það þarf að fylla út reitinn X</fbc_153-required>
@@ -406,8 +416,20 @@
                     <fbc_159-required lang="en">The field X is required</fbc_159-required>
                     <fbc_162-label lang="is_IS">Text output</fbc_162-label>
                     <fbc_162-label lang="en">Place</fbc_162-label>
-                    <fbc_163-label lang="is_IS">Valhnappar (fjölval)</fbc_163-label>
+                    <fbc_163-label lang="is_IS">Um borð í skipi</fbc_163-label>
                     <fbc_163-label lang="en">Um borð í skipi</fbc_163-label>
+                    <fbc_170-label lang="is_IS">Selected</fbc_170-label>
+                    <fbc_170-label lang="en">Selected</fbc_170-label>
+                    <fbc_171-label lang="is_IS">Not selected</fbc_171-label>
+                    <fbc_171-label lang="en">Not selected</fbc_171-label>
+                    <fbc_173-label lang="is_IS">Equipment and licenses</fbc_173-label>
+                    <fbc_173-label lang="en">Equipment and licenses</fbc_173-label>
+                    <fbc_178-text lang="en">Equipment and licenses</fbc_178-text>
+                    <fbc_178-text lang="is_IS">Equipment and licenses</fbc_178-text>
+                    <fbc_182-label lang="is_IS">Registration nr.</fbc_182-label>
+                    <fbc_182-label lang="en">Registration nr.</fbc_182-label>
+                    <fbc_183-label lang="is_IS">Description</fbc_183-label>
+                    <fbc_183-label lang="en">Description</fbc_183-label>
                 </localized_strings>
             </xf:instance>
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
@@ -466,7 +488,7 @@
                 <local_src>
                     <localizedEntries lang="en">
                         <item>
-                            <itemLabel></itemLabel>
+                            <itemLabel/>
                             <itemValue>optionselected</itemValue>
                         </item>
                     </localizedEntries>
@@ -829,6 +851,11 @@
                         </xf:input>
                         <xf:input bind="fbc_161_bind" id="fbc_161" type="fbc_text">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_161-label[@lang=instance('localized_strings')/current_language]"/>
+                            <idega:setvalue
+                                ev:event="xforms-value-changed"
+                                multiple="true()"
+                                placeResponseDocument="true()"
+                                ref="instance('data-instance')/Place_fbc_162" value="idega:resolveExpression('violationService.getViolationPlaceLabel({0})', '#{instance(`data-instance`)/Postal_code_fbc_161}')"/>
                         </xf:input>
                         <xf:output bind="fbc_162_bind" id="fbc_162" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_162-label[@lang=instance('localized_strings')/current_language]"/>
@@ -868,6 +895,73 @@
                             </xf:trigger>
                             <xf:trigger bind="bind-controlsButton"
                                 id="fbc_66" type="fbc_button_next">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_66-label[@lang=instance('localized_strings')/current_language]"/>
+                                <idega:toggle case="fbc_173" ev:event="DOMActivate"/>
+                            </xf:trigger>
+                        </div>
+                    </xf:group>
+                </idega:case>
+                <idega:case id="fbc_173" show="instance('control-instance')/generatePdf='true'">
+                    <xf:group appearance="full">
+                        <xf:label model="data_model" ref="instance('localized_strings')/fbc_173-label[@lang=instance('localized_strings')/current_language]"/>
+                        
+                        <div class="fbc_header_text" id="fbc_178" type="fbc_header_text">
+                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_178-text[@lang=instance('localized_strings')/current_language]"/>
+                        </div>
+                        
+                        <xf:trigger bind="fbc_179_trigger" id="fbc_179">
+                            <xf:label model="data_model" ref="instance('localized_strings')/equipmentsAndLicenses-insert-label[@lang=instance('localized_strings')/current_language]"/>
+                            <xf:action>
+                                <xf:insert at="last()"
+                                    nodeset="../list/row" position="after"/>
+                            </xf:action>
+                        </xf:trigger>
+                        <xf:trigger bind="fbc_179_trigger" id="fbc_180">
+                            <xf:label model="data_model" ref="instance('localized_strings')/equipmentsAndLicenses-delete-label[@lang=instance('localized_strings')/current_language]"/>
+                            <xf:action>
+                                <xf:delete at="last()-1" nodeset="../list/row"/>
+                            </xf:action>
+                        </xf:trigger>
+                        
+                        <xf:repeat appearance="full" bind="fbc_181_bind" id="fbc_181_repeat_id">
+                            <xf:input id="fbc_182"
+                                ref="./registrationNr" type="fbc_text">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_182-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:input>
+                            <xf:textarea ref="./description" id="fbc_183" type="fbc_textarea">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_183-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:textarea>
+                        </xf:repeat>
+                        
+                        <div class="fbc_button_area" id="fbc_174" type="fbc_button_area">
+                            <xf:trigger bind="bind-submissionButton"
+                                class="fbc_button_submit" id="fbc_177" type="fbc_button_save">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_40-label[@lang=instance('localized_strings')/current_language]"/>
+                                <xf:action ev:event="DOMActivate">
+                                    <xf:setvalue
+                                    model="submission_model" ref="instance('saveForm-instance')/savePhase">true</xf:setvalue>
+                                    <xf:dispatch name="xforms-rebuild" target="data_model"/>
+                                    <xf:dispatch
+                                    name="xforms-recalculate" target="data_model"/>
+                                    <xf:dispatch
+                                    name="xforms-revalidate" target="data_model"/>
+                                    <xf:dispatch name="xforms-refresh" target="data_model"/>
+                                    <idega:saveForm action="save"
+                                    formId="instance('data-instance')/form_id"
+                                    instanceId="data-instance"
+                                    linkLocation="instance('saveForm-instance')/link"
+                                    model="submission_model"
+                                    submissionId="instance('data-instance')/saveFormData/submissionId" submissionIdentifier="instance('data-instance')/*[@nodeType='formIdentifier']"/>
+                                    <idega:toggle case="fbc_100"/>
+                                </xf:action>
+                            </xf:trigger>
+                            <xf:trigger bind="bind-controlsButton"
+                                id="fbc_176" type="fbc_button_previous">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_68-label[@lang=instance('localized_strings')/current_language]"/>
+                                <idega:toggle case="fbc_1" ev:event="DOMActivate"/>
+                            </xf:trigger>
+                            <xf:trigger bind="bind-controlsButton"
+                                id="fbc_175" type="fbc_button_next">
                                 <xf:label model="data_model" ref="instance('localized_strings')/fbc_66-label[@lang=instance('localized_strings')/current_language]"/>
                                 <idega:toggle case="fbc_41" ev:event="DOMActivate"/>
                             </xf:trigger>
@@ -984,44 +1078,64 @@
                                 <xf:value ref="itemValue"/>
                             </xf:itemset>
                         </xf:select>
-                        
                         <div class="fbc_header_text" id="fbc_57" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_39-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
-                        
                         <xf:output bind="fbc_104_bind" id="fbc_164" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_104-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
                         <xf:output bind="fbc_159_bind" id="fbc_165" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_159-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
-                        
                         <xf:output bind="fbc_166_bind" id="fbc_166" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_37-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
-                        
-                        <div class="fbc_header_text" id="fbc_70" type="fbc_header_text">
-                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_70-text[@lang=instance('localized_strings')/current_language]"/>
-                        </div>
-                        <xf:output bind="fbc_38_bind" id="fbc_71" type="fbc_text_output">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_71-label[@lang=instance('localized_strings')/current_language]"/>
+                        <xf:output bind="fbc_160_bind" id="fbc_167" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_160-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
-                        <div class="fbc_header_text" id="fbc_72" type="fbc_header_text">
-                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_72-text[@lang=instance('localized_strings')/current_language]"/>
-                        </div>
-                        <xf:group bind="fbc_73_bind">
-                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_73-text[@lang=instance('localized_strings')/current_language]">
-                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_73-label[@lang=instance('localized_strings')/current_language]"/>
+                        <xf:output bind="fbc_161_bind" id="fbc_168" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_161-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                        <xf:output bind="fbc_162_bind" id="fbc_169" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_162-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                        <xf:group bind="fbc_163_skipiTrue_bind">
+                            <xf:output id="fbc_170"
+                                ref="instance('localized_strings')/fbc_170-label[@lang=instance('localized_strings')/current_language]" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_163-label[@lang=instance('localized_strings')/current_language]"/>
                             </xf:output>
                         </xf:group>
-                        <xf:group bind="fbc_74_bind" class="xformErrors">
-                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_74-text[@lang=instance('localized_strings')/current_language]"/>
+                        <xf:group bind="fbc_163_skipiFalse_bind">
+                            <xf:output id="fbc_170"
+                                ref="instance('localized_strings')/fbc_171-label[@lang=instance('localized_strings')/current_language]" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_163-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
                         </xf:group>
+                        
+                        <xf:output bind="fbc_38_bind" id="fbc_172" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_38-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                        
+                        <div class="fbc_header_text" id="fbc_72" type="fbc_header_text">
+                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_178-text[@lang=instance('localized_strings')/current_language]"/>
+                        </div>
+                        
+                        <xf:repeat appearance="full" bind="fbc_181_bind" id="fbc_184_repeat_id">
+                            <xf:output id="fbc_185"
+                                ref="./registrationNr" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_182-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output id="fbc_186"
+                                ref="./description" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_183-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                        </xf:repeat>
+                        
                         <div class="fbc_button_area" id="fbc_67" type="fbc_button_area">
                             <xf:trigger bind="bind-controlsButton"
                                 id="fbc_68" type="fbc_button_previous">
                                 <xf:label model="data_model" ref="instance('localized_strings')/fbc_68-label[@lang=instance('localized_strings')/current_language]"/>
-                                <idega:toggle case="fbc_1" ev:event="DOMActivate"/>
+                                <idega:toggle case="fbc_173" ev:event="DOMActivate"/>
                             </xf:trigger>
                             <xf:trigger bind="bind-submissionButton"
                                 class="fbc_button_submit" id="fbc_69" type="fbc_button_submit">

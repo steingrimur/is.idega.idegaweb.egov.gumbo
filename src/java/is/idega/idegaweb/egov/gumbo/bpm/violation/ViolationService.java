@@ -49,6 +49,11 @@ public class ViolationService {
 		return items;
 	}
 	
+	public String getViolationPlaceLabel(String byPostalCode) {
+		
+		return "place in " + byPostalCode;
+	}
+	
 	public List<Item> getHarbours() {
 		final List<Item> items = new ArrayList<Item>();
 		
