@@ -1,6 +1,5 @@
 package is.idega.idegaweb.egov.gumbo.presentation;
 
-import is.idega.idegaweb.egov.application.data.Application;
 import is.idega.idegaweb.egov.company.data.CompanyApplication;
 import is.idega.idegaweb.egov.company.presentation.company.CompanyApplicationCreator;
 
