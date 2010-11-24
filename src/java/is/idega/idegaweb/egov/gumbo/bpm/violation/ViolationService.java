@@ -50,6 +50,24 @@ public class ViolationService {
 		return items;
 	}
 	
+	public List<Item> getOtherInspectorsThanCurrentlyLoggedIn() {
+		final List<Item> items = new ArrayList<Item>();
+		
+		items.add(new Item("insp1", "Inspector 1"));
+		items.add(new Item("insp2", "Inspector 2"));
+		
+		return items;
+	}
+	
+	public List<Item> getFiskistofeOffices() {
+		final List<Item> items = new ArrayList<Item>();
+		
+		items.add(new Item("office1", "Office 1"));
+		items.add(new Item("office2", "Office 2"));
+		
+		return items;
+	}
+	
 	public String getViolationPlaceLabel(String byPostalCode) {
 		
 		return "place in " + byPostalCode;

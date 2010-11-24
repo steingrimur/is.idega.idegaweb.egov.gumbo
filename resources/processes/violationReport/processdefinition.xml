@@ -100,6 +100,16 @@
             <variable name="string_vesselFishingGear" access="read,write"></variable>
             <variable name="string_vesselFishingGearsSummary" access="read,write"></variable>
             
+            <variable name="string_policeInvolvement" access="read,write"></variable>
+            <variable name="string_policeOfficersNr" access="read,write"></variable>
+            <variable name="string_violationDescription" access="read,write"></variable>
+            <variable name="files_attachments" access="read,write"></variable>
+            <variable name="string_responsibleInspector" access="read,write"></variable>
+            <variable name="string_fiskistofaOffice" access="read,write"></variable>
+            <variable name="string_fiskistofaOfficeLabel" access="read,write"></variable>
+            <variable name="list_otherInspectors" access="read,write"></variable>
+            <variable name="list_otherInspectorsSummary" access="read,write"></variable>
+            
          </controller>
       </task>
       <transition to="state1"></transition>
