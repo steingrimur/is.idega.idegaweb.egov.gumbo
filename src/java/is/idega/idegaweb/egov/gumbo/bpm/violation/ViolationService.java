@@ -7,6 +7,7 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import com.idega.util.CoreConstants;
 import com.idega.util.StringUtil;
 import com.idega.util.text.Item;
 
@@ -82,6 +83,70 @@ public class ViolationService {
 		// endurvigtun, heimavigtun, vigtun eftir slægingu, ofl.
 		
 		return "some type for other party: " + socialNr;
+	}
+	
+	public EquipmentData getEquipmentData(String byVesselRegistryNr) {
+		
+		return new EquipmentData().setName("vessel name " + byVesselRegistryNr)
+		        .setOwnersName("owners name " + byVesselRegistryNr)
+		        .setFishingType("fishing type")
+		        .setFishingLicense("fishing license");
+	}
+	
+	public static final class EquipmentData {
+		
+		private String name;
+		private String ownersName;
+		private String fishingType;
+		private String fishingLicense;
+		private String revokeLicense = CoreConstants.EMPTY;
+		
+		public String getName() {
+			return name;
+		}
+		
+		public EquipmentData setName(String name) {
+			this.name = name;
+			return this;
+		}
+		
+		public String getOwnersName() {
+			return ownersName;
+		}
+		
+		public EquipmentData setOwnersName(String ownersName) {
+			this.ownersName = ownersName;
+			return this;
+		}
+		
+		public String getFishingType() {
+			return fishingType;
+		}
+		
+		public EquipmentData setFishingType(String fishingType) {
+			this.fishingType = fishingType;
+			return this;
+		}
+		
+		public String getFishingLicense() {
+			return fishingLicense;
+		}
+		
+		public EquipmentData setFishingLicense(String fishingLicense) {
+			this.fishingLicense = fishingLicense;
+			return this;
+		}
+		
+		public String getRevokeLicense() {
+			return revokeLicense;
+		}
+		
+		public EquipmentData setRevokeLicense(String revokeLicense) {
+			this.revokeLicense = revokeLicense != null ? revokeLicense
+			        : CoreConstants.EMPTY;
+			return this;
+		}
+		
 	}
 	
 	public static final class PersonData {

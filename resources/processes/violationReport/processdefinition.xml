@@ -79,6 +79,7 @@
             <variable name="string_violationTime" access="read,write"></variable>
             <variable name="string_violationTimeLabel" access="read,write"></variable>
             <variable name="list_violationTypes" access="read,write"></variable>
+            <variable name="list_violationTypesSummary" access="read,write"></variable>
             
             <variable name="string_locationLatitude" access="read,write"></variable>
             <variable name="string_locationLongitude" access="read,write"></variable>
@@ -90,6 +91,14 @@
             <variable name="string_violationUmBorSkipi" access="read,write"></variable>
             <variable name="string_violationUmBorSkipiLabel" access="read,write"></variable>
             <variable name="string_officerComments" access="read,write"></variable>
+            
+            <variable name="string_vesselRegistryNr" access="read,write"></variable>
+            <variable name="string_vesselName" access="read,write"></variable>
+            <variable name="string_vesselOwnerName" access="read,write"></variable>
+            <variable name="string_vesselFishingType" access="read,write"></variable>
+            <variable name="string_vesselFishingLicense" access="read,write"></variable>
+            <variable name="string_vesselFishingGear" access="read,write"></variable>
+            <variable name="string_vesselFishingGearsSummary" access="read,write"></variable>
             
          </controller>
       </task>
