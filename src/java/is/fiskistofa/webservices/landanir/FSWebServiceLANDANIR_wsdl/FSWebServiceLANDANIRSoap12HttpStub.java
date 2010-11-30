@@ -16,7 +16,7 @@ public class FSWebServiceLANDANIRSoap12HttpStub extends org.apache.axis.client.S
     static org.apache.axis.description.OperationDesc [] _operations;
 
     static {
-        _operations = new org.apache.axis.description.OperationDesc[3];
+        _operations = new org.apache.axis.description.OperationDesc[4];
         _initOperationDesc1();
     }
 
@@ -37,17 +37,30 @@ public class FSWebServiceLANDANIRSoap12HttpStub extends org.apache.axis.client.S
         _operations[0] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
-        oper.setName("getlondunafli");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl", "getlondunafliElement"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl", ">getlondunafliElement"), is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.GetlondunafliElement.class, false, false);
+        oper.setName("getlastlandanirbyskip");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl", "getlastlandanirbyskipElement"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl", ">getlastlandanirbyskipElement"), is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.GetlastlandanirbyskipElement.class, false, false);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl", ">getlondunafliResponseElement"));
-        oper.setReturnClass(is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunAfliTypeUser[].class);
-        oper.setReturnQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl", "getlondunafliResponseElement"));
+        oper.setReturnType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl", ">getlastlandanirbyskipResponseElement"));
+        oper.setReturnClass(is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser[].class);
+        oper.setReturnQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl", "getlastlandanirbyskipResponseElement"));
         param = oper.getReturnParamDesc();
         param.setItemQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl", "result"));
         oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         _operations[1] = oper;
+
+        oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("getlastlandanirbyutgerd");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl", "getlastlandanirbyutgerdElement"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl", ">getlastlandanirbyutgerdElement"), is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.GetlastlandanirbyutgerdElement.class, false, false);
+        oper.addParameter(param);
+        oper.setReturnType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl", ">getlastlandanirbyutgerdResponseElement"));
+        oper.setReturnClass(is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser[].class);
+        oper.setReturnQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl", "getlastlandanirbyutgerdResponseElement"));
+        param = oper.getReturnParamDesc();
+        param.setItemQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl", "result"));
+        oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
+        oper.setUse(org.apache.axis.constants.Use.LITERAL);
+        _operations[2] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("getlonduninfo");
@@ -58,7 +71,7 @@ public class FSWebServiceLANDANIRSoap12HttpStub extends org.apache.axis.client.S
         oper.setReturnQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl", "getlonduninfoResponseElement"));
         oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[2] = oper;
+        _operations[3] = oper;
 
     }
 
@@ -107,18 +120,34 @@ public class FSWebServiceLANDANIRSoap12HttpStub extends org.apache.axis.client.S
             cachedSerFactories.add(new org.apache.axis.encoding.ser.ArraySerializerFactory(qName, qName2));
             cachedDeserFactories.add(new org.apache.axis.encoding.ser.ArrayDeserializerFactory());
 
-            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl", ">getlondunafliElement");
+            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl", ">getlastlandanirbyskipElement");
             cachedSerQNames.add(qName);
-            cls = is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.GetlondunafliElement.class;
+            cls = is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.GetlastlandanirbyskipElement.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
-            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl", ">getlondunafliResponseElement");
+            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl", ">getlastlandanirbyskipResponseElement");
             cachedSerQNames.add(qName);
-            cls = is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunAfliTypeUser[].class;
+            cls = is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser[].class;
             cachedSerClasses.add(cls);
-            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl", "LondunAfliTypeUser");
+            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl", "LondunTypeUser");
+            qName2 = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl", "result");
+            cachedSerFactories.add(new org.apache.axis.encoding.ser.ArraySerializerFactory(qName, qName2));
+            cachedDeserFactories.add(new org.apache.axis.encoding.ser.ArrayDeserializerFactory());
+
+            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl", ">getlastlandanirbyutgerdElement");
+            cachedSerQNames.add(qName);
+            cls = is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.GetlastlandanirbyutgerdElement.class;
+            cachedSerClasses.add(cls);
+            cachedSerFactories.add(beansf);
+            cachedDeserFactories.add(beandf);
+
+            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl", ">getlastlandanirbyutgerdResponseElement");
+            cachedSerQNames.add(qName);
+            cls = is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser[].class;
+            cachedSerClasses.add(cls);
+            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl", "LondunTypeUser");
             qName2 = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl", "result");
             cachedSerFactories.add(new org.apache.axis.encoding.ser.ArraySerializerFactory(qName, qName2));
             cachedDeserFactories.add(new org.apache.axis.encoding.ser.ArrayDeserializerFactory());
@@ -274,19 +303,19 @@ public class FSWebServiceLANDANIRSoap12HttpStub extends org.apache.axis.client.S
 }
     }
 
-    public is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunAfliTypeUser[] getlondunafli(is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.GetlondunafliElement parameters) throws java.rmi.RemoteException {
+    public is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser[] getlastlandanirbyskip(is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.GetlastlandanirbyskipElement parameters) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
         _call.setOperation(_operations[1]);
         _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl/getlondunafli");
+        _call.setSOAPActionURI("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl/getlastlandanirbyskip");
         _call.setEncodingStyle(null);
         _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP12_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("", "getlondunafli"));
+        _call.setOperationName(new javax.xml.namespace.QName("", "getlastlandanirbyskip"));
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -298,9 +327,43 @@ public class FSWebServiceLANDANIRSoap12HttpStub extends org.apache.axis.client.S
         else {
             extractAttachments(_call);
             try {
-                return (is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunAfliTypeUser[]) _resp;
+                return (is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser[]) _resp;
             } catch (java.lang.Exception _exception) {
-                return (is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunAfliTypeUser[]) org.apache.axis.utils.JavaUtils.convert(_resp, is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunAfliTypeUser[].class);
+                return (is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser[]) org.apache.axis.utils.JavaUtils.convert(_resp, is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser[].class);
+            }
+        }
+  } catch (org.apache.axis.AxisFault axisFaultException) {
+  throw axisFaultException;
+}
+    }
+
+    public is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser[] getlastlandanirbyutgerd(is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.GetlastlandanirbyutgerdElement parameters) throws java.rmi.RemoteException {
+        if (super.cachedEndpoint == null) {
+            throw new org.apache.axis.NoEndPointException();
+        }
+        org.apache.axis.client.Call _call = createCall();
+        _call.setOperation(_operations[2]);
+        _call.setUseSOAPAction(true);
+        _call.setSOAPActionURI("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl/getlastlandanirbyutgerd");
+        _call.setEncodingStyle(null);
+        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP12_CONSTANTS);
+        _call.setOperationName(new javax.xml.namespace.QName("", "getlastlandanirbyutgerd"));
+
+        setRequestHeaders(_call);
+        setAttachments(_call);
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {parameters});
+
+        if (_resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)_resp;
+        }
+        else {
+            extractAttachments(_call);
+            try {
+                return (is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser[]) _resp;
+            } catch (java.lang.Exception _exception) {
+                return (is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser[]) org.apache.axis.utils.JavaUtils.convert(_resp, is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -313,7 +376,7 @@ public class FSWebServiceLANDANIRSoap12HttpStub extends org.apache.axis.client.S
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[2]);
+        _call.setOperation(_operations[3]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl/getlonduninfo");
         _call.setEncodingStyle(null);

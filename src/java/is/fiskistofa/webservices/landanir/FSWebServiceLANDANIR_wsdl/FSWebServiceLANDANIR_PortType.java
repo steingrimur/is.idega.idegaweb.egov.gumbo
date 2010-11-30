@@ -9,6 +9,7 @@ package is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl;
 
 public interface FSWebServiceLANDANIR_PortType extends java.rmi.Remote {
     public is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser[] getlandanirbyskip(is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.GetlandanirbyskipElement parameters) throws java.rmi.RemoteException;
-    public is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunAfliTypeUser[] getlondunafli(is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.GetlondunafliElement parameters) throws java.rmi.RemoteException;
+    public is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser[] getlastlandanirbyskip(is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.GetlastlandanirbyskipElement parameters) throws java.rmi.RemoteException;
+    public is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser[] getlastlandanirbyutgerd(is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.GetlastlandanirbyutgerdElement parameters) throws java.rmi.RemoteException;
     public is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.GetlonduninfoResponseElement getlonduninfo(is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.GetlonduninfoElement parameters) throws java.rmi.RemoteException;
 }

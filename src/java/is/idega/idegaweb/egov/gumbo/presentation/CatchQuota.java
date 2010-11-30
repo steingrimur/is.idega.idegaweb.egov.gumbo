@@ -1,10 +1,10 @@
 package is.idega.idegaweb.egov.gumbo.presentation;
 
-import java.math.BigDecimal;
-
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.bean.GumboBean;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
+
+import java.math.BigDecimal;
 
 import javax.faces.context.FacesContext;
 

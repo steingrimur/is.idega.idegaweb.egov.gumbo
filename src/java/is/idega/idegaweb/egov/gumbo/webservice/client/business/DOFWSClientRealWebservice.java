@@ -2,14 +2,13 @@ package is.idega.idegaweb.egov.gumbo.webservice.client.business;
 
 import is.fiskistofa.webservices.adili.FSWebServiceADILI_wsdl.FSWebServiceADILI_PortType;
 import is.fiskistofa.webservices.adili.FSWebServiceADILI_wsdl.FSWebServiceADILI_ServiceLocator;
+import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.AflamarkTypeUser;
 import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.FSWebServiceAFLAMARK_PortType;
 import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.FSWebServiceAFLAMARK_ServiceLocator;
-import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.types.AflamarkTypeUser;
-import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.types.GetaflamarkElement;
+import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.GetaflamarkElement;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.FSWebServiceLANDANIR_PortType;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.FSWebServiceLANDANIR_ServiceLocator;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.GetlandanirbyskipElement;
-import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.GetlondunafliElement;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunAfliTypeUser;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser;
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.FSWebServiceSKIP_PortType;
@@ -22,12 +21,12 @@ import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.GetskipinfobyutgerdE
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.FSWebServiceVEIDILEYFI_PortType;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.FSWebServiceVEIDILEYFI_ServiceLocator;
-import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types.GethefuraflamarksveidilElement;
-import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types.GethefuraflamarksveidilResponseElement;
-import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types.GethefurstrandveidileyfiElement;
-import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types.GethefurstrandveidileyfiResponseElement;
-import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types.GethefurveidileyfiElement;
-import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.types.GethefurveidileyfiResponseElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefuraflamarksveidilElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefuraflamarksveidilResponseElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurstrandveidileyfiElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurstrandveidileyfiResponseElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurveidileyfiElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurveidileyfiResponseElement;
 
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
@@ -229,13 +228,13 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 	@Override
 	public LondunAfliTypeUser[] getCatchInfoByNumberAndPort(
 	        BigDecimal catchNumber, BigDecimal port) {
-		try {
+		/*try {
 			GetlondunafliElement parameter = new GetlondunafliElement(port,
 			        catchNumber);
 			return getCatchPort().getlondunafli(parameter);
 		} catch (RemoteException e) {
 			e.printStackTrace();
-		}
+		}*/
 		
 		return null;
 	}

@@ -20,6 +20,8 @@ public class LondunTypeUser  extends is.fiskistofa.webservices.landanir.FSWebSer
 
     private java.math.BigDecimal skipNr;
 
+    private java.lang.String skipHeiti;
+
     private java.math.BigDecimal komunr;
 
     private java.math.BigDecimal hofn;
@@ -38,6 +40,7 @@ public class LondunTypeUser  extends is.fiskistofa.webservices.landanir.FSWebSer
            is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunAfliTypeUser[] londunAfliTable,
            java.lang.String hafnarHeiti,
            java.math.BigDecimal skipNr,
+           java.lang.String skipHeiti,
            java.math.BigDecimal komunr,
            java.math.BigDecimal hofn,
            java.lang.String veidarfaeriHeiti,
@@ -48,6 +51,7 @@ public class LondunTypeUser  extends is.fiskistofa.webservices.landanir.FSWebSer
         this.londunAfliTable = londunAfliTable;
         this.hafnarHeiti = hafnarHeiti;
         this.skipNr = skipNr;
+        this.skipHeiti = skipHeiti;
         this.komunr = komunr;
         this.hofn = hofn;
         this.veidarfaeriHeiti = veidarfaeriHeiti;
@@ -176,6 +180,26 @@ public class LondunTypeUser  extends is.fiskistofa.webservices.landanir.FSWebSer
 
 
     /**
+     * Gets the skipHeiti value for this LondunTypeUser.
+     * 
+     * @return skipHeiti
+     */
+    public java.lang.String getSkipHeiti() {
+        return skipHeiti;
+    }
+
+
+    /**
+     * Sets the skipHeiti value for this LondunTypeUser.
+     * 
+     * @param skipHeiti
+     */
+    public void setSkipHeiti(java.lang.String skipHeiti) {
+        this.skipHeiti = skipHeiti;
+    }
+
+
+    /**
      * Gets the komunr value for this LondunTypeUser.
      * 
      * @return komunr
@@ -284,6 +308,9 @@ public class LondunTypeUser  extends is.fiskistofa.webservices.landanir.FSWebSer
             ((this.skipNr==null && other.getSkipNr()==null) || 
              (this.skipNr!=null &&
               this.skipNr.equals(other.getSkipNr()))) &&
+            ((this.skipHeiti==null && other.getSkipHeiti()==null) || 
+             (this.skipHeiti!=null &&
+              this.skipHeiti.equals(other.getSkipHeiti()))) &&
             ((this.komunr==null && other.getKomunr()==null) || 
              (this.komunr!=null &&
               this.komunr.equals(other.getKomunr()))) &&
@@ -332,6 +359,9 @@ public class LondunTypeUser  extends is.fiskistofa.webservices.landanir.FSWebSer
         }
         if (getSkipNr() != null) {
             _hashCode += getSkipNr().hashCode();
+        }
+        if (getSkipHeiti() != null) {
+            _hashCode += getSkipHeiti().hashCode();
         }
         if (getKomunr() != null) {
             _hashCode += getKomunr().hashCode();
@@ -390,6 +420,12 @@ public class LondunTypeUser  extends is.fiskistofa.webservices.landanir.FSWebSer
         elemField.setFieldName("skipNr");
         elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl", "skipNr"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "decimal"));
+        elemField.setNillable(true);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("skipHeiti");
+        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/landanir/FSWebServiceLANDANIR.wsdl", "skipHeiti"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
