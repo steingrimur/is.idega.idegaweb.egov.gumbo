@@ -26,6 +26,8 @@ public interface DOFWSClient {
 	public abstract AflamarkTypeUser[] getCatchQuota(BigDecimal shipNumber,
 	        String period);
 	
+	public AflamarkTypeUser[] getCatchQuota(String personalID, String period);
+	
 	public abstract boolean getHasValidSeafaringLicense(String shipID);
 	
 	public abstract boolean getHasValidGeneralFishingLicense(String shipID);

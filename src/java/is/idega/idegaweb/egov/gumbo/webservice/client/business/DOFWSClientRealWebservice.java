@@ -6,6 +6,7 @@ import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.AflamarkType
 import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.FSWebServiceAFLAMARK_PortType;
 import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.FSWebServiceAFLAMARK_ServiceLocator;
 import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.GetaflamarkElement;
+import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.GetaflamarksumbyutgerdElement;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.FSWebServiceLANDANIR_PortType;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.FSWebServiceLANDANIR_ServiceLocator;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.GetlandanirbyskipElement;
@@ -248,6 +249,22 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 			GetaflamarkElement parameter = new GetaflamarkElement(shipNumber,
 			        period);
 			return getCatchQuotaPort().getaflamark(parameter);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	/* (non-Javadoc)
+	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#getCatchQuota(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public AflamarkTypeUser[] getCatchQuota(String personalID, String period) {
+		try {
+			GetaflamarksumbyutgerdElement parameter = new GetaflamarksumbyutgerdElement(personalID,
+			        period);
+			return getCatchQuotaPort().getaflamarksumbyutgerd(parameter);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}

@@ -10,6 +10,7 @@
 		<div class="formItem">
 			<label for="prm_ship_number"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['ship']}" /></label>
 			<c:selectOne name="prm_ship_number">
+				<c:selectOption content="" name="" />
 				<ui:repeat value="#{gumboBean.ships}" var="ship">
 					<c:selectOption content="#{ship.skipNr}" name="#{ship.nafn}" selected="#{ship.skipNr eq gumboBean.shipNumber}" />
 				</ui:repeat>
