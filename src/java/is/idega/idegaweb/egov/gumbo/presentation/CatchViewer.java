@@ -10,6 +10,7 @@ import java.rmi.RemoteException;
 import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.idega.business.IBORuntimeException;
 import com.idega.core.builder.business.BuilderService;
@@ -32,6 +33,7 @@ public class CatchViewer extends IWBaseComponent {
 	private ICPage page;
 	
 	@Autowired
+	@Qualifier(DOFWSClient.WEB_SERVICE)
 	private DOFWSClient client;
 	
 	public String getBundleIdentifier() {

@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.idega.facelets.ui.FaceletComponent;
 import com.idega.idegaweb.IWBundle;
@@ -27,6 +28,7 @@ public class CatchQuota extends IWBaseComponent {
 	private IWBundle iwb;
 	
 	@Autowired
+	@Qualifier(DOFWSClient.WEB_SERVICE)
 	private DOFWSClient client;
 	
 	public String getBundleIdentifier() {
