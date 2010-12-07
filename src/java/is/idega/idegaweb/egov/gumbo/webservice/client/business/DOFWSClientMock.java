@@ -61,6 +61,11 @@ public class DOFWSClientMock implements DOFWSClient {
 	}
 	
 	@Override
+	public AflamarkTypeUser[] getCatchQuota(String personalID, String period) {
+		throw new UnsupportedOperationException();
+	}
+	
+	@Override
 	public boolean getHasValidSeafaringLicense(String shipID) {
 		return true;
 	}

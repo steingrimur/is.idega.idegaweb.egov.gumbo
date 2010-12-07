@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 @Scope("request")
 public class GumboBean {
 
+	private Class eventHandler;
+	
 	private BigDecimal shipNumber;
 	private String period;
 	
@@ -27,6 +29,14 @@ public class GumboBean {
 	private Date toDate;
 	
 	private String responseURL;
+
+	public Class getEventHandler() {
+		return eventHandler;
+	}
+
+	public void setEventHandler(Class eventHandler) {
+		this.eventHandler = eventHandler;
+	}
 
 	public BigDecimal getShipNumber() {
 		return shipNumber;

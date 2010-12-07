@@ -2,12 +2,14 @@
 		xmlns:ui="http://java.sun.com/jsf/facelets"
 		xmlns:h="http://java.sun.com/jsf/html"
 		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:c="http://xmlns.idega.com/com.idega.core"
 >
 <ui:component>
 	<ul id="shipsViewer">
 		<ui:repeat value="#{gumboBean.ships}" var="ship">
 			<li>
 				<h:outputLink value="#{gumboBean.responseURL}">
+					<f:param name="idegaweb_event_classname" value="#{c:encryptClassName(gumboBean.eventHandler)}" />
 					<f:param name="prm_ship_id" value="#{ship.skipNr}" />
 					<h:outputText value="#{ship.nafn}" />
 				</h:outputLink>
