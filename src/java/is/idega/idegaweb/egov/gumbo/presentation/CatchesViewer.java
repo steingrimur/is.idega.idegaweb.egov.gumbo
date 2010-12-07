@@ -2,6 +2,7 @@ package is.idega.idegaweb.egov.gumbo.presentation;
 
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.bean.GumboBean;
+import is.idega.idegaweb.egov.gumbo.business.GumboSession;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 
 import java.math.BigDecimal;
@@ -39,6 +40,9 @@ public class CatchesViewer extends IWBaseComponent {
 	@Qualifier(DOFWSClient.WEB_SERVICE)
 	private DOFWSClient client;
 	
+	@Autowired
+	private GumboSession session;
+	
 	public String getBundleIdentifier() {
 		return GumboConstants.IW_BUNDLE_IDENTIFIER;
 	}
@@ -66,6 +70,9 @@ public class CatchesViewer extends IWBaseComponent {
 		BigDecimal shipNumber = null;
 		if (iwc.isParameterSet(PARAMETER_SHIP)) {
 			shipNumber = new BigDecimal(iwc.getParameter(PARAMETER_SHIP));
+		}
+		else if (getSession().getShip() != null) {
+			shipNumber = getSession().getShip().getSkipNr();
 		}
 
 		try {
@@ -96,6 +103,14 @@ public class CatchesViewer extends IWBaseComponent {
 		}
 		
 		return this.client;
+	}
+	
+	private GumboSession getSession() {
+		if (this.session == null) {
+			ELUtil.getInstance().autowire(this);
+		}
+		
+		return this.session;
 	}
 
 	public ICPage getPage() {

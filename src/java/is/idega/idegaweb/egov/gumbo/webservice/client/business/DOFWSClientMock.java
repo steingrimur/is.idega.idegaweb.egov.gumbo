@@ -50,7 +50,7 @@ public class DOFWSClientMock implements DOFWSClient {
 	}
 	
 	@Override
-	public LondunAfliTypeUser[] getCatchInfoByNumberAndPort(
+	public LondunTypeUser getCatchInfoByNumberAndPort(
 	        BigDecimal catchNumber, BigDecimal port) {
 		throw new UnsupportedOperationException();
 	}

@@ -3,6 +3,7 @@ package is.idega.idegaweb.egov.gumbo.licenses;
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
+import is.idega.idegaweb.egov.gumbo.webservice.client.business.LicenseCheckContainer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,8 +134,8 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 * @return string "true" or "false"
 	 */
 	public String getVesselHasValidHaffairisskirteini(String vesselId) {
-		boolean res = getClient().getHasValidSeafaringLicense(vesselId);
-		if (res) {
+		LicenseCheckContainer res = getClient().getHasValidSeafaringLicense(vesselId);
+		if (res.isHasLicense()) {
 			return "true";
 		} else {
 			return "false";
@@ -147,9 +148,9 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 * @return string "true" or "false"
 	 */
 	public String getVesselHasValidGeneralFishingLicense(String vesselId) {
-		boolean res = getClient().getHasValidGeneralFishingLicense(vesselId);
+		LicenseCheckContainer res = getClient().getHasValidGeneralFishingLicense(vesselId);
 		
-		if (res) {
+		if (res.isHasLicense()) {
 			return "true";
 		} else {
 			return "false";
@@ -175,9 +176,9 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 * @return string true or false
 	 */
 	public String getVesselHasValidStrandveidileyfi(String vesselId) {
-		boolean res = getClient().getHasValidCoastFishingLicense(vesselId);
+		LicenseCheckContainer res = getClient().getHasValidCoastFishingLicense(vesselId);
 		
-		if (res) {
+		if (res.isHasLicense()) {
 			return "true";
 		} else {
 			return "false";
@@ -201,11 +202,10 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 */
 	public ResultWithMessage getVesselHasValidAflamarksleyfi(String vesselId) {
 		
-		final boolean res = getClient().getHasValidQuotaLimitFishingLicense(
+		final LicenseCheckContainer res = getClient().getHasValidQuotaLimitFishingLicense(
 		    vesselId);
 		
-		return res ? new ResultWithMessage(res, "positive message")
-		        : new ResultWithMessage(res, "negative message");
+		return new ResultWithMessage(res.isHasLicense(), res.getMessage());
 	}
 	
 	/**

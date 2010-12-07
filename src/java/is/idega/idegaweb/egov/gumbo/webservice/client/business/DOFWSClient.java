@@ -1,7 +1,6 @@
 package is.idega.idegaweb.egov.gumbo.webservice.client.business;
 
 import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.AflamarkTypeUser;
-import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunAfliTypeUser;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser;
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
 
@@ -20,11 +19,9 @@ public interface DOFWSClient {
 	public LondunTypeUser[] getCatchInfoByShipNumber(
 	        BigDecimal shipNumber, Calendar from, Calendar to);
 	
-	public LondunAfliTypeUser[] getCatchInfoByNumberAndPort(
-	        BigDecimal catchNumber, BigDecimal port);
+	public LondunTypeUser getCatchInfoByNumberAndPort(BigDecimal catchNumber, BigDecimal port);
 	
-	public AflamarkTypeUser[] getCatchQuota(BigDecimal shipNumber,
-	        String period);
+	public AflamarkTypeUser[] getCatchQuota(BigDecimal shipNumber,  String period);
 	
 	public AflamarkTypeUser[] getCatchQuota(String personalID, String period);
 	

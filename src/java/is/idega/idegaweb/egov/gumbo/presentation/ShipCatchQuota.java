@@ -2,7 +2,10 @@ package is.idega.idegaweb.egov.gumbo.presentation;
 
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.bean.GumboBean;
+import is.idega.idegaweb.egov.gumbo.business.GumboSession;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
+
+import java.math.BigDecimal;
 
 import javax.faces.context.FacesContext;
 
@@ -17,8 +20,9 @@ import com.idega.presentation.IWContext;
 import com.idega.util.PresentationUtil;
 import com.idega.util.expression.ELUtil;
 
-public class CatchQuota extends IWBaseComponent {
+public class ShipCatchQuota extends IWBaseComponent {
 
+	private static final String PARAMETER_SHIP = "prm_ship_number";
 	private static final String PARAMETER_PERIOD = "prm_period";
 	
 	private IWBundle iwb;
@@ -26,6 +30,9 @@ public class CatchQuota extends IWBaseComponent {
 	@Autowired
 	@Qualifier(DOFWSClient.WEB_SERVICE)
 	private DOFWSClient client;
+	
+	@Autowired
+	private GumboSession session;
 	
 	@Autowired
 	private CompanyProvider provider;
@@ -41,6 +48,14 @@ public class CatchQuota extends IWBaseComponent {
 		
 		PresentationUtil.addStyleSheetToHeader(iwc, iwb.getVirtualPathWithFileNameString("style/gumbo.css"));
 
+		BigDecimal shipNumber = null;
+		if (iwc.isParameterSet(PARAMETER_SHIP)) {
+			shipNumber = new BigDecimal(iwc.getParameter(PARAMETER_SHIP));
+		}
+		else if (getSession().getShip() != null) {
+			shipNumber = getSession().getShip().getSkipNr();
+		}
+
 		String period = null;
 		if (iwc.isParameterSet(PARAMETER_PERIOD)) {
 			period = iwc.getParameter(PARAMETER_PERIOD);
@@ -51,11 +66,14 @@ public class CatchQuota extends IWBaseComponent {
 		
 		GumboBean bean = getBeanInstance("gumboBean");
 		bean.setShips(getClient().getShipInfoByCompanySSN(getCompanyProvider().getCompanyPersonalIdForCurrentUser()));
+		bean.setShipNumber(shipNumber);
 		bean.setPeriod(period);
-		bean.setCatchQuota(getClient().getCatchQuota(getCompanyProvider().getCompanyPersonalIdForCurrentUser(), period));
-	
+		if (bean.getShipNumber() != null) {
+			bean.setCatchQuota(getClient().getCatchQuota(shipNumber, period));
+		}
+		
 		FaceletComponent facelet = (FaceletComponent) iwc.getApplication().createComponent(FaceletComponent.COMPONENT_TYPE);
-		facelet.setFaceletURI(iwb.getFaceletURI("catchQuota/viewByPeriod.xhtml"));
+		facelet.setFaceletURI(iwb.getFaceletURI("catchQuota/viewByShipAndPeriod.xhtml"));
 		add(facelet);
 	}	
 	
@@ -67,6 +85,14 @@ public class CatchQuota extends IWBaseComponent {
 		return this.client;
 	}
 	
+	private GumboSession getSession() {
+		if (this.session == null) {
+			ELUtil.getInstance().autowire(this);
+		}
+		
+		return this.session;
+	}
+
 	private CompanyProvider getCompanyProvider() {
 		if (this.provider == null) {
 			ELUtil.getInstance().autowire(this);

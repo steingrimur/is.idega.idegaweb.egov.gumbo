@@ -1,7 +1,6 @@
 package is.idega.idegaweb.egov.gumbo.bean;
 
 import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.AflamarkTypeUser;
-import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunAfliTypeUser;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser;
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
 
@@ -22,7 +21,7 @@ public class GumboBean {
 	
 	private SkipInfoTypeUser[] ships;
 	private LondunTypeUser[] catches;
-	private LondunAfliTypeUser[] catchInfo;
+	private LondunTypeUser catchInfo;
 	private AflamarkTypeUser[] catchQuota;
 	
 	private Date fromDate;
@@ -70,11 +69,11 @@ public class GumboBean {
 		this.catches = catches;
 	}
 
-	public LondunAfliTypeUser[] getCatchInfo() {
+	public LondunTypeUser getCatchInfo() {
 		return catchInfo;
 	}
 
-	public void setCatchInfo(LondunAfliTypeUser[] catchInfo) {
+	public void setCatchInfo(LondunTypeUser catchInfo) {
 		this.catchInfo = catchInfo;
 	}
 
