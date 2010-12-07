@@ -3,6 +3,7 @@ package is.idega.idegaweb.egov.gumbo.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.idega.idegaweb.IWMainApplication;
 import com.idega.util.IWTimestamp;
 
 public class GumboUtil {
@@ -28,5 +29,9 @@ public class GumboUtil {
 		}
 		
 		return periods;
+	}
+	
+	public static String getEncryptedClassName(Class classToInstanciate) {
+		return IWMainApplication.getEncryptedClassName(classToInstanciate);
 	}
 }

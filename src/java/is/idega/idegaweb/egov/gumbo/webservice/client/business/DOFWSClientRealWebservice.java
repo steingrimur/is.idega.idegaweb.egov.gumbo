@@ -10,10 +10,10 @@ import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.Getaflamarks
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.FSWebServiceLANDANIR_PortType;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.FSWebServiceLANDANIR_ServiceLocator;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.GetlandanirbyskipElement;
+import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.GetlastlandanirbyskipElement;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.GetlastlandanirbyutgerdElement;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.GetlonduninfoElement;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.GetlonduninfoResponseElement;
-import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunAfliTypeUser;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser;
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.FSWebServiceSKIP_PortType;
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.FSWebServiceSKIP_ServiceLocator;
@@ -239,6 +239,18 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 			return element.getResult();
 		} catch (RemoteException e) {
 			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public LondunTypeUser[] getLatestCatchInfoByShip(BigDecimal shipNumber, int numberOfResults) {
+		try {
+			GetlastlandanirbyskipElement parameter = new GetlastlandanirbyskipElement(shipNumber, new BigDecimal(numberOfResults));
+			return getCatchPort().getlastlandanirbyskip(parameter);
+		}
+		catch (RemoteException re) {
+			re.printStackTrace();
 		}
 		
 		return null;

@@ -9,6 +9,7 @@
 		<thead>
 			<tr>
 				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_number']}" /></th>
+				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['ship']}" /></th>
 				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_date']}" /></th>
 				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_port']}" /></th>
 				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_type']}" /></th>
@@ -23,6 +24,12 @@
 							<f:param name="prm_catch_id" value="#{catch.komunr}" />
 							<f:param name="prm_port" value="#{catch.hofn}" />
 							<h:outputText value="#{catch.komunr}" />
+						</h:outputLink>
+					</td>
+					<td>
+						<h:outputLink value="#{gumboBean.responseURL}">
+							<f:param name="prm_ship_id" value="#{catch.skipNr}" />
+							<h:outputText value="#{catch.skipHeiti}" />
 						</h:outputLink>
 					</td>
 					<td><h:outputText value="#{catch.LDagsChar}" /></td>

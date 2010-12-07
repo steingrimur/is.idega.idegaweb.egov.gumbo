@@ -1,12 +1,11 @@
 package is.idega.idegaweb.egov.gumbo.presentation;
 
-import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.bean.GumboBean;
-import is.idega.idegaweb.egov.gumbo.business.GumboBusiness;
 import is.idega.idegaweb.egov.gumbo.business.GumboSession;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 
+import java.math.BigDecimal;
 import java.rmi.RemoteException;
 
 import javax.faces.context.FacesContext;
@@ -18,22 +17,19 @@ import com.idega.business.IBORuntimeException;
 import com.idega.core.builder.business.BuilderService;
 import com.idega.core.builder.business.BuilderServiceFactory;
 import com.idega.core.builder.data.ICPage;
-import com.idega.event.IWPageEventListener;
 import com.idega.facelets.ui.FaceletComponent;
 import com.idega.idegaweb.IWBundle;
-import com.idega.idegaweb.IWException;
 import com.idega.presentation.IWBaseComponent;
 import com.idega.presentation.IWContext;
 import com.idega.util.PresentationUtil;
 import com.idega.util.expression.ELUtil;
 
-public class ShipsViewer extends IWBaseComponent implements IWPageEventListener {
+public class ShipLatestCatches extends IWBaseComponent {
 
-	private static final String PARAMETER_SHIP = "prm_ship_id";
-	
 	private IWBundle iwb;
 	
 	private ICPage page;
+	private int numberOfResults = 5;
 	
 	@Autowired
 	@Qualifier(DOFWSClient.WEB_SERVICE)
@@ -42,19 +38,6 @@ public class ShipsViewer extends IWBaseComponent implements IWPageEventListener 
 	@Autowired
 	private GumboSession session;
 	
-	@Autowired
-	private GumboBusiness business;
-	
-	@Override
-	public boolean actionPerformed(IWContext iwc) throws IWException {
-		if (iwc.isParameterSet(PARAMETER_SHIP)) {
-			SkipInfoTypeUser ship = getClient().getShipInfo(iwc.getParameter(PARAMETER_SHIP));
-			getSession().setShip(ship);
-		}
-		
-		return true;
-	}
-
 	public String getBundleIdentifier() {
 		return GumboConstants.IW_BUNDLE_IDENTIFIER;
 	}
@@ -66,12 +49,13 @@ public class ShipsViewer extends IWBaseComponent implements IWPageEventListener 
 		
 		PresentationUtil.addStyleSheetToHeader(iwc, iwb.getVirtualPathWithFileNameString("style/gumbo.css"));
 
+		BigDecimal shipNumber = getSession().getShip().getSkipNr();
+
 		try {
 			BuilderService service = BuilderServiceFactory.getBuilderService(iwc);
 			
 			GumboBean bean = getBeanInstance("gumboBean");
-			bean.setEventHandler(this.getClass());
-			bean.setShips(getClient().getShipInfoByCompanySSN(getBusiness().getCompanyForUser(iwc.getCurrentUser()).getPersonalID()));
+			bean.setCatches(getClient().getLatestCatchInfoByShip(shipNumber, getNumberOfResults()));
 			if (getPage() != null) {
 				bean.setResponseURL(service.getPageURI(getPage()));
 			}
@@ -81,7 +65,7 @@ public class ShipsViewer extends IWBaseComponent implements IWPageEventListener 
 		}
 		
 		FaceletComponent facelet = (FaceletComponent) iwc.getApplication().createComponent(FaceletComponent.COMPONENT_TYPE);
-		facelet.setFaceletURI(iwb.getFaceletURI("ships/viewAll.xhtml"));
+		facelet.setFaceletURI(iwb.getFaceletURI("catches/viewLatestByShip.xhtml"));
 		add(facelet);
 	}	
 	
@@ -92,7 +76,7 @@ public class ShipsViewer extends IWBaseComponent implements IWPageEventListener 
 		
 		return this.client;
 	}
-	
+
 	private GumboSession getSession() {
 		if (this.session == null) {
 			ELUtil.getInstance().autowire(this);
@@ -100,19 +84,19 @@ public class ShipsViewer extends IWBaseComponent implements IWPageEventListener 
 		
 		return session;
 	}
-	
-	private GumboBusiness getBusiness() {
-		if (this.business == null) {
-			ELUtil.getInstance().autowire(this);
-		}
-		return this.business;
-	}
-
 	public ICPage getPage() {
 		return page;
 	}
 
 	public void setPage(ICPage page) {
 		this.page = page;
+	}
+
+	public int getNumberOfResults() {
+		return numberOfResults;
+	}
+
+	public void setNumberOfResults(int numberOfResults) {
+		this.numberOfResults = numberOfResults;
 	}
 }

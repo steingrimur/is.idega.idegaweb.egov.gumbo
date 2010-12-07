@@ -5,16 +5,18 @@
 		xmlns:c="http://xmlns.idega.com/com.idega.core"
 >
 <ui:component>
-	<ul id="shipsViewer">
-		<ui:repeat value="#{gumboBean.ships}" var="ship">
-			<li>
-				<h:outputLink value="#{gumboBean.responseURL}">
-					<f:param name="idegaweb_event_classname" value="#{c:encryptClassName(gumboBean.eventHandler)}" />
-					<f:param name="prm_ship_id" value="#{ship.skipNr}" />
-					<h:outputText value="#{ship.nafn}" />
-				</h:outputLink>
-			</li>
-		</ui:repeat>
-	</ul>
+	<ui:fragment rendered="#{not empty gumboBean.ships}">
+		<ul id="shipsViewer">
+			<ui:repeat value="#{gumboBean.ships}" var="ship">
+				<li>
+					<h:outputLink value="#{gumboBean.responseURL}">
+						<f:param name="idegaweb_event_classname" value="#{c:encryptClassName(gumboBean.eventHandler)}" />
+						<f:param name="prm_ship_id" value="#{ship.skipNr}" />
+						<h:outputText value="#{ship.nafn}" />
+					</h:outputLink>
+				</li>
+			</ui:repeat>
+		</ul>
+	</ui:fragment>
 </ui:component>
 </html>

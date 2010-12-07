@@ -2,6 +2,7 @@ package is.idega.idegaweb.egov.gumbo.presentation;
 
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.bean.GumboBean;
+import is.idega.idegaweb.egov.gumbo.business.GumboBusiness;
 import is.idega.idegaweb.egov.gumbo.business.GumboSession;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 
@@ -12,7 +13,6 @@ import javax.faces.context.FacesContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import com.idega.company.business.CompanyProvider;
 import com.idega.facelets.ui.FaceletComponent;
 import com.idega.idegaweb.IWBundle;
 import com.idega.presentation.IWBaseComponent;
@@ -35,7 +35,7 @@ public class ShipCatchQuota extends IWBaseComponent {
 	private GumboSession session;
 	
 	@Autowired
-	private CompanyProvider provider;
+	private GumboBusiness business;
 	
 	public String getBundleIdentifier() {
 		return GumboConstants.IW_BUNDLE_IDENTIFIER;
@@ -65,7 +65,7 @@ public class ShipCatchQuota extends IWBaseComponent {
 		}
 		
 		GumboBean bean = getBeanInstance("gumboBean");
-		bean.setShips(getClient().getShipInfoByCompanySSN(getCompanyProvider().getCompanyPersonalIdForCurrentUser()));
+		bean.setShips(getClient().getShipInfoByCompanySSN(getBusiness().getCompanyForUser(iwc.getCurrentUser()).getPersonalID()));
 		bean.setShipNumber(shipNumber);
 		bean.setPeriod(period);
 		if (bean.getShipNumber() != null) {
@@ -93,10 +93,10 @@ public class ShipCatchQuota extends IWBaseComponent {
 		return this.session;
 	}
 
-	private CompanyProvider getCompanyProvider() {
-		if (this.provider == null) {
+	private GumboBusiness getBusiness() {
+		if (this.business == null) {
 			ELUtil.getInstance().autowire(this);
 		}
-		return this.provider;
+		return this.business;
 	}
 }

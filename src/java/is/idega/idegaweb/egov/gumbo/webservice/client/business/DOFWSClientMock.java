@@ -1,7 +1,6 @@
 package is.idega.idegaweb.egov.gumbo.webservice.client.business;
 
 import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.AflamarkTypeUser;
-import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunAfliTypeUser;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser;
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
 
@@ -83,5 +82,15 @@ public class DOFWSClientMock implements DOFWSClient {
 	@Override
 	public LicenseCheckContainer getHasValidQuotaLimitFishingLicense(String shipID) {
 		return new LicenseCheckContainer(true, "Has license");
+	}
+
+	@Override
+	public LondunTypeUser[] getLatestCatchInfoByShip(BigDecimal shipNumber, int numberOfResults) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public LondunTypeUser[] getLatestCatchInfo(String personalID, int numberOfResults) {
+		throw new UnsupportedOperationException();
 	}
 }

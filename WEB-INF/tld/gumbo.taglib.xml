@@ -11,4 +11,10 @@
 		<function-signature>java.util.List getPeriods()</function-signature>
 	</function>
 
+	<function>
+		<function-name>encryptClassName</function-name>
+		<function-class>is.idega.idegaweb.egov.gumbo.util.GumboUtil</function-class>
+		<function-signature>java.lang.String getEncryptedClassName(java.lang.Class)</function-signature>
+	</function>
+
 </facelet-taglib>

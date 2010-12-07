@@ -1,0 +1,45 @@
+<html
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:g="http://xmlns.idega.com/is.idega.idegaweb.egov.gumbo"
+>
+<ui:component>
+	<div id="shipInfo">
+		<ui:param name="ship" value="#{gumboBean.shipInfo}"/>
+	
+		<div class="informationItem">
+			<label><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['name']}" /></label>
+			<span><h:outputText value="#{ship.nafn}" /></span>
+		</div>
+		<div class="informationItem">
+			<label><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['registration_number']}" /></label>
+			<span><h:outputText value="#{ship.skipNr}" /></span>
+		</div>
+		<div class="informationItem">
+			<label><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['brutto_tons']}" /></label>
+			<span><h:outputText value="#{ship.bruttotonn}" /></span>
+		</div>
+		<div class="informationItem">
+			<label><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['brutto_cubic_space']}" /></label>
+			<span><h:outputText value="#{ship.brl}" /></span>
+		</div>
+		<div class="informationItem">
+			<label><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['max_length']}" /></label>
+			<span><h:outputText value="#{ship.lengd}" /></span>
+		</div>
+		<div class="informationItem">
+			<label><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['fisheries_category']}" /></label>
+			<span><h:outputText value="#{ship.utgFlHeiti}" /></span>
+		</div>
+		<div class="informationItem">
+			<label><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['home_port']}" /></label>
+			<span><h:outputText value="#{ship.heimahofn}" /></span>
+		</div>
+		<div class="informationItem">
+			<label><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['approval_number']}" /></label>
+			<span><h:outputText value="#{ship.vinnsluleyfi}" /></span>
+		</div>
+	</div>
+</ui:component>
+</html>

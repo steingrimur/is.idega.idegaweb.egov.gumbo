@@ -20,6 +20,7 @@ public class GumboBean {
 	private String period;
 	
 	private SkipInfoTypeUser[] ships;
+	private SkipInfoTypeUser shipInfo;
 	private LondunTypeUser[] catches;
 	private LondunTypeUser catchInfo;
 	private AflamarkTypeUser[] catchQuota;
@@ -59,6 +60,14 @@ public class GumboBean {
 
 	public void setShips(SkipInfoTypeUser[] ships) {
 		this.ships = ships;
+	}
+
+	public SkipInfoTypeUser getShipInfo() {
+		return shipInfo;
+	}
+
+	public void setShipInfo(SkipInfoTypeUser shipInfo) {
+		this.shipInfo = shipInfo;
 	}
 
 	public LondunTypeUser[] getCatches() {

@@ -21,6 +21,9 @@ public interface DOFWSClient {
 	
 	public LondunTypeUser getCatchInfoByNumberAndPort(BigDecimal catchNumber, BigDecimal port);
 	
+	public LondunTypeUser[] getLatestCatchInfoByShip(BigDecimal shipNumber, int numberOfResults);
+	public LondunTypeUser[] getLatestCatchInfo(String personalID, int numberOfResults);
+	
 	public AflamarkTypeUser[] getCatchQuota(BigDecimal shipNumber,  String period);
 	
 	public AflamarkTypeUser[] getCatchQuota(String personalID, String period);
