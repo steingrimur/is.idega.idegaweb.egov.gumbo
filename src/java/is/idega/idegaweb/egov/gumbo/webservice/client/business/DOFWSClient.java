@@ -13,27 +13,27 @@ public interface DOFWSClient {
 	public static final String MOCK = "mock";
 	public static final String WEB_SERVICE = "webservice";
 	
-	public abstract SkipInfoTypeUser[] getShipInfoByCompanySSN(String companySSN);
+	public SkipInfoTypeUser[] getShipInfoByCompanySSN(String companySSN);
 	
-	public abstract SkipInfoTypeUser getShipInfo(String shipID);
+	public SkipInfoTypeUser getShipInfo(String shipID);
 	
-	public abstract LondunTypeUser[] getCatchInfoByShipNumber(
+	public LondunTypeUser[] getCatchInfoByShipNumber(
 	        BigDecimal shipNumber, Calendar from, Calendar to);
 	
-	public abstract LondunAfliTypeUser[] getCatchInfoByNumberAndPort(
+	public LondunAfliTypeUser[] getCatchInfoByNumberAndPort(
 	        BigDecimal catchNumber, BigDecimal port);
 	
-	public abstract AflamarkTypeUser[] getCatchQuota(BigDecimal shipNumber,
+	public AflamarkTypeUser[] getCatchQuota(BigDecimal shipNumber,
 	        String period);
 	
 	public AflamarkTypeUser[] getCatchQuota(String personalID, String period);
 	
-	public abstract boolean getHasValidSeafaringLicense(String shipID);
+	public LicenseCheckContainer getHasValidSeafaringLicense(String shipID);
 	
-	public abstract boolean getHasValidGeneralFishingLicense(String shipID);
+	public LicenseCheckContainer getHasValidGeneralFishingLicense(String shipID);
 	
-	public abstract boolean getHasValidCoastFishingLicense(String shipID);
+	public LicenseCheckContainer getHasValidCoastFishingLicense(String shipID);
 	
-	public abstract boolean getHasValidQuotaLimitFishingLicense(String shipID);
+	public LicenseCheckContainer getHasValidQuotaLimitFishingLicense(String shipID);
 	
 }

@@ -66,22 +66,22 @@ public class DOFWSClientMock implements DOFWSClient {
 	}
 	
 	@Override
-	public boolean getHasValidSeafaringLicense(String shipID) {
-		return true;
+	public LicenseCheckContainer getHasValidSeafaringLicense(String shipID) {
+		return new LicenseCheckContainer(true, "Has license");
 	}
 	
 	@Override
-	public boolean getHasValidGeneralFishingLicense(String shipID) {
-		return true;
+	public LicenseCheckContainer getHasValidGeneralFishingLicense(String shipID) {
+		return new LicenseCheckContainer(true, "Has license");
 	}
 	
 	@Override
-	public boolean getHasValidCoastFishingLicense(String shipID) {
-		throw new UnsupportedOperationException();
+	public LicenseCheckContainer getHasValidCoastFishingLicense(String shipID) {
+		return new LicenseCheckContainer(true, "Has license");
 	}
 	
 	@Override
-	public boolean getHasValidQuotaLimitFishingLicense(String shipID) {
-		return true;
+	public LicenseCheckContainer getHasValidQuotaLimitFishingLicense(String shipID) {
+		return new LicenseCheckContainer(true, "Has license");
 	}
 }

@@ -276,72 +276,104 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#getHasValidSeafaringLicense(java.lang.String)
 	 */
 	@Override
-	public boolean getHasValidSeafaringLicense(String shipID) {
+	public LicenseCheckContainer getHasValidSeafaringLicense(String shipID) {
 		GetskiphefurgilthaffaeriElement parameters = new GetskiphefurgilthaffaeriElement(
 		        new BigDecimal(shipID), IWTimestamp.RightNow().getCalendar());
 		try {
 			GetskiphefurgilthaffaeriResponseElement res = getShipPort()
 			        .getskiphefurgilthaffaeri(parameters);
-			return (res.getResult().getIsok().intValue() > 0);
+			
+			LicenseCheckContainer ret = null;
+			if (res.getResult().getIsok().intValue() > 0) {
+				ret = new LicenseCheckContainer(true, res.getResult().getMessage());
+			} else {
+				ret = new LicenseCheckContainer(false, res.getResult().getMessage());				
+			}
+			
+			return ret;
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 		
-		return false;
+		return new LicenseCheckContainer(false, "error_from_web_service");
 	}
 	
 	/* (non-Javadoc)
 	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#getHasValidGeneralFishingLicense(java.lang.String)
 	 */
 	@Override
-	public boolean getHasValidGeneralFishingLicense(String shipID) {
+	public LicenseCheckContainer getHasValidGeneralFishingLicense(String shipID) {
 		GethefurveidileyfiElement parameters = new GethefurveidileyfiElement(
 		        new BigDecimal(shipID), IWTimestamp.RightNow().getCalendar());
 		try {
 			GethefurveidileyfiResponseElement res = getLicensePort()
 			        .gethefurveidileyfi(parameters);
-			return (res.getResult().getIsok().intValue() > 0);
+			
+			LicenseCheckContainer ret = null;
+			if (res.getResult().getIsok().intValue() > 0) {
+				ret = new LicenseCheckContainer(true, res.getResult().getMessage());
+			} else {
+				ret = new LicenseCheckContainer(false, res.getResult().getMessage());				
+			}
+			
+			return ret;
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 		
-		return false;
+		return new LicenseCheckContainer(false, "error_from_web_service");
 	}
 	
 	/* (non-Javadoc)
 	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#getHasValidCoastFishingLicense(java.lang.String)
 	 */
 	@Override
-	public boolean getHasValidCoastFishingLicense(String shipID) {
+	public LicenseCheckContainer getHasValidCoastFishingLicense(String shipID) {
 		GethefurstrandveidileyfiElement parameters = new GethefurstrandveidileyfiElement(
 		        new BigDecimal(shipID), IWTimestamp.RightNow().getCalendar());
 		try {
 			GethefurstrandveidileyfiResponseElement res = getLicensePort()
 			        .gethefurstrandveidileyfi(parameters);
-			return (res.getResult().getIsok().intValue() > 0);
+			
+			LicenseCheckContainer ret = null;
+			if (res.getResult().getIsok().intValue() > 0) {
+				ret = new LicenseCheckContainer(true, res.getResult().getMessage());
+			} else {
+				ret = new LicenseCheckContainer(false, res.getResult().getMessage());				
+			}
+			
+			return ret;
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 		
-		return false;
+		return new LicenseCheckContainer(false, "error_from_web_service");
 	}
 	
 	/* (non-Javadoc)
 	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#getHasValidQuotaLimitFishingLicense(java.lang.String)
 	 */
 	@Override
-	public boolean getHasValidQuotaLimitFishingLicense(String shipID) {
+	public LicenseCheckContainer getHasValidQuotaLimitFishingLicense(String shipID) {
 		GethefuraflamarksveidilElement parameters = new GethefuraflamarksveidilElement(
 		        new BigDecimal(shipID), IWTimestamp.RightNow().getCalendar());
 		try {
 			GethefuraflamarksveidilResponseElement res = getLicensePort()
 			        .gethefuraflamarksveidil(parameters);
-			return (res.getResult().getIsok().intValue() > 0);
+			
+			LicenseCheckContainer ret = null;
+			if (res.getResult().getIsok().intValue() > 0) {
+				ret = new LicenseCheckContainer(true, res.getResult().getMessage());
+			} else {
+				ret = new LicenseCheckContainer(false, res.getResult().getMessage());				
+			}
+			
+			return ret;
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 		
-		return false;
+		return new LicenseCheckContainer(false, "error_from_web_service");
 	}
 	
 	public static void main(String[] arguments) {
