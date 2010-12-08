@@ -19,6 +19,7 @@ import com.idega.core.business.DefaultSpringBean;
 import com.idega.idegaweb.IWBundle;
 import com.idega.idegaweb.IWResourceBundle;
 import com.idega.user.data.User;
+import com.idega.util.CoreConstants;
 import com.idega.util.text.Item;
 
 @Service("fishingLicenseUser")
@@ -198,6 +199,19 @@ public class FishingLicenseUser extends DefaultSpringBean {
 		
 		final LicenseCheckContainer res = getClient()
 		        .getHasValidQuotaLimitFishingLicense(vesselId);
+		
+		return new ResultWithMessage(res.isHasLicense(), res.getMessage());
+	}
+	
+	/**
+	 * used in forms: all forms
+	 * 
+	 * @return Result With Message
+	 */
+	public ResultWithMessage getHasRevokedFishingLicense(String vesselId) {
+		
+		final LicenseCheckContainer res = getClient()
+		        .getHasRevokedFishingLicense(vesselId);
 		
 		return new ResultWithMessage(res.isHasLicense(), res.getMessage());
 	}

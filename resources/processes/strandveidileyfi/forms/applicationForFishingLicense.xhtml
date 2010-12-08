@@ -42,11 +42,18 @@
                     <quotaNotWithinLimits/>
                     
                     <vesselHasValidLicense>
-                        <result>result</result>
-                        <message>msg</message>
+                        <result>false</result>
+                        <message></message>
                     </vesselHasValidLicense>
                     <vesselHasNotValidLicense/>
                     <vesselHasValidLicenseMessage/>
+                    
+                    <vesselHasRevokedLicense>
+                        <result>false</result>
+                        <message></message>
+                    </vesselHasRevokedLicense>
+                    <vesselHasNotRevokedLicense/>
+                    <vesselHasRevokedLicenseMessage/>
                     
                     <debtMessageContainer/>
                     <saveFormData>
@@ -158,6 +165,10 @@
             <xf:bind id="fbc_108_bind" nodeset="vesselHasValidLicense" relevant="instance('data-instance')/vesselHasValidLicense/result = 'true'"/>
             <xf:bind id="fbc_109_bind" nodeset="vesselHasNotValidLicense" relevant="instance('data-instance')/vesselHasValidLicense/result != 'true'"/>
             <xf:bind id="fbc_111_bind" nodeset="vesselHasValidLicenseMessage"/>
+            
+            <xf:bind id="fbc_112_bind" nodeset="vesselHasRevokedLicense" relevant="instance('data-instance')/vesselHasRevokedLicense/result = 'true'"/>
+            <xf:bind id="fbc_113_bind" nodeset="vesselHasNotRevokedLicense" relevant="instance('data-instance')/vesselHasRevokedLicense/result != 'true'"/>
+            <xf:bind id="fbc_114_bind" nodeset="vesselHasRevokedLicenseMessage"/>
             
             <xf:bind id="debtMessageContainer"
                 nodeset="debtMessageContainer" relevant="instance('control-instance')/userIsInDebt != 'false'"/>
