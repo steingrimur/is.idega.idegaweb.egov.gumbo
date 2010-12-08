@@ -25,6 +25,8 @@ import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.GetskipinfobyutgerdE
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.FSWebServiceVEIDILEYFI_PortType;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.FSWebServiceVEIDILEYFI_ServiceLocator;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetersviptingElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetersviptingResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefuraflamarksveidilElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefuraflamarksveidilResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurstrandveidileyfiElement;
@@ -442,9 +444,25 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 	
 	@Override
 	public LicenseCheckContainer getHasRevokedFishingLicense(String shipID) {
-		
-		// TODO: implement
-		return new LicenseCheckContainer(false,
-		        "Error message from getHasRevokedFishingLicense");
+		GetersviptingElement parameters = new GetersviptingElement(new BigDecimal(shipID));
+		try {
+			GetersviptingResponseElement res = getLicensePort().getersvipting(parameters);
+
+			LicenseCheckContainer ret = null;
+			if (res.getResult().getIsok().intValue() > 0) {
+				ret = new LicenseCheckContainer(true, res.getResult()
+				        .getMessage());
+			} else {
+				ret = new LicenseCheckContainer(false, res.getResult()
+				        .getMessage());
+			}
+			
+			return ret;
+
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new LicenseCheckContainer(false, "error_from_web_service");
 	}
 }
