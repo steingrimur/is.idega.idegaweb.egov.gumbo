@@ -27,7 +27,7 @@ import com.idega.util.text.Item;
 public class FishingLicenseUser extends DefaultSpringBean {
 	
 	@Autowired
-	@Qualifier(DOFWSClient.MOCK)
+	@Qualifier(DOFWSClient.WEB_SERVICE)
 	private DOFWSClient client;
 	
 	public List<Item> getVesselsForUser() {
