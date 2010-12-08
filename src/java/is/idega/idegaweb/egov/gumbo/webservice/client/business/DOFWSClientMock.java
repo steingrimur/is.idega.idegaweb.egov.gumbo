@@ -69,29 +69,34 @@ public class DOFWSClientMock implements DOFWSClient {
 	@Override
 	public LicenseCheckContainer getHasValidSeafaringLicense(String shipID) {
 		
-		return new LicenseCheckContainer(true, "Error message from getHasValidSeafaringLicense");
+		return new LicenseCheckContainer(true,
+		        "Error message from getHasValidSeafaringLicense");
 	}
 	
 	@Override
 	public LicenseCheckContainer getHasValidGeneralFishingLicense(String shipID) {
-		return new LicenseCheckContainer(true, "Error message from getHasValidGeneralFishingLicens");
+		return new LicenseCheckContainer(true,
+		        "Error message from getHasValidGeneralFishingLicens");
 	}
 	
 	@Override
 	public LicenseCheckContainer getHasValidCoastFishingLicense(String shipID) {
-		return new LicenseCheckContainer(false, "Error message from getHasValidCoastFishingLicense");
+		return new LicenseCheckContainer(false,
+		        "Error message from getHasValidCoastFishingLicense");
 	}
 	
 	@Override
 	public LicenseCheckContainer getHasValidQuotaLimitFishingLicense(
 	        String shipID) {
-		return new LicenseCheckContainer(false, "Error message from getHasValidQuotaLimitFishingLicense");
+		return new LicenseCheckContainer(false,
+		        "Error message from getHasValidQuotaLimitFishingLicense");
 	}
 	
 	@Override
 	public LicenseCheckContainer getHasRevokedFishingLicense(String shipID) {
 		
-		return new LicenseCheckContainer(true, CoreConstants.EMPTY);
+		return new LicenseCheckContainer(true,
+		        "Error message from getHasRevokedFishingLicense");
 	}
 	
 	@Override
