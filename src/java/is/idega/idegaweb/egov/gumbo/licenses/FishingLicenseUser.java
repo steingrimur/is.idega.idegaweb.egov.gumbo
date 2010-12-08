@@ -1,6 +1,7 @@
 package is.idega.idegaweb.egov.gumbo.licenses;
 
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
+
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.LicenseCheckContainer;
@@ -131,7 +132,7 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	/**
 	 * used in the forms: general fishing license, strandveidileyfi, grasleppa
 	 * 
-	 * @return string "true" or "false"
+	 * @return
 	 */
 	public ResultWithMessage getVesselHasValidHaffairisskirteini(String vesselId) {
 		final LicenseCheckContainer res = getClient()
