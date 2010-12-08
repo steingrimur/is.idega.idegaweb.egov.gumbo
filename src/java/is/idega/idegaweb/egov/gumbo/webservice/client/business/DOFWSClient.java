@@ -16,15 +16,19 @@ public interface DOFWSClient {
 	
 	public SkipInfoTypeUser getShipInfo(String shipID);
 	
-	public LondunTypeUser[] getCatchInfoByShipNumber(
-	        BigDecimal shipNumber, Calendar from, Calendar to);
+	public LondunTypeUser[] getCatchInfoByShipNumber(BigDecimal shipNumber,
+	        Calendar from, Calendar to);
 	
-	public LondunTypeUser getCatchInfoByNumberAndPort(BigDecimal catchNumber, BigDecimal port);
+	public LondunTypeUser getCatchInfoByNumberAndPort(BigDecimal catchNumber,
+	        BigDecimal port);
 	
-	public LondunTypeUser[] getLatestCatchInfoByShip(BigDecimal shipNumber, int numberOfResults);
-	public LondunTypeUser[] getLatestCatchInfo(String personalID, int numberOfResults);
+	public LondunTypeUser[] getLatestCatchInfoByShip(BigDecimal shipNumber,
+	        int numberOfResults);
 	
-	public AflamarkTypeUser[] getCatchQuota(BigDecimal shipNumber,  String period);
+	public LondunTypeUser[] getLatestCatchInfo(String personalID,
+	        int numberOfResults);
+	
+	public AflamarkTypeUser[] getCatchQuota(BigDecimal shipNumber, String period);
 	
 	public AflamarkTypeUser[] getCatchQuota(String personalID, String period);
 	
@@ -34,6 +38,8 @@ public interface DOFWSClient {
 	
 	public LicenseCheckContainer getHasValidCoastFishingLicense(String shipID);
 	
-	public LicenseCheckContainer getHasValidQuotaLimitFishingLicense(String shipID);
+	public LicenseCheckContainer getHasValidQuotaLimitFishingLicense(
+	        String shipID);
 	
+	public LicenseCheckContainer getHasRevokedFishingLicense(String shipID);
 }

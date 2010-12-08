@@ -25,7 +25,7 @@ import com.idega.util.text.Item;
 public class FishingLicenseUser extends DefaultSpringBean {
 	
 	@Autowired
-	@Qualifier(DOFWSClient.WEB_SERVICE)
+	@Qualifier(DOFWSClient.MOCK)
 	private DOFWSClient client;
 	
 	public List<Item> getVesselsForUser() {
@@ -133,13 +133,11 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 * 
 	 * @return string "true" or "false"
 	 */
-	public String getVesselHasValidHaffairisskirteini(String vesselId) {
-		LicenseCheckContainer res = getClient().getHasValidSeafaringLicense(vesselId);
-		if (res.isHasLicense()) {
-			return "true";
-		} else {
-			return "false";
-		}
+	public ResultWithMessage getVesselHasValidHaffairisskirteini(String vesselId) {
+		final LicenseCheckContainer res = getClient()
+		        .getHasValidSeafaringLicense(vesselId);
+		
+		return new ResultWithMessage(res.isHasLicense(), res.getMessage());
 	}
 	
 	/**
@@ -148,7 +146,8 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 * @return string "true" or "false"
 	 */
 	public String getVesselHasValidGeneralFishingLicense(String vesselId) {
-		LicenseCheckContainer res = getClient().getHasValidGeneralFishingLicense(vesselId);
+		LicenseCheckContainer res = getClient()
+		        .getHasValidGeneralFishingLicense(vesselId);
 		
 		if (res.isHasLicense()) {
 			return "true";
@@ -176,7 +175,8 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 * @return string true or false
 	 */
 	public String getVesselHasValidStrandveidileyfi(String vesselId) {
-		LicenseCheckContainer res = getClient().getHasValidCoastFishingLicense(vesselId);
+		LicenseCheckContainer res = getClient().getHasValidCoastFishingLicense(
+		    vesselId);
 		
 		if (res.isHasLicense()) {
 			return "true";
@@ -202,8 +202,8 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 */
 	public ResultWithMessage getVesselHasValidAflamarksleyfi(String vesselId) {
 		
-		final LicenseCheckContainer res = getClient().getHasValidQuotaLimitFishingLicense(
-		    vesselId);
+		final LicenseCheckContainer res = getClient()
+		        .getHasValidQuotaLimitFishingLicense(vesselId);
 		
 		return new ResultWithMessage(res.isHasLicense(), res.getMessage());
 	}

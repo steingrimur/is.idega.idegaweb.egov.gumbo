@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import com.idega.util.CoreConstants;
+
 @Scope("singleton")
 @Service
 @Qualifier(DOFWSClient.MOCK)
@@ -49,8 +51,8 @@ public class DOFWSClientMock implements DOFWSClient {
 	}
 	
 	@Override
-	public LondunTypeUser getCatchInfoByNumberAndPort(
-	        BigDecimal catchNumber, BigDecimal port) {
+	public LondunTypeUser getCatchInfoByNumberAndPort(BigDecimal catchNumber,
+	        BigDecimal port) {
 		throw new UnsupportedOperationException();
 	}
 	
@@ -66,7 +68,8 @@ public class DOFWSClientMock implements DOFWSClient {
 	
 	@Override
 	public LicenseCheckContainer getHasValidSeafaringLicense(String shipID) {
-		return new LicenseCheckContainer(true, "Has license");
+		
+		return new LicenseCheckContainer(false, "Has license");
 	}
 	
 	@Override
@@ -80,8 +83,15 @@ public class DOFWSClientMock implements DOFWSClient {
 	}
 	
 	@Override
-	public LicenseCheckContainer getHasValidQuotaLimitFishingLicense(String shipID) {
-		return new LicenseCheckContainer(true, "Has license");
+	public LicenseCheckContainer getHasValidQuotaLimitFishingLicense(
+	        String shipID) {
+		return new LicenseCheckContainer(false, "Has license");
+	}
+	
+	@Override
+	public LicenseCheckContainer getHasRevokedFishingLicense(String shipID) {
+		
+		return new LicenseCheckContainer(true, CoreConstants.EMPTY);
 	}
 
 	@Override

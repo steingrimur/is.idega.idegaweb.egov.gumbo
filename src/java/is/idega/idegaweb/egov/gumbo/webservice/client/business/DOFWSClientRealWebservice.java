@@ -427,4 +427,10 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 			re.printStackTrace();
 		}
 	}
+
+	@Override
+	public LicenseCheckContainer getHasRevokedFishingLicense(String shipID) {
+		
+		throw new UnsupportedOperationException();
+	}
 }
