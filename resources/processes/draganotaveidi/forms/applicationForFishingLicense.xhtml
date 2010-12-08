@@ -30,11 +30,18 @@
                     </vesselData>
                     
                     <vesselHasValidAflamarksleyfi>
-	                    <result>true</result>
-	                    <message>true</message>
-	                    <vesselHasNotValidAflamarksleyfi/>
+                        <result>true</result>
+                        <message></message>
                     </vesselHasValidAflamarksleyfi>
+                    <vesselHasNotValidAflamarksleyfi/>
+                    <vesselHasValidAflamarksleyfiMessage/>
                     
+                    <vesselHasRevokedLicense>
+                        <result>false</result>
+                        <message></message>
+                    </vesselHasRevokedLicense>
+                    <vesselHasNotRevokedLicense/>
+                    <vesselHasRevokedLicenseMessage/>
                     
                     <companyAddressFallsInArea>true</companyAddressFallsInArea>
                     <companyAddressFallsNotInArea/>
@@ -132,10 +139,13 @@
             <xf:bind id="fbc_65_bind" nodeset="vesselData/ownersSocialSecurityNr"/>
             <xf:bind id="bind-controlsButton" idega:shared="true"
                 nodeset="instance('control-instance')/controlsButton" relevant="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"/>
+                
             <xf:bind id="fbc_73_bind"
                 nodeset="vesselHasValidAflamarksleyfi" relevant="instance('data-instance')/vesselHasValidAflamarksleyfi/result = 'true'"/>
             <xf:bind id="fbc_74_bind"
-                nodeset="vesselHasValidAflamarksleyfi/vesselHasNotValidAflamarksleyfi" relevant="instance('data-instance')/vesselHasValidAflamarksleyfi/result != 'true'"/>
+                nodeset="vesselHasNotValidAflamarksleyfi" relevant="instance('data-instance')/vesselHasValidAflamarksleyfi/result != 'true'"/>
+            <xf:bind id="fbc_111_bind" nodeset="vesselHasValidAflamarksleyfiMessage"/>
+                
             <xf:bind id="fbc_106_bind"
                 nodeset="companyAddressFallsInArea" relevant="instance('data-instance')/companyAddressFallsInArea = 'true'"/>
             <xf:bind id="fbc_107_bind"
@@ -256,8 +266,6 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                     <fbc_73-text lang="en">True</fbc_73-text>
                     <fbc_73-label lang="is_IS">Skipið hefur gilt aflamarksleyfi</fbc_73-label>
                     <fbc_73-label lang="en">The vessel has a valid "Aflamarksleyfi"</fbc_73-label>
-                    <fbc_74-text lang="is_IS">Skipið hefur ekki gilt aflamarksleyfi. Vinsamlega hafið samband við Fiskistofu. Ekki er hægt að senda inn umsóknina.</fbc_74-text>
-                    <fbc_74-text lang="en">The vessel does not have a valid "Aflamarksleyfi". Please contact Fiskistofa. It is not possible to submit the application under these conditions.</fbc_74-text>
                     <fbc_106-text lang="is_IS">Gilt</fbc_106-text>
                     <fbc_106-text lang="en">Valid</fbc_106-text>
                     <fbc_106-label lang="is_IS">Heimilisfang útgerðaraðila</fbc_106-label>
@@ -502,21 +510,26 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                                 name="idega-validate" target="fbc_37"/>
                             <xf:dispatch ev:event="xforms-value-changed"
                                 name="idega-validate" target="fbc_37"/>
-                            <idega:setvalue
-                                ev:event="xforms-value-changed"
-                                multiple="true()"
-                                placeResponseDocument="true()"
-                                ref="instance('data-instance')/vesselData" value="idega:resolveBeanProperties('fishingLicenseUser.getUserVesselData({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
-                            <idega:setvalue
-                                ev:event="xforms-value-changed"
-                                multiple="true()"
-                                placeResponseDocument="true()"
-                                ref="instance('data-instance')/vesselHasValidAflamarksleyfi" value="idega:resolveBeanProperties('fishingLicenseUser.getVesselHasValidAflamarksleyfi({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
-                            <idega:setvalue
-                                ev:event="xforms-value-changed"
-                                multiple="true()"
-                                placeResponseDocument="true()"
-                                ref="instance('data-instance')/companyAddressFallsInArea" value="idega:resolveExpression('fishingLicenseUser.getCompanyAddressFallsInArea({0})', '#{instance(`data-instance`)/Select_the_fishing_area_fbc_110}')"/>
+                                
+                                <xf:action ev:event="xforms-value-changed">
+	                                <idega:setvalue
+	                                multiple="true()"
+	                                placeResponseDocument="true()"
+	                                ref="instance('data-instance')/vesselData" value="idega:resolveBeanProperties('fishingLicenseUser.getUserVesselData({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
+	                                
+	                               <idega:setvalue
+	                                multiple="true()"
+	                                placeResponseDocument="true()"
+	                                ref="instance('data-instance')/vesselHasValidAflamarksleyfi" value="idega:resolveBeanProperties('fishingLicenseUser.getVesselHasValidAflamarksleyfi({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
+	                                <xf:setvalue
+                                        model="submission_model" ref="instance('data-instance')/vesselHasValidAflamarksleyfiMessage" value="instance('data-instance')/vesselHasValidAflamarksleyfi/message" />
+	                                
+	                               <idega:setvalue
+	                                multiple="true()"
+	                                placeResponseDocument="true()"
+	                                ref="instance('data-instance')/companyAddressFallsInArea" value="idega:resolveExpression('fishingLicenseUser.getCompanyAddressFallsInArea({0})', '#{instance(`data-instance`)/Select_the_fishing_area_fbc_110}')"/>
+                                </xf:action>
+                            
                             <idega:validator ev:event="idega-validate">
                                 <idega:message errorType="required"
                                     model="data_model" value="instance('localized_strings')/fbc_37-required[@lang=instance('localized_strings')/current_language]"/>
@@ -636,7 +649,7 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                             </xf:output>
                         </xf:group>
                         <xf:group bind="fbc_74_bind" class="xformErrors">
-                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_74-text[@lang=instance('localized_strings')/current_language]"/>
+                            <xf:output bind="fbc_111_bind" />
                         </xf:group>
                         <div class="fbc_button_area" id="fbc_67" type="fbc_button_area">
                             <xf:trigger bind="bind-controlsButton"
