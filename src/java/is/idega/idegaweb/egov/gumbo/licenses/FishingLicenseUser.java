@@ -144,17 +144,14 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	/**
 	 * used in the forms: grasleppa
 	 * 
-	 * @return string "true" or "false"
+	 * @return
 	 */
-	public String getVesselHasValidGeneralFishingLicense(String vesselId) {
-		LicenseCheckContainer res = getClient()
+	public ResultWithMessage getVesselHasValidGeneralFishingLicense(
+	        String vesselId) {
+		final LicenseCheckContainer res = getClient()
 		        .getHasValidGeneralFishingLicense(vesselId);
 		
-		if (res.isHasLicense()) {
-			return "true";
-		} else {
-			return "false";
-		}
+		return new ResultWithMessage(res.isHasLicense(), res.getMessage());
 	}
 	
 	/**
@@ -173,17 +170,13 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	/**
 	 * used in forms: strandveidileyfi
 	 * 
-	 * @return string true or false
+	 * @return
 	 */
-	public String getVesselHasValidStrandveidileyfi(String vesselId) {
-		LicenseCheckContainer res = getClient().getHasValidCoastFishingLicense(
-		    vesselId);
+	public ResultWithMessage getVesselHasValidStrandveidileyfi(String vesselId) {
+		final LicenseCheckContainer res = getClient()
+		        .getHasValidCoastFishingLicense(vesselId);
 		
-		if (res.isHasLicense()) {
-			return "true";
-		} else {
-			return "false";
-		}
+		return new ResultWithMessage(res.isHasLicense(), res.getMessage());
 	}
 	
 	/**
