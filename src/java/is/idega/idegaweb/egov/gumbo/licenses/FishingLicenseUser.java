@@ -1,11 +1,11 @@
 package is.idega.idegaweb.egov.gumbo.licenses;
 
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
-
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.LicenseCheckContainer;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +19,6 @@ import com.idega.core.business.DefaultSpringBean;
 import com.idega.idegaweb.IWBundle;
 import com.idega.idegaweb.IWResourceBundle;
 import com.idega.user.data.User;
-import com.idega.util.CoreConstants;
 import com.idega.util.text.Item;
 
 @Service("fishingLicenseUser")
@@ -87,18 +86,18 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 */
 	public List<Item> getFishingAreas() {
 		IWBundle iwb = getBundle(GumboConstants.IW_BUNDLE_IDENTIFIER);
-		IWResourceBundle iwrb = getResourceBundle(iwb);
-		
-		final List<Item> items = new ArrayList<Item>(2);
-		
-		items.add(new Item("A", iwrb.getLocalizedString("AREA_A", "Faxaflói")));
-		items.add(new Item("B", iwrb.getLocalizedString("AREA_B",
-		    "Breiðafjörður")));
-		items.add(new Item("C", iwrb.getLocalizedString("AREA_C", "Vestfirðir")));
-		items.add(new Item("D", iwrb.getLocalizedString("AREA_D", "Húnaflói")));
-		items.add(new Item("E", iwrb.getLocalizedString("AREA_E", "Norðurland")));
-		items.add(new Item("F", iwrb.getLocalizedString("AREA_F", "Austurland")));
-		items.add(new Item("G", iwrb.getLocalizedString("AREA_G", "Suðurland")));
+       IWResourceBundle iwrb = getResourceBundle(iwb);
+       
+        final List<Item> items = new ArrayList<Item>(2);
+        
+       items.add(new Item("A", iwrb.getLocalizedString("AREA_A", "Faxaflói")));
+       items.add(new Item("B", iwrb.getLocalizedString("AREA_B",
+           "Breiðafjörður")));
+       items.add(new Item("C", iwrb.getLocalizedString("AREA_C", "Vestfirðir")));
+       items.add(new Item("D", iwrb.getLocalizedString("AREA_D", "Húnaflói")));
+       items.add(new Item("E", iwrb.getLocalizedString("AREA_E", "Norðurland")));
+       items.add(new Item("F", iwrb.getLocalizedString("AREA_F", "Austurland")));
+       items.add(new Item("G", iwrb.getLocalizedString("AREA_G", "Suðurland")));
 		
 		return items;
 	}
@@ -110,14 +109,8 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 *         areas: A: Out of the Verstfjords and Breidafjordur B: Out of the north coast C: Out
 	 *         of north-east coast and Eastfjords D: Out of the south- and vestcoast
 	 */
-	public List<Item> getFishingAreasForDraganotaveidi() {
-		
-		final List<Item> items = new ArrayList<Item>(2);
-		
-		items.add(new Item("area1", "Fishing area for draganotaveidi 1"));
-		items.add(new Item("area2", "Fishing area for draganotaveidi 2"));
-		
-		return items;
+	public String getFishingAreaForDraganotaveidi(String shipId) {
+		return getClient().getFishingAreaForDraganotaveidi(shipId);
 	}
 	
 	/**
@@ -251,9 +244,8 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 * 
 	 * @return label of the company's fishing area
 	 */
-	public String getFishingArea() {
-		
-		return "13th fishing zone";
+	public String getFishingArea(String shipId, Timestamp validFrom) {
+		return getClient().getFishingArea(shipId, validFrom);
 	}
 	
 	public static final class VesselData {

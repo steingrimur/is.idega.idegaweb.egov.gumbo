@@ -5,7 +5,11 @@ import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUs
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.List;
+
+import com.idega.util.text.Item;
 
 public interface DOFWSClient {
 	
@@ -42,4 +46,8 @@ public interface DOFWSClient {
 	        String shipID);
 	
 	public LicenseCheckContainer getHasRevokedFishingLicense(String shipID);
+	
+	public String getFishingAreaForDraganotaveidi(String shipId);
+	
+	public String getFishingArea(String shipId, Timestamp validFrom);
 }
