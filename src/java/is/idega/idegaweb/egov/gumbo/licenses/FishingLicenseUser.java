@@ -6,15 +6,18 @@ import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.LicenseCheckContainer;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.chiba.xml.xforms.exception.XFormsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import com.idega.bpm.xformsview.converters.DateConverter;
 import com.idega.core.business.DefaultSpringBean;
 import com.idega.idegaweb.IWBundle;
 import com.idega.idegaweb.IWResourceBundle;
@@ -26,8 +29,11 @@ import com.idega.util.text.Item;
 public class FishingLicenseUser extends DefaultSpringBean {
 	
 	@Autowired
-	@Qualifier(DOFWSClient.WEB_SERVICE)
+	@Qualifier(DOFWSClient.MOCK)
 	private DOFWSClient client;
+	
+	@Autowired
+	private DateConverter dateConverter;
 	
 	public List<Item> getVesselsForUser() {
 		List<Item> items = null;
@@ -86,18 +92,18 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 */
 	public List<Item> getFishingAreas() {
 		IWBundle iwb = getBundle(GumboConstants.IW_BUNDLE_IDENTIFIER);
-       IWResourceBundle iwrb = getResourceBundle(iwb);
-       
-        final List<Item> items = new ArrayList<Item>(2);
-        
-       items.add(new Item("A", iwrb.getLocalizedString("AREA_A", "Faxaflói")));
-       items.add(new Item("B", iwrb.getLocalizedString("AREA_B",
-           "Breiðafjörður")));
-       items.add(new Item("C", iwrb.getLocalizedString("AREA_C", "Vestfirðir")));
-       items.add(new Item("D", iwrb.getLocalizedString("AREA_D", "Húnaflói")));
-       items.add(new Item("E", iwrb.getLocalizedString("AREA_E", "Norðurland")));
-       items.add(new Item("F", iwrb.getLocalizedString("AREA_F", "Austurland")));
-       items.add(new Item("G", iwrb.getLocalizedString("AREA_G", "Suðurland")));
+		IWResourceBundle iwrb = getResourceBundle(iwb);
+		
+		final List<Item> items = new ArrayList<Item>(2);
+		
+		items.add(new Item("A", iwrb.getLocalizedString("AREA_A", "Faxaflói")));
+		items.add(new Item("B", iwrb.getLocalizedString("AREA_B",
+		    "Breiðafjörður")));
+		items.add(new Item("C", iwrb.getLocalizedString("AREA_C", "Vestfirðir")));
+		items.add(new Item("D", iwrb.getLocalizedString("AREA_D", "Húnaflói")));
+		items.add(new Item("E", iwrb.getLocalizedString("AREA_E", "Norðurland")));
+		items.add(new Item("F", iwrb.getLocalizedString("AREA_F", "Austurland")));
+		items.add(new Item("G", iwrb.getLocalizedString("AREA_G", "Suðurland")));
 		
 		return items;
 	}
@@ -105,9 +111,7 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	/**
 	 * used in the forms: draganotaveidi
 	 * 
-	 * @return TODO: Areas are defined in the Admin environment in the solution. Now there are 4
-	 *         areas: A: Out of the Verstfjords and Breidafjordur B: Out of the north coast C: Out
-	 *         of north-east coast and Eastfjords D: Out of the south- and vestcoast
+	 * @return
 	 */
 	public String getFishingAreaForDraganotaveidi(String shipId) {
 		return getClient().getFishingAreaForDraganotaveidi(shipId);
@@ -242,10 +246,19 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	/**
 	 * used in forms: strandveidileyfi
 	 * 
-	 * @return label of the company's fishing area
+	 * @return label of the fishing area for vessel
 	 */
-	public String getFishingArea(String shipId, Timestamp validFrom) {
-		return getClient().getFishingArea(shipId, validFrom);
+	public String getFishingArea(String shipId, String validFrom) {
+		
+		try {
+			return getClient().getFishingArea(
+			    shipId,
+			    new Timestamp(getDateConverter().convertStringFromXFormsToDate(
+			        validFrom).getTime()));
+			
+		} catch (ParseException e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 	public static final class VesselData {
@@ -315,5 +328,9 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	
 	private DOFWSClient getClient() {
 		return client;
+	}
+	
+	private DateConverter getDateConverter() {
+		return dateConverter;
 	}
 }

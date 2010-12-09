@@ -117,14 +117,15 @@ public class DOFWSClientMock implements DOFWSClient {
 	        int numberOfResults) {
 		throw new UnsupportedOperationException();
 	}
-		
+	
 	@Override
-	public String getFishingAreaForDraganotaveidi(String shipId) {		
+	public String getFishingAreaForDraganotaveidi(String shipId) {
 		return "Fishing area for draganotaveidi";
 	}
 	
 	@Override
-	public String getFishingArea(String shipId, Timestamp validFrom) {	
-		return "13th fishing zone";
+	public String getFishingArea(String shipId, Timestamp validFrom) {
+		return "13th fishing zone. shipId: " + shipId + ", validFrom: "
+		        + validFrom;
 	}
 }
