@@ -3,13 +3,22 @@ package is.idega.idegaweb.egov.gumbo.webservice.client.business;
 import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.AflamarkTypeUser;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser;
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
+import is.idega.idegaweb.egov.gumbo.GumboConstants;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+
+import com.idega.idegaweb.IWBundle;
+import com.idega.idegaweb.IWResourceBundle;
+import com.idega.util.CoreConstants;
+import com.idega.util.text.Item;
 
 @Scope("singleton")
 @Service
@@ -49,8 +58,8 @@ public class DOFWSClientMock implements DOFWSClient {
 	}
 	
 	@Override
-	public LondunTypeUser getCatchInfoByNumberAndPort(
-	        BigDecimal catchNumber, BigDecimal port) {
+	public LondunTypeUser getCatchInfoByNumberAndPort(BigDecimal catchNumber,
+	        BigDecimal port) {
 		throw new UnsupportedOperationException();
 	}
 	
@@ -66,31 +75,57 @@ public class DOFWSClientMock implements DOFWSClient {
 	
 	@Override
 	public LicenseCheckContainer getHasValidSeafaringLicense(String shipID) {
-		return new LicenseCheckContainer(true, "Has license");
+		
+		return new LicenseCheckContainer(true,
+		        "Error message from getHasValidSeafaringLicense");
 	}
 	
 	@Override
 	public LicenseCheckContainer getHasValidGeneralFishingLicense(String shipID) {
-		return new LicenseCheckContainer(true, "Has license");
+		return new LicenseCheckContainer(true,
+		        "Error message from getHasValidGeneralFishingLicens");
 	}
 	
 	@Override
 	public LicenseCheckContainer getHasValidCoastFishingLicense(String shipID) {
-		return new LicenseCheckContainer(true, "Has license");
+		return new LicenseCheckContainer(false,
+		        "Error message from getHasValidCoastFishingLicense");
 	}
 	
 	@Override
-	public LicenseCheckContainer getHasValidQuotaLimitFishingLicense(String shipID) {
-		return new LicenseCheckContainer(true, "Has license");
+	public LicenseCheckContainer getHasValidQuotaLimitFishingLicense(
+	        String shipID) {
+		return new LicenseCheckContainer(false,
+		        "Error message from getHasValidQuotaLimitFishingLicense");
 	}
-
+	
 	@Override
-	public LondunTypeUser[] getLatestCatchInfoByShip(BigDecimal shipNumber, int numberOfResults) {
+	public LicenseCheckContainer getHasRevokedFishingLicense(String shipID) {
+		
+		return new LicenseCheckContainer(true,
+		        "Error message from getHasRevokedFishingLicense");
+	}
+	
+	@Override
+	public LondunTypeUser[] getLatestCatchInfoByShip(BigDecimal shipNumber,
+	        int numberOfResults) {
 		throw new UnsupportedOperationException();
 	}
-
+	
 	@Override
-	public LondunTypeUser[] getLatestCatchInfo(String personalID, int numberOfResults) {
+	public LondunTypeUser[] getLatestCatchInfo(String personalID,
+	        int numberOfResults) {
 		throw new UnsupportedOperationException();
+	}
+	
+	@Override
+	public String getFishingAreaForDraganotaveidi(String shipId) {
+		return "Fishing area for draganotaveidi";
+	}
+	
+	@Override
+	public String getFishingArea(String shipId, Timestamp validFrom) {
+		return "13th fishing zone. shipId: " + shipId + ", validFrom: "
+		        + validFrom;
 	}
 }

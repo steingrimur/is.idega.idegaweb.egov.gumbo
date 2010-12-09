@@ -5,7 +5,11 @@ import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUs
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.List;
+
+import com.idega.util.text.Item;
 
 public interface DOFWSClient {
 	
@@ -16,15 +20,19 @@ public interface DOFWSClient {
 	
 	public SkipInfoTypeUser getShipInfo(String shipID);
 	
-	public LondunTypeUser[] getCatchInfoByShipNumber(
-	        BigDecimal shipNumber, Calendar from, Calendar to);
+	public LondunTypeUser[] getCatchInfoByShipNumber(BigDecimal shipNumber,
+	        Calendar from, Calendar to);
 	
-	public LondunTypeUser getCatchInfoByNumberAndPort(BigDecimal catchNumber, BigDecimal port);
+	public LondunTypeUser getCatchInfoByNumberAndPort(BigDecimal catchNumber,
+	        BigDecimal port);
 	
-	public LondunTypeUser[] getLatestCatchInfoByShip(BigDecimal shipNumber, int numberOfResults);
-	public LondunTypeUser[] getLatestCatchInfo(String personalID, int numberOfResults);
+	public LondunTypeUser[] getLatestCatchInfoByShip(BigDecimal shipNumber,
+	        int numberOfResults);
 	
-	public AflamarkTypeUser[] getCatchQuota(BigDecimal shipNumber,  String period);
+	public LondunTypeUser[] getLatestCatchInfo(String personalID,
+	        int numberOfResults);
+	
+	public AflamarkTypeUser[] getCatchQuota(BigDecimal shipNumber, String period);
 	
 	public AflamarkTypeUser[] getCatchQuota(String personalID, String period);
 	
@@ -34,6 +42,12 @@ public interface DOFWSClient {
 	
 	public LicenseCheckContainer getHasValidCoastFishingLicense(String shipID);
 	
-	public LicenseCheckContainer getHasValidQuotaLimitFishingLicense(String shipID);
+	public LicenseCheckContainer getHasValidQuotaLimitFishingLicense(
+	        String shipID);
 	
+	public LicenseCheckContainer getHasRevokedFishingLicense(String shipID);
+	
+	public String getFishingAreaForDraganotaveidi(String shipId);
+	
+	public String getFishingArea(String shipId, Timestamp validFrom);
 }

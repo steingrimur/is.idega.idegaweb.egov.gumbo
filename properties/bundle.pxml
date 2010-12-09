@@ -56,21 +56,6 @@
             <type>map</type>
           </key>
           <key>
-            <name>is.idega.idegaweb.egov.gumbo.presentation.LatestCatches</name>
-            <value>
-              <map>
-                <key>
-                  <name>component_property_file</name>
-                  <type>java.lang.String</type>
-                  <value>is.idega.idegaweb.egov.gumbo.presentation.LatestCatches.pxml</value>
-                  <simple>false</simple>
-                  <reload>false</reload>
-                </key>
-              </map>
-            </value>
-            <type>map</type>
-          </key>
-          <key>
             <name>is.idega.idegaweb.egov.gumbo.presentation.ShipsCatchQuota</name>
             <value>
               <map>
@@ -78,36 +63,6 @@
                   <name>component_property_file</name>
                   <type>java.lang.String</type>
                   <value>is.idega.idegaweb.egov.gumbo.presentation.ShipsCatchQuota.pxml</value>
-                  <simple>false</simple>
-                  <reload>false</reload>
-                </key>
-              </map>
-            </value>
-            <type>map</type>
-          </key>
-          <key>
-            <name>is.idega.idegaweb.egov.gumbo.presentation.ShipInfo</name>
-            <value>
-              <map>
-                <key>
-                  <name>component_property_file</name>
-                  <type>java.lang.String</type>
-                  <value>is.idega.idegaweb.egov.gumbo.presentation.ShipInfo.pxml</value>
-                  <simple>false</simple>
-                  <reload>false</reload>
-                </key>
-              </map>
-            </value>
-            <type>map</type>
-          </key>
-          <key>
-            <name>is.idega.idegaweb.egov.gumbo.presentation.ShipLatestCatches</name>
-            <value>
-              <map>
-                <key>
-                  <name>component_property_file</name>
-                  <type>java.lang.String</type>
-                  <value>is.idega.idegaweb.egov.gumbo.presentation.ShipLatestCatches.pxml</value>
                   <simple>false</simple>
                   <reload>false</reload>
                 </key>

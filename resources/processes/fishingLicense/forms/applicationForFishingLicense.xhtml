@@ -30,8 +30,21 @@
                         <ownersName mapping="string_vesselOwnersName"/>
                         <ownersSocialSecurityNr mapping="string_vesselOwnersSocialSecurityNr"/>
                     </vesselData>
-                    <vesselHasValidHaffairisskirteini>true</vesselHasValidHaffairisskirteini>
+                    
+                    <vesselHasValidHaffairisskirteini>
+                        <result>true</result>
+                        <message>true</message>
+                    </vesselHasValidHaffairisskirteini>
                     <vesselHasNotValidHaffairisskirteini/>
+                    <vesselHasValidHaffairisskirteiniMessage/>
+                    
+                    <vesselHasRevokedLicense>
+                        <result>false</result>
+                        <message></message>
+                    </vesselHasRevokedLicense>
+                    <vesselHasNotRevokedLicense/>
+                    <vesselHasRevokedLicenseMessage/>
+                    
                     <hasLicenseText/>
                     <debtMessageContainer/>
                     <saveFormData>
@@ -129,8 +142,15 @@
             <xf:bind id="fbc_65_bind" nodeset="vesselData/ownersSocialSecurityNr"/>
             <xf:bind id="bind-controlsButton" idega:shared="true"
                 nodeset="instance('control-instance')/controlsButton" relevant="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"/>
-            <xf:bind id="fbc_73_bind" nodeset="vesselHasValidHaffairisskirteini" relevant="instance('data-instance')/vesselHasValidHaffairisskirteini = 'true'"/>
-            <xf:bind id="fbc_74_bind" nodeset="vesselHasNotValidHaffairisskirteini" relevant="instance('data-instance')/vesselHasValidHaffairisskirteini != 'true'"/>
+                
+            <xf:bind id="fbc_73_bind" nodeset="vesselHasValidHaffairisskirteini" relevant="instance('data-instance')/vesselHasValidHaffairisskirteini/result = 'true'"/>
+            <xf:bind id="fbc_74_bind" nodeset="vesselHasNotValidHaffairisskirteini" relevant="instance('data-instance')/vesselHasValidHaffairisskirteini/result != 'true'"/>
+            <xf:bind id="fbc_101_bind" nodeset="vesselHasValidHaffairisskirteiniMessage"/>
+            
+            <xf:bind id="fbc_102_bind" nodeset="vesselHasRevokedLicense" relevant="instance('data-instance')/vesselHasRevokedLicense/result = 'true'"/>
+            <xf:bind id="fbc_103_bind" nodeset="vesselHasNotRevokedLicense" relevant="instance('data-instance')/vesselHasRevokedLicense/result != 'true'"/>
+            <xf:bind id="fbc_104_bind" nodeset="vesselHasRevokedLicenseMessage"/>
+            
             <xf:bind id="fbc_75_bind" nodeset="hasLicenseText" relevant="hasLicenseText != ''"/>
             <xf:bind id="debtMessageContainer" nodeset="debtMessageContainer" relevant="instance('control-instance')/userIsInDebt != 'false'"/>
         </xf:model>
@@ -252,8 +272,6 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                     <fbc_73-text lang="en">True</fbc_73-text>
                     <fbc_73-label lang="is_IS">Gilt haffærisskirteini</fbc_73-label>
                     <fbc_73-label lang="en">Valid "Haffærisskirteini"</fbc_73-label>
-                    <fbc_74-text lang="is_IS">Skipið hefur ekki gilt haffærisskírteini. Vinsamlega hafið samband við Fiskistofu. Ekki er hægt að senda inn umsóknina</fbc_74-text>
-                    <fbc_74-text lang="en">The vessel does not have a valid "haffærisskírteini". Please contact Siglingamálastofnun. It is not possible to submit the application under these conditions.</fbc_74-text>
                     <debtMessage lang="is_IS">Þú ert í skuld hjá Fiskistofu. Vinsamlega hafðu samband við fjármáladeild Fiskistofu.</debtMessage>
                     <debtMessage lang="en">You have a debt at Fiskistofa</debtMessage>
                     <page-3-label lang="en">The form was saved</page-3-label>
@@ -276,6 +294,10 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                     <page-4-label lang="is_IS">Hlekkur sendur</page-4-label>
                     <page-4-info lang="en">Link sent, thank You!</page-4-info>
                     <page-4-info lang="is_IS">Hlekkur á umsóknina hefur verið sendur á netfangið sem þú skráðir</page-4-info>
+                    <fbc_103-text lang="is_IS">Ógilt</fbc_103-text>
+                    <fbc_103-text lang="en">False</fbc_103-text>
+                    <fbc_103-label lang="is_IS">Skipið er með sviptingu</fbc_103-label>
+                    <fbc_103-label lang="en">The vessel has revoked license</fbc_103-label>
                 </localized_strings>
             </xf:instance>
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
@@ -495,16 +517,28 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                                 name="idega-validate" target="fbc_37"/>
                             <xf:dispatch ev:event="xforms-value-changed"
                                 name="idega-validate" target="fbc_37"/>
-                            <idega:setvalue
-                                ev:event="xforms-value-changed"
-                                multiple="true()"
-                                placeResponseDocument="true()"
-                                ref="instance('data-instance')/vesselData" value="idega:resolveBeanProperties('fishingLicenseUser.getUserVesselData({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
-                            <idega:setvalue
-                                ev:event="xforms-value-changed"
-                                multiple="true()"
-                                placeResponseDocument="true()"
-                                ref="instance('data-instance')/vesselHasValidHaffairisskirteini" value="idega:resolveExpression('fishingLicenseUser.getVesselHasValidHaffairisskirteini({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
+                                
+                            <xf:action ev:event="xforms-value-changed">
+                            
+	                            <idega:setvalue
+	                                multiple="true()"
+	                                placeResponseDocument="true()"
+	                                ref="instance('data-instance')/vesselData" value="idega:resolveBeanProperties('fishingLicenseUser.getUserVesselData({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
+	                            <idega:setvalue
+	                                multiple="true()"
+	                                placeResponseDocument="true()"
+	                                ref="instance('data-instance')/vesselHasValidHaffairisskirteini" value="idega:resolveBeanProperties('fishingLicenseUser.getVesselHasValidHaffairisskirteini({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
+                                <xf:setvalue
+                                    model="submission_model" ref="instance('data-instance')/vesselHasValidHaffairisskirteiniMessage" value="instance('data-instance')/vesselHasValidHaffairisskirteini/message" />
+                                    
+                                    <idega:setvalue
+                                        multiple="true()"
+                                        placeResponseDocument="true()"
+                                        ref="instance('data-instance')/vesselHasRevokedLicense" value="idega:resolveBeanProperties('fishingLicenseUser.getHasRevokedFishingLicense({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
+                                    <xf:setvalue
+                                        model="submission_model" ref="instance('data-instance')/vesselHasRevokedLicenseMessage" value="instance('data-instance')/vesselHasRevokedLicense/message" />
+                            </xf:action>
+                                
                             <idega:validator ev:event="idega-validate">
                                 <idega:message errorType="required"
                                     model="data_model" value="instance('localized_strings')/fbc_37-required[@lang=instance('localized_strings')/current_language]"/>
@@ -616,8 +650,18 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                             </xf:output>
                         </xf:group>
                         <xf:group bind="fbc_74_bind" class="xformErrors">
-                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_74-text[@lang=instance('localized_strings')/current_language]"/>
+                            <xf:output bind="fbc_101_bind" />
                         </xf:group>
+                        
+                        <xf:group bind="fbc_102_bind" class="xformErrors">
+                            <xf:output bind="fbc_104_bind" />
+                        </xf:group>
+                        <xf:group bind="fbc_103_bind">
+                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_103-text[@lang=instance('localized_strings')/current_language]">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_103-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                        </xf:group>
+                        
                         <div class="fbc_button_area" id="fbc_67" type="fbc_button_area">
                             <xf:trigger bind="bind-controlsButton"
                                 id="fbc_68" type="fbc_button_previous">
@@ -638,11 +682,11 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                                     <xf:dispatch
                                     name="xforms-revalidate" target="data_model"/>
                                     <xf:dispatch name="xforms-refresh" target="data_model"/>
-                                    <xf:action if="count-non-empty(instance('error-instance')/error)=0 and instance('data-instance')/vesselHasValidHaffairisskirteini='true'">
+                                    <xf:action if="count-non-empty(instance('error-instance')/error)=0 and instance('data-instance')/vesselHasValidHaffairisskirteini/result='true' and instance('data-instance')/vesselHasRevokedLicense/result!='true'">
                                     <xf:send submission="submit_data_submission"/>
                                     </xf:action>
                                     <xf:dispatch
-                                    if="count-non-empty(instance('error-instance')/error)!=0 or instance('data-instance')/vesselHasValidHaffairisskirteini!='true'"
+                                    if="count-non-empty(instance('error-instance')/error)!=0 or instance('data-instance')/vesselHasValidHaffairisskirteini/result!='true' or instance('data-instance')/vesselHasRevokedLicense/result='true'"
                                     name="idega-submit-error" target="idega-submission-error"/>
                                 </xf:action>
                             </xf:trigger>

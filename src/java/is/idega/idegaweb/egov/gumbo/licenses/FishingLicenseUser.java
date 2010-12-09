@@ -5,15 +5,19 @@ import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.LicenseCheckContainer;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.chiba.xml.xforms.exception.XFormsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import com.idega.bpm.xformsview.converters.DateConverter;
 import com.idega.core.business.DefaultSpringBean;
 import com.idega.idegaweb.IWBundle;
 import com.idega.idegaweb.IWResourceBundle;
@@ -25,8 +29,11 @@ import com.idega.util.text.Item;
 public class FishingLicenseUser extends DefaultSpringBean {
 	
 	@Autowired
-	@Qualifier(DOFWSClient.WEB_SERVICE)
+	@Qualifier(DOFWSClient.MOCK)
 	private DOFWSClient client;
+	
+	@Autowired
+	private DateConverter dateConverter;
 	
 	public List<Item> getVesselsForUser() {
 		List<Item> items = null;
@@ -104,18 +111,10 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	/**
 	 * used in the forms: draganotaveidi
 	 * 
-	 * @return TODO: Areas are defined in the Admin environment in the solution. Now there are 4
-	 *         areas: A: Out of the Verstfjords and Breidafjordur B: Out of the north coast C: Out
-	 *         of north-east coast and Eastfjords D: Out of the south- and vestcoast
+	 * @return
 	 */
-	public List<Item> getFishingAreasForDraganotaveidi() {
-		
-		final List<Item> items = new ArrayList<Item>(2);
-		
-		items.add(new Item("area1", "Fishing area for draganotaveidi 1"));
-		items.add(new Item("area2", "Fishing area for draganotaveidi 2"));
-		
-		return items;
+	public String getFishingAreaForDraganotaveidi(String shipId) {
+		return getClient().getFishingAreaForDraganotaveidi(shipId);
 	}
 	
 	/**
@@ -131,30 +130,26 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	/**
 	 * used in the forms: general fishing license, strandveidileyfi, grasleppa
 	 * 
-	 * @return string "true" or "false"
+	 * @return
 	 */
-	public String getVesselHasValidHaffairisskirteini(String vesselId) {
-		LicenseCheckContainer res = getClient().getHasValidSeafaringLicense(vesselId);
-		if (res.isHasLicense()) {
-			return "true";
-		} else {
-			return "false";
-		}
+	public ResultWithMessage getVesselHasValidHaffairisskirteini(String vesselId) {
+		final LicenseCheckContainer res = getClient()
+		        .getHasValidSeafaringLicense(vesselId);
+		
+		return new ResultWithMessage(res.isHasLicense(), res.getMessage());
 	}
 	
 	/**
 	 * used in the forms: grasleppa
 	 * 
-	 * @return string "true" or "false"
+	 * @return
 	 */
-	public String getVesselHasValidGeneralFishingLicense(String vesselId) {
-		LicenseCheckContainer res = getClient().getHasValidGeneralFishingLicense(vesselId);
+	public ResultWithMessage getVesselHasValidGeneralFishingLicense(
+	        String vesselId) {
+		final LicenseCheckContainer res = getClient()
+		        .getHasValidGeneralFishingLicense(vesselId);
 		
-		if (res.isHasLicense()) {
-			return "true";
-		} else {
-			return "false";
-		}
+		return new ResultWithMessage(res.isHasLicense(), res.getMessage());
 	}
 	
 	/**
@@ -173,16 +168,13 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	/**
 	 * used in forms: strandveidileyfi
 	 * 
-	 * @return string true or false
+	 * @return
 	 */
-	public String getVesselHasValidStrandveidileyfi(String vesselId) {
-		LicenseCheckContainer res = getClient().getHasValidCoastFishingLicense(vesselId);
+	public ResultWithMessage getVesselHasValidStrandveidileyfi(String vesselId) {
+		final LicenseCheckContainer res = getClient()
+		        .getHasValidCoastFishingLicense(vesselId);
 		
-		if (res.isHasLicense()) {
-			return "true";
-		} else {
-			return "false";
-		}
+		return new ResultWithMessage(res.isHasLicense(), res.getMessage());
 	}
 	
 	/**
@@ -202,8 +194,21 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 */
 	public ResultWithMessage getVesselHasValidAflamarksleyfi(String vesselId) {
 		
-		final LicenseCheckContainer res = getClient().getHasValidQuotaLimitFishingLicense(
-		    vesselId);
+		final LicenseCheckContainer res = getClient()
+		        .getHasValidQuotaLimitFishingLicense(vesselId);
+		
+		return new ResultWithMessage(res.isHasLicense(), res.getMessage());
+	}
+	
+	/**
+	 * used in forms: all forms
+	 * 
+	 * @return Result With Message
+	 */
+	public ResultWithMessage getHasRevokedFishingLicense(String vesselId) {
+		
+		final LicenseCheckContainer res = getClient()
+		        .getHasRevokedFishingLicense(vesselId);
 		
 		return new ResultWithMessage(res.isHasLicense(), res.getMessage());
 	}
@@ -241,11 +246,19 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	/**
 	 * used in forms: strandveidileyfi
 	 * 
-	 * @return label of the company's fishing area
+	 * @return label of the fishing area for vessel
 	 */
-	public String getFishingArea() {
+	public String getFishingArea(String shipId, String validFrom) {
 		
-		return "13th fishing zone";
+		try {
+			return getClient().getFishingArea(
+			    shipId,
+			    new Timestamp(getDateConverter().convertStringFromXFormsToDate(
+			        validFrom).getTime()));
+			
+		} catch (ParseException e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 	public static final class VesselData {
@@ -315,5 +328,9 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	
 	private DOFWSClient getClient() {
 		return client;
+	}
+	
+	private DateConverter getDateConverter() {
+		return dateConverter;
 	}
 }
