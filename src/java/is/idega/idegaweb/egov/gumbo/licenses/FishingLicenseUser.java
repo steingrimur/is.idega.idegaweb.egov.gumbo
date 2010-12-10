@@ -183,6 +183,7 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 * @return string true or false
 	 */
 	public String getCompanyAddressFallsInArea(String areaId) {
+		// TODO is this needed? I'm not using this in the form now
 		
 		return "true";
 	}
