@@ -258,10 +258,6 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                     <fbc_71-label lang="en">Comments</fbc_71-label>
                     <fbc_72-text lang="is_IS">Skilyrði fyrir veitingu veiðileyfis</fbc_72-text>
                     <fbc_72-text lang="en">Conditions for granting the fishing license</fbc_72-text>
-                    <fbc_73-text lang="is_IS">Gilt</fbc_73-text>
-                    <fbc_73-text lang="en">True</fbc_73-text>
-                    <fbc_73-label lang="is_IS">Gilt haffærisskirteini</fbc_73-label>
-                    <fbc_73-label lang="en">Valid "Haffærisskirteini"</fbc_73-label>
                     <debtMessage lang="is_IS">Þú ert í skuld hjá Fiskistofu. Vinsamlega hafðu samband við fjármáladeild Fiskistofu.</debtMessage>
                     <debtMessage lang="en">You have a debt at Fiskistofa</debtMessage>
                     <page-3-label lang="en">The form was saved</page-3-label>
@@ -284,10 +280,6 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                     <page-4-label lang="is_IS">Hlekkur sendur</page-4-label>
                     <page-4-info lang="en">Link sent, thank You!</page-4-info>
                     <page-4-info lang="is_IS">Hlekkur á umsóknina hefur verið sendur á netfangið sem þú skráðir</page-4-info>
-                    <fbc_103-text lang="is_IS">Ógilt</fbc_103-text>
-                    <fbc_103-text lang="en">False</fbc_103-text>
-                    <fbc_103-label lang="is_IS">Skipið er með sviptingu</fbc_103-label>
-                    <fbc_103-label lang="en">The vessel has revoked license</fbc_103-label>
                 </localized_strings>
             </xf:instance>
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
@@ -608,10 +600,9 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                         <div class="fbc_header_text" id="fbc_72" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_72-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
+                        
                         <xf:group bind="fbc_73_bind">
-                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_73-text[@lang=instance('localized_strings')/current_language]">
-                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_73-label[@lang=instance('localized_strings')/current_language]"/>
-                            </xf:output>
+                            <xf:output bind="fbc_101_bind" />
                         </xf:group>
                         <xf:group bind="fbc_74_bind" class="xformErrors">
                             <xf:output bind="fbc_101_bind" />
@@ -621,9 +612,7 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                             <xf:output bind="fbc_104_bind" />
                         </xf:group>
                         <xf:group bind="fbc_103_bind">
-                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_103-text[@lang=instance('localized_strings')/current_language]">
-                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_103-label[@lang=instance('localized_strings')/current_language]"/>
-                            </xf:output>
+                            <xf:output bind="fbc_104_bind" />
                         </xf:group>
                         
                         <div class="fbc_button_area" id="fbc_67" type="fbc_button_area">

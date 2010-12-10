@@ -274,24 +274,12 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                     <fbc_71-label lang="en">Comments</fbc_71-label>
                     <fbc_72-text lang="is_IS">Skilyrði fyrir veitingu veiðileyfis</fbc_72-text>
                     <fbc_72-text lang="en">Conditions for granting the fishing license</fbc_72-text>
-                    <fbc_73-text lang="is_IS">Gilt</fbc_73-text>
-                    <fbc_73-text lang="en">True</fbc_73-text>
-                    <fbc_73-label lang="is_IS">Gilt haffærisskirteini</fbc_73-label>
-                    <fbc_73-label lang="en">Valid "Haffærisskirteini"</fbc_73-label>
                     <fbc_104-text lang="is_IS">Útgerðaraðilinn hefur nú þegar gilt strandveiðileyfi. Vinsamlega hafðu samband við Fiskistofu. Ekki er hægt að senda inn umsóknina</fbc_104-text>
                     <fbc_104-text lang="en">The company already has a valid "Strandveidileyfi". Please contact Fiskistofa. It is not possible to submit the application under these conditions.</fbc_104-text>
                     <fbc_105-text lang="is_IS">Ógilt</fbc_105-text>
                     <fbc_105-text lang="en">False</fbc_105-text>
                     <fbc_105-label lang="is_IS">Útgerðaraðilinn hefur nú þegar gilt strandveiðileyfi</fbc_105-label>
                     <fbc_105-label lang="en">The Fishing company has a valid "strandveiðileyfi"</fbc_105-label>
-                    <fbc_109-text lang="is_IS">Ógilt</fbc_109-text>
-                    <fbc_109-text lang="en">False</fbc_109-text>
-                    <fbc_109-label lang="is_IS">Báturinn hefur nú þegar gilt strandveiðileyfi</fbc_109-label>
-                    <fbc_109-label lang="en">The vessel has a valid "strandveiðileyfi"</fbc_109-label>
-                    <fbc_113-text lang="is_IS">Ógilt</fbc_113-text>
-                    <fbc_113-text lang="en">False</fbc_113-text>
-                    <fbc_113-label lang="is_IS">Skipið er með sviptingu</fbc_113-label>
-                    <fbc_113-label lang="en">The vessel has revoked license</fbc_113-label>
                     <fbc_106-text lang="is_IS">Gilt</fbc_106-text>
                     <fbc_106-text lang="en">True</fbc_106-text>
                     <fbc_106-label lang="is_IS">Flutningur aflaheimilda samkvæmt reglum</fbc_106-label>
@@ -657,10 +645,9 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                         <div class="fbc_header_text" id="fbc_72" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_72-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
+                        
                         <xf:group bind="fbc_73_bind">
-                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_73-text[@lang=instance('localized_strings')/current_language]">
-                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_73-label[@lang=instance('localized_strings')/current_language]"/>
-                            </xf:output>
+                            <xf:output bind="fbc_110_bind" />
                         </xf:group>
                         <xf:group bind="fbc_74_bind" class="xformErrors">
                             <xf:output bind="fbc_110_bind" />
@@ -670,18 +657,14 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                             <xf:output bind="fbc_111_bind" />
                         </xf:group>
                         <xf:group bind="fbc_109_bind">
-                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_109-text[@lang=instance('localized_strings')/current_language]">
-                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_109-label[@lang=instance('localized_strings')/current_language]"/>
-                            </xf:output>
+                            <xf:output bind="fbc_111_bind" />
                         </xf:group>
                         
                         <xf:group bind="fbc_112_bind" class="xformErrors">
                             <xf:output bind="fbc_114_bind" />
                         </xf:group>
                         <xf:group bind="fbc_113_bind">
-                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_113-text[@lang=instance('localized_strings')/current_language]">
-                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_113-label[@lang=instance('localized_strings')/current_language]"/>
-                            </xf:output>
+                            <xf:output bind="fbc_114_bind" />
                         </xf:group>
                         
                         <xf:group bind="fbc_104_bind" class="xformErrors">
