@@ -169,20 +169,10 @@
                     <page-2-info lang="is_IS">Fiskistofa hefur nú móttekið umsókn þína. Skilaboð vegna afgreiðslu umsóknarinnar munu berast í tölvupósti og hægt er að nálgast allar upplýsingar hér á vefnum undir "Erindin mín".</page-2-info>
                     <fbc_5-text lang="en">Fishing company</fbc_5-text>
                     <fbc_5-text lang="is_IS">Útgerðaraðili</fbc_5-text>
-                    <fbc_17-title lang="is_IS">Símanúmer</fbc_17-title>
-                    <fbc_17-title lang="en">Phone number</fbc_17-title>
                     <fbc_19-text lang="en">Fishing license</fbc_19-text>
                     <fbc_19-text lang="is_IS">Veiðileyfi</fbc_19-text>
                     <fbc_23-title lang="is_IS">Málsnúmer</fbc_23-title>
                     <fbc_23-title lang="en">Identifier number</fbc_23-title>
-                    <fbc_33-title lang="is_IS">Netfang</fbc_33-title>
-                    <fbc_33-title lang="en">Email</fbc_33-title>
-                    <fbc_33-validation lang="is_IS">Netfang stenst ekki prófun</fbc_33-validation>
-                    <fbc_33-validation lang="en">Invalid email</fbc_33-validation>
-                    <fbc_33-required lang="en">Email address can not be empty</fbc_33-required>
-                    <fbc_33-required lang="is_IS">Þessi reitur verður að vera útfylltur</fbc_33-required>
-                    <fbc_34-label lang="is_IS">Fax</fbc_34-label>
-                    <fbc_34-label lang="en">Fax</fbc_34-label>
                     <fbc_35-label lang="is_IS">Tegund veiðileyfis</fbc_35-label>
                     <fbc_35-label lang="en">Type of fishing license</fbc_35-label>
                     <fbc_36-text lang="is_IS">Skip</fbc_36-text>
@@ -433,41 +423,15 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                         <xf:output bind="fbc_46_bind" id="fbc_46" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_46-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
-                        <xf:input bind="fbc_17_bind" id="fbc_17">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_17-title[@lang=instance('localized_strings')/current_language]"/>
-                            <idega:setvalue
-                                ev:event="xforms-value-changed"
-                                multiple="true()"
-                                ref="instance('data-instance')/*[@mapping='string_ownerPhone']"
-                                type="mappingSiblingsUpdater" value="instance('data-instance')/Phone_number_fbc_17"/>
-                        </xf:input>
-                        <xf:input bind="fbc_34_bind" id="fbc_34">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_34-label[@lang=instance('localized_strings')/current_language]"/>
-                            <idega:setvalue
-                                ev:event="xforms-value-changed"
-                                multiple="true()"
-                                ref="instance('data-instance')/*[@mapping='string_ownerFax']"
-                                type="mappingSiblingsUpdater" value="instance('data-instance')/Fax_fbc_34"/>
-                        </xf:input>
-                        <xf:input bind="fbc_33_bind" id="fbc_33">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_33-title[@lang=instance('localized_strings')/current_language]"/>
-                            <xf:dispatch ev:event="idega-xforms-ready"
-                                name="idega-validate" target="fbc_33"/>
-                            <xf:dispatch ev:event="xforms-value-changed"
-                                name="idega-validate" target="fbc_33"/>
-                            <idega:validator ev:event="idega-validate">
-                                <idega:message errorType="required"
-                                    model="data_model" value="instance('localized_strings')/fbc_33-required[@lang=instance('localized_strings')/current_language]"/>
-                                <idega:message errorType="validation"
-                                    model="data_model" value="instance('localized_strings')/fbc_33-validation[@lang=instance('localized_strings')/current_language]"/>
-                            </idega:validator>
-                            <xf:alert ref="instance('error-instance')/error[@for='fbc_33']"/>
-                            <idega:setvalue
-                                ev:event="xforms-value-changed"
-                                multiple="true()"
-                                ref="instance('data-instance')/*[@mapping='string_ownerEmailAddress']"
-                                type="mappingSiblingsUpdater" value="instance('data-instance')/Email_fbc_33"/>
-                        </xf:input>
+                        <xf:output bind="fbc_17_bind" id="fbc_17" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_54-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                        <xf:output bind="fbc_34_bind" id="fbc_34" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_55-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                        <xf:output bind="fbc_33_bind" id="fbc_33" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_56-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
                         <hr class="fbc_separator" id="fbc_18" type="fbc_separator"/>
                         <div class="fbc_header_text" id="fbc_19" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_19-text[@lang=instance('localized_strings')/current_language]"/>
