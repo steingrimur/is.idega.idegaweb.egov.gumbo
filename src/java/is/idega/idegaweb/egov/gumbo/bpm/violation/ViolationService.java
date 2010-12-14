@@ -7,18 +7,11 @@ import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.CodeTy
 import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.GetHafnalistiElement;
 import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.GetSkipWithInfoElement;
 import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.GetSkipWithInfoResponseElement;
-import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.GetVigtunarleyfiByKtElement;
-import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.VigtunarleyfiTypeUser;
-import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.FSWebServiceVEIDILEYFI_PortType;
-import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.FSWebServiceVEIDILEYFI_ServiceLocator;
-import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetersviptingElement;
-import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetersviptingResponseElement;
 import is.idega.block.nationalregister.webservice.client.business.CompanyHolder;
 import is.idega.block.nationalregister.webservice.client.business.SkyrrClient;
 import is.idega.block.nationalregister.webservice.client.business.UserHolder;
 
 import java.math.BigDecimal;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -26,7 +19,6 @@ import java.util.List;
 
 import javax.ejb.CreateException;
 import javax.ejb.FinderException;
-import javax.xml.rpc.ServiceException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -121,9 +113,10 @@ public class ViolationService {
 	public List<Item> getHarbours() {
 		final List<Item> items = new ArrayList<Item>();
 
+		GetHafnalistiElement parameters = new GetHafnalistiElement();
 		try {
-			CodeTypeUser harbors[] = getViolationPort().getHafnalisti(null);
-			for (CodeTypeUser codeTypeUser : harbors) {
+			CodeTypeUser whut[] = getViolationPort().getHafnalisti(parameters);
+			for (CodeTypeUser codeTypeUser : whut) {
 				items.add(new Item(codeTypeUser.getCode(), codeTypeUser.getText()));
 			}
 		} catch (RemoteException e) {
@@ -133,24 +126,9 @@ public class ViolationService {
 		return items;
 	}
 		
-	public String getTypeLabelOfPermissionForViolationCompany(String socialNr) {
-		StringBuilder ret = new StringBuilder();
-		GetVigtunarleyfiByKtElement parameters = new GetVigtunarleyfiByKtElement(socialNr);
-		try {
-			VigtunarleyfiTypeUser res[] = getViolationPort().getVigtunarleyfiByKt(parameters);
-			int len = res.length;
-			for (int i = 0; i < len; i++) {
-				ret.append(res[i].getGerdLeyfis());
-				if (i < (len - 1)) {
-					ret.append(", ");
-				}
-			}
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
-		
+	public String getTypeLabelOfPermissionForViolationCompany(String socialNr) {		
 		// endurvigtun, heimavigtun, vigtun eftir slægingu, ofl.
-		return ret.toString();
+		return "some type for company: " + socialNr;
 	}
 		
 	public EquipmentData getEquipmentData(String byVesselRegistryNr) {
@@ -478,29 +456,5 @@ public class ViolationService {
 		}
 		return skyrrClient;
 	}
-	
-	public static void main(String[] arguments) {
-		
-		
-		try {
-			FSWebserviceBROTAMAL_Service locator = new FSWebserviceBROTAMAL_ServiceLocator();
-			FSWebserviceBROTAMAL_PortType port = locator.getFSWebserviceBROTAMALSoap12HttpPort(new URL("http://hafrok.hafro.is/FSWebServices/FSWebserviceBROTAMALSoap12HttpPort"));
-
-			//GetHafnalistiElement parameters = new GetHafnalistiElement();
-			CodeTypeUser ports[] = port.getHafnalisti(null);
-			for (CodeTypeUser codeTypeUser : ports) {
-				System.out.print(codeTypeUser.getCode());
-				System.out.print(" ");
-				System.out.println(codeTypeUser.getText());
-			}
-		} catch (ServiceException se) {
-			se.printStackTrace();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (RemoteException re) {
-			re.printStackTrace();
-		}
-	}
-
 
 }
