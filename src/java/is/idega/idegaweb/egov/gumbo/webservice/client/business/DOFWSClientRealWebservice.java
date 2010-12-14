@@ -43,9 +43,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import javax.xml.rpc.ServiceException;
 
@@ -55,7 +53,6 @@ import org.springframework.stereotype.Service;
 
 import com.idega.idegaweb.IWMainApplication;
 import com.idega.util.IWTimestamp;
-import com.idega.util.text.Item;
 
 @Scope("singleton")
 @Service("dofWSClient")
@@ -435,8 +432,9 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 			        .getFSWebServiceVEIDILEYFISoap12HttpPort(new URL(
 			                "http://hafrok.hafro.is/FSWebServices/FSWebServiceVEIDILEYFISoap12HttpPort"));
 			
-			GethefuraflamarksveidilElement parameters = new GethefuraflamarksveidilElement(new BigDecimal("220"), IWTimestamp.RightNow().getCalendar());
-			GethefuraflamarksveidilResponseElement cont = port.gethefuraflamarksveidil(parameters);
+			GetersviptingElement parameters = new GetersviptingElement(new BigDecimal("220"));
+			//GethefuraflamarksveidilElement parameters = new GethefuraflamarksveidilElement(new BigDecimal("220"), IWTimestamp.RightNow().getCalendar());
+			GetersviptingResponseElement cont = port.getersvipting(parameters);//gethefuraflamarksveidil(parameters);
 			System.out.println("check = " + cont.getResult().getIsok());
 			System.out.println("message = " + cont.getResult().getMessage());
 
@@ -483,7 +481,7 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 			e.printStackTrace();
 		}
 		
-		return "no area found";	
+		return "error_from_web_service";	
 	}
 	
 	public String getFishingArea(String shipId, Timestamp validFrom) {
@@ -502,6 +500,6 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 			e.printStackTrace();
 		}
 		
-		return "no area found";
+		return "error_from_web_service";
 	}
 }

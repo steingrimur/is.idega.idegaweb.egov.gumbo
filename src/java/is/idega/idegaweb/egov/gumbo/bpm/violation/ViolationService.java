@@ -1,42 +1,84 @@
 package is.idega.idegaweb.egov.gumbo.bpm.violation;
 
+import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.FSWebserviceBROTAMAL_PortType;
+import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.FSWebserviceBROTAMAL_Service;
+import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.FSWebserviceBROTAMAL_ServiceLocator;
+import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.CodeTypeUser;
+import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.GetHafnalistiElement;
+import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.GetSkipWithInfoElement;
+import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.GetSkipWithInfoResponseElement;
+import is.idega.block.nationalregister.webservice.client.business.CompanyHolder;
+import is.idega.block.nationalregister.webservice.client.business.SkyrrClient;
+import is.idega.block.nationalregister.webservice.client.business.UserHolder;
+
+import java.math.BigDecimal;
+import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.CreateException;
+import javax.ejb.FinderException;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import com.idega.business.IBOLookup;
+import com.idega.business.IBOLookupException;
+import com.idega.business.IBORuntimeException;
+import com.idega.company.business.CompanyBusiness;
+import com.idega.company.companyregister.business.CompanyRegisterBusiness;
+import com.idega.company.data.Company;
+import com.idega.core.location.data.Address;
+import com.idega.idegaweb.IWMainApplication;
+import com.idega.user.business.UserBusiness;
+import com.idega.user.data.User;
 import com.idega.util.CoreConstants;
+import com.idega.util.IWTimestamp;
 import com.idega.util.StringUtil;
+import com.idega.util.expression.ELUtil;
 import com.idega.util.text.Item;
 
 @Service("violationService")
 @Scope(BeanDefinition.SCOPE_SINGLETON)
 public class ViolationService {
+	private static final String VIOLATION_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices/FSWebServiceBROTAMALSoap12HttpPort";
+	private static final String VIOLATION_ENDPOINT_ATTRIBUTE_NAME = "dofws_violation_endpoint";
 	
-	public PersonData getViolationPersonData(String socialNr) {
+	private static final String USE_WEBSERVICE_FOR_COMPANY_LOOKUP = "COMPANY_WS_LOOKUP";
+
+	@Autowired
+	private SkyrrClient skyrrClient;
+
+	private FSWebserviceBROTAMAL_PortType getViolationPort() {
+		try {
+			String endPoint = IWMainApplication
+			        .getDefaultIWApplicationContext()
+			        .getApplicationSettings()
+			        .getProperty(VIOLATION_ENDPOINT_ATTRIBUTE_NAME,
+			        		VIOLATION_DEFAULT_ENDPOINT);
+			
+			FSWebserviceBROTAMAL_Service locator = new FSWebserviceBROTAMAL_ServiceLocator();
+			FSWebserviceBROTAMAL_PortType port = locator.getFSWebserviceBROTAMALSoap12HttpPort(new URL(endPoint));
+			
+			// ((org.apache.axis.client.Stub) port).setTimeout(timeout)
+			
+			return port;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-		return !StringUtil.isEmpty(socialNr) ? new PersonData(socialNr)
-		        .setName("violator name")
-		        .setAddress("address 1234 " + socialNr).setPlace("landan")
-		        .setPostalCode("1245 " + socialNr) : new PersonData(socialNr);
+		return null;
+	}
+
+	public PersonData getViolationPersonData(String socialNr) {
+		return !StringUtil.isEmpty(socialNr) ? getUser(socialNr) : new PersonData(socialNr);
 	}
 	
 	public PersonData getViolationCompanyData(String socialNr) {
-		
-		return !StringUtil.isEmpty(socialNr) ? new PersonData(socialNr)
-		        .setName("violator company name")
-		        .setAddress("address 1234 " + socialNr).setPlace("landan")
-		        .setPostalCode("1245 " + socialNr) : new PersonData(socialNr);
-	}
-	
-	public PersonData getViolationOtherPartyData(String socialNr) {
-		
-		return !StringUtil.isEmpty(socialNr) ? new PersonData(socialNr)
-		        .setName("violator other party name")
-		        .setAddress("address 1234 " + socialNr).setPlace("landan")
-		        .setPostalCode("1245 " + socialNr) : new PersonData(socialNr);
+		return !StringUtil.isEmpty(socialNr) ? getCompany(socialNr) : new PersonData(socialNr);
 	}
 	
 	public List<Item> getViolationTypes() {
@@ -68,51 +110,47 @@ public class ViolationService {
 		return items;
 	}
 	
-	public String getViolationPlaceLabel(String byPostalCode) {
-		
-		return "place in " + byPostalCode;
-	}
-	
 	public List<Item> getHarbours() {
 		final List<Item> items = new ArrayList<Item>();
-		
-		items.add(new Item("harbour1", "Harbour 1"));
-		items.add(new Item("harbour2", "Harbour 2"));
+
+		GetHafnalistiElement parameters = new GetHafnalistiElement();
+		try {
+			CodeTypeUser whut[] = getViolationPort().getHafnalisti(parameters);
+			for (CodeTypeUser codeTypeUser : whut) {
+				items.add(new Item(codeTypeUser.getCode(), codeTypeUser.getText()));
+			}
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
 		
 		return items;
 	}
-	
-	public String getTypeLabelOfPermissionForViolationPerson(String socialNr) {
 		
+	public String getTypeLabelOfPermissionForViolationCompany(String socialNr) {		
 		// endurvigtun, heimavigtun, vigtun eftir slægingu, ofl.
-		
-		return "some type for person: " + socialNr;
-	}
-	
-	public String getTypeLabelOfPermissionForViolationCompany(String socialNr) {
-		
-		// endurvigtun, heimavigtun, vigtun eftir slægingu, ofl.
-		
 		return "some type for company: " + socialNr;
 	}
-	
-	public String getTypeLabelOfPermissionForViolationOtherParty(String socialNr) {
 		
-		// endurvigtun, heimavigtun, vigtun eftir slægingu, ofl.
-		
-		return "some type for other party: " + socialNr;
-	}
-	
 	public EquipmentData getEquipmentData(String byVesselRegistryNr) {
+		EquipmentData data = new EquipmentData();
+		GetSkipWithInfoElement parameters = new GetSkipWithInfoElement(new BigDecimal(byVesselRegistryNr));
+		try {
+			GetSkipWithInfoResponseElement res = getViolationPort().getSkipWithInfo(parameters);
+			/*
+			data.setFishingLicense(res.getResult().getVeidileyfi()[0].);
+			data.setFishingType(fishingType);*/
+			data.setName(res.getResult().getNafn());
+			data.setOwnersName(res.getResult().getEigandiNafn());
+			data.setRevokeLicense(Boolean.toString(res.getResult().getErsvipting().getIsok().intValue() > 0));
+			
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
 		
-		return new EquipmentData().setName("vessel name " + byVesselRegistryNr)
-		        .setOwnersName("owners name " + byVesselRegistryNr)
-		        .setFishingType("fishing type")
-		        .setFishingLicense("fishing license");
+		return data;
 	}
 	
 	public static final class EquipmentData {
-		
 		private String name;
 		private String ownersName;
 		private String fishingType;
@@ -220,4 +258,203 @@ public class ViolationService {
 			return socialSecurityNr;
 		}
 	}
+	
+	public PersonData getUser(String personalId) {
+		if (StringUtil.isEmpty(personalId)) {
+			return null;
+		}
+
+		UserBusiness userBusiness = null;
+		try {
+			userBusiness = getUserBusiness();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		if (userBusiness == null) {
+			return null;
+		}
+
+		String useWS = IWMainApplication.getDefaultIWApplicationContext()
+				.getApplicationSettings()
+				.getProperty(USE_WEBSERVICE_FOR_COMPANY_LOOKUP, "false");
+
+		User user = null;
+
+		if (!"false".equals(useWS)) {
+			try {
+				user = userBusiness.getUser(personalId);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			} catch (FinderException e) {
+				user = null;
+			}
+
+			if (user == null) {
+				UserHolder holder = getSkyrrClient().getUser(personalId);
+				if (holder != null) {
+					IWTimestamp t = new IWTimestamp();
+
+					String day = holder.getPersonalID().substring(0, 2);
+					String month = holder.getPersonalID().substring(2, 4);
+					String year = holder.getPersonalID().substring(4, 6);
+
+					int iDay = Integer.parseInt(day);
+					int iMonth = Integer.parseInt(month);
+					int iYear = Integer.parseInt(year);
+					if (holder.getPersonalID().substring(9).equals("9")) {
+						iYear += 1900;
+					} else if (holder.getPersonalID().substring(9).equals("0")) {
+						iYear += 2000;
+					} else if (holder.getPersonalID().substring(9).equals("8")) {
+						iYear += 1800;
+					}
+					t.setHour(0);
+					t.setMinute(0);
+					t.setSecond(0);
+					t.setMilliSecond(0);
+					t.setDay(iDay);
+					t.setMonth(iMonth);
+					t.setYear(iYear);
+					try {
+						user = userBusiness
+								.createUserByPersonalIDIfDoesNotExist(
+										holder.getName(),
+										holder.getPersonalID(), null, t);
+						StringBuilder address = new StringBuilder(
+								holder.getAddress());
+						address.append(";");
+						address.append(holder.getPostalCode());
+						address.append(" ");
+						address.append(";Iceland:is_IS;N/A");
+						userBusiness.updateUsersMainAddressByFullAddressString(
+								user, address.toString());
+					} catch (RemoteException e) {
+						e.printStackTrace();
+					} catch (CreateException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+
+		try {
+			if (user == null) {
+				user = userBusiness.getUser(personalId);
+			}
+
+			Address address = userBusiness.getUsersMainAddress(user);
+			
+			PersonData data = new PersonData(user.getPersonalID());
+			data.setName(user.getName());
+			data.setAddress(address.getStreetAddress());
+			data.setPlace(address.getPostalAddress());
+			data.setPostalCode(address.getPostalAddress());
+
+			return data;
+		} catch (FinderException fe) {
+			fe.printStackTrace();
+			return null;
+		} catch (RemoteException re) {
+			re.printStackTrace();
+		}
+
+		return null;
+	}
+
+	public PersonData getCompany(String personalId) {
+		if (StringUtil.isEmpty(personalId)) {
+			return null;
+		}
+
+		CompanyBusiness companyBusiness = null;
+		try {
+			companyBusiness = getCompanyBusiness();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		if (companyBusiness == null) {
+			return null;
+		}
+
+		String useWS = IWMainApplication.getDefaultIWApplicationContext()
+				.getApplicationSettings()
+				.getProperty(USE_WEBSERVICE_FOR_COMPANY_LOOKUP, "false");
+
+		Company company = null;
+
+		if (!"false".equals(useWS)) {
+			try {
+				company = companyBusiness.getCompany(personalId);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			} catch (FinderException e) {
+				company = null;
+			}
+
+			if (company == null) {
+				CompanyHolder holder = getSkyrrClient().getCompany(
+						personalId);
+				if (holder != null) {
+					try {
+						getCompanyRegisterBusiness().updateEntry(
+								holder.getPersonalID(), null,
+								holder.getPostalCode(), null, null,
+								holder.getName(), holder.getAddress(), null,
+								"", null, holder.getVatNumber(),
+								holder.getAddress(), "", null, null, null,
+								null, null, "", null);
+					} catch (RemoteException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+
+		try {
+			if (company == null) {
+				company = companyBusiness.getCompany(personalId);
+			}
+			Address address = company.getAddress();
+
+			PersonData data = new PersonData(company.getPersonalID());
+			data.setName(company.getName());
+			data.setAddress(address.getStreetAddress());
+			data.setPlace(address.getPostalAddress());
+			data.setPostalCode(address.getPostalAddress());
+			
+			return data;
+		} catch (FinderException fe) {
+			fe.printStackTrace();
+		} catch (RemoteException re) {
+			re.printStackTrace();
+		}
+
+		return null;
+	}
+
+	
+	private CompanyRegisterBusiness getCompanyRegisterBusiness() {
+		try {
+			return (CompanyRegisterBusiness) IBOLookup.getServiceInstance(IWMainApplication.getDefaultIWApplicationContext(), CompanyRegisterBusiness.class);
+		} catch (IBOLookupException ile) {
+			throw new IBORuntimeException(ile);
+		}
+	}
+
+	
+	private UserBusiness getUserBusiness() throws RemoteException {
+		return (UserBusiness) IBOLookup.getServiceInstance(IWMainApplication.getDefaultIWApplicationContext(), UserBusiness.class);
+	}
+
+	private CompanyBusiness getCompanyBusiness() throws RemoteException {
+		return (CompanyBusiness) IBOLookup.getServiceInstance(IWMainApplication.getDefaultIWApplicationContext(), CompanyBusiness.class);
+	}
+
+	public SkyrrClient getSkyrrClient() {
+		if (skyrrClient == null) {
+			ELUtil.getInstance().autowire(this);
+		}
+		return skyrrClient;
+	}
+
 }

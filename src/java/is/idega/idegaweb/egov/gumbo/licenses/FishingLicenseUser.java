@@ -80,7 +80,7 @@ public class FishingLicenseUser extends DefaultSpringBean {
 		items.add(new Item("aflamarks", iwrb.getLocalizedString(
 		    "LICENSE_TYPE_AFLAMARK", "Aflamarks")));
 		items.add(new Item("krokaaflamarks", iwrb.getLocalizedString(
-		    "LICENSE_TYPE_KROKAFLAMARK", "Krókaaflamarks")));
+		    "LICENSE_TYPE_KROKAFLAMARK", "Krokaaflamarks")));
 		
 		return items;
 	}
@@ -92,18 +92,18 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 */
 	public List<Item> getFishingAreas() {
 		IWBundle iwb = getBundle(GumboConstants.IW_BUNDLE_IDENTIFIER);
-		IWResourceBundle iwrb = getResourceBundle(iwb);
-		
-		final List<Item> items = new ArrayList<Item>(2);
-		
-		items.add(new Item("A", iwrb.getLocalizedString("AREA_A", "Faxaflói")));
-		items.add(new Item("B", iwrb.getLocalizedString("AREA_B",
-		    "Breiðafjörður")));
-		items.add(new Item("C", iwrb.getLocalizedString("AREA_C", "Vestfirðir")));
-		items.add(new Item("D", iwrb.getLocalizedString("AREA_D", "Húnaflói")));
-		items.add(new Item("E", iwrb.getLocalizedString("AREA_E", "Norðurland")));
-		items.add(new Item("F", iwrb.getLocalizedString("AREA_F", "Austurland")));
-		items.add(new Item("G", iwrb.getLocalizedString("AREA_G", "Suðurland")));
+
+       IWResourceBundle iwrb = getResourceBundle(iwb);
+       
+        final List<Item> items = new ArrayList<Item>(2);
+        
+       items.add(new Item("A", iwrb.getLocalizedString("AREA_A", "Faxafloi")));
+       items.add(new Item("B", iwrb.getLocalizedString("AREA_B", "Breidafjordur")));
+       items.add(new Item("C", iwrb.getLocalizedString("AREA_C", "Vestfirdir")));
+       items.add(new Item("D", iwrb.getLocalizedString("AREA_D", "Hunafloi")));
+       items.add(new Item("E", iwrb.getLocalizedString("AREA_E", "Nordurland")));
+       items.add(new Item("F", iwrb.getLocalizedString("AREA_F", "Austurland")));
+       items.add(new Item("G", iwrb.getLocalizedString("AREA_G", "Sudurland")));
 		
 		return items;
 	}
