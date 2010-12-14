@@ -4,14 +4,21 @@ import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.FSWebservice
 import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.FSWebserviceBROTAMAL_Service;
 import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.FSWebserviceBROTAMAL_ServiceLocator;
 import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.CodeTypeUser;
-import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.GetHafnalistiElement;
 import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.GetSkipWithInfoElement;
 import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.GetSkipWithInfoResponseElement;
+import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.GetVigtunarleyfiByKtElement;
+import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.VeidileyfiTypeUser;
+import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.VigtunarleyfiTypeUser;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.FSWebServiceVEIDILEYFI_PortType;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.FSWebServiceVEIDILEYFI_ServiceLocator;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetersviptingElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetersviptingResponseElement;
 import is.idega.block.nationalregister.webservice.client.business.CompanyHolder;
 import is.idega.block.nationalregister.webservice.client.business.SkyrrClient;
 import is.idega.block.nationalregister.webservice.client.business.UserHolder;
 
 import java.math.BigDecimal;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -19,6 +26,7 @@ import java.util.List;
 
 import javax.ejb.CreateException;
 import javax.ejb.FinderException;
+import javax.xml.rpc.ServiceException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -44,13 +52,35 @@ import com.idega.util.text.Item;
 @Service("violationService")
 @Scope(BeanDefinition.SCOPE_SINGLETON)
 public class ViolationService {
-	private static final String VIOLATION_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices/FSWebServiceBROTAMALSoap12HttpPort";
+	private static final String VIOLATION_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices/FSWebserviceBROTAMALSoap12HttpPort";
 	private static final String VIOLATION_ENDPOINT_ATTRIBUTE_NAME = "dofws_violation_endpoint";
 	
 	private static final String USE_WEBSERVICE_FOR_COMPANY_LOOKUP = "COMPANY_WS_LOOKUP";
 
 	@Autowired
 	private SkyrrClient skyrrClient;
+
+	
+	public static void main(String[] arguments) {		
+		try {
+			FSWebserviceBROTAMAL_Service locator = new FSWebserviceBROTAMAL_ServiceLocator();
+			FSWebserviceBROTAMAL_PortType port = locator.getFSWebserviceBROTAMALSoap12HttpPort(new URL("http://hafrok.hafro.is/FSWebServices/FSWebserviceBROTAMALSoap12HttpPort"));
+			
+			CodeTypeUser ret[] = port.getHafnalisti(null);
+			for (CodeTypeUser codeTypeUser : ret) {
+				System.out.print(codeTypeUser.getCode());
+				System.out.print(" ");
+				System.out.println(codeTypeUser.getText());
+			}
+		} catch (ServiceException se) {
+			se.printStackTrace();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+	}
 
 	private FSWebserviceBROTAMAL_PortType getViolationPort() {
 		try {
@@ -113,9 +143,9 @@ public class ViolationService {
 	public List<Item> getHarbours() {
 		final List<Item> items = new ArrayList<Item>();
 
-		GetHafnalistiElement parameters = new GetHafnalistiElement();
+		//GetHafnalistiElement parameters = new GetHafnalistiElement();
 		try {
-			CodeTypeUser whut[] = getViolationPort().getHafnalisti(parameters);
+			CodeTypeUser whut[] = getViolationPort().getHafnalisti(null);
 			for (CodeTypeUser codeTypeUser : whut) {
 				items.add(new Item(codeTypeUser.getCode(), codeTypeUser.getText()));
 			}
@@ -126,9 +156,23 @@ public class ViolationService {
 		return items;
 	}
 		
-	public String getTypeLabelOfPermissionForViolationCompany(String socialNr) {		
-		// endurvigtun, heimavigtun, vigtun eftir slægingu, ofl.
-		return "some type for company: " + socialNr;
+	public String getTypeLabelOfPermissionForViolationCompany(String socialNr) {
+		StringBuilder ret = new StringBuilder();
+		GetVigtunarleyfiByKtElement parameters = new GetVigtunarleyfiByKtElement(socialNr);
+		try {
+			VigtunarleyfiTypeUser res[] = getViolationPort().getVigtunarleyfiByKt(parameters );
+			int len = res.length;
+			for (int i = 0; i < len; i++) {
+				ret.append(res[i].getGerdLeyfis());
+				if (i < (len -1 )) {
+					ret.append(", ");
+				}
+			}
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		
+		return ret.toString();
 	}
 		
 	public EquipmentData getEquipmentData(String byVesselRegistryNr) {
@@ -136,9 +180,17 @@ public class ViolationService {
 		GetSkipWithInfoElement parameters = new GetSkipWithInfoElement(new BigDecimal(byVesselRegistryNr));
 		try {
 			GetSkipWithInfoResponseElement res = getViolationPort().getSkipWithInfo(parameters);
-			/*
-			data.setFishingLicense(res.getResult().getVeidileyfi()[0].);
-			data.setFishingType(fishingType);*/
+			StringBuilder license = new StringBuilder();
+			VeidileyfiTypeUser perm[] = res.getResult().getVeidileyfi();
+			int len = perm.length;
+			for (int i = 0; i < len; i++) {
+				license.append(perm[i].getTegundLeyfisHeiti());
+				if (i < (len -1)) {
+					license.append(", ");
+				}
+			}
+			data.setFishingLicense(license.toString());
+			data.setFishingType(res.getResult().getUtgFlHeiti());
 			data.setName(res.getResult().getNafn());
 			data.setOwnersName(res.getResult().getEigandiNafn());
 			data.setRevokeLicense(Boolean.toString(res.getResult().getErsvipting().getIsok().intValue() > 0));
@@ -211,7 +263,6 @@ public class ViolationService {
 		private String name;
 		private String address;
 		private String postalCode;
-		private String place;
 		
 		public PersonData(String socialSecurityNr) {
 			
@@ -242,15 +293,6 @@ public class ViolationService {
 		
 		public PersonData setPostalCode(String postalCode) {
 			this.postalCode = postalCode;
-			return this;
-		}
-		
-		public String getPlace() {
-			return place;
-		}
-		
-		public PersonData setPlace(String place) {
-			this.place = place;
 			return this;
 		}
 		
@@ -346,9 +388,10 @@ public class ViolationService {
 			
 			PersonData data = new PersonData(user.getPersonalID());
 			data.setName(user.getName());
-			data.setAddress(address.getStreetAddress());
-			data.setPlace(address.getPostalAddress());
-			data.setPostalCode(address.getPostalAddress());
+			if (address != null) {
+				data.setAddress(address.getStreetAddress());
+				data.setPostalCode(address.getPostalAddress());
+			}
 
 			return data;
 		} catch (FinderException fe) {
@@ -418,9 +461,10 @@ public class ViolationService {
 
 			PersonData data = new PersonData(company.getPersonalID());
 			data.setName(company.getName());
-			data.setAddress(address.getStreetAddress());
-			data.setPlace(address.getPostalAddress());
-			data.setPostalCode(address.getPostalAddress());
+			if (address != null) {
+				data.setAddress(address.getStreetAddress());
+				data.setPostalCode(address.getPostalAddress());
+			}
 			
 			return data;
 		} catch (FinderException fe) {
