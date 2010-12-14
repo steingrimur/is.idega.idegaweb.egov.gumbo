@@ -7,6 +7,8 @@ import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.CodeTy
 import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.GetHafnalistiElement;
 import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.GetSkipWithInfoElement;
 import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.GetSkipWithInfoResponseElement;
+import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.GetVigtunarleyfiByKtElement;
+import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.VigtunarleyfiTypeUser;
 import is.idega.block.nationalregister.webservice.client.business.CompanyHolder;
 import is.idega.block.nationalregister.webservice.client.business.SkyrrClient;
 import is.idega.block.nationalregister.webservice.client.business.UserHolder;
@@ -126,9 +128,24 @@ public class ViolationService {
 		return items;
 	}
 		
-	public String getTypeLabelOfPermissionForViolationCompany(String socialNr) {		
+	public String getTypeLabelOfPermissionForViolationCompany(String socialNr) {
+		StringBuilder ret = new StringBuilder();
+		GetVigtunarleyfiByKtElement parameters = new GetVigtunarleyfiByKtElement(socialNr);
+		try {
+			VigtunarleyfiTypeUser res[] = getViolationPort().getVigtunarleyfiByKt(parameters);
+			int len = res.length;
+			for (int i = 0; i < len; i++) {
+				ret.append(res[i].getGerdLeyfis());
+				if (i < (len - 1)) {
+					ret.append(", ");
+				}
+			}
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		
 		// endurvigtun, heimavigtun, vigtun eftir slægingu, ofl.
-		return "some type for company: " + socialNr;
+		return ret.toString();
 	}
 		
 	public EquipmentData getEquipmentData(String byVesselRegistryNr) {
