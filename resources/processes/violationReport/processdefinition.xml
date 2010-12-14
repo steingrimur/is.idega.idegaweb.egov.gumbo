@@ -69,10 +69,10 @@
          
          <controller>
             <variable name="string_caseIdentifier" access="read"></variable>
+            <variable name="string_caseName" access="read,write"></variable>
             
             <variable name="objlist_violationPersons" access="read,write"></variable>
             <variable name="objlist_violationCompanies" access="read,write"></variable>
-            <variable name="objlist_violationOtherParties" access="read,write"></variable>
             
             <variable name="date_violationDate" access="read,write"></variable>
             <variable name="string_violationDateLabel" access="read,write"></variable>
