@@ -9,13 +9,13 @@ import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.GetSki
 import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.GetVigtunarleyfiByKtElement;
 import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.VeidileyfiTypeUser;
 import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.VigtunarleyfiTypeUser;
-import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.FSWebServiceVEIDILEYFI_PortType;
-import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.FSWebServiceVEIDILEYFI_ServiceLocator;
-import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetersviptingElement;
-import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetersviptingResponseElement;
 import is.idega.block.nationalregister.webservice.client.business.CompanyHolder;
 import is.idega.block.nationalregister.webservice.client.business.SkyrrClient;
 import is.idega.block.nationalregister.webservice.client.business.UserHolder;
+import is.idega.idegaweb.egov.gumbo.dao.GumboDao;
+import is.idega.idegaweb.egov.gumbo.data.Inspector;
+import is.idega.idegaweb.egov.gumbo.data.Office;
+import is.idega.idegaweb.egov.gumbo.data.ViolationType;
 
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
@@ -59,7 +59,9 @@ public class ViolationService {
 
 	@Autowired
 	private SkyrrClient skyrrClient;
-
+	
+	@Autowired
+	private GumboDao dao;
 	
 	public static void main(String[] arguments) {		
 		try {
@@ -114,10 +116,23 @@ public class ViolationService {
 	public List<Item> getViolationTypes() {
 		final List<Item> items = new ArrayList<Item>();
 		
-		items.add(new Item("type1", "Violation type 1"));
-		items.add(new Item("subtype1", " ---- Violation subtype 1"));
-		items.add(new Item("type2", "Violation type 2"));
-		items.add(new Item("subtype", " ---- Violation subtype 2"));
+		List<ViolationType> types = getDao().getViolationTypes();
+		if (types != null && types.size() > 0) {
+			for (ViolationType violationType : types) {
+				String prefix = "";
+				if (violationType.getDepth() > 0) {
+					prefix = " ";
+					for (int i = 0; i <= violationType.getDepth() - 1; i++) {
+						prefix += "--";
+					}
+					prefix += " ";
+				}
+				items.add(new Item(violationType.getId().toString(), prefix + violationType.getNumber() + " " + violationType.getName()));
+			}
+		}
+		else {
+			items.add(new Item("1", "No violation types in database..."));
+		}
 		
 		return items;
 	}
@@ -125,8 +140,15 @@ public class ViolationService {
 	public List<Item> getOtherInspectorsThanCurrentlyLoggedIn() {
 		final List<Item> items = new ArrayList<Item>();
 		
-		items.add(new Item("insp1", "Inspector 1"));
-		items.add(new Item("insp2", "Inspector 2"));
+		List<Inspector> inspectors = getDao().getInspectors();
+		if (inspectors != null && inspectors.size() > 0) {
+			for (Inspector inspector : inspectors) {
+				items.add(new Item(inspector.getNumber().toString(), inspector.getName()));
+			}
+		}
+		else {
+			items.add(new Item("1", "No inspectors in database..."));
+		}
 		
 		return items;
 	}
@@ -134,8 +156,15 @@ public class ViolationService {
 	public List<Item> getFiskistofeOffices() {
 		final List<Item> items = new ArrayList<Item>();
 		
-		items.add(new Item("office1", "Office 1"));
-		items.add(new Item("office2", "Office 2"));
+		List<Office> offices = getDao().getOffices();
+		if (offices != null && offices.size() > 0) {
+			for (Office office : offices) {
+				items.add(new Item(office.getId().toString(), office.getName()));
+			}
+		}
+		else {
+			items.add(new Item("1", "No offices in database..."));
+		}
 		
 		return items;
 	}
@@ -262,7 +291,6 @@ public class ViolationService {
 		private final String socialSecurityNr;
 		private String name;
 		private String address;
-		private String postalCode;
 		
 		public PersonData(String socialSecurityNr) {
 			
@@ -284,15 +312,6 @@ public class ViolationService {
 		
 		public PersonData setAddress(String address) {
 			this.address = address;
-			return this;
-		}
-		
-		public String getPostalCode() {
-			return postalCode;
-		}
-		
-		public PersonData setPostalCode(String postalCode) {
-			this.postalCode = postalCode;
 			return this;
 		}
 		
@@ -389,8 +408,7 @@ public class ViolationService {
 			PersonData data = new PersonData(user.getPersonalID());
 			data.setName(user.getName());
 			if (address != null) {
-				data.setAddress(address.getStreetAddress());
-				data.setPostalCode(address.getPostalAddress());
+				data.setAddress(address.getStreetAddress() + ", " + address.getPostalAddress());
 			}
 
 			return data;
@@ -462,8 +480,7 @@ public class ViolationService {
 			PersonData data = new PersonData(company.getPersonalID());
 			data.setName(company.getName());
 			if (address != null) {
-				data.setAddress(address.getStreetAddress());
-				data.setPostalCode(address.getPostalAddress());
+				data.setAddress(address.getStreetAddress() + ", " + address.getPostalAddress());
 			}
 			
 			return data;
@@ -501,4 +518,11 @@ public class ViolationService {
 		return skyrrClient;
 	}
 
+	public GumboDao getDao() {
+		if (dao == null) {
+			ELUtil.getInstance().autowire(this);
+		}
+		
+		return dao;
+	}
 }
