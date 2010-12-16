@@ -205,7 +205,7 @@
             <xf:bind id="fbc_156_bind" nodeset="Violation_type_fbc_156"
                 readonly="instance('control-instance')/readonly = 'true'"
                 required="instance('control-instance')/required = 'true'" type="xs:string"/>
-            <xf:bind id="fbc_157_bind" nodeset="Violation_types_summary"/>
+            <xf:bind id="fbc_157_bind" nodeset="Violation_types_summary" />
             <xf:bind id="fbc_159_bind"
                 nodeset="GPS_location_longitude_fbc_159"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
@@ -234,7 +234,7 @@
             <xf:bind id="fbc_191a_bind" nodeset="equipmentData/revokeLicense"/>
             <xf:bind id="fbc_192_bind" nodeset="Fishing_gear_fbc_192"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
-            <xf:bind id="fbc_198_bind" nodeset="fishingGearsSummary"/>
+            <xf:bind id="fbc_198_bind" nodeset="fishingGearsSummary" />
             <xf:bind id="fbc_205_bind"
                 nodeset="Police_involvement_fbc_205"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
@@ -1024,7 +1024,7 @@
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_36-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
                         <div class="multiSelectBox">
-	                        <xf:select appearance="full" bind="fbc_156_bind"
+	                        <xf:select class="box" appearance="full" bind="fbc_156_bind"
 	                            id="fbc_156" type="fbc_multiple_select">
 	                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_156-label[@lang=instance('localized_strings')/current_language]"/>
 	                            <xf:itemset model="data_model" nodeset="instance('fbc_156_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
@@ -1190,16 +1190,18 @@
                         <xf:output bind="fbc_191a_bind" id="fbc_191a" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_191a-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
-                        <xf:select appearance="full" bind="fbc_192_bind"
-                            id="fbc_192" type="fbc_multiple_select">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_192-label[@lang=instance('localized_strings')/current_language]"/>
-                            <xf:itemset model="data_model" nodeset="instance('fbc_192_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
-                                <xf:label ref="itemLabel"/>
-                                <xf:value ref="itemValue"/>
-                            </xf:itemset>
-                            <xf:setvalue ev:event="xforms-value-changed"
-                                ref="instance('data-instance')/fishingGearsSummary" value="instance('data-instance')/Fishing_gear_fbc_192"/>
-                        </xf:select>
+                        <div class="threeColumns">
+	                        <xf:select appearance="full" bind="fbc_192_bind"
+	                            id="fbc_192" type="fbc_multiple_select">
+	                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_192-label[@lang=instance('localized_strings')/current_language]"/>
+	                            <xf:itemset model="data_model" nodeset="instance('fbc_192_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
+	                                <xf:label ref="itemLabel"/>
+	                                <xf:value ref="itemValue"/>
+	                            </xf:itemset>
+	                            <xf:setvalue ev:event="xforms-value-changed"
+	                                ref="instance('data-instance')/fishingGearsSummary" value="instance('data-instance')/Fishing_gear_fbc_192"/>
+	                        </xf:select>
+	                    </div>
                         <div class="fbc_button_area" id="fbc_174" type="fbc_button_area">
                             <xf:trigger bind="bind-submissionButton"
                                 class="fbc_button_submit" id="fbc_177" type="fbc_button_save">
@@ -1319,16 +1321,18 @@
                         <xf:input bind="fbc_211_bind" id="fbc_211">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_211-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:input>
-                        <xf:select appearance="minimal"
-                            bind="fbc_221_bind" id="fbc_221" type="fbc_multiple_select_minimal">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_221-label[@lang=instance('localized_strings')/current_language]"/>
-                            <xf:itemset model="data_model" nodeset="instance('fbc_221_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
-                                <xf:label ref="itemLabel"/>
-                                <xf:value ref="itemValue"/>
-                            </xf:itemset>
-                            <xf:setvalue ev:event="xforms-value-changed"
-                                ref="instance('data-instance')/Other_inspectors_summary" value="instance('data-instance')/Other_inspectors_fbc_221"/>
-                        </xf:select>
+                        <div class="threeColumns">
+	                        <xf:select appearance="full"
+	                            bind="fbc_221_bind" id="fbc_221" type="fbc_multiple_select_minimal">
+	                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_221-label[@lang=instance('localized_strings')/current_language]"/>
+	                            <xf:itemset model="data_model" nodeset="instance('fbc_221_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
+	                                <xf:label ref="itemLabel"/>
+	                                <xf:value ref="itemValue"/>
+	                            </xf:itemset>
+	                            <xf:setvalue ev:event="xforms-value-changed"
+	                                ref="instance('data-instance')/Other_inspectors_summary" value="instance('data-instance')/Other_inspectors_fbc_221"/>
+	                        </xf:select>
+	                    </div>
                         <xf:select1 appearance="minimal"
                             bind="fbc_213_bind" id="fbc_213" type="fbc_single_select_minimal">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_213-label[@lang=instance('localized_strings')/current_language]"/>
@@ -1437,14 +1441,16 @@
                         <div class="fbc_header_text" id="fbc_158" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_36-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
-                        <xf:select appearance="full" bind="fbc_157_bind"
-                            id="fbc_157" type="fbc_multiple_select">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_36-text[@lang=instance('localized_strings')/current_language]"/>
-                            <xf:itemset model="data_model" nodeset="instance('fbc_157_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
-                                <xf:label ref="itemLabel"/>
-                                <xf:value ref="itemValue"/>
-                            </xf:itemset>
-                        </xf:select>
+                        <div class="multiSelectBox">
+	                        <xf:select class="box" appearance="full" bind="fbc_156_bind"
+	                            id="fbc_157" type="fbc_multiple_select">
+	                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_36-text[@lang=instance('localized_strings')/current_language]"/>
+	                            <xf:itemset model="data_model" nodeset="instance('fbc_156_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
+	                                <xf:label ref="itemLabel"/>
+	                                <xf:value ref="itemValue"/>
+	                            </xf:itemset>
+	                        </xf:select>
+                        </div>
                         <div class="fbc_header_text" id="fbc_57" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_39-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
@@ -1505,14 +1511,16 @@
                         <xf:output bind="fbc_191a_bind" id="fbc_197a" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_191a-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
-                        <xf:select appearance="full" bind="fbc_198_bind"
-                            id="fbc_198" type="fbc_multiple_select">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_192-label[@lang=instance('localized_strings')/current_language]"/>
-                            <xf:itemset model="data_model" nodeset="instance('fbc_198_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
-                                <xf:label ref="itemLabel"/>
-                                <xf:value ref="itemValue"/>
-                            </xf:itemset>
-                        </xf:select>
+                        <div class="threeColumns">
+	                        <xf:select appearance="full" bind="fbc_198_bind"
+	                            id="fbc_198" type="fbc_multiple_select">
+	                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_192-label[@lang=instance('localized_strings')/current_language]"/>
+	                            <xf:itemset model="data_model" nodeset="instance('fbc_192_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
+	                                <xf:label ref="itemLabel"/>
+	                                <xf:value ref="itemValue"/>
+	                            </xf:itemset>
+	                        </xf:select>
+	                    </div>
                         <div class="fbc_header_text" id="fbc_214" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_200-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
@@ -1537,14 +1545,16 @@
                         <xf:output bind="fbc_211_bind" id="fbc_219" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_211-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
-                        <xf:select appearance="minimal"
-                            bind="fbc_222_bind" id="fbc_222" type="fbc_multiple_select_minimal">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_221-label[@lang=instance('localized_strings')/current_language]"/>
-                            <xf:itemset model="data_model" nodeset="instance('fbc_222_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
-                                <xf:label ref="itemLabel"/>
-                                <xf:value ref="itemValue"/>
-                            </xf:itemset>
-                        </xf:select>
+                        <div class="threeColumns">
+	                        <xf:select appearance="full"
+	                            bind="fbc_221_bind" id="fbc_222" type="fbc_multiple_select_minimal">
+	                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_221-label[@lang=instance('localized_strings')/current_language]"/>
+	                            <xf:itemset model="data_model" nodeset="instance('fbc_221_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
+	                                <xf:label ref="itemLabel"/>
+	                                <xf:value ref="itemValue"/>
+	                            </xf:itemset>
+	                        </xf:select>
+	                    </div>
                         <xf:output bind="fbc_223_bind" id="fbc_223" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_213-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
