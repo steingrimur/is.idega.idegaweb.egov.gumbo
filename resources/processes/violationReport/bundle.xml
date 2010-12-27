@@ -8,6 +8,33 @@
         <task name="violationReportTask" initial="true">
             <viewResource resourceIdentifier="forms/violationReport.xhtml" viewType="xforms" viewResourceType="xforms" />
         </task>
+        <task name="setTimeframeTask">
+            <viewResource resourceIdentifier="forms/setTimeframe.xhtml" viewType="xforms" viewResourceType="xforms" />
+        </task>
+        <task name="sendToLegalDepartmentTask">
+            <viewResource resourceIdentifier="forms/sendToLegalDepartment.xhtml" viewType="xforms" viewResourceType="xforms" />
+        </task>
+        <task name="violationDecisionTask">
+            <viewResource resourceIdentifier="forms/violationDecision.xhtml" viewType="xforms" viewResourceType="xforms" />
+        </task>
+        <task name="closeCaseTask">
+            <viewResource resourceIdentifier="forms/closeCase.xhtml" viewType="xforms" viewResourceType="xforms" />
+        </task>
+        <task name="writeLetterTask">
+            <viewResource resourceIdentifier="forms/writeLetter.xhtml" viewType="xforms" viewResourceType="xforms" />
+        </task>
+        <task name="inviteParticipantTask">
+            <viewResource resourceIdentifier="forms/inviteParticipant.xhtml" viewType="xforms" viewResourceType="xforms" />
+        </task>
+        <task name="submitCaseAnswerTask">
+            <viewResource resourceIdentifier="forms/submitInvitedCaseAnswer.xhtml" viewType="xforms" viewResourceType="xforms" />
+        </task>
+        <task name="requestAdditionalInformationTask">
+            <viewResource resourceIdentifier="forms/requestAdditionalInformation.xhtml" viewType="xforms" viewResourceType="xforms" />
+        </task>
+        <task name="submitAdditionalInformationTask">
+            <viewResource resourceIdentifier="forms/submitAdditionalInformation.xhtml" viewType="xforms" viewResourceType="xforms" />
+        </task>
     </tasks>
     
 </processBundle-config>

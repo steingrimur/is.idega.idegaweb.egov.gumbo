@@ -8,9 +8,13 @@
             <expression>
                 String handlerRoleName = "bpm_fishingLicense_handler";
                 String ownerRoleName = "bpm_fishingLicense_owner";
+                
+                mainProcessInstanceId = executionContext.getProcessInstance().getId();
             </expression>
             <variable name='handlerRoleName' access='write' />
             <variable name='ownerRoleName' access='write' />
+            
+            <variable name='mainProcessInstanceId' access='write' />
          </script>
   </event>
   <event type="process-start">
@@ -112,7 +116,7 @@
             
          </controller>
       </task>
-      <transition to="state1"></transition>
+      <transition to="fork1"></transition>
    </start-state>
    <event type="handlerAssignedToCase">
          <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
@@ -201,12 +205,323 @@
 			    </propertyMap>
 		</action>
     </event>
-   <state name="state1">
-		<transition to="end-state3"></transition>
-	</state>
+   <task-node name="setTimeframe">
+    <task name="setTimeframeTask">
+         <controller>
+         </controller>
+        <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+            <handlerName>jsonAssignmentHandler</handlerName>
+            <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                <entry><key>expression</key>
+                    <value>
+                        {taskAssignment: {roles: {role: [
+                           {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}}
+                        ]} }}
+                    </value>
+                </entry>
+            </propertyMap>
+         </assignment>
+      
+      </task>
+		<transition to="end-state1"></transition>
+	</task-node>
+
+	<fork name="fork1">
+		<transition to="setTimeframe" name="toSetTimeframe"></transition>
+		<transition to="sendToLegalDepartment" name="toSendToLegalDepartment"></transition>
+		<transition to="violationDecision" name="toViolationDecision"></transition>
+		<transition to="closeCase" name="toCloseCase"></transition>
+		<transition to="writeLetter" name="toWriteLetter"></transition>
+		<transition to="addAttachment" name="toAddAttachment"></transition>
+		<transition to="inviteParticipant" name="toInviteParticipant"></transition>
+		<transition to="requestAdditionalInformation" name="toRequestAdditionalInformation"></transition>
+	</fork>
+
+	<task-node name="sendToLegalDepartment">
+	   <task name="sendToLegalDepartmentTask">
+         <controller>
+         </controller>
+        <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+            <handlerName>jsonAssignmentHandler</handlerName>
+            <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                <entry><key>expression</key>
+                    <value>
+                        {taskAssignment: {roles: {role: [
+                           {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}}
+                        ]} }}
+                    </value>
+                </entry>
+            </propertyMap>
+         </assignment>
+      
+      </task>
+		<transition to="end-state1"></transition>
+	</task-node>
+
+	<task-node name="requestAdditionalInformation">
+	   <task name="requestAdditionalInformationTask" priority="-1">
+         <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+            <handlerName>jsonAssignmentHandler</handlerName>
+            <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                <entry><key>expression</key>
+                    <value>
+                        {taskAssignment: {roles: {role: [
+                           {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}}
+                        ]} }}
+                    </value>
+                </entry>
+            </propertyMap>
+         </assignment>
+         
+         <controller>
+            <variable name="string_additionalInformationRequestText" access="write,required"></variable>
+            <variable name="files_additionalAttachments" access="write"></variable>
+         </controller>
+      </task>
+	  <transition to="sendMessage"></transition>
+	</task-node>
+
+	<task-node name="inviteParticipant">
+	   <task name="inviteParticipantTask" priority="-1">
+         <controller>
+            <variable name="string_inviteText" access="write,required"></variable>
+            <variable name="string_participantEmail" access="write,required"></variable>
+            <variable name="string_participantName" access="write,required"></variable>
+                <variable access="write" name="files_inviteParticipantAttachments"></variable>
+         </controller>
+         <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+            <handlerName>jsonAssignmentHandler</handlerName>
+            <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                <entry><key>expression</key>
+                    <value>
+                        {taskAssignment: {roles: {role: [
+                           {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}},
+                           {roleName: "bpm_fishingLicense_handler", accesses: {access: [read]}}
+                        ]} }}
+                    </value>
+                </entry>
+            </propertyMap>
+         </assignment>
+      </task>
+		<transition to="inviteParticipantProcess"></transition>
+	</task-node>
+
+	<task-node name="writeLetter">
+	   <task name="writeLetterTask">
+         <controller>
+         </controller>
+        <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+            <handlerName>jsonAssignmentHandler</handlerName>
+            <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                <entry><key>expression</key>
+                    <value>
+                        {taskAssignment: {roles: {role: [
+                           {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}}
+                        ]} }}
+                    </value>
+                </entry>
+            </propertyMap>
+         </assignment>
+      
+      </task>
+		<transition to="end-state1"></transition>
+	</task-node>
+
+	<task-node name="violationDecision">
+	   <task name="violationDecisionTask">
+         <controller>
+         </controller>
+        <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+            <handlerName>jsonAssignmentHandler</handlerName>
+            <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                <entry><key>expression</key>
+                    <value>
+                        {taskAssignment: {roles: {role: [
+                           {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}}
+                        ]} }}
+                    </value>
+                </entry>
+            </propertyMap>
+         </assignment>
+      
+      </task>
+		<transition to="end-state1"></transition>
+	</task-node>
+
+	<task-node name="closeCase">
+	   <task name="closeCaseTask">
+         <controller>
+         </controller>
+        <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+            <handlerName>jsonAssignmentHandler</handlerName>
+            <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                <entry><key>expression</key>
+                    <value>
+                        {taskAssignment: {roles: {role: [
+                           {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}}
+                        ]} }}
+                    </value>
+                </entry>
+            </propertyMap>
+         </assignment>
+      
+      </task>
+		<transition to="end-state1"></transition>
+	</task-node>
+
+	<process-state name="addAttachment">
+		<sub-process name="addAttachments" binding="late" />
+        <variable name="string_addAttachmentAssignmentExpression" access="read" />
+        <variable name='mainProcessInstanceId' access='read' />
+        <event type="node-enter">
+         <script>
+            <expression>
+                addAttachmentAssignmentExpression = 
+                       "{taskAssignment: {roles: {role: ["
+                       +"{roleName: \"bpm_fishingLicense_handler\", accesses: {access: [read,write]}}"
+                       +"]} }}";
+            </expression>
+            <variable name='string_addAttachmentAssignmentExpression' access='write' mapped-name='addAttachmentAssignmentExpression' />
+         </script>
+        </event>
+		<transition to="end-state1"></transition>
+	</process-state>
+
+	<process-state name="inviteParticipantProcess">
+      <sub-process name="participantInvitation" binding="late" />
+      
+      <variable name='mainProcessInstanceId' access='read' />
+      <variable name="participantInviteUserPersonalData" access="read" mapped-name="participantUserData" />
+      <variable name="participantInviteRoleExp" access="read" mapped-name="participantRoleExpression" />
+      <variable name="participantInviteMsg" access="read" mapped-name="participantInvitationMessage" />
+      
+      <event type="node-enter">
+         <script>
+            <expression>
+                s_upd = new com.idega.jbpm.identity.UserPersonalData();
+                s_upd.setUserEmail(userEmail);
+                s_upd.setFullName(userFullName);
+                s_upd.setUserType("BPM_USER_LEGAL");
+                
+                s_roleExp = "{role: {roleName: \""+invitedRoleName+"\"}}";
+                
+                s_msg = new com.idega.bpm.process.invitation.Message();
+                s_msg.setText(msgText);
+            </expression>
+            <variable name='string_participantEmail' access='read' mapped-name='userEmail' />
+            <variable name='string_participantName' access='read' mapped-name='userFullName' />
+            <variable name='string_inviteText' access='read' mapped-name='msgText' />
+            <variable name='participantInviteUserPersonalData' access='write' mapped-name='s_upd' />
+            <variable name='participantInviteRoleExp' access='write' mapped-name='s_roleExp' />
+            <variable name='participantInviteMsg' access='write' mapped-name='s_msg' />
+            
+            <variable name='invitedRoleName' access='read' />
+         </script>
+      </event>
+      
+		<transition to="submitCaseAnswer"></transition>
+	</process-state>
+
+	<task-node name="submitCaseAnswer">
+	   <task name="submitCaseAnswerTask">
+         <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+            <handlerName>jsonAssignmentHandler</handlerName>
+            <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                <entry><key>expression</key>
+                    <value>
+                        {taskAssignment: {roles: {role: [
+                           {roleName: "bpm_fishingLicense_handler", accesses: {access: [read]}},
+                           {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}}
+                        ]} }}
+                    </value>
+                </entry>
+            </propertyMap>
+         </assignment>
+         
+         <controller>
+            <variable name="string_ownerCaseInformation" access="read"></variable>
+            <variable name="string_participantCaseAnswer" access="write,required"></variable>
+            <variable name="files_participantAttachments" access="write"></variable>
+         </controller>
+      </task>
+		<transition to="end-state1"></transition>
+	</task-node>
+
+	<node name="sendMessage">
+	   <event type="node-enter">
+         <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>sendCaseMessagesHandler</handlerName>
+                <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                    
+                    <entry>
+                        <key>inlineSubject</key>
+                        <value>
+                            ${
+                            Map subjectMap = new HashMap();
+                            subjectMap.put("en", "Additional information needed");
+                            subjectMap.put("is_IS", "Skilaboð frá umsjónaraðila umsóknar þinnar ({0}, {1}) hjá Impru");
+                            return subjectMap;
+                            }
+                            
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>inlineMessage</key>
+                        <value>
+                            ${
+                            Map messageMap = new HashMap();
+                            messageMap.put("en", "Hello, {0}.\n There is a new form for you to supply additional information in the case {1} with identifier {2} and description {3}.");
+                            messageMap.put("is_IS", "Sæl/ll, {0}.\nÞessi skilaboð eru vegna umsóknar þinnar með nafnið : {3} ({2}) í flokknum : {1} :\n\n" + resolver.get("string_additionalInformationRequestText") + "\n\nÞú getur farið inn á yfirlit umsóknarinnar með þessum hlekk {4} til að skoða hana og önnur skjöl sem umsjónaraðilinn hefur bætt við. Þar geturðu einnig sent skilaboð til baka með aðgerð sem er þar nú sýnileg. Þú getur einnig sent viðbótargögn með því að svara þessum tölvupósti en þá verður númer umsóknarinnar að vera í efni tölvupóstsins áfram svo hann hengist við skjalalistann.");
+                            return messageMap;
+                            }
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>subjectValues</key>
+                        <value>
+                            {list: {mv: [{type: "bean", value: "piw.processDescription"}, {type: "bean", value: "piw.processIdentifier"}]}}
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>messageValues</key>
+                        <value>
+                            {list: {mv: [{type: "bean", value: "user.name"},  {type: "bean", value: "piw.processDefinitionW.startTaskName"}, {type: "bean", value: "piw.processIdentifier"}, {type: "bean", value: "piw.processDescription"},{type: "bean", value: "caseUser.urlToTheCase"}]}}
+                        </value>
+                    </entry>
+                    <entry><key>sendToRoles</key><value>bpm_fishingLicense_owner</value></entry>
+                </propertyMap>
+        </action>
+      
+      </event>
+		<transition to="submitAdditionalInformation"></transition>
+	</node>
+
+	<task-node name="submitAdditionalInformation">
+	   <task name="submitAdditionalInformationTask">
+         <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+            <handlerName>jsonAssignmentHandler</handlerName>
+            <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                <entry><key>expression</key>
+                    <value>
+                        {taskAssignment: {roles: {role: [
+                           {roleName: "bpm_fishingLicense_handler", accesses: {access: [read]}},
+                           {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}} 
+                        ]} }}
+                    </value>
+                </entry>
+            </propertyMap>
+         </assignment>
+         <controller>
+            <variable name="string_additionalInformationRequestText" access="read"></variable>
+            <variable name="string_additionalInformation" access="write,required"></variable>
+            <variable name="files_additionalAttachments" access="write"></variable>
+         </controller>
+      </task>
+		<transition to="end-state1"></transition>
+	</task-node>
 
 
-	<end-state name="end-state3"></end-state>
+	<end-state name="end-state1"></end-state>
 	
 	<idg:roles xmlns:idg="http://idega.com/bpm">
         <role name="bpm_fishingLicense_caseHandler">

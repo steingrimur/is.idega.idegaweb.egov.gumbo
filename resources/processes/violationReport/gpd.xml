@@ -1,15 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="ViolationReport" width="556" height="711">
-  <node name="violationReport" x="195" y="37" width="164" height="34">
+<root-container name="ViolationReport" width="681" height="711">
+  <node name="violationReport" x="4" y="277" width="113" height="34">
     <edge>
       <label x="-16" y="-9"/>
     </edge>
   </node>
-  <node name="state1" x="423" y="109" width="132" height="36">
+  <node name="setTimeframe" x="209" y="85" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+      <bendpoint w1="232" h1="1" w2="1" h2="-196"/>
+    </edge>
+  </node>
+  <node name="fork1" x="136" y="283" width="25" height="24">
+    <edge>
+      <label x="-47" y="-14"/>
+      <bendpoint w1="-1" h1="-194" w2="-127" h2="-1"/>
+    </edge>
+    <edge>
+      <label x="-104" y="-14"/>
+      <bendpoint w1="0" h1="-146" w2="-127" h2="2"/>
+    </edge>
+    <edge>
+      <label x="-70" y="-13"/>
+      <bendpoint w1="0" h1="-106" w2="-127" h2="-2"/>
+    </edge>
+    <edge>
+      <label x="-35" y="-15"/>
+      <bendpoint w1="0" h1="-64" w2="-129" h2="-2"/>
+    </edge>
+    <edge>
+      <label x="-36" y="-12"/>
+      <bendpoint w1="-1" h1="-23" w2="-129" h2="-5"/>
+    </edge>
+    <edge>
+      <label x="-60" y="-13"/>
+      <bendpoint w1="1" h1="103" w2="-129" h2="2"/>
+    </edge>
+    <edge>
+      <label x="-57" y="-15"/>
+      <bendpoint w1="2" h1="149" w2="-128" h2="5"/>
+    </edge>
+    <edge>
+      <label x="-123" y="-17"/>
+      <bendpoint w1="2" h1="189" w2="-129" h2="1"/>
+    </edge>
+  </node>
+  <node name="sendToLegalDepartment" x="209" y="129" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+      <bendpoint w1="232" h1="2" w2="1" h2="-151"/>
+    </edge>
+  </node>
+  <node name="requestAdditionalInformation" x="213" y="465" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="end-state3" x="208" y="119" width="132" height="36"/>
+  <node name="inviteParticipant" x="212" y="421" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="writeLetter" x="210" y="259" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+      <bendpoint w1="232" h1="1" w2="2" h2="-22"/>
+    </edge>
+  </node>
+  <node name="violationDecision" x="209" y="173" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+      <bendpoint w1="232" h1="2" w2="1" h2="-107"/>
+    </edge>
+  </node>
+  <node name="closeCase" x="211" y="215" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+      <bendpoint w1="229" h1="1" w2="0" h2="-66"/>
+    </edge>
+  </node>
+  <node name="end-state1" x="495" y="287" width="22" height="26"/>
+  <node name="addAttachment" x="212" y="376" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+      <bendpoint w1="228" h1="-1" w2="0" h2="93"/>
+    </edge>
+  </node>
+  <node name="inviteParticipantProcess" x="377" y="422" width="139" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="submitCaseAnswer" x="548" y="421" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+      <bendpoint w1="-4" h1="-137" w2="104" h2="2"/>
+    </edge>
+  </node>
+  <node name="sendMessage" x="377" y="464" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="submitAdditionalInformation" x="548" y="466" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+      <bendpoint w1="-4" h1="-182" w2="104" h2="2"/>
+    </edge>
+  </node>
 </root-container>
