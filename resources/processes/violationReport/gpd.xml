@@ -77,7 +77,6 @@
   <node name="closeCase" x="211" y="215" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
-      <bendpoint w1="229" h1="1" w2="0" h2="-66"/>
     </edge>
   </node>
   <node name="end-state1" x="495" y="287" width="22" height="26"/>
@@ -109,4 +108,5 @@
       <bendpoint w1="-4" h1="-182" w2="104" h2="2"/>
     </edge>
   </node>
+  <node name="end-process" x="541" y="219" width="132" height="36"/>
 </root-container>

@@ -206,7 +206,7 @@
 		</action>
     </event>
    <task-node name="setTimeframe">
-    <task name="setTimeframeTask">
+    <task name="setTimeframeTask" priority="-1">
          <controller>
             <variable name="date_timeframeDate" access="read,write"></variable>
          </controller>
@@ -239,7 +239,7 @@
 	</fork>
 
 	<task-node name="sendToLegalDepartment">
-	   <task name="sendToLegalDepartmentTask">
+	   <task name="sendToLegalDepartmentTask" priority="-1">
          <controller>
          </controller>
         <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
@@ -308,7 +308,7 @@
 	</task-node>
 
 	<task-node name="writeLetter">
-	   <task name="writeLetterTask">
+	   <task name="writeLetterTask" priority="-1">
          <controller>
          </controller>
         <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
@@ -329,7 +329,7 @@
 	</task-node>
 
 	<task-node name="violationDecision">
-	   <task name="violationDecisionTask">
+	   <task name="violationDecisionTask" priority="-1">
          <controller>
          </controller>
         <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
@@ -367,7 +367,7 @@
          </assignment>
       
       </task>
-		<transition to="end-state1"></transition>
+		<transition to="end-process"></transition>
 	</task-node>
 
 	<process-state name="addAttachment">
@@ -523,6 +523,8 @@
 
 
 	<end-state name="end-state1"></end-state>
+
+	<end-state name="end-process" end-complete-process="true"></end-state>
 	
 	<idg:roles xmlns:idg="http://idega.com/bpm">
         <role name="bpm_fishingLicense_caseHandler">
