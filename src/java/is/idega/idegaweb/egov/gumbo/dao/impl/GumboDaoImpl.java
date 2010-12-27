@@ -3,7 +3,7 @@ package is.idega.idegaweb.egov.gumbo.dao.impl;
 import is.idega.idegaweb.egov.gumbo.dao.GumboDao;
 import is.idega.idegaweb.egov.gumbo.data.Inspector;
 import is.idega.idegaweb.egov.gumbo.data.Office;
-import is.idega.idegaweb.egov.gumbo.data.ViolationType;
+import is.idega.idegaweb.egov.gumbo.data.GumboViolationType;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import com.idega.core.persistence.impl.GenericDaoImpl;
 @Scope(BeanDefinition.SCOPE_SINGLETON)
 public class GumboDaoImpl extends GenericDaoImpl implements GumboDao {
 
-	public List<ViolationType> getViolationTypes() {
+	public List<GumboViolationType> getViolationTypes() {
 		return getEntityManager().createNamedQuery("violationType.findAll").getResultList();
 	}
 	

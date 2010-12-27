@@ -2,7 +2,7 @@ package is.idega.idegaweb.egov.gumbo.dao;
 
 import is.idega.idegaweb.egov.gumbo.data.Inspector;
 import is.idega.idegaweb.egov.gumbo.data.Office;
-import is.idega.idegaweb.egov.gumbo.data.ViolationType;
+import is.idega.idegaweb.egov.gumbo.data.GumboViolationType;
 
 import java.util.List;
 
@@ -12,6 +12,6 @@ public interface GumboDao extends GenericDao {
 
 	public List<Inspector> getInspectors();
 	public List<Office> getOffices();
-	public List<ViolationType> getViolationTypes();
+	public List<GumboViolationType> getViolationTypes();
 
 }

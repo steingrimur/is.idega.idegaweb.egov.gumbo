@@ -15,7 +15,7 @@ import is.idega.block.nationalregister.webservice.client.business.UserHolder;
 import is.idega.idegaweb.egov.gumbo.dao.GumboDao;
 import is.idega.idegaweb.egov.gumbo.data.Inspector;
 import is.idega.idegaweb.egov.gumbo.data.Office;
-import is.idega.idegaweb.egov.gumbo.data.ViolationType;
+import is.idega.idegaweb.egov.gumbo.data.GumboViolationType;
 
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
@@ -116,9 +116,9 @@ public class ViolationService {
 	public List<Item> getViolationTypes() {
 		final List<Item> items = new ArrayList<Item>();
 		
-		List<ViolationType> types = getDao().getViolationTypes();
+		List<GumboViolationType> types = getDao().getViolationTypes();
 		if (types != null && types.size() > 0) {
-			for (ViolationType violationType : types) {
+			for (GumboViolationType violationType : types) {
 				String prefix = "";
 				if (violationType.getDepth() > 0) {
 					prefix = " ";

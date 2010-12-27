@@ -54,6 +54,7 @@
                     <companyHasNotValidGrasleppa/>
                     
                     <debtMessageContainer/>
+                    <userIsInDebt>false</userIsInDebt>
                     <saveFormData>
                         <submissionId/>
                     </saveFormData>
@@ -75,7 +76,6 @@
                     <sendLinkSubmission>false</sendLinkSubmission>
                     <Submit_fbc_69/>
                     <controlsButton/>
-                    <userIsInDebt>false</userIsInDebt>
                 </control>
             </xf:instance>
             <xf:bind id="errorsGroup"
@@ -164,7 +164,7 @@
             <xf:bind id="fbc_120_bind" nodeset="vesselHasRevokedLicenseMessage"/>
             
             <xf:bind id="debtMessageContainer"
-                nodeset="debtMessageContainer" relevant="instance('control-instance')/userIsInDebt != 'false'"/>
+                nodeset="debtMessageContainer" relevant="instance('data-instance')/userIsInDebt != 'false'"/>
             <xf:bind id="fbc_102_bind" nodeset="fishingAreaLabel"/>
             <xf:bind id="fbc_110_bind"
                 nodeset="Select_the_fishing_area_fbc_110"
@@ -333,8 +333,6 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
             <xf:action ev:event="xforms-ready" if="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'">
                 <idega:setvalue
                     ref="instance('data-instance')/companyHasValidGrasleppa" value="idega:resolveExpression('fishingLicenseUser.getCompanyHasValidGrasleppa()')"/>
-                <idega:setvalue
-                    ref="instance('control-instance')/userIsInDebt" value="idega:resolveExpression('fishingLicenseUser.getIsInDebt()')"/>
                 <xf:dispatch name="xforms-rebuild" target="submission_model"/>
                 <xf:dispatch name="xforms-recalculate" target="submission_model"/>
                 <xf:dispatch name="xforms-revalidate" target="submission_model"/>
@@ -539,6 +537,11 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                                         ref="instance('data-instance')/vesselHasRevokedLicense" value="idega:resolveBeanProperties('fishingLicenseUser.getHasRevokedFishingLicense({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
                                     <xf:setvalue
                                         model="submission_model" ref="instance('data-instance')/vesselHasRevokedLicenseMessage" value="instance('data-instance')/vesselHasRevokedLicense/message" />
+                                        
+                                    <idega:setvalue
+                                    multiple="true()"
+                                    placeResponseDocument="true()"
+                                    ref="instance('data-instance')/userIsInDebt" value="idega:resolveExpression('fishingLicenseUser.getIsInDebt({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
                                 </xf:action>
                             
                             <idega:validator ev:event="idega-validate">
