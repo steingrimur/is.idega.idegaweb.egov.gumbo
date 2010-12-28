@@ -224,7 +224,7 @@
          </assignment>
       
       </task>
-		<transition to="end-state1"></transition>
+		<transition to="killOldTimerAndTurnNewOn"></transition>
 	</task-node>
 
 	<fork name="fork1">
@@ -256,7 +256,7 @@
          </assignment>
       
       </task>
-		<transition to="end-state1"></transition>
+		<transition to="addUserAsHandler"></transition>
 	</task-node>
 
 	<task-node name="requestAdditionalInformation">
@@ -325,7 +325,7 @@
          </assignment>
       
       </task>
-		<transition to="end-state1"></transition>
+		<transition to="generateAndAttachLetterPDF"></transition>
 	</task-node>
 
 	<task-node name="violationDecision">
@@ -346,7 +346,7 @@
          </assignment>
       
       </task>
-		<transition to="end-state1"></transition>
+		<transition to="setCaseStatusToReady"></transition>
 	</task-node>
 
 	<task-node name="closeCase">
@@ -367,7 +367,7 @@
          </assignment>
       
       </task>
-		<transition to="end-process"></transition>
+		<transition to="setCaseStatusToClosed"></transition>
 	</task-node>
 
 	<process-state name="addAttachment">
@@ -520,6 +520,34 @@
       </task>
 		<transition to="end-state1"></transition>
 	</task-node>
+
+	<node name="setCaseStatusToClosed">
+		<transition to="end-process"></transition>
+	</node>
+
+	<node name="killOldTimerAndTurnNewOn">
+		<transition to="end-state1"></transition>
+	</node>
+
+	<node name="setCaseStatusToReady">
+		<transition to="sendNotificationsToHandlers"></transition>
+	</node>
+
+	<node name="sendNotificationsToHandlers">
+		<transition to="end-state1"></transition>
+	</node>
+
+	<node name="addUserAsHandler">
+		<transition to="nonotifyNewHandler"></transition>
+	</node>
+
+	<node name="nonotifyNewHandler">
+		<transition to="end-state1"></transition>
+	</node>
+
+	<node name="generateAndAttachLetterPDF">
+		<transition to="end-state1"></transition>
+	</node>
 
 
 	<end-state name="end-state1"></end-state>

@@ -1,33 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="ViolationReport" width="681" height="711">
+<root-container name="ViolationReport" width="903" height="711">
   <node name="violationReport" x="4" y="277" width="113" height="34">
     <edge>
       <label x="-16" y="-9"/>
     </edge>
   </node>
-  <node name="setTimeframe" x="209" y="85" width="132" height="36">
+  <node name="setTimeframe" x="209" y="123" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
-      <bendpoint w1="232" h1="1" w2="1" h2="-196"/>
     </edge>
   </node>
   <node name="fork1" x="136" y="283" width="25" height="24">
     <edge>
       <label x="-47" y="-14"/>
-      <bendpoint w1="-1" h1="-194" w2="-127" h2="-1"/>
+      <bendpoint w1="-1" h1="-157" w2="-128" h2="-3"/>
     </edge>
     <edge>
       <label x="-104" y="-14"/>
-      <bendpoint w1="0" h1="-146" w2="-127" h2="2"/>
+      <bendpoint w1="-2" h1="-108" w2="-130" h2="-2"/>
     </edge>
     <edge>
       <label x="-70" y="-13"/>
-      <bendpoint w1="0" h1="-106" w2="-127" h2="-2"/>
+      <bendpoint w1="1" h1="-63" w2="-127" h2="-1"/>
     </edge>
     <edge>
       <label x="-35" y="-15"/>
-      <bendpoint w1="0" h1="-64" w2="-129" h2="-2"/>
+      <bendpoint w1="-1" h1="-201" w2="-128" h2="-2"/>
     </edge>
     <edge>
       <label x="-36" y="-12"/>
@@ -46,10 +45,9 @@
       <bendpoint w1="2" h1="189" w2="-129" h2="1"/>
     </edge>
   </node>
-  <node name="sendToLegalDepartment" x="209" y="129" width="132" height="36">
+  <node name="sendToLegalDepartment" x="210" y="171" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
-      <bendpoint w1="232" h1="2" w2="1" h2="-151"/>
     </edge>
   </node>
   <node name="requestAdditionalInformation" x="213" y="465" width="132" height="36">
@@ -65,48 +63,85 @@
   <node name="writeLetter" x="210" y="259" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
-      <bendpoint w1="232" h1="1" w2="2" h2="-22"/>
     </edge>
   </node>
-  <node name="violationDecision" x="209" y="173" width="132" height="36">
-    <edge>
-      <label x="5" y="-10"/>
-      <bendpoint w1="232" h1="2" w2="1" h2="-107"/>
-    </edge>
-  </node>
-  <node name="closeCase" x="211" y="215" width="132" height="36">
+  <node name="violationDecision" x="210" y="215" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="end-state1" x="495" y="287" width="22" height="26"/>
+  <node name="closeCase" x="209" y="78" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
   <node name="addAttachment" x="212" y="376" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
-      <bendpoint w1="228" h1="-1" w2="0" h2="93"/>
+      <bendpoint w1="554" h1="0" w2="1" h2="67"/>
     </edge>
   </node>
-  <node name="inviteParticipantProcess" x="377" y="422" width="139" height="36">
+  <node name="inviteParticipantProcess" x="398" y="421" width="156" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="submitCaseAnswer" x="548" y="421" width="132" height="36">
+  <node name="submitCaseAnswer" x="580" y="419" width="159" height="36">
     <edge>
       <label x="5" y="-10"/>
-      <bendpoint w1="-4" h1="-137" w2="104" h2="2"/>
+      <bendpoint w1="172" h1="4" w2="0" h2="114"/>
     </edge>
   </node>
-  <node name="sendMessage" x="377" y="464" width="132" height="36">
+  <node name="sendMessage" x="398" y="463" width="156" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="submitAdditionalInformation" x="548" y="466" width="132" height="36">
+  <node name="submitAdditionalInformation" x="580" y="463" width="157" height="36">
     <edge>
       <label x="5" y="-10"/>
-      <bendpoint w1="-4" h1="-182" w2="104" h2="2"/>
+      <bendpoint w1="173" h1="0" w2="0" h2="154"/>
     </edge>
   </node>
-  <node name="end-process" x="541" y="219" width="132" height="36"/>
+  <node name="end-state1" x="772" y="311" width="119" height="33"/>
+  <node name="end-process" x="770" y="77" width="132" height="36"/>
+  <node name="setCaseStatusToClosed" x="400" y="77" width="152" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="killOldTimerAndTurnNewOn" x="400" y="129" width="151" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+      <bendpoint w1="355" h1="1" w2="0" h2="-157"/>
+    </edge>
+  </node>
+  <node name="setCaseStatusToReady" x="401" y="214" width="151" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="sendNotificationsToHandlers" x="583" y="218" width="161" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+      <bendpoint w1="166" h1="1" w2="-1" h2="-68"/>
+    </edge>
+  </node>
+  <node name="addUserAsHandler" x="402" y="171" width="149" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="nonotifyNewHandler" x="584" y="172" width="160" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+      <bendpoint w1="166" h1="2" w2="0" h2="-113"/>
+    </edge>
+  </node>
+  <node name="generateAndAttachLetterPDF" x="400" y="259" width="154" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+      <bendpoint w1="355" h1="1" w2="1" h2="-49"/>
+    </edge>
+  </node>
 </root-container>
