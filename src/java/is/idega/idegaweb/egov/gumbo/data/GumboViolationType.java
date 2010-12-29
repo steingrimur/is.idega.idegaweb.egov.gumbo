@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = GumboViolationType.ENTITY_NAME)
 @NamedQueries({
-	@NamedQuery(name = "violationType.findAll", query = "select v from ViolationType v order by number")
+	@NamedQuery(name = "violationType.findAll", query = "select v from GumboViolationType v order by number")
 })
 public class GumboViolationType implements Serializable {
 
