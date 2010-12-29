@@ -122,7 +122,6 @@
   <node name="sendNotificationsToHandlers" x="583" y="218" width="161" height="36">
     <edge>
       <label x="5" y="-10"/>
-      <bendpoint w1="166" h1="1" w2="-1" h2="-68"/>
     </edge>
   </node>
   <node name="assignHandler" x="402" y="171" width="149" height="36">

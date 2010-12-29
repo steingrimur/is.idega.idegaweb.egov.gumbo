@@ -333,6 +333,8 @@
 	<task-node name="violationDecision">
 	   <task name="violationDecisionTask" priority="-1">
          <controller>
+            <variable name="string_rulingText" access="read,write,required"></variable>
+            <variable name="files_processRullingAttachments" access="read,write"></variable>
          </controller>
         <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
             <handlerName>jsonAssignmentHandler</handlerName>
@@ -462,7 +464,7 @@
                             ${
                             Map subjectMap = new HashMap();
                             subjectMap.put("en", "Additional information needed");
-                            subjectMap.put("is_IS", "Skilaboð frá umsjónaraðila umsóknar þinnar ({0}, {1}) hjá Impru");
+                            subjectMap.put("is_IS", "Additional information needed");
                             return subjectMap;
                             }
                             
@@ -474,7 +476,7 @@
                             ${
                             Map messageMap = new HashMap();
                             messageMap.put("en", "Hello, {0}.\n There is a new form for you to supply additional information in the case {1} with identifier {2} and description {3}.");
-                            messageMap.put("is_IS", "Sæl/ll, {0}.\nÞessi skilaboð eru vegna umsóknar þinnar með nafnið : {3} ({2}) í flokknum : {1} :\n\n" + resolver.get("string_additionalInformationRequestText") + "\n\nÞú getur farið inn á yfirlit umsóknarinnar með þessum hlekk {4} til að skoða hana og önnur skjöl sem umsjónaraðilinn hefur bætt við. Þar geturðu einnig sent skilaboð til baka með aðgerð sem er þar nú sýnileg. Þú getur einnig sent viðbótargögn með því að svara þessum tölvupósti en þá verður númer umsóknarinnar að vera í efni tölvupóstsins áfram svo hann hengist við skjalalistann.");
+                            messageMap.put("is_IS", "Hello, {0}.\n There is a new form for you to supply additional information in the case {1} with identifier {2} and description {3}.");
                             return messageMap;
                             }
                         </value>
@@ -541,10 +543,52 @@
 	</node>
 
 	<node name="setCaseStatusToReady">
+	   <event type="node-enter">
+        <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+            <handlerName>casesStatusHandler</handlerName>
+            <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                    <entry><key>caseStatusMappedName</key><value>caseStatusReady</value></entry>
+                    <entry><key>processInstanceId</key><value>#{mainProcessInstanceId}</value></entry>
+            </propertyMap>
+        </action>
+       </event>
 		<transition to="sendNotificationsToHandlers"></transition>
 	</node>
 
 	<node name="sendNotificationsToHandlers">
+	   <event type="node-enter">
+         <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>sendCaseMessagesHandler</handlerName>
+                <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                    
+                    <entry>
+                        <key>inlineSubject</key>
+                        <value>
+                            ${
+                            Map subjectMap = new HashMap();
+                            subjectMap.put("en", "Violation decision has been submitted");
+                            subjectMap.put("is_IS", "Violation decision has been submitted");
+                            return subjectMap;
+                            }
+                            
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>inlineMessage</key>
+                        <value>
+                            ${
+                            Map messageMap = new HashMap();
+                            messageMap.put("en", "Violation decision has been submitted");
+                            messageMap.put("is_IS", "Violation decision has been submitted");
+                            return messageMap;
+                            }
+                        </value>
+                    </entry>
+                    <entry><key>sendToRoles</key><value>bpm_fishingLicense_handler</value></entry>
+                </propertyMap>
+        </action>
+      
+      </event>
 		<transition to="end-state1"></transition>
 	</node>
 
@@ -560,7 +604,7 @@
                             ${
                             Map subjectMap = new HashMap();
                             subjectMap.put("en", "Handler was assigned to the case");
-                            subjectMap.put("is_IS", "Umsókn ({0}, {1}) í flokknum {2} hjá Impru hefur fengið umsjónarmann");
+                            subjectMap.put("is_IS", "Handler was assigned to the case");
                             return subjectMap;
                             }
                             
@@ -572,7 +616,7 @@
                             ${
                             Map messageMap = new HashMap();
                             messageMap.put("en", "Hi, {0}.\n Handler {1} was assigned to the case {2} with identifier {3} and description {4}");
-                            messageMap.put("is_IS", "Sæl/ll, {0}.\n{1} hefur tekið að sér umsóknina með nafnið : {4} ({3}) í flokknum : {2}.");
+                            messageMap.put("is_IS", "Hi, {0}.\n Handler {1} was assigned to the case {2} with identifier {3} and description {4}");
                             return messageMap;
                             }
                         </value>
