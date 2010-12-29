@@ -83,8 +83,22 @@
                 <local_src>
                     <localizedEntries lang="en">
                         <item>
-                            <itemLabel>Change me</itemLabel>
-                            <itemValue/>
+                            <itemLabel>Template 1</itemLabel>
+                            <itemValue>Some template 1 text</itemValue>
+                        </item>
+                        <item>
+                            <itemLabel>Template 2</itemLabel>
+                            <itemValue>Some template 2 text</itemValue>
+                        </item>
+                    </localizedEntries>
+                    <localizedEntries lang="is_IS">
+                        <item>
+                            <itemLabel>Template 1</itemLabel>
+                            <itemValue>Some template 1 text</itemValue>
+                        </item>
+                        <item>
+                            <itemLabel>Template 2</itemLabel>
+                            <itemValue>Some template 2 text</itemValue>
                         </item>
                     </localizedEntries>
                 </local_src>
@@ -114,6 +128,9 @@
                                 <xf:label ref="itemLabel"/>
                                 <xf:value ref="itemValue"/>
                             </xf:itemset>
+                            
+                            <idega:setvalue ev:event="xforms-value-changed"
+                                ref="instance('data-instance')/Letter_text_fbc_5" value="instance('data-instance')/Choose_letter_template_fbc_6"/>
                         </xf:select1>
                         <xf:textarea bind="fbc_5_bind" id="fbc_5">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_5-title[@lang=instance('localized_strings')/current_language]"/>
