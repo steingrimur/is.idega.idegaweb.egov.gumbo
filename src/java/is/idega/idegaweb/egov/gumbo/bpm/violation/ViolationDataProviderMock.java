@@ -85,8 +85,6 @@ public class ViolationDataProviderMock implements ViolationDataProvider {
 		
 		try {
 			final GroupBusiness groupBusiness = getGroupBusiness();
-			// final Group lawyersGroup = groupBusiness
-			// .getGroupByUniqueId("fiskistofa_lawyers");
 			
 			final List<Group> lawyersGroups = (List<Group>) groupBusiness
 			        .getGroupsByGroupName("fiskistofa_lawyers");

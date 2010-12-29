@@ -23,6 +23,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.ejb.CreateException;
@@ -42,8 +43,11 @@ import com.idega.company.business.CompanyBusiness;
 import com.idega.company.companyregister.business.CompanyRegisterBusiness;
 import com.idega.company.data.Company;
 import com.idega.core.location.data.Address;
+import com.idega.data.IDOFinderException;
 import com.idega.idegaweb.IWMainApplication;
+import com.idega.user.business.GroupBusiness;
 import com.idega.user.business.UserBusiness;
+import com.idega.user.data.Group;
 import com.idega.user.data.User;
 import com.idega.util.IWTimestamp;
 import com.idega.util.StringUtil;
@@ -459,6 +463,45 @@ public class ViolationDataProviderRealWebservice implements
 	@Override
 	public List<Item> getLawyersUsers() {
 		
-		throw new UnsupportedOperationException();
+		try {
+			final GroupBusiness groupBusiness = getGroupBusiness();
+			
+			final List<Group> lawyersGroups = (List<Group>) groupBusiness
+			        .getGroupsByGroupName("fiskistofa_lawyers");
+			
+			final Group lawyersGroup = lawyersGroups.isEmpty() ? null
+			        : lawyersGroups.iterator().next();
+			
+			final List<User> lawyersUsers = lawyersGroup != null ? (List<User>) groupBusiness
+			        .getUsers(lawyersGroup) : Collections.EMPTY_LIST;
+			
+			final List<Item> lawyersUsersItems = new ArrayList<Item>(
+			        lawyersUsers.size());
+			
+			for (User user : lawyersUsers) {
+				lawyersUsersItems.add(new Item(user.getPrimaryKey().toString(),
+				        user.getName()));
+			}
+			
+			return lawyersUsersItems;
+			
+		} catch (IDOFinderException e) {
+			// TODO: log
+			return Collections.EMPTY_LIST;
+		} catch (RuntimeException e) {
+			throw e;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	private GroupBusiness getGroupBusiness() {
+		try {
+			return (GroupBusiness) IBOLookup.getServiceInstance(
+			    IWMainApplication.getDefaultIWApplicationContext(),
+			    GroupBusiness.class);
+		} catch (IBOLookupException ile) {
+			throw new IBORuntimeException(ile);
+		}
 	}
 }
