@@ -241,6 +241,8 @@
 	<task-node name="sendToLegalDepartment">
 	   <task name="sendToLegalDepartmentTask" priority="-1">
          <controller>
+            <variable name="string_additionalInformationRequestText" access="write"></variable>
+            <variable name="string_lawyerUserId" access="write,required"></variable>
          </controller>
         <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
             <handlerName>jsonAssignmentHandler</handlerName>
@@ -256,7 +258,7 @@
          </assignment>
       
       </task>
-		<transition to="addUserAsHandler"></transition>
+		<transition to="assignHandler"></transition>
 	</task-node>
 
 	<task-node name="requestAdditionalInformation">
@@ -522,7 +524,16 @@
 	</task-node>
 
 	<node name="setCaseStatusToClosed">
-		<transition to="end-process"></transition>
+	   <event type="node-enter">
+        <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+            <handlerName>casesStatusHandler</handlerName>
+            <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                    <entry><key>caseStatusMappedName</key><value>caseStatusClosed</value></entry>
+                    <entry><key>processInstanceId</key><value>#{mainProcessInstanceId}</value></entry>
+            </propertyMap>
+        </action>
+       </event>
+	   <transition to="end-process"></transition>
 	</node>
 
 	<node name="killOldTimerAndTurnNewOn">
@@ -537,11 +548,52 @@
 		<transition to="end-state1"></transition>
 	</node>
 
-	<node name="addUserAsHandler">
-		<transition to="nonotifyNewHandler"></transition>
-	</node>
-
-	<node name="nonotifyNewHandler">
+	<node name="assignHandler">
+	   <event type="node-enter">
+        <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>caseHandlerAssignmentHandler</handlerName>
+                <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                <entry><key>caseHandlerRoleExp</key><value>{role: {roleName: "bpm_fishingLicense_caseHandler"}}</value></entry>
+                    <entry>
+                        <key>inlineSubject</key>
+                        <value>
+                            ${
+                            Map subjectMap = new HashMap();
+                            subjectMap.put("en", "Handler was assigned to the case");
+                            subjectMap.put("is_IS", "Umsókn ({0}, {1}) í flokknum {2} hjá Impru hefur fengið umsjónarmann");
+                            return subjectMap;
+                            }
+                            
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>inlineMessage</key>
+                        <value>
+                            ${
+                            Map messageMap = new HashMap();
+                            messageMap.put("en", "Hi, {0}.\n Handler {1} was assigned to the case {2} with identifier {3} and description {4}");
+                            messageMap.put("is_IS", "Sæl/ll, {0}.\n{1} hefur tekið að sér umsóknina með nafnið : {4} ({3}) í flokknum : {2}.");
+                            return messageMap;
+                            }
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>subjectValues</key>
+                        <value>
+                            {list: {mv: [{type: "bean", value: "piw.processDescription"}, {type: "bean", value: "piw.processIdentifier"},{type: "bean", value: "piw.processDefinitionW.startTaskName"}]}}
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>messageValues</key>
+                        <value>
+                            {list: {mv: [{type: "bean", value: "user.name"}, {type: "roleUsers", value: "{role: {roleName: \"bpm_entrepreneur_caseHandler\"}}"},  {type: "bean", value: "piw.processDefinitionW.startTaskName"}, {type: "bean", value: "piw.processIdentifier"}, {type: "bean", value: "piw.processDescription"}]}}
+                        </value>
+                    </entry>
+                <entry><key>sendToRoles</key><value>bpm_fishingLicense_handler</value></entry>
+                <entry><key>handlerUserId</key><value>#{string_lawyerUserId}</value></entry>
+                </propertyMap>
+         </action>
+    </event>
 		<transition to="end-state1"></transition>
 	</node>
 

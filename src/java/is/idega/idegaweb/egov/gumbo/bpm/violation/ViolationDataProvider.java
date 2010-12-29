@@ -27,6 +27,8 @@ public interface ViolationDataProvider {
 	
 	public abstract EquipmentData getEquipmentData(String byVesselRegistryNr);
 	
+	public abstract List<Item> getLawyersUsers();
+	
 	public static final class EquipmentData {
 		private String name;
 		private String ownersName;

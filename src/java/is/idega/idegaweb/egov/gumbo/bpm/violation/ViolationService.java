@@ -52,6 +52,11 @@ public class ViolationService {
 		        .getTypeLabelOfPermissionForViolationCompany(socialNr);
 	}
 	
+	public List<Item> getLawyersUsers() {
+		
+		return getViolationDataProvider().getLawyersUsers();
+	}
+	
 	public EquipmentData getEquipmentData(String byVesselRegistryNr) {
 		return getViolationDataProvider().getEquipmentData(byVesselRegistryNr);
 	}

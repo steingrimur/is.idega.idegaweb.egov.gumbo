@@ -455,4 +455,10 @@ public class ViolationDataProviderRealWebservice implements
 	private GumboDao getDao() {
 		return dao;
 	}
+	
+	@Override
+	public List<Item> getLawyersUsers() {
+		
+		throw new UnsupportedOperationException();
+	}
 }

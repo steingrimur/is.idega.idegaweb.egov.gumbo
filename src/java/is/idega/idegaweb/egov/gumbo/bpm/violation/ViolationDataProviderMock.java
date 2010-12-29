@@ -10,6 +10,8 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import com.idega.presentation.IWContext;
+import com.idega.user.data.User;
 import com.idega.util.text.Item;
 
 @Service
@@ -68,5 +70,15 @@ public class ViolationDataProviderMock implements ViolationDataProvider {
 		        .setFishingType("fishing type x").setName("some name")
 		        .setOwnersName("owners name")
 		        .setRevokeLicense("revoke license");
+	}
+	
+	@Override
+	public List<Item> getLawyersUsers() {
+		
+		final User currentUser = IWContext.getCurrentInstance()
+		        .getCurrentUser();
+		
+		return Arrays.asList(new Item[] { new Item(currentUser.getPrimaryKey()
+		        .toString(), currentUser.getName()) });
 	}
 }
