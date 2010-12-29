@@ -108,12 +108,6 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="killOldTimerAndTurnNewOn" x="400" y="129" width="151" height="36">
-    <edge>
-      <label x="5" y="-10"/>
-      <bendpoint w1="355" h1="1" w2="0" h2="-157"/>
-    </edge>
-  </node>
   <node name="setCaseStatusToReady" x="401" y="214" width="151" height="36">
     <edge>
       <label x="5" y="-10"/>
@@ -139,4 +133,15 @@
   </node>
   <node name="end-state1" x="772" y="311" width="119" height="33"/>
   <node name="end-process" x="770" y="77" width="132" height="36"/>
+  <node name="notifyAboutTheTimeframeMet" x="581" y="121" width="166" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+      <bendpoint w1="167" h1="0" w2="0" h2="-188"/>
+    </edge>
+  </node>
+  <node name="killOldTimerAndTurnNewOn" x="401" y="122" width="150" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
 </root-container>
