@@ -312,6 +312,7 @@
 	<task-node name="writeLetter">
 	   <task name="writeLetterTask" priority="-1">
          <controller>
+            <variable name="string_letterText" access="read,write,required"></variable>
          </controller>
         <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
             <handlerName>jsonAssignmentHandler</handlerName>
