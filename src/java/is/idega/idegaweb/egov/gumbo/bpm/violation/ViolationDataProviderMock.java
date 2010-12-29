@@ -2,7 +2,9 @@ package is.idega.idegaweb.egov.gumbo.bpm.violation;
 
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -10,7 +12,13 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import com.idega.presentation.IWContext;
+import com.idega.business.IBOLookup;
+import com.idega.business.IBOLookupException;
+import com.idega.business.IBORuntimeException;
+import com.idega.data.IDOFinderException;
+import com.idega.idegaweb.IWMainApplication;
+import com.idega.user.business.GroupBusiness;
+import com.idega.user.data.Group;
 import com.idega.user.data.User;
 import com.idega.util.text.Item;
 
@@ -75,10 +83,47 @@ public class ViolationDataProviderMock implements ViolationDataProvider {
 	@Override
 	public List<Item> getLawyersUsers() {
 		
-		final User currentUser = IWContext.getCurrentInstance()
-		        .getCurrentUser();
-		
-		return Arrays.asList(new Item[] { new Item(currentUser.getPrimaryKey()
-		        .toString(), currentUser.getName()) });
+		try {
+			final GroupBusiness groupBusiness = getGroupBusiness();
+			// final Group lawyersGroup = groupBusiness
+			// .getGroupByUniqueId("fiskistofa_lawyers");
+			
+			final List<Group> lawyersGroups = (List<Group>) groupBusiness
+			        .getGroupsByGroupName("fiskistofa_lawyers");
+			
+			final Group lawyersGroup = lawyersGroups.isEmpty() ? null
+			        : lawyersGroups.iterator().next();
+			
+			final List<User> lawyersUsers = lawyersGroup != null ? (List<User>) groupBusiness
+			        .getUsers(lawyersGroup) : Collections.EMPTY_LIST;
+			
+			final List<Item> lawyersUsersItems = new ArrayList<Item>(
+			        lawyersUsers.size());
+			
+			for (User user : lawyersUsers) {
+				lawyersUsersItems.add(new Item(user.getPrimaryKey().toString(),
+				        user.getName()));
+			}
+			
+			return lawyersUsersItems;
+			
+		} catch (IDOFinderException e) {
+			// TODO: log
+			return Collections.EMPTY_LIST;
+		} catch (RuntimeException e) {
+			throw e;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	private GroupBusiness getGroupBusiness() {
+		try {
+			return (GroupBusiness) IBOLookup.getServiceInstance(
+			    IWMainApplication.getDefaultIWApplicationContext(),
+			    GroupBusiness.class);
+		} catch (IBOLookupException ile) {
+			throw new IBORuntimeException(ile);
+		}
 	}
 }
