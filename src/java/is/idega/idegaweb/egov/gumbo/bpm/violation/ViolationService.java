@@ -19,7 +19,7 @@ import com.idega.util.text.Item;
 public class ViolationService {
 	
 	@Autowired
-	@Qualifier(DOFWSClient.WEB_SERVICE)
+	@Qualifier(DOFWSClient.MOCK)
 	private ViolationDataProvider violationDataProvider;
 	
 	public PersonData getViolationPersonData(String socialNr) {

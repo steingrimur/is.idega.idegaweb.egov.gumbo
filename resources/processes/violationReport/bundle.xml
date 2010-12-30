@@ -35,6 +35,9 @@
         <task name="submitAdditionalInformationTask">
             <viewResource resourceIdentifier="forms/submitAdditionalInformation.xhtml" viewType="xforms" viewResourceType="xforms" />
         </task>
+        <task name="submitAdditionalInformationWithoutRequestTask">
+            <viewResource resourceIdentifier="forms/submitAdditionalInformation.xhtml" viewType="xforms" viewResourceType="xforms" />
+        </task>
     </tasks>
     
 </processBundle-config>
