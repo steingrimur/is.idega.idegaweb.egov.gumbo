@@ -47,7 +47,7 @@ public class CatchQuota extends IWBaseComponent {
 			period = iwc.getParameter(PARAMETER_PERIOD);
 		}
 		else {
-			period = "0910";
+			period = "1011";
 		}
 		
 		Company company = getBusiness().getCompanyForUser(iwc.getCurrentUser());

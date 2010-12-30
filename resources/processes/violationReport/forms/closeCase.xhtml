@@ -50,15 +50,15 @@
                     <submission-error_message lang="en">Submission error. Please check your form!</submission-error_message>
                     <submission-error_message lang="is_IS">Villa varð við að senda formið vinsamlegast athugið hvort stjörnumerktir reitir hafi allir verið útfylltir og að engar villur séu í forminu.</submission-error_message>
                     <form-title lang="en">Close case</form-title>
-                    <form-title lang="is_IS">Close case</form-title>
+                    <form-title lang="is_IS">Loka máli</form-title>
                     <page-2-label lang="en">Submitted</page-2-label>
-                    <page-2-label lang="is_IS">Skilaboð send til umsækjandans</page-2-label>
+                    <page-2-label lang="is_IS">Málinu lokað</page-2-label>
                     <page-1-submit-label lang="en">Close</page-1-submit-label>
-                    <page-1-submit-label lang="is_IS">Senda</page-1-submit-label>
+                    <page-1-submit-label lang="is_IS">Loka máli</page-1-submit-label>
                     <page-2-info lang="en">Form submitted, thank You!</page-2-info>
-                    <page-2-info lang="is_IS">Skilaboðin hafa verið send umsækjandanum í tölvupósti og hann getur núna sent inn viðbótarupplýsingar og skjöl ef þess þarf í gegnum umsóknaryfirlitið sitt.</page-2-info>
-                    <fbc_5-required lang="en">can not be empty</fbc_5-required>
-                    <fbc_5-required lang="is_IS">Skilaboð til umsækjandans mega ekki vera tóm</fbc_5-required>
+                    <page-2-info lang="is_IS">Málinu hefur verið lokað.  Hægt er að framkvæma á því frekari aðgerðir ef þörf krefur.</page-2-info>
+                    <fbc_19-text lang="en">By pression 'Close' you are closing the case.</fbc_19-text>
+                    <fbc_19-text lang="is_IS">Smelltu á 'Loka máli' til að loka málinu.</fbc_19-text>
                 </localized_strings>
             </xf:instance>
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
@@ -82,6 +82,11 @@
             <idega:switch>
                 <idega:case id="fbc_1" show="instance('control-instance')/generatePdf='true'">
                     <xf:group appearance="full">
+                    	<div class="informationText">
+                    		<xf:output model="data_model"
+                                ref="instance('localized_strings')/fbc_19-text[@lang=instance('localized_strings')/current_language]" type="fbc_text"/>
+                    	</div>
+                    
                         <div class="fbc_button_area" id="fbc_2" type="fbc_button_area">
                             <xf:trigger bind="bind-submissionButton"
                                 class="fbc_button_submit" id="fbc_3" type="fbc_button_submit">

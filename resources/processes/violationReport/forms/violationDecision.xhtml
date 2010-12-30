@@ -74,13 +74,13 @@
                     <submission-error_message lang="en">Submission error. Please check your form!</submission-error_message>
                     <submission-error_message lang="is_IS">Villa varð við að senda formið vinsamlegast athugið hvort stjörnumerktir reitir hafi allir verið útfylltir og að engar villur séu í forminu.</submission-error_message>
                     <form-title lang="en">Violation decision</form-title>
-                    <form-title lang="is_IS">Violation decision</form-title>
+                    <form-title lang="is_IS">Úrskurður</form-title>
                     <page-2-label lang="en">Submitted</page-2-label>
                     <page-2-label lang="is_IS">Niðurstaða umsóknar send</page-2-label>
                     <page-1-grant-label lang="en">Submit</page-1-grant-label>
                     <page-1-grant-label lang="is_IS">Samþykkja umsókn</page-1-grant-label>
                     <page-2-info lang="en">Form submitted, thank You!</page-2-info>
-                    <page-2-info lang="is_IS">Niðurstaða umsóknarinnar hefur verið vistuð og skilaboð send á umsækjandann. Umsóknarferlinu telst nú lokið en þó ekki lokað sem þýðir að enn má bæta inn skjölum og tölvupóstum.</page-2-info>
+                    <page-2-info lang="is_IS">Niðurstaða málsins hefur verið vistuð og skilaboð send. Ferlinu telst nú lokið en þó ekki lokað sem þýðir að enn má bæta inn skjölum og tölvupóstum.</page-2-info>
                     <fbc_5-title lang="is_IS">Niðurstaða</fbc_5-title>
                     <fbc_5-title lang="en">Ruling text</fbc_5-title>
                     <fbc_8-title lang="is_IS">Viðhengi</fbc_8-title>
@@ -99,8 +99,10 @@
                     <fbc_8-paragraph-text lang="en">Additional information can be sent with the form as attachments</fbc_8-paragraph-text>
                     <fbc_8-filename-label lang="is_IS">Skráarnafn</fbc_8-filename-label>
                     <fbc_8-filename-label lang="en">Uploaded file name</fbc_8-filename-label>
-                    <fbc_9-label lang="is_IS">Fellilist</fbc_9-label>
+                    <fbc_9-label lang="is_IS">Sniðmátstextar</fbc_9-label>
                     <fbc_9-label lang="en">Choose predefined text</fbc_9-label>
+                    <fbc_10-label lang="is_IS">Úrskurður</fbc_10-label>
+                    <fbc_10-label lang="en">Decision</fbc_10-label>
                     <fbc_5-required lang="is_IS">Það þarf að fylla út reitinn X</fbc_5-required>
                     <fbc_5-required lang="en">The field X is required</fbc_5-required>
                 </localized_strings>
@@ -138,6 +140,65 @@
             <xf:instance id="fbc_9_eds" xmlns="">
                 <ext_src/>
             </xf:instance>
+            <xf:instance id="fbc_10_lds" xmlns="">
+                <local_src>
+                    <localizedEntries lang="en">
+                        <item>
+                            <itemLabel>No action</itemLabel>
+                            <itemValue>no_action</itemValue>
+                        </item>
+                        <item>
+                            <itemLabel>Informal reprimand / case dropped</itemLabel>
+                            <itemValue>informal_reprimand</itemValue>
+                        </item>
+                        <item>
+                            <itemLabel>Formal reprimand</itemLabel>
+                            <itemValue>formal_reprimand</itemValue>
+                        </item>
+                        <item>
+                            <itemLabel>Fishing license revoked</itemLabel>
+                            <itemValue>fishing_license_revoked</itemValue>
+                        </item>
+                        <item>
+                            <itemLabel>Weighing license revoked</itemLabel>
+                            <itemValue>weighing_license_revoked</itemValue>
+                        </item>
+                        <item>
+                            <itemLabel>Reported to police</itemLabel>
+                            <itemValue>reported_to_police</itemValue>
+                        </item>
+                    </localizedEntries>
+                    <localizedEntries lang="is_IS">
+                        <item>
+                            <itemLabel>Ekkert aðhafst</itemLabel>
+                            <itemValue>no_action</itemValue>
+                        </item>
+                        <item>
+                            <itemLabel>Óformleg áminning / mál fellt niður</itemLabel>
+                            <itemValue>informal_reprimand</itemValue>
+                        </item>
+                        <item>
+                            <itemLabel>Formleg áminning</itemLabel>
+                            <itemValue>formal_reprimand</itemValue>
+                        </item>
+                        <item>
+                            <itemLabel>Svipting veiðileyfis</itemLabel>
+                            <itemValue>fishing_license_revoked</itemValue>
+                        </item>
+                        <item>
+                            <itemLabel>Afturköllun vigtunarleyfis</itemLabel>
+                            <itemValue>weighing_license_revoked</itemValue>
+                        </item>
+                        <item>
+                            <itemLabel>Mál kært til lögreglu</itemLabel>
+                            <itemValue>reported_to_police</itemValue>
+                        </item>
+                    </localizedEntries>
+                </local_src>
+            </xf:instance>
+            <xf:instance id="fbc_10_eds" xmlns="">
+                <ext_src/>
+            </xf:instance>
         </xf:model>
         <xs:schema id="fb-schema"/>
     </head>
@@ -154,6 +215,14 @@
                 <idega:case id="fbc_1" show="instance('control-instance')/generatePdf='true'">
                     <xf:group appearance="full">
                         <!-- upload -->
+                        <xf:select1 appearance="minimal"
+                            bind="actionTaken" id="fbc_10" type="fbc_single_select_minimal">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-label[@lang=instance('localized_strings')/current_language]"/>
+                            <xf:itemset model="data_model" nodeset="instance('fbc_10_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
+                                <xf:label ref="itemLabel"/>
+                                <xf:value ref="itemValue"/>
+                            </xf:itemset>
+                        </xf:select1>
                         <xf:select1 appearance="minimal"
                             bind="fbc_9_bind" id="fbc_9" type="fbc_single_select_minimal">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_9-label[@lang=instance('localized_strings')/current_language]"/>
