@@ -74,7 +74,7 @@
                     <submission-error_message lang="en">Submission error. Please check your form!</submission-error_message>
                     <submission-error_message lang="is_IS">Villa varð við að senda formið vinsamlegast athugið hvort stjörnumerktir reitir hafi allir verið útfylltir og að engar villur séu í forminu.</submission-error_message>
                     <form-title lang="en">Violation decision</form-title>
-                    <form-title lang="is_IS">Úrskurður</form-title>
+                    <form-title lang="is_IS">Niðurstaða máls</form-title>
                     <page-2-label lang="en">Submitted</page-2-label>
                     <page-2-label lang="is_IS">Niðurstaða umsóknar send</page-2-label>
                     <page-1-grant-label lang="en">Submit</page-1-grant-label>
@@ -148,8 +148,8 @@
                             <itemValue>no_action</itemValue>
                         </item>
                         <item>
-                            <itemLabel>Informal reprimand / case dropped</itemLabel>
-                            <itemValue>informal_reprimand</itemValue>
+                            <itemLabel>Instruction letter</itemLabel>
+                            <itemValue>instruction_letter</itemValue>
                         </item>
                         <item>
                             <itemLabel>Formal reprimand</itemLabel>
@@ -164,8 +164,20 @@
                             <itemValue>weighing_license_revoked</itemValue>
                         </item>
                         <item>
+                            <itemLabel>Reported to author authority</itemLabel>
+                            <itemValue>reported_to_other_authority</itemValue>
+                        </item>
+                        <item>
                             <itemLabel>Reported to police</itemLabel>
                             <itemValue>reported_to_police</itemValue>
+                        </item>
+                        <item>
+                            <itemLabel>Rebilling inquiry</itemLabel>
+                            <itemValue>rebilling_inquiry</itemValue>
+                        </item>
+                        <item>
+                            <itemLabel>Information sent to ministry</itemLabel>
+                            <itemValue>information_sent_to_ministry</itemValue>
                         </item>
                     </localizedEntries>
                     <localizedEntries lang="is_IS">
@@ -174,8 +186,8 @@
                             <itemValue>no_action</itemValue>
                         </item>
                         <item>
-                            <itemLabel>Óformleg áminning / mál fellt niður</itemLabel>
-                            <itemValue>informal_reprimand</itemValue>
+                            <itemLabel>Leiðbeiningarbréf</itemLabel>
+                            <itemValue>instruction_letter</itemValue>
                         </item>
                         <item>
                             <itemLabel>Formleg áminning</itemLabel>
@@ -190,8 +202,20 @@
                             <itemValue>weighing_license_revoked</itemValue>
                         </item>
                         <item>
+                            <itemLabel>Mál kært öðru stjórnvaldi</itemLabel>
+                            <itemValue>reported_to_other_authority</itemValue>
+                        </item>
+                        <item>
                             <itemLabel>Mál kært til lögreglu</itemLabel>
                             <itemValue>reported_to_police</itemValue>
+                        </item>
+                        <item>
+                            <itemLabel>Bakreikningsrannsókn</itemLabel>
+                            <itemValue>rebilling_inquiry</itemValue>
+                        </item>
+                        <item>
+                            <itemLabel>Upplýsingar sendar til ráðuneytis</itemLabel>
+                            <itemValue>information_sent_to_ministry</itemValue>
                         </item>
                     </localizedEntries>
                 </local_src>
@@ -215,14 +239,16 @@
                 <idega:case id="fbc_1" show="instance('control-instance')/generatePdf='true'">
                     <xf:group appearance="full">
                         <!-- upload -->
-                        <xf:select1 appearance="minimal"
-                            bind="actionTaken" id="fbc_10" type="fbc_single_select_minimal">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-label[@lang=instance('localized_strings')/current_language]"/>
-                            <xf:itemset model="data_model" nodeset="instance('fbc_10_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
-                                <xf:label ref="itemLabel"/>
-                                <xf:value ref="itemValue"/>
-                            </xf:itemset>
-                        </xf:select1>
+                        <div class="multiSelectBox">
+	                        <xf:select appearance="full"
+	                            bind="actionTaken" id="fbc_10" type="fbc_multiple_select">
+	                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-label[@lang=instance('localized_strings')/current_language]"/>
+	                            <xf:itemset model="data_model" nodeset="instance('fbc_10_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
+	                                <xf:label ref="itemLabel"/>
+	                                <xf:value ref="itemValue"/>
+	                            </xf:itemset>
+	                        </xf:select>
+	                    </div>
                         <xf:select1 appearance="minimal"
                             bind="fbc_9_bind" id="fbc_9" type="fbc_single_select_minimal">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_9-label[@lang=instance('localized_strings')/current_language]"/>

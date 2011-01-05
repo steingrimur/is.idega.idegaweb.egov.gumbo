@@ -103,6 +103,8 @@
             <variable name="string_vesselFishingLicense" access="read,write"></variable>
             <variable name="string_vesselFishingGear" access="read,write"></variable>
             <variable name="string_vesselFishingGearsSummary" access="read,write"></variable>
+            <variable name="string_vesselRevokeLicense" access="read,write"></variable>
+            <variable name="string_vesselFisheriesName" access="read,write"></variable>
             
             <variable name="string_policeInvolvement" access="read,write"></variable>
             <variable name="string_policeOfficersNr" access="read,write"></variable>

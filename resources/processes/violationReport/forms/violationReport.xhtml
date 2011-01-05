@@ -112,6 +112,7 @@
                         <fishingType mapping="string_vesselFishingType"/>
                         <fishingLicense mapping="string_vesselFishingLicense"/>
                         <revokeLicense mapping="string_vesselRevokeLicense"/>
+                        <fisheriesName mapping="string_vesselFisheriesName"/>
                     </equipmentData>
                     <Fishing_gear_fbc_192 mapping="string_vesselFishingGear"/>
                     <fishingGearsSummary mapping="string_vesselFishingGearsSummary"/>
@@ -232,6 +233,7 @@
             <xf:bind id="fbc_190_bind" nodeset="equipmentData/fishingType"/>
             <xf:bind id="fbc_191_bind" nodeset="equipmentData/fishingLicense"/>
             <xf:bind id="fbc_191a_bind" nodeset="equipmentData/revokeLicense"/>
+            <xf:bind id="fbc_191b_bind" nodeset="equipmentData/fisheriesName"/>
             <xf:bind id="fbc_192_bind" nodeset="Fishing_gear_fbc_192"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
             <xf:bind id="fbc_198_bind" nodeset="fishingGearsSummary" />
@@ -347,8 +349,10 @@
                     <fbc_155-label lang="en">Violation time</fbc_155-label>
                     <fbc_104-label lang="is_IS">GPS hnit</fbc_104-label>
                     <fbc_104-label lang="en">GPS location latitude</fbc_104-label>
-                    <fbc_109-label lang="is_IS">Aðkoma</fbc_109-label>
+                    <fbc_109-label lang="is_IS">Starfsheiti/Aðkoma</fbc_109-label>
                     <fbc_109-label lang="en">Involvement</fbc_109-label>
+                    <fbc_109a-label lang="is_IS">Aðkoma</fbc_109a-label>
+                    <fbc_109a-label lang="en">Involvement</fbc_109a-label>
                     <fbc_117-text lang="en">Violation - Company</fbc_117-text>
                     <fbc_117-text lang="is_IS">Fyrirtæki</fbc_117-text>
                     <fbc_121-label lang="is_IS">Kennitala</fbc_121-label>
@@ -433,6 +437,8 @@
                     <fbc_191-label lang="en">Fishing license</fbc_191-label>
                     <fbc_191a-label lang="is_IS">Svipting veiðileyfis</fbc_191a-label>
                     <fbc_191a-label lang="en">Revoke license</fbc_191a-label>
+                    <fbc_191b-label lang="is_IS">Útgerð</fbc_191b-label>
+                    <fbc_191b-label lang="en">Fishery</fbc_191b-label>
                     <fbc_192-label lang="is_IS">Veiðafæri</fbc_192-label>
                     <fbc_192-label lang="en">Fishing gear</fbc_192-label>
                     <fbc_199-label lang="is_IS">Brotalýsing</fbc_199-label>
@@ -985,7 +991,7 @@
                             </xf:output>
                             <xf:input id="fbc_109a"
                                 ref="./violationInvolvement" type="fbc_tex">
-                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_109-label[@lang=instance('localized_strings')/current_language]"/>
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_109a-label[@lang=instance('localized_strings')/current_language]"/>
                             </xf:input>
                         </xf:repeat>
                         <div class="fbc_header_text" id="fbc_19">
@@ -1180,6 +1186,9 @@
                         </xf:output>
                         <xf:output bind="fbc_189_bind" id="fbc_189" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_189-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                        <xf:output bind="fbc_191b_bind" id="fbc_191b" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_191b-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
                         <xf:output bind="fbc_190_bind" id="fbc_190" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_190-label[@lang=instance('localized_strings')/current_language]"/>
@@ -1425,7 +1434,7 @@
                             </xf:output>
                             <xf:output id="fbc_133a"
                                 ref="./violationInvolvement" type="fbc_text_output">
-                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_109-label[@lang=instance('localized_strings')/current_language]"/>
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_109a-label[@lang=instance('localized_strings')/current_language]"/>
                             </xf:output>
                         </xf:repeat>
                         <xf:label model="data_model" ref="instance('localized_strings')/fbc_41-label[@lang=instance('localized_strings')/current_language]"/>
@@ -1501,6 +1510,9 @@
                         </xf:output>
                         <xf:output bind="fbc_189_bind" id="fbc_195" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_189-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                        <xf:output bind="fbc_191b_bind" id="fbc_197b" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_191b-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
                         <xf:output bind="fbc_190_bind" id="fbc_196" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_190-label[@lang=instance('localized_strings')/current_language]"/>

@@ -35,6 +35,7 @@ public interface ViolationDataProvider {
 		private String fishingType;
 		private String fishingLicense;
 		private String revokeLicense = CoreConstants.EMPTY;
+		private String fisheriesName;
 		
 		public String getName() {
 			return name;
@@ -79,6 +80,15 @@ public interface ViolationDataProvider {
 		public EquipmentData setRevokeLicense(String revokeLicense) {
 			this.revokeLicense = revokeLicense != null ? revokeLicense
 			        : CoreConstants.EMPTY;
+			return this;
+		}
+
+		public String getFisheriesName() {
+			return fisheriesName;
+		}
+
+		public EquipmentData setFisheriesName(String fisheriesName) {
+			this.fisheriesName = fisheriesName;
 			return this;
 		}
 		

@@ -243,6 +243,8 @@ public class ViolationDataProviderRealWebservice implements
 					license.append(", ");
 				}
 			}
+			
+			data.setFisheriesName(res.getResult().getUtgerdNafn());
 			data.setFishingLicense(license.toString());
 			data.setFishingType(res.getResult().getUtgFlHeiti());
 			data.setName(res.getResult().getNafn());
