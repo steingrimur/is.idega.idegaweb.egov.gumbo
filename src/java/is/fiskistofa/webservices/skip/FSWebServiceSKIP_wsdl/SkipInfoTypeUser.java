@@ -8,27 +8,29 @@
 package is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl;
 
 public class SkipInfoTypeUser  extends is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeBase  implements java.io.Serializable {
-    private java.lang.String nafn;
-
     private java.math.BigDecimal bruttotonn;
 
     private java.lang.String utgerdNafn;
 
+    private java.math.BigDecimal brl;
+
     private java.lang.String heimahofn;
 
-    private java.math.BigDecimal brl;
+    private java.lang.String utgerdKt;
+
+    private java.math.BigDecimal utgFl;
+
+    private java.lang.String eigandiNafn;
+
+    private java.lang.String eigandiKt;
+
+    private java.lang.String nafn;
 
     private java.lang.String utgFlHeiti;
 
     private java.math.BigDecimal skipNr;
 
-    private java.lang.String utgerdKt;
-
-    private java.lang.String eigandiNafn;
-
     private java.lang.String vinnsluleyfi;
-
-    private java.lang.String eigandiKt;
 
     private java.math.BigDecimal lengd;
 
@@ -36,50 +38,32 @@ public class SkipInfoTypeUser  extends is.fiskistofa.webservices.skip.FSWebServi
     }
 
     public SkipInfoTypeUser(
-           java.lang.String nafn,
            java.math.BigDecimal bruttotonn,
            java.lang.String utgerdNafn,
-           java.lang.String heimahofn,
            java.math.BigDecimal brl,
+           java.lang.String heimahofn,
+           java.lang.String utgerdKt,
+           java.math.BigDecimal utgFl,
+           java.lang.String eigandiNafn,
+           java.lang.String eigandiKt,
+           java.lang.String nafn,
            java.lang.String utgFlHeiti,
            java.math.BigDecimal skipNr,
-           java.lang.String utgerdKt,
-           java.lang.String eigandiNafn,
            java.lang.String vinnsluleyfi,
-           java.lang.String eigandiKt,
            java.math.BigDecimal lengd) {
-        this.nafn = nafn;
         this.bruttotonn = bruttotonn;
         this.utgerdNafn = utgerdNafn;
-        this.heimahofn = heimahofn;
         this.brl = brl;
+        this.heimahofn = heimahofn;
+        this.utgerdKt = utgerdKt;
+        this.utgFl = utgFl;
+        this.eigandiNafn = eigandiNafn;
+        this.eigandiKt = eigandiKt;
+        this.nafn = nafn;
         this.utgFlHeiti = utgFlHeiti;
         this.skipNr = skipNr;
-        this.utgerdKt = utgerdKt;
-        this.eigandiNafn = eigandiNafn;
         this.vinnsluleyfi = vinnsluleyfi;
-        this.eigandiKt = eigandiKt;
         this.lengd = lengd;
-    }
-
-
-    /**
-     * Gets the nafn value for this SkipInfoTypeUser.
-     * 
-     * @return nafn
-     */
-    public java.lang.String getNafn() {
-        return nafn;
-    }
-
-
-    /**
-     * Sets the nafn value for this SkipInfoTypeUser.
-     * 
-     * @param nafn
-     */
-    public void setNafn(java.lang.String nafn) {
-        this.nafn = nafn;
     }
 
 
@@ -124,6 +108,26 @@ public class SkipInfoTypeUser  extends is.fiskistofa.webservices.skip.FSWebServi
 
 
     /**
+     * Gets the brl value for this SkipInfoTypeUser.
+     * 
+     * @return brl
+     */
+    public java.math.BigDecimal getBrl() {
+        return brl;
+    }
+
+
+    /**
+     * Sets the brl value for this SkipInfoTypeUser.
+     * 
+     * @param brl
+     */
+    public void setBrl(java.math.BigDecimal brl) {
+        this.brl = brl;
+    }
+
+
+    /**
      * Gets the heimahofn value for this SkipInfoTypeUser.
      * 
      * @return heimahofn
@@ -144,22 +148,102 @@ public class SkipInfoTypeUser  extends is.fiskistofa.webservices.skip.FSWebServi
 
 
     /**
-     * Gets the brl value for this SkipInfoTypeUser.
+     * Gets the utgerdKt value for this SkipInfoTypeUser.
      * 
-     * @return brl
+     * @return utgerdKt
      */
-    public java.math.BigDecimal getBrl() {
-        return brl;
+    public java.lang.String getUtgerdKt() {
+        return utgerdKt;
     }
 
 
     /**
-     * Sets the brl value for this SkipInfoTypeUser.
+     * Sets the utgerdKt value for this SkipInfoTypeUser.
      * 
-     * @param brl
+     * @param utgerdKt
      */
-    public void setBrl(java.math.BigDecimal brl) {
-        this.brl = brl;
+    public void setUtgerdKt(java.lang.String utgerdKt) {
+        this.utgerdKt = utgerdKt;
+    }
+
+
+    /**
+     * Gets the utgFl value for this SkipInfoTypeUser.
+     * 
+     * @return utgFl
+     */
+    public java.math.BigDecimal getUtgFl() {
+        return utgFl;
+    }
+
+
+    /**
+     * Sets the utgFl value for this SkipInfoTypeUser.
+     * 
+     * @param utgFl
+     */
+    public void setUtgFl(java.math.BigDecimal utgFl) {
+        this.utgFl = utgFl;
+    }
+
+
+    /**
+     * Gets the eigandiNafn value for this SkipInfoTypeUser.
+     * 
+     * @return eigandiNafn
+     */
+    public java.lang.String getEigandiNafn() {
+        return eigandiNafn;
+    }
+
+
+    /**
+     * Sets the eigandiNafn value for this SkipInfoTypeUser.
+     * 
+     * @param eigandiNafn
+     */
+    public void setEigandiNafn(java.lang.String eigandiNafn) {
+        this.eigandiNafn = eigandiNafn;
+    }
+
+
+    /**
+     * Gets the eigandiKt value for this SkipInfoTypeUser.
+     * 
+     * @return eigandiKt
+     */
+    public java.lang.String getEigandiKt() {
+        return eigandiKt;
+    }
+
+
+    /**
+     * Sets the eigandiKt value for this SkipInfoTypeUser.
+     * 
+     * @param eigandiKt
+     */
+    public void setEigandiKt(java.lang.String eigandiKt) {
+        this.eigandiKt = eigandiKt;
+    }
+
+
+    /**
+     * Gets the nafn value for this SkipInfoTypeUser.
+     * 
+     * @return nafn
+     */
+    public java.lang.String getNafn() {
+        return nafn;
+    }
+
+
+    /**
+     * Sets the nafn value for this SkipInfoTypeUser.
+     * 
+     * @param nafn
+     */
+    public void setNafn(java.lang.String nafn) {
+        this.nafn = nafn;
     }
 
 
@@ -204,46 +288,6 @@ public class SkipInfoTypeUser  extends is.fiskistofa.webservices.skip.FSWebServi
 
 
     /**
-     * Gets the utgerdKt value for this SkipInfoTypeUser.
-     * 
-     * @return utgerdKt
-     */
-    public java.lang.String getUtgerdKt() {
-        return utgerdKt;
-    }
-
-
-    /**
-     * Sets the utgerdKt value for this SkipInfoTypeUser.
-     * 
-     * @param utgerdKt
-     */
-    public void setUtgerdKt(java.lang.String utgerdKt) {
-        this.utgerdKt = utgerdKt;
-    }
-
-
-    /**
-     * Gets the eigandiNafn value for this SkipInfoTypeUser.
-     * 
-     * @return eigandiNafn
-     */
-    public java.lang.String getEigandiNafn() {
-        return eigandiNafn;
-    }
-
-
-    /**
-     * Sets the eigandiNafn value for this SkipInfoTypeUser.
-     * 
-     * @param eigandiNafn
-     */
-    public void setEigandiNafn(java.lang.String eigandiNafn) {
-        this.eigandiNafn = eigandiNafn;
-    }
-
-
-    /**
      * Gets the vinnsluleyfi value for this SkipInfoTypeUser.
      * 
      * @return vinnsluleyfi
@@ -260,26 +304,6 @@ public class SkipInfoTypeUser  extends is.fiskistofa.webservices.skip.FSWebServi
      */
     public void setVinnsluleyfi(java.lang.String vinnsluleyfi) {
         this.vinnsluleyfi = vinnsluleyfi;
-    }
-
-
-    /**
-     * Gets the eigandiKt value for this SkipInfoTypeUser.
-     * 
-     * @return eigandiKt
-     */
-    public java.lang.String getEigandiKt() {
-        return eigandiKt;
-    }
-
-
-    /**
-     * Sets the eigandiKt value for this SkipInfoTypeUser.
-     * 
-     * @param eigandiKt
-     */
-    public void setEigandiKt(java.lang.String eigandiKt) {
-        this.eigandiKt = eigandiKt;
     }
 
 
@@ -314,39 +338,42 @@ public class SkipInfoTypeUser  extends is.fiskistofa.webservices.skip.FSWebServi
         __equalsCalc = obj;
         boolean _equals;
         _equals = super.equals(obj) && 
-            ((this.nafn==null && other.getNafn()==null) || 
-             (this.nafn!=null &&
-              this.nafn.equals(other.getNafn()))) &&
             ((this.bruttotonn==null && other.getBruttotonn()==null) || 
              (this.bruttotonn!=null &&
               this.bruttotonn.equals(other.getBruttotonn()))) &&
             ((this.utgerdNafn==null && other.getUtgerdNafn()==null) || 
              (this.utgerdNafn!=null &&
               this.utgerdNafn.equals(other.getUtgerdNafn()))) &&
-            ((this.heimahofn==null && other.getHeimahofn()==null) || 
-             (this.heimahofn!=null &&
-              this.heimahofn.equals(other.getHeimahofn()))) &&
             ((this.brl==null && other.getBrl()==null) || 
              (this.brl!=null &&
               this.brl.equals(other.getBrl()))) &&
+            ((this.heimahofn==null && other.getHeimahofn()==null) || 
+             (this.heimahofn!=null &&
+              this.heimahofn.equals(other.getHeimahofn()))) &&
+            ((this.utgerdKt==null && other.getUtgerdKt()==null) || 
+             (this.utgerdKt!=null &&
+              this.utgerdKt.equals(other.getUtgerdKt()))) &&
+            ((this.utgFl==null && other.getUtgFl()==null) || 
+             (this.utgFl!=null &&
+              this.utgFl.equals(other.getUtgFl()))) &&
+            ((this.eigandiNafn==null && other.getEigandiNafn()==null) || 
+             (this.eigandiNafn!=null &&
+              this.eigandiNafn.equals(other.getEigandiNafn()))) &&
+            ((this.eigandiKt==null && other.getEigandiKt()==null) || 
+             (this.eigandiKt!=null &&
+              this.eigandiKt.equals(other.getEigandiKt()))) &&
+            ((this.nafn==null && other.getNafn()==null) || 
+             (this.nafn!=null &&
+              this.nafn.equals(other.getNafn()))) &&
             ((this.utgFlHeiti==null && other.getUtgFlHeiti()==null) || 
              (this.utgFlHeiti!=null &&
               this.utgFlHeiti.equals(other.getUtgFlHeiti()))) &&
             ((this.skipNr==null && other.getSkipNr()==null) || 
              (this.skipNr!=null &&
               this.skipNr.equals(other.getSkipNr()))) &&
-            ((this.utgerdKt==null && other.getUtgerdKt()==null) || 
-             (this.utgerdKt!=null &&
-              this.utgerdKt.equals(other.getUtgerdKt()))) &&
-            ((this.eigandiNafn==null && other.getEigandiNafn()==null) || 
-             (this.eigandiNafn!=null &&
-              this.eigandiNafn.equals(other.getEigandiNafn()))) &&
             ((this.vinnsluleyfi==null && other.getVinnsluleyfi()==null) || 
              (this.vinnsluleyfi!=null &&
               this.vinnsluleyfi.equals(other.getVinnsluleyfi()))) &&
-            ((this.eigandiKt==null && other.getEigandiKt()==null) || 
-             (this.eigandiKt!=null &&
-              this.eigandiKt.equals(other.getEigandiKt()))) &&
             ((this.lengd==null && other.getLengd()==null) || 
              (this.lengd!=null &&
               this.lengd.equals(other.getLengd())));
@@ -361,20 +388,32 @@ public class SkipInfoTypeUser  extends is.fiskistofa.webservices.skip.FSWebServi
         }
         __hashCodeCalc = true;
         int _hashCode = super.hashCode();
-        if (getNafn() != null) {
-            _hashCode += getNafn().hashCode();
-        }
         if (getBruttotonn() != null) {
             _hashCode += getBruttotonn().hashCode();
         }
         if (getUtgerdNafn() != null) {
             _hashCode += getUtgerdNafn().hashCode();
         }
+        if (getBrl() != null) {
+            _hashCode += getBrl().hashCode();
+        }
         if (getHeimahofn() != null) {
             _hashCode += getHeimahofn().hashCode();
         }
-        if (getBrl() != null) {
-            _hashCode += getBrl().hashCode();
+        if (getUtgerdKt() != null) {
+            _hashCode += getUtgerdKt().hashCode();
+        }
+        if (getUtgFl() != null) {
+            _hashCode += getUtgFl().hashCode();
+        }
+        if (getEigandiNafn() != null) {
+            _hashCode += getEigandiNafn().hashCode();
+        }
+        if (getEigandiKt() != null) {
+            _hashCode += getEigandiKt().hashCode();
+        }
+        if (getNafn() != null) {
+            _hashCode += getNafn().hashCode();
         }
         if (getUtgFlHeiti() != null) {
             _hashCode += getUtgFlHeiti().hashCode();
@@ -382,17 +421,8 @@ public class SkipInfoTypeUser  extends is.fiskistofa.webservices.skip.FSWebServi
         if (getSkipNr() != null) {
             _hashCode += getSkipNr().hashCode();
         }
-        if (getUtgerdKt() != null) {
-            _hashCode += getUtgerdKt().hashCode();
-        }
-        if (getEigandiNafn() != null) {
-            _hashCode += getEigandiNafn().hashCode();
-        }
         if (getVinnsluleyfi() != null) {
             _hashCode += getVinnsluleyfi().hashCode();
-        }
-        if (getEigandiKt() != null) {
-            _hashCode += getEigandiKt().hashCode();
         }
         if (getLengd() != null) {
             _hashCode += getLengd().hashCode();
@@ -408,12 +438,6 @@ public class SkipInfoTypeUser  extends is.fiskistofa.webservices.skip.FSWebServi
     static {
         typeDesc.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "SkipInfoTypeUser"));
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("nafn");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "nafn"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
-        elemField.setNillable(true);
-        typeDesc.addFieldDesc(elemField);
-        elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("bruttotonn");
         elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "bruttotonn"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "decimal"));
@@ -426,15 +450,45 @@ public class SkipInfoTypeUser  extends is.fiskistofa.webservices.skip.FSWebServi
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("brl");
+        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "brl"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "decimal"));
+        elemField.setNillable(true);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("heimahofn");
         elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "heimahofn"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("brl");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "brl"));
+        elemField.setFieldName("utgerdKt");
+        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "utgerdKt"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        elemField.setNillable(true);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("utgFl");
+        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "utgFl"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "decimal"));
+        elemField.setNillable(true);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("eigandiNafn");
+        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "eigandiNafn"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        elemField.setNillable(true);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("eigandiKt");
+        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "eigandiKt"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        elemField.setNillable(true);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("nafn");
+        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "nafn"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
@@ -450,26 +504,8 @@ public class SkipInfoTypeUser  extends is.fiskistofa.webservices.skip.FSWebServi
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("utgerdKt");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "utgerdKt"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
-        elemField.setNillable(true);
-        typeDesc.addFieldDesc(elemField);
-        elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("eigandiNafn");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "eigandiNafn"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
-        elemField.setNillable(true);
-        typeDesc.addFieldDesc(elemField);
-        elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("vinnsluleyfi");
         elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "vinnsluleyfi"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
-        elemField.setNillable(true);
-        typeDesc.addFieldDesc(elemField);
-        elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("eigandiKt");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "eigandiKt"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
