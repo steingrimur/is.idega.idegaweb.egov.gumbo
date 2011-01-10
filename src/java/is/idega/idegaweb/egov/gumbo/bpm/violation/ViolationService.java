@@ -4,6 +4,7 @@ import is.idega.idegaweb.egov.gumbo.bpm.violation.ViolationDataProvider.Equipmen
 import is.idega.idegaweb.egov.gumbo.bpm.violation.ViolationDataProvider.PersonData;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import com.idega.util.text.Item;
 public class ViolationService {
 	
 	@Autowired
-	@Qualifier(DOFWSClient.WEB_SERVICE)
+	@Qualifier(DOFWSClient.MOCK)
 	private ViolationDataProvider violationDataProvider;
 	
 	public PersonData getViolationPersonData(String socialNr) {
@@ -31,7 +32,21 @@ public class ViolationService {
 	}
 	
 	public List<Item> getViolationTypes() {
-		return getViolationDataProvider().getViolationTypes();
+		return setLabelForValue(getViolationDataProvider().getViolationTypes());
+	}
+	
+	private List<Item> setLabelForValue(List<Item> items) {
+		
+		final List<Item> modifiedItems = new ArrayList<Item>(items.size());
+		
+		for (Item item : items) {
+			
+			modifiedItems
+			        .add(new Item(item.getItemLabel(), item.getItemLabel()));
+			
+		}
+		
+		return modifiedItems;
 	}
 	
 	public List<Item> getOtherInspectorsThanCurrentlyLoggedIn() {

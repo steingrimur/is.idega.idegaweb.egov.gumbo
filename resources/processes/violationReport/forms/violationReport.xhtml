@@ -82,9 +82,22 @@
                     <violationTimeLabel mapping="string_violationTimeLabel"/>
                     <tmpSocialNumber>1234</tmpSocialNumber>
                     <Violation_type_fbc_156 mapping="list_violationTypes"/>
-                    <Violation_types_summary mapping="list_violationTypesSummary"/>
-                    <GPS_location_latitude_fbc_104 mapping="string_locationLatitude"/>
-                    <GPS_location_longitude_fbc_159 mapping="string_locationLongitude"/>
+                    <Violation_types_summary mapping="string_violationTypesSummary"/>
+                    
+                    <GPS_location_latitude_degree mapping="string_locationLatitudeDegree"/>
+                    <GPS_location_latitude_minute mapping="string_locationLatitudeMinute"/>
+                    <GPS_location_latitude_second mapping="string_locationLatitudeSecond"/>
+                    <GPS_location_latitude_pole mapping="string_locationLatitudePole"/>
+                    
+                    <GPS_location_latitude_label mapping="string_locationLatitudeLabel"/>
+                    
+                    <GPS_location_longitude_degree mapping="string_locationLongitudeDegree"/>
+                    <GPS_location_longitude_minute mapping="string_locationLongitudeMinute"/>
+                    <GPS_location_longitude_second mapping="string_locationLongitudeSecond"/>
+                    <GPS_location_longitude_angle mapping="string_locationLongitudeAngle"/>
+                    
+                    <GPS_location_longitude_label mapping="string_locationLongitudeLabel"/>
+                    
                     <Harbour_nr_fbc_37 mapping="string_harbourNr"/>
                     <HarbourLabel mapping="string_harbourLabel"/>
                     <Address_fbc_160 mapping="string_violationAddress"/>
@@ -134,7 +147,7 @@
                     <policeInvolvementTrue/>
                     <policeInvolvementFalse/>
                     <Other_inspectors_fbc_221 mapping="list_otherInspectors"/>
-                    <Other_inspectors_summary mapping="list_otherInspectorsSummary"/>
+                    <Other_inspectors_summary mapping="string_otherInspectorsSummary"/>
                 </data>
             </xf:instance>
             <xf:instance id="control-instance">
@@ -192,9 +205,42 @@
             <xf:bind id="fbc_999_bind" nodeset="case_name_fbc_999"
                 required="instance('control-instance')/required = 'true'" type="xs:string"/>
             <xf:bind id="fbc_155_bind" nodeset="violationTimeLabel"/>
+            
             <xf:bind id="fbc_104_bind"
-                nodeset="GPS_location_latitude_fbc_104"
+                nodeset="GPS_location_latitude_degree"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+            <xf:bind id="fbc_226_bind"
+                nodeset="GPS_location_latitude_minute"
+                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+            <xf:bind id="fbc_227_bind"
+                nodeset="GPS_location_latitude_second"
+                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+            <xf:bind id="fbc_228_bind"
+                nodeset="GPS_location_latitude_pole"
+                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+                
+            <xf:bind id="fbc_229_bind"
+                nodeset="GPS_location_longitude_degree"
+                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+            <xf:bind id="fbc_230_bind"
+                nodeset="GPS_location_longitude_minute"
+                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+            <xf:bind id="fbc_231_bind"
+                nodeset="GPS_location_longitude_second"
+                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+            <xf:bind id="fbc_232_bind"
+                nodeset="GPS_location_longitude_angle"
+                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+                
+            <xf:bind id="fbc_234_bind"
+                nodeset="GPS_location_latitude_label"
+                type="xs:string"/>
+            <xf:bind id="fbc_235_bind"
+                nodeset="GPS_location_longitude_label"
+                type="xs:string"/>
+                
+                
+                
             <xf:bind id="fbc_106_bind"
                 nodeset="violationPersons/list/row[position() != last()]" readonly="instance('control-instance')/readonly = 'true'"/>
             <xf:bind id="fbc_106_trigger"
@@ -206,10 +252,7 @@
             <xf:bind id="fbc_156_bind" nodeset="Violation_type_fbc_156"
                 readonly="instance('control-instance')/readonly = 'true'"
                 required="instance('control-instance')/required = 'true'" type="xs:string"/>
-            <xf:bind id="fbc_157_bind" nodeset="Violation_types_summary" />
-            <xf:bind id="fbc_159_bind"
-                nodeset="GPS_location_longitude_fbc_159"
-                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+            <xf:bind id="fbc_224_bind" nodeset="Violation_types_summary" type="xs:string"/>
             <xf:bind id="fbc_160_bind" nodeset="Address_fbc_160"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
             <xf:bind id="fbc_161_bind" nodeset="Postal_code_fbc_161"
@@ -265,7 +308,7 @@
                 nodeset="policeInvolvementFalse" relevant="instance('data-instance')/Police_involvement_fbc_205 = ''"/>
             <xf:bind id="fbc_221_bind"
                 nodeset="Other_inspectors_fbc_221"
-                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+                readonly="instance('control-instance')/readonly = 'true'" required="false()" type="xs:string"/>
             <xf:bind id="fbc_222_bind"
                 nodeset="Other_inspectors_summary" type="xs:string"/>
         </xf:model>
@@ -347,8 +390,32 @@
                     <fbc_153-label lang="en">Violation time</fbc_153-label>
                     <fbc_155-label lang="is_IS">Tími</fbc_155-label>
                     <fbc_155-label lang="en">Violation time</fbc_155-label>
-                    <fbc_104-label lang="is_IS">GPS hnit</fbc_104-label>
-                    <fbc_104-label lang="en">GPS location latitude</fbc_104-label>
+                    
+                    <fbc_225-label lang="is_IS">GPS hnit</fbc_225-label>
+                    <fbc_225-label lang="en">GPS location latitude</fbc_225-label>
+                    
+                    <fbc_104-label lang="is_IS">Degree</fbc_104-label>
+                    <fbc_104-label lang="en">Degree</fbc_104-label>
+                    <fbc_226-label lang="is_IS">Minute</fbc_226-label>
+                    <fbc_226-label lang="en">Minute</fbc_226-label>
+                    <fbc_227-label lang="is_IS">Second</fbc_227-label>
+                    <fbc_227-label lang="en">Second</fbc_227-label>
+                    <fbc_228-label lang="is_IS">Pole</fbc_228-label>
+                    <fbc_228-label lang="en">Pole</fbc_228-label>
+                    
+                    <fbc_233-label lang="is_IS">GPS hnit</fbc_233-label>
+                    <fbc_233-label lang="en">GPS location longitude</fbc_233-label>
+
+                    <fbc_229-label lang="is_IS">Degree</fbc_229-label>
+                    <fbc_229-label lang="en">Degree</fbc_229-label>                    
+                    <fbc_230-label lang="is_IS">Minute</fbc_230-label>
+                    <fbc_230-label lang="en">Minute</fbc_230-label>
+                    <fbc_231-label lang="is_IS">Second</fbc_231-label>
+                    <fbc_231-label lang="en">Second</fbc_231-label>
+                    <fbc_232-label lang="is_IS">Angle</fbc_232-label>
+                    <fbc_232-label lang="en">Angle</fbc_232-label>
+                    
+                    
                     <fbc_109-label lang="is_IS">Starfsheiti/Aðkoma</fbc_109-label>
                     <fbc_109-label lang="en">Involvement</fbc_109-label>
                     <fbc_109a-label lang="is_IS">Aðkoma</fbc_109a-label>
@@ -401,16 +468,12 @@
                     <fbc_156-label lang="en">Violation type</fbc_156-label>
                     <fbc_156-required lang="is_IS">Það þarf að fylla út reitinn X</fbc_156-required>
                     <fbc_156-required lang="en">The field X is required</fbc_156-required>
-                    <fbc_159-label lang="is_IS">GPS hnit</fbc_159-label>
-                    <fbc_159-label lang="en">GPS location longitude</fbc_159-label>
                     <fbc_160-label lang="is_IS">Heimilisfang</fbc_160-label>
                     <fbc_160-label lang="en">Address</fbc_160-label>
                     <fbc_161-label lang="is_IS">Póstnúmer</fbc_161-label>
                     <fbc_161-label lang="en">Postal code</fbc_161-label>
                     <fbc_104-required lang="is_IS">Það þarf að fylla út reitinn X</fbc_104-required>
                     <fbc_104-required lang="en">The field X is required</fbc_104-required>
-                    <fbc_159-required lang="is_IS">Það þarf að fylla út reitinn X</fbc_159-required>
-                    <fbc_159-required lang="en">The field X is required</fbc_159-required>
                     <fbc_163-label lang="is_IS">Um borð í skipi</fbc_163-label>
                     <fbc_163-label lang="en">Um borð í skipi</fbc_163-label>
                     <fbc_170-text lang="is_IS">Valið</fbc_170-text>
@@ -499,14 +562,30 @@
                 <idega:setvalue
                     ref="instance('fbc_156_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('violationService.getViolationTypes()')"/>
                 <idega:setvalue
-                    ref="instance('fbc_157_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('violationService.getViolationTypes()')"/>
-                <idega:setvalue
                     ref="instance('fbc_221_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('violationService.getOtherInspectorsThanCurrentlyLoggedIn()')"/>
-                <idega:setvalue
-                    ref="instance('fbc_222_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('violationService.getOtherInspectorsThanCurrentlyLoggedIn()')"/>
-                <idega:setvalue
+                <idega:setvalue 
                     ref="instance('fbc_213_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('violationService.getFiskistofeOffices()')"/>
+                <xf:setvalue model="submission_model" ref="instance('data-instance')/Other_inspectors_fbc_221" value="''"/>
             </xf:action>
+            
+            <xf:setvalue
+                    ev:event="idega-latitudeValueChanged"
+                    id="fbc_latitudeValueCalculator"
+                    
+                    if="instance('data-instance')/GPS_location_latitude_degree != '' and instance('data-instance')/GPS_location_latitude_minute != '' and instance('data-instance')/GPS_location_latitude_second != '' and instance('data-instance')/GPS_location_latitude_pole != ''"
+                    
+                    model="submission_model"
+                    ref="instance('data-instance')/GPS_location_latitude_label" value="concat(instance('data-instance')/GPS_location_latitude_degree, '°', instance('data-instance')/GPS_location_latitude_minute, ',', instance('data-instance')/GPS_location_latitude_second, '´', instance('data-instance')/GPS_location_latitude_pole)"/>
+                    
+            <xf:setvalue
+                    ev:event="idega-longitudeValueChanged"
+                    id="fbc_longitudeValueCalculator"
+                    
+                    if="instance('data-instance')/GPS_location_longitude_degree != '' and instance('data-instance')/GPS_location_longitude_minute != '' and instance('data-instance')/GPS_location_longitude_second != '' and instance('data-instance')/GPS_location_longitude_angle != ''"
+                    
+                    model="submission_model"
+                    ref="instance('data-instance')/GPS_location_longitude_label" value="concat(instance('data-instance')/GPS_location_longitude_degree, '°', instance('data-instance')/GPS_location_longitude_minute, ',', instance('data-instance')/GPS_location_longitude_second, '´', instance('data-instance')/GPS_location_longitude_angle)"/>
+            
             <xf:instance id="fbc_37_lds" xmlns="">
                 <local_src>
                     <localizedEntries lang="en">
@@ -533,16 +612,6 @@
             <xf:instance id="fbc_156_eds" xmlns="">
                 <ext_src/>
             </xf:instance>
-            <xf:instance id="fbc_157_lds" xmlns="">
-                <local_src>
-                    <localizedEntries lang="en">
-                        <item/>
-                    </localizedEntries>
-                    <localizedEntries lang="is_IS">
-                        <item/>
-                    </localizedEntries>
-                </local_src>
-            </xf:instance>
             <xf:instance id="fbc_163_lds" xmlns="">
                 <local_src>
                     <localizedEntries lang="en">
@@ -567,157 +636,157 @@
                     <localizedEntries lang="en">
                         <item>
                             <itemLabel>Fiskibotnvarpa</itemLabel>
-                            <itemValue>fiskibotnvarpa</itemValue>
+                            <itemValue>Fiskibotnvarpa</itemValue>
                         </item>
                         <item>
                             <itemLabel>Humarvarpa</itemLabel>
-                            <itemValue>humarvarpa</itemValue>
+                            <itemValue>Humarvarpa</itemValue>
                         </item>
                         <item>
                             <itemLabel>Rækjuvarpa</itemLabel>
-                            <itemValue>raekjuvarpa</itemValue>
+                            <itemValue>Rækjuvarpa</itemValue>
                         </item>
                         <item>
                             <itemLabel>Flotvarpa (karfi)</itemLabel>
-                            <itemValue>flotvarpa-k</itemValue>
+                            <itemValue>Flotvarpa (karfi)</itemValue>
                         </item>
                         <item>
                             <itemLabel>Flotvarpa (loðna/sílf o.fl.)</itemLabel>
-                            <itemValue>flotvarpa-l</itemValue>
+                            <itemValue>Flotvarpa (loðna/sílf o.fl.)</itemValue>
                         </item>
                         <item>
                             <itemLabel>Dragnót</itemLabel>
-                            <itemValue>dragnot</itemValue>
+                            <itemValue>Dragnót</itemValue>
                         </item>
                         <item>
                             <itemLabel>Nót</itemLabel>
-                            <itemValue>not</itemValue>
+                            <itemValue>Nót</itemValue>
                         </item>
                         <item>
                             <itemLabel>Lína</itemLabel>
-                            <itemValue>lina</itemValue>
+                            <itemValue>Lína</itemValue>
                         </item>
                         <item>
                             <itemLabel>Haukalóð</itemLabel>
-                            <itemValue>haukalod</itemValue>
+                            <itemValue>Haukalóð</itemValue>
                         </item>
                         <item>
                             <itemLabel>Handfæri</itemLabel>
-                            <itemValue>handfaeri</itemValue>
+                            <itemValue>Handfæri</itemValue>
                         </item>
                         <item>
                             <itemLabel>Þorskfisknet</itemLabel>
-                            <itemValue>thorskfisknet</itemValue>
+                            <itemValue>Þorskfisknet</itemValue>
                         </item>
                         <item>
                             <itemLabel>Grásleppunet</itemLabel>
-                            <itemValue>grasleppunet</itemValue>
+                            <itemValue>Grásleppunet</itemValue>
                         </item>
                         <item>
                             <itemLabel>Rauðmaganet</itemLabel>
-                            <itemValue>raudmaganet</itemValue>
+                            <itemValue>Rauðmaganet</itemValue>
                         </item>
                         <item>
                             <itemLabel>Skötuselsnet</itemLabel>
-                            <itemValue>skotuselsnet</itemValue>
+                            <itemValue>Skötuselsnet</itemValue>
                         </item>
                         <item>
                             <itemLabel>Skelplógur</itemLabel>
-                            <itemValue>skelplogur</itemValue>
+                            <itemValue>Skelplógur</itemValue>
                         </item>
                         <item>
                             <itemLabel>Krabbagildra</itemLabel>
-                            <itemValue>krabbagildra</itemValue>
+                            <itemValue>Krabbagildra</itemValue>
                         </item>
                         <item>
                             <itemLabel>Þorskgildra</itemLabel>
-                            <itemValue>thorskgildra</itemValue>
+                            <itemValue>Þorskgildra</itemValue>
                         </item>
                         <item>
                             <itemLabel>Silunganet</itemLabel>
-                            <itemValue>silunganet</itemValue>
+                            <itemValue>Silunganet</itemValue>
                         </item>
                         <item>
                             <itemLabel>Annað</itemLabel>
-                            <itemValue>annad</itemValue>
+                            <itemValue>Annað</itemValue>
                         </item>
                     </localizedEntries>
                     <localizedEntries lang="is_IS">
                         <item>
                             <itemLabel>Fiskibotnvarpa</itemLabel>
-                            <itemValue>fiskibotnvarpa</itemValue>
+                            <itemValue>Fiskibotnvarpa</itemValue>
                         </item>
                         <item>
                             <itemLabel>Humarvarpa</itemLabel>
-                            <itemValue>humarvarpa</itemValue>
+                            <itemValue>Humarvarpa</itemValue>
                         </item>
                         <item>
                             <itemLabel>Rækjuvarpa</itemLabel>
-                            <itemValue>raekjuvarpa</itemValue>
+                            <itemValue>Rækjuvarpa</itemValue>
                         </item>
                         <item>
                             <itemLabel>Flotvarpa (karfi)</itemLabel>
-                            <itemValue>flotvarpa-k</itemValue>
+                            <itemValue>Flotvarpa (karfi)</itemValue>
                         </item>
                         <item>
                             <itemLabel>Flotvarpa (loðna/sílf o.fl.)</itemLabel>
-                            <itemValue>flotvarpa-l</itemValue>
+                            <itemValue>Flotvarpa (loðna/sílf o.fl.)</itemValue>
                         </item>
                         <item>
                             <itemLabel>Dragnót</itemLabel>
-                            <itemValue>dragnot</itemValue>
+                            <itemValue>Dragnót</itemValue>
                         </item>
                         <item>
                             <itemLabel>Nót</itemLabel>
-                            <itemValue>not</itemValue>
+                            <itemValue>Nót</itemValue>
                         </item>
                         <item>
                             <itemLabel>Lína</itemLabel>
-                            <itemValue>lina</itemValue>
+                            <itemValue>Lína</itemValue>
                         </item>
                         <item>
                             <itemLabel>Haukalóð</itemLabel>
-                            <itemValue>haukalod</itemValue>
+                            <itemValue>Haukalóð</itemValue>
                         </item>
                         <item>
                             <itemLabel>Handfæri</itemLabel>
-                            <itemValue>handfaeri</itemValue>
+                            <itemValue>Handfæri</itemValue>
                         </item>
                         <item>
                             <itemLabel>Þorskfisknet</itemLabel>
-                            <itemValue>thorskfisknet</itemValue>
+                            <itemValue>Þorskfisknet</itemValue>
                         </item>
                         <item>
                             <itemLabel>Grásleppunet</itemLabel>
-                            <itemValue>grasleppunet</itemValue>
+                            <itemValue>Grásleppunet</itemValue>
                         </item>
                         <item>
                             <itemLabel>Rauðmaganet</itemLabel>
-                            <itemValue>raudmaganet</itemValue>
+                            <itemValue>Rauðmaganet</itemValue>
                         </item>
                         <item>
                             <itemLabel>Skötuselsnet</itemLabel>
-                            <itemValue>skotuselsnet</itemValue>
+                            <itemValue>Skötuselsnet</itemValue>
                         </item>
                         <item>
                             <itemLabel>Skelplógur</itemLabel>
-                            <itemValue>skelplogur</itemValue>
+                            <itemValue>Skelplógur</itemValue>
                         </item>
                         <item>
                             <itemLabel>Krabbagildra</itemLabel>
-                            <itemValue>krabbagildra</itemValue>
+                            <itemValue>Krabbagildra</itemValue>
                         </item>
                         <item>
                             <itemLabel>Þorskgildra</itemLabel>
-                            <itemValue>thorskgildra</itemValue>
+                            <itemValue>Þorskgildra</itemValue>
                         </item>
                         <item>
                             <itemLabel>Silunganet</itemLabel>
-                            <itemValue>silunganet</itemValue>
+                            <itemValue>Silunganet</itemValue>
                         </item>
                         <item>
                             <itemLabel>Annað</itemLabel>
-                            <itemValue>annad</itemValue>
+                            <itemValue>Annað</itemValue>
                         </item>
                     </localizedEntries>
                 </local_src>
@@ -829,13 +898,53 @@
             <xf:instance id="fbc_221_eds" xmlns="">
                 <ext_src/>
             </xf:instance>
-            <xf:instance id="fbc_222_lds" xmlns="">
+            
+            <xf:instance id="fbc_228_lds" xmlns="">
                 <local_src>
                     <localizedEntries lang="en">
-                        <item/>
+                        <item>
+                            <itemLabel>N</itemLabel>
+                            <itemValue>N</itemValue>
+                        </item>
+                        <item>
+                            <itemLabel>S</itemLabel>
+                            <itemValue>S</itemValue>
+                        </item>
                     </localizedEntries>
                     <localizedEntries lang="is_IS">
-                        <item/>
+                        <item>
+                            <itemLabel>N</itemLabel>
+                            <itemValue>N</itemValue>
+                        </item>
+                        <item>
+                            <itemLabel>S</itemLabel>
+                            <itemValue>S</itemValue>
+                        </item>
+                    </localizedEntries>
+                </local_src>
+            </xf:instance>
+            
+            <xf:instance id="fbc_232_lds" xmlns="">
+                <local_src>
+                    <localizedEntries lang="en">
+                        <item>
+                            <itemLabel>E</itemLabel>
+                            <itemValue>E</itemValue>
+                        </item>
+                        <item>
+                            <itemLabel>W</itemLabel>
+                            <itemValue>W</itemValue>
+                        </item>
+                    </localizedEntries>
+                    <localizedEntries lang="is_IS">
+                        <item>
+                            <itemLabel>E</itemLabel>
+                            <itemValue>E</itemValue>
+                        </item>
+                        <item>
+                            <itemLabel>W</itemLabel>
+                            <itemValue>W</itemValue>
+                        </item>
                     </localizedEntries>
                 </local_src>
             </xf:instance>
@@ -1037,8 +1146,11 @@
 	                                <xf:label ref="itemLabel"/>
 	                                <xf:value ref="itemValue"/>
 	                            </xf:itemset>
-	                            <xf:setvalue ev:event="xforms-value-changed"
-	                                ref="instance('data-instance')/Violation_types_summary" value="instance('data-instance')/Violation_type_fbc_156"/>
+	                            
+	                            <xf:setvalue
+                                ev:event="xforms-value-changed"
+                                ref="instance('data-instance')/Violation_types_summary" value="instance('data-instance')/Violation_type_fbc_156"/>
+	                            
 	                            <xf:dispatch ev:event="idega-xforms-ready"
 	                                name="idega-validate" target="fbc_156"/>
 	                            <xf:dispatch ev:event="xforms-value-changed"
@@ -1053,30 +1165,75 @@
                         <div class="fbc_header_text" id="fbc_39" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_39-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
+                        
+                        <div class="fbc_header_text" id="fbc_225" type="fbc_header_text">
+                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_225-label[@lang=instance('localized_strings')/current_language]"/>
+                        </div>
+                        
                         <xf:input bind="fbc_104_bind" id="fbc_104" type="fbc_text">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_104-label[@lang=instance('localized_strings')/current_language]"/>
-                            <xf:dispatch ev:event="idega-xforms-ready"
-                                name="idega-validate" target="fbc_104"/>
+                            
                             <xf:dispatch ev:event="xforms-value-changed"
-                                name="idega-validate" target="fbc_104"/>
-                            <idega:validator ev:event="idega-validate">
-                                <idega:message errorType="required"
-                                    model="data_model" value="instance('localized_strings')/fbc_104-required[@lang=instance('localized_strings')/current_language]"/>
-                            </idega:validator>
-                            <xf:alert ref="instance('error-instance')/error[@for='fbc_104']"/>
+                                name="idega-latitudeValueChanged" target="fbc_latitudeValueCalculator"/>
                         </xf:input>
-                        <xf:input bind="fbc_159_bind" id="fbc_159" type="fbc_text">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_159-label[@lang=instance('localized_strings')/current_language]"/>
-                            <xf:dispatch ev:event="idega-xforms-ready"
-                                name="idega-validate" target="fbc_159"/>
+                        <xf:input bind="fbc_226_bind" id="fbc_226" type="fbc_text">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_226-label[@lang=instance('localized_strings')/current_language]"/>
+                            
                             <xf:dispatch ev:event="xforms-value-changed"
-                                name="idega-validate" target="fbc_159"/>
-                            <idega:validator ev:event="idega-validate">
-                                <idega:message errorType="required"
-                                    model="data_model" value="instance('localized_strings')/fbc_159-required[@lang=instance('localized_strings')/current_language]"/>
-                            </idega:validator>
-                            <xf:alert ref="instance('error-instance')/error[@for='fbc_159']"/>
+                                name="idega-latitudeValueChanged" target="fbc_latitudeValueCalculator"/>
                         </xf:input>
+                        <xf:input bind="fbc_227_bind" id="fbc_227" type="fbc_text">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_227-label[@lang=instance('localized_strings')/current_language]"/>
+                            
+                            <xf:dispatch ev:event="xforms-value-changed"
+                                name="idega-latitudeValueChanged" target="fbc_latitudeValueCalculator"/>
+                        </xf:input>
+                        <xf:select1 appearance="minimal"
+                            bind="fbc_228_bind" id="fbc_228" type="fbc_single_select_minimal">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_228-label[@lang=instance('localized_strings')/current_language]"/>
+                            <xf:itemset model="data_model" nodeset="instance('fbc_228_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
+                                <xf:label ref="itemLabel"/>
+                                <xf:value ref="itemValue"/>
+                            </xf:itemset>
+                            
+                            <xf:dispatch ev:event="xforms-value-changed"
+                                name="idega-latitudeValueChanged" target="fbc_latitudeValueCalculator"/>
+                        </xf:select1>
+                        
+                        <div class="fbc_header_text" id="fbc_233" type="fbc_header_text">
+                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_233-label[@lang=instance('localized_strings')/current_language]"/>
+                        </div>
+                        
+                        <xf:input bind="fbc_229_bind" id="fbc_229" type="fbc_text">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_229-label[@lang=instance('localized_strings')/current_language]"/>
+                            
+                            <xf:dispatch ev:event="xforms-value-changed"
+                                name="idega-longitudeValueChanged" target="fbc_longitudeValueCalculator"/>
+                        </xf:input>
+                        <xf:input bind="fbc_230_bind" id="fbc_230" type="fbc_text">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_230-label[@lang=instance('localized_strings')/current_language]"/>
+                            
+                            <xf:dispatch ev:event="xforms-value-changed"
+                                name="idega-longitudeValueChanged" target="fbc_longitudeValueCalculator"/>
+                        </xf:input>
+                        <xf:input bind="fbc_231_bind" id="fbc_231" type="fbc_text">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_231-label[@lang=instance('localized_strings')/current_language]"/>
+                            
+                            <xf:dispatch ev:event="xforms-value-changed"
+                                name="idega-longitudeValueChanged" target="fbc_longitudeValueCalculator"/>
+                        </xf:input>
+                        <xf:select1 appearance="minimal"
+                            bind="fbc_232_bind" id="fbc_232" type="fbc_single_select_minimal">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_232-label[@lang=instance('localized_strings')/current_language]"/>
+                            <xf:itemset model="data_model" nodeset="instance('fbc_232_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
+                                <xf:label ref="itemLabel"/>
+                                <xf:value ref="itemValue"/>
+                            </xf:itemset>
+                            
+                            <xf:dispatch ev:event="xforms-value-changed"
+                                name="idega-longitudeValueChanged" target="fbc_longitudeValueCalculator"/>
+                        </xf:select1>
+                        
                         <xf:select1 appearance="minimal"
                             bind="fbc_37_bind" id="fbc_37" type="fbc_single_select_minimal">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_37-label[@lang=instance('localized_strings')/current_language]"/>
@@ -1330,18 +1487,17 @@
                         <xf:input bind="fbc_211_bind" id="fbc_211">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_211-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:input>
-                        <div class="threeColumns">
-	                        <xf:select appearance="full"
-	                            bind="fbc_221_bind" id="fbc_221" type="fbc_multiple_select_minimal">
-	                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_221-label[@lang=instance('localized_strings')/current_language]"/>
-	                            <xf:itemset model="data_model" nodeset="instance('fbc_221_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
-	                                <xf:label ref="itemLabel"/>
-	                                <xf:value ref="itemValue"/>
-	                            </xf:itemset>
-	                            <xf:setvalue ev:event="xforms-value-changed"
-	                                ref="instance('data-instance')/Other_inspectors_summary" value="instance('data-instance')/Other_inspectors_fbc_221"/>
-	                        </xf:select>
-	                    </div>
+                        <div class="multiSelectBox">
+                            <xf:select class="box" appearance="full" bind="fbc_221_bind" id="fbc_221" type="fbc_multiple_select_minimal">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_221-label[@lang=instance('localized_strings')/current_language]"/>
+                                <xf:itemset model="data_model" nodeset="instance('fbc_221_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
+                                    <xf:label ref="itemLabel"/>
+                                    <xf:value ref="itemValue"/>
+                                </xf:itemset>
+                                <xf:setvalue ev:event="xforms-value-changed"
+                                    ref="instance('data-instance')/Other_inspectors_summary" value="instance('data-instance')/Other_inspectors_fbc_221"/>
+                            </xf:select>
+                        </div>
                         <xf:select1 appearance="minimal"
                             bind="fbc_213_bind" id="fbc_213" type="fbc_single_select_minimal">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_213-label[@lang=instance('localized_strings')/current_language]"/>
@@ -1450,24 +1606,17 @@
                         <div class="fbc_header_text" id="fbc_158" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_36-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
-                        <div class="multiSelectBox">
-	                        <xf:select class="box" appearance="full" bind="fbc_156_bind"
-	                            id="fbc_157" type="fbc_multiple_select">
-	                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_36-text[@lang=instance('localized_strings')/current_language]"/>
-	                            <xf:itemset model="data_model" nodeset="instance('fbc_156_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
-	                                <xf:label ref="itemLabel"/>
-	                                <xf:value ref="itemValue"/>
-	                            </xf:itemset>
-	                        </xf:select>
-                        </div>
+                        <xf:output bind="fbc_224_bind" id="fbc_224" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_156-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
                         <div class="fbc_header_text" id="fbc_57" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_39-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
-                        <xf:output bind="fbc_104_bind" id="fbc_164" type="fbc_text_output">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_104-label[@lang=instance('localized_strings')/current_language]"/>
+                        <xf:output bind="fbc_234_bind" id="fbc_165" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_225-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
-                        <xf:output bind="fbc_159_bind" id="fbc_165" type="fbc_text_output">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_159-label[@lang=instance('localized_strings')/current_language]"/>
+                        <xf:output bind="fbc_235_bind" id="fbc_164" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_233-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
                         <xf:output bind="fbc_166_bind" id="fbc_166" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_37-label[@lang=instance('localized_strings')/current_language]"/>
@@ -1523,16 +1672,9 @@
                         <xf:output bind="fbc_191a_bind" id="fbc_197a" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_191a-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
-                        <div class="threeColumns">
-	                        <xf:select appearance="full" bind="fbc_198_bind"
-	                            id="fbc_198" type="fbc_multiple_select">
-	                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_192-label[@lang=instance('localized_strings')/current_language]"/>
-	                            <xf:itemset model="data_model" nodeset="instance('fbc_192_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
-	                                <xf:label ref="itemLabel"/>
-	                                <xf:value ref="itemValue"/>
-	                            </xf:itemset>
-	                        </xf:select>
-	                    </div>
+                        <xf:output bind="fbc_198_bind" id="fbc_198" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_192-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
                         <div class="fbc_header_text" id="fbc_214" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_200-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
@@ -1557,16 +1699,9 @@
                         <xf:output bind="fbc_211_bind" id="fbc_219" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_211-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
-                        <div class="threeColumns">
-	                        <xf:select appearance="full"
-	                            bind="fbc_221_bind" id="fbc_222" type="fbc_multiple_select_minimal">
-	                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_221-label[@lang=instance('localized_strings')/current_language]"/>
-	                            <xf:itemset model="data_model" nodeset="instance('fbc_221_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
-	                                <xf:label ref="itemLabel"/>
-	                                <xf:value ref="itemValue"/>
-	                            </xf:itemset>
-	                        </xf:select>
-	                    </div>
+                        <xf:output bind="fbc_222_bind" id="fbc_222" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_221-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
                         <xf:output bind="fbc_223_bind" id="fbc_223" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_213-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>

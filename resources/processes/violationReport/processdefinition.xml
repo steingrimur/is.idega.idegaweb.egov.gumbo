@@ -83,10 +83,22 @@
             <variable name="string_violationTime" access="read,write"></variable>
             <variable name="string_violationTimeLabel" access="read,write"></variable>
             <variable name="list_violationTypes" access="read,write"></variable>
-            <variable name="list_violationTypesSummary" access="read,write"></variable>
+            <variable name="string_violationTypesSummary" access="read,write"></variable>
             
-            <variable name="string_locationLatitude" access="read,write"></variable>
-            <variable name="string_locationLongitude" access="read,write"></variable>
+            <variable name="string_locationLatitudeDegree" access="read,write"></variable>
+            <variable name="string_locationLatitudeMinute" access="read,write"></variable>
+            <variable name="string_locationLatitudeSecond" access="read,write"></variable>
+            <variable name="string_locationLatitudePole" access="read,write"></variable>
+            
+            <variable name="string_locationLatitudeLabel" access="read,write"></variable>
+            
+            <variable name="string_locationLongitudeDegree" access="read,write"></variable>
+            <variable name="string_locationLongitudeMinute" access="read,write"></variable>
+            <variable name="string_locationLongitudeSecond" access="read,write"></variable>
+            <variable name="string_locationLongitudeAngle" access="read,write"></variable>
+            
+            <variable name="string_locationLongitudeLabel" access="read,write"></variable>
+            
             <variable name="string_harbourNr" access="read,write"></variable>
             <variable name="string_harbourLabel" access="read,write"></variable>
             <variable name="string_violationAddress" access="read,write"></variable>
@@ -114,7 +126,7 @@
             <variable name="string_fiskistofaOffice" access="read,write"></variable>
             <variable name="string_fiskistofaOfficeLabel" access="read,write"></variable>
             <variable name="list_otherInspectors" access="read,write"></variable>
-            <variable name="list_otherInspectorsSummary" access="read,write"></variable>
+            <variable name="string_otherInspectorsSummary" access="read,write"></variable>
             
          </controller>
       </task>

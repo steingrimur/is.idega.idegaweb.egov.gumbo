@@ -49,15 +49,15 @@ public class ViolationDataProviderMock implements ViolationDataProvider {
 	@Override
 	public List<Item> getOtherInspectorsThanCurrentlyLoggedIn() {
 		return Arrays.asList(new Item[] {
-		        new Item("item1", "other inspector 1"),
-		        new Item("item2", "other inspector 2") });
+		        new Item("insp1", "other inspector 1"),
+		        new Item("insp2", "other inspector 2") });
 	}
 	
 	@Override
 	public List<Item> getFiskistofeOffices() {
 		return Arrays.asList(new Item[] {
-		        new Item("item1", "fiskistofa office 1"),
-		        new Item("item2", "fiskistofa office 2") });
+		        new Item("office1", "fiskistofa1 office 1"),
+		        new Item("office2", "fiskistofa2 office 2") });
 	}
 	
 	@Override
