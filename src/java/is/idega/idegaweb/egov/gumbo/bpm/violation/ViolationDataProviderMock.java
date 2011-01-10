@@ -124,4 +124,10 @@ public class ViolationDataProviderMock implements ViolationDataProvider {
 			throw new IBORuntimeException(ile);
 		}
 	}
+	
+	@Override
+	public List<Item> getFishingGears() {
+		return Arrays.asList(new Item[] { new Item("item1", "fishing gear 1"),
+		        new Item("item2", "fishing gear 2") });
+	}
 }

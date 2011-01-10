@@ -58,6 +58,10 @@ public class ViolationService {
 		return getViolationDataProvider().getFiskistofeOffices();
 	}
 	
+	public List<Item> getFishingGears() {
+		return setLabelForValue(getViolationDataProvider().getFishingGears());
+	}
+	
 	public List<Item> getHarbours() {
 		return getViolationDataProvider().getHarbours();
 	}

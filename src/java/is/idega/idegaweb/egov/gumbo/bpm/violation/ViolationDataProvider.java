@@ -20,6 +20,8 @@ public interface ViolationDataProvider {
 	
 	public abstract List<Item> getFiskistofeOffices();
 	
+	public abstract List<Item> getFishingGears();
+	
 	public abstract List<Item> getHarbours();
 	
 	public abstract String getTypeLabelOfPermissionForViolationCompany(
@@ -82,11 +84,11 @@ public interface ViolationDataProvider {
 			        : CoreConstants.EMPTY;
 			return this;
 		}
-
+		
 		public String getFisheriesName() {
 			return fisheriesName;
 		}
-
+		
 		public EquipmentData setFisheriesName(String fisheriesName) {
 			this.fisheriesName = fisheriesName;
 			return this;

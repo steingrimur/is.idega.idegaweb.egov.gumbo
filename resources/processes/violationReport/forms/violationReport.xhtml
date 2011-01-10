@@ -565,7 +565,8 @@
                     ref="instance('fbc_221_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('violationService.getOtherInspectorsThanCurrentlyLoggedIn()')"/>
                 <idega:setvalue 
                     ref="instance('fbc_213_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('violationService.getFiskistofeOffices()')"/>
-                <xf:setvalue model="submission_model" ref="instance('data-instance')/Other_inspectors_fbc_221" value="''"/>
+                <idega:setvalue
+                    ref="instance('fbc_192_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('violationService.getFishingGears()')"/>
             </xf:action>
             
             <xf:setvalue
@@ -634,160 +635,10 @@
             <xf:instance id="fbc_192_lds" xmlns="">
                 <local_src>
                     <localizedEntries lang="en">
-                        <item>
-                            <itemLabel>Fiskibotnvarpa</itemLabel>
-                            <itemValue>Fiskibotnvarpa</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Humarvarpa</itemLabel>
-                            <itemValue>Humarvarpa</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Rækjuvarpa</itemLabel>
-                            <itemValue>Rækjuvarpa</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Flotvarpa (karfi)</itemLabel>
-                            <itemValue>Flotvarpa (karfi)</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Flotvarpa (loðna/sílf o.fl.)</itemLabel>
-                            <itemValue>Flotvarpa (loðna/sílf o.fl.)</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Dragnót</itemLabel>
-                            <itemValue>Dragnót</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Nót</itemLabel>
-                            <itemValue>Nót</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Lína</itemLabel>
-                            <itemValue>Lína</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Haukalóð</itemLabel>
-                            <itemValue>Haukalóð</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Handfæri</itemLabel>
-                            <itemValue>Handfæri</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Þorskfisknet</itemLabel>
-                            <itemValue>Þorskfisknet</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Grásleppunet</itemLabel>
-                            <itemValue>Grásleppunet</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Rauðmaganet</itemLabel>
-                            <itemValue>Rauðmaganet</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Skötuselsnet</itemLabel>
-                            <itemValue>Skötuselsnet</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Skelplógur</itemLabel>
-                            <itemValue>Skelplógur</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Krabbagildra</itemLabel>
-                            <itemValue>Krabbagildra</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Þorskgildra</itemLabel>
-                            <itemValue>Þorskgildra</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Silunganet</itemLabel>
-                            <itemValue>Silunganet</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Annað</itemLabel>
-                            <itemValue>Annað</itemValue>
-                        </item>
+                        <item/>
                     </localizedEntries>
                     <localizedEntries lang="is_IS">
-                        <item>
-                            <itemLabel>Fiskibotnvarpa</itemLabel>
-                            <itemValue>Fiskibotnvarpa</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Humarvarpa</itemLabel>
-                            <itemValue>Humarvarpa</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Rækjuvarpa</itemLabel>
-                            <itemValue>Rækjuvarpa</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Flotvarpa (karfi)</itemLabel>
-                            <itemValue>Flotvarpa (karfi)</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Flotvarpa (loðna/sílf o.fl.)</itemLabel>
-                            <itemValue>Flotvarpa (loðna/sílf o.fl.)</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Dragnót</itemLabel>
-                            <itemValue>Dragnót</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Nót</itemLabel>
-                            <itemValue>Nót</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Lína</itemLabel>
-                            <itemValue>Lína</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Haukalóð</itemLabel>
-                            <itemValue>Haukalóð</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Handfæri</itemLabel>
-                            <itemValue>Handfæri</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Þorskfisknet</itemLabel>
-                            <itemValue>Þorskfisknet</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Grásleppunet</itemLabel>
-                            <itemValue>Grásleppunet</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Rauðmaganet</itemLabel>
-                            <itemValue>Rauðmaganet</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Skötuselsnet</itemLabel>
-                            <itemValue>Skötuselsnet</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Skelplógur</itemLabel>
-                            <itemValue>Skelplógur</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Krabbagildra</itemLabel>
-                            <itemValue>Krabbagildra</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Þorskgildra</itemLabel>
-                            <itemValue>Þorskgildra</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Silunganet</itemLabel>
-                            <itemValue>Silunganet</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Annað</itemLabel>
-                            <itemValue>Annað</itemValue>
-                        </item>
+                        <item/>
                     </localizedEntries>
                 </local_src>
             </xf:instance>

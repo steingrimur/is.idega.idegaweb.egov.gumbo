@@ -23,6 +23,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -505,5 +506,11 @@ public class ViolationDataProviderRealWebservice implements
 		} catch (IBOLookupException ile) {
 			throw new IBORuntimeException(ile);
 		}
+	}
+	
+	@Override
+	public List<Item> getFishingGears() {
+		return Arrays.asList(new Item[] { new Item("item1", "fishing gear 1"),
+		        new Item("item2", "fishing gear 1") });
 	}
 }
