@@ -8,6 +8,9 @@
         <task name="violationReportTask" initial="true">
             <viewResource resourceIdentifier="forms/violationReport.xhtml" viewType="xforms" viewResourceType="xforms" />
         </task>
+        <task name="violationReportOnRepeatTask">
+            <viewResource resourceIdentifier="forms/violationReport.xhtml" viewType="xforms" viewResourceType="xforms" />
+        </task>
         <task name="setTimeframeTask">
             <viewResource resourceIdentifier="forms/setTimeframe.xhtml" viewType="xforms" viewResourceType="xforms" />
         </task>

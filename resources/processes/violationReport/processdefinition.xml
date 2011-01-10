@@ -251,6 +251,7 @@
 		<transition to="inviteParticipant" name="toInviteParticipant"></transition>
 		<transition to="requestAdditionalInformation" name="toRequestAdditionalInformation"></transition>
 		<transition to="submitAdditionalInformationWithoutRequest" name="toSubmitAdditionalInformationWithoutRequest"></transition>
+		<transition to="violationReportOnRepeat" name="toViolationReportOnRepeat"></transition>
 	</fork>
 
 	<task-node name="sendToLegalDepartment">
@@ -742,10 +743,89 @@
 		<transition to="end-state1"></transition>
 	</task-node>
 
+	<task-node name="violationReportOnRepeat">
+	   <task name="violationReportOnRepeatTask" priority="-1">
+         <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+            <handlerName>jsonAssignmentHandler</handlerName>
+            <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                <entry><key>expression</key>
+                    <value>
+                        {taskAssignment: {roles: {role: [
+                           {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}}
+                        ]} }}
+                    </value>
+                </entry>
+            </propertyMap>
+         </assignment>
+         
+         <controller>
+            <variable name="string_caseIdentifier" access="read"></variable>
+            <variable name="string_caseName" access="read,write"></variable>
+            
+            <variable name="objlist_violationPersons" access="read,write"></variable>
+            <variable name="objlist_violationCompanies" access="read,write"></variable>
+            
+            <variable name="date_violationDate" access="read,write"></variable>
+            <variable name="string_violationDateLabel" access="read,write"></variable>
+            <variable name="string_violationTime" access="read,write"></variable>
+            <variable name="string_violationTimeLabel" access="read,write"></variable>
+            <variable name="list_violationTypes" access="read,write"></variable>
+            <variable name="string_violationTypesSummary" access="read,write"></variable>
+            
+            <variable name="string_locationLatitudeDegree" access="read,write"></variable>
+            <variable name="string_locationLatitudeMinute" access="read,write"></variable>
+            <variable name="string_locationLatitudeSecond" access="read,write"></variable>
+            <variable name="string_locationLatitudePole" access="read,write"></variable>
+            
+            <variable name="string_locationLatitudeLabel" access="read,write"></variable>
+            
+            <variable name="string_locationLongitudeDegree" access="read,write"></variable>
+            <variable name="string_locationLongitudeMinute" access="read,write"></variable>
+            <variable name="string_locationLongitudeSecond" access="read,write"></variable>
+            <variable name="string_locationLongitudeAngle" access="read,write"></variable>
+            
+            <variable name="string_locationLongitudeLabel" access="read,write"></variable>
+            
+            <variable name="string_harbourNr" access="read,write"></variable>
+            <variable name="string_harbourLabel" access="read,write"></variable>
+            <variable name="string_violationAddress" access="read,write"></variable>
+            <variable name="string_violationPostalCode" access="read,write"></variable>
+            <variable name="string_violationPlace" access="read,write"></variable>
+            <variable name="string_violationUmBorSkipi" access="read,write"></variable>
+            <variable name="string_violationUmBorSkipiLabel" access="read,write"></variable>
+            <variable name="string_officerComments" access="read,write"></variable>
+            
+            <variable name="string_vesselRegistryNr" access="read,write"></variable>
+            <variable name="string_vesselName" access="read,write"></variable>
+            <variable name="string_vesselOwnerName" access="read,write"></variable>
+            <variable name="string_vesselFishingType" access="read,write"></variable>
+            <variable name="string_vesselFishingLicense" access="read,write"></variable>
+            <variable name="string_vesselFishingGear" access="read,write"></variable>
+            <variable name="string_vesselFishingGearsSummary" access="read,write"></variable>
+            <variable name="string_vesselRevokeLicense" access="read,write"></variable>
+            <variable name="string_vesselFisheriesName" access="read,write"></variable>
+            
+            <variable name="string_policeInvolvement" access="read,write"></variable>
+            <variable name="string_policeOfficersNr" access="read,write"></variable>
+            <variable name="string_violationDescription" access="read,write"></variable>
+            <variable name="files_attachments" access="read,write"></variable>
+            <variable name="string_responsibleInspector" access="read,write"></variable>
+            <variable name="string_fiskistofaOffice" access="read,write"></variable>
+            <variable name="string_fiskistofaOfficeLabel" access="read,write"></variable>
+            <variable name="list_otherInspectors" access="read,write"></variable>
+            <variable name="string_otherInspectorsSummary" access="read,write"></variable>
+            
+         </controller>
+      </task>
+		<transition to="end-state2"></transition>
+	</task-node>
+
 
 	<end-state name="end-state1"></end-state>
 
 	<end-state name="end-process" end-complete-process="true"></end-state>
+
+	<end-state name="end-state2"></end-state>
 	
 	<idg:roles xmlns:idg="http://idega.com/bpm">
         <role name="bpm_fishingLicense_caseHandler">
