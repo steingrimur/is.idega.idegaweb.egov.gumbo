@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="ViolationReport" width="935" height="711">
+<root-container name="ViolationReport" width="604" height="648">
   <node name="violationReport" x="-31" y="241" width="113" height="34">
     <edge>
       <label x="-16" y="-9"/>
@@ -67,100 +67,92 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="writeLetter" x="210" y="259" width="132" height="36">
+  <node name="writeLetter" x="0" y="0" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="violationDecision" x="210" y="215" width="132" height="36">
+  <node name="violationDecision" x="0" y="0" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="closeCase" x="209" y="78" width="132" height="36">
+  <node name="closeCase" x="0" y="0" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="addAttachment" x="212" y="376" width="132" height="36">
-    <edge>
-      <label x="5" y="-10"/>
-      <bendpoint w1="554" h1="0" w2="1" h2="67"/>
-    </edge>
-  </node>
-  <node name="inviteParticipantProcess" x="398" y="421" width="156" height="36">
+  <node name="addAttachment" x="0" y="0" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="submitCaseAnswer" x="580" y="419" width="159" height="36">
-    <edge>
-      <label x="5" y="-10"/>
-      <bendpoint w1="172" h1="4" w2="0" h2="114"/>
-    </edge>
-  </node>
-  <node name="sendMessage" x="398" y="463" width="156" height="36">
+  <node name="inviteParticipantProcess" x="0" y="0" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="submitAdditionalInformation" x="580" y="463" width="157" height="36">
-    <edge>
-      <label x="5" y="-10"/>
-      <bendpoint w1="173" h1="0" w2="0" h2="154"/>
-    </edge>
-  </node>
-  <node name="setCaseStatusToClosed" x="400" y="77" width="152" height="36">
+  <node name="submitCaseAnswer" x="0" y="0" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="setCaseStatusToReady" x="401" y="214" width="151" height="36">
+  <node name="sendMessage" x="0" y="0" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="sendNotificationsToHandlers" x="583" y="218" width="161" height="36">
-    <edge>
-      <label x="5" y="-10"/>
-      <bendpoint w1="169" h1="0" w2="1" h2="-91"/>
-    </edge>
-  </node>
-  <node name="assignHandler" x="402" y="171" width="149" height="36">
-    <edge>
-      <label x="5" y="-10"/>
-      <bendpoint w1="355" h1="0" w2="0" h2="-138"/>
-    </edge>
-  </node>
-  <node name="generateAndAttachLetterPDF" x="400" y="259" width="154" height="36">
-    <edge>
-      <label x="5" y="-10"/>
-      <bendpoint w1="355" h1="1" w2="1" h2="-49"/>
-    </edge>
-  </node>
-  <node name="notifyAboutTheTimeframeMet" x="581" y="121" width="166" height="36">
-    <edge>
-      <label x="5" y="-10"/>
-      <bendpoint w1="167" h1="0" w2="0" h2="-188"/>
-    </edge>
-  </node>
-  <node name="killOldTimerAndTurnNewOn" x="401" y="122" width="150" height="36">
+  <node name="submitAdditionalInformation" x="0" y="0" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="submitAdditionalInformationWithoutRequest" x="214" y="520" width="132" height="36">
-    <edge>
-      <label x="5" y="-10"/>
-      <bendpoint w1="550" h1="-4" w2="-1" h2="207"/>
-    </edge>
-  </node>
-  <node name="end-state1" x="772" y="311" width="119" height="33"/>
-  <node name="end-process" x="770" y="77" width="132" height="36"/>
-  <node name="violationReportOnRepeat" x="-31" y="322" width="150" height="36">
+  <node name="setCaseStatusToClosed" x="0" y="0" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="end-state2" x="33" y="391" width="20" height="23"/>
+  <node name="setCaseStatusToReady" x="0" y="0" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="sendNotificationsToHandlers" x="0" y="0" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="assignHandler" x="0" y="0" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="generateAndAttachLetterPDF" x="0" y="0" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="notifyAboutTheTimeframeMet" x="0" y="0" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="killOldTimerAndTurnNewOn" x="0" y="0" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="submitAdditionalInformationWithoutRequest" x="0" y="0" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="violationReportOnRepeat" x="0" y="0" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="end-state1" x="0" y="0" width="132" height="36"/>
+  <node name="end-process" x="0" y="0" width="132" height="36"/>
+  <node name="end-state2" x="0" y="0" width="132" height="36"/>
 </root-container>

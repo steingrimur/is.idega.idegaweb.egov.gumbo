@@ -2,6 +2,7 @@ package is.idega.idegaweb.egov.gumbo.bpm.violation;
 
 import is.idega.idegaweb.egov.gumbo.bpm.violation.ViolationDataProvider.EquipmentData;
 import is.idega.idegaweb.egov.gumbo.bpm.violation.ViolationDataProvider.PersonData;
+import is.idega.idegaweb.egov.gumbo.licenses.FishingLicenseUser.XFormsBooleanResult;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 
 import java.util.ArrayList;
@@ -13,15 +14,21 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import com.idega.core.business.DefaultSpringBean;
+import com.idega.jbpm.identity.Role;
+import com.idega.jbpm.identity.RolesManager;
 import com.idega.util.text.Item;
 
 @Service("violationService")
 @Scope(BeanDefinition.SCOPE_SINGLETON)
-public class ViolationService {
+public class ViolationService extends DefaultSpringBean {
 	
 	@Autowired
 	@Qualifier(DOFWSClient.WEB_SERVICE)
 	private ViolationDataProvider violationDataProvider;
+	
+	@Autowired
+	private RolesManager rolesManager;
 	
 	public PersonData getViolationPersonData(String socialNr) {
 		return getViolationDataProvider().getViolationPersonData(socialNr);
@@ -76,11 +83,37 @@ public class ViolationService {
 		return getViolationDataProvider().getLawyersUsers();
 	}
 	
+	public String hasRole(String role, String processInstanceId) {
+		
+		return new XFormsBooleanResult(
+
+		contains(
+		    
+		    getRolesManager().getUserRoles(new Long(processInstanceId),
+		        getCurrentUser()), role)
+
+		).getResult();
+	}
+	
+	private boolean contains(List<Role> inRoles, String role) {
+		
+		for (Role r : inRoles) {
+			if (r.getRoleName().equals(role))
+				return true;
+		}
+		
+		return false;
+	}
+	
 	public EquipmentData getEquipmentData(String byVesselRegistryNr) {
 		return getViolationDataProvider().getEquipmentData(byVesselRegistryNr);
 	}
 	
 	private ViolationDataProvider getViolationDataProvider() {
 		return violationDataProvider;
+	}
+	
+	private RolesManager getRolesManager() {
+		return rolesManager;
 	}
 }

@@ -132,11 +132,12 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 * 
 	 * @return
 	 */
-	public ResultWithMessage getVesselHasValidHaffairisskirteini(String vesselId) {
+	public XFormsBooleanResult getVesselHasValidHaffairisskirteini(
+	        String vesselId) {
 		final LicenseCheckContainer res = getClient()
 		        .getHasValidSeafaringLicense(vesselId);
 		
-		return new ResultWithMessage(res.isHasLicense(), res.getMessage());
+		return new XFormsBooleanResult(res.isHasLicense(), res.getMessage());
 	}
 	
 	/**
@@ -144,12 +145,12 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 * 
 	 * @return
 	 */
-	public ResultWithMessage getVesselHasValidGeneralFishingLicense(
+	public XFormsBooleanResult getVesselHasValidGeneralFishingLicense(
 	        String vesselId) {
 		final LicenseCheckContainer res = getClient()
 		        .getHasValidGeneralFishingLicense(vesselId);
 		
-		return new ResultWithMessage(res.isHasLicense(), res.getMessage());
+		return new XFormsBooleanResult(res.isHasLicense(), res.getMessage());
 	}
 	
 	/**
@@ -170,11 +171,11 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 * 
 	 * @return
 	 */
-	public ResultWithMessage getVesselHasValidStrandveidileyfi(String vesselId) {
+	public XFormsBooleanResult getVesselHasValidStrandveidileyfi(String vesselId) {
 		final LicenseCheckContainer res = getClient()
 		        .getHasValidCoastFishingLicense(vesselId);
 		
-		return new ResultWithMessage(res.isHasLicense(), res.getMessage());
+		return new XFormsBooleanResult(res.isHasLicense(), res.getMessage());
 	}
 	
 	/**
@@ -193,12 +194,12 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 * 
 	 * @return Result With Message
 	 */
-	public ResultWithMessage getVesselHasValidAflamarksleyfi(String vesselId) {
+	public XFormsBooleanResult getVesselHasValidAflamarksleyfi(String vesselId) {
 		
 		final LicenseCheckContainer res = getClient()
 		        .getHasValidQuotaLimitFishingLicense(vesselId);
 		
-		return new ResultWithMessage(res.isHasLicense(), res.getMessage());
+		return new XFormsBooleanResult(res.isHasLicense(), res.getMessage());
 	}
 	
 	/**
@@ -206,12 +207,12 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 * 
 	 * @return Result With Message
 	 */
-	public ResultWithMessage getHasRevokedFishingLicense(String vesselId) {
+	public XFormsBooleanResult getHasRevokedFishingLicense(String vesselId) {
 		
 		final LicenseCheckContainer res = getClient()
 		        .getHasRevokedFishingLicense(vesselId);
 		
-		return new ResultWithMessage(res.isHasLicense(), res.getMessage());
+		return new XFormsBooleanResult(res.isHasLicense(), res.getMessage());
 	}
 	
 	/**
@@ -307,14 +308,20 @@ public class FishingLicenseUser extends DefaultSpringBean {
 		}
 	}
 	
-	public static final class ResultWithMessage {
+	public static final class XFormsBooleanResult {
 		
 		private final String message;
 		private final String result;
 		
-		public ResultWithMessage(boolean result, String message) {
+		public XFormsBooleanResult(boolean result, String message) {
 			
 			this.message = message;
+			this.result = result ? "true" : "false";
+		}
+		
+		public XFormsBooleanResult(boolean result) {
+			
+			this.message = null;
 			this.result = result ? "true" : "false";
 		}
 		
