@@ -6,8 +6,8 @@
   <event type="process-start">
          <script>
             <expression>
-                String handlerRoleName = "bpm_fishingLicense_handler";
-                String ownerRoleName = "bpm_fishingLicense_owner";
+                String handlerRoleName = "bpm_violationReport_handler";
+                String ownerRoleName = "bpm_violationReport_owner";
                 
                 mainProcessInstanceId = executionContext.getProcessInstance().getId();
             </expression>
@@ -46,8 +46,8 @@
                         <key>assignmentExpression</key>
                         <value>
                         {rightsAssignment: {roles: {role: [
-                            {roleName: "bpm_fishingLicense_handler", accesses: {access: [modifyPermissions, caseHandler]}},
-                            {roleName: "bpm_fishingLicense_handler", accesses: {access: [seeContacts]}, rolesContacts: {string: ["all"]}}
+                            {roleName: "bpm_violationReport_handler", accesses: {access: [modifyPermissions, caseHandler]}},
+                            {roleName: "bpm_violationReport_handler", accesses: {access: [seeContacts]}, rolesContacts: {string: ["all"]}}
                         ]} }}
                         </value>
                 </entry>
@@ -63,8 +63,8 @@
 				<entry><key>expression</key>
 					<value>
 		                {taskAssignment: {roles: {role: [
-		                   {roleName: "bpm_fishingLicense_handler", accesses: {access: [read]}},
-		                   {roleName: "bpm_fishingLicense_owner", accesses: {access: [read, write]}, assignIdentities: {string: ["current_user"]}}
+		                   {roleName: "bpm_violationReport_handler", accesses: {access: [read]}},
+		                   {roleName: "bpm_violationReport_owner", accesses: {access: [read, write]}, assignIdentities: {string: ["current_user"]}}
 		                ]} }}
             		</value>
 				</entry>
@@ -100,6 +100,7 @@
             <variable name="string_locationLongitudeLabel" access="read,write"></variable>
             
             <variable name="string_harbourNr" access="read,write"></variable>
+            <variable name="string_harbourName" access="read,write"></variable>
             <variable name="string_harbourLabel" access="read,write"></variable>
             <variable name="string_violationAddress" access="read,write"></variable>
             <variable name="string_violationPostalCode" access="read,write"></variable>
@@ -122,6 +123,7 @@
             <variable name="string_policeOfficersNr" access="read,write"></variable>
             <variable name="string_violationDescription" access="read,write"></variable>
             <variable name="files_attachments" access="read,write"></variable>
+            <variable name="string_attachmentDescription" access="read,write"></variable>
             <variable name="string_responsibleInspector" access="read,write"></variable>
             <variable name="string_fiskistofaOffice" access="read,write"></variable>
             <variable name="string_fiskistofaOfficeLabel" access="read,write"></variable>
@@ -168,10 +170,10 @@
                 	<entry>
 			        	<key>messageValues</key>
 			        	<value>
-			        		{list: {mv: [{type: "bean", value: "user.name"}, {type: "roleUsers", value: "{role: {roleName: \"bpm_fishingLicense_caseHandler\"}}"}, {type: "bean", value: "piw.processDefinitionW.startTaskName"}, {type: "bean", value: "piw.processIdentifier"}, {type: "bean", value: "piw.processDescription"}]}}
+			        		{list: {mv: [{type: "bean", value: "user.name"}, {type: "roleUsers", value: "{role: {roleName: \"bpm_violationReport_caseHandler\"}}"}, {type: "bean", value: "piw.processDefinitionW.startTaskName"}, {type: "bean", value: "piw.processIdentifier"}, {type: "bean", value: "piw.processDescription"}]}}
                 		</value>
                 	</entry>
-                	<entry><key>sendToRoles</key><value>bpm_fishingLicense_owner bpm_fishingLicense_handler</value></entry>
+                	<entry><key>sendToRoles</key><value>bpm_violationReport_owner bpm_violationReport_handler</value></entry>
 			    </propertyMap>
 			</action>
     </event>
@@ -179,7 +181,7 @@
 		<action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
 				<handlerName>caseHandlerAssignmentHandler</handlerName>
 				<propertyMap key-type='java.lang.String' value-type='java.lang.String'>
-			      	<entry><key>caseHandlerRoleExp</key><value>{role: {roleName: "bpm_fishingLicense_caseHandler"}}</value></entry>
+			      	<entry><key>caseHandlerRoleExp</key><value>{role: {roleName: "bpm_violationReport_caseHandler"}}</value></entry>
 			        <entry>
 			        	<key>inlineSubject</key>
 			        	<value>
@@ -215,7 +217,7 @@
 			        		{list: {mv: [{type: "bean", value: "user.name"}, {type: "bean", value: "piw.processDefinitionW.startTaskName"}, {type: "bean", value: "piw.processIdentifier"}, {type: "bean", value: "piw.processDescription"}]}}
                 		</value>
                 	</entry>
-                	<entry><key>sendToRoles</key><value>bpm_fishingLicense_handler</value></entry>
+                	<entry><key>sendToRoles</key><value>bpm_violationReport_handler</value></entry>
 			    </propertyMap>
 		</action>
     </event>
@@ -230,7 +232,7 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}}
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}}
                         ]} }}
                     </value>
                 </entry>
@@ -266,7 +268,7 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}}
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}}
                         ]} }}
                     </value>
                 </entry>
@@ -285,7 +287,7 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}}
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}}
                         ]} }}
                     </value>
                 </entry>
@@ -314,8 +316,8 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}},
-                           {roleName: "bpm_fishingLicense_handler", accesses: {access: [read]}}
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}},
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read]}}
                         ]} }}
                     </value>
                 </entry>
@@ -336,7 +338,7 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}}
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}}
                         ]} }}
                     </value>
                 </entry>
@@ -359,7 +361,7 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}}
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}}
                         ]} }}
                     </value>
                 </entry>
@@ -380,7 +382,7 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}}
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}}
                         ]} }}
                     </value>
                 </entry>
@@ -400,7 +402,7 @@
             <expression>
                 addAttachmentAssignmentExpression = 
                        "{taskAssignment: {roles: {role: ["
-                       +"{roleName: \"bpm_fishingLicense_handler\", accesses: {access: [read,write]}}"
+                       +"{roleName: \"bpm_violationReport_handler\", accesses: {access: [read,write]}}"
                        +"]} }}";
             </expression>
             <variable name='string_addAttachmentAssignmentExpression' access='write' mapped-name='addAttachmentAssignmentExpression' />
@@ -452,8 +454,8 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_fishingLicense_handler", accesses: {access: [read]}},
-                           {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}}
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read]}},
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}}
                         ]} }}
                     </value>
                 </entry>
@@ -510,7 +512,7 @@
                             {list: {mv: [{type: "bean", value: "user.name"},  {type: "bean", value: "piw.processDefinitionW.startTaskName"}, {type: "bean", value: "piw.processIdentifier"}, {type: "bean", value: "piw.processDescription"},{type: "bean", value: "caseUser.urlToTheCase"}]}}
                         </value>
                     </entry>
-                    <entry><key>sendToRoles</key><value>bpm_fishingLicense_owner</value></entry>
+                    <entry><key>sendToRoles</key><value>bpm_violationReport_owner</value></entry>
                 </propertyMap>
         </action>
       
@@ -526,8 +528,8 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_fishingLicense_handler", accesses: {access: [read]}},
-                           {roleName: "bpm_fishingLicense_owner", accesses: {access: [read, write]}} 
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read]}},
+                           {roleName: "bpm_violationReport_owner", accesses: {access: [read, write]}} 
                         ]} }}
                     </value>
                 </entry>
@@ -597,7 +599,7 @@
                             }
                         </value>
                     </entry>
-                    <entry><key>sendToRoles</key><value>bpm_fishingLicense_handler</value></entry>
+                    <entry><key>sendToRoles</key><value>bpm_violationReport_handler</value></entry>
                 </propertyMap>
         </action>
       
@@ -610,7 +612,7 @@
         <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
                 <handlerName>caseHandlerAssignmentHandler</handlerName>
                 <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
-                <entry><key>caseHandlerRoleExp</key><value>{role: {roleName: "bpm_fishingLicense_caseHandler"}}</value></entry>
+                <entry><key>caseHandlerRoleExp</key><value>{role: {roleName: "bpm_violationReport_caseHandler"}}</value></entry>
                     <entry>
                         <key>inlineSubject</key>
                         <value>
@@ -643,10 +645,10 @@
                     <entry>
                         <key>messageValues</key>
                         <value>
-                            {list: {mv: [{type: "bean", value: "user.name"}, {type: "roleUsers", value: "{role: {roleName: \"bpm_entrepreneur_caseHandler\"}}"},  {type: "bean", value: "piw.processDefinitionW.startTaskName"}, {type: "bean", value: "piw.processIdentifier"}, {type: "bean", value: "piw.processDescription"}]}}
+                            {list: {mv: [{type: "bean", value: "user.name"}, {type: "roleUsers", value: "{role: {roleName: \"bpm_violationReport_caseHandler\"}}"},  {type: "bean", value: "piw.processDefinitionW.startTaskName"}, {type: "bean", value: "piw.processIdentifier"}, {type: "bean", value: "piw.processDescription"}]}}
                         </value>
                     </entry>
-                <entry><key>sendToRoles</key><value>bpm_fishingLicense_handler</value></entry>
+                <entry><key>sendToRoles</key><value>bpm_violationReport_handler</value></entry>
                 <entry><key>handlerUserId</key><value>#{string_lawyerUserId}</value></entry>
                 </propertyMap>
          </action>
@@ -699,7 +701,7 @@
 	                            {list: {mv: [{type: "bean", value: "user.name"},  {type: "bean", value: "piw.processDefinitionW.startTaskName"}, {type: "bean", value: "piw.processIdentifier"}, {type: "bean", value: "piw.processDescription"},{type: "bean", value: "caseUser.urlToTheCase"}]}}
 	                        </value>
 	                    </entry>
-	                    <entry><key>sendToRoles</key><value>bpm_fishingLicense_handler</value></entry>
+	                    <entry><key>sendToRoles</key><value>bpm_violationReport_handler</value></entry>
 	                </propertyMap>
 	        </action>
 	      
@@ -727,8 +729,8 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}},
-                           {roleName: "bpm_fishingLicense_owner", accesses: {access: [read, write]}} 
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}},
+                           {roleName: "bpm_violationReport_owner", accesses: {access: [read, write]}} 
                         ]} }}
                     </value>
                 </entry>
@@ -751,7 +753,7 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}}
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}}
                         ]} }}
                     </value>
                 </entry>
@@ -828,22 +830,22 @@
 	<end-state name="end-state2"></end-state>
 	
 	<idg:roles xmlns:idg="http://idega.com/bpm">
-        <role name="bpm_fishingLicense_caseHandler">
+        <role name="bpm_violationReport_caseHandler">
           <labels>
             <label lang="en">caseHandler</label>
-            <label lang="is_IS">Umsjónarmaður</label>
+            <label lang="is_IS">Ábyrgðaraðili</label>
           </labels>
         </role>
-        <role name="bpm_fishingLicense_handler" createNative="true">
+        <role name="bpm_violationReport_handler" createNative="true">
           <labels>
             <label lang="en">handler</label>
-            <label lang="is_IS">Kærunefnd</label>
+            <label lang="is_IS">Ábyrðaraðili</label>
           </labels>
         </role>
-        <role name="bpm_fishingLicense_owner">
+        <role name="bpm_violationReport_owner">
           <labels>
             <label lang="en">owner</label>
-            <label lang="is_IS">Álitsbeiðandi</label>
+            <label lang="is_IS">Eftirlitsaðili</label>
           </labels>
         </role>
     </idg:roles>

@@ -100,6 +100,7 @@
                     
                     <Harbour_nr_fbc_37 mapping="string_harbourNr"/>
                     <HarbourLabel mapping="string_harbourLabel"/>
+                    <HarbourName mapping="string_harbourName"/>
                     <Address_fbc_160 mapping="string_violationAddress"/>
                     <Postal_code_fbc_161 mapping="string_violationPostalCode"/>
                     <Um_bor__skipi_fbc_163 mapping="string_violationUmBorSkipi"/>
@@ -141,6 +142,7 @@
                             <description/>
                         </entry>
                     </Attachments_fbc_208>
+                    <AttachmentDescription mapping="string_attachmentDescription"/>
                     <Responsible_inspector_fbc_211 mapping="string_responsibleInspector"/>
                     <Fiskistofa_office_fbc_213 mapping="string_fiskistofaOffice"/>
                     <Fiskistofa_office_label mapping="string_fiskistofaOfficeLabel"/>
@@ -194,6 +196,8 @@
             <xf:bind id="bind-submissionButton"
                 nodeset="instance('control-instance')/Submit_fbc_69" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
             <xf:bind id="fbc_37_bind" nodeset="Harbour_nr_fbc_37"
+                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+            <xf:bind id="fbc_37a_bind" nodeset="HarbourName"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
             <xf:bind id="bind-controlsButton" idega:shared="true"
                 nodeset="instance('control-instance')/controlsButton" relevant="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"/>
@@ -293,6 +297,9 @@
                 <xf:bind id="fbc_208_bind-entries"
                     nodeset="../entry[position() != last()]" type="xs:anyURI"/>
             </xf:bind>
+            <xf:bind id="fbc_208a_bind"
+                nodeset="AttachmentDescription"
+                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
             <xf:bind id="fbc_211_bind"
                 nodeset="Responsible_inspector_fbc_211"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
@@ -341,6 +348,8 @@
                     <fbc_36-text lang="en">Violation - Type</fbc_36-text>
                     <fbc_37-label lang="is_IS">Númer hafnar</fbc_37-label>
                     <fbc_37-label lang="en">Harbour nr.</fbc_37-label>
+                    <fbc_37a-label lang="is_IS">Nafn</fbc_37a-label>
+                    <fbc_37a-label lang="en">Name</fbc_37a-label>
                     <fbc_39-text lang="is_IS">Staðsetning brots</fbc_39-text>
                     <fbc_39-text lang="en">Violation - Place</fbc_39-text>
                     <fbc_40-label lang="is_IS">Vista og geyma</fbc_40-label>
@@ -534,8 +543,12 @@
                     <fbc_208-custom lang="en">Uploaded file description can not be empty</fbc_208-custom>
                     <fbc_208-remove_trigger-label lang="is_IS">Fjarlægja viðhengi</fbc_208-remove_trigger-label>
                     <fbc_208-remove_trigger-label lang="en">Remove</fbc_208-remove_trigger-label>
+                    <fbc_208a-label lang="is_IS">Samantekt viðhengja</fbc_208a-label>
+                    <fbc_208a-label lang="en">Attachment description</fbc_208a-label>
                     <fbc_209-text lang="is_IS">Eftirlitsmenn</fbc_209-text>
                     <fbc_209-text lang="en">Inspectors</fbc_209-text>
+                    <fbc_209a-text lang="is_IS">Viðhengi</fbc_209a-text>
+                    <fbc_209a-text lang="en">Attachments</fbc_209a-text>
                     <fbc_211-label lang="is_IS">Skýrsluritari</fbc_211-label>
                     <fbc_211-label lang="en">Responsible inspector</fbc_211-label>
                     <fbc_213-label lang="is_IS">Starfsstöð</fbc_213-label>
@@ -1109,6 +1122,9 @@
                                 <xf:output ref="instance('localized_strings')/fbc_37-help[@lang=instance('localized_strings')/current_language]"/>
                             </xf:help>
                         </xf:select1>
+                        <xf:input bind="fbc_37a_bind" id="fbc_37a" type="fbc_text">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_37a-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:input>
                         <xf:input bind="fbc_160_bind" id="fbc_160" type="fbc_text">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_160-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:input>
@@ -1273,6 +1289,12 @@
                         </xf:select>
                         <xf:textarea bind="fbc_206_bind" id="fbc_206" type="fbc_textarea">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_206-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:textarea>
+                        <div class="fbc_header_text" id="fbc_209a" type="fbc_header_text">
+                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_209a-text[@lang=instance('localized_strings')/current_language]"/>
+                        </div>
+                        <xf:textarea bind="fbc_208a_bind" id="fbc_208a" type="fbc_textarea">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_208a-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:textarea>
                         <xf:group appearance="full" bind="fbc_208_bind"
                             id="fbc_208" type="fbc_multiupload">
@@ -1471,6 +1493,9 @@
                         </xf:output>
                         <xf:output bind="fbc_166_bind" id="fbc_166" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_37-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                        <xf:output bind="fbc_37a_bind" id="fbc_167a" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_37a-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
                         <xf:output bind="fbc_160_bind" id="fbc_167" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_160-label[@lang=instance('localized_strings')/current_language]"/>
