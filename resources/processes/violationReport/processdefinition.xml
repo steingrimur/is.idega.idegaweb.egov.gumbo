@@ -873,7 +873,7 @@
         <role name="bpm_violationReport_superHandler" createNative="true">
           <labels>
             <label lang="en">Super Handler</label>
-            <label lang="is_IS">Super Kærunefnd</label>
+            <label lang="is_IS">Yfir ábyrgðaraðili</label>
           </labels>
         </role>
         <role name="bpm_violationReport_owner">

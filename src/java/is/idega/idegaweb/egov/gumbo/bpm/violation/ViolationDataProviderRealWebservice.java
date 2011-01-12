@@ -13,6 +13,7 @@ import is.idega.block.nationalregister.webservice.client.business.CompanyHolder;
 import is.idega.block.nationalregister.webservice.client.business.SkyrrClient;
 import is.idega.block.nationalregister.webservice.client.business.UserHolder;
 import is.idega.idegaweb.egov.gumbo.dao.GumboDao;
+import is.idega.idegaweb.egov.gumbo.data.FishingGear;
 import is.idega.idegaweb.egov.gumbo.data.GumboViolationType;
 import is.idega.idegaweb.egov.gumbo.data.Inspector;
 import is.idega.idegaweb.egov.gumbo.data.Office;
@@ -23,7 +24,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -510,7 +510,17 @@ public class ViolationDataProviderRealWebservice implements
 	
 	@Override
 	public List<Item> getFishingGears() {
-		return Arrays.asList(new Item[] { new Item("item1", "fishing gear 1"),
-		        new Item("item2", "fishing gear 1") });
+		final List<Item> items = new ArrayList<Item>();
+		
+		List<FishingGear> gears = getDao().getFishingGear();
+		if (gears != null && gears.size() > 0) {
+			for (FishingGear gear : gears) {
+				items.add(new Item(gear.getId().toString(), gear.getName()));
+			}
+		} else {
+			items.add(new Item("1", "No fishing gear in database..."));
+		}
+		
+		return items;
 	}
 }

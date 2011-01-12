@@ -1,9 +1,10 @@
 package is.idega.idegaweb.egov.gumbo.dao.impl;
 
 import is.idega.idegaweb.egov.gumbo.dao.GumboDao;
+import is.idega.idegaweb.egov.gumbo.data.FishingGear;
+import is.idega.idegaweb.egov.gumbo.data.GumboViolationType;
 import is.idega.idegaweb.egov.gumbo.data.Inspector;
 import is.idega.idegaweb.egov.gumbo.data.Office;
-import is.idega.idegaweb.egov.gumbo.data.GumboViolationType;
 
 import java.util.List;
 
@@ -29,5 +30,9 @@ public class GumboDaoImpl extends GenericDaoImpl implements GumboDao {
 	
 	public List<Inspector> getInspectors() {
 		return getEntityManager().createNamedQuery("inspector.findAll").getResultList();
+	}
+	
+	public List<FishingGear> getFishingGear() {
+		return getEntityManager().createNamedQuery("fishingGear.findAll").getResultList();
 	}
 }
