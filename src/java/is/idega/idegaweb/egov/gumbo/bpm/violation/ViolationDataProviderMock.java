@@ -54,7 +54,7 @@ public class ViolationDataProviderMock implements ViolationDataProvider {
 	}
 	
 	@Override
-	public List<Item> getFiskistofeOffices() {
+	public List<Item> getFiskistofaOffices() {
 		return Arrays.asList(new Item[] {
 		        new Item("office1", "fiskistofa1 office 1"),
 		        new Item("office2", "fiskistofa2 office 2") });
@@ -64,6 +64,21 @@ public class ViolationDataProviderMock implements ViolationDataProvider {
 	public List<Item> getHarbours() {
 		return Arrays.asList(new Item[] { new Item("item1", "harbour 1"),
 		        new Item("item2", "harbour 2") });
+	}
+	
+	@Override
+	public List<Item> getLetters() {
+		return Arrays.asList(new Item[] { new Item("template1", "Template 1"), new Item("template2", "Template 2") });
+	}
+	
+	@Override
+	public List<Item> getLetters(String type) {
+		return Arrays.asList(new Item[] { new Item("template1", "Template 1"), new Item("template2", "Template 2") });
+	}
+	
+	@Override
+	public List<Item> getDecisionRulings() {
+		return Arrays.asList(new Item[] { new Item("decisions1", "Decision 1"), new Item("decision2", "Decision 2") });
 	}
 	
 	@Override

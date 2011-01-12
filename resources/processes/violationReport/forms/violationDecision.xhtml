@@ -23,7 +23,6 @@
                         </entry>
                     </Multi_file_upload_with_description_fbc_8>
                     <submissionButton/>
-                    <Choose_predefined_text_fbc_9/>
                 </data>
             </xf:instance>
             <xf:instance id="control-instance">
@@ -62,9 +61,6 @@
                 nodeset="submissionButton" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
             <xf:bind id="fbc_5_bind" nodeset="Ruling_text_fbc_5"
                 readonly="instance('control-instance')/readonly = 'true'" required="instance('control-instance')/required = 'true'"/>
-            <xf:bind id="fbc_9_bind"
-                nodeset="Choose_predefined_text_fbc_9"
-                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
         </xf:model>
         <xf:model id="data_model">
             <xf:instance id="localized_strings" xmlns="">
@@ -99,12 +95,10 @@
                     <fbc_8-paragraph-text lang="en">Additional information can be sent with the form as attachments</fbc_8-paragraph-text>
                     <fbc_8-filename-label lang="is_IS">Skráarnafn</fbc_8-filename-label>
                     <fbc_8-filename-label lang="en">Uploaded file name</fbc_8-filename-label>
-                    <fbc_9-label lang="is_IS">Sniðmátstextar</fbc_9-label>
-                    <fbc_9-label lang="en">Choose predefined text</fbc_9-label>
-                    <fbc_10-label lang="is_IS">Úrskurður</fbc_10-label>
+                    <fbc_10-label lang="is_IS">Niðurstaða</fbc_10-label>
                     <fbc_10-label lang="en">Decision</fbc_10-label>
-                    <fbc_5-required lang="is_IS">Það þarf að fylla út reitinn X</fbc_5-required>
-                    <fbc_5-required lang="en">The field X is required</fbc_5-required>
+                    <fbc_5-required lang="is_IS">Það verður að velja niðurstöðu máls</fbc_5-required>
+                    <fbc_5-required lang="en">The violation decision is required</fbc_5-required>
                 </localized_strings>
             </xf:instance>
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
@@ -112,111 +106,17 @@
                 <xf:setvalue model="data_model"
                     ref="instance('localized_strings')/current_language" value="instance('locale-instance')/fb-afk-loginSession.currentLocale"/>
                 <idega:dispatch name="idega-xforms-ready" target="//h:body//*[starts-with(@id, 'fbc_')]"/>
+                
+                <idega:setvalue
+                    ref="instance('fbc_10_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('violationService.getDecisionRulings()')"/>
             </xf:action>
-            <xf:instance id="fbc_9_lds" xmlns="">
-                <local_src>
-                    <localizedEntries lang="en">
-                        <item>
-                            <itemLabel>Template 1</itemLabel>
-                            <itemValue>Some template 1 text</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Template 2</itemLabel>
-                            <itemValue>Some template 2 text</itemValue>
-                        </item>
-                    </localizedEntries>
-                    <localizedEntries lang="is_IS">
-                        <item>
-                            <itemLabel>Template 1</itemLabel>
-                            <itemValue>Some template 1 text</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Template 2</itemLabel>
-                            <itemValue>Some template 2 text</itemValue>
-                        </item>
-                    </localizedEntries>
-                </local_src>
-            </xf:instance>
-            <xf:instance id="fbc_9_eds" xmlns="">
-                <ext_src/>
-            </xf:instance>
             <xf:instance id="fbc_10_lds" xmlns="">
                 <local_src>
                     <localizedEntries lang="en">
-                        <item>
-                            <itemLabel>No action</itemLabel>
-                            <itemValue>no_action</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Instruction letter</itemLabel>
-                            <itemValue>instruction_letter</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Formal reprimand</itemLabel>
-                            <itemValue>formal_reprimand</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Fishing license revoked</itemLabel>
-                            <itemValue>fishing_license_revoked</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Weighing license revoked</itemLabel>
-                            <itemValue>weighing_license_revoked</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Reported to author authority</itemLabel>
-                            <itemValue>reported_to_other_authority</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Reported to police</itemLabel>
-                            <itemValue>reported_to_police</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Rebilling inquiry</itemLabel>
-                            <itemValue>rebilling_inquiry</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Information sent to ministry</itemLabel>
-                            <itemValue>information_sent_to_ministry</itemValue>
-                        </item>
+                        <item/>
                     </localizedEntries>
                     <localizedEntries lang="is_IS">
-                        <item>
-                            <itemLabel>Ekkert aðhafst</itemLabel>
-                            <itemValue>no_action</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Leiðbeiningarbréf</itemLabel>
-                            <itemValue>instruction_letter</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Formleg áminning</itemLabel>
-                            <itemValue>formal_reprimand</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Svipting veiðileyfis</itemLabel>
-                            <itemValue>fishing_license_revoked</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Afturköllun vigtunarleyfis</itemLabel>
-                            <itemValue>weighing_license_revoked</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Mál kært öðru stjórnvaldi</itemLabel>
-                            <itemValue>reported_to_other_authority</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Mál kært til lögreglu</itemLabel>
-                            <itemValue>reported_to_police</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Bakreikningsrannsókn</itemLabel>
-                            <itemValue>rebilling_inquiry</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Upplýsingar sendar til ráðuneytis</itemLabel>
-                            <itemValue>information_sent_to_ministry</itemValue>
-                        </item>
+                        <item/>
                     </localizedEntries>
                 </local_src>
             </xf:instance>
@@ -249,17 +149,6 @@
 	                            </xf:itemset>
 	                        </xf:select>
 	                    </div>
-                        <xf:select1 appearance="minimal"
-                            bind="fbc_9_bind" id="fbc_9" type="fbc_single_select_minimal">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_9-label[@lang=instance('localized_strings')/current_language]"/>
-                            <xf:itemset model="data_model" nodeset="instance('fbc_9_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
-                                <xf:label ref="itemLabel"/>
-                                <xf:value ref="itemValue"/>
-                            </xf:itemset>
-                            
-                            <idega:setvalue ev:event="xforms-value-changed"
-                                ref="instance('data-instance')/Ruling_text_fbc_5" value="instance('data-instance')/Choose_predefined_text_fbc_9"/>
-                        </xf:select1>
                         <xf:textarea bind="fbc_5_bind" id="fbc_5">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_5-title[@lang=instance('localized_strings')/current_language]"/>
                             <xf:dispatch ev:event="idega-xforms-ready"

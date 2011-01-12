@@ -4,8 +4,10 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd"
     version="1.0">
 
+    <entity class="is.idega.idegaweb.egov.gumbo.data.FishingGear" />
     <entity class="is.idega.idegaweb.egov.gumbo.data.Inspector" />
     <entity class="is.idega.idegaweb.egov.gumbo.data.Office" />
-    <entity class="is.idega.idegaweb.egov.gumbo.data.GumboViolationType" />
+    <entity class="is.idega.idegaweb.egov.gumbo.data.ViolationDecision" />
+    <entity class="is.idega.idegaweb.egov.gumbo.data.ViolationType" />
         
 </entity-mappings>

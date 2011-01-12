@@ -12,11 +12,15 @@ import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.Vigtun
 import is.idega.block.nationalregister.webservice.client.business.CompanyHolder;
 import is.idega.block.nationalregister.webservice.client.business.SkyrrClient;
 import is.idega.block.nationalregister.webservice.client.business.UserHolder;
+import is.idega.idegaweb.egov.gumbo.GumboConstants;
+import is.idega.idegaweb.egov.gumbo.LetterType;
 import is.idega.idegaweb.egov.gumbo.dao.GumboDao;
 import is.idega.idegaweb.egov.gumbo.data.FishingGear;
-import is.idega.idegaweb.egov.gumbo.data.GumboViolationType;
 import is.idega.idegaweb.egov.gumbo.data.Inspector;
+import is.idega.idegaweb.egov.gumbo.data.Letter;
 import is.idega.idegaweb.egov.gumbo.data.Office;
+import is.idega.idegaweb.egov.gumbo.data.ViolationDecision;
+import is.idega.idegaweb.egov.gumbo.data.ViolationType;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 
 import java.math.BigDecimal;
@@ -46,11 +50,13 @@ import com.idega.company.data.Company;
 import com.idega.core.location.data.Address;
 import com.idega.data.IDOFinderException;
 import com.idega.idegaweb.IWMainApplication;
+import com.idega.idegaweb.IWResourceBundle;
 import com.idega.user.business.GroupBusiness;
 import com.idega.user.business.UserBusiness;
 import com.idega.user.data.Group;
 import com.idega.user.data.User;
 import com.idega.util.IWTimestamp;
+import com.idega.util.LocaleUtil;
 import com.idega.util.StringUtil;
 import com.idega.util.text.Item;
 
@@ -132,9 +138,9 @@ public class ViolationDataProviderRealWebservice implements
 	public List<Item> getViolationTypes() {
 		final List<Item> items = new ArrayList<Item>();
 		
-		List<GumboViolationType> types = getDao().getViolationTypes();
+		List<ViolationType> types = getDao().getViolationTypes();
 		if (types != null && types.size() > 0) {
-			for (GumboViolationType violationType : types) {
+			for (ViolationType violationType : types) {
 				String prefix = "";
 				if (violationType.getDepth() > 0) {
 					prefix = " ";
@@ -172,7 +178,7 @@ public class ViolationDataProviderRealWebservice implements
 	}
 	
 	@Override
-	public List<Item> getFiskistofeOffices() {
+	public List<Item> getFiskistofaOffices() {
 		final List<Item> items = new ArrayList<Item>();
 		
 		List<Office> offices = getDao().getOffices();
@@ -200,6 +206,56 @@ public class ViolationDataProviderRealWebservice implements
 			}
 		} catch (RemoteException e) {
 			e.printStackTrace();
+		}
+		
+		return items;
+	}
+	
+	@Override
+	public List<Item> getLetters() {
+		final List<Item> items = new ArrayList<Item>();
+		
+		List<Letter> letters = getDao().getLetters();
+		if (letters != null && letters.size() > 0) {
+			for (Letter letter : letters) {
+				items.add(new Item(letter.getName(), letter.getText()));
+			}
+		}
+		else {
+			items.add(new Item("1", "No letters in database..."));
+		}
+		
+		return items;
+	}
+	
+	public List<Item> getLetters(String letterType) {
+		final List<Item> items = new ArrayList<Item>();
+		
+		List<Letter> letters = getDao().getLetters(LetterType.valueOf(letterType));
+		if (letters != null && letters.size() > 0) {
+			for (Letter letter : letters) {
+				items.add(new Item(letter.getName(), letter.getText()));
+			}
+		}
+		else {
+			items.add(new Item("1", "No letters in database..."));
+		}
+		
+		return items;
+	}
+	
+	@Override
+	public List<Item> getDecisionRulings() {
+		final List<Item> items = new ArrayList<Item>();
+		
+		List<ViolationDecision> decisions = getDao().getViolationDecisions();
+		if (decisions != null && decisions.size() > 0) {
+			for (ViolationDecision decision : decisions) {
+				items.add(new Item(decision.getId().toString(), decision.getName()));
+			}
+		}
+		else {
+			items.add(new Item("1", "No rulings in database..."));
 		}
 		
 		return items;
@@ -245,13 +301,16 @@ public class ViolationDataProviderRealWebservice implements
 				}
 			}
 			
+			IWResourceBundle iwrb = IWMainApplication.getDefaultIWApplicationContext().getIWMainApplication().getBundle(GumboConstants.IW_BUNDLE_IDENTIFIER).getResourceBundle(LocaleUtil.getIcelandicLocale());
+			
 			data.setFisheriesName(res.getResult().getUtgerdNafn());
 			data.setFishingLicense(license.toString());
 			data.setFishingType(res.getResult().getUtgFlHeiti());
 			data.setName(res.getResult().getNafn());
 			data.setOwnersName(res.getResult().getEigandiNafn());
-			data.setRevokeLicense(Boolean.toString(res.getResult()
-			        .getErsvipting().getIsok().intValue() > 0));
+			data.setRevokeLicense(iwrb.getLocalizedString("boolean." + Boolean.toString(res.getResult()
+			        .getErsvipting().getIsok().intValue() > 0), Boolean.toString(res.getResult()
+					        .getErsvipting().getIsok().intValue() > 0)));
 			
 		} catch (RemoteException e) {
 			e.printStackTrace();

@@ -427,16 +427,15 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 		
 		
 		try {
-			FSWebServiceVEIDILEYFI_ServiceLocator locator = new FSWebServiceVEIDILEYFI_ServiceLocator();
-			FSWebServiceVEIDILEYFI_PortType port = locator
-			        .getFSWebServiceVEIDILEYFISoap12HttpPort(new URL(
-			                "http://hafrok.hafro.is/FSWebServices/FSWebServiceVEIDILEYFISoap12HttpPort"));
+			FSWebServiceSKIP_ServiceLocator locator = new FSWebServiceSKIP_ServiceLocator();
+			FSWebServiceSKIP_PortType port = locator.getFSWebServiceSKIPSoap12HttpPort(new URL(
+					"http://hafrok.hafro.is/FSWebServices/FSWebServiceSKIPSoap12HttpPort"));
 			
-			GetersviptingElement parameters = new GetersviptingElement(new BigDecimal("220"));
-			//GethefuraflamarksveidilElement parameters = new GethefuraflamarksveidilElement(new BigDecimal("220"), IWTimestamp.RightNow().getCalendar());
-			GetersviptingResponseElement cont = port.getersvipting(parameters);//gethefuraflamarksveidil(parameters);
-			System.out.println("check = " + cont.getResult().getIsok());
-			System.out.println("message = " + cont.getResult().getMessage());
+			GetskipinfobyutgerdElement parameters = new GetskipinfobyutgerdElement("5411850389");
+			SkipInfoTypeUser[] users = port.getskipinfobyutgerd(parameters);
+			for (SkipInfoTypeUser skipInfo : users) {
+				System.out.println(skipInfo.getSkipNr() + " - " + skipInfo.getNafn());
+			}
 
 		} catch (ServiceException se) {
 			se.printStackTrace();

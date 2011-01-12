@@ -61,7 +61,7 @@ public class ShipCatchQuota extends IWBaseComponent {
 			period = iwc.getParameter(PARAMETER_PERIOD);
 		}
 		else {
-			period = "0910";
+			period = "1011";
 		}
 		
 		GumboBean bean = getBeanInstance("gumboBean");

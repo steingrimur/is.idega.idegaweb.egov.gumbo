@@ -130,6 +130,7 @@
                     </equipmentData>
                     <Fishing_gear_fbc_192 mapping="string_vesselFishingGear"/>
                     <fishingGearsSummary mapping="string_vesselFishingGearsSummary"/>
+                    <FishingGearOther mapping="string_vesselFishingGearOther"/>
                     <Police_involvement_fbc_205 mapping="string_policeInvolvement"/>
                     <Police_officers_nr_fbc_206 mapping="string_policeOfficersNr"/>
                     <Description_fbc_207 mapping="string_violationDescription"/>
@@ -283,6 +284,8 @@
             <xf:bind id="fbc_191b_bind" nodeset="equipmentData/fisheriesName"/>
             <xf:bind id="fbc_192_bind" nodeset="Fishing_gear_fbc_192"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+            <xf:bind id="fbc_192a_bind" nodeset="FishingGearOther"
+                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
             <xf:bind id="fbc_198_bind" nodeset="fishingGearsSummary" />
             <xf:bind id="fbc_205_bind"
                 nodeset="Police_involvement_fbc_205"
@@ -402,6 +405,12 @@
                     
                     <fbc_225-label lang="is_IS">GPS hnit</fbc_225-label>
                     <fbc_225-label lang="en">GPS location latitude</fbc_225-label>
+                    <fbc_225a-label lang="is_IS">°</fbc_225a-label>
+                    <fbc_225a-label lang="en">°</fbc_225a-label>
+                    <fbc_225b-label lang="is_IS">,</fbc_225b-label>
+                    <fbc_225b-label lang="en">,</fbc_225b-label>
+                    <fbc_225c-label lang="is_IS">´</fbc_225c-label>
+                    <fbc_225c-label lang="en">´</fbc_225c-label>
                     
                     <fbc_104-label lang="is_IS">Degree</fbc_104-label>
                     <fbc_104-label lang="en">Degree</fbc_104-label>
@@ -467,22 +476,22 @@
                     <equipmentsAndLicenses-insert-label lang="is_IS">Bæta við röð</equipmentsAndLicenses-insert-label>
                     <equipmentsAndLicenses-delete-label lang="en">Delete</equipmentsAndLicenses-delete-label>
                     <equipmentsAndLicenses-delete-label lang="is_IS">Eyða röð</equipmentsAndLicenses-delete-label>
-                    <fbc_102-required lang="is_IS">Það þarf að fylla út reitinn X</fbc_102-required>
-                    <fbc_102-required lang="en">The field X is required</fbc_102-required>
-                    <fbc_153-required lang="is_IS">Það þarf að fylla út reitinn X</fbc_153-required>
-                    <fbc_153-required lang="en">The field X is required</fbc_153-required>
+                    <fbc_102-required lang="is_IS">Það þarf að fylla út dagsetningu brots</fbc_102-required>
+                    <fbc_102-required lang="en">The date of violation is required</fbc_102-required>
+                    <fbc_153-required lang="is_IS">Það þarf að fylla út tímasetningu brots</fbc_153-required>
+                    <fbc_153-required lang="en">The time of violation required</fbc_153-required>
                     <fbc_999-required lang="is_IS">Það þarf að fylla út málsnafn</fbc_999-required>
                     <fbc_999-required lang="en">Case name is required</fbc_999-required>
                     <fbc_156-label lang="is_IS">Tegund brots</fbc_156-label>
                     <fbc_156-label lang="en">Violation type</fbc_156-label>
-                    <fbc_156-required lang="is_IS">Það þarf að fylla út reitinn X</fbc_156-required>
-                    <fbc_156-required lang="en">The field X is required</fbc_156-required>
+                    <fbc_156-required lang="is_IS">Það þarf að velja tegund brots</fbc_156-required>
+                    <fbc_156-required lang="en">The type of violation required</fbc_156-required>
                     <fbc_160-label lang="is_IS">Heimilisfang</fbc_160-label>
                     <fbc_160-label lang="en">Address</fbc_160-label>
                     <fbc_161-label lang="is_IS">Póstnúmer</fbc_161-label>
                     <fbc_161-label lang="en">Postal code</fbc_161-label>
-                    <fbc_104-required lang="is_IS">Það þarf að fylla út reitinn X</fbc_104-required>
-                    <fbc_104-required lang="en">The field X is required</fbc_104-required>
+                    <fbc_104-required lang="is_IS">Það þarf að fylla út GSP staðsetningu</fbc_104-required>
+                    <fbc_104-required lang="en">The GSP location is required</fbc_104-required>
                     <fbc_163-label lang="is_IS">Um borð í skipi</fbc_163-label>
                     <fbc_163-label lang="en">Um borð í skipi</fbc_163-label>
                     <fbc_170-text lang="is_IS">Valið</fbc_170-text>
@@ -507,12 +516,14 @@
                     <fbc_190-label lang="en">Fishing type</fbc_190-label>
                     <fbc_191-label lang="is_IS">Veiðileyfi</fbc_191-label>
                     <fbc_191-label lang="en">Fishing license</fbc_191-label>
-                    <fbc_191a-label lang="is_IS">Svipting veiðileyfis</fbc_191a-label>
+                    <fbc_191a-label lang="is_IS">Er sviptur veiðileyfum</fbc_191a-label>
                     <fbc_191a-label lang="en">Revoke license</fbc_191a-label>
                     <fbc_191b-label lang="is_IS">Útgerð</fbc_191b-label>
                     <fbc_191b-label lang="en">Fishery</fbc_191b-label>
                     <fbc_192-label lang="is_IS">Veiðafæri</fbc_192-label>
                     <fbc_192-label lang="en">Fishing gear</fbc_192-label>
+                    <fbc_192a-label lang="is_IS">Ef annað, tilgreinið</fbc_192a-label>
+                    <fbc_192a-label lang="en">If other, specify</fbc_192a-label>
                     <fbc_199-label lang="is_IS">Brotalýsing</fbc_199-label>
                     <fbc_199-label lang="en">Violation description</fbc_199-label>
                     <fbc_200-text lang="is_IS">Brotalýsing</fbc_200-text>
@@ -577,7 +588,7 @@
                 <idega:setvalue
                     ref="instance('fbc_221_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('violationService.getOtherInspectorsThanCurrentlyLoggedIn()')"/>
                 <idega:setvalue 
-                    ref="instance('fbc_213_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('violationService.getFiskistofeOffices()')"/>
+                    ref="instance('fbc_213_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('violationService.getFiskistofaOffices()')"/>
                 <idega:setvalue
                     ref="instance('fbc_192_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('violationService.getFishingGears()')"/>
             </xf:action>
@@ -658,47 +669,7 @@
             <xf:instance id="fbc_192_eds" xmlns="">
                 <ext_src/>
             </xf:instance>
-            <xf:instance id="fbc_198_lds" xmlns="">
-                <local_src>
-                    <localizedEntries lang="en">
-                        <item>
-                            <itemLabel>Lína</itemLabel>
-                            <itemValue>lina</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Handfæri</itemLabel>
-                            <itemValue>handfari</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Botnvarpa</itemLabel>
-                            <itemValue>botnvarpa</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Annað</itemLabel>
-                            <itemValue>annaf</itemValue>
-                        </item>
-                    </localizedEntries>
-                    <localizedEntries lang="is_IS">
-                        <item>
-                            <itemLabel>Lína</itemLabel>
-                            <itemValue>lina</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Handfæri</itemLabel>
-                            <itemValue>handfari</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Botnvarpa</itemLabel>
-                            <itemValue>botnvarpa</itemValue>
-                        </item>
-                        <item>
-                            <itemLabel>Annað</itemLabel>
-                            <itemValue>annaf</itemValue>
-                        </item>
-                    </localizedEntries>
-                </local_src>
-            </xf:instance>
-            <xf:instance id="fbc_205_lds" xmlns="">
+           <xf:instance id="fbc_205_lds" xmlns="">
                 <local_src>
                     <localizedEntries lang="en">
                         <item>
@@ -716,22 +687,6 @@
             </xf:instance>
             <xf:instance id="fbc_205_eds" xmlns="">
                 <ext_src/>
-            </xf:instance>
-            <xf:instance id="fbc_212_lds" xmlns="">
-                <local_src>
-                    <localizedEntries lang="en">
-                        <item>
-                            <itemLabel>Change me</itemLabel>
-                            <itemValue>1</itemValue>
-                        </item>
-                    </localizedEntries>
-                    <localizedEntries lang="is_IS">
-                        <item>
-                            <itemLabel>Change me</itemLabel>
-                            <itemValue>1</itemValue>
-                        </item>
-                    </localizedEntries>
-                </local_src>
             </xf:instance>
             <xf:instance id="fbc_212_eds" xmlns="">
                 <ext_src/>
@@ -1030,74 +985,66 @@
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_39-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
                         
-                        <div class="fbc_header_text" id="fbc_225" type="fbc_header_text">
-                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_225-label[@lang=instance('localized_strings')/current_language]"/>
-                        </div>
-                        
-                        <xf:input bind="fbc_104_bind" id="fbc_104" type="fbc_text">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_104-label[@lang=instance('localized_strings')/current_language]"/>
-                            
-                            <xf:dispatch ev:event="xforms-value-changed"
-                                name="idega-latitudeValueChanged" target="fbc_latitudeValueCalculator"/>
-                        </xf:input>
-                        <xf:input bind="fbc_226_bind" id="fbc_226" type="fbc_text">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_226-label[@lang=instance('localized_strings')/current_language]"/>
-                            
-                            <xf:dispatch ev:event="xforms-value-changed"
-                                name="idega-latitudeValueChanged" target="fbc_latitudeValueCalculator"/>
-                        </xf:input>
-                        <xf:input bind="fbc_227_bind" id="fbc_227" type="fbc_text">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_227-label[@lang=instance('localized_strings')/current_language]"/>
-                            
-                            <xf:dispatch ev:event="xforms-value-changed"
-                                name="idega-latitudeValueChanged" target="fbc_latitudeValueCalculator"/>
-                        </xf:input>
-                        <xf:select1 appearance="minimal"
-                            bind="fbc_228_bind" id="fbc_228" type="fbc_single_select_minimal">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_228-label[@lang=instance('localized_strings')/current_language]"/>
-                            <xf:itemset model="data_model" nodeset="instance('fbc_228_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
-                                <xf:label ref="itemLabel"/>
-                                <xf:value ref="itemValue"/>
-                            </xf:itemset>
-                            
-                            <xf:dispatch ev:event="xforms-value-changed"
-                                name="idega-latitudeValueChanged" target="fbc_latitudeValueCalculator"/>
-                        </xf:select1>
-                        
-                        <div class="fbc_header_text" id="fbc_233" type="fbc_header_text">
-                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_233-label[@lang=instance('localized_strings')/current_language]"/>
-                        </div>
-                        
-                        <xf:input bind="fbc_229_bind" id="fbc_229" type="fbc_text">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_229-label[@lang=instance('localized_strings')/current_language]"/>
-                            
-                            <xf:dispatch ev:event="xforms-value-changed"
-                                name="idega-longitudeValueChanged" target="fbc_longitudeValueCalculator"/>
-                        </xf:input>
-                        <xf:input bind="fbc_230_bind" id="fbc_230" type="fbc_text">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_230-label[@lang=instance('localized_strings')/current_language]"/>
-                            
-                            <xf:dispatch ev:event="xforms-value-changed"
-                                name="idega-longitudeValueChanged" target="fbc_longitudeValueCalculator"/>
-                        </xf:input>
-                        <xf:input bind="fbc_231_bind" id="fbc_231" type="fbc_text">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_231-label[@lang=instance('localized_strings')/current_language]"/>
-                            
-                            <xf:dispatch ev:event="xforms-value-changed"
-                                name="idega-longitudeValueChanged" target="fbc_longitudeValueCalculator"/>
-                        </xf:input>
-                        <xf:select1 appearance="minimal"
-                            bind="fbc_232_bind" id="fbc_232" type="fbc_single_select_minimal">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_232-label[@lang=instance('localized_strings')/current_language]"/>
-                            <xf:itemset model="data_model" nodeset="instance('fbc_232_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
-                                <xf:label ref="itemLabel"/>
-                                <xf:value ref="itemValue"/>
-                            </xf:itemset>
-                            
-                            <xf:dispatch ev:event="xforms-value-changed"
-                                name="idega-longitudeValueChanged" target="fbc_longitudeValueCalculator"/>
-                        </xf:select1>
-                        
+                        <div class="gpsInputs">
+	                        <xf:label model="data_model" ref="instance('localized_strings')/fbc_225-label[@lang=instance('localized_strings')/current_language]">
+		                        <xf:input bind="fbc_104_bind" id="fbc_104" type="fbc_text">
+		                            <xf:dispatch ev:event="xforms-value-changed"
+		                                name="idega-latitudeValueChanged" target="fbc_latitudeValueCalculator"/>
+		                        </xf:input>
+		                        <xf:label model="data_model" ref="instance('localized_strings')/fbc_225a-label[@lang=instance('localized_strings')/current_language]"/>
+		                        <xf:input bind="fbc_226_bind" id="fbc_226" type="fbc_text">
+		                            <xf:dispatch ev:event="xforms-value-changed"
+		                                name="idega-latitudeValueChanged" target="fbc_latitudeValueCalculator"/>
+		                        </xf:input>
+		                        <xf:label model="data_model" ref="instance('localized_strings')/fbc_225b-label[@lang=instance('localized_strings')/current_language]"/>
+		                        <xf:input bind="fbc_227_bind" id="fbc_227" type="fbc_text">
+		                            <xf:dispatch ev:event="xforms-value-changed"
+		                                name="idega-latitudeValueChanged" target="fbc_latitudeValueCalculator"/>
+		                        </xf:input>
+		                        <xf:label model="data_model" ref="instance('localized_strings')/fbc_225c-label[@lang=instance('localized_strings')/current_language]"/>
+		                        <xf:select1 appearance="minimal"
+		                            bind="fbc_228_bind" id="fbc_228" type="fbc_single_select_minimal">
+		                            <xf:itemset model="data_model" nodeset="instance('fbc_228_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
+		                                <xf:label ref="itemLabel"/>
+		                                <xf:value ref="itemValue"/>
+		                            </xf:itemset>
+		                            
+		                            <xf:dispatch ev:event="xforms-value-changed"
+		                                name="idega-latitudeValueChanged" target="fbc_latitudeValueCalculator"/>
+		                        </xf:select1>
+	                        </xf:label>
+						</div>
+						
+						<div class="gpsInputs">                        
+	                        <xf:label model="data_model" ref="instance('localized_strings')/fbc_233-label[@lang=instance('localized_strings')/current_language]">
+		                        <xf:input bind="fbc_229_bind" id="fbc_229" type="fbc_text">
+		                            <xf:dispatch ev:event="xforms-value-changed"
+		                                name="idega-longitudeValueChanged" target="fbc_longitudeValueCalculator"/>
+		                        </xf:input>
+		                        <xf:label model="data_model" ref="instance('localized_strings')/fbc_225a-label[@lang=instance('localized_strings')/current_language]"/>
+		                        <xf:input bind="fbc_230_bind" id="fbc_230" type="fbc_text">
+		                            <xf:dispatch ev:event="xforms-value-changed"
+		                                name="idega-longitudeValueChanged" target="fbc_longitudeValueCalculator"/>
+		                        </xf:input>
+		                        <xf:label model="data_model" ref="instance('localized_strings')/fbc_225a-label[@lang=instance('localized_strings')/current_language]"/>
+		                        <xf:input bind="fbc_231_bind" id="fbc_231" type="fbc_text">
+		                            <xf:dispatch ev:event="xforms-value-changed"
+		                                name="idega-longitudeValueChanged" target="fbc_longitudeValueCalculator"/>
+		                        </xf:input>
+		                        <xf:label model="data_model" ref="instance('localized_strings')/fbc_225a-label[@lang=instance('localized_strings')/current_language]"/>
+		                        <xf:select1 appearance="minimal"
+		                            bind="fbc_232_bind" id="fbc_232" type="fbc_single_select_minimal">
+		                            <xf:itemset model="data_model" nodeset="instance('fbc_232_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
+		                                <xf:label ref="itemLabel"/>
+		                                <xf:value ref="itemValue"/>
+		                            </xf:itemset>
+		                            
+		                            <xf:dispatch ev:event="xforms-value-changed"
+		                                name="idega-longitudeValueChanged" target="fbc_longitudeValueCalculator"/>
+		                        </xf:select1>
+	                        </xf:label>
+						</div>
+						                        
                         <xf:select1 appearance="minimal"
                             bind="fbc_37_bind" id="fbc_37" type="fbc_single_select_minimal">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_37-label[@lang=instance('localized_strings')/current_language]"/>
@@ -1235,6 +1182,9 @@
 	                                ref="instance('data-instance')/fishingGearsSummary" value="instance('data-instance')/Fishing_gear_fbc_192"/>
 	                        </xf:select>
 	                    </div>
+                        <xf:output bind="fbc_192a_bind" id="fbc_192a" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_192a-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
                         <div class="fbc_button_area" id="fbc_174" type="fbc_button_area">
                             <xf:trigger bind="bind-submissionButton"
                                 class="fbc_button_submit" id="fbc_177" type="fbc_button_save">
@@ -1550,6 +1500,9 @@
                         </xf:output>
                         <xf:output bind="fbc_198_bind" id="fbc_198" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_192-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                        <xf:output bind="fbc_192a_bind" id="fbc_198a" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_192a-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
                         <div class="fbc_header_text" id="fbc_214" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_200-text[@lang=instance('localized_strings')/current_language]"/>

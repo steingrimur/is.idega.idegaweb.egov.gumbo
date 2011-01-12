@@ -12,11 +12,11 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = GumboViolationType.ENTITY_NAME)
+@Table(name = ViolationType.ENTITY_NAME)
 @NamedQueries({
-	@NamedQuery(name = "violationType.findAll", query = "select v from GumboViolationType v order by number")
+	@NamedQuery(name = "violationType.findAll", query = "select v from ViolationType v order by number")
 })
-public class GumboViolationType implements Serializable {
+public class ViolationType implements Serializable {
 
 	private static final long serialVersionUID = -5944248282131055723L;
 

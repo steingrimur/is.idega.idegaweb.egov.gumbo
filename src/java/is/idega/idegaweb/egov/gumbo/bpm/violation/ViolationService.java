@@ -61,12 +61,24 @@ public class ViolationService extends DefaultSpringBean {
 		        .getOtherInspectorsThanCurrentlyLoggedIn();
 	}
 	
-	public List<Item> getFiskistofeOffices() {
-		return getViolationDataProvider().getFiskistofeOffices();
+	public List<Item> getFiskistofaOffices() {
+		return getViolationDataProvider().getFiskistofaOffices();
 	}
 	
 	public List<Item> getFishingGears() {
 		return setLabelForValue(getViolationDataProvider().getFishingGears());
+	}
+	
+	public List<Item> getLetters() {
+		return getViolationDataProvider().getLetters();
+	}
+	
+	public List<Item> getLetters(String type) {
+		return getViolationDataProvider().getLetters(type);
+	}
+	
+	public List<Item> getDecisionRulings() {
+		return getViolationDataProvider().getDecisionRulings();
 	}
 	
 	public List<Item> getHarbours() {

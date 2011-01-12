@@ -18,11 +18,17 @@ public interface ViolationDataProvider {
 	
 	public abstract List<Item> getOtherInspectorsThanCurrentlyLoggedIn();
 	
-	public abstract List<Item> getFiskistofeOffices();
+	public abstract List<Item> getFiskistofaOffices();
 	
 	public abstract List<Item> getFishingGears();
 	
 	public abstract List<Item> getHarbours();
+	
+	public abstract List<Item> getLetters();
+	
+	public abstract List<Item> getLetters(String type);
+	
+	public abstract List<Item> getDecisionRulings();
 	
 	public abstract String getTypeLabelOfPermissionForViolationCompany(
 	        String socialNr);

@@ -20,7 +20,7 @@ public class FishingGear implements Serializable {
 
 	private static final long serialVersionUID = -3616683587126152613L;
 
-	public static final String ENTITY_NAME = "gumbo_inspector";
+	public static final String ENTITY_NAME = "gumbo_fishing_gear";
 
 	private static final String COLUMN_FISHING_GEAR_ID = "fishing_gear_id";
 	private static final String COLUMN_NAME = "name";
