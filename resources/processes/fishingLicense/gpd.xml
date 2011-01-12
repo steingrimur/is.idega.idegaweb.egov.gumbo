@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="FishingLicense" width="1054" height="1003">
+<root-container name="FishingLicense" width="757" height="1060">
   <node name="applicationForFishingLicense" x="195" y="37" width="164" height="34">
     <edge>
       <label x="-16" y="-9"/>
@@ -23,7 +23,7 @@
     </edge>
   </node>
   <node name="end-state2" x="144" y="678" width="22" height="24"/>
-  <node name="end-state1" x="473" y="978" width="23" height="24"/>
+  <node name="end-state1" x="449" y="1035" width="23" height="24"/>
   <node name="end-state3" x="656" y="335" width="23" height="28"/>
   <node name="updateCaseStatusToLicenseGrantedClaimUnpaid" x="344" y="467" width="247" height="36">
     <edge>
@@ -45,27 +45,27 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="sendLicenseFeeClaim" x="377" y="572" width="178" height="36">
+  <node name="sendLicenseFeeClaim" x="375" y="534" width="178" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="waitForPayment" x="403" y="662" width="132" height="36">
+  <node name="runCheckForPaymentTimer" x="384" y="679" width="166" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="updateCaseStatusToRegisteredPayment" x="370" y="738" width="207" height="36">
+  <node name="updateCaseStatusToRegisteredPayment" x="357" y="869" width="207" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="sendLicenseToApplicant" x="374" y="904" width="212" height="36">
+  <node name="sendLicenseToApplicant" x="354" y="978" width="212" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="issueLicense" x="413" y="823" width="132" height="36">
+  <node name="issueLicense" x="393" y="923" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
@@ -82,6 +82,26 @@
   <node name="sendMessageToApplicant" x="591" y="269" width="147" height="36">
     <edge>
       <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="updateTimerDate" x="392" y="605" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="checkPaymentIsPaid" x="399" y="747" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="isPaid" x="404" y="804" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+      <bendpoint w1="163" h1="1" w2="175" h2="200"/>
+      <bendpoint w1="165" h1="-200" w2="177" h2="-1"/>
     </edge>
   </node>
 </root-container>
