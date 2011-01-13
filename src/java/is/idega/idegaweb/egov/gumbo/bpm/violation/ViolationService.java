@@ -8,6 +8,7 @@ import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -58,11 +59,13 @@ public class ViolationService extends DefaultSpringBean {
 	}
 	
 	public List<Item> getOtherInspectorsThanCurrentlyLoggedIn() {
-		return setLabelForValue(getViolationDataProvider().getOtherInspectorsThanCurrentlyLoggedIn());
+		return setLabelForValue(getViolationDataProvider()
+		        .getOtherInspectorsThanCurrentlyLoggedIn());
 	}
 	
 	public List<Item> getFiskistofaOffices() {
-		return setLabelForValue(getViolationDataProvider().getFiskistofaOffices());
+		return setLabelForValue(getViolationDataProvider()
+		        .getFiskistofaOffices());
 	}
 	
 	public List<Item> getFishingGears() {
@@ -103,14 +106,11 @@ public class ViolationService extends DefaultSpringBean {
 		return getViolationDataProvider().getLawyersUsers();
 	}
 	
-	public String hasRole(String role, String processInstanceId) {
+	public String hasNativeRole(String role) {
 		
 		return new XFormsBooleanResult(
 
-		contains(
-		    
-		    getRolesManager().getUserRoles(new Long(processInstanceId),
-		        getCurrentUser()), role)
+		getRolesManager().getUserNativeRoles(getCurrentUser()).contains(role)
 
 		).getResult();
 	}

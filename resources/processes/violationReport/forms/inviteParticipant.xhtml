@@ -29,7 +29,6 @@
                <showHandlerSection/>
                
                <superHandlerRoleName mapping="superHandlerRoleName"/>
-               <processInstanceId mapping="mainProcessInstanceId"/>
            
             </data>
             </xf:instance>
@@ -153,7 +152,7 @@
                 <xf:action model="submission_model" if="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'">
                     <idega:setvalue
                     model="submission_model"
-                    ref="instance('data-instance')/showSuperHandlerSection" value="idega:resolveExpression('violationService.hasRole({0}, {1})', '#{instance(`data-instance`)/superHandlerRoleName}, #{instance(`data-instance`)/processInstanceId}')"/>
+                    ref="instance('data-instance')/showSuperHandlerSection" value="idega:resolveExpression('violationService.hasNativeRole({0})', '#{instance(`data-instance`)/superHandlerRoleName}')"/>
                     <idega:setvalue
                     model="submission_model"
                     ref="instance('data-instance')/showSuperHandlerSectionVar" value="instance('data-instance')/showSuperHandlerSection"/>

@@ -322,7 +322,6 @@
             <variable name="string_showSuperHandlerSection" access="read,write,required"></variable>
             
             <variable name="superHandlerRoleName" access="read"></variable>
-            <variable name="mainProcessInstanceId" access="read"></variable>
             
          </controller>
          <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
