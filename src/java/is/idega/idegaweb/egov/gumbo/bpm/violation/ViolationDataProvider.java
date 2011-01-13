@@ -14,6 +14,9 @@ public interface ViolationDataProvider {
 	
 	public abstract PersonData getViolationCompanyData(String socialNr);
 	
+	public abstract PersonData getRecipientPersonDataForWriteLetter(
+	        String socialNr);
+	
 	public abstract List<Item> getViolationTypes();
 	
 	public abstract List<Item> getOtherInspectorsThanCurrentlyLoggedIn();
@@ -107,6 +110,8 @@ public interface ViolationDataProvider {
 		private final String socialSecurityNr;
 		private String name;
 		private String address;
+		private String postalCode;
+		private String email;
 		
 		public PersonData(String socialSecurityNr) {
 			
@@ -133,6 +138,24 @@ public interface ViolationDataProvider {
 		
 		public String getSocialSecurityNr() {
 			return socialSecurityNr;
+		}
+		
+		public String getEmail() {
+			return email;
+		}
+		
+		public PersonData setEmail(String email) {
+			this.email = email;
+			return this;
+		}
+		
+		public String getPostalCode() {
+			return postalCode;
+		}
+		
+		public PersonData setPostalCode(String postalCode) {
+			this.postalCode = postalCode;
+			return this;
 		}
 	}
 	

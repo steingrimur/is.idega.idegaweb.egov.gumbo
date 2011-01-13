@@ -40,6 +40,12 @@ public class ViolationService extends DefaultSpringBean {
 		return getViolationDataProvider().getViolationCompanyData(socialNr);
 	}
 	
+	public PersonData getRecipientPersonDataForWriteLetter(String socialNr) {
+		
+		return getViolationDataProvider().getRecipientPersonDataForWriteLetter(
+		    socialNr);
+	}
+	
 	public List<Item> getViolationTypes() {
 		return setLabelForValue(getViolationDataProvider().getViolationTypes());
 	}

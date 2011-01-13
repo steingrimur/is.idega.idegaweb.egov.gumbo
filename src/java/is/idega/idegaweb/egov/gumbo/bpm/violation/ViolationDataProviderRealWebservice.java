@@ -14,6 +14,7 @@ import is.idega.block.nationalregister.webservice.client.business.SkyrrClient;
 import is.idega.block.nationalregister.webservice.client.business.UserHolder;
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.LetterType;
+import is.idega.idegaweb.egov.gumbo.bpm.violation.ViolationDataProvider.PersonData;
 import is.idega.idegaweb.egov.gumbo.dao.GumboDao;
 import is.idega.idegaweb.egov.gumbo.data.FishingGear;
 import is.idega.idegaweb.egov.gumbo.data.Inspector;
@@ -134,6 +135,13 @@ public class ViolationDataProviderRealWebservice implements
 	public PersonData getViolationCompanyData(String socialNr) {
 		return !StringUtil.isEmpty(socialNr) ? getCompany(socialNr)
 		        : new PersonData(socialNr);
+	}
+	
+	@Override
+	public PersonData getRecipientPersonDataForWriteLetter(String socialNr) {
+		
+		// TODO: implement this
+		return getViolationPersonData(socialNr);
 	}
 	
 	@Override
@@ -535,8 +543,11 @@ public class ViolationDataProviderRealWebservice implements
 		try {
 			final GroupBusiness groupBusiness = getGroupBusiness();
 			
-			String uniqueID = IWMainApplication.getDefaultIWApplicationContext().getApplicationSettings().getProperty(GumboConstants.PROPERTY_LAWYER_GROUP_ID, "-1");
-			final Group lawyersGroup = groupBusiness.getGroupByUniqueId(uniqueID);
+			String uniqueID = IWMainApplication
+			        .getDefaultIWApplicationContext().getApplicationSettings()
+			        .getProperty(GumboConstants.PROPERTY_LAWYER_GROUP_ID, "-1");
+			final Group lawyersGroup = groupBusiness
+			        .getGroupByUniqueId(uniqueID);
 			
 			final List<User> lawyersUsers = lawyersGroup != null ? (List<User>) groupBusiness
 			        .getUsers(lawyersGroup) : Collections.EMPTY_LIST;

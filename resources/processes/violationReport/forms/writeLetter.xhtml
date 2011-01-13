@@ -14,6 +14,13 @@
                     <Letter_text_fbc_5 mapping="string_letterText"/>
                     <Choose_letter_template_fbc_6/>
                     <Choose_letter_template_type_fbc_7/>
+                    <recipientSocialNr_fbc_8 mapping="string_recipientSocialNr"/>
+                    <personData>
+                        <name mapping="string_recipientName"/>
+                        <address mapping="string_recipientAddress"/>
+                        <postalCode mapping="string_recipientPostalCode"/>
+                        <email mapping="string_recipientEmail"/>
+                    </personData>
                 </data>
             </xf:instance>
             <xf:instance id="control-instance">
@@ -46,13 +53,31 @@
                 nodeset="instance('control-instance')/submissionButton" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
             <xf:bind id="fbc_5_bind" nodeset="Letter_text_fbc_5"
                 readonly="instance('control-instance')/readonly = 'true'"
-                required="true() and instance('control-instance')/generatePdf != 'true'" type="string"/>
+                required="instance('control-instance')/generatePdf != 'true'" type="string"/>
             <xf:bind id="fbc_6_bind"
                 nodeset="Choose_letter_template_fbc_6"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
             <xf:bind id="fbc_7_bind"
                 nodeset="Choose_letter_template_type_fbc_7"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+                
+            <xf:bind id="fbc_8_bind"
+                nodeset="recipientSocialNr_fbc_8"
+                required="instance('control-instance')/generatePdf != 'true'"
+                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+            <xf:bind id="fbc_9_bind"
+                nodeset="personData/name"
+                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+            <xf:bind id="fbc_10_bind"
+                nodeset="personData/address"
+                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+            <xf:bind id="fbc_11_bind"
+                nodeset="personData/postalCode"
+                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+            <xf:bind id="fbc_12_bind"
+                nodeset="personData/email"
+                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+                
         </xf:model>
         <xf:model id="data_model">
             <xf:instance id="localized_strings" xmlns="">
@@ -77,6 +102,18 @@
                     <fbc_6-label lang="en">Choose letter template</fbc_6-label>
                     <fbc_7-label lang="is_IS">Choose letter template type</fbc_7-label>
                     <fbc_7-label lang="en">Choose letter template type</fbc_7-label>
+                    <fbc_8-label lang="is_IS">Kennitala</fbc_8-label>
+                    <fbc_8-label lang="en">Social security nr.</fbc_8-label>
+                    <fbc_8-required lang="en">can not be empty</fbc_8-required>
+                    <fbc_8-required lang="is_IS">Skilaboð mega ekki vera tóm</fbc_8-required>
+                    <fbc_9-label lang="is_IS">Nafn</fbc_9-label>
+                    <fbc_9-label lang="en">Name</fbc_9-label>
+                    <fbc_10-label lang="is_IS">Heimilisfang</fbc_10-label>
+                    <fbc_10-label lang="en">Address</fbc_10-label>
+                    <fbc_11-label lang="is_IS">Póstnúmer</fbc_11-label>
+                    <fbc_11-label lang="en">Post code</fbc_11-label>
+                    <fbc_12-label lang="is_IS">Netfang</fbc_12-label>
+                    <fbc_12-label lang="en">Email</fbc_12-label>
                 </localized_strings>
             </xf:instance>
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
@@ -127,6 +164,44 @@
             <idega:switch>
                 <idega:case id="fbc_1" show="instance('control-instance')/generatePdf='true'">
                     <xf:group appearance="full">
+                    
+                        <xf:input id="fbc_8"
+                                bind="fbc_8_bind" type="fbc_text">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_8-label[@lang=instance('localized_strings')/current_language]"/>
+                                
+                            <xf:dispatch ev:event="idega-xforms-ready"
+                                name="idega-validate" target="fbc_8"/>
+                            <xf:dispatch ev:event="xforms-value-changed"
+                                name="idega-validate" target="fbc_8"/>
+                            <idega:validator ev:event="idega-validate">
+                                <idega:message errorType="required"
+                                    model="data_model" value="instance('localized_strings')/fbc_8-required[@lang=instance('localized_strings')/current_language]"/>
+                            </idega:validator>
+                            <xf:alert ref="instance('error-instance')/error[@for='fbc_8']"/>
+                            
+                            <idega:setvalue
+                                    ev:event="xforms-value-changed"
+                                    multiple="true()"
+                                    placeResponseDocument="true()"
+                                    ref="instance('data-instance')/personData" value="idega:resolveBeanProperties('violationService.getRecipientPersonDataForWriteLetter({0})', '#{instance(`data-instance`)/recipientSocialNr_fbc_8}')"/>
+                            </xf:input>
+                            <xf:output id="fbc_9"
+                                bind="fbc_9_bind" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_9-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output id="fbc_10"
+                                bind="fbc_10_bind" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output id="fbc_11"
+                                bind="fbc_11_bind" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_11-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            <xf:output id="fbc_12"
+                                bind="fbc_12_bind" type="fbc_text_output">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_12-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                    
                         <xf:select1 appearance="minimal"
                             bind="fbc_7_bind" id="fbc_7" type="fbc_single_select_minimal">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_7-label[@lang=instance('localized_strings')/current_language]"/>

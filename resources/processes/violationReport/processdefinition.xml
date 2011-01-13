@@ -363,6 +363,12 @@
 	   <task name="writeLetterTask" priority="-1">
          <controller>
             <variable name="string_letterText" access="read,write,required"></variable>
+            
+            <variable name="string_recipientSocialNr" access="read,write,required"></variable>
+            <variable name="string_recipientName" access="read,write"></variable>
+            <variable name="string_recipientAddress" access="read,write"></variable>
+            <variable name="string_recipientPostalCode" access="read,write"></variable>
+            <variable name="string_recipientEmail" access="read,write"></variable>
          </controller>
         <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
             <handlerName>jsonAssignmentHandler</handlerName>
