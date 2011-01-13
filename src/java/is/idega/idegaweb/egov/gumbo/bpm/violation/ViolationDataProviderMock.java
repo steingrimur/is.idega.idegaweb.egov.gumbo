@@ -1,5 +1,6 @@
 package is.idega.idegaweb.egov.gumbo.bpm.violation;
 
+import is.idega.idegaweb.egov.gumbo.LetterType;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 
 import java.util.ArrayList;
@@ -67,18 +68,30 @@ public class ViolationDataProviderMock implements ViolationDataProvider {
 	}
 	
 	@Override
-	public List<Item> getLetters() {
-		return Arrays.asList(new Item[] { new Item("template1", "Template 1"), new Item("template2", "Template 2") });
+	public List<Item> getLettersTypes() {
+		
+		final LetterType[] types = LetterType.values();
+		
+		final List<Item> items = new ArrayList<Item>(types.length);
+		
+		for (LetterType letterType : types) {
+			items.add(new Item(letterType.toString(), letterType.toString()));
+		}
+		
+		return items;
 	}
 	
 	@Override
 	public List<Item> getLetters(String type) {
-		return Arrays.asList(new Item[] { new Item("template1", "Template 1"), new Item("template2", "Template 2") });
+		return Arrays.asList(new Item[] {
+		        new Item("template1" + type, "Template 1" + type),
+		        new Item("template2" + type, "Template 2" + type) });
 	}
 	
 	@Override
 	public List<Item> getDecisionRulings() {
-		return Arrays.asList(new Item[] { new Item("decisions1", "Decision 1"), new Item("decision2", "Decision 2") });
+		return Arrays.asList(new Item[] { new Item("decisions1", "Decision 1"),
+		        new Item("decision2", "Decision 2") });
 	}
 	
 	@Override

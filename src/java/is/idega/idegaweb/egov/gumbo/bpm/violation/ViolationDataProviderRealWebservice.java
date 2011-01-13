@@ -212,17 +212,16 @@ public class ViolationDataProviderRealWebservice implements
 	}
 	
 	@Override
-	public List<Item> getLetters() {
-		final List<Item> items = new ArrayList<Item>();
+	public List<Item> getLettersTypes() {
 		
-		List<Letter> letters = getDao().getLetters();
-		if (letters != null && letters.size() > 0) {
-			for (Letter letter : letters) {
-				items.add(new Item(letter.getName(), letter.getText()));
-			}
-		}
-		else {
-			items.add(new Item("1", "No letters in database..."));
+		final LetterType[] types = LetterType.values();
+		
+		final List<Item> items = new ArrayList<Item>(types.length);
+		
+		// TODO: add label for letter type
+		
+		for (LetterType letterType : types) {
+			items.add(new Item(letterType.toString(), letterType.toString()));
 		}
 		
 		return items;
@@ -231,13 +230,13 @@ public class ViolationDataProviderRealWebservice implements
 	public List<Item> getLetters(String letterType) {
 		final List<Item> items = new ArrayList<Item>();
 		
-		List<Letter> letters = getDao().getLetters(LetterType.valueOf(letterType));
+		List<Letter> letters = getDao().getLetters(
+		    LetterType.valueOf(letterType));
 		if (letters != null && letters.size() > 0) {
 			for (Letter letter : letters) {
 				items.add(new Item(letter.getName(), letter.getText()));
 			}
-		}
-		else {
+		} else {
 			items.add(new Item("1", "No letters in database..."));
 		}
 		
@@ -251,10 +250,10 @@ public class ViolationDataProviderRealWebservice implements
 		List<ViolationDecision> decisions = getDao().getViolationDecisions();
 		if (decisions != null && decisions.size() > 0) {
 			for (ViolationDecision decision : decisions) {
-				items.add(new Item(decision.getId().toString(), decision.getName()));
+				items.add(new Item(decision.getId().toString(), decision
+				        .getName()));
 			}
-		}
-		else {
+		} else {
 			items.add(new Item("1", "No rulings in database..."));
 		}
 		
@@ -301,16 +300,22 @@ public class ViolationDataProviderRealWebservice implements
 				}
 			}
 			
-			IWResourceBundle iwrb = IWMainApplication.getDefaultIWApplicationContext().getIWMainApplication().getBundle(GumboConstants.IW_BUNDLE_IDENTIFIER).getResourceBundle(LocaleUtil.getIcelandicLocale());
+			IWResourceBundle iwrb = IWMainApplication
+			        .getDefaultIWApplicationContext().getIWMainApplication()
+			        .getBundle(GumboConstants.IW_BUNDLE_IDENTIFIER)
+			        .getResourceBundle(LocaleUtil.getIcelandicLocale());
 			
 			data.setFisheriesName(res.getResult().getUtgerdNafn());
 			data.setFishingLicense(license.toString());
 			data.setFishingType(res.getResult().getUtgFlHeiti());
 			data.setName(res.getResult().getNafn());
 			data.setOwnersName(res.getResult().getEigandiNafn());
-			data.setRevokeLicense(iwrb.getLocalizedString("boolean." + Boolean.toString(res.getResult()
-			        .getErsvipting().getIsok().intValue() > 0), Boolean.toString(res.getResult()
-					        .getErsvipting().getIsok().intValue() > 0)));
+			data.setRevokeLicense(iwrb.getLocalizedString(
+			    "boolean."
+			            + Boolean.toString(res.getResult().getErsvipting()
+			                    .getIsok().intValue() > 0),
+			    Boolean.toString(res.getResult().getErsvipting().getIsok()
+			            .intValue() > 0)));
 			
 		} catch (RemoteException e) {
 			e.printStackTrace();

@@ -13,6 +13,7 @@
                     <form_id>1853</form_id>
                     <Letter_text_fbc_5 mapping="string_letterText"/>
                     <Choose_letter_template_fbc_6/>
+                    <Choose_letter_template_type_fbc_7/>
                 </data>
             </xf:instance>
             <xf:instance id="control-instance">
@@ -49,6 +50,9 @@
             <xf:bind id="fbc_6_bind"
                 nodeset="Choose_letter_template_fbc_6"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+            <xf:bind id="fbc_7_bind"
+                nodeset="Choose_letter_template_type_fbc_7"
+                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
         </xf:model>
         <xf:model id="data_model">
             <xf:instance id="localized_strings" xmlns="">
@@ -71,6 +75,8 @@
                     <fbc_5-required lang="is_IS">Skilaboð mega ekki vera tóm</fbc_5-required>
                     <fbc_6-label lang="is_IS">Bréfstílsnið</fbc_6-label>
                     <fbc_6-label lang="en">Choose letter template</fbc_6-label>
+                    <fbc_7-label lang="is_IS">Choose letter template type</fbc_7-label>
+                    <fbc_7-label lang="en">Choose letter template type</fbc_7-label>
                 </localized_strings>
             </xf:instance>
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
@@ -80,10 +86,20 @@
                 <idega:dispatch name="idega-xforms-ready" target="//h:body//*[starts-with(@id, 'fbc_')]"/>
                 
                 <idega:setvalue
-                    ref="instance('fbc_6_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('violationService.getLetters()')"/>
+                    ref="instance('fbc_7_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('violationService.getLettersTypes()')"/>
                 
             </xf:action>
             <xf:instance id="fbc_6_lds" xmlns="">
+                <local_src>
+                    <localizedEntries lang="en">
+                        <item/>
+                    </localizedEntries>
+                    <localizedEntries lang="is_IS">
+                        <item/>
+                    </localizedEntries>
+                </local_src>
+            </xf:instance>
+            <xf:instance id="fbc_7_lds" xmlns="">
                 <local_src>
                     <localizedEntries lang="en">
                         <item/>
@@ -111,6 +127,24 @@
             <idega:switch>
                 <idega:case id="fbc_1" show="instance('control-instance')/generatePdf='true'">
                     <xf:group appearance="full">
+                        <xf:select1 appearance="minimal"
+                            bind="fbc_7_bind" id="fbc_7" type="fbc_single_select_minimal">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_7-label[@lang=instance('localized_strings')/current_language]"/>
+                            <xf:itemset model="data_model" nodeset="instance('fbc_7_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
+                                <xf:label ref="itemLabel"/>
+                                <xf:value ref="itemValue"/>
+                            </xf:itemset>
+                            
+                            <xf:action ev:event="xforms-value-changed">
+	                            <idega:setvalue 
+	                                ref="instance('fbc_6_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('violationService.getEmptyList()')"/>
+	                            
+	                            <idega:setvalue
+	                                ref="instance('fbc_6_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('violationService.getLetters({0})', '#{instance(`data-instance`)/Choose_letter_template_type_fbc_7}')"/>
+                            </xf:action>
+                            
+                            
+                        </xf:select1>
                         <xf:select1 appearance="minimal"
                             bind="fbc_6_bind" id="fbc_6" type="fbc_single_select_minimal">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_6-label[@lang=instance('localized_strings')/current_language]"/>

@@ -6,6 +6,7 @@ import is.idega.idegaweb.egov.gumbo.licenses.FishingLicenseUser.XFormsBooleanRes
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+
+import bsh.StringUtil;
 
 import com.idega.core.business.DefaultSpringBean;
 import com.idega.jbpm.identity.Role;
@@ -69,12 +72,20 @@ public class ViolationService extends DefaultSpringBean {
 		return setLabelForValue(getViolationDataProvider().getFishingGears());
 	}
 	
-	public List<Item> getLetters() {
-		return getViolationDataProvider().getLetters();
+	public List<Item> getLettersTypes() {
+		return getViolationDataProvider().getLettersTypes();
+	}
+	
+	public List<Item> getEmptyList() {
+		return Collections.emptyList();
 	}
 	
 	public List<Item> getLetters(String type) {
-		return getViolationDataProvider().getLetters(type);
+		
+		if (!com.idega.util.StringUtil.isEmpty(type))
+			return getViolationDataProvider().getLetters(type);
+		else
+			return Collections.emptyList();
 	}
 	
 	public List<Item> getDecisionRulings() {

@@ -24,7 +24,7 @@ public interface ViolationDataProvider {
 	
 	public abstract List<Item> getHarbours();
 	
-	public abstract List<Item> getLetters();
+	public abstract List<Item> getLettersTypes();
 	
 	public abstract List<Item> getLetters(String type);
 	

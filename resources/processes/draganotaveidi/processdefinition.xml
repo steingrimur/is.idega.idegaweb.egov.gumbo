@@ -298,10 +298,10 @@
                 <handlerName>sendLicenseFeeClaim</handlerName>
             </action>
         </event>
-		<transition to="waitForPayment"></transition>
+		<transition to="runCheckForPaymentTimer"></transition>
 	</node>
 
-	<state name="waitForPayment">
+	<state name="runCheckForPaymentTimer">
 	   <event type="node-leave">
             <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
                 <handlerName>setDraganotveidiValidPeriod</handlerName>
@@ -435,6 +435,8 @@
 		<transition to="sendMessageToApplicant" name="toSendMessageToApplicant"></transition>
 		<transition to="licenseRuling"></transition>
 	</fork>
+
+	<node name="node1"></node>
 	
 	<idg:roles xmlns:idg="http://idega.com/bpm">
         <role name="bpm_fishingLicense_caseHandler">
