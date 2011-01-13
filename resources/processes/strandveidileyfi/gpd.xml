@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="Strandveidileyfi" width="1054" height="1248">
+<root-container name="Strandveidileyfi" width="678" height="1248">
   <node name="applicationForFishingLicense" x="195" y="37" width="164" height="34">
     <edge>
       <label x="5" y="-10"/>
@@ -50,17 +50,17 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="waitForPayment" x="426" y="675" width="132" height="36">
+  <node name="runCheckForPaymentTimer" x="423" y="733" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="updateCaseStatusToRegisteredPayment" x="388" y="735" width="207" height="36">
+  <node name="updateCaseStatusToRegisteredPayment" x="385" y="896" width="207" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="sendLicenseToApplicant" x="383" y="956" width="212" height="36">
+  <node name="sendLicenseToApplicant" x="381" y="1014" width="212" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
@@ -75,7 +75,7 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="issueLicense" x="425" y="853" width="132" height="36">
+  <node name="issueLicense" x="425" y="953" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
@@ -92,6 +92,26 @@
   <node name="sendMessageToApplicant" x="487" y="266" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="updateTimerDate" x="423" y="675" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="checkPaymentIsPaid" x="418" y="786" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="isPaid" x="415" y="844" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+      <bendpoint w1="147" h1="3" w2="139" h2="172"/>
+      <bendpoint w1="147" h1="-171" w2="139" h2="-2"/>
     </edge>
   </node>
 </root-container>
