@@ -298,16 +298,14 @@
                 <handlerName>sendLicenseFeeClaim</handlerName>
             </action>
         </event>
-		<transition to="runCheckForPaymentTimer"></transition>
+		<transition to="updateTimerDate"></transition>
 	</node>
 
 	<state name="runCheckForPaymentTimer">
-	   <event type="node-leave">
-            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
-                <handlerName>setDraganotveidiValidPeriod</handlerName>
-            </action>
-       </event>
-		<transition to="updateCaseStatusToRegisteredPayment"></transition>
+	   <timer duedate='#{date_checkForPaymentTimerDate}'
+              transition='toCheckPaymentIsPaid'>
+       </timer>
+		<transition to="checkPaymentIsPaid" name="toCheckPaymentIsPaid"></transition>
 	</state>
 
 	<node name="updateCaseStatusToRegisteredPayment">
@@ -436,7 +434,37 @@
 		<transition to="licenseRuling"></transition>
 	</fork>
 
-	<node name="node1"></node>
+	<node name="updateTimerDate">
+	   <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>updateCheckForPaymentTimerDate</handlerName>
+            </action>
+        </event>
+		<transition to="runCheckForPaymentTimer"></transition>
+	</node>
+
+	<node name="checkPaymentIsPaid">
+	   <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>checkPaymentIsPaid</handlerName>
+            </action>
+        </event>
+		<transition to="isPaid"></transition>
+	</node>
+
+	<decision name="isPaid" expression='#{paymentPaid eq "true"}'>
+		<transition to="setValidPeriod" name="true"></transition>
+		<transition to="updateTimerDate" name="false"></transition>
+	</decision>
+
+	<node name="setValidPeriod">
+	   <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>setDraganotveidiValidPeriod</handlerName>
+            </action>
+       </event>
+		<transition to="updateCaseStatusToRegisteredPayment"></transition>
+	</node>
 	
 	<idg:roles xmlns:idg="http://idega.com/bpm">
         <role name="bpm_fishingLicense_caseHandler">

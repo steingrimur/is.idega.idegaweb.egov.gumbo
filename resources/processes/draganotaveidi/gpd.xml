@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="Draganotaveidi" width="673" height="1248">
+<root-container name="Draganotaveidi" width="674" height="1323">
   <node name="applicationForFishingLicense" x="195" y="37" width="164" height="34">
     <edge>
       <label x="5" y="-10"/>
@@ -23,7 +23,7 @@
     </edge>
   </node>
   <node name="end-state2" x="144" y="678" width="22" height="24"/>
-  <node name="end-state1" x="481" y="1223" width="23" height="24"/>
+  <node name="end-state1" x="476" y="1298" width="23" height="24"/>
   <node name="end-state3" x="593" y="351" width="22" height="23"/>
   <node name="updateCaseStatusToLicenseGrantedClaimUnpaid" x="368" y="555" width="247" height="36">
     <edge>
@@ -50,32 +50,32 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="runCheckForPaymentTimer" x="426" y="675" width="153" height="36">
+  <node name="runCheckForPaymentTimer" x="409" y="754" width="153" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="updateCaseStatusToRegisteredPayment" x="396" y="845" width="207" height="36">
+  <node name="updateCaseStatusToRegisteredPayment" x="387" y="977" width="207" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="sendLicenseToApplicant" x="383" y="956" width="212" height="36">
+  <node name="sendLicenseToApplicant" x="381" y="1081" width="212" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="runInvalidationWarningNotificationTimer" x="378" y="1064" width="231" height="36">
+  <node name="runInvalidationWarningNotificationTimer" x="373" y="1139" width="231" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="sendInvalidationWarningNotification" x="399" y="1150" width="199" height="36">
+  <node name="sendInvalidationWarningNotification" x="394" y="1225" width="199" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="issueLicense" x="428" y="901" width="132" height="36">
+  <node name="issueLicense" x="424" y="1026" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
@@ -94,5 +94,29 @@
       <bendpoint w1="-10" h1="62" w2="190" h2="20"/>
     </edge>
   </node>
-  <node name="node1" x="371" y="718" width="132" height="36"/>
+  <node name="updateTimerDate" x="422" y="689" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="checkPaymentIsPaid" x="421" y="813" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="isPaid" x="421" y="867" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+      <bendpoint w1="158" h1="0" w2="165" h2="180"/>
+      <bendpoint w1="154" h1="-179" w2="161" h2="1"/>
+    </edge>
+  </node>
+  <node name="setValidPeriod" x="422" y="920" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
 </root-container>

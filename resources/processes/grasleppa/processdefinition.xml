@@ -310,11 +310,14 @@
                 <handlerName>sendLicenseFeeClaim</handlerName>
             </action>
         </event>
-		<transition to="waitForPayment"></transition>
+		<transition to="updateTimerDate"></transition>
 	</node>
 
-	<state name="waitForPayment">
-		<transition to="updateCaseStatusToRegisteredPayment"></transition>
+	<state name="runCheckForPaymentTimer">
+	   <timer duedate='#{date_checkForPaymentTimerDate}'
+              transition='toCheckPaymentIsPaid'>
+       </timer>
+		<transition to="checkPaymentIsPaid" name="toCheckPaymentIsPaid"></transition>
 	</state>
 
 	<node name="updateCaseStatusToRegisteredPayment">
@@ -430,6 +433,29 @@
 		<transition to="sendMessageToApplicant" name="toSendMessageToApplicant"></transition>
 		<transition to="licenseRuling"></transition>
 	</fork>
+
+	<node name="updateTimerDate">
+	     <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>updateCheckForPaymentTimerDate</handlerName>
+            </action>
+        </event>
+		<transition to="runCheckForPaymentTimer"></transition>
+	</node>
+
+	<node name="checkPaymentIsPaid">
+	   <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>checkPaymentIsPaid</handlerName>
+            </action>
+        </event>
+		<transition to="isPaid"></transition>
+	</node>
+
+	<decision name="isPaid" expression='#{paymentPaid eq "true"}'>
+		<transition to="updateCaseStatusToRegisteredPayment" name="true"></transition>
+		<transition to="updateTimerDate" name="false"></transition>
+	</decision>
 	
 	<idg:roles xmlns:idg="http://idega.com/bpm">
         <role name="bpm_fishingLicense_caseHandler">
