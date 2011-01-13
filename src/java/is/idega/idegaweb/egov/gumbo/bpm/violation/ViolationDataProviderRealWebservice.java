@@ -49,7 +49,9 @@ import com.idega.company.companyregister.business.CompanyRegisterBusiness;
 import com.idega.company.data.Company;
 import com.idega.core.location.data.Address;
 import com.idega.data.IDOFinderException;
+import com.idega.idegaweb.IWApplicationContext;
 import com.idega.idegaweb.IWMainApplication;
+import com.idega.idegaweb.IWMainApplicationContext;
 import com.idega.idegaweb.IWResourceBundle;
 import com.idega.user.business.GroupBusiness;
 import com.idega.user.business.UserBusiness;
@@ -533,11 +535,8 @@ public class ViolationDataProviderRealWebservice implements
 		try {
 			final GroupBusiness groupBusiness = getGroupBusiness();
 			
-			final List<Group> lawyersGroups = (List<Group>) groupBusiness
-			        .getGroupsByGroupName("fiskistofa_lawyers");
-			
-			final Group lawyersGroup = lawyersGroups.isEmpty() ? null
-			        : lawyersGroups.iterator().next();
+			String uniqueID = IWMainApplication.getDefaultIWApplicationContext().getApplicationSettings().getProperty(GumboConstants.PROPERTY_LAWYER_GROUP_ID, "-1");
+			final Group lawyersGroup = groupBusiness.getGroupByUniqueId(uniqueID);
 			
 			final List<User> lawyersUsers = lawyersGroup != null ? (List<User>) groupBusiness
 			        .getUsers(lawyersGroup) : Collections.EMPTY_LIST;

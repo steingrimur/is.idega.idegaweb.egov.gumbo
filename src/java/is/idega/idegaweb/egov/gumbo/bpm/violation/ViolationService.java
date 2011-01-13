@@ -15,8 +15,6 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import bsh.StringUtil;
-
 import com.idega.core.business.DefaultSpringBean;
 import com.idega.jbpm.identity.Role;
 import com.idega.jbpm.identity.RolesManager;
@@ -60,12 +58,11 @@ public class ViolationService extends DefaultSpringBean {
 	}
 	
 	public List<Item> getOtherInspectorsThanCurrentlyLoggedIn() {
-		return getViolationDataProvider()
-		        .getOtherInspectorsThanCurrentlyLoggedIn();
+		return setLabelForValue(getViolationDataProvider().getOtherInspectorsThanCurrentlyLoggedIn());
 	}
 	
 	public List<Item> getFiskistofaOffices() {
-		return getViolationDataProvider().getFiskistofaOffices();
+		return setLabelForValue(getViolationDataProvider().getFiskistofaOffices());
 	}
 	
 	public List<Item> getFishingGears() {
