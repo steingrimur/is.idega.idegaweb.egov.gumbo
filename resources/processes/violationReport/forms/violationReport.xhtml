@@ -12,7 +12,7 @@
                 <data>
                     <form_id>10464</form_id>
                     <Identifier_number_fbc_23 mapping="string_caseIdentifier"/>
-                    <case_name_fbc_999 mapping="string_caseName"/>
+                    <case_name_fbc_999 mapping="string_caseDescription"/>
                     <violationPersons mapping="objlist_violationPersons">
                         <list>
                             <row>
@@ -1372,6 +1372,13 @@
                 </idega:case>
                 <idega:case id="fbc_41" show="instance('control-instance')/generatePdf='true'">
                     <xf:group appearance="full">
+                        <xf:output model="submission_model" ref="instance('data-instance')/Identifier_number_fbc_23">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_23-title[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                        <xf:output bind="fbc_999_bind" id="fbc_999a" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_999-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                    
                         <div class="fbc_header_text" id="fbc_134" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_5-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>

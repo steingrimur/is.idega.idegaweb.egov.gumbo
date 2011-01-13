@@ -75,7 +75,7 @@
          
          <controller>
             <variable name="string_caseIdentifier" access="read"></variable>
-            <variable name="string_caseName" access="read,write"></variable>
+            <variable name="string_caseDescription" access="read,write"></variable>
             
             <variable name="objlist_violationPersons" access="read,write"></variable>
             <variable name="objlist_violationCompanies" access="read,write"></variable>
@@ -135,6 +135,11 @@
             
          </controller>
       </task>
+      <event type="node-leave">
+			<action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+            	<handlerName>setProcessDescriptionHandler</handlerName>
+          	</action>
+      </event>
       <transition to="fork1"></transition>
    </start-state>
    <event type="handlerAssignedToCase">
@@ -791,7 +796,7 @@
          
          <controller>
             <variable name="string_caseIdentifier" access="read"></variable>
-            <variable name="string_caseName" access="read,write"></variable>
+            <variable name="string_caseDescription" access="read,write"></variable>
             
             <variable name="objlist_violationPersons" access="read,write"></variable>
             <variable name="objlist_violationCompanies" access="read,write"></variable>
