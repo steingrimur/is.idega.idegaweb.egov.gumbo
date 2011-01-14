@@ -316,6 +316,7 @@
             <variable name="string_inviteText" access="write,required"></variable>
             <variable name="string_participantEmailBySuperHandler" access="read,write"></variable>
             <variable name="string_participantEmailByHandler" access="read,write"></variable>
+            <variable name="string_participantEmailPrefixByHandler" access="read,write"></variable>
             <variable name="string_participantName" access="write,required"></variable>
             <variable access="write" name="files_inviteParticipantAttachments"></variable>
                 
