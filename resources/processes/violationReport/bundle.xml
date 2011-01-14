@@ -5,40 +5,40 @@
     <processBundle beanIdentifier="casesBPMProcessBundle" processManagerType="cases" />
     
     <tasks>
-        <task name="violationReportTask" initial="true">
+        <task name="violationReportTask" initial="true" order="0">
             <viewResource resourceIdentifier="forms/violationReport.xhtml" viewType="xforms" viewResourceType="xforms" />
         </task>
-        <task name="violationReportOnRepeatTask">
+        <task name="violationReportOnRepeatTask" order="1">
             <viewResource resourceIdentifier="forms/violationReport.xhtml" viewType="xforms" viewResourceType="xforms" />
         </task>
-        <task name="setTimeframeTask">
+        <task name="setTimeframeTask" order="2">
             <viewResource resourceIdentifier="forms/setTimeframe.xhtml" viewType="xforms" viewResourceType="xforms" />
         </task>
-        <task name="sendToLegalDepartmentTask">
+        <task name="sendToLegalDepartmentTask" order="3">
             <viewResource resourceIdentifier="forms/sendToLegalDepartment.xhtml" viewType="xforms" viewResourceType="xforms" />
         </task>
-        <task name="violationDecisionTask">
+        <task name="violationDecisionTask" order="7">
             <viewResource resourceIdentifier="forms/violationDecision.xhtml" viewType="xforms" viewResourceType="xforms" />
         </task>
-        <task name="closeCaseTask">
+        <task name="closeCaseTask" order="8">
             <viewResource resourceIdentifier="forms/closeCase.xhtml" viewType="xforms" viewResourceType="xforms" />
         </task>
-        <task name="writeLetterTask">
+        <task name="writeLetterTask" order="6">
             <viewResource resourceIdentifier="forms/writeLetter.xhtml" viewType="xforms" viewResourceType="xforms" />
         </task>
-        <task name="inviteParticipantTask">
+        <task name="inviteParticipantTask" order="5">
             <viewResource resourceIdentifier="forms/inviteParticipant.xhtml" viewType="xforms" viewResourceType="xforms" />
         </task>
-        <task name="submitCaseAnswerTask">
+        <task name="submitCaseAnswerTask" order="9">
             <viewResource resourceIdentifier="forms/submitInvitedCaseAnswer.xhtml" viewType="xforms" viewResourceType="xforms" />
         </task>
-        <task name="requestAdditionalInformationTask">
+        <task name="requestAdditionalInformationTask" order="4">
             <viewResource resourceIdentifier="forms/requestAdditionalInformation.xhtml" viewType="xforms" viewResourceType="xforms" />
         </task>
-        <task name="submitAdditionalInformationTask">
+        <task name="submitAdditionalInformationTask" order="10">
             <viewResource resourceIdentifier="forms/submitAdditionalInformation.xhtml" viewType="xforms" viewResourceType="xforms" />
         </task>
-        <task name="submitAdditionalInformationWithoutRequestTask">
+        <task name="submitAdditionalInformationWithoutRequestTask" order="11">
             <viewResource resourceIdentifier="forms/submitAdditionalInformation.xhtml" viewType="xforms" viewResourceType="xforms" />
         </task>
     </tasks>
