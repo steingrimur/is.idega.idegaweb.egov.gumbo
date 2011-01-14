@@ -62,6 +62,7 @@ import com.idega.util.IWTimestamp;
 import com.idega.util.LocaleUtil;
 import com.idega.util.StringUtil;
 import com.idega.util.text.Item;
+import com.idega.util.text.SocialSecurityNumber;
 
 @Service
 @Scope(BeanDefinition.SCOPE_SINGLETON)
@@ -139,9 +140,15 @@ public class ViolationDataProviderRealWebservice implements
 	
 	@Override
 	public PersonData getRecipientPersonDataForWriteLetter(String socialNr) {
-		
-		// TODO: implement this
-		return getViolationPersonData(socialNr);
+		if (!StringUtil.isEmpty(socialNr)) {
+			if (SocialSecurityNumber.isIndividualSocialSecurityNumber(socialNr, LocaleUtil.getIcelandicLocale())) {
+				return getUser(socialNr);
+			}
+			else if (SocialSecurityNumber.isCompanySocialSecurityNumber(socialNr, LocaleUtil.getIcelandicLocale())) {
+				return getCompany(socialNr);
+			}
+		}
+		return new PersonData(socialNr);
 	}
 	
 	@Override
