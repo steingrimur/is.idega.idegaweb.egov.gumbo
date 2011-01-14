@@ -13,7 +13,8 @@
                 
                <Participant_name_fbc_10 mapping="string_participantName"/> 
                <Participant_email_fbc_11 mapping="string_participantEmailBySuperHandler" xsi:nil="true"/>
-               <Participant_email_fbc_12 mapping="string_participantEmailByHandler" xsi:nil="true"/> 
+               <Participant_email_fbc_12 mapping="string_participantEmailByHandler" xsi:nil="true"/>
+               <Participant_email_prefix_fbc_12 mapping="string_participantEmailPrefixByHandler" xsi:nil="true"/> 
                <Multi_file_upload_with_description_fbc_8 mapping="files_inviteParticipantAttachments">
                					<group />
                               <entry filename="" mediatype="">
@@ -67,8 +68,8 @@
             <xf:bind id="fbc_11_bind" nodeset="Participant_email_fbc_11"  readonly="instance('control-instance')/readonly = 'true'"  required="instance('data-instance')/showSuperHandlerSection = 'true' and instance('control-instance')/generatePdf != 'true'"
                   type="fbc_11fb_email"/>
                   
-            <xf:bind id="fbc_12_bind" nodeset="Participant_email_fbc_12"  readonly="instance('control-instance')/readonly = 'true'"  required="instance('data-instance')/showSuperHandlerSection != 'true' and instance('control-instance')/generatePdf != 'true'"
-                  type="fbc_12fb_email"/>
+            <xf:bind id="fbc_12_bind" nodeset="Participant_email_prefix_fbc_12"  readonly="instance('control-instance')/readonly = 'true'"  required="instance('data-instance')/showSuperHandlerSection != 'true' and instance('control-instance')/generatePdf != 'true'"
+                  type="fbc_12fb_emailPrefix"/>
           <xf:bind id="fbc_8_bind" nodeset="Multi_file_upload_with_description_fbc_8/group" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'">
                 <xf:bind id="fbc_8-entries" nodeset="../entry[position() != last()]" type="xs:anyURI"/>
             </xf:bind>
@@ -108,12 +109,12 @@
                         
                         <fbc_12-title lang="en">Invited participant email</fbc_12-title>
                         <fbc_12-title lang="is_IS">Netfang</fbc_12-title>
-                        <fbc_12-validation lang="is_IS">Email should end with @fiskistofa.is</fbc_12-validation>
-                        <fbc_12-validation lang="en">Email should end with @fiskistofa.is</fbc_12-validation>
+                        <fbc_12-validation lang="is_IS">Please enter the prefix of the email only</fbc_12-validation>
+                        <fbc_12-validation lang="en">Please enter the prefix of the email only</fbc_12-validation>
                         <fbc_12-required lang="en">Email cannot be empty</fbc_12-required>
                         <fbc_12-required lang="is_IS">Netfang viðtakanda verður að vera útfyllt</fbc_12-required>
-                        <fbc_12-help lang="en">You can send invitation to email ending with @fiskistofa.is only</fbc_12-help>
-                        <fbc_12-help lang="is_IS">You can send invitation to email ending with @fiskistofa.is only</fbc_12-help>
+                        <fbc_12-fiskistofaEmailPostfix lang="en">@fiskistofa.is</fbc_12-fiskistofaEmailPostfix>
+                        <fbc_12-fiskistofaEmailPostfix lang="is_IS">@fiskistofa.is</fbc_12-fiskistofaEmailPostfix>
                          
                         <fbc_5-title lang="is_IS">Skilaboð (í tölvupóst)</fbc_5-title>
                         <page-1-submit-label lang="is_IS">Senda boð</page-1-submit-label>
@@ -173,9 +174,9 @@
                         <xs:pattern value="[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+(\.[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+)*@[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+(\.[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+)*"/>
                   </xs:restriction>
             </xs:simpleType>
-            <xs:simpleType name="fbc_12fb_email">
+            <xs:simpleType name="fbc_12fb_emailPrefix">
                   <xs:restriction base="xs:string">
-                        <xs:pattern value="[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+(\.[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+)*@fiskistofa.is"/>
+                        <xs:pattern value="[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+(\.[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+)*"/>
                   </xs:restriction>
             </xs:simpleType>
       </xs:schema>
@@ -224,7 +225,7 @@
                         
                         </xf:group>
                         
-                        <xf:group bind="showHandlerSection" appearance="full">
+                        <xf:group bind="showHandlerSection" class="fiskistofaEmailOnly" appearance="full">
                         
                             <xf:input bind="fbc_12_bind" id="fbc_12">
                                     <xf:label model="data_model"
@@ -234,16 +235,15 @@
                             <idega:validator ev:event="idega-validate">
                                 <idega:message errorType="required" model="data_model" value="instance('localized_strings')/fbc_12-required[@lang=instance('localized_strings')/current_language]"/>
                                 <idega:message errorType="validation" model="data_model" value="instance('localized_strings')/fbc_12-validation[@lang=instance('localized_strings')/current_language]"/>
-                                
                             </idega:validator>
                             <xf:alert ref="instance('error-instance')/error[@for='fbc_12']"/>
                             
-                            <xf:help>
-                                <xf:output ref="instance('localized_strings')/fbc_12-help[@lang=instance('localized_strings')/current_language]"/>
-                            </xf:help>
+                            <xf:setvalue
+                                    ev:event="xforms-value-changed"
+                                    ref="instance('data-instance')/Participant_email_fbc_12" value="concat(instance('data-instance')/Participant_email_prefix_fbc_12, '@fiskistofa.is')"/>
                             
                               </xf:input>
-                        
+                              <xf:output class="fiskistofaEmailText" ref="instance('localized_strings')/fbc_12-fiskistofaEmailPostfix[@lang=instance('localized_strings')/current_language]"/>
                         </xf:group>
                               
                               
