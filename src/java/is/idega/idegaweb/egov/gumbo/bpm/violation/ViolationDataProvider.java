@@ -111,7 +111,6 @@ public interface ViolationDataProvider {
 		private String name;
 		private String address;
 		private String postalCode;
-		private String email;
 		
 		public PersonData(String socialSecurityNr) {
 			
@@ -138,15 +137,6 @@ public interface ViolationDataProvider {
 		
 		public String getSocialSecurityNr() {
 			return socialSecurityNr;
-		}
-		
-		public String getEmail() {
-			return email;
-		}
-		
-		public PersonData setEmail(String email) {
-			this.email = email;
-			return this;
 		}
 		
 		public String getPostalCode() {

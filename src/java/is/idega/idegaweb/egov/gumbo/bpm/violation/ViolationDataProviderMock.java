@@ -43,8 +43,7 @@ public class ViolationDataProviderMock implements ViolationDataProvider {
 	@Override
 	public PersonData getRecipientPersonDataForWriteLetter(String socialNr) {
 		return new PersonData(socialNr).setName("mock name")
-		        .setAddress("mock address").setPostalCode("mock postal code")
-		        .setEmail("some@email.com");
+		        .setAddress("mock address").setPostalCode("mock postal code");
 	}
 	
 	@Override

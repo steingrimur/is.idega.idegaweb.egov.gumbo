@@ -369,7 +369,7 @@
             <variable name="string_recipientName" access="read,write"></variable>
             <variable name="string_recipientAddress" access="read,write"></variable>
             <variable name="string_recipientPostalCode" access="read,write"></variable>
-            <variable name="string_recipientEmail" access="read,write"></variable>
+            <variable name="string_writeLetterSubmitterName" access="read,write"></variable>
          </controller>
         <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
             <handlerName>jsonAssignmentHandler</handlerName>
@@ -385,7 +385,7 @@
          </assignment>
       
       </task>
-		<transition to="generateAndAttachLetterPDF"></transition>
+		<transition to="end-state1"></transition>
 	</task-node>
 
 	<task-node name="violationDecision">
@@ -692,10 +692,6 @@
                 </propertyMap>
          </action>
     </event>
-		<transition to="end-state1"></transition>
-	</node>
-
-	<node name="generateAndAttachLetterPDF">
 		<transition to="end-state1"></transition>
 	</node>
 

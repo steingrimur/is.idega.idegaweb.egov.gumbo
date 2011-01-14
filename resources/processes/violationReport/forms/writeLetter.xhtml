@@ -19,8 +19,9 @@
                         <name mapping="string_recipientName"/>
                         <address mapping="string_recipientAddress"/>
                         <postalCode mapping="string_recipientPostalCode"/>
-                        <email mapping="string_recipientEmail"/>
                     </personData>
+                    <writeLetterSubmitterName_fbc_13 mapping="string_writeLetterSubmitterName"/>
+                    <writeLetterSubmitterNameContainer_fbc_14/>
                 </data>
             </xf:instance>
             <xf:instance id="control-instance">
@@ -74,9 +75,12 @@
             <xf:bind id="fbc_11_bind"
                 nodeset="personData/postalCode"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
-            <xf:bind id="fbc_12_bind"
-                nodeset="personData/email"
-                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+            <xf:bind id="fbc_13_bind"
+                nodeset="writeLetterSubmitterName_fbc_13" type="xs:string"/>
+            <xf:bind id="fbc_14_bind" relevant="instance('control-instance')/generatePdf = 'true'"
+                nodeset="writeLetterSubmitterNameContainer_fbc_14" type="xs:string"/>
+                
+            <xf:instance id="fbc_13_autofill-instance" relevant="false()" src="context:fb-afk-loginSession.user.name"/>
                 
         </xf:model>
         <xf:model id="data_model">
@@ -112,8 +116,8 @@
                     <fbc_10-label lang="en">Address</fbc_10-label>
                     <fbc_11-label lang="is_IS">Póstnúmer</fbc_11-label>
                     <fbc_11-label lang="en">Post code</fbc_11-label>
-                    <fbc_12-label lang="is_IS">Netfang</fbc_12-label>
-                    <fbc_12-label lang="en">Email</fbc_12-label>
+                    <fbc_13-label lang="is_IS">Handler name</fbc_13-label>
+                    <fbc_13-label lang="en">Handler name</fbc_13-label>
                 </localized_strings>
             </xf:instance>
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
@@ -124,6 +128,8 @@
                 
                 <idega:setvalue
                     ref="instance('fbc_7_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('violationService.getLettersTypes()')"/>
+                    
+                <xf:setvalue bind="fbc_13_bind" id="fbc_13-autofill-setvalue" model="submission_model" value="instance('fbc_13_autofill-instance')/fb-afk-loginSession.user.name"/>
                 
             </xf:action>
             <xf:instance id="fbc_6_lds" xmlns="">
@@ -197,10 +203,6 @@
                                 bind="fbc_11_bind" type="fbc_text_output">
                                 <xf:label model="data_model" ref="instance('localized_strings')/fbc_11-label[@lang=instance('localized_strings')/current_language]"/>
                             </xf:output>
-                            <xf:output id="fbc_12"
-                                bind="fbc_12_bind" type="fbc_text_output">
-                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_12-label[@lang=instance('localized_strings')/current_language]"/>
-                            </xf:output>
                     
                         <xf:select1 appearance="minimal"
                             bind="fbc_7_bind" id="fbc_7" type="fbc_single_select_minimal">
@@ -243,6 +245,14 @@
                             </idega:validator>
                             <xf:alert ref="instance('error-instance')/error[@for='fbc_5']"/>
                         </xf:textarea>
+                        
+                        <xf:group appearance="full" bind="fbc_14_bind">
+	                        <xf:output id="fbc_13"
+	                                bind="fbc_13_bind" type="fbc_text_output">
+	                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_13-label[@lang=instance('localized_strings')/current_language]"/>
+	                        </xf:output>
+                        </xf:group>
+                        
                         <div class="fbc_button_area" id="fbc_2" type="fbc_button_area">
                             <xf:trigger bind="bind-submissionButton"
                                 class="fbc_button_submit" id="fbc_3" type="fbc_button_submit">
