@@ -128,7 +128,7 @@
                         <revokeLicense mapping="string_vesselRevokeLicense"/>
                         <fisheriesName mapping="string_vesselFisheriesName"/>
                     </equipmentData>
-                    <Fishing_gear_fbc_192 mapping="string_vesselFishingGear"/>
+                    <Fishing_gear_fbc_192 mapping="list_vesselFishingGear"/>
                     <fishingGearsSummary mapping="string_vesselFishingGearsSummary"/>
                     <FishingGearOther mapping="string_vesselFishingGearOther"/>
                     <Police_involvement_fbc_205 mapping="string_policeInvolvement"/>
@@ -452,16 +452,6 @@
                     <fbc_125-label lang="en">Place</fbc_125-label>
                     <fbc_126-label lang="is_IS">Tegund vigtunarleyfis</fbc_126-label>
                     <fbc_126-label lang="en">Type of weighing permission</fbc_126-label>
-                    <fbc_140-label lang="is_IS">Kennitala</fbc_140-label>
-                    <fbc_140-label lang="en">Social security nr.</fbc_140-label>
-                    <fbc_141-label lang="is_IS">Nafn</fbc_141-label>
-                    <fbc_141-label lang="en">Name</fbc_141-label>
-                    <fbc_142-label lang="is_IS">Heimilisfang</fbc_142-label>
-                    <fbc_142-label lang="en">Address</fbc_142-label>
-                    <fbc_143-label lang="is_IS">Póstnúmer</fbc_143-label>
-                    <fbc_143-label lang="en">Post code</fbc_143-label>
-                    <fbc_144-label lang="is_IS">Staður</fbc_144-label>
-                    <fbc_144-label lang="en">Place</fbc_144-label>
                     <fbc_145-label lang="is_IS">Tegund vigtunarleyfis</fbc_145-label>
                     <fbc_145-label lang="en">Type of weighing permission</fbc_145-label>
                     <violationPersons-insert-label lang="en">Insert</violationPersons-insert-label>
@@ -781,9 +771,12 @@
             </xf:instance>
             <idega:toggle case="fbc_41" ev:event="xforms-ready" if="instance('control-instance')/generatePdf = 'true' or instance('control-instance')/readonly='true'"/>
             <xf:action ev:event="xforms-ready" if="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'">
-                <xf:setvalue bind="fbc_211_bind"
-                    id="fbc_211-autofill-setvalue"
-                    model="submission_model" value="instance('fbc_211_autofill-instance')/fb-afk-loginSession.user.name"/>
+                
+                <xf:action if="instance('data-instance')/Responsible_inspector_fbc_211 = ''">
+	                <xf:setvalue bind="fbc_211_bind"
+	                    id="fbc_211-autofill-setvalue"
+	                    model="submission_model" value="instance('fbc_211_autofill-instance')/fb-afk-loginSession.user.name"/>
+                </xf:action>
             </xf:action>
         </xf:model>
     </head>

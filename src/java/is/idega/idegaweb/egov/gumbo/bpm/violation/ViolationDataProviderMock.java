@@ -111,7 +111,7 @@ public class ViolationDataProviderMock implements ViolationDataProvider {
 		return new EquipmentData().setFishingLicense("342435")
 		        .setFishingType("fishing type x").setName("some name")
 		        .setOwnersName("owners name")
-		        .setRevokeLicense("revoke license");
+		        .setRevokeLicense("revoke license").setFisheriesName("FisheriesName mock");
 	}
 	
 	@Override
