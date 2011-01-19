@@ -349,7 +349,7 @@
                     <fbc_8-custom lang="en">Uploaded file description can not be empty</fbc_8-custom>
                     <fbc_36-text lang="is_IS">Tegund brots</fbc_36-text>
                     <fbc_36-text lang="en">Violation - Type</fbc_36-text>
-                    <fbc_37-label lang="is_IS">Númer hafnar</fbc_37-label>
+                    <fbc_37-label lang="is_IS">Höfn</fbc_37-label>
                     <fbc_37-label lang="en">Harbour nr.</fbc_37-label>
                     <fbc_37a-label lang="is_IS">Nafn</fbc_37a-label>
                     <fbc_37a-label lang="en">Name</fbc_37a-label>
@@ -403,7 +403,7 @@
                     <fbc_155-label lang="is_IS">Tími</fbc_155-label>
                     <fbc_155-label lang="en">Violation time</fbc_155-label>
                     
-                    <fbc_225-label lang="is_IS">GPS hnit</fbc_225-label>
+                    <fbc_225-label lang="is_IS">GPS hnit breidd (N/S)</fbc_225-label>
                     <fbc_225-label lang="en">GPS location latitude</fbc_225-label>
                     <fbc_225a-label lang="is_IS">°</fbc_225a-label>
                     <fbc_225a-label lang="en">°</fbc_225a-label>
@@ -421,7 +421,7 @@
                     <fbc_228-label lang="is_IS">Pole</fbc_228-label>
                     <fbc_228-label lang="en">Pole</fbc_228-label>
                     
-                    <fbc_233-label lang="is_IS">GPS hnit</fbc_233-label>
+                    <fbc_233-label lang="is_IS">GPS hnit lengd (A/V)</fbc_233-label>
                     <fbc_233-label lang="en">GPS location longitude</fbc_233-label>
 
                     <fbc_229-label lang="is_IS">Degree</fbc_229-label>
@@ -484,14 +484,14 @@
                     <fbc_104-required lang="en">The GSP location is required</fbc_104-required>
                     <fbc_163-label lang="is_IS">Um borð í skipi</fbc_163-label>
                     <fbc_163-label lang="en">Um borð í skipi</fbc_163-label>
-                    <fbc_170-text lang="is_IS">Valið</fbc_170-text>
+                    <fbc_170-text lang="is_IS">Já</fbc_170-text>
                     <fbc_170-text lang="en">Selected</fbc_170-text>
-                    <fbc_171-text lang="is_IS">Ekki valið</fbc_171-text>
+                    <fbc_171-text lang="is_IS">Nei</fbc_171-text>
                     <fbc_171-text lang="en">Not selected</fbc_171-text>
-                    <fbc_173-label lang="is_IS">Búnaður og réttindi</fbc_173-label>
-                    <fbc_173-label lang="en">Equipment and licenses</fbc_173-label>
-                    <fbc_178-text lang="en">Equipment and licenses</fbc_178-text>
-                    <fbc_178-text lang="is_IS">Búnaður og réttindi</fbc_178-text>
+                    <fbc_178-text lang="en">Equipment</fbc_178-text>
+                    <fbc_178-text lang="is_IS">Búnaður</fbc_178-text>
+                    <fbc_178a-text lang="en">Ship and licenses</fbc_178a-text>
+                    <fbc_178a-text lang="is_IS">Skip og réttindi</fbc_178a-text>
                     <fbc_182-label lang="is_IS">Skráningarnúmer tækis</fbc_182-label>
                     <fbc_182-label lang="en">Registration nr.</fbc_182-label>
                     <fbc_183-label lang="is_IS">Lýsing</fbc_183-label>
@@ -554,9 +554,9 @@
                     <fbc_211-label lang="en">Responsible inspector</fbc_211-label>
                     <fbc_213-label lang="is_IS">Starfsstöð</fbc_213-label>
                     <fbc_213-label lang="en">Fiskistofa office</fbc_213-label>
-                    <fbc_215-text lang="is_IS">Valið</fbc_215-text>
+                    <fbc_215-text lang="is_IS">Já</fbc_215-text>
                     <fbc_215-text lang="en">Selected</fbc_215-text>
-                    <fbc_216-text lang="is_IS">Ekki valið</fbc_216-text>
+                    <fbc_216-text lang="is_IS">Nei</fbc_216-text>
                     <fbc_216-text lang="en">Not selected</fbc_216-text>
                     <fbc_221-label lang="is_IS">Aðrir sem koma að málinu</fbc_221-label>
                     <fbc_221-label lang="en">Other inspectors</fbc_221-label>
@@ -747,12 +747,12 @@
                     </localizedEntries>
                     <localizedEntries lang="is_IS">
                         <item>
-                            <itemLabel>E</itemLabel>
-                            <itemValue>E</itemValue>
+                            <itemLabel>A</itemLabel>
+                            <itemValue>A</itemValue>
                         </item>
                         <item>
-                            <itemLabel>W</itemLabel>
-                            <itemValue>W</itemValue>
+                            <itemLabel>V</itemLabel>
+                            <itemValue>V</itemValue>
                         </item>
                     </localizedEntries>
                 </local_src>
@@ -1139,6 +1139,9 @@
                                 <xf:label model="data_model" ref="instance('localized_strings')/fbc_183-label[@lang=instance('localized_strings')/current_language]"/>
                             </xf:textarea>
                         </xf:repeat>
+                        <div class="fbc_header_text" id="fbc_178a" type="fbc_header_text">
+                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_178a-text[@lang=instance('localized_strings')/current_language]"/>
+                        </div>
                         <xf:input bind="fbc_187_bind" id="fbc_187" type="fbc_text">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_187-label[@lang=instance('localized_strings')/current_language]"/>
                             <idega:setvalue
@@ -1479,6 +1482,9 @@
                                 <xf:label model="data_model" ref="instance('localized_strings')/fbc_183-label[@lang=instance('localized_strings')/current_language]"/>
                             </xf:output>
                         </xf:repeat>
+                        <div class="fbc_header_text" id="fbc_72a" type="fbc_header_text">
+                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_178a-text[@lang=instance('localized_strings')/current_language]"/>
+                        </div>
                         <xf:output bind="fbc_187_bind" id="fbc_193" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_187-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
