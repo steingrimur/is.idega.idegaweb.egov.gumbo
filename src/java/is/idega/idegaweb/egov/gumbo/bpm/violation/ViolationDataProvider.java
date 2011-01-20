@@ -31,6 +31,8 @@ public interface ViolationDataProvider {
 	
 	public abstract List<Item> getLetters(String type);
 	
+	public abstract String getLetterText(String byLetterId);
+	
 	public abstract List<Item> getDecisionRulings();
 	
 	public abstract String getTypeLabelOfPermissionForViolationCompany(

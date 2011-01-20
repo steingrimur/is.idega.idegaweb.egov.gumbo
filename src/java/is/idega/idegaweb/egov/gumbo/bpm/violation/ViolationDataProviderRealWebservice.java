@@ -58,6 +58,7 @@ import com.idega.user.business.GroupBusiness;
 import com.idega.user.business.UserBusiness;
 import com.idega.user.data.Group;
 import com.idega.user.data.User;
+import com.idega.util.CoreConstants;
 import com.idega.util.IWTimestamp;
 import com.idega.util.LocaleUtil;
 import com.idega.util.StringUtil;
@@ -141,10 +142,11 @@ public class ViolationDataProviderRealWebservice implements
 	@Override
 	public PersonData getRecipientPersonDataForWriteLetter(String socialNr) {
 		if (!StringUtil.isEmpty(socialNr)) {
-			if (SocialSecurityNumber.isIndividualSocialSecurityNumber(socialNr, LocaleUtil.getIcelandicLocale())) {
+			if (SocialSecurityNumber.isIndividualSocialSecurityNumber(socialNr,
+			    LocaleUtil.getIcelandicLocale())) {
 				return getUser(socialNr);
-			}
-			else if (SocialSecurityNumber.isCompanySocialSecurityNumber(socialNr, LocaleUtil.getIcelandicLocale())) {
+			} else if (SocialSecurityNumber.isCompanySocialSecurityNumber(
+			    socialNr, LocaleUtil.getIcelandicLocale())) {
 				return getCompany(socialNr);
 			}
 		}
@@ -251,13 +253,31 @@ public class ViolationDataProviderRealWebservice implements
 		    LetterType.valueOf(letterType));
 		if (letters != null && letters.size() > 0) {
 			for (Letter letter : letters) {
-				items.add(new Item(letter.getName(), letter.getText()));
+				items.add(new Item(letter.getId().toString(), letter.getName()));
 			}
 		} else {
-			items.add(new Item("1", "No letters in database..."));
+			items.add(new Item("", "No letters in database..."));
 		}
 		
 		return items;
+	}
+	
+	@Override
+	public String getLetterText(String byLetterId) {
+		
+		final String text;
+		
+		if (!StringUtil.isEmpty(byLetterId)) {
+			
+			final Letter letter = getDao().find(Letter.class,
+			    new Long(byLetterId));
+			text = letter != null ? letter.getText() : CoreConstants.EMPTY;
+			
+		} else {
+			text = CoreConstants.EMPTY;
+		}
+		
+		return text;
 	}
 	
 	@Override

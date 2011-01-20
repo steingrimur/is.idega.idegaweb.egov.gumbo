@@ -232,6 +232,13 @@
                             
                             <idega:setvalue ev:event="xforms-value-changed"
                                 ref="instance('data-instance')/Letter_text_fbc_5" value="instance('data-instance')/Choose_letter_template_fbc_6"/>
+                                
+                            <idega:setvalue
+                                    ev:event="xforms-value-changed"
+                                    multiple="true()"
+                                    placeResponseDocument="true()"
+                                    ref="instance('data-instance')/Letter_text_fbc_5" value="idega:resolveExpression('violationService.getLetterText({0})', '#{instance(`data-instance`)/Choose_letter_template_fbc_6}')"/>
+                                
                         </xf:select1>
                         <xf:textarea bind="fbc_5_bind" id="fbc_5">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_5-title[@lang=instance('localized_strings')/current_language]"/>

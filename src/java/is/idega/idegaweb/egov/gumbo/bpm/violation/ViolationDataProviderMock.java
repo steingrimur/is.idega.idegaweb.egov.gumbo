@@ -95,6 +95,12 @@ public class ViolationDataProviderMock implements ViolationDataProvider {
 	}
 	
 	@Override
+	public String getLetterText(String byLetterId) {
+		
+		return "Letter text by letter id: " + byLetterId;
+	}
+	
+	@Override
 	public List<Item> getDecisionRulings() {
 		return Arrays.asList(new Item[] { new Item("decisions1", "Decision 1"),
 		        new Item("decision2", "Decision 2") });
@@ -111,7 +117,8 @@ public class ViolationDataProviderMock implements ViolationDataProvider {
 		return new EquipmentData().setFishingLicense("342435")
 		        .setFishingType("fishing type x").setName("some name")
 		        .setOwnersName("owners name")
-		        .setRevokeLicense("revoke license").setFisheriesName("FisheriesName mock");
+		        .setRevokeLicense("revoke license")
+		        .setFisheriesName("FisheriesName mock");
 	}
 	
 	@Override
