@@ -39,11 +39,11 @@ public class CheckPaymentIsPaidHandler implements ActionHandler {
 	@Override
 	public void execute(ExecutionContext executionContext) throws Exception {
 		executionContext
-				.setVariable("paymentPaid", isPaymentPaid(executionContext
+				.setVariable("paymentPaid", isClaimPaid(executionContext
 						.getProcessInstance().getId()) ? "true" : "false");
 	}
 
-	private boolean isPaymentPaid(long processInstanceId) throws Exception {
+	private boolean isClaimPaid(long processInstanceId) throws Exception {
 		CaseProcInstBind bind = getCasesBPMDAO()
 				.getCaseProcInstBindByProcessInstanceId(
 						processInstanceId);

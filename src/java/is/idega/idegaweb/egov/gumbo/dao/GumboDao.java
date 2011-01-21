@@ -5,6 +5,8 @@ import is.idega.idegaweb.egov.gumbo.data.FishingGear;
 import is.idega.idegaweb.egov.gumbo.data.Inspector;
 import is.idega.idegaweb.egov.gumbo.data.Letter;
 import is.idega.idegaweb.egov.gumbo.data.Office;
+import is.idega.idegaweb.egov.gumbo.data.ProcessPaymentCode;
+import is.idega.idegaweb.egov.gumbo.data.ProcessPaymentLogHeader;
 import is.idega.idegaweb.egov.gumbo.data.ViolationDecision;
 import is.idega.idegaweb.egov.gumbo.data.ViolationType;
 
@@ -21,4 +23,9 @@ public interface GumboDao extends GenericDao {
 	public List<ViolationDecision> getViolationDecisions();
 	public List<Letter> getLetters();
 	public List<Letter> getLetters(LetterType type);
+	public List<ProcessPaymentCode> getProcessPaymentCode();	
+	public List<ProcessPaymentCode> getProcessPaymentCode(String processName);
+	public List<ProcessPaymentCode> getProcessPaymentCode(String processName, String subName);
+	public ProcessPaymentLogHeader createHeader();
+	public ProcessPaymentLogHeader updateHeader(ProcessPaymentLogHeader header, long returnCode, String errorMessage, String externalKey);
 }

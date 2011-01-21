@@ -48,6 +48,8 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 		if (theCase == null) {
 			return;
 		}
+		
+		//executionContext.getProcessDefinition().getName();
 	}
 
 	CaseBusiness getCaseBusiness() {

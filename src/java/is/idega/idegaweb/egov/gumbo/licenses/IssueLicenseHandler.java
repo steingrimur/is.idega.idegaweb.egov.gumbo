@@ -22,5 +22,7 @@ public class IssueLicenseHandler implements ActionHandler {
 	public void execute(ExecutionContext executionContext) throws Exception {
 		//executionContext.get
 		System.out.println("would issue license");
+		
+		//executionContext.getProcessDefinition().getName()
 	}
 }
