@@ -190,6 +190,8 @@
             <xf:action ev:event="idega-submit-error" id="idega-submission-error">
                 <xf:message level="modeless" ref="instance('localized_strings')/submission-error_message[@lang=instance('localized_strings')/current_language]"/>
             </xf:action>
+            
+            <xf:bind id="fbc_23_bind" nodeset="Identifier_number_fbc_23" />
             <xf:bind id="fbc_48_bind"
                 nodeset="instance('saveForm-instance')/sendLinkEmail"
                 readonly="instance('control-instance')/readonly = 'true'"
@@ -794,7 +796,7 @@
             <idega:switch>
                 <idega:case id="fbc_1">
                     <xf:group appearance="full">
-                        <xf:output model="submission_model" ref="instance('data-instance')/Identifier_number_fbc_23">
+                        <xf:output bind="fbc_23_bind">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_23-title[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
                         <xf:input bind="fbc_999_bind" id="fbc_999" type="fbc_text">
@@ -1177,6 +1179,12 @@
 	                                <xf:label ref="itemLabel"/>
 	                                <xf:value ref="itemValue"/>
 	                            </xf:itemset>
+	                            
+	                            <!--  
+	                            <idega:separateSelectionLabels
+	                               itemsNodeset="instance('fbc_192_lds')" 
+	                               ev:event="xforms-value-changed" />
+	                               -->
 	                            <xf:setvalue ev:event="xforms-value-changed"
 	                                ref="instance('data-instance')/fishingGearsSummary" value="instance('data-instance')/Fishing_gear_fbc_192"/>
 	                        </xf:select>
@@ -1369,7 +1377,7 @@
                 </idega:case>
                 <idega:case id="fbc_41" show="instance('control-instance')/generatePdf='true'">
                     <xf:group appearance="full">
-                        <xf:output model="submission_model" ref="instance('data-instance')/Identifier_number_fbc_23">
+                        <xf:output bind="fbc_23_bind">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_23-title[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
                         <xf:output bind="fbc_999_bind" id="fbc_999a" type="fbc_text_output">
