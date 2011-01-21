@@ -291,7 +291,7 @@
          </assignment>
       
       </task>
-		<transition to="changeStatusToInProcess"></transition>
+		<transition to="assignHandler"></transition>
 	</task-node>
 
 	<task-node name="requestAdditionalInformation">
@@ -706,7 +706,7 @@
                 </propertyMap>
          </action>
     </event>
-		<transition to="end-state1"></transition>
+		<transition to="changeStatusToInProcess"></transition>
 	</node>
 
 	<node name="notifyAboutTheTimeframeMet">
@@ -869,7 +869,7 @@
             </propertyMap>
         </action>
        </event>
-		<transition to="assignHandler"></transition>
+		<transition to="end-state1"></transition>
 	</node>
 
 

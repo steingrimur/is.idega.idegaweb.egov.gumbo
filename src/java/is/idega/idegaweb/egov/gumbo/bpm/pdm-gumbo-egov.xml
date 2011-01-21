@@ -7,6 +7,6 @@
     <processBundle bundle="is.idega.idegaweb.egov.gumbo" processBundleLocationWithinBundle="resources/processes/strandveidileyfi/" autoload="true" version="5" />
     <processBundle bundle="is.idega.idegaweb.egov.gumbo" processBundleLocationWithinBundle="resources/processes/grasleppa/" autoload="true" version="5" />
     
-    <processBundle bundle="is.idega.idegaweb.egov.gumbo" processBundleLocationWithinBundle="resources/processes/violationReport/" autoload="true" version="14" />
+    <processBundle bundle="is.idega.idegaweb.egov.gumbo" processBundleLocationWithinBundle="resources/processes/violationReport/" autoload="true" version="15" />
 
 </processes>
