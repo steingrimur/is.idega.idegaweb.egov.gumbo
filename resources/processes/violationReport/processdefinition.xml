@@ -9,12 +9,14 @@
                 String handlerRoleName = "bpm_violationReport_handler";
                 String ownerRoleName = "bpm_violationReport_owner";
                 String superHandlerRoleName = "bpm_violationReport_superHandler";
+                String invitedRoleName = "bpm_violationReport_invited";
                 
                 mainProcessInstanceId = executionContext.getProcessInstance().getId();
             </expression>
             <variable name='handlerRoleName' access='write' />
             <variable name='superHandlerRoleName' access='write' />
             <variable name='ownerRoleName' access='write' />
+            <variable name='invitedRoleName' access='write' />
             
             <variable name='mainProcessInstanceId' access='write' />
          </script>
@@ -49,7 +51,8 @@
                         <value>
                         {rightsAssignment: {roles: {role: [
                             {roleName: "bpm_violationReport_handler", accesses: {access: [modifyPermissions, caseHandler]}},
-                            {roleName: "bpm_violationReport_handler", accesses: {access: [seeContacts]}, rolesContacts: {string: ["all"]}}
+                            {roleName: "bpm_violationReport_handler", accesses: {access: [seeContacts]}, rolesContacts: {string: ["all"]}},
+                            {roleName: "bpm_violationReport_invited", accesses: {access: [read, seeContacts, seeComments, writeComments]}, rolesComments: {string: ["all"]}}
                         ]} }}
                         </value>
                 </entry>
@@ -66,7 +69,8 @@
 					<value>
 		                {taskAssignment: {roles: {role: [
 		                   {roleName: "bpm_violationReport_handler", accesses: {access: [read]}},
-		                   {roleName: "bpm_violationReport_owner", accesses: {access: [read, write]}, assignIdentities: {string: ["current_user"]}}
+		                   {roleName: "bpm_violationReport_owner", accesses: {access: [read, write]}, assignIdentities: {string: ["current_user"]}},
+		                   {roleName: "bpm_violationReport_invited", accesses: {access: [read, seeContacts, seeComments, writeComments]}, rolesComments: {string: ["all"]}}
 		                ]} }}
             		</value>
 				</entry>
@@ -242,7 +246,8 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}}
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}},
+                           {roleName: "bpm_violationReport_invited", accesses: {access: [read, seeContacts, seeComments, writeComments]}, rolesComments: {string: ["all"]}}
                         ]} }}
                     </value>
                 </entry>
@@ -277,7 +282,8 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}}
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}},
+                           {roleName: "bpm_violationReport_invited", accesses: {access: [read, seeContacts, seeComments, writeComments]}, rolesComments: {string: ["all"]}}
                         ]} }}
                     </value>
                 </entry>
@@ -296,7 +302,8 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}}
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}},
+                           {roleName: "bpm_violationReport_invited", accesses: {access: [read, seeContacts, seeComments, writeComments]}, rolesComments: {string: ["all"]}}
                         ]} }}
                     </value>
                 </entry>
@@ -334,7 +341,8 @@
                         {taskAssignment: {roles: {role: [
                            {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}},
                            {roleName: "bpm_violationReport_superHandler", accesses: {access: [read, write]}},
-                           {roleName: "bpm_violationReport_owner", accesses: {access: [read]}}
+                           {roleName: "bpm_violationReport_owner", accesses: {access: [read]}},
+                           {roleName: "bpm_violationReport_invited", accesses: {access: [read, seeContacts, seeComments, writeComments]}, rolesComments: {string: ["all"]}}
                         ]} }}
                     </value>
                 </entry>
@@ -378,7 +386,8 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}}
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}},
+                           {roleName: "bpm_violationReport_invited", accesses: {access: [read, seeContacts, seeComments, writeComments]}, rolesComments: {string: ["all"]}}
                         ]} }}
                     </value>
                 </entry>
@@ -401,7 +410,8 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}}
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}},
+                           {roleName: "bpm_violationReport_invited", accesses: {access: [read, seeContacts, seeComments, writeComments]}, rolesComments: {string: ["all"]}}
                         ]} }}
                     </value>
                 </entry>
@@ -422,7 +432,8 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}}
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}},
+                           {roleName: "bpm_violationReport_invited", accesses: {access: [read, seeContacts, seeComments, writeComments]}, rolesComments: {string: ["all"]}}
                         ]} }}
                     </value>
                 </entry>
@@ -441,9 +452,10 @@
          <script>
             <expression>
                 addAttachmentAssignmentExpression = 
-                       "{taskAssignment: {roles: {role: ["
-                       +"{roleName: \"bpm_violationReport_handler\", accesses: {access: [read,write]}}"
-                       +"]} }}";
+                       "{taskAssignment: {roles: {role: ["+
+                       		"{roleName: \"bpm_violationReport_handler\", accesses: {access: [read,write]}},"+
+              				"{roleName: \"bpm_violationReport_invited\", accesses: {access: [read, seeContacts, seeComments, writeComments]}, rolesComments: {string: [\"all\"]}}"+
+                       "]}}}";
             </expression>
             <variable name='string_addAttachmentAssignmentExpression' access='write' mapped-name='addAttachmentAssignmentExpression' />
          </script>
@@ -495,7 +507,8 @@
                     <value>
                         {taskAssignment: {roles: {role: [
                            {roleName: "bpm_violationReport_handler", accesses: {access: [read]}},
-                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}}
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}},
+                           {roleName: "bpm_violationReport_invited", accesses: {access: [read, seeContacts, seeComments, writeComments]}, rolesComments: {string: ["all"]}}
                         ]} }}
                     </value>
                 </entry>
@@ -568,7 +581,8 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_violationReport_owner", accesses: {access: [read, write]}} 
+                           {roleName: "bpm_violationReport_owner", accesses: {access: [read, write]}},
+                           {roleName: "bpm_violationReport_invited", accesses: {access: [read, write, seeContacts, seeComments, writeComments]}, rolesComments: {string: ["all"]}}
                         ]} }}
                     </value>
                 </entry>
@@ -765,7 +779,8 @@
                     <value>
                         {taskAssignment: {roles: {role: [
                            {roleName: "bpm_violationReport_owner", accesses: {access: [read, write]}},
-                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}}
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}},
+                           {roleName: "bpm_violationReport_invited", accesses: {access: [read, seeContacts, seeComments, writeComments]}, rolesComments: {string: ["all"]}}
                         ]} }}
                     </value>
                 </entry>
@@ -902,6 +917,12 @@
           <labels>
             <label lang="en">owner</label>
             <label lang="is_IS">Eftirlitsaðili</label>
+          </labels>
+        </role>
+        <role name="bpm_violationReport_invited">
+          <labels>
+            <label lang="en">invited</label>
+            <label lang="is_IS">Þátttakendur</label>
           </labels>
         </role>
     </idg:roles>
