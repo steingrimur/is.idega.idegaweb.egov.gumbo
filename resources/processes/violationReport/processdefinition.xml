@@ -78,7 +78,7 @@
 		 </assignment>
          
          <controller>
-            <variable name="string_caseIdentifier" access="read"></variable>
+            <variable name="string_caseIdentifier" access="read,write"></variable>
             <variable name="string_caseDescription" access="read,write"></variable>
             
             <variable name="objlist_violationPersons" access="read,write"></variable>
@@ -791,7 +791,7 @@
          
          <!-- the variables here should be the same, as for violationReportTask -->
          
-            <variable name="string_caseIdentifier" access="read"></variable>
+            <variable name="string_caseIdentifier" access="read,write"></variable>
             <variable name="string_caseDescription" access="read,write"></variable>
             
             <variable name="objlist_violationPersons" access="read,write"></variable>
@@ -860,19 +860,6 @@
       </event>
 		<transition to="end-state2"></transition>
 	</task-node>
-
-	<node name="changeStatusToInProgress">
-	   <event type="node-enter">
-        <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
-            <handlerName>casesStatusHandler</handlerName>
-            <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
-                    <entry><key>caseStatusMappedName</key><value>caseStatusInProgress</value></entry>
-                    <entry><key>processInstanceId</key><value>#{mainProcessInstanceId}</value></entry>
-            </propertyMap>
-        </action>
-       </event>
-		<transition to="assignHandler"></transition>
-	</node>
 
 	<node name="changeStatusToInProcess">
 	   <event type="node-enter">

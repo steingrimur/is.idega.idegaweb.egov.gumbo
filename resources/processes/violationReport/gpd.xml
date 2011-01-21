@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="ViolationReport" width="953" height="638">
+<root-container name="ViolationReport" width="953" height="711">
   <node name="violationReport" x="-25" y="241" width="113" height="34">
     <edge>
       <label x="-16" y="-9"/>
@@ -46,10 +46,7 @@
     </edge>
     <edge>
       <label x="-142" y="-36"/>
-      <bendpoint w1="2" h1="248" w2="-130" h2="5"/>
-    </edge>
-    <edge>
-      <label x="-135" y="-12"/>
+      <bendpoint w1="45" h1="45" w2="121" h2="8"/>
     </edge>
   </node>
   <node name="sendToLegalDepartment" x="210" y="171" width="132" height="36">
@@ -112,7 +109,7 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="setCaseStatusToReady" x="362" y="219" width="132" height="36">
+  <node name="setCaseStatusToReview" x="367" y="222" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
@@ -137,17 +134,12 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="submitAdditionalInformationWithoutRequest" x="208" y="529" width="242" height="36">
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-  </node>
   <node name="violationReportOnRepeat" x="6" y="314" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="changeStatusToInProgress" x="365" y="170" width="132" height="36">
+  <node name="changeStatusToInProcess" x="363" y="169" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
