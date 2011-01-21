@@ -373,6 +373,7 @@
 	   <task name="writeLetterTask" priority="-1">
          <controller>
             <variable name="string_letterText" access="read,write,required"></variable>
+            <variable name="string_letterType" access="read,write,required"></variable>
             
             <variable name="string_recipientSocialNr" access="read,write,required"></variable>
             <variable name="string_recipientName" access="read,write"></variable>
@@ -395,6 +396,11 @@
          </assignment>
       
       </task>
+      <event type="node-leave">
+			<action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+            	<handlerName>setProcessDescriptionHandler</handlerName>
+          	</action>
+      </event>
 		<transition to="end-state1"></transition>
 	</task-node>
 
