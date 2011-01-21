@@ -778,7 +778,7 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}},
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}}
                         ]} }}
                     </value>
                 </entry>
