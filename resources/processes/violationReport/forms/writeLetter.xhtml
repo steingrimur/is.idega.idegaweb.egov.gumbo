@@ -12,8 +12,8 @@
                 <data>
                     <form_id>1853</form_id>
                     <Letter_text_fbc_5 mapping="string_letterText"/>
-                    <Choose_letter_template_fbc_6/ mapping="string_letterType">
-                    <Choose_letter_template_type_fbc_7/>
+                    <Choose_letter_template_fbc_6 mapping="string_letterType"/>
+                    <Choose_letter_template_type_fbc_7 mapping="string_letterTemplateType" xsi:nil="true"/>
                     <recipientSocialNr_fbc_8 mapping="string_recipientSocialNr"/>
                     <personData>
                         <name mapping="string_recipientName"/>
@@ -26,6 +26,7 @@
             </xf:instance>
             <xf:instance id="control-instance">
                 <control xmlns="">
+               		<required>true</required>
                     <readonly>false</readonly>
                     <submission>false</submission>
                     <generatePdf>false</generatePdf>
@@ -40,8 +41,9 @@
                     <error for=""/>
                 </data>
             </xf:instance>
-            <xf:submission action="xformsBPM:/nouri"
-                id="submit_data_submission" method="post" replace="none">
+           <xf:submission action="xformsBPM:/nouri"
+                id="submit_data_submission" method="post"
+                ref="instance('data-instance')" replace="none">
                 <idega:toggle case="fbc_4" ev:event="xforms-submit-done"/>
             </xf:submission>
             <xf:action ev:event="xforms-submit-error" id="submission-error">
@@ -55,8 +57,8 @@
             <xf:bind id="fbc_5_bind" nodeset="Letter_text_fbc_5"
                 readonly="instance('control-instance')/readonly = 'true'"
                 required="instance('control-instance')/generatePdf != 'true'" type="string"/>
-            <xf:bind id="fbc_6_bind"
-                nodeset="Choose_letter_template_fbc_6"
+            <xf:bind id="fbc_6_bind" nodeset="Choose_letter_template_fbc_6"
+            	required="instance('control-instance')/required = 'true'" 
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
             <xf:bind id="fbc_7_bind"
                 nodeset="Choose_letter_template_type_fbc_7"
@@ -265,22 +267,16 @@
                                 class="fbc_button_submit" id="fbc_3" type="fbc_button_submit">
                                 <xf:label model="data_model" ref="instance('localized_strings')/page-1-submit-label[@lang=instance('localized_strings')/current_language]"/>
                                 <xf:action ev:event="DOMActivate">
-                                    <xf:setvalue
-                                    ref="instance('control-instance')/submission" value="'true'"/>
-                                    <idega:dispatch
-                                    name="idega-validate" target="//h:body//*[starts-with(@id, 'fbc_')]"/>
+                                    <xf:setvalue ref="instance('control-instance')/submission" value="'true'"/>
+                                    <idega:dispatch  name="idega-validate" target="//h:body//*[starts-with(@id, 'fbc_')]"/>
                                     <xf:dispatch name="xforms-rebuild" target="data_model"/>
-                                    <xf:dispatch
-                                    name="xforms-recalculate" target="data_model"/>
-                                    <xf:dispatch
-                                    name="xforms-revalidate" target="data_model"/>
+                                    <xf:dispatch name="xforms-recalculate" target="data_model"/>
+                                    <xf:dispatch name="xforms-revalidate" target="data_model"/>
                                     <xf:dispatch name="xforms-refresh" target="data_model"/>
                                     <xf:action if="count-non-empty(instance('error-instance')/error)=0">
                                     <xf:send submission="submit_data_submission"/>
-                                    </xf:action>
-                                    <xf:dispatch
-                                    if="count-non-empty(instance('error-instance')/error)!=0"
-                                    name="idega-submit-error" target="idega-submission-error"/>
+                                </xf:action>
+                                <xf:dispatch if="count-non-empty(instance('error-instance')/error)!=0" name="idega-submit-error" target="idega-submission-error"/>
                                 </xf:action>
                             </xf:trigger>
                         </div>
