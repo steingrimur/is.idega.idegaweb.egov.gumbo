@@ -6,6 +6,7 @@ import is.idega.idegaweb.egov.gumbo.data.Inspector;
 import is.idega.idegaweb.egov.gumbo.data.Letter;
 import is.idega.idegaweb.egov.gumbo.data.Office;
 import is.idega.idegaweb.egov.gumbo.data.ProcessPaymentCode;
+import is.idega.idegaweb.egov.gumbo.data.ProcessPaymentLog;
 import is.idega.idegaweb.egov.gumbo.data.ProcessPaymentLogHeader;
 import is.idega.idegaweb.egov.gumbo.data.ViolationDecision;
 import is.idega.idegaweb.egov.gumbo.data.ViolationType;
@@ -17,15 +18,33 @@ import com.idega.core.persistence.GenericDao;
 public interface GumboDao extends GenericDao {
 
 	public List<Inspector> getInspectors();
+
 	public List<Office> getOffices();
+
 	public List<ViolationType> getViolationTypes();
+
 	public List<FishingGear> getFishingGear();
+
 	public List<ViolationDecision> getViolationDecisions();
+
 	public List<Letter> getLetters();
+
 	public List<Letter> getLetters(LetterType type);
-	public List<ProcessPaymentCode> getProcessPaymentCode();	
+
+	public List<ProcessPaymentCode> getProcessPaymentCode();
+
 	public List<ProcessPaymentCode> getProcessPaymentCode(String processName);
-	public List<ProcessPaymentCode> getProcessPaymentCode(String processName, String subName);
+
+	public List<ProcessPaymentCode> getProcessPaymentCode(String processName,
+			String subName);
+
 	public ProcessPaymentLogHeader createHeader();
-	public ProcessPaymentLogHeader updateHeader(ProcessPaymentLogHeader header, long returnCode, String errorMessage, String externalKey);
+
+	public ProcessPaymentLogHeader updateHeader(ProcessPaymentLogHeader header,
+			long returnCode, String errorMessage, String externalKey);
+
+	public ProcessPaymentLog createLogEntry(ProcessPaymentLogHeader header,
+			String payersPersonalID, String shipNumber, String period,
+			String paymentCode, Integer numberOfUnits, Integer unitPrice,
+			Integer amount, String reference);
 }

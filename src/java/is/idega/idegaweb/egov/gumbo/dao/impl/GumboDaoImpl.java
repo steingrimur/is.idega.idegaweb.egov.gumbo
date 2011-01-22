@@ -7,6 +7,7 @@ import is.idega.idegaweb.egov.gumbo.data.Inspector;
 import is.idega.idegaweb.egov.gumbo.data.Letter;
 import is.idega.idegaweb.egov.gumbo.data.Office;
 import is.idega.idegaweb.egov.gumbo.data.ProcessPaymentCode;
+import is.idega.idegaweb.egov.gumbo.data.ProcessPaymentLog;
 import is.idega.idegaweb.egov.gumbo.data.ProcessPaymentLogHeader;
 import is.idega.idegaweb.egov.gumbo.data.ViolationDecision;
 import is.idega.idegaweb.egov.gumbo.data.ViolationType;
@@ -98,14 +99,15 @@ public class GumboDaoImpl extends GenericDaoImpl implements GumboDao {
 		header.setStatusCode(0L);
 		header.setErrorMessage(null);
 		header.setExternalKey(null);
-		
+
 		getEntityManager().persist(header);
 
 		return header;
 	}
 
 	@Transactional(readOnly = false)
-	public ProcessPaymentLogHeader updateHeader(ProcessPaymentLogHeader header, long statusCode, String errorMessage, String externalKey) {
+	public ProcessPaymentLogHeader updateHeader(ProcessPaymentLogHeader header,
+			long statusCode, String errorMessage, String externalKey) {
 		header = find(ProcessPaymentLogHeader.class, header.getId());
 		header.setStatusCode(statusCode);
 		header.setErrorMessage(errorMessage);
@@ -114,5 +116,25 @@ public class GumboDaoImpl extends GenericDaoImpl implements GumboDao {
 		getEntityManager().persist(header);
 
 		return header;
+	}
+
+	public ProcessPaymentLog createLogEntry(ProcessPaymentLogHeader header,
+			String payersPersonalID, String shipNumber, String period,
+			String paymentCode, Integer numberOfUnits, Integer unitPrice,
+			Integer amount, String reference) {
+		ProcessPaymentLog log = new ProcessPaymentLog();
+		log.setHeader(header);
+		log.setPayersPersonalID(payersPersonalID);
+		log.setShipNumber(shipNumber);
+		log.setPeriod(period);
+		log.setPaymentCode(paymentCode);
+		log.setNumberOfUnits(numberOfUnits);
+		log.setUnitPrice(unitPrice);
+		log.setAmount(amount);
+		log.setReference(reference);
+
+		getEntityManager().persist(log);
+
+		return log;
 	}
 }

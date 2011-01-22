@@ -1,5 +1,6 @@
 package is.idega.idegaweb.egov.gumbo.licenses;
 
+import is.idega.idegaweb.egov.gumbo.dao.GumboDao;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.FJSWSClient;
 
 import java.util.logging.Logger;
@@ -27,17 +28,22 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 	private static final long serialVersionUID = -4458929197838920551L;
 
 	@Autowired
-	FJSWSClient client;
+	FJSWSClient fjswsClient;
 
 	@Autowired
 	private CasesBPMDAO casesBPMDAO;
 
-	private static final Logger LOGGER = Logger.getLogger(SendLicenseFeeClaimHandler.class.getName());
-	
+	@Autowired
+	private GumboDao gumboDAO;
+
+	private static final Logger LOGGER = Logger
+			.getLogger(SendLicenseFeeClaimHandler.class.getName());
+
 	@Override
 	public void execute(ExecutionContext executionContext) throws Exception {
 		CaseProcInstBind bind = getCasesBPMDAO()
-				.getCaseProcInstBindByProcessInstanceId(executionContext.getProcessInstance().getId());
+				.getCaseProcInstBindByProcessInstanceId(
+						executionContext.getProcessInstance().getId());
 		if (bind == null) {
 			LOGGER.warning("Case and process instance bind can not be found by process instance ID: "
 					+ executionContext.getProcessInstance().getId());
@@ -48,8 +54,15 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 		if (theCase == null) {
 			return;
 		}
+
+		System.out.println("processDefinition name = "
+				+ executionContext.getProcessDefinition().getName());
 		
-		//executionContext.getProcessDefinition().getName();
+		System.out.println("ship id " + executionContext.getVariable("string_vesselRegistryNr"));
+		System.out.println("payers personal id " + executionContext.getVariable("string_ownerSocialNumber"));
+		
+		System.out.println("type of application " + executionContext.getVariable("string_typeOfFishingLicense"));
+
 	}
 
 	CaseBusiness getCaseBusiness() {
@@ -63,10 +76,24 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 		return null;
 	}
 
-	CasesBPMDAO getCasesBPMDAO() {
+	private CasesBPMDAO getCasesBPMDAO() {
 		if (casesBPMDAO == null) {
 			ELUtil.getInstance().autowire(this);
 		}
 		return casesBPMDAO;
+	}
+
+	private FJSWSClient getFJSWSClient() {
+		if (fjswsClient == null) {
+			ELUtil.getInstance().autowire(this);
+		}
+		return fjswsClient;
+	}
+
+	private GumboDao getGumboDAO() {
+		if (gumboDAO == null) {
+			ELUtil.getInstance().autowire(this);
+		}
+		return gumboDAO;
 	}
 }
