@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.idega.business.IBORuntimeException;
+import com.idega.company.data.Company;
 import com.idega.core.builder.business.BuilderService;
 import com.idega.core.builder.business.BuilderServiceFactory;
 import com.idega.core.builder.data.ICPage;
@@ -28,6 +29,8 @@ public class LatestCatches extends IWBaseComponent {
 	private IWBundle iwb;
 	
 	private ICPage page;
+	private ICPage catchesPage;
+	
 	private int numberOfResults = 5;
 	
 	@Autowired
@@ -51,10 +54,16 @@ public class LatestCatches extends IWBaseComponent {
 		try {
 			BuilderService service = BuilderServiceFactory.getBuilderService(iwc);
 			
+			Company company = getBusiness().getCompanyForUser(iwc.getCurrentUser());
+			String companySSN = company != null ? company.getPersonalID() : "";
+			
 			GumboBean bean = getBeanInstance("gumboBean");
-			bean.setCatches(getClient().getLatestCatchInfo(getBusiness().getCompanyForUser(iwc.getCurrentUser()).getPersonalID(), getNumberOfResults()));
+			bean.setCatches(getClient().getLatestCatchInfo(companySSN, getNumberOfResults()));
 			if (getPage() != null) {
 				bean.setResponseURL(service.getPageURI(getPage()));
+			}
+			if (getCatchesPage() != null) {
+				bean.setCatchesURL(service.getPageURI(getCatchesPage()));
 			}
 		}
 		catch (RemoteException re) {
@@ -88,6 +97,14 @@ public class LatestCatches extends IWBaseComponent {
 
 	public void setPage(ICPage page) {
 		this.page = page;
+	}
+
+	public ICPage getCatchesPage() {
+		return catchesPage;
+	}
+
+	public void setCatchesPage(ICPage page) {
+		this.catchesPage = page;
 	}
 
 	public int getNumberOfResults() {

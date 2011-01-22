@@ -8,9 +8,8 @@
 	<table id="catchesViewer" cellpadding="0" cellspacing="0" width="100%">
 		<thead>
 			<tr>
-				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_number']}" /></th>
-				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['ship']}" /></th>
 				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_date']}" /></th>
+				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['ship']}" /></th>
 				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_port']}" /></th>
 				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_type']}" /></th>
 			</tr>
@@ -20,10 +19,10 @@
 			<ui:repeat value="#{gumboBean.catches}" var="catch">
 				<tr>
 					<td>
-						<h:outputLink value="#{gumboBean.responseURL}">
+						<h:outputLink value="#{gumboBean.catchesURL}">
 							<f:param name="prm_catch_id" value="#{catch.komunr}" />
 							<f:param name="prm_port" value="#{catch.hofn}" />
-							<h:outputText value="#{catch.komunr}" />
+							<h:outputText value="#{catch.LDagsChar}" />
 						</h:outputLink>
 					</td>
 					<td>
@@ -32,7 +31,6 @@
 							<h:outputText value="#{catch.skipHeiti}" />
 						</h:outputLink>
 					</td>
-					<td><h:outputText value="#{catch.LDagsChar}" /></td>
 					<td><h:outputText value="#{catch.hafnarHeiti}" /></td>
 					<td><h:outputText value="#{catch.veidarfaeriHeiti}" /></td>
 				</tr>

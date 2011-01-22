@@ -1,6 +1,7 @@
 package is.idega.idegaweb.egov.gumbo.bean;
 
 import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.AflamarkTypeUser;
+import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunAfliTypeUser;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser;
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
 
@@ -23,12 +24,14 @@ public class GumboBean {
 	private SkipInfoTypeUser shipInfo;
 	private LondunTypeUser[] catches;
 	private LondunTypeUser catchInfo;
+	private LondunAfliTypeUser[] catchInfoResult;
 	private AflamarkTypeUser[] catchQuota;
 	
 	private Date fromDate;
 	private Date toDate;
 	
 	private String responseURL;
+	private String catchesURL;
 
 	public Class getEventHandler() {
 		return eventHandler;
@@ -86,6 +89,14 @@ public class GumboBean {
 		this.catchInfo = catchInfo;
 	}
 
+	public LondunAfliTypeUser[] getCatchInfoResult() {
+		return catchInfoResult;
+	}
+
+	public void setCatchInfoResult(LondunAfliTypeUser[] catchInfoResult) {
+		this.catchInfoResult = catchInfoResult;
+	}
+
 	public AflamarkTypeUser[] getCatchQuota() {
 		return catchQuota;
 	}
@@ -116,5 +127,13 @@ public class GumboBean {
 
 	public void setResponseURL(String responseURL) {
 		this.responseURL = responseURL;
+	}
+
+	public String getCatchesURL() {
+		return catchesURL;
+	}
+
+	public void setCatchesURL(String catchesURL) {
+		this.catchesURL = catchesURL;
 	}
 }

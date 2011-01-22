@@ -51,9 +51,10 @@ public class CatchQuota extends IWBaseComponent {
 		}
 		
 		Company company = getBusiness().getCompanyForUser(iwc.getCurrentUser());
+		String companySSN = company != null ? company.getPersonalID() : "";
 		
 		GumboBean bean = getBeanInstance("gumboBean");
-		bean.setShips(getClient().getShipInfoByCompanySSN(company.getPersonalID()));
+		bean.setShips(getClient().getShipInfoByCompanySSN(companySSN));
 		bean.setPeriod(period);
 		bean.setCatchQuota(getClient().getCatchQuota(company.getPersonalID(), period));
 	

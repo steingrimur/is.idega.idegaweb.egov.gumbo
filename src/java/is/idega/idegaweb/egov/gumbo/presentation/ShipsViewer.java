@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.idega.business.IBORuntimeException;
+import com.idega.company.data.Company;
 import com.idega.core.builder.business.BuilderService;
 import com.idega.core.builder.business.BuilderServiceFactory;
 import com.idega.core.builder.data.ICPage;
@@ -69,9 +70,12 @@ public class ShipsViewer extends IWBaseComponent implements IWPageEventListener 
 		try {
 			BuilderService service = BuilderServiceFactory.getBuilderService(iwc);
 			
+			Company company = getBusiness().getCompanyForUser(iwc.getCurrentUser());
+			String companySSN = company != null ? company.getPersonalID() : "";
+			
 			GumboBean bean = getBeanInstance("gumboBean");
 			bean.setEventHandler(this.getClass());
-			bean.setShips(getClient().getShipInfoByCompanySSN(getBusiness().getCompanyForUser(iwc.getCurrentUser()).getPersonalID()));
+			bean.setShips(getClient().getShipInfoByCompanySSN(companySSN));
 			if (getPage() != null) {
 				bean.setResponseURL(service.getPageURI(getPage()));
 			}

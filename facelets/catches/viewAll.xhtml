@@ -8,7 +8,7 @@
 	<form id="catchesViewer" class="adminForm" action="" method="post">
 		<div class="formItem">
 			<label for="prm_ship_id"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['ship']}" /></label>
-			<c:selectOne name="prm_period">
+			<c:selectOne name="prm_ship_id">
 				<c:selectOption content="" name="" />
 				<ui:repeat value="#{gumboBean.ships}" var="ship">
 					<c:selectOption content="#{ship.skipNr}" name="#{ship.nafn}" keepStatus="true" />
@@ -30,8 +30,8 @@
 		<table id="catchesViewer" cellpadding="0" cellspacing="0" width="100%">
 			<thead>
 				<tr>
-					<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_number']}" /></th>
 					<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_date']}" /></th>
+					<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['ship']}" /></th>
 					<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_port']}" /></th>
 					<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_type']}" /></th>
 				</tr>
@@ -44,10 +44,10 @@
 							<h:outputLink value="#{gumboBean.responseURL}">
 								<f:param name="prm_catch_id" value="#{catch.komunr}" />
 								<f:param name="prm_port" value="#{catch.hofn}" />
-								<h:outputText value="#{catch.komunr}" />
+								<h:outputText value="#{catch.LDagsChar}" />
 							</h:outputLink>
 						</td>
-						<td><h:outputText value="#{catch.LDagsChar}" /></td>
+						<td><h:outputText value="#{catch.skipHeiti}" /></td>
 						<td><h:outputText value="#{catch.hafnarHeiti}" /></td>
 						<td><h:outputText value="#{catch.veidarfaeriHeiti}" /></td>
 					</tr>

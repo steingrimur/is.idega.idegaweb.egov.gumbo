@@ -63,6 +63,9 @@ public class CatchViewer extends IWBaseComponent {
 			GumboBean bean = getBeanInstance("gumboBean");
 			if (catchNumber != null && port != null) {
 				bean.setCatchInfo(getClient().getCatchInfoByNumberAndPort(catchNumber, port));
+				if (bean.getCatchInfo() != null) {
+					bean.setCatchInfoResult(bean.getCatchInfo().getLondunAfliTable());
+				}
 			}
 			if (getPage() != null) {
 				bean.setResponseURL(service.getPageURI(getPage()));

@@ -36,6 +36,8 @@ public class CatchesViewer extends IWBaseComponent {
 	
 	private ICPage page;
 	
+	private int numberOfDisplayed = 12;
+	
 	@Autowired
 	@Qualifier(DOFWSClient.WEB_SERVICE)
 	private DOFWSClient client;
@@ -72,17 +74,20 @@ public class CatchesViewer extends IWBaseComponent {
 			shipNumber = new BigDecimal(iwc.getParameter(PARAMETER_SHIP));
 		}
 
+		String companySSN = getBusiness().getCompanyForUser(iwc.getCurrentUser()).getPersonalID();
+		
 		try {
 			BuilderService service = BuilderServiceFactory.getBuilderService(iwc);
 			
 			GumboBean bean = getBeanInstance("gumboBean");
 			bean.setFromDate(fromDate.getDate());
 			bean.setToDate(toDate.getDate());
+			bean.setShips(getClient().getShipInfoByCompanySSN(companySSN));
 			if (shipNumber != null) {
 				bean.setCatches(getClient().getCatchInfoByShipNumber(shipNumber, fromDate.getCalendar(), toDate.getCalendar()));
 			}
 			else {
-				bean.setCatches(getClient().getLatestCatchInfo(getBusiness().getCompanyForUser(iwc.getCurrentUser()).getPersonalID(), 12));
+				bean.setCatches(getClient().getLatestCatchInfo(companySSN, 12));
 			}
 			if (getPage() != null) {
 				bean.setResponseURL(service.getPageURI(getPage()));
@@ -118,5 +123,13 @@ public class CatchesViewer extends IWBaseComponent {
 
 	public void setPage(ICPage page) {
 		this.page = page;
+	}
+
+	public int getNumberOfDisplayed() {
+		return numberOfDisplayed;
+	}
+
+	public void setNumberOfDisplayed(int numberOfDisplayed) {
+		this.numberOfDisplayed = numberOfDisplayed;
 	}
 }

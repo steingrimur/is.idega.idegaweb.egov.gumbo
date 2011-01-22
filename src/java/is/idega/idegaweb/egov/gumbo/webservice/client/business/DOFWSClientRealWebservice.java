@@ -427,16 +427,16 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 		
 		
 		try {
-			FSWebServiceSKIP_ServiceLocator locator = new FSWebServiceSKIP_ServiceLocator();
-			FSWebServiceSKIP_PortType port = locator.getFSWebServiceSKIPSoap12HttpPort(new URL(
-					"http://hafrok.hafro.is/FSWebServices/FSWebServiceSKIPSoap12HttpPort"));
+			FSWebServiceLANDANIR_ServiceLocator locator = new FSWebServiceLANDANIR_ServiceLocator();
+			FSWebServiceLANDANIR_PortType port = locator
+			        .getFSWebServiceLANDANIRSoap12HttpPort(new URL("http://hafrok.hafro.is/FSWebServices/FSWebServiceLANDANIRSoap12HttpPort"));
 			
-			GetskipinfobyutgerdElement parameters = new GetskipinfobyutgerdElement("5411850389");
-			SkipInfoTypeUser[] users = port.getskipinfobyutgerd(parameters);
-			for (SkipInfoTypeUser skipInfo : users) {
-				System.out.println(skipInfo.getSkipNr() + " - " + skipInfo.getNafn());
-			}
+			GetlonduninfoElement parameter = new GetlonduninfoElement(new BigDecimal(33),
+			        new BigDecimal(-184005));
+			GetlonduninfoResponseElement element = port
+			        .getlonduninfo(parameter);
 
+			System.out.println(element.getResult().getHafnarHeiti());
 		} catch (ServiceException se) {
 			se.printStackTrace();
 		} catch (MalformedURLException e) {

@@ -2,7 +2,6 @@ package is.idega.idegaweb.egov.gumbo.presentation;
 
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.bean.GumboBean;
-import is.idega.idegaweb.egov.gumbo.business.GumboBusiness;
 import is.idega.idegaweb.egov.gumbo.business.GumboSession;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 
@@ -34,9 +33,6 @@ public class ShipCatchQuota extends IWBaseComponent {
 	@Autowired
 	private GumboSession session;
 	
-	@Autowired
-	private GumboBusiness business;
-	
 	public String getBundleIdentifier() {
 		return GumboConstants.IW_BUNDLE_IDENTIFIER;
 	}
@@ -65,8 +61,6 @@ public class ShipCatchQuota extends IWBaseComponent {
 		}
 		
 		GumboBean bean = getBeanInstance("gumboBean");
-		bean.setShips(getClient().getShipInfoByCompanySSN(getBusiness().getCompanyForUser(iwc.getCurrentUser()).getPersonalID()));
-		bean.setShipNumber(shipNumber);
 		bean.setPeriod(period);
 		if (bean.getShipNumber() != null) {
 			bean.setCatchQuota(getClient().getCatchQuota(shipNumber, period));
@@ -91,12 +85,5 @@ public class ShipCatchQuota extends IWBaseComponent {
 		}
 		
 		return this.session;
-	}
-
-	private GumboBusiness getBusiness() {
-		if (this.business == null) {
-			ELUtil.getInstance().autowire(this);
-		}
-		return this.business;
 	}
 }
