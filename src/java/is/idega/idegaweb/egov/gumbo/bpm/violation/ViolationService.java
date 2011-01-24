@@ -99,6 +99,11 @@ public class ViolationService extends DefaultSpringBean {
 		return getViolationDataProvider().getLetterText(byLetterId);
 	}
 	
+	public String getLetterName(String byLetterId) {
+		
+		return getViolationDataProvider().getLetterName(byLetterId);
+	}
+	
 	public List<Item> getDecisionRulings() {
 		return getViolationDataProvider().getDecisionRulings();
 	}

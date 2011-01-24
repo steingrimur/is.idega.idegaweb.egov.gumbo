@@ -2,11 +2,11 @@
 
 <processes>
 
-    <processBundle bundle="is.idega.idegaweb.egov.gumbo" processBundleLocationWithinBundle="resources/processes/draganotaveidi/" autoload="true" version="7" />
-    <processBundle bundle="is.idega.idegaweb.egov.gumbo" processBundleLocationWithinBundle="resources/processes/fishingLicense/" autoload="true" version="7" />
-    <processBundle bundle="is.idega.idegaweb.egov.gumbo" processBundleLocationWithinBundle="resources/processes/strandveidileyfi/" autoload="true" version="7" />
-    <processBundle bundle="is.idega.idegaweb.egov.gumbo" processBundleLocationWithinBundle="resources/processes/grasleppa/" autoload="true" version="7" />
+    <processBundle bundle="is.idega.idegaweb.egov.gumbo" processBundleLocationWithinBundle="resources/processes/draganotaveidi/" autoload="true" version="8" />
+    <processBundle bundle="is.idega.idegaweb.egov.gumbo" processBundleLocationWithinBundle="resources/processes/fishingLicense/" autoload="true" version="8" />
+    <processBundle bundle="is.idega.idegaweb.egov.gumbo" processBundleLocationWithinBundle="resources/processes/strandveidileyfi/" autoload="true" version="8" />
+    <processBundle bundle="is.idega.idegaweb.egov.gumbo" processBundleLocationWithinBundle="resources/processes/grasleppa/" autoload="true" version="8" />
     
-    <processBundle bundle="is.idega.idegaweb.egov.gumbo" processBundleLocationWithinBundle="resources/processes/violationReport/" autoload="true" version="16" />
+    <processBundle bundle="is.idega.idegaweb.egov.gumbo" processBundleLocationWithinBundle="resources/processes/violationReport/" autoload="true" version="17" />
 
 </processes>

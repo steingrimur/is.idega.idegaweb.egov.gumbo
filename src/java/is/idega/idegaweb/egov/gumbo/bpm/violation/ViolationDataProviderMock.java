@@ -89,15 +89,20 @@ public class ViolationDataProviderMock implements ViolationDataProvider {
 	
 	@Override
 	public List<Item> getLetters(String type) {
-		return Arrays.asList(new Item[] {
-		        new Item("template1" + type, "Template 1" + type),
-		        new Item("template2" + type, "Template 2" + type) });
+		return Arrays.asList(new Item[] { new Item("1", "Template 1" + type),
+		        new Item("2", "Template 2" + type) });
 	}
 	
 	@Override
 	public String getLetterText(String byLetterId) {
 		
 		return "Letter text by letter id: " + byLetterId;
+	}
+	
+	@Override
+	public String getLetterName(String byLetterId) {
+		
+		return "Letter name by letter id: " + byLetterId;
 	}
 	
 	@Override

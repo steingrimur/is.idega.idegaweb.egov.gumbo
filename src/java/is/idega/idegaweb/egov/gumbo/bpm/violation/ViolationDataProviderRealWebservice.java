@@ -263,14 +263,34 @@ public class ViolationDataProviderRealWebservice implements
 	}
 	
 	@Override
+	public String getLetterName(String byLetterId) {
+		
+		final String name;
+		
+		if (!StringUtil.isEmpty(byLetterId)) {
+			
+			final Letter letter = findLetter(byLetterId);
+			name = letter != null ? letter.getName() : CoreConstants.EMPTY;
+			
+		} else {
+			name = CoreConstants.EMPTY;
+		}
+		
+		return name;
+	}
+	
+	private Letter findLetter(String byLetterId) {
+		return getDao().find(Letter.class, new Long(byLetterId));
+	}
+	
+	@Override
 	public String getLetterText(String byLetterId) {
 		
 		final String text;
 		
 		if (!StringUtil.isEmpty(byLetterId)) {
 			
-			final Letter letter = getDao().find(Letter.class,
-			    new Long(byLetterId));
+			final Letter letter = findLetter(byLetterId);
 			text = letter != null ? letter.getText() : CoreConstants.EMPTY;
 			
 		} else {
