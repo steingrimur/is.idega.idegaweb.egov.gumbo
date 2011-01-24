@@ -3,22 +3,17 @@ package is.idega.idegaweb.egov.gumbo.webservice.client.business;
 import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.AflamarkTypeUser;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser;
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
-import is.idega.idegaweb.egov.gumbo.GumboConstants;
+import is.idega.idegaweb.egov.gumbo.licenses.FishingLicenseUser.CompanyData;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import com.idega.idegaweb.IWBundle;
-import com.idega.idegaweb.IWResourceBundle;
-import com.idega.util.CoreConstants;
-import com.idega.util.text.Item;
+import com.idega.user.data.User;
 
 @Scope("singleton")
 @Service
@@ -127,5 +122,13 @@ public class DOFWSClientMock implements DOFWSClient {
 	public String getFishingArea(String shipId, Timestamp validFrom) {
 		return "13th fishing zone. shipId: " + shipId + ", validFrom: "
 		        + validFrom;
+	}
+	
+	@Override
+	public CompanyData getCompanyForUser(User user) {
+		return new CompanyData("4252345234").setName("company name")
+		        .setAddress("company address").setPostalCode("5432345")
+		        .setPhoneNumber("222222").setEmail("x@xx.lt")
+		        .setFaxNumber("452342543").setPlace("comp place");
 	}
 }

@@ -37,6 +37,8 @@ import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.Gethefur
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurveidileyfiResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetstrandvlcodeforskipElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetstrandvlcodeforskipResponseElement;
+import is.idega.idegaweb.egov.gumbo.business.GumboBusiness;
+import is.idega.idegaweb.egov.gumbo.licenses.FishingLicenseUser.CompanyData;
 
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
@@ -47,11 +49,14 @@ import java.util.Calendar;
 
 import javax.xml.rpc.ServiceException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import com.idega.company.data.Company;
 import com.idega.idegaweb.IWMainApplication;
+import com.idega.user.data.User;
 import com.idega.util.IWTimestamp;
 
 @Scope("singleton")
@@ -72,6 +77,9 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 	
 	private static final String LICENSE_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices/FSWebServiceVEIDILEYFISoap12HttpPort";
 	private static final String LICENSE_ENDPOINT_ATTRIBUTE_NAME = "dofws_license_endpoint";
+	
+	@Autowired
+	private GumboBusiness gumboBusiness;
 	
 	private FSWebServiceSKIP_PortType getShipPort() {
 		try {
@@ -425,17 +433,17 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 	
 	public static void main(String[] arguments) {
 		
-		
 		try {
 			FSWebServiceLANDANIR_ServiceLocator locator = new FSWebServiceLANDANIR_ServiceLocator();
 			FSWebServiceLANDANIR_PortType port = locator
-			        .getFSWebServiceLANDANIRSoap12HttpPort(new URL("http://hafrok.hafro.is/FSWebServices/FSWebServiceLANDANIRSoap12HttpPort"));
+			        .getFSWebServiceLANDANIRSoap12HttpPort(new URL(
+			                "http://hafrok.hafro.is/FSWebServices/FSWebServiceLANDANIRSoap12HttpPort"));
 			
-			GetlonduninfoElement parameter = new GetlonduninfoElement(new BigDecimal(33),
-			        new BigDecimal(-184005));
+			GetlonduninfoElement parameter = new GetlonduninfoElement(
+			        new BigDecimal(33), new BigDecimal(-184005));
 			GetlonduninfoResponseElement element = port
 			        .getlonduninfo(parameter);
-
+			
 			System.out.println(element.getResult().getHafnarHeiti());
 		} catch (ServiceException se) {
 			se.printStackTrace();
@@ -448,10 +456,12 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 	
 	@Override
 	public LicenseCheckContainer getHasRevokedFishingLicense(String shipID) {
-		GetersviptingElement parameters = new GetersviptingElement(new BigDecimal(shipID));
+		GetersviptingElement parameters = new GetersviptingElement(
+		        new BigDecimal(shipID));
 		try {
-			GetersviptingResponseElement res = getLicensePort().getersvipting(parameters);
-
+			GetersviptingResponseElement res = getLicensePort().getersvipting(
+			    parameters);
+			
 			LicenseCheckContainer ret = null;
 			if (res.getResult().getIsok().intValue() > 0) {
 				ret = new LicenseCheckContainer(true, res.getResult()
@@ -462,25 +472,28 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 			}
 			
 			return ret;
-
+			
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return new LicenseCheckContainer(false, "error_from_web_service");
 	}
-		
+	
 	@Override
 	public String getFishingAreaForDraganotaveidi(String shipId) {
-		GetdragnotvlcodeforskipElement parameters = new GetdragnotvlcodeforskipElement(new BigDecimal(shipId));;
+		GetdragnotvlcodeforskipElement parameters = new GetdragnotvlcodeforskipElement(
+		        new BigDecimal(shipId));
+		;
 		try {
-			GetdragnotvlcodeforskipResponseElement res = getLicensePort().getdragnotvlcodeforskip(parameters );
+			GetdragnotvlcodeforskipResponseElement res = getLicensePort()
+			        .getdragnotvlcodeforskip(parameters);
 			return res.getResult().getText();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 		
-		return "error_from_web_service";	
+		return "error_from_web_service";
 	}
 	
 	public String getFishingArea(String shipId, Timestamp validFrom) {
@@ -491,14 +504,36 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 		stamp.addYears(1);
 		period.append(stamp.getDateString("yy"));
 		
-		GetstrandvlcodeforskipElement parameters = new GetstrandvlcodeforskipElement(new BigDecimal(shipId), period.toString());
+		GetstrandvlcodeforskipElement parameters = new GetstrandvlcodeforskipElement(
+		        new BigDecimal(shipId), period.toString());
 		try {
-			GetstrandvlcodeforskipResponseElement res = getLicensePort().getstrandvlcodeforskip(parameters);
+			GetstrandvlcodeforskipResponseElement res = getLicensePort()
+			        .getstrandvlcodeforskip(parameters);
 			return res.getResult().getText();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 		
 		return "error_from_web_service";
+	}
+	
+	@Override
+	public CompanyData getCompanyForUser(User user) {
+		
+		final Company comp = getGumboBusiness().getCompanyForUser(user);
+		
+		return new CompanyData(comp.getPersonalID())
+		        .setName(comp.getName())
+		        .setAddress(comp.getAddress().getStreetAddress())
+		        .setPostalCode(
+		            comp.getAddress().getPostalCode().getPostalCode())
+		        .setPhoneNumber(comp.getPhone().getNumber())
+		        .setEmail(comp.getEmail().getEmailAddress())
+		        .setFaxNumber(comp.getFax().getNumber())
+		        .setPlace(comp.getAddress().getCity());
+	}
+	
+	private GumboBusiness getGumboBusiness() {
+		return gumboBusiness;
 	}
 }

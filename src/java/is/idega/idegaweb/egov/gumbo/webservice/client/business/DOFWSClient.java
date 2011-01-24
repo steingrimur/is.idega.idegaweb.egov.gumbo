@@ -3,18 +3,20 @@ package is.idega.idegaweb.egov.gumbo.webservice.client.business;
 import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.AflamarkTypeUser;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser;
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
+import is.idega.idegaweb.egov.gumbo.licenses.FishingLicenseUser.CompanyData;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Calendar;
-import java.util.List;
 
-import com.idega.util.text.Item;
+import com.idega.user.data.User;
 
 public interface DOFWSClient {
 	
 	public static final String MOCK = "mock";
 	public static final String WEB_SERVICE = "webservice";
+	
+	public abstract CompanyData getCompanyForUser(User user);
 	
 	public SkipInfoTypeUser[] getShipInfoByCompanySSN(String companySSN);
 	
