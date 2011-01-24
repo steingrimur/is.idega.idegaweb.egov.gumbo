@@ -24,76 +24,70 @@ import com.idega.util.expression.ELUtil;
 @Service("sendLicenseFeeClaim")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class SendLicenseFeeClaimHandler implements ActionHandler {
-
+	
 	private static final long serialVersionUID = -4458929197838920551L;
-
+	
 	@Autowired
 	FJSWSClient fjswsClient;
-
+	
 	@Autowired
 	private CasesBPMDAO casesBPMDAO;
-
+	
 	@Autowired
 	private GumboDao gumboDAO;
-
+	
 	private static final Logger LOGGER = Logger
-			.getLogger(SendLicenseFeeClaimHandler.class.getName());
-
+	        .getLogger(SendLicenseFeeClaimHandler.class.getName());
+	
 	@Override
 	public void execute(ExecutionContext executionContext) throws Exception {
 		CaseProcInstBind bind = getCasesBPMDAO()
-				.getCaseProcInstBindByProcessInstanceId(
-						executionContext.getProcessInstance().getId());
+		        .getCaseProcInstBindByProcessInstanceId(
+		            executionContext.getProcessInstance().getId());
 		if (bind == null) {
 			LOGGER.warning("Case and process instance bind can not be found by process instance ID: "
-					+ executionContext.getProcessInstance().getId());
+			        + executionContext.getProcessInstance().getId());
 			return;
 		}
-
+		
 		Case theCase = getCaseBusiness().getCase(bind.getCaseId());
 		if (theCase == null) {
 			return;
 		}
-
+		
 		System.out.println("processDefinition name = "
-				+ executionContext.getProcessDefinition().getName());
+		        + executionContext.getProcessDefinition().getName());
 		
-		System.out.println("ship id " + executionContext.getVariable("string_vesselRegistryNr"));
-		System.out.println("payers personal id " + executionContext.getVariable("string_ownerSocialNumber"));
+		System.out.println("ship id "
+		        + executionContext.getVariable("string_vesselRegistryNr"));
+		System.out.println("payers personal id "
+		        + executionContext.getVariable("string_ownerSocialNumber"));
 		
-		System.out.println("type of application " + executionContext.getVariable("string_typeOfFishingLicense"));
-
+		System.out.println("type of application "
+		        + executionContext.getVariable("string_typeOfFishingLicense"));
+		
 	}
-
+	
 	CaseBusiness getCaseBusiness() {
 		try {
 			return IBOLookup.getServiceInstance(
-					IWMainApplication.getDefaultIWApplicationContext(),
-					CaseBusiness.class);
+			    IWMainApplication.getDefaultIWApplicationContext(),
+			    CaseBusiness.class);
 		} catch (IBOLookupException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-
+	
 	private CasesBPMDAO getCasesBPMDAO() {
-		if (casesBPMDAO == null) {
-			ELUtil.getInstance().autowire(this);
-		}
 		return casesBPMDAO;
 	}
-
+	
 	private FJSWSClient getFJSWSClient() {
-		if (fjswsClient == null) {
-			ELUtil.getInstance().autowire(this);
-		}
 		return fjswsClient;
 	}
-
+	
 	private GumboDao getGumboDAO() {
-		if (gumboDAO == null) {
-			ELUtil.getInstance().autowire(this);
-		}
 		return gumboDAO;
 	}
 }
