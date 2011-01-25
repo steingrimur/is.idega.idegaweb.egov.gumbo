@@ -369,8 +369,9 @@
 	<task-node name="writeLetter">
 	   <task name="writeLetterTask" priority="-1">
          <controller>
+            <variable name="string_letterSubject" access="read,write,required"></variable>
             <variable name="string_letterText" access="read,write,required"></variable>
-            <variable name="string_letterType" access="read,write,required"></variable>
+            <variable name="string_letterType" access="read,write"></variable>
             <variable name="string_letterTemplateType" access="write"></variable>
             <variable name="string_recipientSocialNr" access="read,write,required"></variable>
             <variable name="string_recipientName" access="read,write"></variable>

@@ -12,6 +12,7 @@
                 <data>
                     <form_id>1853</form_id>
                     <Letter_text_fbc_5 mapping="string_letterText"/>
+                    <LetterSubject mapping="string_letterSubject"/>
                     <Choose_letter_template_fbc_6 mapping="string_letterType"/>
                     <Choose_letter_template_type_fbc_7 mapping="string_letterTemplateType" xsi:nil="true"/>
                     <recipientSocialNr_fbc_8 mapping="string_recipientSocialNr"/>
@@ -52,7 +53,7 @@
                     &lt;p style="clear: left; padding-top: 50px;"&gt;
                     &lt;b&gt;Efni:&lt;/b&gt;
                     </pdfTextTemplate21>
-                    <!-- letter template name -->
+                    <!-- letter subject name -->
                     <pdfTextTemplate22>
                     &lt;div style="float:right;"&gt;
                     </pdfTextTemplate22>
@@ -125,6 +126,10 @@
                 readonly="instance('control-instance')/readonly = 'true'"
                 relevant="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"
                 required="instance('control-instance')/generatePdf != 'true'" type="string"/>
+            <xf:bind id="fbc_5a_bind" nodeset="LetterSubject"
+                readonly="instance('control-instance')/readonly = 'true'"
+                relevant="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"
+                required="instance('control-instance')/generatePdf != 'true'" type="string"/>
             <xf:bind id="fbc_6_bind" nodeset="Choose_letter_template_fbc_6"
             	required="instance('control-instance')/required = 'true'" 
             	relevant="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"
@@ -177,6 +182,8 @@
                     <page-1-submit-label lang="is_IS">Senda</page-1-submit-label>
                     <page-2-info lang="en">Form submitted, thank You!</page-2-info>
                     <page-2-info lang="is_IS">Bréfið hefur verið búið til og er aðgengilegt í málaskránni undir skjölum málsins</page-2-info>
+                    <fbc_5a-label lang="is_IS">Efni</fbc_5a-label>
+                    <fbc_5a-label lang="en">Subject</fbc_5a-label>
                     <fbc_5-title lang="is_IS">Texti</fbc_5-title>
                     <fbc_5-title lang="en">Letter text</fbc_5-title>
                     <fbc_5-required lang="en">can not be empty</fbc_5-required>
@@ -329,6 +336,9 @@
                                     ref="instance('data-instance')/letterName" value="idega:resolveExpression('violationService.getLetterName({0})', '#{instance(`data-instance`)/Choose_letter_template_fbc_6}')"/>
                                 
                         </xf:select1>
+                        <xf:input bind="fbc_5a_bind" id="fbc_4a">
+                        	 <xf:label model="data_model" ref="instance('localized_strings')/fbc_5a-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:input>
                         <xf:textarea bind="fbc_5_bind" id="fbc_5" class="enableHTMLEditor">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_5-title[@lang=instance('localized_strings')/current_language]"/>
                             <xf:dispatch ev:event="idega-xforms-ready"

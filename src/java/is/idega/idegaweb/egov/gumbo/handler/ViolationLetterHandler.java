@@ -1,8 +1,6 @@
 package is.idega.idegaweb.egov.gumbo.handler;
 
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
-import is.idega.idegaweb.egov.gumbo.dao.GumboDao;
-import is.idega.idegaweb.egov.gumbo.data.Letter;
 
 import java.util.Collection;
 
@@ -10,7 +8,6 @@ import javax.ejb.FinderException;
 
 import org.jbpm.graph.def.ActionHandler;
 import org.jbpm.graph.exe.ExecutionContext;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -31,9 +28,6 @@ public class ViolationLetterHandler extends DefaultSpringBean implements ActionH
 
 	private Long processInstanceId, taskInstanceId;
 	
-	@Autowired
-	private GumboDao gumboDAO;
-	
 	@Override
 	public void execute(ExecutionContext context) throws Exception {
 		if (getTaskInstanceId() == null) {
@@ -41,20 +35,14 @@ public class ViolationLetterHandler extends DefaultSpringBean implements ActionH
 			return;
 		}
 		
-		Object value = context.getVariable("string_letterType");
+		Object value = context.getVariable("string_letterSubject");
 		if (!(value instanceof String)) {
-			getLogger().warning("Unable to resolve letter type for task instance: " + getTaskInstanceId());
-			return;
-		}
-		
-		Letter letter = gumboDAO.find(Letter.class, Long.valueOf((String) value));
-		if (letter == null) {
-			getLogger().warning("Letter can not be found by ID: " + value);
+			getLogger().warning("Unable to resolve letter subject for task instance: " + getTaskInstanceId());
 			return;
 		}
 		
 		IWResourceBundle iwrb = getResourceBundle(getBundle(GumboConstants.IW_BUNDLE_IDENTIFIER));
-		setMetaData(iwrb.getLocalizedString("letter", "Letter").concat(": ").concat(letter.getName()));
+		setMetaData(iwrb.getLocalizedString("letter", "Letter").concat(": ").concat(value.toString()));
 	}
 	
 	private void setMetaData(String value) throws Exception {
