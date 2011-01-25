@@ -78,7 +78,7 @@
                     </saveFormData>
                     <Violation_date_fbc_102 mapping="date_violationDate" xsi:nil="true"/>
                     <violationDateLabel mapping="string_violationDateLabel"/>
-                    <Violation_time_fbc_153 mapping="string_violationTime"/>
+                    <Violation_time_fbc_153 mapping="string_violationTime" xsi:nil="true"/>
                     <violationTimeLabel mapping="string_violationTimeLabel"/>
                     <tmpSocialNumber>1234</tmpSocialNumber>
                     <Violation_type_fbc_156 mapping="list_violationTypes"/>
@@ -208,7 +208,7 @@
                 required="instance('control-instance')/required = 'true'" type="date"/>
             <xf:bind id="fbc_154_bind" nodeset="violationDateLabel"/>
             <xf:bind id="fbc_153_bind" nodeset="Violation_time_fbc_153"
-                required="instance('control-instance')/required = 'true'" type="xs:string"/>
+                required="instance('control-instance')/required = 'true'" type="fbc_153fb_time"/>
             <xf:bind id="fbc_999_bind" nodeset="case_name_fbc_999"
                 required="instance('control-instance')/required = 'true'" type="xs:string"/>
             <xf:bind id="fbc_155_bind" nodeset="violationTimeLabel"/>
@@ -403,6 +403,8 @@
                     <fbc_102-label lang="en">Violation date</fbc_102-label>
                     <fbc_153-label lang="is_IS">Tími</fbc_153-label>
                     <fbc_153-label lang="en">Violation time</fbc_153-label>
+                    <fbc_153-validation lang="is_IS">Please use the time format HH:mm</fbc_153-validation>
+                    <fbc_153-validation lang="en">Please use the time format HH:mm</fbc_153-validation>
                     <fbc_155-label lang="is_IS">Tími</fbc_155-label>
                     <fbc_155-label lang="en">Violation time</fbc_155-label>
                     
@@ -767,6 +769,11 @@
                     <xs:pattern value="[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+(\.[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+)*@[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+(\.[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+)*"/>
                 </xs:restriction>
             </xs:simpleType>
+            <xs:simpleType name="fbc_153fb_time">
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="([0-1][0-9]|[2][0-3]):([0-5][0-9])"/>
+                </xs:restriction>
+            </xs:simpleType>
         </xs:schema>
         <xf:model id="x-autofill-model">
             <xf:instance id="x-autofill-model-instance" xmlns="">
@@ -947,6 +954,8 @@
                             <idega:validator ev:event="idega-validate">
                                 <idega:message errorType="required"
                                     model="data_model" value="instance('localized_strings')/fbc_153-required[@lang=instance('localized_strings')/current_language]"/>
+                                <idega:message errorType="validation"
+                                    model="data_model" value="instance('localized_strings')/fbc_153-validation[@lang=instance('localized_strings')/current_language]"/>
                             </idega:validator>
                             <xf:alert ref="instance('error-instance')/error[@for='fbc_153']"/>
                         </xf:input>
