@@ -246,8 +246,7 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}},
-                           {roleName: "bpm_violationReport_invited", accesses: {access: [read, seeContacts, seeComments, writeComments]}, rolesComments: {string: ["all"]}}
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}}
                         ]} }}
                     </value>
                 </entry>
@@ -282,8 +281,7 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}},
-                           {roleName: "bpm_violationReport_invited", accesses: {access: [read, seeContacts, seeComments, writeComments]}, rolesComments: {string: ["all"]}}
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}}
                         ]} }}
                     </value>
                 </entry>
@@ -303,6 +301,7 @@
                     <value>
                         {taskAssignment: {roles: {role: [
                            {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}},
+                           {roleName: "bpm_violationReport_owner", accesses: {access: [read]}},
                            {roleName: "bpm_violationReport_invited", accesses: {access: [read, seeContacts, seeComments, writeComments]}, rolesComments: {string: ["all"]}}
                         ]} }}
                     </value>
@@ -340,9 +339,7 @@
                     <value>
                         {taskAssignment: {roles: {role: [
                            {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}},
-                           {roleName: "bpm_violationReport_superHandler", accesses: {access: [read, write]}},
-                           {roleName: "bpm_violationReport_owner", accesses: {access: [read]}},
-                           {roleName: "bpm_violationReport_invited", accesses: {access: [read, seeContacts, seeComments, writeComments]}, rolesComments: {string: ["all"]}}
+                           {roleName: "bpm_violationReport_superHandler", accesses: {access: [read, write]}}
                         ]} }}
                     </value>
                 </entry>
@@ -387,8 +384,7 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}},
-                           {roleName: "bpm_violationReport_invited", accesses: {access: [read, seeContacts, seeComments, writeComments]}, rolesComments: {string: ["all"]}}
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}}
                         ]} }}
                     </value>
                 </entry>
@@ -438,8 +434,7 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}},
-                           {roleName: "bpm_violationReport_invited", accesses: {access: [read, seeContacts, seeComments, writeComments]}, rolesComments: {string: ["all"]}}
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}}
                         ]} }}
                     </value>
                 </entry>
@@ -460,8 +455,7 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}},
-                           {roleName: "bpm_violationReport_invited", accesses: {access: [read, seeContacts, seeComments, writeComments]}, rolesComments: {string: ["all"]}}
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}}
                         ]} }}
                     </value>
                 </entry>
@@ -534,9 +528,7 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_violationReport_handler", accesses: {access: [read]}},
-                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}},
-                           {roleName: "bpm_violationReport_invited", accesses: {access: [read, seeContacts, seeComments, writeComments]}, rolesComments: {string: ["all"]}}
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}}
                         ]} }}
                     </value>
                 </entry>
@@ -564,7 +556,7 @@
                             ${
                             Map subjectMap = new HashMap();
                             subjectMap.put("en", "Additional information needed");
-                            subjectMap.put("is_IS", "Additional information needed");
+                            subjectMap.put("is_IS", "Frekari upplýsinga óskað");
                             return subjectMap;
                             }
                             
@@ -576,7 +568,7 @@
                             ${
                             Map messageMap = new HashMap();
                             messageMap.put("en", "Hello, {0}.\n There is a new form for you to supply additional information in the case {1} with identifier {2} and description {3}.");
-                            messageMap.put("is_IS", "Hello, {0}.\n There is a new form for you to supply additional information in the case {1} with identifier {2} and description {3}.");
+                            messageMap.put("is_IS", "Sæl/l, {0}.\n Óskað er frekari upplýsinga varðandi {1} með málsnúmeri {2} og lýsingu {3}.");
                             return messageMap;
                             }
                         </value>
@@ -663,7 +655,7 @@
                             ${
                             Map subjectMap = new HashMap();
                             subjectMap.put("en", "Violation decision has been submitted");
-                            subjectMap.put("is_IS", "Violation decision has been submitted");
+                            subjectMap.put("is_IS", "Niðurstaða máls sett");
                             return subjectMap;
                             }
                             
@@ -675,7 +667,7 @@
                             ${
                             Map messageMap = new HashMap();
                             messageMap.put("en", "Violation decision has been submitted");
-                            messageMap.put("is_IS", "Violation decision has been submitted");
+                            messageMap.put("is_IS", "Mál hefur verið afgreitt og komin niðurstaða.");
                             return messageMap;
                             }
                         </value>
@@ -700,7 +692,7 @@
                             ${
                             Map subjectMap = new HashMap();
                             subjectMap.put("en", "Handler was assigned to the case");
-                            subjectMap.put("is_IS", "Handler was assigned to the case");
+                            subjectMap.put("is_IS", "Umsjónarmaður settur á mál");
                             return subjectMap;
                             }
                             
@@ -712,7 +704,7 @@
                             ${
                             Map messageMap = new HashMap();
                             messageMap.put("en", "Hi, {0}.\n Handler {1} was assigned to the case {2} with identifier {3} and description {4}");
-                            messageMap.put("is_IS", "Hi, {0}.\n Handler {1} was assigned to the case {2} with identifier {3} and description {4}");
+                            messageMap.put("is_IS", "Sæl/l, {0}.\n Umsjónarmaður {1} var settur á málið {2} með málsnúmeri {3} og lýsingu {4}");
                             return messageMap;
                             }
                         </value>
@@ -732,8 +724,8 @@
                 <entry><key>sendToRoles</key><value>bpm_violationReport_handler</value></entry>
                 <entry><key>handlerUserId</key><value>#{string_lawyerUserId}</value></entry>
                 </propertyMap>
-         </action>
-    </event>
+         	</action>
+    	</event>
 		<transition to="changeStatusToInProcess"></transition>
 	</node>
 
@@ -749,7 +741,7 @@
 	                            ${
 	                            Map subjectMap = new HashMap();
 	                            subjectMap.put("en", "Reminder for the unhandled case");
-	                            subjectMap.put("is_IS", "Reminder for the unhandled case");
+	                            subjectMap.put("is_IS", "Áminning á meðhöndlun brotaskýrslu");
 	                            return subjectMap;
 	                            }
 	                            
@@ -761,7 +753,7 @@
 	                            ${
 	                            Map messageMap = new HashMap();
 	                            messageMap.put("en", "Hello, {0}.\n There is the unhandled case you could take a look into. Case is {1} with identifier {2} and description {3}.");
-	                            messageMap.put("is_IS", "Hello, {0}.\n There is the unhandled case you could take a look into. Case is {1} with identifier {2} and description {3}.");
+	                            messageMap.put("is_IS", "Sæl/l, {0}.\n Tímamörk brotaskýrslu hafa runnið út án aðgerða. Málið {1} með nr. {2} og lýsingu {3}.");
 	                            return messageMap;
 	                            }
 	                        </value>
@@ -911,19 +903,19 @@
         <role name="bpm_violationReport_caseHandler">
           <labels>
             <label lang="en">caseHandler</label>
-            <label lang="is_IS">Ábyrgðaraðili</label>
+            <label lang="is_IS">Umsjónarmaður</label>
           </labels>
         </role>
         <role name="bpm_violationReport_handler" createNative="true">
           <labels>
             <label lang="en">handler</label>
-            <label lang="is_IS">Ábyrðaraðili</label>
+            <label lang="is_IS">Brotadeild</label>
           </labels>
         </role>
         <role name="bpm_violationReport_superHandler" createNative="true">
           <labels>
             <label lang="en">Super Handler</label>
-            <label lang="is_IS">Yfir ábyrgðaraðili</label>
+            <label lang="is_IS">Yfirmaður brotadeildar</label>
           </labels>
         </role>
         <role name="bpm_violationReport_owner">
