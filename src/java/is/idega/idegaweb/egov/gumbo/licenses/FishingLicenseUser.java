@@ -1,6 +1,7 @@
 package is.idega.idegaweb.egov.gumbo.licenses;
 
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
+
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.LicenseCheckContainer;
@@ -33,6 +34,11 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	
 	@Autowired
 	private DateConverter dateConverter;
+	
+	public CompanyData getCompanyForCurrentUser() {
+		
+		return getClient().getCompanyForUser(getCurrentUser());
+	}
 	
 	public List<Item> getVesselsForUser() {
 		List<Item> items = null;
@@ -340,5 +346,89 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	
 	private DateConverter getDateConverter() {
 		return dateConverter;
+	}
+	
+	public static final class CompanyData {
+		
+		private final String socialSecurityNr;
+		private String name;
+		private String address;
+		private String postalCode;
+		private String phoneNumber;
+		private String email;
+		private String faxNumber;
+		private String place;
+		
+		public CompanyData(String socialSecurityNr) {
+			
+			this.socialSecurityNr = socialSecurityNr;
+		}
+		
+		public String getName() {
+			return name;
+		}
+		
+		public CompanyData setName(String name) {
+			this.name = name;
+			return this;
+		}
+		
+		public String getAddress() {
+			return address;
+		}
+		
+		public CompanyData setAddress(String address) {
+			this.address = address;
+			return this;
+		}
+		
+		public String getSocialSecurityNr() {
+			return socialSecurityNr;
+		}
+		
+		public String getPostalCode() {
+			return postalCode;
+		}
+		
+		public CompanyData setPostalCode(String postalCode) {
+			this.postalCode = postalCode;
+			return this;
+		}
+		
+		public String getPhoneNumber() {
+			return phoneNumber;
+		}
+		
+		public CompanyData setPhoneNumber(String phoneNumber) {
+			this.phoneNumber = phoneNumber;
+			return this;
+		}
+		
+		public String getEmail() {
+			return email;
+		}
+		
+		public CompanyData setEmail(String email) {
+			this.email = email;
+			return this;
+		}
+		
+		public String getFaxNumber() {
+			return faxNumber;
+		}
+		
+		public CompanyData setFaxNumber(String faxNumber) {
+			this.faxNumber = faxNumber;
+			return this;
+		}
+		
+		public String getPlace() {
+			return place;
+		}
+		
+		public CompanyData setPlace(String place) {
+			this.place = place;
+			return this;
+		}
 	}
 }

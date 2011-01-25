@@ -11,17 +11,23 @@
             <xf:instance id="data-instance" xmlns="">
                 <data>
                     <form_id>665</form_id>
-                    <Phone_number_fbc_17 mapping="string_ownerPhone"/>
+                    
+                    <companyData>
+                                    <socialSecurityNr mapping="string_ownerSocialNumber"/>
+                                    <name mapping="string_ownerFullName"/>
+                                    <address mapping="string_ownerAddress"/>
+                                    <postalCode mapping="string_ownerPostCode"/>
+                                    <phoneNumber mapping="string_ownerPhone"/>
+                                    <email mapping="string_ownerEmailAddress" xsi:nil="true"/>
+                                    <faxNumber mapping="string_ownerFax"/>
+                                    <place mapping="string_ownerMunicipality"/>
+                    </companyData>
+                    
                     <Identifier_number_fbc_23 mapping="string_caseIdentifier"/>
-                    <Email_fbc_33 mapping="string_ownerEmailAddress" xsi:nil="true"/>
-                    <Fax_fbc_34 mapping="string_ownerFax"/>
+                    
                     <License_for_following_vessel_fbc_37 mapping="string_vessel"/>
                     <Your_comments_fbc_38 mapping="string_ownerComments"/>
-                    <Name_fbc_42 mapping="string_ownerFullName"/>
-                    <Social_security_number_fbc_43 mapping="string_ownerSocialNumber"/>
-                    <Address_fbc_44 mapping="string_ownerAddress"/>
-                    <Post_code_fbc_45 mapping="string_ownerPostCode"/>
-                    <Place_fbc_46 mapping="string_ownerMunicipality"/>
+                    
                     <vesselData>
                         <registryNr mapping="string_vesselRegistryNr"/>
                         <name mapping="string_vesselName"/>
@@ -108,43 +114,27 @@
                 nodeset="instance('saveForm-instance')/sendLinkEmail"
                 readonly="instance('control-instance')/readonly = 'true'"
                 required="true() and instance('control-instance')/generatePdf != 'true'" type="fbc_47fb_email"/>
-            <xf:bind id="fbc_17_bind" nodeset="Phone_number_fbc_17"
+            <xf:bind id="fbc_17_bind" nodeset="companyData/phoneNumber"
                 readonly="instance('control-instance')/readonly = 'true'" type="string"/>
             <xf:bind id="bind-submissionButton"
                 nodeset="instance('control-instance')/Submit_fbc_69" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
-            <xf:bind id="fbc_33_bind" nodeset="Email_fbc_33"
+            <xf:bind id="fbc_33_bind" nodeset="companyData/email"
                 readonly="instance('control-instance')/readonly = 'true'" type="fbc_33fb_email"/>
-            <xf:instance id="fbc_17_autofill-instance"
-                relevant="false()" src="context:fb-afk-collection-string-loginSession.user.phones.number"/>
-            <xf:instance id="fbc_33_autofill-instance"
-                relevant="false()" src="context:fb-afk-loginSession.user.usersEmail.emailAddress"/>
-            <xf:bind id="fbc_34_bind" nodeset="Fax_fbc_34"
+            <xf:bind id="fbc_34_bind" nodeset="companyData/faxNumber"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
-            <xf:instance id="fbc_34_autofill-instance"
-                relevant="false()" src="context:fb-afk-loginSession.user.usersFaxPhone.number"/>
             <xf:bind id="fbc_37_bind"
                 nodeset="License_for_following_vessel_fbc_37"
                 readonly="instance('control-instance')/readonly = 'true'"
                 required="instance('control-instance')/required = 'true'" type="xs:string"/>
             <xf:bind id="fbc_38_bind" nodeset="Your_comments_fbc_38"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
-            <xf:bind id="fbc_42_bind" nodeset="Name_fbc_42"
+            <xf:bind id="fbc_42_bind" nodeset="companyData/name"
                 readonly="instance('control-instance')/readonly = 'true'" type="string"/>
-            <xf:instance id="fbc_42_autofill-instance"
-                relevant="false()" src="context:fb-afk-loginSession.user.name"/>
             <xf:bind id="fbc_43_bind"
-                nodeset="Social_security_number_fbc_43" readonly="instance('control-instance')/readonly = 'true'"/>
-            <xf:instance id="fbc_43_autofill-instance"
-                relevant="false()" src="context:fb-afk-loginSession.user.personalID"/>
-            <xf:bind id="fbc_44_bind" nodeset="Address_fbc_44" readonly="instance('control-instance')/readonly = 'true'"/>
-            <xf:instance id="fbc_44_autofill-instance"
-                relevant="false()" src="context:fb-afk-loginSession.user.usersMainAddress.streetAddress"/>
-            <xf:bind id="fbc_45_bind" nodeset="Post_code_fbc_45" readonly="instance('control-instance')/readonly = 'true'"/>
-            <xf:instance id="fbc_45_autofill-instance"
-                relevant="false()" src="context:fb-afk-loginSession.user.usersMainAddress.postalCode.postalCode"/>
-            <xf:bind id="fbc_46_bind" nodeset="Place_fbc_46" readonly="instance('control-instance')/readonly = 'true'"/>
-            <xf:instance id="fbc_46_autofill-instance"
-                relevant="false()" src="context:fb-afk-loginSession.user.usersMainAddress.commune.communeName"/>
+                nodeset="companyData/socialSecurityNr" readonly="instance('control-instance')/readonly = 'true'"/>
+            <xf:bind id="fbc_44_bind" nodeset="companyData/address" readonly="instance('control-instance')/readonly = 'true'"/>
+            <xf:bind id="fbc_45_bind" nodeset="companyData/postalCode" readonly="instance('control-instance')/readonly = 'true'"/>
+            <xf:bind id="fbc_46_bind" nodeset="companyData/place" readonly="instance('control-instance')/readonly = 'true'"/>
             <xf:bind id="fbc_61_bind" nodeset="vesselData/name"/>
             <xf:bind id="fbc_62_bind" nodeset="vesselData/registryNr"/>
             <xf:bind id="fbc_64_bind" nodeset="vesselData/ownersName"/>
@@ -333,6 +323,12 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                     ref="instance('control-instance')/required" value="'false'"/>
                 <idega:setvalue
                     ref="instance('fbc_37_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('fishingLicenseUser.getVesselsForUser()')"/>
+                    
+                <idega:setvalue
+                                    if="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"
+                                    multiple="true()"
+                                    placeResponseDocument="true()"
+                                    ref="instance('data-instance')/companyData" value="idega:resolveBeanProperties('fishingLicenseUser.getCompanyForCurrentUser()')"/>
             </xf:action>
             <xf:action ev:event="xforms-ready" if="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'">
                 <idega:setvalue
@@ -373,30 +369,6 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                 <foo/>
             </xf:instance>
             <xf:action ev:event="xforms-ready" if="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'">
-                <xf:setvalue bind="fbc_17_bind"
-                    id="fbc_17-autofill-setvalue"
-                    model="submission_model" value="instance('fbc_17_autofill-instance')/fb-afk-collection-string-loginSession.user.phones.number"/>
-                <xf:setvalue bind="fbc_33_bind"
-                    id="fbc_33-autofill-setvalue"
-                    model="submission_model" value="instance('fbc_33_autofill-instance')/fb-afk-loginSession.user.usersEmail.emailAddress"/>
-                <xf:setvalue bind="fbc_34_bind"
-                    id="fbc_34-autofill-setvalue"
-                    model="submission_model" value="instance('fbc_34_autofill-instance')/fb-afk-loginSession.user.usersFaxPhone.number"/>
-                <xf:setvalue bind="fbc_42_bind"
-                    id="fbc_42-autofill-setvalue"
-                    model="submission_model" value="instance('fbc_42_autofill-instance')/fb-afk-loginSession.user.name"/>
-                <xf:setvalue bind="fbc_43_bind"
-                    id="fbc_43-autofill-setvalue"
-                    model="submission_model" value="instance('fbc_43_autofill-instance')/fb-afk-loginSession.user.personalID"/>
-                <xf:setvalue bind="fbc_44_bind"
-                    id="fbc_44-autofill-setvalue"
-                    model="submission_model" value="instance('fbc_44_autofill-instance')/fb-afk-loginSession.user.usersMainAddress.streetAddress"/>
-                <xf:setvalue bind="fbc_45_bind"
-                    id="fbc_45-autofill-setvalue"
-                    model="submission_model" value="instance('fbc_45_autofill-instance')/fb-afk-loginSession.user.usersMainAddress.postalCode.postalCode"/>
-                <xf:setvalue bind="fbc_46_bind"
-                    id="fbc_46-autofill-setvalue"
-                    model="submission_model" value="instance('fbc_46_autofill-instance')/fb-afk-loginSession.user.usersMainAddress.commune.communeName"/>
             </xf:action>
             <idega:toggle case="fbc_41" ev:event="xforms-ready" if="instance('control-instance')/generatePdf = 'true' or instance('control-instance')/readonly='true'"/>
         </xf:model>

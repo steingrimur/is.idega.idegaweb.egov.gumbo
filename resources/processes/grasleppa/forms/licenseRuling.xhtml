@@ -22,7 +22,6 @@
                         </entry>
                     </Multi_file_upload_with_description_fbc_8>
                     <actionTaken mapping="string_actionTaken"/>
-                    <Document_key_fbc_12 mapping="string_documentKey"/>
                 </data>
             </xf:instance>
             <xf:instance id="control-instance">
@@ -62,9 +61,6 @@
             <xf:bind id="bind-submissionButton" idega:shared="true"
                 nodeset="instance('control-instance')/submissionButton" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
             <xf:bind id="actionTaken" nodeset="actionTaken" shared="true"/>
-            <xf:bind id="fbc_12_bind" nodeset="Document_key_fbc_12"
-                readonly="instance('control-instance')/readonly = 'true'"
-                required="instance('control-instance')/required = 'false'" type="xs:string"/>
         </xf:model>
         <xf:model id="data_model">
             <xf:instance id="localized_strings" xmlns="">
@@ -102,12 +98,6 @@
                     <fbc_9-label lang="en">Grant</fbc_9-label>
                     <fbc_10-label lang="is_IS">Hafna</fbc_10-label>
                     <fbc_10-label lang="en">Deny</fbc_10-label>
-                    <fbc_11-text lang="is_IS">Velja skjalalykil</fbc_11-text>
-                    <fbc_11-text lang="en">Select document key</fbc_11-text>
-                    <fbc_12-label lang="is_IS">Skjalalykill</fbc_12-label>
-                    <fbc_12-label lang="en">Document key</fbc_12-label>
-                    <fbc_12-required lang="is_IS">Það þarf að fylla út reitinn X</fbc_12-required>
-                    <fbc_12-required lang="en">The field X is required</fbc_12-required>
                     <fbc_13-text lang="is_IS">Ákvörðun í máli</fbc_13-text>
                     <fbc_13-text lang="en">Case ruling</fbc_13-text>
                     <fbc_14-label lang="is_IS">Í bið</fbc_14-label>
@@ -120,23 +110,6 @@
                     ref="instance('localized_strings')/current_language" value="instance('locale-instance')/fb-afk-loginSession.currentLocale"/>
                 <idega:dispatch name="idega-xforms-ready" target="//h:body//*[starts-with(@id, 'fbc_')]"/>
             </xf:action>
-            <xf:instance id="fbc_12_lds" xmlns="">
-                <local_src> 
-	                <localizedEntries lang="en">
-			        <item> 
-			            <itemLabel>3.1.1 Veiðileyfi og aflaheimildir</itemLabel>
-			            <itemValue>3.1.1</itemValue> 
-			        </item> 
-			        </localizedEntries>
-			        <localizedEntries lang="is_IS">
-			            <itemLabel>3.1.1 Veiðileyfi og aflaheimildir</itemLabel>
-			            <itemValue>3.1.1</itemValue>
-			        </localizedEntries> 
-		         </local_src>
-            </xf:instance>
-            <xf:instance id="fbc_12_eds" xmlns="">
-                <ext_src/>
-            </xf:instance>
         </xf:model>
         <xs:schema id="fb-schema"/>
     </head>
@@ -152,27 +125,6 @@
             <idega:switch>
                 <idega:case id="fbc_1" show="instance('control-instance')/generatePdf='true'">
                     <xf:group appearance="full">
-                        <!-- upload -->
-                        <div class="fbc_header_text" id="fbc_11" type="fbc_header_text">
-                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_11-text[@lang=instance('localized_strings')/current_language]"/>
-                        </div>
-                        <xf:select1 appearance="minimal"
-                            bind="fbc_12_bind" id="fbc_12" type="fbc_single_select_minimal">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_12-label[@lang=instance('localized_strings')/current_language]"/>
-                            <xf:itemset model="data_model" nodeset="instance('fbc_12_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
-                                <xf:label ref="itemLabel"/>
-                                <xf:value ref="itemValue"/>
-                            </xf:itemset>
-                            <xf:dispatch ev:event="idega-xforms-ready"
-                                name="idega-validate" target="fbc_12"/>
-                            <xf:dispatch ev:event="xforms-value-changed"
-                                name="idega-validate" target="fbc_12"/>
-                            <idega:validator ev:event="idega-validate">
-                                <idega:message errorType="required"
-                                    model="data_model" value="instance('localized_strings')/fbc_12-required[@lang=instance('localized_strings')/current_language]"/>
-                            </idega:validator>
-                            <xf:alert ref="instance('error-instance')/error[@for='fbc_12']"/>
-                        </xf:select1>
                         <div class="fbc_header_text" id="fbc_13" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_13-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
