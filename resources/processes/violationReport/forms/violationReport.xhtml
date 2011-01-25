@@ -971,9 +971,11 @@
 	                                <xf:value ref="itemValue"/>
 	                            </xf:itemset>
 	                            
-	                            <xf:setvalue
-                                ev:event="xforms-value-changed"
-                                ref="instance('data-instance')/Violation_types_summary" value="instance('data-instance')/Violation_type_fbc_156"/>
+	                            <idega:separateSelectionLabels
+                                   ref="instance('data-instance')/Violation_types_summary"
+                                   val="instance('data-instance')/Violation_type_fbc_156"
+                                   itemsNodeset="instance('fbc_156_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]" 
+                                   ev:event="xforms-value-changed" />
 	                            
 	                            <xf:dispatch ev:event="idega-xforms-ready"
 	                                name="idega-validate" target="fbc_156"/>
@@ -1189,14 +1191,12 @@
 	                                <xf:value ref="itemValue"/>
 	                            </xf:itemset>
 	                     
-	                     <!--  
 	                            <idega:separateSelectionLabels
-	                               itemsNodeset="instance('fbc_192_lds')" 
+	                               ref="instance('data-instance')/fishingGearsSummary"
+	                               val="instance('data-instance')/Fishing_gear_fbc_192"
+	                               itemsNodeset="instance('fbc_192_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]" 
 	                               ev:event="xforms-value-changed" />
-                         -->
 	                               
-	                            <xf:setvalue ev:event="xforms-value-changed"
-	                                ref="instance('data-instance')/fishingGearsSummary" value="instance('data-instance')/Fishing_gear_fbc_192"/>
 	                        </xf:select>
 	                    </div>
                         <xf:input bind="fbc_192a_bind" id="fbc_192a" type="fbc_text">
@@ -1334,8 +1334,12 @@
                                     <xf:label ref="itemLabel"/>
                                     <xf:value ref="itemValue"/>
                                 </xf:itemset>
-                                <xf:setvalue ev:event="xforms-value-changed"
-                                    ref="instance('data-instance')/Other_inspectors_summary" value="instance('data-instance')/Other_inspectors_fbc_221"/>
+                                
+                                <idega:separateSelectionLabels
+                                   ref="instance('data-instance')/Other_inspectors_summary"
+                                   val="instance('data-instance')/Other_inspectors_fbc_221"
+                                   itemsNodeset="instance('fbc_221_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]" 
+                                   ev:event="xforms-value-changed" />
                             </xf:select>
                         </div>
                         <xf:select1 appearance="minimal"

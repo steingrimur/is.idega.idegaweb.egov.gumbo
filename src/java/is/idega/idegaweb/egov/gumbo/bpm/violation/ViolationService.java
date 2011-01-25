@@ -5,10 +5,8 @@ import is.idega.idegaweb.egov.gumbo.bpm.violation.ViolationDataProvider.PersonDa
 import is.idega.idegaweb.egov.gumbo.licenses.FishingLicenseUser.XFormsBooleanResult;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -47,35 +45,20 @@ public class ViolationService extends DefaultSpringBean {
 	}
 	
 	public List<Item> getViolationTypes() {
-		return setLabelForValue(getViolationDataProvider().getViolationTypes());
-	}
-	
-	private List<Item> setLabelForValue(List<Item> items) {
-		
-		final List<Item> modifiedItems = new ArrayList<Item>(items.size());
-		
-		for (Item item : items) {
-			
-			modifiedItems
-			        .add(new Item(item.getItemLabel(), item.getItemLabel()));
-			
-		}
-		
-		return modifiedItems;
+		return getViolationDataProvider().getViolationTypes();
 	}
 	
 	public List<Item> getOtherInspectorsThanCurrentlyLoggedIn() {
-		return setLabelForValue(getViolationDataProvider()
-		        .getOtherInspectorsThanCurrentlyLoggedIn());
+		return getViolationDataProvider()
+		        .getOtherInspectorsThanCurrentlyLoggedIn();
 	}
 	
 	public List<Item> getFiskistofaOffices() {
-		return setLabelForValue(getViolationDataProvider()
-		        .getFiskistofaOffices());
+		return getViolationDataProvider().getFiskistofaOffices();
 	}
 	
 	public List<Item> getFishingGears() {
-		return setLabelForValue(getViolationDataProvider().getFishingGears());
+		return getViolationDataProvider().getFishingGears();
 	}
 	
 	public List<Item> getLettersTypes() {
