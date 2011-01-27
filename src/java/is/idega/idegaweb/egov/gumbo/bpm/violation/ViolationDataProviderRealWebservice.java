@@ -13,12 +13,9 @@ import is.idega.block.nationalregister.webservice.client.business.CompanyHolder;
 import is.idega.block.nationalregister.webservice.client.business.SkyrrClient;
 import is.idega.block.nationalregister.webservice.client.business.UserHolder;
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
-import is.idega.idegaweb.egov.gumbo.LetterType;
-import is.idega.idegaweb.egov.gumbo.bpm.violation.ViolationDataProvider.PersonData;
 import is.idega.idegaweb.egov.gumbo.dao.GumboDao;
 import is.idega.idegaweb.egov.gumbo.data.FishingGear;
 import is.idega.idegaweb.egov.gumbo.data.Inspector;
-import is.idega.idegaweb.egov.gumbo.data.Letter;
 import is.idega.idegaweb.egov.gumbo.data.Office;
 import is.idega.idegaweb.egov.gumbo.data.ViolationDecision;
 import is.idega.idegaweb.egov.gumbo.data.ViolationType;
@@ -50,15 +47,12 @@ import com.idega.company.companyregister.business.CompanyRegisterBusiness;
 import com.idega.company.data.Company;
 import com.idega.core.location.data.Address;
 import com.idega.data.IDOFinderException;
-import com.idega.idegaweb.IWApplicationContext;
 import com.idega.idegaweb.IWMainApplication;
-import com.idega.idegaweb.IWMainApplicationContext;
 import com.idega.idegaweb.IWResourceBundle;
 import com.idega.user.business.GroupBusiness;
 import com.idega.user.business.UserBusiness;
 import com.idega.user.data.Group;
 import com.idega.user.data.User;
-import com.idega.util.CoreConstants;
 import com.idega.util.IWTimestamp;
 import com.idega.util.LocaleUtil;
 import com.idega.util.StringUtil;
@@ -228,76 +222,6 @@ public class ViolationDataProviderRealWebservice implements
 		}
 		
 		return items;
-	}
-	
-	@Override
-	public List<Item> getLettersTypes() {
-		
-		final LetterType[] types = LetterType.values();
-		
-		final List<Item> items = new ArrayList<Item>(types.length);
-		
-		// TODO: add label for letter type
-		
-		for (LetterType letterType : types) {
-			items.add(new Item(letterType.toString(), letterType.toString()));
-		}
-		
-		return items;
-	}
-	
-	public List<Item> getLetters(String letterType) {
-		final List<Item> items = new ArrayList<Item>();
-		
-		List<Letter> letters = getDao().getLetters(
-		    LetterType.valueOf(letterType));
-		if (letters != null && letters.size() > 0) {
-			for (Letter letter : letters) {
-				items.add(new Item(letter.getId().toString(), letter.getName()));
-			}
-		} else {
-			items.add(new Item("", "No letters in database..."));
-		}
-		
-		return items;
-	}
-	
-	@Override
-	public String getLetterName(String byLetterId) {
-		
-		final String name;
-		
-		if (!StringUtil.isEmpty(byLetterId)) {
-			
-			final Letter letter = findLetter(byLetterId);
-			name = letter != null ? letter.getName() : CoreConstants.EMPTY;
-			
-		} else {
-			name = CoreConstants.EMPTY;
-		}
-		
-		return name;
-	}
-	
-	private Letter findLetter(String byLetterId) {
-		return getDao().find(Letter.class, new Long(byLetterId));
-	}
-	
-	@Override
-	public String getLetterText(String byLetterId) {
-		
-		final String text;
-		
-		if (!StringUtil.isEmpty(byLetterId)) {
-			
-			final Letter letter = findLetter(byLetterId);
-			text = letter != null ? letter.getText() : CoreConstants.EMPTY;
-			
-		} else {
-			text = CoreConstants.EMPTY;
-		}
-		
-		return text;
 	}
 	
 	@Override

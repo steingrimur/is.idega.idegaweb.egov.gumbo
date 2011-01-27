@@ -1,10 +1,14 @@
 package is.idega.idegaweb.egov.gumbo.bpm.violation;
 
+import is.idega.idegaweb.egov.gumbo.LetterType;
 import is.idega.idegaweb.egov.gumbo.bpm.violation.ViolationDataProvider.EquipmentData;
 import is.idega.idegaweb.egov.gumbo.bpm.violation.ViolationDataProvider.PersonData;
+import is.idega.idegaweb.egov.gumbo.dao.GumboDao;
+import is.idega.idegaweb.egov.gumbo.data.Letter;
 import is.idega.idegaweb.egov.gumbo.licenses.FishingLicenseUser.XFormsBooleanResult;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,6 +21,8 @@ import org.springframework.stereotype.Service;
 import com.idega.core.business.DefaultSpringBean;
 import com.idega.jbpm.identity.Role;
 import com.idega.jbpm.identity.RolesManager;
+import com.idega.util.CoreConstants;
+import com.idega.util.StringUtil;
 import com.idega.util.text.Item;
 
 @Service("violationService")
@@ -24,11 +30,14 @@ import com.idega.util.text.Item;
 public class ViolationService extends DefaultSpringBean {
 	
 	@Autowired
-	@Qualifier(DOFWSClient.WEB_SERVICE)
+	@Qualifier(DOFWSClient.MOCK)
 	private ViolationDataProvider violationDataProvider;
 	
 	@Autowired
 	private RolesManager rolesManager;
+	
+	@Autowired
+	private GumboDao dao;
 	
 	public PersonData getViolationPersonData(String socialNr) {
 		return getViolationDataProvider().getViolationPersonData(socialNr);
@@ -62,29 +71,84 @@ public class ViolationService extends DefaultSpringBean {
 	}
 	
 	public List<Item> getLettersTypes() {
-		return getViolationDataProvider().getLettersTypes();
+		
+		final LetterType[] types = LetterType.values();
+		
+		final List<Item> items = new ArrayList<Item>(types.length);
+		
+		// TODO: add label for letter type
+		
+		for (LetterType letterType : types) {
+			items.add(new Item(letterType.toString(), letterType.toString()));
+		}
+		
+		return items;
 	}
 	
 	public List<Item> getEmptyList() {
 		return Collections.emptyList();
 	}
 	
-	public List<Item> getLetters(String type) {
+	public List<Item> getLetters(String letterType) {
 		
-		if (!com.idega.util.StringUtil.isEmpty(type))
-			return getViolationDataProvider().getLetters(type);
-		else
+		if (!com.idega.util.StringUtil.isEmpty(letterType)) {
+			
+			final List<Item> items = new ArrayList<Item>();
+			
+			List<Letter> letters = getDao().getLetters(
+			    LetterType.valueOf(letterType));
+			if (letters != null && letters.size() > 0) {
+				for (Letter letter : letters) {
+					items.add(new Item(letter.getId().toString(), letter
+					        .getName()));
+				}
+			} else {
+				items.add(new Item("", "No letters in database..."));
+			}
+			
+			return items;
+		} else
 			return Collections.emptyList();
+	}
+	
+	private GumboDao getDao() {
+		return dao;
 	}
 	
 	public String getLetterText(String byLetterId) {
 		
-		return getViolationDataProvider().getLetterText(byLetterId);
+		final String text;
+		
+		if (!StringUtil.isEmpty(byLetterId)) {
+			
+			final Letter letter = findLetter(byLetterId);
+			text = letter != null ? letter.getText() : CoreConstants.EMPTY;
+			
+		} else {
+			text = CoreConstants.EMPTY;
+		}
+		
+		return text;
+	}
+	
+	private Letter findLetter(String byLetterId) {
+		return getDao().find(Letter.class, new Long(byLetterId));
 	}
 	
 	public String getLetterName(String byLetterId) {
 		
-		return getViolationDataProvider().getLetterName(byLetterId);
+		final String name;
+		
+		if (!StringUtil.isEmpty(byLetterId)) {
+			
+			final Letter letter = findLetter(byLetterId);
+			name = letter != null ? letter.getName() : CoreConstants.EMPTY;
+			
+		} else {
+			name = CoreConstants.EMPTY;
+		}
+		
+		return name;
 	}
 	
 	public List<Item> getDecisionRulings() {

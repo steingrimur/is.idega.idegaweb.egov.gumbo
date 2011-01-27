@@ -13,7 +13,7 @@
                     <form_id>1853</form_id>
                     <Letter_text_fbc_5 mapping="string_letterText"/>
                     <LetterSubject mapping="string_letterSubject"/>
-                    <Choose_letter_template_fbc_6 mapping="string_letterType"/>
+                    <Choose_letter_template_fbc_6 mapping="string_letterType" xsi:nil="true"/>
                     <Choose_letter_template_type_fbc_7 mapping="string_letterTemplateType" xsi:nil="true"/>
                     <recipientSocialNr_fbc_8 mapping="string_recipientSocialNr"/>
                     <personData>
@@ -303,11 +303,10 @@
                             </xf:itemset>
                             
                             <xf:action ev:event="xforms-value-changed">
-	                            <idega:setvalue 
-	                                ref="instance('fbc_6_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('violationService.getEmptyList()')"/>
 	                            
 	                            <idega:setvalue
 	                                ref="instance('fbc_6_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('violationService.getLetters({0})', '#{instance(`data-instance`)/Choose_letter_template_type_fbc_7}')"/>
+	                                
                             </xf:action>
                             
                             
@@ -320,9 +319,6 @@
                                 <xf:value ref="itemValue"/>
                             </xf:itemset>
                             
-                            <idega:setvalue ev:event="xforms-value-changed"
-                                ref="instance('data-instance')/Letter_text_fbc_5" value="instance('data-instance')/Choose_letter_template_fbc_6"/>
-                                
                             <idega:setvalue
                                     ev:event="xforms-value-changed"
                                     multiple="true()"
@@ -339,7 +335,8 @@
                         <xf:input bind="fbc_5a_bind" id="fbc_4a">
                         	 <xf:label model="data_model" ref="instance('localized_strings')/fbc_5a-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:input>
-                        <xf:textarea bind="fbc_5_bind" id="fbc_5" class="enableHTMLEditor">
+                        <!-- class="enableHTMLEditor" -->
+                        <xf:textarea bind="fbc_5_bind" id="fbc_5">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_5-title[@lang=instance('localized_strings')/current_language]"/>
                             <xf:dispatch ev:event="idega-xforms-ready"
                                 name="idega-validate" target="fbc_5"/>

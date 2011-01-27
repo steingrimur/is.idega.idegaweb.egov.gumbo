@@ -27,14 +27,6 @@ public interface ViolationDataProvider {
 	
 	public abstract List<Item> getHarbours();
 	
-	public abstract List<Item> getLettersTypes();
-	
-	public abstract List<Item> getLetters(String type);
-	
-	public abstract String getLetterName(String byLetterId);
-	
-	public abstract String getLetterText(String byLetterId);
-	
 	public abstract List<Item> getDecisionRulings();
 	
 	public abstract String getTypeLabelOfPermissionForViolationCompany(

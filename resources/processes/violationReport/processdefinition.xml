@@ -794,6 +794,15 @@
 	</state>
 
 	<task-node name="violationReportOnRepeat">
+	   <event type="task-create">
+         <script>
+            <expression>
+                files_attachments = null;
+                System.out.println("======TASK CREATE EVENT");
+            </expression>
+            <variable name='files_attachments' access='read,write' />
+         </script>
+        </event>
 	   <task name="violationReportOnRepeatTask" priority="-1">
          <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
             <handlerName>jsonAssignmentHandler</handlerName>
