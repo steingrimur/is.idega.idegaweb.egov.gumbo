@@ -36,7 +36,6 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	private DateConverter dateConverter;
 	
 	public CompanyData getCompanyForCurrentUser() {
-		
 		return getClient().getCompanyForUser(getCurrentUser());
 	}
 	

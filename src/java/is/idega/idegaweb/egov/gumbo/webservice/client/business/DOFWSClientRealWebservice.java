@@ -519,18 +519,49 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 	
 	@Override
 	public CompanyData getCompanyForUser(User user) {
-		
 		final Company comp = getGumboBusiness().getCompanyForUser(user);
 		
-		return new CompanyData(comp.getPersonalID())
-		        .setName(comp.getName())
-		        .setAddress(comp.getAddress().getStreetAddress())
-		        .setPostalCode(
-		            comp.getAddress().getPostalCode().getPostalCode())
-		        .setPhoneNumber(comp.getPhone().getNumber())
-		        .setEmail(comp.getEmail().getEmailAddress())
-		        .setFaxNumber(comp.getFax().getNumber())
-		        .setPlace(comp.getAddress().getCity());
+		CompanyData ret = new CompanyData(comp.getPersonalID());
+		ret.setName(comp.getName());
+		if (comp.getAddress() != null) {
+			ret.setAddress(comp.getAddress().getStreetAddress());
+			
+			if (comp.getAddress().getPostalCode() != null) {
+				ret.setPostalCode(comp.getAddress().getPostalCode().getPostalCode());
+			} else {
+				ret.setPostalCode("");
+			} 
+			
+			if (comp.getAddress().getCity() != null) {
+				ret.setPlace(comp.getAddress().getCity());
+			} else {
+				ret.setPlace("");
+			}
+		} else {
+			ret.setAddress("");
+			ret.setPostalCode("");
+			ret.setPlace("");
+		}
+		
+		if (comp.getPhone() != null) {
+			ret.setPhoneNumber(comp.getPhone().getNumber());
+		} else {
+			ret.setPhoneNumber("");
+		}
+
+		if (comp.getEmail() != null) {
+			ret.setEmail(comp.getEmail().getEmailAddress());
+		} else {
+			ret.setEmail("");
+		}
+		
+		if (comp.getFax() != null) {
+			ret.setFaxNumber(comp.getFax().getNumber());
+		} else {
+			ret.setFaxNumber("");
+		}
+		
+		return ret;
 	}
 	
 	private GumboBusiness getGumboBusiness() {
