@@ -22,7 +22,7 @@ public class FSWebServiceSKIP_ServiceLocator extends org.apache.axis.client.Serv
     }
 
     // Use to get a proxy class for FSWebServiceSKIPSoap12HttpPort
-    private java.lang.String FSWebServiceSKIPSoap12HttpPort_address = "http://hafrok.hafro.is/FSWebServices/FSWebServiceSKIPSoap12HttpPort";
+    private java.lang.String FSWebServiceSKIPSoap12HttpPort_address = "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceSKIPSoap12HttpPort";
 
     public java.lang.String getFSWebServiceSKIPSoap12HttpPortAddress() {
         return FSWebServiceSKIPSoap12HttpPort_address;

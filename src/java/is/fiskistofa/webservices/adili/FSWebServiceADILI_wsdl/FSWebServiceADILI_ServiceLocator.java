@@ -22,7 +22,7 @@ public class FSWebServiceADILI_ServiceLocator extends org.apache.axis.client.Ser
     }
 
     // Use to get a proxy class for FSWebServiceADILISoap12HttpPort
-    private java.lang.String FSWebServiceADILISoap12HttpPort_address = "http://hafrok.hafro.is/FSWebServices/FSWebServiceADILISoap12HttpPort";
+    private java.lang.String FSWebServiceADILISoap12HttpPort_address = "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceADILISoap12HttpPort";
 
     public java.lang.String getFSWebServiceADILISoap12HttpPortAddress() {
         return FSWebServiceADILISoap12HttpPort_address;

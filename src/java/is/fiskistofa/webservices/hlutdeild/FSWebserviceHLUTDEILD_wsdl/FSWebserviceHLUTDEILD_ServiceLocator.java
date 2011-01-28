@@ -22,7 +22,7 @@ public class FSWebserviceHLUTDEILD_ServiceLocator extends org.apache.axis.client
     }
 
     // Use to get a proxy class for FSWebserviceHLUTDEILDSoap12HttpPort
-    private java.lang.String FSWebserviceHLUTDEILDSoap12HttpPort_address = "http://hafrok.hafro.is/FSWebServices/FSWebserviceHLUTDEILDSoap12HttpPort";
+    private java.lang.String FSWebserviceHLUTDEILDSoap12HttpPort_address = "http://hafrok.hafro.is/FSWebServices_testing/FSWebserviceHLUTDEILDSoap12HttpPort";
 
     public java.lang.String getFSWebserviceHLUTDEILDSoap12HttpPortAddress() {
         return FSWebserviceHLUTDEILDSoap12HttpPort_address;

@@ -8,5 +8,5 @@
 package is.fiskistofa.webservices.adili.FSWebServiceADILI_wsdl;
 
 public interface FSWebServiceADILI_PortType extends java.rmi.Remote {
-    public is.fiskistofa.webservices.adili.FSWebServiceADILI_wsdl.types.GetadilibynrResponseElement getadilibynr(is.fiskistofa.webservices.adili.FSWebServiceADILI_wsdl.types.GetadilibynrElement parameters) throws java.rmi.RemoteException;
+    public is.fiskistofa.webservices.adili.FwwwFSWebServiceADILI_wsdl.types.GetadilibynrResponseElement getadilibynr(is.fiskistofa.webservices.adili.FwwwFSWebServiceADILI_wsdl.types.GetadilibynrElement parameters) throws java.rmi.RemoteException;
 }

@@ -25,11 +25,11 @@ public class FSWebServiceADILISoap12HttpStub extends org.apache.axis.client.Stub
         org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("getadilibynr");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/adili/FSWebServiceADILI.wsdl/types/", "getadilibynrElement"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://is/fiskistofa/webservices/adili/FSWebServiceADILI.wsdl/types/", ">getadilibynrElement"), is.fiskistofa.webservices.adili.FSWebServiceADILI_wsdl.types.GetadilibynrElement.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/adili/FwwwFSWebServiceADILI.wsdl/types/", "getadilibynrElement"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://is/fiskistofa/webservices/adili/FwwwFSWebServiceADILI.wsdl/types/", ">getadilibynrElement"), is.fiskistofa.webservices.adili.FwwwFSWebServiceADILI_wsdl.types.GetadilibynrElement.class, false, false);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/adili/FSWebServiceADILI.wsdl/types/", ">getadilibynrResponseElement"));
-        oper.setReturnClass(is.fiskistofa.webservices.adili.FSWebServiceADILI_wsdl.types.GetadilibynrResponseElement.class);
-        oper.setReturnQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/adili/FSWebServiceADILI.wsdl/types/", "getadilibynrResponseElement"));
+        oper.setReturnType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/adili/FwwwFSWebServiceADILI.wsdl/types/", ">getadilibynrResponseElement"));
+        oper.setReturnClass(is.fiskistofa.webservices.adili.FwwwFSWebServiceADILI_wsdl.types.GetadilibynrResponseElement.class);
+        oper.setReturnQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/adili/FwwwFSWebServiceADILI.wsdl/types/", "getadilibynrResponseElement"));
         oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         _operations[0] = oper;
@@ -65,30 +65,30 @@ public class FSWebServiceADILISoap12HttpStub extends org.apache.axis.client.Stub
             java.lang.Class simpledf = org.apache.axis.encoding.ser.SimpleDeserializerFactory.class;
             java.lang.Class simplelistsf = org.apache.axis.encoding.ser.SimpleListSerializerFactory.class;
             java.lang.Class simplelistdf = org.apache.axis.encoding.ser.SimpleListDeserializerFactory.class;
-            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/adili/FSWebServiceADILI.wsdl/types/", ">getadilibynrElement");
+            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/adili/FwwwFSWebServiceADILI.wsdl/types/", ">getadilibynrElement");
             cachedSerQNames.add(qName);
-            cls = is.fiskistofa.webservices.adili.FSWebServiceADILI_wsdl.types.GetadilibynrElement.class;
+            cls = is.fiskistofa.webservices.adili.FwwwFSWebServiceADILI_wsdl.types.GetadilibynrElement.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
-            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/adili/FSWebServiceADILI.wsdl/types/", ">getadilibynrResponseElement");
+            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/adili/FwwwFSWebServiceADILI.wsdl/types/", ">getadilibynrResponseElement");
             cachedSerQNames.add(qName);
-            cls = is.fiskistofa.webservices.adili.FSWebServiceADILI_wsdl.types.GetadilibynrResponseElement.class;
+            cls = is.fiskistofa.webservices.adili.FwwwFSWebServiceADILI_wsdl.types.GetadilibynrResponseElement.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
-            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/adili/FSWebServiceADILI.wsdl/types/", "AdiliTypeBase");
+            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/adili/FwwwFSWebServiceADILI.wsdl/types/", "AdiliTypeBase");
             cachedSerQNames.add(qName);
-            cls = is.fiskistofa.webservices.adili.FSWebServiceADILI_wsdl.types.AdiliTypeBase.class;
+            cls = is.fiskistofa.webservices.adili.FwwwFSWebServiceADILI_wsdl.types.AdiliTypeBase.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
-            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/adili/FSWebServiceADILI.wsdl/types/", "AdiliTypeUser");
+            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/adili/FwwwFSWebServiceADILI.wsdl/types/", "AdiliTypeUser");
             cachedSerQNames.add(qName);
-            cls = is.fiskistofa.webservices.adili.FSWebServiceADILI_wsdl.types.AdiliTypeUser.class;
+            cls = is.fiskistofa.webservices.adili.FwwwFSWebServiceADILI_wsdl.types.AdiliTypeUser.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
@@ -159,7 +159,7 @@ public class FSWebServiceADILISoap12HttpStub extends org.apache.axis.client.Stub
         }
     }
 
-    public is.fiskistofa.webservices.adili.FSWebServiceADILI_wsdl.types.GetadilibynrResponseElement getadilibynr(is.fiskistofa.webservices.adili.FSWebServiceADILI_wsdl.types.GetadilibynrElement parameters) throws java.rmi.RemoteException {
+    public is.fiskistofa.webservices.adili.FwwwFSWebServiceADILI_wsdl.types.GetadilibynrResponseElement getadilibynr(is.fiskistofa.webservices.adili.FwwwFSWebServiceADILI_wsdl.types.GetadilibynrElement parameters) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -183,9 +183,9 @@ public class FSWebServiceADILISoap12HttpStub extends org.apache.axis.client.Stub
         else {
             extractAttachments(_call);
             try {
-                return (is.fiskistofa.webservices.adili.FSWebServiceADILI_wsdl.types.GetadilibynrResponseElement) _resp;
+                return (is.fiskistofa.webservices.adili.FwwwFSWebServiceADILI_wsdl.types.GetadilibynrResponseElement) _resp;
             } catch (java.lang.Exception _exception) {
-                return (is.fiskistofa.webservices.adili.FSWebServiceADILI_wsdl.types.GetadilibynrResponseElement) org.apache.axis.utils.JavaUtils.convert(_resp, is.fiskistofa.webservices.adili.FSWebServiceADILI_wsdl.types.GetadilibynrResponseElement.class);
+                return (is.fiskistofa.webservices.adili.FwwwFSWebServiceADILI_wsdl.types.GetadilibynrResponseElement) org.apache.axis.utils.JavaUtils.convert(_resp, is.fiskistofa.webservices.adili.FwwwFSWebServiceADILI_wsdl.types.GetadilibynrResponseElement.class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {

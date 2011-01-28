@@ -20,6 +20,8 @@ public class VigtunarleyfiTypeUser  extends is.fiskistofa.webservices.brotamal.F
 
     private java.lang.String kt;
 
+    private is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.CodeTypeUser[] vleyfiDetail;
+
     private java.lang.String gerdLeyfis;
 
     private java.lang.String heitiLeyfis;
@@ -34,6 +36,7 @@ public class VigtunarleyfiTypeUser  extends is.fiskistofa.webservices.brotamal.F
            java.lang.String heimili,
            java.lang.String hafnarheiti,
            java.lang.String kt,
+           is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.CodeTypeUser[] vleyfiDetail,
            java.lang.String gerdLeyfis,
            java.lang.String heitiLeyfis) {
         this.stadur = stadur;
@@ -42,6 +45,7 @@ public class VigtunarleyfiTypeUser  extends is.fiskistofa.webservices.brotamal.F
         this.heimili = heimili;
         this.hafnarheiti = hafnarheiti;
         this.kt = kt;
+        this.vleyfiDetail = vleyfiDetail;
         this.gerdLeyfis = gerdLeyfis;
         this.heitiLeyfis = heitiLeyfis;
     }
@@ -168,6 +172,26 @@ public class VigtunarleyfiTypeUser  extends is.fiskistofa.webservices.brotamal.F
 
 
     /**
+     * Gets the vleyfiDetail value for this VigtunarleyfiTypeUser.
+     * 
+     * @return vleyfiDetail
+     */
+    public is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.CodeTypeUser[] getVleyfiDetail() {
+        return vleyfiDetail;
+    }
+
+
+    /**
+     * Sets the vleyfiDetail value for this VigtunarleyfiTypeUser.
+     * 
+     * @param vleyfiDetail
+     */
+    public void setVleyfiDetail(is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.CodeTypeUser[] vleyfiDetail) {
+        this.vleyfiDetail = vleyfiDetail;
+    }
+
+
+    /**
      * Gets the gerdLeyfis value for this VigtunarleyfiTypeUser.
      * 
      * @return gerdLeyfis
@@ -236,6 +260,9 @@ public class VigtunarleyfiTypeUser  extends is.fiskistofa.webservices.brotamal.F
             ((this.kt==null && other.getKt()==null) || 
              (this.kt!=null &&
               this.kt.equals(other.getKt()))) &&
+            ((this.vleyfiDetail==null && other.getVleyfiDetail()==null) || 
+             (this.vleyfiDetail!=null &&
+              java.util.Arrays.equals(this.vleyfiDetail, other.getVleyfiDetail()))) &&
             ((this.gerdLeyfis==null && other.getGerdLeyfis()==null) || 
              (this.gerdLeyfis!=null &&
               this.gerdLeyfis.equals(other.getGerdLeyfis()))) &&
@@ -270,6 +297,17 @@ public class VigtunarleyfiTypeUser  extends is.fiskistofa.webservices.brotamal.F
         }
         if (getKt() != null) {
             _hashCode += getKt().hashCode();
+        }
+        if (getVleyfiDetail() != null) {
+            for (int i=0;
+                 i<java.lang.reflect.Array.getLength(getVleyfiDetail());
+                 i++) {
+                java.lang.Object obj = java.lang.reflect.Array.get(getVleyfiDetail(), i);
+                if (obj != null &&
+                    !obj.getClass().isArray()) {
+                    _hashCode += obj.hashCode();
+                }
+            }
         }
         if (getGerdLeyfis() != null) {
             _hashCode += getGerdLeyfis().hashCode();
@@ -322,6 +360,13 @@ public class VigtunarleyfiTypeUser  extends is.fiskistofa.webservices.brotamal.F
         elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/brotamal/FSWebserviceBROTAMAL.wsdl/types/", "kt"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setNillable(true);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("vleyfiDetail");
+        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/brotamal/FSWebserviceBROTAMAL.wsdl/types/", "vleyfiDetail"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/brotamal/FSWebserviceBROTAMAL.wsdl/types/", "CodeTypeUser"));
+        elemField.setNillable(true);
+        elemField.setItemQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/brotamal/FSWebserviceBROTAMAL.wsdl/types/", "array"));
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("gerdLeyfis");

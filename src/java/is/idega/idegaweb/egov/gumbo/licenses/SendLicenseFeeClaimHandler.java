@@ -1,6 +1,7 @@
 package is.idega.idegaweb.egov.gumbo.licenses;
 
 import is.idega.idegaweb.egov.gumbo.dao.GumboDao;
+import is.idega.idegaweb.egov.gumbo.data.ProcessPaymentLogHeader;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.FJSWSClient;
 
 import java.util.logging.Logger;
@@ -19,7 +20,6 @@ import com.idega.business.IBOLookupException;
 import com.idega.idegaweb.IWMainApplication;
 import com.idega.idegaweb.egov.bpm.data.CaseProcInstBind;
 import com.idega.idegaweb.egov.bpm.data.dao.CasesBPMDAO;
-import com.idega.util.expression.ELUtil;
 
 @Service("sendLicenseFeeClaim")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -65,6 +65,13 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 		
 		System.out.println("type of application "
 		        + executionContext.getVariable("string_typeOfFishingLicense"));
+		
+		//create log header
+		ProcessPaymentLogHeader header = this.getGumboDAO().createHeader();
+		
+		//get accounting keys for type. create log entries and claim
+		
+		//create license
 		
 	}
 	

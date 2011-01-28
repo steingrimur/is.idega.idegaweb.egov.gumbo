@@ -22,7 +22,7 @@ public class FSWebserviceBROTAMAL_ServiceLocator extends org.apache.axis.client.
     }
 
     // Use to get a proxy class for FSWebserviceBROTAMALSoap12HttpPort
-    private java.lang.String FSWebserviceBROTAMALSoap12HttpPort_address = "http://hafrok.hafro.is/FSWebServices/FSWebserviceBROTAMALSoap12HttpPort";
+    private java.lang.String FSWebserviceBROTAMALSoap12HttpPort_address = "http://hafrok.hafro.is/FSWebServices_testing/FSWebserviceBROTAMALSoap12HttpPort";
 
     public java.lang.String getFSWebserviceBROTAMALSoap12HttpPortAddress() {
         return FSWebserviceBROTAMALSoap12HttpPort_address;
