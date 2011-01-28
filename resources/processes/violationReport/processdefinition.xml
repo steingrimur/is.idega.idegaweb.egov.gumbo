@@ -240,6 +240,8 @@
     <task name="setTimeframeTask" priority="-1">
          <controller>
             <variable name="date_timeframeDate" access="read,write"></variable>
+            <variable name="string_caseIdentifier" access="read"></variable>
+            <variable name="string_caseDescription" access="read"></variable>
          </controller>
         <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
             <handlerName>jsonAssignmentHandler</handlerName>
@@ -273,6 +275,8 @@
 	<task-node name="sendToLegalDepartment">
 	   <task name="sendToLegalDepartmentTask" priority="-1">
          <controller>
+            <variable name="string_caseIdentifier" access="read"></variable>
+            <variable name="string_caseDescription" access="read"></variable>
             <variable name="string_additionalInformationRequestText" access="write"></variable>
             <variable name="string_lawyerUserId" access="write,required"></variable>
          </controller>
@@ -311,6 +315,8 @@
          </assignment>
          
          <controller>
+            <variable name="string_caseIdentifier" access="read"></variable>
+            <variable name="string_caseDescription" access="read"></variable>
             <variable name="string_additionalInformationRequestText" access="write,required"></variable>
             <variable name="files_additionalAttachments" access="write"></variable>
          </controller>
@@ -321,6 +327,8 @@
 	<task-node name="inviteParticipant">
 	   <task name="inviteParticipantTask" priority="-1">
          <controller>
+            <variable name="string_caseIdentifier" access="read"></variable>
+            <variable name="string_caseDescription" access="read"></variable>
             <variable name="string_inviteText" access="write,required"></variable>
             <variable name="string_participantEmailBySuperHandler" access="read,write"></variable>
             <variable name="string_participantEmailByHandler" access="read,write"></variable>
@@ -430,6 +438,8 @@
 	   <task name="violationDecisionTask" priority="-1">
          <controller>
             <variable name="string_rulingText" access="read,write,required"></variable>
+            <variable name="string_caseIdentifier" access="read"></variable>
+            <variable name="string_caseDescription" access="read"></variable>
             <variable name="files_processRullingAttachments" access="read,write"></variable>
          </controller>
         <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
@@ -452,6 +462,10 @@
 	<task-node name="closeCase">
 	   <task name="closeCaseTask">
          <controller>
+         
+            <variable name="string_caseIdentifier" access="read"></variable>
+            <variable name="string_caseDescription" access="read"></variable>
+         
          </controller>
         <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
             <handlerName>jsonAssignmentHandler</handlerName>
@@ -540,6 +554,8 @@
          </assignment>
          
          <controller>
+            <variable name="string_caseIdentifier" access="read"></variable>
+            <variable name="string_caseDescription" access="read"></variable>
             <variable name="string_ownerCaseInformation" access="read"></variable>
             <variable name="string_participantCaseAnswer" access="write,required"></variable>
             <variable name="files_participantAttachments" access="write"></variable>
@@ -613,6 +629,8 @@
             </propertyMap>
          </assignment>
          <controller>
+            <variable name="string_caseIdentifier" access="read"></variable>
+            <variable name="string_caseDescription" access="read"></variable>
             <variable name="string_additionalInformationRequestText" access="read"></variable>
             <variable name="string_additionalInformation" access="write,required"></variable>
             <variable name="files_additionalAttachments" access="write"></variable>

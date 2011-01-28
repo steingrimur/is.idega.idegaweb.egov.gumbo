@@ -11,6 +11,10 @@
             <xf:instance id="data-instance" xmlns="">
                 <data>
                     <form_id>1832</form_id>
+                    
+                    <Identifier_number_fbc_11 mapping="string_caseIdentifier"/>
+                    <case_name_fbc_12 mapping="string_caseDescription"/>
+                    
                     <Ruling_text_fbc_5 mapping="string_rulingText"/>
                     <actionTaken mapping="string_actionTaken"/>
                     <Multi_file_upload_with_description_fbc_8 mapping="files_processRullingAttachments">
@@ -52,6 +56,10 @@
             <xf:action ev:event="idega-submit-error" id="idega-submission-error">
                 <xf:message level="modeless" ref="instance('localized_strings')/submission-error_message[@lang=instance('localized_strings')/current_language]"/>
             </xf:action>
+            
+            <xf:bind id="fbc_11_bind" nodeset="Identifier_number_fbc_11" />
+            <xf:bind id="fbc_12_bind" nodeset="case_name_fbc_12" />
+            
             <xf:bind id="fbc_8_bind"
                 nodeset="Multi_file_upload_with_description_fbc_8/group" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'">
                 <xf:bind id="fbc_8-entries"
@@ -99,6 +107,10 @@
                     <fbc_10-label lang="en">Decision</fbc_10-label>
                     <fbc_5-required lang="is_IS">Það verður að velja niðurstöðu máls</fbc_5-required>
                     <fbc_5-required lang="en">The violation decision is required</fbc_5-required>
+                    <fbc_11-label lang="is_IS">Málsnúmer</fbc_11-label>
+                    <fbc_11-label lang="en">Identifier number</fbc_11-label>
+                    <fbc_12-label lang="is_IS">Málsnafn</fbc_12-label>
+                    <fbc_12-label lang="en">Case name</fbc_12-label>
                 </localized_strings>
             </xf:instance>
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
@@ -138,7 +150,14 @@
             <idega:switch>
                 <idega:case id="fbc_1" show="instance('control-instance')/generatePdf='true'">
                     <xf:group appearance="full">
-                        <!-- upload -->
+                    
+                        <xf:output bind="fbc_11_bind">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_11-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                        <xf:output bind="fbc_12_bind">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_12-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                    
                         <div class="multiSelectBox">
 	                        <xf:select appearance="full"
 	                            bind="actionTaken" id="fbc_10" type="fbc_multiple_select">

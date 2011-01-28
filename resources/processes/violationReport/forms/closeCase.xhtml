@@ -11,6 +11,9 @@
             <xf:instance id="data-instance" xmlns="">
                 <data>
                     <form_id>1737</form_id>
+                    
+                    <Identifier_number_fbc_9 mapping="string_caseIdentifier"/>
+                    <case_name_fbc_10 mapping="string_caseDescription"/>
                 </data>
             </xf:instance>
             <xf:instance id="control-instance">
@@ -24,6 +27,10 @@
             <xf:bind id="errorsGroup" idega:shared="true"
                 nodeset="instance('error-instance')/error" relevant="instance('control-instance')/submission = 'true' and count-non-empty(instance('error-instance')/error)!=0"/>
             <xf:bind id="errors" idega:shared="true" nodeset="instance('error-instance')/error[. != '']"/>
+            
+            <xf:bind id="fbc_9_bind" nodeset="Identifier_number_fbc_9" />
+            <xf:bind id="fbc_10_bind" nodeset="case_name_fbc_10" />
+            
             <xf:instance id="error-instance" xmlns="">
                 <data>
                     <error for=""/>
@@ -59,6 +66,10 @@
                     <page-2-info lang="is_IS">Málinu hefur verið lokað.  Hægt er að framkvæma á því frekari aðgerðir ef þörf krefur.</page-2-info>
                     <fbc_19-text lang="en">By pression 'Close' you are closing the case.</fbc_19-text>
                     <fbc_19-text lang="is_IS">Smelltu á 'Loka máli' til að loka málinu.</fbc_19-text>
+                    <fbc_9-label lang="is_IS">Málsnúmer</fbc_9-label>
+                    <fbc_9-label lang="en">Identifier number</fbc_9-label>
+                    <fbc_10-label lang="is_IS">Málsnafn</fbc_10-label>
+                    <fbc_10-label lang="en">Case name</fbc_10-label>
                 </localized_strings>
             </xf:instance>
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
@@ -82,6 +93,14 @@
             <idega:switch>
                 <idega:case id="fbc_1" show="instance('control-instance')/generatePdf='true'">
                     <xf:group appearance="full">
+                    
+                        <xf:output bind="fbc_9_bind">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_9-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                        <xf:output bind="fbc_10_bind">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                    
                     	<div class="informationText">
                     		<xf:output model="data_model"
                                 ref="instance('localized_strings')/fbc_19-text[@lang=instance('localized_strings')/current_language]" type="fbc_text"/>

@@ -2,25 +2,29 @@
  
     <head>
         <title>
-         <xf:output model="data_model"
+             <xf:output model="data_model"
                     ref="instance('localized_strings')/form-title[@lang=instance('localized_strings')/current_language]"/>
-      </title>
+        </title>
 
         <xf:model id="submission_model" schema="#fb-schema">
             <xf:instance xmlns="" id="data-instance">
                 <data>
                     <form_id>x</form_id>
-                <Participant_case_answer_fbc_6 mapping="string_participantCaseAnswer"/>
-               
-               	<Multi_file_upload_with_description_fbc_8 mapping="files_participantAttachments">
-               		<group />
-					<entry filename="" mediatype="">
-						<description/>
-					</entry>
-					<entry filename="" mediatype="">
-						<description/>
-					</entry>
-				</Multi_file_upload_with_description_fbc_8>  
+                    
+                    <Identifier_number_fbc_9 mapping="string_caseIdentifier"/>
+                    <case_name_fbc_10 mapping="string_caseDescription"/>
+                    
+	                <Participant_case_answer_fbc_6 mapping="string_participantCaseAnswer"/>
+	               
+	               	<Multi_file_upload_with_description_fbc_8 mapping="files_participantAttachments">
+	               		<group />
+						<entry filename="" mediatype="">
+							<description/>
+						</entry>
+						<entry filename="" mediatype="">
+							<description/>
+						</entry>
+					</Multi_file_upload_with_description_fbc_8>  
             </data>
             </xf:instance>            
          
@@ -51,6 +55,9 @@
             <xf:action ev:event="idega-submit-error" id="idega-submission-error">
                 <xf:message level="modeless" ref="instance('localized_strings')/submission-error_message[@lang=instance('localized_strings')/current_language]"/>
             </xf:action>
+            
+            <xf:bind id="fbc_9_bind" nodeset="Identifier_number_fbc_9" />
+            <xf:bind id="fbc_10_bind" nodeset="case_name_fbc_10" />
           
         		
          		<xf:bind id="fbc_6_bind" nodeset="Participant_case_answer_fbc_6" readonly="instance('control-instance')/readonly = 'true'" required="true() and instance('control-instance')/generatePdf != 'true'" 
@@ -97,6 +104,10 @@
                 	<fbc_8-paragraph-text lang="en">Additional information can be sent with the form as attachments</fbc_8-paragraph-text>   
                 	<fbc_8-filename-label lang="is_IS">Skráarnafn</fbc_8-filename-label>
 					<fbc_8-filename-label lang="en">Uploaded file name</fbc_8-filename-label>
+					<fbc_9-label lang="is_IS">Málsnúmer</fbc_9-label>
+                    <fbc_9-label lang="en">Identifier number</fbc_9-label>
+                    <fbc_10-label lang="is_IS">Málsnafn</fbc_10-label>
+                    <fbc_10-label lang="en">Case name</fbc_10-label>
 
 	            </localized_strings>
             </xf:instance>
@@ -121,6 +132,13 @@
             <idega:switch>
                   <idega:case id="fbc_1" show="instance('control-instance')/generatePdf='true'">
                         <xf:group appearance="full">
+                        
+                        <xf:output bind="fbc_9_bind">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_9-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                        <xf:output bind="fbc_10_bind">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
                              
                   <xf:textarea bind="fbc_6_bind" id="fbc_6">
                      <xf:label model="data_model"

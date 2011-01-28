@@ -9,6 +9,10 @@
             <xf:instance xmlns="" id="data-instance">
                   <data> 
                <form_id>517</form_id> 
+               
+               <Identifier_number_fbc_13 mapping="string_caseIdentifier"/>
+               <case_name_fbc_14 mapping="string_caseDescription"/>
+               
                <Invite_text_fbc_5 mapping="string_inviteText"/> 
                 
                <Participant_name_fbc_10 mapping="string_participantName"/> 
@@ -53,6 +57,9 @@
              <xf:submission action="xformsBPM:/nouri" id="submit_data_submission"	method="post" replace="none" >
                      <idega:toggle case="fbc_4" ev:event="xforms-submit-done"/>
             </xf:submission>
+            
+            <xf:bind id="fbc_13_bind" nodeset="Identifier_number_fbc_13" />
+            <xf:bind id="fbc_14_bind" nodeset="case_name_fbc_14" />
           
 			  <xf:action ev:event="xforms-submit-error" id="submission-error">
                 <xf:dispatch name="idega-submit-error" target="idega-submission-error"/>
@@ -140,6 +147,11 @@
                 	<fbc_8-paragraph-text lang="en">Additional information can be sent with the form as attachments</fbc_8-paragraph-text>   
                 	<fbc_8-filename-label lang="is_IS">Skráarnafn</fbc_8-filename-label>
 					<fbc_8-filename-label lang="en">Uploaded file name</fbc_8-filename-label>
+					
+					<fbc_13-label lang="is_IS">Málsnúmer</fbc_13-label>
+                    <fbc_13-label lang="en">Identifier number</fbc_13-label>
+                    <fbc_14-label lang="is_IS">Málsnafn</fbc_14-label>
+                    <fbc_14-label lang="en">Case name</fbc_14-label>
 						
             </localized_strings>
          
@@ -194,6 +206,13 @@
                   <idega:case id="fbc_1" show="instance('control-instance')/generatePdf='true'">
                   
                         <xf:group appearance="full">
+                        
+		                        <xf:output bind="fbc_13_bind">
+		                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_13-label[@lang=instance('localized_strings')/current_language]"/>
+		                        </xf:output>
+		                        <xf:output bind="fbc_14_bind">
+		                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_14-label[@lang=instance('localized_strings')/current_language]"/>
+		                        </xf:output>
                     
                               <xf:input bind="fbc_10_bind" id="fbc_10">
                                     <xf:label model="data_model"

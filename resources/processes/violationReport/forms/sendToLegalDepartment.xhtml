@@ -11,6 +11,9 @@
             <xf:instance id="data-instance" xmlns="">
                 <data>
                     <form_id>1782</form_id>
+                    
+                    <Identifier_number_fbc_9 mapping="string_caseIdentifier"/>
+                    <case_name_fbc_10 mapping="string_caseDescription"/>
                     <Additional_information_message_fbc_5 mapping="string_additionalInformationRequestText"/>
                     <Select_lawyer_fbc_6 mapping="string_lawyerUserId"/>
                 </data>
@@ -31,6 +34,10 @@
                     <error for=""/>
                 </data>
             </xf:instance>
+            
+            <xf:bind id="fbc_9_bind" nodeset="Identifier_number_fbc_9" />
+            <xf:bind id="fbc_10_bind" nodeset="case_name_fbc_10" />
+            
             <xf:submission action="xformsBPM:/nouri"
                 id="submit_data_submission" method="post" replace="none">
                 <idega:toggle case="fbc_4" ev:event="xforms-submit-done"/>
@@ -73,6 +80,10 @@
                     <fbc_6-label lang="en">Employee</fbc_6-label>
                     <fbc_6-required lang="is_IS">Það þarf að fylla út reitinn X</fbc_6-required>
                     <fbc_6-required lang="en">The field X is required</fbc_6-required>
+                    <fbc_9-label lang="is_IS">Málsnúmer</fbc_9-label>
+                    <fbc_9-label lang="en">Identifier number</fbc_9-label>
+                    <fbc_10-label lang="is_IS">Málsnafn</fbc_10-label>
+                    <fbc_10-label lang="en">Case name</fbc_10-label>
                 </localized_strings>
             </xf:instance>
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
@@ -112,6 +123,14 @@
             <idega:switch>
                 <idega:case id="fbc_1" show="instance('control-instance')/generatePdf='true'">
                     <xf:group appearance="full">
+                    
+                        <xf:output bind="fbc_9_bind">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_9-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                        <xf:output bind="fbc_10_bind">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                    
                         <xf:select1 appearance="minimal"
                             bind="fbc_6_bind" id="fbc_6" type="fbc_single_select_minimal">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_6-label[@lang=instance('localized_strings')/current_language]"/>

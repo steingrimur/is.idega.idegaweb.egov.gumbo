@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="ViolationReport" width="953" height="638">
-  <node name="violationReport" x="-25" y="241" width="113" height="34">
+<root-container name="ViolationReport" width="1200" height="638">
+  <node name="violationReport" x="-272" y="226" width="113" height="34">
     <edge>
       <label x="-16" y="-9"/>
     </edge>
@@ -11,42 +11,33 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="fork1" x="136" y="283" width="25" height="24">
+  <node name="fork1" x="-122" y="230" width="25" height="24">
     <edge>
-      <label x="-47" y="-14"/>
-      <bendpoint w1="-1" h1="-157" w2="-128" h2="-3"/>
+      <label x="5" y="-10"/>
     </edge>
     <edge>
-      <label x="-104" y="-14"/>
-      <bendpoint w1="-2" h1="-108" w2="-130" h2="-2"/>
+      <label x="5" y="-10"/>
     </edge>
     <edge>
-      <label x="-70" y="-13"/>
-      <bendpoint w1="1" h1="-63" w2="-127" h2="-1"/>
+      <label x="5" y="-10"/>
     </edge>
     <edge>
-      <label x="-35" y="-15"/>
-      <bendpoint w1="-1" h1="-201" w2="-128" h2="-2"/>
+      <label x="5" y="-10"/>
     </edge>
     <edge>
-      <label x="-36" y="-12"/>
-      <bendpoint w1="-1" h1="-23" w2="-129" h2="-5"/>
+      <label x="5" y="-10"/>
     </edge>
     <edge>
-      <label x="-60" y="-13"/>
-      <bendpoint w1="1" h1="103" w2="-129" h2="2"/>
+      <label x="5" y="-10"/>
     </edge>
     <edge>
-      <label x="-57" y="-15"/>
-      <bendpoint w1="2" h1="149" w2="-128" h2="5"/>
+      <label x="5" y="-10"/>
     </edge>
     <edge>
-      <label x="-123" y="-17"/>
-      <bendpoint w1="2" h1="189" w2="-129" h2="1"/>
+      <label x="5" y="-10"/>
     </edge>
     <edge>
-      <label x="-142" y="-36"/>
-      <bendpoint w1="45" h1="45" w2="121" h2="8"/>
+      <label x="5" y="-10"/>
     </edge>
   </node>
   <node name="sendToLegalDepartment" x="210" y="171" width="132" height="36">
@@ -134,7 +125,7 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="violationReportOnRepeat" x="6" y="314" width="132" height="36">
+  <node name="violationReportOnRepeat" x="-241" y="299" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
@@ -146,5 +137,5 @@
   </node>
   <node name="end-state1" x="794" y="267" width="132" height="36"/>
   <node name="end-process" x="549" y="70" width="132" height="36"/>
-  <node name="end-state2" x="31" y="360" width="24" height="21"/>
+  <node name="end-state2" x="-216" y="345" width="24" height="21"/>
 </root-container>

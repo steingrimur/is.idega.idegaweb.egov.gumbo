@@ -8,18 +8,20 @@
 <xf:model id="submission_model" schema="#fb-schema">
 	<xf:instance xmlns="" id="data-instance">
 		<data> 
-		<form_id>tmplid</form_id> 
-		<AdditionalInformation_fbc_5 mapping="string_additionalInformationRequestText" /> 
-		<Additional_info_fbc_6 mapping="string_additionalInformation" /> 
-		<Multi_file_upload_with_description_fbc_8 mapping="files_additionalAttachments">
-			<group/>
-			<entry filename="" mediatype="">
-			<description/>
-			</entry>
-			<entry filename="" mediatype="">
-			<description/>
-			</entry>
-		</Multi_file_upload_with_description_fbc_8> 
+			<form_id>tmplid</form_id>
+			<Identifier_number_fbc_9 mapping="string_caseIdentifier"/>
+	        <case_name_fbc_10 mapping="string_caseDescription"/> 
+			<AdditionalInformation_fbc_5 mapping="string_additionalInformationRequestText" /> 
+			<Additional_info_fbc_6 mapping="string_additionalInformation" /> 
+			<Multi_file_upload_with_description_fbc_8 mapping="files_additionalAttachments">
+				<group/>
+				<entry filename="" mediatype="">
+				<description/>
+				</entry>
+				<entry filename="" mediatype="">
+				<description/>
+				</entry>
+			</Multi_file_upload_with_description_fbc_8> 
 		</data>
 	</xf:instance>
 	
@@ -58,6 +60,9 @@
 	   <xf:bind id="fbc_8_bind" nodeset="Multi_file_upload_with_description_fbc_8/group" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'">
                 <xf:bind id="fbc_8-entries" nodeset="../entry[position() != last()]" type="xs:anyURI"/>
             </xf:bind>
+            
+            <xf:bind id="fbc_9_bind" nodeset="Identifier_number_fbc_9" />
+            <xf:bind id="fbc_10_bind" nodeset="case_name_fbc_10" />
                        <xf:bind id="bind-submissionButton" idega:shared="true" nodeset="instance('control-instance')/submissionButton" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'" />
 		
 </xf:model>
@@ -98,6 +103,10 @@
          	<fbc_8-paragraph-text lang="en">Additional information can be sent with the form as attachments</fbc_8-paragraph-text>   
          	<fbc_8-filename-label lang="is_IS">Skráarnafn</fbc_8-filename-label>
 			<fbc_8-filename-label lang="en">Uploaded file name</fbc_8-filename-label>
+			<fbc_9-label lang="is_IS">Málsnúmer</fbc_9-label>
+            <fbc_9-label lang="en">Identifier number</fbc_9-label>
+            <fbc_10-label lang="is_IS">Málsnafn</fbc_10-label>
+            <fbc_10-label lang="en">Case name</fbc_10-label>
 			
 		</localized_strings>
 	</xf:instance>
@@ -123,6 +132,13 @@
 	<idega:switch>
 		<idega:case id="fbc_1" show="instance('control-instance')/generatePdf='true'">
 			<xf:group appearance="full">
+			            <xf:output bind="fbc_9_bind">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_9-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                        <xf:output bind="fbc_10_bind">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                        
 				<xf:output bind="fbc_5_bind" id="fbc_5">
 					<xf:label model="data_model"
 						ref="instance('localized_strings')/fbc_5-label[@lang=instance('localized_strings')/current_language]" />

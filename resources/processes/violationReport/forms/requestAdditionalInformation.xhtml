@@ -8,8 +8,12 @@
             <xf:instance id="data-instance" xmlns="">
                 <data>
 	                <form_id>template_id</form_id>
-                <Additional_information_message_fbc_5 mapping="string_additionalInformationRequestText"/>
-</data>
+	                
+	                <Identifier_number_fbc_9 mapping="string_caseIdentifier"/>
+                    <case_name_fbc_10 mapping="string_caseDescription"/>
+                    
+                    <Additional_information_message_fbc_5 mapping="string_additionalInformationRequestText"/>
+                </data>
             </xf:instance> 
                        
                <xf:instance id="control-instance">
@@ -31,6 +35,9 @@
              <xf:submission action="xformsBPM:/nouri" id="submit_data_submission"	method="post" replace="none" >
                      <idega:toggle case="fbc_4" ev:event="xforms-submit-done"/>
             </xf:submission>
+            
+            <xf:bind id="fbc_9_bind" nodeset="Identifier_number_fbc_9" />
+            <xf:bind id="fbc_10_bind" nodeset="case_name_fbc_10" />
             
 		  <xf:action ev:event="xforms-submit-error" id="submission-error">
                 <xf:dispatch name="idega-submit-error" target="idega-submission-error"/>
@@ -62,6 +69,10 @@
 					<fbc_5-title lang="en">Additional information message</fbc_5-title>
 					<fbc_5-required lang="en">can not be empty</fbc_5-required>
 					<fbc_5-required lang="is_IS">Skilaboð til eftirlitsaðila mega ekki vera tóm</fbc_5-required>
+					<fbc_9-label lang="is_IS">Málsnúmer</fbc_9-label>
+                    <fbc_9-label lang="en">Identifier number</fbc_9-label>
+                    <fbc_10-label lang="is_IS">Málsnafn</fbc_10-label>
+                    <fbc_10-label lang="en">Case name</fbc_10-label>
 				</localized_strings>
 	        </xf:instance>
 	  
@@ -86,6 +97,14 @@
 	        <idega:switch>
 		        <idega:case id="fbc_1" show="instance('control-instance')/generatePdf='true'">
 			   	  <xf:group appearance="full">
+			   	  
+			   	        <xf:output bind="fbc_9_bind">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_9-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                        <xf:output bind="fbc_10_bind">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+			   	  
 			   	  	<xf:textarea bind="fbc_5_bind" id="fbc_5">
 <xf:label model="data_model" ref="instance('localized_strings')/fbc_5-title[@lang=instance('localized_strings')/current_language]"/>
 	   <xf:dispatch ev:event="idega-xforms-ready" name="idega-validate" target="fbc_5"/>
