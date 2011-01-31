@@ -31,6 +31,7 @@
             </xf:instance>
             <xf:instance id="control-instance">
                 <control xmlns="">
+                    <required>true</required>
                     <readonly>false</readonly>
                     <submission>false</submission>
                     <generatePdf>false</generatePdf>
@@ -59,6 +60,7 @@
             
             <xf:bind id="fbc_11_bind" nodeset="Identifier_number_fbc_11" />
             <xf:bind id="fbc_12_bind" nodeset="case_name_fbc_12" />
+            <xf:bind id="fbc_5_bind" nodeset="Ruling_text_fbc_5" readonly="instance('control-instance')/readonly = 'true'" required="instance('control-instance')/required = 'true'"/>
             
             <xf:bind id="fbc_8_bind"
                 nodeset="Multi_file_upload_with_description_fbc_8/group" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'">
@@ -67,8 +69,7 @@
             </xf:bind>
             <xf:bind id="bind-submissionButton" idega:shared="true"
                 nodeset="submissionButton" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
-            <xf:bind id="fbc_5_bind" nodeset="Ruling_text_fbc_5"
-                readonly="instance('control-instance')/readonly = 'true'" required="instance('control-instance')/required = 'true'"/>
+            
         </xf:model>
         <xf:model id="data_model">
             <xf:instance id="localized_strings" xmlns="">

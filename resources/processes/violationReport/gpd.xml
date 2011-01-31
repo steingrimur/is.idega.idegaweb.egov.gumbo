@@ -115,14 +115,14 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="notifyAboutTheTimeframeMet" x="693" y="123" width="132" height="36">
+  <node name="notifyAboutTheTimeframeMet" x="675" y="120" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="killOldTimerAndTurnNewOn" x="528" y="125" width="132" height="36">
+  <node name="killOldTimerAndTurnNewOn" x="370" y="116" width="132" height="36">
     <edge>
-      <label x="5" y="-10"/>
+      <label x="-87" y="-17"/>
     </edge>
   </node>
   <node name="violationReportOnRepeat" x="-241" y="299" width="132" height="36">
@@ -138,9 +138,4 @@
   <node name="end-state1" x="794" y="267" width="132" height="36"/>
   <node name="end-process" x="549" y="70" width="132" height="36"/>
   <node name="end-state2" x="-216" y="345" width="24" height="21"/>
-  <node name="notifyAboutTheTimeframeSet" x="367" y="127" width="132" height="36">
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-  </node>
 </root-container>
