@@ -138,10 +138,10 @@ public class ViolationDataProviderRealWebservice implements
 		if (!StringUtil.isEmpty(socialNr)) {
 			if (SocialSecurityNumber.isIndividualSocialSecurityNumber(socialNr,
 			    LocaleUtil.getIcelandicLocale())) {
-				return getUser(socialNr);
+				return getUser(socialNr, false);
 			} else if (SocialSecurityNumber.isCompanySocialSecurityNumber(
 			    socialNr, LocaleUtil.getIcelandicLocale())) {
-				return getCompany(socialNr);
+				return getCompany(socialNr, false);
 			}
 		}
 		return new PersonData(socialNr);
@@ -306,6 +306,10 @@ public class ViolationDataProviderRealWebservice implements
 	}
 	
 	private PersonData getUser(String personalId) {
+		return getUser(personalId, true);
+	}
+	
+	private PersonData getUser(String personalId, boolean combineAddressAndPostal) {
 		if (StringUtil.isEmpty(personalId)) {
 			return null;
 		}
@@ -393,8 +397,14 @@ public class ViolationDataProviderRealWebservice implements
 			PersonData data = new PersonData(user.getPersonalID());
 			data.setName(user.getName());
 			if (address != null) {
-				data.setAddress(address.getStreetAddress() + ", "
-				        + address.getPostalAddress());
+				if (combineAddressAndPostal) {
+					data.setAddress(address.getStreetAddress() + ", "
+					        + address.getPostalAddress());
+				}
+				else {
+					data.setAddress(address.getStreetAddress());
+					data.setPostalCode(address.getPostalAddress());
+				}
 			}
 			
 			return data;
@@ -409,6 +419,10 @@ public class ViolationDataProviderRealWebservice implements
 	}
 	
 	private PersonData getCompany(String personalId) {
+		return getCompany(personalId, true);
+	}
+	
+	private PersonData getCompany(String personalId, boolean combineAddressAndPostal) {
 		if (StringUtil.isEmpty(personalId)) {
 			return null;
 		}
@@ -464,8 +478,14 @@ public class ViolationDataProviderRealWebservice implements
 			PersonData data = new PersonData(company.getPersonalID());
 			data.setName(company.getName());
 			if (address != null) {
-				data.setAddress(address.getStreetAddress() + ", "
-				        + address.getPostalAddress());
+				if (combineAddressAndPostal) {
+					data.setAddress(address.getStreetAddress() + ", "
+					        + address.getPostalAddress());
+				}
+				else {
+					data.setAddress(address.getStreetAddress());
+					data.setPostalCode(address.getPostalAddress());
+				}
 			}
 			
 			return data;
