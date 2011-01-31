@@ -388,7 +388,6 @@
             <variable name="string_recipientAddress" access="write"></variable>
             <variable name="string_recipientPostalCode" access="write"></variable>
             <variable name="string_writeLetterSubmitterName" access="write"></variable>
-            <variable name="string_letterName" access="write"></variable>
             <variable name="string_letterDate" access="write"></variable>
          </controller>
         <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
