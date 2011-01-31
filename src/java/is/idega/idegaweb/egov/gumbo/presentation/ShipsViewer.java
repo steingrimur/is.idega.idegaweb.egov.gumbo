@@ -36,6 +36,8 @@ public class ShipsViewer extends IWBaseComponent implements IWPageEventListener 
 	
 	private ICPage page;
 	
+	private boolean isCompact = true;
+	
 	@Autowired
 	@Qualifier(DOFWSClient.WEB_SERVICE)
 	private DOFWSClient client;
@@ -85,7 +87,12 @@ public class ShipsViewer extends IWBaseComponent implements IWPageEventListener 
 		}
 		
 		FaceletComponent facelet = (FaceletComponent) iwc.getApplication().createComponent(FaceletComponent.COMPONENT_TYPE);
-		facelet.setFaceletURI(iwb.getFaceletURI("ships/viewAll.xhtml"));
+		if (isCompact()) {
+			facelet.setFaceletURI(iwb.getFaceletURI("ships/viewAllCompact.xhtml"));
+		}
+		else {
+			facelet.setFaceletURI(iwb.getFaceletURI("ships/viewAll.xhtml"));
+		}
 		add(facelet);
 	}	
 	
@@ -112,11 +119,19 @@ public class ShipsViewer extends IWBaseComponent implements IWPageEventListener 
 		return this.business;
 	}
 
-	public ICPage getPage() {
+	private ICPage getPage() {
 		return page;
 	}
 
 	public void setPage(ICPage page) {
 		this.page = page;
+	}
+
+	private boolean isCompact() {
+		return isCompact;
+	}
+
+	public void setCompact(boolean isCompact) {
+		this.isCompact = isCompact;
 	}
 }

@@ -1,0 +1,22 @@
+<html
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:g="http://xmlns.idega.com/is.idega.idegaweb.egov.gumbo"
+>
+<ui:component>
+	<ui:fragment rendered="#{not empty gumboBean.ships}">
+		<ul id="shipsViewer">
+			<ui:repeat value="#{gumboBean.ships}" var="ship">
+				<li>
+					<h:outputLink value="#{gumboBean.responseURL}">
+						<f:param name="idegaweb_event_classname" value="#{g:encryptClassName(gumboBean.eventHandler)}" />
+						<f:param name="prm_ship_id" value="#{ship.skipNr}" />
+						<h:outputText value="#{ship.nafn}" />
+					</h:outputLink>
+				</li>
+			</ui:repeat>
+		</ul>
+	</ui:fragment>
+</ui:component>
+</html>
