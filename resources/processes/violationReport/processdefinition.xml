@@ -153,6 +153,7 @@
          <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
 				<handlerName>caseHandlerAssignmentHandler</handlerName>
 				<propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+				    <entry><key>caseHandlerRoleExp</key><value>{role: {roleName: "bpm_violationReport_caseHandler"}}</value></entry>
 			        <entry>
 			        	<key>inlineSubject</key>
 			        	<value>
@@ -257,7 +258,7 @@
          </assignment>
       
       </task>
-		<transition to="killOldTimerAndTurnNewOn"></transition>
+		<transition to="notifyAboutTheTimeframeSet"></transition>
 	</task-node>
 
 	<fork name="fork1">
@@ -707,7 +708,7 @@
         <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
                 <handlerName>caseHandlerAssignmentHandler</handlerName>
                 <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
-                <entry><key>caseHandlerRoleExp</key><value>{role: {roleName: "bpm_violationReport_caseHandler"}}</value></entry>
+                    <entry><key>caseHandlerRoleExp</key><value>{role: {roleName: "bpm_violationReport_caseHandler"}}</value></entry>
                     <entry>
                         <key>inlineSubject</key>
                         <value>
@@ -913,6 +914,55 @@
         </action>
        </event>
 		<transition to="end-state1"></transition>
+	</node>
+
+	<node name="notifyAboutTheTimeframeSet">
+	   <event type="node-enter">
+             <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                    <handlerName>sendCaseMessagesHandler</handlerName>
+                    <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                        
+                        <entry>
+                            <key>inlineSubject</key>
+                            <value>
+                                ${
+                                Map subjectMap = new HashMap();
+                                subjectMap.put("en", "Timeframe has been set for the case");
+                                subjectMap.put("is_IS", "Timeframe has been set for the case");
+                                return subjectMap;
+                                }
+                                
+                            </value>
+                        </entry>
+                        <entry>
+                            <key>inlineMessage</key>
+                            <value>
+                                ${
+                                Map messageMap = new HashMap();
+                                messageMap.put("en", "Hello, {0}.\n Timeframe has been set for the case. Case is {1} with identifier {2} and description {3}.");
+                                messageMap.put("is_IS", "Hello, {0}.\n Timeframe has been set for the case. Case is {1} with identifier {2} and description {3}.");
+                                return messageMap;
+                                }
+                            </value>
+                        </entry>
+                        <entry>
+                            <key>subjectValues</key>
+                            <value>
+                                {list: {mv: [{type: "bean", value: "piw.processDescription"}, {type: "bean", value: "piw.processIdentifier"}]}}
+                            </value>
+                        </entry>
+                        <entry>
+                            <key>messageValues</key>
+                            <value>
+                                {list: {mv: [{type: "bean", value: "user.name"},  {type: "bean", value: "piw.processDefinitionW.startTaskName"}, {type: "bean", value: "piw.processIdentifier"}, {type: "bean", value: "piw.processDescription"},{type: "bean", value: "caseUser.urlToTheCase"}]}}
+                            </value>
+                        </entry>
+                        <entry><key>sendToRoles</key><value>bpm_violationReport_handler</value></entry>
+                    </propertyMap>
+            </action>
+          
+          </event>
+		<transition to="killOldTimerAndTurnNewOn"></transition>
 	</node>
 
 
