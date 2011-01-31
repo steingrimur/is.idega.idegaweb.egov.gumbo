@@ -295,7 +295,7 @@
          </assignment>
       
       </task>
-		<transition to="assignHandler"></transition>
+		<transition to="fork2"></transition>
 	</task-node>
 
 	<task-node name="requestAdditionalInformation">
@@ -322,7 +322,7 @@
             <variable name="files_additionalAttachments" access="write"></variable>
          </controller>
       </task>
-	  <transition to="sendMessage"></transition>
+	  <transition to="fork7"></transition>
 	</task-node>
 
 	<task-node name="inviteParticipant">
@@ -373,7 +373,7 @@
             <variable name='string_participantEmail' access='write' mapped-name='participantEmail' />
          </script>
       </event>
-		<transition to="inviteParticipantProcess"></transition>
+		<transition to="fork6"></transition>
 	</task-node>
 
 	<task-node name="writeLetter">
@@ -431,7 +431,7 @@
             </propertyMap>
           	</action>
       </event>
-		<transition to="end-state1"></transition>
+		<transition to="fork4"></transition>
 	</task-node>
 
 	<task-node name="violationDecision">
@@ -456,7 +456,7 @@
          </assignment>
       
       </task>
-		<transition to="setCaseStatusToReview"></transition>
+		<transition to="fork3"></transition>
 	</task-node>
 
 	<task-node name="closeCase">
@@ -500,7 +500,7 @@
             <variable name='string_addAttachmentAssignmentExpression' access='write' mapped-name='addAttachmentAssignmentExpression' />
          </script>
         </event>
-		<transition to="end-state1"></transition>
+		<transition to="fork5"></transition>
 	</process-state>
 
 	<process-state name="inviteParticipantProcess">
@@ -899,7 +899,7 @@
             	<handlerName>setProcessDescriptionHandler</handlerName>
           	</action>
       </event>
-		<transition to="end-state2"></transition>
+		<transition to="fork8"></transition>
 	</task-node>
 
 	<node name="changeStatusToInProcess">
@@ -914,6 +914,53 @@
        </event>
 		<transition to="end-state1"></transition>
 	</node>
+
+	<node name="deleteTimeframeMetTimer">
+	   <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>deleteNodeTimersHandler</handlerName>
+                <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                    <entry><key>timersNodeName</key><value>killOldTimerAndTurnNewOn</value></entry>
+                </propertyMap>
+            </action>
+        </event>
+		<transition to="end-state1"></transition>
+	</node>
+
+	<fork name="fork2">
+		<transition to="assignHandler" name="toAssignHandler"></transition>
+		<transition to="deleteTimeframeMetTimer" name="toDeleteTimeframeMetTimer"></transition>
+	</fork>
+
+	<fork name="fork3">
+		<transition to="setCaseStatusToReview" name="toSetCaseStatusToReview"></transition>
+		<transition to="deleteTimeframeMetTimer" name="toDeleteTimeframeMetTimer"></transition>
+	</fork>
+
+	<fork name="fork4">
+		<transition to="deleteTimeframeMetTimer" name="toDeleteTimeframeMetTimer"></transition>
+		<transition to="end-state1" name="toEnd-state1"></transition>
+	</fork>
+
+	<fork name="fork5">
+		<transition to="end-state1" name="toEnd-state1"></transition>
+		<transition to="deleteTimeframeMetTimer" name="toDeleteTimeframeMetTimer"></transition>
+	</fork>
+
+	<fork name="fork6">
+		<transition to="deleteTimeframeMetTimer" name="toDeleteTimeframeMetTimer"></transition>
+		<transition to="inviteParticipantProcess" name="toInviteParticipantProcess"></transition>
+	</fork>
+
+	<fork name="fork7">
+		<transition to="deleteTimeframeMetTimer" name="toDeleteTimeframeMetTimer"></transition>
+		<transition to="sendMessage" name="toSendMessage"></transition>
+	</fork>
+
+	<fork name="fork8">
+		<transition to="deleteTimeframeMetTimer" name="toDeleteTimeframeMetTimer"></transition>
+		<transition to="end-state2" name="toEnd-state2"></transition>
+	</fork>
 
 
 	<end-state name="end-state1"></end-state>
