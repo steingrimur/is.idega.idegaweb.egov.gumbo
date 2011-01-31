@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="ViolationReport" width="1200" height="638">
+<root-container name="ViolationReport" width="1269" height="638">
   <node name="violationReport" x="-272" y="226" width="113" height="34">
     <edge>
       <label x="-16" y="-9"/>
     </edge>
   </node>
-  <node name="setTimeframe" x="209" y="123" width="132" height="36">
+  <node name="setTimeframe" x="192" y="96" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
@@ -45,17 +45,17 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="requestAdditionalInformation" x="213" y="465" width="132" height="36">
+  <node name="requestAdditionalInformation" x="210" y="540" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="inviteParticipant" x="212" y="421" width="132" height="36">
+  <node name="inviteParticipant" x="209" y="496" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="writeLetter" x="199" y="272" width="132" height="36">
+  <node name="writeLetter" x="202" y="263" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
@@ -65,62 +65,62 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="closeCase" x="189" y="75" width="132" height="36">
+  <node name="closeCase" x="199" y="47" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="addAttachment" x="212" y="368" width="132" height="36">
+  <node name="addAttachment" x="209" y="443" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="inviteParticipantProcess" x="366" y="430" width="132" height="36">
+  <node name="inviteParticipantProcess" x="612" y="487" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="submitCaseAnswer" x="533" y="427" width="132" height="36">
+  <node name="submitCaseAnswer" x="796" y="485" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="sendMessage" x="376" y="474" width="132" height="36">
+  <node name="sendMessage" x="603" y="542" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="submitAdditionalInformation" x="532" y="475" width="132" height="36">
+  <node name="submitAdditionalInformation" x="759" y="543" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="setCaseStatusToClosed" x="370" y="65" width="132" height="36">
+  <node name="setCaseStatusToClosed" x="380" y="37" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="setCaseStatusToReview" x="367" y="222" width="132" height="36">
+  <node name="setCaseStatusToReview" x="512" y="224" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="sendNotificationsToHandlers" x="545" y="219" width="132" height="36">
+  <node name="sendNotificationsToHandlers" x="690" y="221" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="assignHandler" x="382" y="167" width="132" height="36">
+  <node name="assignHandler" x="502" y="165" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="notifyAboutTheTimeframeMet" x="675" y="120" width="132" height="36">
+  <node name="notifyAboutTheTimeframeMet" x="689" y="89" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="killOldTimerAndTurnNewOn" x="370" y="116" width="132" height="36">
+  <node name="killOldTimerAndTurnNewOn" x="353" y="89" width="132" height="36">
     <edge>
       <label x="-87" y="-17"/>
     </edge>
@@ -130,12 +130,73 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="changeStatusToInProcess" x="538" y="169" width="132" height="36">
+  <node name="changeStatusToInProcess" x="687" y="166" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="end-state1" x="794" y="267" width="132" height="36"/>
-  <node name="end-process" x="549" y="70" width="132" height="36"/>
-  <node name="end-state2" x="-216" y="345" width="24" height="21"/>
+  <node name="deleteTimeframeMetTimer" x="397" y="338" width="170" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="fork2" x="410" y="187" width="20" height="19">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="fork3" x="400" y="225" width="25" height="24">
+    <edge>
+      <label x="-38" y="-13"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="fork4" x="400" y="266" width="22" height="24">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="fork5" x="409" y="440" width="27" height="24">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="fork6" x="409" y="493" width="32" height="24">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="fork7" x="429" y="545" width="28" height="24">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="end-state1" x="863" y="262" width="132" height="36"/>
+  <node name="end-process" x="559" y="42" width="132" height="36"/>
+  <node name="end-state2" x="-204" y="419" width="24" height="21"/>
+  <node name="fork8" x="-136" y="368" width="28" height="24">
+    <edge>
+      <label x="-226" y="-13"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
 </root-container>
