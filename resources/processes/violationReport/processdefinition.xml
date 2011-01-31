@@ -379,17 +379,17 @@
 	<task-node name="writeLetter">
 	   <task name="writeLetterTask" priority="-1">
          <controller>
-            <variable name="string_letterSubject" access="read,write,required"></variable>
-            <variable name="string_letterText" access="read,write,required"></variable>
-            <variable name="string_letterType" access="read,write"></variable>
+            <variable name="string_letterSubject" access="write,required"></variable>
+            <variable name="string_letterText" access="write,required"></variable>
+            <variable name="string_letterType" access="write"></variable>
             <variable name="string_letterTemplateType" access="write"></variable>
-            <variable name="string_recipientSocialNr" access="read,write,required"></variable>
-            <variable name="string_recipientName" access="read,write"></variable>
-            <variable name="string_recipientAddress" access="read,write"></variable>
-            <variable name="string_recipientPostalCode" access="read,write"></variable>
-            <variable name="string_writeLetterSubmitterName" access="read,write"></variable>
-            <variable name="string_letterName" access="read,write"></variable>
-            <variable name="string_letterDate" access="read,write"></variable>
+            <variable name="string_recipientSocialNr" access="write,required"></variable>
+            <variable name="string_recipientName" access="write"></variable>
+            <variable name="string_recipientAddress" access="write"></variable>
+            <variable name="string_recipientPostalCode" access="write"></variable>
+            <variable name="string_writeLetterSubmitterName" access="write"></variable>
+            <variable name="string_letterName" access="write"></variable>
+            <variable name="string_letterDate" access="write"></variable>
          </controller>
         <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
             <handlerName>jsonAssignmentHandler</handlerName>
