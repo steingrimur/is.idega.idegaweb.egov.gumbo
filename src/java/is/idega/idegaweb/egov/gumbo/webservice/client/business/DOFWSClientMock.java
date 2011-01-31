@@ -131,4 +131,10 @@ public class DOFWSClientMock implements DOFWSClient {
 		        .setPhoneNumber("222222").setEmail("x@xx.lt")
 		        .setFaxNumber("452342543").setPlace("comp place");
 	}
+
+	@Override
+	public BigDecimal[] getGrasleppuShipNrByCompanySSN(String companySSN) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

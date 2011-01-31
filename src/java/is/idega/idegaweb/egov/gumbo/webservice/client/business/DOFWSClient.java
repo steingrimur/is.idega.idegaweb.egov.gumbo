@@ -20,8 +20,10 @@ public interface DOFWSClient {
 	
 	public SkipInfoTypeUser[] getShipInfoByCompanySSN(String companySSN);
 	
+	public BigDecimal[] getGrasleppuShipNrByCompanySSN(String companySSN);
+
 	public SkipInfoTypeUser getShipInfo(String shipID);
-	
+
 	public LondunTypeUser[] getCatchInfoByShipNumber(BigDecimal shipNumber,
 	        Calendar from, Calendar to);
 	

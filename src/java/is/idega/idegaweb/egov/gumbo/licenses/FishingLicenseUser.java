@@ -1,11 +1,11 @@
 package is.idega.idegaweb.egov.gumbo.licenses;
 
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
-
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.LicenseCheckContainer;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -27,38 +27,54 @@ import com.idega.util.text.Item;
 @Service("fishingLicenseUser")
 @Scope(BeanDefinition.SCOPE_SINGLETON)
 public class FishingLicenseUser extends DefaultSpringBean {
-	
+
 	@Autowired
 	@Qualifier(DOFWSClient.WEB_SERVICE)
 	private DOFWSClient client;
-	
+
 	@Autowired
 	private DateConverter dateConverter;
-	
+
 	public CompanyData getCompanyForCurrentUser() {
 		return getClient().getCompanyForUser(getCurrentUser());
 	}
-	
+
 	public List<Item> getVesselsForUser() {
 		List<Item> items = null;
 		User user = getCurrentUser();
 		SkipInfoTypeUser vessels[] = getClient().getShipInfoByCompanySSN(
-		    user.getPersonalID());
+				user.getPersonalID());
 		if (vessels != null && vessels.length > 0) {
 			items = new ArrayList<Item>(vessels.length);
 			for (int i = 0; i < vessels.length; i++) {
 				SkipInfoTypeUser vessel = vessels[i];
 				items.add(new Item(vessel.getSkipNr().toString(), vessel
-				        .getNafn()));
+						.getNafn()));
 			}
 		}
-		
+
 		return items;
 	}
-	
+
+	public List<Item> getGrasleppaVesselsForUser() {
+		List<Item> items = null;
+		BigDecimal shipNr[] = getClient().getGrasleppuShipNrByCompanySSN(
+				getCompanyForCurrentUser().getSocialSecurityNr());
+		if (shipNr != null && shipNr.length > 0) {
+			items = new ArrayList<Item>(shipNr.length);
+			for (BigDecimal nr : shipNr) {
+				SkipInfoTypeUser vessel = getClient()
+						.getShipInfo(nr.toString());
+				items.add(new Item(vessel.getSkipNr().toString(), vessel
+						.getNafn()));
+			}
+		}
+		return items;
+	}
+
 	public VesselData getUserVesselData(String vesselId) {
 		VesselData data = new VesselData();
-		
+
 		SkipInfoTypeUser wsRes = getClient().getShipInfo(vesselId);
 		if (wsRes != null) {
 			data.setName(wsRes.getNafn());
@@ -66,10 +82,10 @@ public class FishingLicenseUser extends DefaultSpringBean {
 			data.setOwnersSocialSecurityNr(wsRes.getEigandiKt());
 			data.setRegistryNr(wsRes.getSkipNr().toString());
 		}
-		
+
 		return data;
 	}
-	
+
 	/**
 	 * used in the forms: general fishing license
 	 * 
@@ -78,17 +94,17 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	public List<Item> getTypesOfFishingLicenses() {
 		IWBundle iwb = getBundle(GumboConstants.IW_BUNDLE_IDENTIFIER);
 		IWResourceBundle iwrb = getResourceBundle(iwb);
-		
+
 		final List<Item> items = new ArrayList<Item>(2);
-		
+
 		items.add(new Item("aflamarks", iwrb.getLocalizedString(
-		    "LICENSE_TYPE_AFLAMARK", "Aflamarks")));
+				"LICENSE_TYPE_AFLAMARK", "Aflamarks")));
 		items.add(new Item("krokaaflamarks", iwrb.getLocalizedString(
-		    "LICENSE_TYPE_KROKAFLAMARK", "Krokaaflamarks")));
-		
+				"LICENSE_TYPE_KROKAFLAMARK", "Krokaaflamarks")));
+
 		return items;
 	}
-	
+
 	/**
 	 * used in the forms: grasleppa
 	 * 
@@ -96,23 +112,23 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 */
 	public List<Item> getFishingAreas() {
 		IWBundle iwb = getBundle(GumboConstants.IW_BUNDLE_IDENTIFIER);
-		
+
 		IWResourceBundle iwrb = getResourceBundle(iwb);
-		
+
 		final List<Item> items = new ArrayList<Item>(2);
-		
+
 		items.add(new Item("A", iwrb.getLocalizedString("AREA_A", "Faxafloi")));
 		items.add(new Item("B", iwrb.getLocalizedString("AREA_B",
-		    "Breidafjordur")));
+				"Breidafjordur")));
 		items.add(new Item("C", iwrb.getLocalizedString("AREA_C", "Vestfirdir")));
 		items.add(new Item("D", iwrb.getLocalizedString("AREA_D", "Hunafloi")));
 		items.add(new Item("E", iwrb.getLocalizedString("AREA_E", "Nordurland")));
 		items.add(new Item("F", iwrb.getLocalizedString("AREA_F", "Austurland")));
 		items.add(new Item("G", iwrb.getLocalizedString("AREA_G", "Sudurland")));
-		
+
 		return items;
 	}
-	
+
 	/**
 	 * used in the forms: draganotaveidi
 	 * 
@@ -121,56 +137,58 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	public String getFishingAreaForDraganotaveidi(String shipId) {
 		return getClient().getFishingAreaForDraganotaveidi(shipId);
 	}
-	
+
 	/**
 	 * used in the forms: general fishing license
 	 * 
-	 * @return text informing user that he has some kind of a license (which is not in the available
-	 *         selection of license types). empty - if user doesn't have any license.
+	 * @return text informing user that he has some kind of a license (which is
+	 *         not in the available selection of license types). empty - if user
+	 *         doesn't have any license.
 	 */
 	public String getHasLicenseText() {
 		return "";
 	}
-	
+
 	/**
 	 * used in the forms: general fishing license, strandveidileyfi, grasleppa
 	 * 
 	 * @return
 	 */
 	public XFormsBooleanResult getVesselHasValidHaffairisskirteini(
-	        String vesselId) {
+			String vesselId) {
 		final LicenseCheckContainer res = getClient()
-		        .getHasValidSeafaringLicense(vesselId);
-		
+				.getHasValidSeafaringLicense(vesselId);
+
 		return new XFormsBooleanResult(res.isHasLicense(), res.getMessage());
 	}
-	
+
 	/**
 	 * used in the forms: grasleppa
 	 * 
 	 * @return
 	 */
 	public XFormsBooleanResult getVesselHasValidGeneralFishingLicense(
-	        String vesselId) {
+			String vesselId) {
 		final LicenseCheckContainer res = getClient()
-		        .getHasValidGeneralFishingLicense(vesselId);
-		
+				.getHasValidGeneralFishingLicense(vesselId);
+
 		return new XFormsBooleanResult(res.isHasLicense(), res.getMessage());
 	}
-	
+
 	/**
 	 * used in forms: general fishing license, strandveidileyfi, grasleppa
 	 * <p>
-	 * informs the user that he's in debt for fiskistofa (after he submits the application)
+	 * informs the user that he's in debt for fiskistofa (after he submits the
+	 * application)
 	 * </p>
 	 * 
 	 * @return string true or false
 	 */
 	public String getIsInDebt(String vesselId) {
-		
+
 		return "true";
 	}
-	
+
 	/**
 	 * used in forms: strandveidileyfi
 	 * 
@@ -178,11 +196,11 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 */
 	public XFormsBooleanResult getVesselHasValidStrandveidileyfi(String vesselId) {
 		final LicenseCheckContainer res = getClient()
-		        .getHasValidCoastFishingLicense(vesselId);
-		
+				.getHasValidCoastFishingLicense(vesselId);
+
 		return new XFormsBooleanResult(res.isHasLicense(), res.getMessage());
 	}
-	
+
 	/**
 	 * used in forms: draganotaveidi
 	 * 
@@ -190,165 +208,167 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 */
 	public String getCompanyAddressFallsInArea(String areaId) {
 		// TODO is this needed? I'm not using this in the form now
-		
+
 		return "true";
 	}
-	
+
 	/**
 	 * used in forms: draganotaveidi
 	 * 
 	 * @return Result With Message
 	 */
 	public XFormsBooleanResult getVesselHasValidAflamarksleyfi(String vesselId) {
-		
+
 		final LicenseCheckContainer res = getClient()
-		        .getHasValidQuotaLimitFishingLicense(vesselId);
-		
+				.getHasValidQuotaLimitFishingLicense(vesselId);
+
 		return new XFormsBooleanResult(res.isHasLicense(), res.getMessage());
 	}
-	
+
 	/**
 	 * used in forms: all forms
 	 * 
 	 * @return Result With Message
 	 */
 	public XFormsBooleanResult getHasRevokedFishingLicense(String vesselId) {
-		
+
 		final LicenseCheckContainer res = getClient()
-		        .getHasRevokedFishingLicense(vesselId);
-		
+				.getHasRevokedFishingLicense(vesselId);
+
 		return new XFormsBooleanResult(res.isHasLicense(), res.getMessage());
 	}
-	
+
 	/**
 	 * used in forms: grasleppa
 	 * 
 	 * @return string true or false
 	 */
 	public String getCompanyHasValidGrasleppa() {
-		
+
 		return "false";
 	}
-	
+
 	/**
 	 * used in forms: strandveidileyfi
 	 * 
 	 * @return string true or false
 	 */
 	public String getFishingCompanyHasValidStrandveidileyfi() {
-		
+
 		return "false";
 	}
-	
+
 	/**
 	 * used in forms: strandveidileyfi
 	 * 
 	 * @return string true or false
 	 */
 	public String getFishingQuotaWithinLimits(String vesselId) {
-		
+
 		return "true";
 	}
-	
+
 	/**
 	 * used in forms: strandveidileyfi
 	 * 
 	 * @return label of the fishing area for vessel
 	 */
 	public String getFishingArea(String shipId, String validFrom) {
-		
+
 		try {
-			return getClient().getFishingArea(
-			    shipId,
-			    new Timestamp(getDateConverter().convertStringFromXFormsToDate(
-			        validFrom).getTime()));
-			
+			return getClient()
+					.getFishingArea(
+							shipId,
+							new Timestamp(getDateConverter()
+									.convertStringFromXFormsToDate(validFrom)
+									.getTime()));
+
 		} catch (ParseException e) {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	public static final class VesselData {
-		
+
 		private String registryNr;
 		private String name;
 		private String ownersName;
 		private String ownersSocialSecurityNr;
-		
+
 		public String getRegistryNr() {
 			return registryNr;
 		}
-		
+
 		public VesselData setRegistryNr(String registryNr) {
 			this.registryNr = registryNr;
 			return this;
 		}
-		
+
 		public String getName() {
 			return name;
 		}
-		
+
 		public VesselData setName(String name) {
 			this.name = name;
 			return this;
 		}
-		
+
 		public String getOwnersName() {
 			return ownersName;
 		}
-		
+
 		public VesselData setOwnersName(String ownersName) {
 			this.ownersName = ownersName;
 			return this;
 		}
-		
+
 		public String getOwnersSocialSecurityNr() {
 			return ownersSocialSecurityNr;
 		}
-		
+
 		public VesselData setOwnersSocialSecurityNr(
-		        String ownersSocialSecurityNr) {
+				String ownersSocialSecurityNr) {
 			this.ownersSocialSecurityNr = ownersSocialSecurityNr;
 			return this;
 		}
 	}
-	
+
 	public static final class XFormsBooleanResult {
-		
+
 		private final String message;
 		private final String result;
-		
+
 		public XFormsBooleanResult(boolean result, String message) {
-			
+
 			this.message = message;
 			this.result = result ? "true" : "false";
 		}
-		
+
 		public XFormsBooleanResult(boolean result) {
-			
+
 			this.message = null;
 			this.result = result ? "true" : "false";
 		}
-		
+
 		public String getMessage() {
 			return message;
 		}
-		
+
 		public String getResult() {
 			return result;
 		}
 	}
-	
+
 	private DOFWSClient getClient() {
 		return client;
 	}
-	
+
 	private DateConverter getDateConverter() {
 		return dateConverter;
 	}
-	
+
 	public static final class CompanyData {
-		
+
 		private final String socialSecurityNr;
 		private String name;
 		private String address;
@@ -357,74 +377,74 @@ public class FishingLicenseUser extends DefaultSpringBean {
 		private String email;
 		private String faxNumber;
 		private String place;
-		
+
 		public CompanyData(String socialSecurityNr) {
-			
+
 			this.socialSecurityNr = socialSecurityNr;
 		}
-		
+
 		public String getName() {
 			return name;
 		}
-		
+
 		public CompanyData setName(String name) {
 			this.name = name;
 			return this;
 		}
-		
+
 		public String getAddress() {
 			return address;
 		}
-		
+
 		public CompanyData setAddress(String address) {
 			this.address = address;
 			return this;
 		}
-		
+
 		public String getSocialSecurityNr() {
 			return socialSecurityNr;
 		}
-		
+
 		public String getPostalCode() {
 			return postalCode;
 		}
-		
+
 		public CompanyData setPostalCode(String postalCode) {
 			this.postalCode = postalCode;
 			return this;
 		}
-		
+
 		public String getPhoneNumber() {
 			return phoneNumber;
 		}
-		
+
 		public CompanyData setPhoneNumber(String phoneNumber) {
 			this.phoneNumber = phoneNumber;
 			return this;
 		}
-		
+
 		public String getEmail() {
 			return email;
 		}
-		
+
 		public CompanyData setEmail(String email) {
 			this.email = email;
 			return this;
 		}
-		
+
 		public String getFaxNumber() {
 			return faxNumber;
 		}
-		
+
 		public CompanyData setFaxNumber(String faxNumber) {
 			this.faxNumber = faxNumber;
 			return this;
 		}
-		
+
 		public String getPlace() {
 			return place;
 		}
-		
+
 		public CompanyData setPlace(String place) {
 			this.place = place;
 			return this;

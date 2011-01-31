@@ -29,6 +29,7 @@ import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.Getdragn
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetdragnotvlcodeforskipResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetersviptingElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetersviptingResponseElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetgrasleppuskipnrutgerdarElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefuraflamarksveidilElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefuraflamarksveidilResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurstrandveidileyfiElement;
@@ -204,7 +205,7 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 		
 		return null;
 	}
-	
+		
 	/* (non-Javadoc)
 	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#getShipInfo(java.lang.String)
 	 */
@@ -434,17 +435,17 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 	public static void main(String[] arguments) {
 		
 		try {
-			FSWebServiceLANDANIR_ServiceLocator locator = new FSWebServiceLANDANIR_ServiceLocator();
-			FSWebServiceLANDANIR_PortType port = locator
-			        .getFSWebServiceLANDANIRSoap12HttpPort(new URL(
-			                "http://hafrok.hafro.is/FSWebServices/FSWebServiceLANDANIRSoap12HttpPort"));
+			FSWebServiceVEIDILEYFI_ServiceLocator locator = new FSWebServiceVEIDILEYFI_ServiceLocator();
+			FSWebServiceVEIDILEYFI_PortType port = locator
+			        .getFSWebServiceVEIDILEYFISoap12HttpPort(new URL(
+			                "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceVEIDILEYFISoap12HttpPort"));
+	
+			GetgrasleppuskipnrutgerdarElement parameters = new GetgrasleppuskipnrutgerdarElement("5405025950");
+			BigDecimal shipnr[] = port.getgrasleppuskipnrutgerdar(parameters);
 			
-			GetlonduninfoElement parameter = new GetlonduninfoElement(
-			        new BigDecimal(33), new BigDecimal(-184005));
-			GetlonduninfoResponseElement element = port
-			        .getlonduninfo(parameter);
-			
-			System.out.println(element.getResult().getHafnarHeiti());
+			for (BigDecimal bigDecimal : shipnr) {
+				System.out.println("nr = " + bigDecimal.toString());
+			}
 		} catch (ServiceException se) {
 			se.printStackTrace();
 		} catch (MalformedURLException e) {
@@ -474,7 +475,6 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 			return ret;
 			
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return new LicenseCheckContainer(false, "error_from_web_service");
@@ -566,5 +566,16 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 	
 	private GumboBusiness getGumboBusiness() {
 		return gumboBusiness;
+	}
+
+	@Override
+	public BigDecimal[] getGrasleppuShipNrByCompanySSN(String companySSN) {
+		GetgrasleppuskipnrutgerdarElement parameters = new GetgrasleppuskipnrutgerdarElement(companySSN);
+		try {
+			return getLicensePort().getgrasleppuskipnrutgerdar(parameters);
+		} catch (RemoteException e) {
+		}
+
+		return null;
 	}
 }
