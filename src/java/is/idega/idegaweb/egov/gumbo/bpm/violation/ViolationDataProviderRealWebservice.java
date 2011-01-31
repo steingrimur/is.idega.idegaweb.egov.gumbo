@@ -309,7 +309,8 @@ public class ViolationDataProviderRealWebservice implements
 		return getUser(personalId, true);
 	}
 	
-	private PersonData getUser(String personalId, boolean combineAddressAndPostal) {
+	private PersonData getUser(String personalId,
+	        boolean combineAddressAndPostal) {
 		if (StringUtil.isEmpty(personalId)) {
 			return null;
 		}
@@ -400,8 +401,7 @@ public class ViolationDataProviderRealWebservice implements
 				if (combineAddressAndPostal) {
 					data.setAddress(address.getStreetAddress() + ", "
 					        + address.getPostalAddress());
-				}
-				else {
+				} else {
 					data.setAddress(address.getStreetAddress());
 					data.setPostalCode(address.getPostalAddress());
 				}
@@ -422,7 +422,8 @@ public class ViolationDataProviderRealWebservice implements
 		return getCompany(personalId, true);
 	}
 	
-	private PersonData getCompany(String personalId, boolean combineAddressAndPostal) {
+	private PersonData getCompany(String personalId,
+	        boolean combineAddressAndPostal) {
 		if (StringUtil.isEmpty(personalId)) {
 			return null;
 		}
@@ -481,8 +482,7 @@ public class ViolationDataProviderRealWebservice implements
 				if (combineAddressAndPostal) {
 					data.setAddress(address.getStreetAddress() + ", "
 					        + address.getPostalAddress());
-				}
-				else {
+				} else {
 					data.setAddress(address.getStreetAddress());
 					data.setPostalCode(address.getPostalAddress());
 				}

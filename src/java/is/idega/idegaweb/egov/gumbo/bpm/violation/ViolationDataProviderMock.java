@@ -35,8 +35,9 @@ public class ViolationDataProviderMock implements ViolationDataProvider {
 	
 	@Override
 	public PersonData getViolationCompanyData(String socialNr) {
-		return new PersonData(socialNr).setName("Samkvæmt upplýsingum Fiskistofu")
-		        .setAddress("eigi síðar en [&dags&..]");
+		return new PersonData(socialNr).setName(
+		    "Samkvæmt upplýsingum Fiskistofu" + socialNr).setAddress(
+		    "eigi síðar en [&dags&..]" + socialNr);
 	}
 	
 	@Override
