@@ -74,16 +74,16 @@
                     <Violation_type_fbc_156 mapping="list_violationTypes"/>
                     <Violation_types_summary mapping="string_violationTypesSummary"/>
                     
-                    <GPS_location_latitude_degree mapping="string_locationLatitudeDegree"/>
-                    <GPS_location_latitude_minute mapping="string_locationLatitudeMinute"/>
-                    <GPS_location_latitude_second mapping="string_locationLatitudeSecond"/>
+                    <GPS_location_latitude_degree mapping="string_locationLatitudeDegree" xsi:nil="true"/>
+                    <GPS_location_latitude_minute mapping="string_locationLatitudeMinute" xsi:nil="true"/>
+                    <GPS_location_latitude_second mapping="string_locationLatitudeSecond" xsi:nil="true"/>
                     <GPS_location_latitude_pole mapping="string_locationLatitudePole"/>
                     
                     <GPS_location_latitude_label mapping="string_locationLatitudeLabel"/>
                     
-                    <GPS_location_longitude_degree mapping="string_locationLongitudeDegree"/>
-                    <GPS_location_longitude_minute mapping="string_locationLongitudeMinute"/>
-                    <GPS_location_longitude_second mapping="string_locationLongitudeSecond"/>
+                    <GPS_location_longitude_degree mapping="string_locationLongitudeDegree" xsi:nil="true"/>
+                    <GPS_location_longitude_minute mapping="string_locationLongitudeMinute" xsi:nil="true"/>
+                    <GPS_location_longitude_second mapping="string_locationLongitudeSecond" xsi:nil="true"/>
                     <GPS_location_longitude_angle mapping="string_locationLongitudeAngle"/>
                     
                     <GPS_location_longitude_label mapping="string_locationLongitudeLabel"/>
@@ -206,26 +206,26 @@
             
             <xf:bind id="fbc_104_bind"
                 nodeset="GPS_location_latitude_degree"
-                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+                readonly="instance('control-instance')/readonly = 'true'" type="fbc_104fb_lat"/>
             <xf:bind id="fbc_226_bind"
                 nodeset="GPS_location_latitude_minute"
-                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+                readonly="instance('control-instance')/readonly = 'true'" type="fbc_226fb_lat"/>
             <xf:bind id="fbc_227_bind"
                 nodeset="GPS_location_latitude_second"
-                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+                readonly="instance('control-instance')/readonly = 'true'" type="fbc_227fb_lat"/>
             <xf:bind id="fbc_228_bind"
                 nodeset="GPS_location_latitude_pole"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
                 
             <xf:bind id="fbc_229_bind"
                 nodeset="GPS_location_longitude_degree"
-                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+                readonly="instance('control-instance')/readonly = 'true'" type="fbc_229fb_lng"/>
             <xf:bind id="fbc_230_bind"
                 nodeset="GPS_location_longitude_minute"
-                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+                readonly="instance('control-instance')/readonly = 'true'" type="fbc_230fb_lng"/>
             <xf:bind id="fbc_231_bind"
                 nodeset="GPS_location_longitude_second"
-                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+                readonly="instance('control-instance')/readonly = 'true'" type="fbc_231fb_lng"/>
             <xf:bind id="fbc_232_bind"
                 nodeset="GPS_location_longitude_angle"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
@@ -406,20 +406,30 @@
                     <fbc_225c-label lang="is_IS">´</fbc_225c-label>
                     <fbc_225c-label lang="en">´</fbc_225c-label>
                     
-                    <fbc_104-label lang="is_IS">Degree</fbc_104-label>
-                    <fbc_104-label lang="en">Degree</fbc_104-label>
-                    <fbc_226-label lang="is_IS">Minute</fbc_226-label>
-                    <fbc_226-label lang="en">Minute</fbc_226-label>
-                    <fbc_227-label lang="is_IS">Second</fbc_227-label>
-                    <fbc_227-label lang="en">Second</fbc_227-label>
+                    <fbc_104-validation lang="is_IS">The degree format should be 00-90</fbc_104-validation>
+                    <fbc_104-validation lang="en">The degree format should be 00-90</fbc_104-validation>
+                    
+                    <fbc_226-validation lang="is_IS">The minute format should be 00-99</fbc_226-validation>
+                    <fbc_226-validation lang="en">The minute format should be 00-99</fbc_226-validation>
+                    
+                    <fbc_227-validation lang="is_IS">The second format should be 0-9</fbc_227-validation>
+                    <fbc_227-validation lang="en">The second format should be 0-9</fbc_227-validation>
+                    
+                    <fbc_229-validation lang="is_IS">The degree format should be 000-180</fbc_229-validation>
+                    <fbc_229-validation lang="en">The degree format should be 000-180</fbc_229-validation>
+                    
+                    <fbc_230-validation lang="is_IS">The minute format should be 00-99</fbc_230-validation>
+                    <fbc_230-validation lang="en">The minute format should be 00-99</fbc_230-validation>
+                    
+                    <fbc_231-validation lang="is_IS">The second format should be 0-9</fbc_231-validation>
+                    <fbc_231-validation lang="en">The second format should be 0-9</fbc_231-validation>
+                    
                     <fbc_228-label lang="is_IS">Pole</fbc_228-label>
                     <fbc_228-label lang="en">Pole</fbc_228-label>
                     
                     <fbc_233-label lang="is_IS">GPS hnit lengd (A/V)</fbc_233-label>
                     <fbc_233-label lang="en">GPS location longitude</fbc_233-label>
 
-                    <fbc_229-label lang="is_IS">Degree</fbc_229-label>
-                    <fbc_229-label lang="en">Degree</fbc_229-label>                    
                     <fbc_230-label lang="is_IS">Minute</fbc_230-label>
                     <fbc_230-label lang="en">Minute</fbc_230-label>
                     <fbc_231-label lang="is_IS">Second</fbc_231-label>
@@ -474,8 +484,6 @@
                     <fbc_160-label lang="en">Address</fbc_160-label>
                     <fbc_161-label lang="is_IS">Póstnúmer</fbc_161-label>
                     <fbc_161-label lang="en">Postal code</fbc_161-label>
-                    <fbc_104-required lang="is_IS">Það þarf að fylla út GSP staðsetningu</fbc_104-required>
-                    <fbc_104-required lang="en">The GSP location is required</fbc_104-required>
                     <fbc_163-label lang="is_IS">Um borð í skipi</fbc_163-label>
                     <fbc_163-label lang="en">Um borð í skipi</fbc_163-label>
                     <fbc_170-text lang="is_IS">Já</fbc_170-text>
@@ -763,6 +771,41 @@
                     <xs:pattern value="([0-1][0-9]|[2][0-3]):([0-5][0-9])"/>
                 </xs:restriction>
             </xs:simpleType>
+            <xs:simpleType name="fbc_104fb_lat">
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="([0-8][0-9]|[9][0])"/>
+                </xs:restriction>
+            </xs:simpleType>
+            
+            <xs:simpleType name="fbc_226fb_lat">
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="([0-9][0-9])"/>
+                </xs:restriction>
+            </xs:simpleType>
+            
+            <xs:simpleType name="fbc_227fb_lat">
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="([0-9])"/>
+                </xs:restriction>
+            </xs:simpleType>
+            
+            <xs:simpleType name="fbc_229fb_lng">
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="(([01][0-7]|[00][0-9])[0-9]|[1][8][0])"/>
+                </xs:restriction>
+            </xs:simpleType>
+            
+            <xs:simpleType name="fbc_230fb_lng">
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="([0-9][0-9])"/>
+                </xs:restriction>
+            </xs:simpleType>
+            
+            <xs:simpleType name="fbc_231fb_lng">
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="([0-9])"/>
+                </xs:restriction>
+            </xs:simpleType>
         </xs:schema>
         <xf:model id="x-autofill-model">
             <xf:instance id="x-autofill-model-instance" xmlns="">
@@ -984,17 +1027,51 @@
                         <div class="gpsInputs">
                         	<xf:group appearance="full">
 	                        	<xf:label model="data_model" ref="instance('localized_strings')/fbc_225-label[@lang=instance('localized_strings')/current_language]" />
+	                        	
 		                        <xf:input bind="fbc_104_bind" id="fbc_104" type="fbc_text">
+		                        
+			                        <xf:dispatch ev:event="idega-xforms-ready"
+	                                name="idega-validate" target="fbc_104"/>
+		                            <xf:dispatch ev:event="xforms-value-changed"
+		                                name="idega-validate" target="fbc_104"/>
+		                            <idega:validator ev:event="idega-validate">
+		                                <idega:message errorType="validation"
+		                                    model="data_model" value="instance('localized_strings')/fbc_104-validation[@lang=instance('localized_strings')/current_language]"/>
+		                            </idega:validator>
+	                                <xf:alert ref="instance('error-instance')/error[@for='fbc_104']"/>
+		                        
 		                            <xf:dispatch ev:event="xforms-value-changed"
 		                                name="idega-latitudeValueChanged" target="fbc_latitudeValueCalculator"/>
 		                        </xf:input>
 		                        <xf:input bind="fbc_226_bind" id="fbc_226" type="fbc_text">
 			                        <xf:label model="data_model" ref="instance('localized_strings')/fbc_225a-label[@lang=instance('localized_strings')/current_language]"/>
+			                        
+			                        <xf:dispatch ev:event="idega-xforms-ready"
+                                    name="idega-validate" target="fbc_226"/>
+                                    <xf:dispatch ev:event="xforms-value-changed"
+                                        name="idega-validate" target="fbc_226"/>
+                                    <idega:validator ev:event="idega-validate">
+                                        <idega:message errorType="validation"
+                                            model="data_model" value="instance('localized_strings')/fbc_226-validation[@lang=instance('localized_strings')/current_language]"/>
+                                    </idega:validator>
+                                    <xf:alert ref="instance('error-instance')/error[@for='fbc_226']"/>
+			                        
 		                            <xf:dispatch ev:event="xforms-value-changed"
 		                                name="idega-latitudeValueChanged" target="fbc_latitudeValueCalculator"/>
 		                        </xf:input>
 		                        <xf:input bind="fbc_227_bind" id="fbc_227" type="fbc_text">
 			                        <xf:label model="data_model" ref="instance('localized_strings')/fbc_225b-label[@lang=instance('localized_strings')/current_language]"/>
+			                        
+			                        <xf:dispatch ev:event="idega-xforms-ready"
+                                    name="idega-validate" target="fbc_227"/>
+                                    <xf:dispatch ev:event="xforms-value-changed"
+                                        name="idega-validate" target="fbc_227"/>
+                                    <idega:validator ev:event="idega-validate">
+                                        <idega:message errorType="validation"
+                                            model="data_model" value="instance('localized_strings')/fbc_227-validation[@lang=instance('localized_strings')/current_language]"/>
+                                    </idega:validator>
+                                    <xf:alert ref="instance('error-instance')/error[@for='fbc_227']"/>
+			                        
 		                            <xf:dispatch ev:event="xforms-value-changed"
 		                                name="idega-latitudeValueChanged" target="fbc_latitudeValueCalculator"/>
 		                        </xf:input>
@@ -1016,16 +1093,49 @@
 							<xf:group appearance="full">                     
 	                        	<xf:label model="data_model" ref="instance('localized_strings')/fbc_233-label[@lang=instance('localized_strings')/current_language]" />
 		                        <xf:input bind="fbc_229_bind" id="fbc_229" type="fbc_text">
-		                            <xf:dispatch ev:event="xforms-value-changed"
+		                        
+			                    <xf:dispatch ev:event="idega-xforms-ready"
+	                                name="idega-validate" target="fbc_229"/>
+	                            <xf:dispatch ev:event="xforms-value-changed"
+	                                name="idega-validate" target="fbc_229"/>
+	                            <idega:validator ev:event="idega-validate">
+	                                <idega:message errorType="validation"
+	                                    model="data_model" value="instance('localized_strings')/fbc_229-validation[@lang=instance('localized_strings')/current_language]"/>
+	                            </idega:validator>
+	                            <xf:alert ref="instance('error-instance')/error[@for='fbc_229']"/>
+		                        
+		                        <xf:dispatch ev:event="xforms-value-changed"
 		                                name="idega-longitudeValueChanged" target="fbc_longitudeValueCalculator"/>
 		                        </xf:input>
 		                        <xf:input bind="fbc_230_bind" id="fbc_230" type="fbc_text">
 			                        <xf:label model="data_model" ref="instance('localized_strings')/fbc_225a-label[@lang=instance('localized_strings')/current_language]"/>
+			                        
+			                        <xf:dispatch ev:event="idega-xforms-ready"
+                                    name="idega-validate" target="fbc_230"/>
+	                                <xf:dispatch ev:event="xforms-value-changed"
+	                                    name="idega-validate" target="fbc_230"/>
+	                                <idega:validator ev:event="idega-validate">
+                                    <idega:message errorType="validation"
+                                        model="data_model" value="instance('localized_strings')/fbc_230-validation[@lang=instance('localized_strings')/current_language]"/>
+                                </idega:validator>
+                                <xf:alert ref="instance('error-instance')/error[@for='fbc_230']"/>
+			                        
 		                            <xf:dispatch ev:event="xforms-value-changed"
 		                                name="idega-longitudeValueChanged" target="fbc_longitudeValueCalculator"/>
 		                        </xf:input>
 		                        <xf:input bind="fbc_231_bind" id="fbc_231" type="fbc_text">
 			                        <xf:label model="data_model" ref="instance('localized_strings')/fbc_225b-label[@lang=instance('localized_strings')/current_language]"/>
+			                        
+			                        <xf:dispatch ev:event="idega-xforms-ready"
+                                    name="idega-validate" target="fbc_231"/>
+                                    <xf:dispatch ev:event="xforms-value-changed"
+                                        name="idega-validate" target="fbc_231"/>
+                                    <idega:validator ev:event="idega-validate">
+                                    <idega:message errorType="validation"
+                                        model="data_model" value="instance('localized_strings')/fbc_231-validation[@lang=instance('localized_strings')/current_language]"/>
+	                                </idega:validator>
+	                                <xf:alert ref="instance('error-instance')/error[@for='fbc_231']"/>
+			                        
 		                            <xf:dispatch ev:event="xforms-value-changed"
 		                                name="idega-longitudeValueChanged" target="fbc_longitudeValueCalculator"/>
 		                        </xf:input>
