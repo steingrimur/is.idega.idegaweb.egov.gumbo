@@ -493,8 +493,7 @@
             <expression>
                 addAttachmentAssignmentExpression = 
                        "{taskAssignment: {roles: {role: ["+
-                       		"{roleName: \"bpm_violationReport_handler\", accesses: {access: [read,write]}},"+
-              				"{roleName: \"bpm_violationReport_invited\", accesses: {access: [read, seeContacts, seeComments, writeComments]}, rolesComments: {string: [\"all\"]}}"+
+                       		"{roleName: \"bpm_violationReport_handler\", accesses: {access: [read,write]}}"+
                        "]}}}";
             </expression>
             <variable name='string_addAttachmentAssignmentExpression' access='write' mapped-name='addAttachmentAssignmentExpression' />

@@ -392,7 +392,7 @@
                     <fbc_102-label lang="en">Violation date</fbc_102-label>
                     <fbc_153-label lang="is_IS">Tími</fbc_153-label>
                     <fbc_153-label lang="en">Violation time</fbc_153-label>
-                    <fbc_153-validation lang="is_IS">Please use the time format HH:mm</fbc_153-validation>
+                    <fbc_153-validation lang="is_IS">Tími skal vera á forminu kk:mm (12:34)</fbc_153-validation>
                     <fbc_153-validation lang="en">Please use the time format HH:mm</fbc_153-validation>
                     <fbc_155-label lang="is_IS">Tími</fbc_155-label>
                     <fbc_155-label lang="en">Violation time</fbc_155-label>
@@ -406,23 +406,23 @@
                     <fbc_225c-label lang="is_IS">´</fbc_225c-label>
                     <fbc_225c-label lang="en">´</fbc_225c-label>
                     
-                    <fbc_104-validation lang="is_IS">The degree format should be 00-90</fbc_104-validation>
+                    <fbc_104-validation lang="is_IS">Breiddargráður eru á bilinu 00-90</fbc_104-validation>
                     <fbc_104-validation lang="en">The degree format should be 00-90</fbc_104-validation>
                     
-                    <fbc_226-validation lang="is_IS">The minute format should be 00-99</fbc_226-validation>
+                    <fbc_226-validation lang="is_IS">Mínútur eru á bilinu 00-99</fbc_226-validation>
                     <fbc_226-validation lang="en">The minute format should be 00-99</fbc_226-validation>
                     
-                    <fbc_227-validation lang="is_IS">The second format should be 0-9</fbc_227-validation>
-                    <fbc_227-validation lang="en">The second format should be 0-9</fbc_227-validation>
+                    <fbc_227-validation lang="is_IS">Sekúndur eru á bilinu 000-999</fbc_227-validation>
+                    <fbc_227-validation lang="en">The second format should be 000-9999</fbc_227-validation>
                     
-                    <fbc_229-validation lang="is_IS">The degree format should be 000-180</fbc_229-validation>
+                    <fbc_229-validation lang="is_IS">Lengdargráður eru á bilinu 000-180</fbc_229-validation>
                     <fbc_229-validation lang="en">The degree format should be 000-180</fbc_229-validation>
                     
-                    <fbc_230-validation lang="is_IS">The minute format should be 00-99</fbc_230-validation>
+                    <fbc_230-validation lang="is_IS">Mínútur eru á bilinu 00-99</fbc_230-validation>
                     <fbc_230-validation lang="en">The minute format should be 00-99</fbc_230-validation>
                     
-                    <fbc_231-validation lang="is_IS">The second format should be 0-9</fbc_231-validation>
-                    <fbc_231-validation lang="en">The second format should be 0-9</fbc_231-validation>
+                    <fbc_231-validation lang="is_IS">Sekúndur eru á bilinu 000-999</fbc_231-validation>
+                    <fbc_231-validation lang="en">The second format should be 000-999</fbc_231-validation>
                     
                     <fbc_228-label lang="is_IS">Pole</fbc_228-label>
                     <fbc_228-label lang="en">Pole</fbc_228-label>
@@ -472,7 +472,7 @@
                     <equipmentsAndLicenses-delete-label lang="is_IS">Eyða röð</equipmentsAndLicenses-delete-label>
                     <fbc_102-required lang="is_IS">Það þarf að fylla út dagsetningu brots</fbc_102-required>
                     <fbc_102-required lang="en">The date of violation is required</fbc_102-required>
-                    <fbc_102-custom lang="is_IS">Ekki má velja dagsetningu sem ekki er liðin</fbc_102-custom>
+                    <fbc_102-custom lang="is_IS">Ekki má velja dagsetningu fram í tímann</fbc_102-custom>
                     <fbc_102-custom lang="en">The date must be in the past</fbc_102-custom>
                     <fbc_153-required lang="is_IS">Það þarf að fylla út tímasetningu brots</fbc_153-required>
                     <fbc_153-required lang="en">The time of violation required</fbc_153-required>
@@ -787,7 +787,7 @@
             
             <xs:simpleType name="fbc_227fb_lat">
                 <xs:restriction base="xs:string">
-                    <xs:pattern value="([0-9])"/>
+                    <xs:pattern value="([0-9][0-9][0-9])"/>
                 </xs:restriction>
             </xs:simpleType>
             
@@ -972,7 +972,7 @@
                             <xf:setvalue ev:event="xforms-value-changed"
                                 ref="instance('data-instance')/violationDateLabel" value="instance('data-instance')/Violation_date_fbc_102"/>
                                 
-                            <idega:validator ev:event="idega-validate" componentId="fbc_102" validateif="instance('data-instance')/Violation_date_fbc_102 = '' or idega:isBeforeNow(instance('data-instance')/Violation_date_fbc_102)">
+                            <idega:validator ev:event="idega-validate" componentId="fbc_102" validateif="instance('data-instance')/Violation_date_fbc_102 = '' or idega:isAfterNow(instance('data-instance')/Violation_date_fbc_102)">
                                 <idega:message errorType="required"
                                     model="data_model" value="instance('localized_strings')/fbc_102-required[@lang=instance('localized_strings')/current_language]"/>
                                 <idega:message errorType="custom"

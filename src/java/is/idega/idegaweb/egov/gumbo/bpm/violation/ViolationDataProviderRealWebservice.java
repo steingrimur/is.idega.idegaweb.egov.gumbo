@@ -256,9 +256,9 @@ public class ViolationDataProviderRealWebservice implements
 					.getVigtunarleyfiByKt(parameters);
 			int len = res.length;
 			for (int i = 0; i < len; i++) {
-				ret.append(res[i].getHeitiLeyfis());
+				ret.append(res[i].getHeitiLeyfis() + ": " + res[i].getGerdLeyfis());
 				if (i < (len - 1)) {
-					ret.append(", ");
+					ret.append("<br />");
 				}
 			}
 		} catch (RemoteException e) {
