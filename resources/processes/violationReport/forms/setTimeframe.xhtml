@@ -70,6 +70,8 @@
                     <fbc_6-label lang="en">Timeframe date</fbc_6-label>
                     <fbc_6-required lang="is_IS">Það verður að fylla út tímamörkin</fbc_6-required>
                     <fbc_6-required lang="en">The timeframe date is required</fbc_6-required>
+                    <fbc_6-custom lang="is_IS">The timeframe date must be in the future</fbc_6-custom>
+                    <fbc_6-custom lang="en">The timeframe date must be in the future</fbc_6-custom>
                     <fbc_9-label lang="is_IS">Málsnúmer</fbc_9-label>
                     <fbc_9-label lang="en">Identifier number</fbc_9-label>
                     <fbc_10-label lang="is_IS">Málsnafn</fbc_10-label>
@@ -109,9 +111,11 @@
                                 name="idega-validate" target="fbc_6"/>
                             <xf:dispatch ev:event="xforms-value-changed"
                                 name="idega-validate" target="fbc_6"/>
-                            <idega:validator ev:event="idega-validate">
+                            <idega:validator ev:event="idega-validate" componentId="fbc_6" validateif="instance('data-instance')/Timeframe_date_fbc_6 = '' or not(idega:isBeforeNow(instance('data-instance')/Timeframe_date_fbc_6))">
                                 <idega:message errorType="required"
                                     model="data_model" value="instance('localized_strings')/fbc_6-required[@lang=instance('localized_strings')/current_language]"/>
+                                <idega:message errorType="custom"
+                                    model="data_model" value="instance('localized_strings')/fbc_6-custom[@lang=instance('localized_strings')/current_language]"/>
                             </idega:validator>
                             <xf:alert ref="instance('error-instance')/error[@for='fbc_6']"/>
                         </xf:input>

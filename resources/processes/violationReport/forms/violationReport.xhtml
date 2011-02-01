@@ -472,6 +472,8 @@
                     <equipmentsAndLicenses-delete-label lang="is_IS">Eyða röð</equipmentsAndLicenses-delete-label>
                     <fbc_102-required lang="is_IS">Það þarf að fylla út dagsetningu brots</fbc_102-required>
                     <fbc_102-required lang="en">The date of violation is required</fbc_102-required>
+                    <fbc_102-custom lang="is_IS">The date must be in the past</fbc_102-custom>
+                    <fbc_102-custom lang="en">The date must be in the past</fbc_102-custom>
                     <fbc_153-required lang="is_IS">Það þarf að fylla út tímasetningu brots</fbc_153-required>
                     <fbc_153-required lang="en">The time of violation required</fbc_153-required>
                     <fbc_999-required lang="is_IS">Það þarf að fylla út málsnafn</fbc_999-required>
@@ -969,10 +971,14 @@
                                 name="idega-validate" target="fbc_102"/>
                             <xf:setvalue ev:event="xforms-value-changed"
                                 ref="instance('data-instance')/violationDateLabel" value="instance('data-instance')/Violation_date_fbc_102"/>
-                            <idega:validator ev:event="idega-validate">
+                                
+                            <idega:validator ev:event="idega-validate" componentId="fbc_102" validateif="instance('data-instance')/Violation_date_fbc_102 = '' or idega:isBeforeNow(instance('data-instance')/Violation_date_fbc_102)">
                                 <idega:message errorType="required"
                                     model="data_model" value="instance('localized_strings')/fbc_102-required[@lang=instance('localized_strings')/current_language]"/>
+                                <idega:message errorType="custom"
+                                    model="data_model" value="instance('localized_strings')/fbc_102-custom[@lang=instance('localized_strings')/current_language]"/>
                             </idega:validator>
+                            
                             <xf:alert ref="instance('error-instance')/error[@for='fbc_102']"/>
                         </xf:input>
                         <xf:input bind="fbc_153_bind" id="fbc_153" type="fbc_date">
