@@ -54,6 +54,7 @@ public class FJSWSClient {
 		try {
 			TBRStadaSkips iStadaSkips = new TBRStadaSkips(getHeader(), shipNr);
 			TBRStadaSkipsSvar ret = getPort().saekjaStoduSkips(iStadaSkips);
+			
 			if (ret != null) {
 				if (ret.getSkuldMillifaerslnaKvota().intValue() > 0
 				        || ret.getSkuldVeidigjalds().intValue() > 0

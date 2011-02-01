@@ -3,6 +3,7 @@ package is.idega.idegaweb.egov.gumbo.licenses;
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
+import is.idega.idegaweb.egov.gumbo.webservice.client.business.FJSWSClient;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.LicenseCheckContainer;
 
 import java.math.BigDecimal;
@@ -32,6 +33,9 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	@Qualifier(DOFWSClient.WEB_SERVICE)
 	private DOFWSClient client;
 
+	@Autowired 
+	private FJSWSClient fjsClient;
+	
 	@Autowired
 	private DateConverter dateConverter;
 
@@ -185,8 +189,7 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 * @return string true or false
 	 */
 	public String getIsInDebt(String vesselId) {
-
-		return "true";
+		return new Boolean(getFJSClient().getIsInDept(vesselId)).toString();
 	}
 
 	/**
@@ -244,8 +247,8 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 * @return string true or false
 	 */
 	public String getCompanyHasValidGrasleppa() {
-
-		return "false";
+		//Is always true, since Fiskisofa only returns us the ships that have this license.
+		return "true";
 	}
 
 	/**
@@ -363,6 +366,11 @@ public class FishingLicenseUser extends DefaultSpringBean {
 		return client;
 	}
 
+	private FJSWSClient getFJSClient() {
+		return fjsClient;
+	}
+
+	
 	private DateConverter getDateConverter() {
 		return dateConverter;
 	}
