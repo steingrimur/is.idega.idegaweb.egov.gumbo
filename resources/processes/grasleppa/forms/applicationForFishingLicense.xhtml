@@ -430,14 +430,15 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                         <div class="fbc_header_text" id="fbc_19" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_19-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
-                        <xf:group bind="fbc_113_bind">
-                            <xf:output model="data_model" bind="fbc_114_bind">
-                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_114-label[@lang=instance('localized_strings')/current_language]"/>
-                            </xf:output>
-                            <xf:output model="data_model" bind="fbc_115_bind">
-                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_115-label[@lang=instance('localized_strings')/current_language]"/>
-                            </xf:output>
-                        </xf:group>
+                        <div class="gpsInputs">
+	                        <xf:group bind="fbc_113_bind">
+		                        <xf:label model="data_model" ref="instance('localized_strings')/fbc_114-label[@lang=instance('localized_strings')/current_language]"/>
+	                            <xf:output model="data_model" bind="fbc_114_bind" />
+	                            <xf:output model="data_model" bind="fbc_115_bind">
+	                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_115-label[@lang=instance('localized_strings')/current_language]"/>
+	                            </xf:output>
+	                        </xf:group>
+	                    </div>
                         
                         <xf:select1 appearance="minimal"
                             bind="fbc_110_bind" id="fbc_110" type="fbc_single_select_minimal">
