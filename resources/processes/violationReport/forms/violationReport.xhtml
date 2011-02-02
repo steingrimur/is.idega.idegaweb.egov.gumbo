@@ -972,7 +972,7 @@
                             <xf:setvalue ev:event="xforms-value-changed"
                                 ref="instance('data-instance')/violationDateLabel" value="instance('data-instance')/Violation_date_fbc_102"/>
                                 
-                            <idega:validator ev:event="idega-validate" componentId="fbc_102" validateif="instance('data-instance')/Violation_date_fbc_102 = '' or idega:isAfterNow(instance('data-instance')/Violation_date_fbc_102)">
+                            <idega:validator ev:event="idega-validate" componentId="fbc_102" validateif="instance('data-instance')/Violation_date_fbc_102 = '' or idega:isBeforeNow(instance('data-instance')/Violation_date_fbc_102)">
                                 <idega:message errorType="required"
                                     model="data_model" value="instance('localized_strings')/fbc_102-required[@lang=instance('localized_strings')/current_language]"/>
                                 <idega:message errorType="custom"
