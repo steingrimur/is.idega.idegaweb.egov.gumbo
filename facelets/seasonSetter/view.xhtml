@@ -1,0 +1,17 @@
+<html
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:c="http://xmlns.idega.com/com.idega.core"
+		xmlns:g="http://xmlns.idega.com/is.idega.idegaweb.egov.gumbo"
+>
+<ui:component>
+	<form action="" method="post">
+		<c:selectOne name="prm_period" setToSubmit="true">
+			<ui:repeat value="#{g:getPeriods()}" var="period">
+				<c:selectOption content="#{period.period}" name="#{period.name}" selected="#{period.period eq gumboSession.season}" />
+			</ui:repeat>
+		</c:selectOne>
+	</form>
+</ui:component>
+</html>

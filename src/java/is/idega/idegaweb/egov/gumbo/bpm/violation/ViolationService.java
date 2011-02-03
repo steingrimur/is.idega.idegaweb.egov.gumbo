@@ -1,5 +1,6 @@
 package is.idega.idegaweb.egov.gumbo.bpm.violation;
 
+import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.LetterType;
 import is.idega.idegaweb.egov.gumbo.bpm.violation.ViolationDataProvider.EquipmentData;
 import is.idega.idegaweb.egov.gumbo.bpm.violation.ViolationDataProvider.PersonData;
@@ -19,9 +20,12 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import com.idega.core.business.DefaultSpringBean;
+import com.idega.idegaweb.IWMainApplication;
+import com.idega.idegaweb.IWResourceBundle;
 import com.idega.jbpm.identity.Role;
 import com.idega.jbpm.identity.RolesManager;
 import com.idega.util.CoreConstants;
+import com.idega.util.LocaleUtil;
 import com.idega.util.StringUtil;
 import com.idega.util.text.Item;
 
@@ -76,10 +80,13 @@ public class ViolationService extends DefaultSpringBean {
 		
 		final List<Item> items = new ArrayList<Item>(types.length);
 		
-		// TODO: add label for letter type
+		IWResourceBundle iwrb = IWMainApplication
+		.getDefaultIWApplicationContext().getIWMainApplication()
+		.getBundle(GumboConstants.IW_BUNDLE_IDENTIFIER)
+		.getResourceBundle(LocaleUtil.getIcelandicLocale());
 		
 		for (LetterType letterType : types) {
-			items.add(new Item(letterType.toString(), letterType.toString()));
+			items.add(new Item(letterType.toString(), iwrb.getLocalizedString("letter_type." + letterType.toString(), letterType.toString())));
 		}
 		
 		return items;
@@ -202,6 +209,7 @@ public class ViolationService extends DefaultSpringBean {
 		).getResult();
 	}
 	
+	@SuppressWarnings("unused")
 	private boolean contains(List<Role> inRoles, String role) {
 		
 		for (Role r : inRoles) {

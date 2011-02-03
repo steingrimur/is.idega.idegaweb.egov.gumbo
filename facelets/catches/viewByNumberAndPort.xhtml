@@ -4,32 +4,61 @@
 		xmlns:f="http://java.sun.com/jsf/core"
 >
 <ui:component>
-	<table id="catchInfoViewer" cellpadding="0" cellspacing="0" width="100%">
-		<thead>
-			<tr>
-				<th class="firstColumn"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['type']}" /></th>
-				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_unbutchered']}" /></th>
-				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_butchered']}" /></th>
-				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_to_quota']}" /></th>
-				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_substandard']}" /></th>
-				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_line_kickback']}" /></th>
-				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_VS_catch']}" /></th>
-			</tr>
-		</thead>
-
-		<tbody>
-			<ui:repeat value="#{gumboBean.catchInfoResult}" var="catch">
+	<ui:fragment rendered="#{not empty gumboBean.catchInfo}">
+		<ui:param name="catch" value="#{gumboBean.catchInfo}" />
+	
+		<div class="catchInfo">
+			<div class="informationItem">
+				<label><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_number']}" /></label>
+				<span><h:outputText value="#{catch.komunr}" /></span>
+			</div>
+			<div class="informationItem">
+				<label><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['ship']}" /></label>
+				<span><h:outputText value="#{catch.skipHeiti}" /></span>
+			</div>
+			<div class="informationItem">
+				<label><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_port']}" /></label>
+				<span><h:outputText value="#{catch.hafnarHeiti}" /></span>
+			</div>
+			<div class="informationItem">
+				<label><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_type']}" /></label>
+				<span><h:outputText value="#{catch.veidarfaeriHeiti}" /></span>
+			</div>
+			<div class="informationItem">
+				<label><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_date']}" /></label>
+				<span><h:outputText value="#{catch.LDags}"><f:convertDateTime type="date" dateStyle="long" locale="#{loginSession.currentLocale}" /></h:outputText></span>
+			</div>
+		</div>
+	
+		<table id="catchInfoViewer" cellpadding="0" cellspacing="0" width="100%">
+			<thead>
 				<tr>
-					<td class="firstColumn"><h:outputText value="#{catch.fisktegundHeiti}" /></td>
-					<td><h:outputText value="#{catch.oslaegt}"><f:convertNumber /></h:outputText></td>
-					<td><h:outputText value="#{catch.slaegt}"><f:convertNumber /></h:outputText></td>
-					<td><h:outputText value="#{catch.afliTilKvota}"><f:convertNumber /></h:outputText></td>
-					<td><h:outputText value="#{catch.undirmal}"><f:convertNumber /></h:outputText></td>
-					<td><h:outputText value="#{catch.linuIvilnun}"><f:convertNumber /></h:outputText></td>
-					<td><h:outputText value="#{catch.hafroafli}"><f:convertNumber /></h:outputText></td>
+					<th class="firstColumn"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['type']}" /></th>
+					<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_unbutchered']}" /></th>
+					<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_butchered']}" /></th>
+					<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_to_quota']}" /></th>
+					<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_substandard']}" /></th>
+					<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_line_kickback']}" /></th>
+					<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_VS_catch']}" /></th>
 				</tr>
-			</ui:repeat>
-		</tbody>	
-	</table>
+			</thead>
+	
+			<tbody>
+				<ui:repeat value="#{gumboBean.catchInfoResult}" var="catch">
+					<tr>
+						<td class="firstColumn"><h:outputText value="#{catch.fisktegundHeiti}" /></td>
+						<td><h:outputText value="#{catch.oslaegt}"><f:convertNumber /></h:outputText></td>
+						<td><h:outputText value="#{catch.slaegt}"><f:convertNumber /></h:outputText></td>
+						<td><h:outputText value="#{catch.afliTilKvota}"><f:convertNumber /></h:outputText></td>
+						<td><h:outputText value="#{catch.undirmal}"><f:convertNumber /></h:outputText></td>
+						<td><h:outputText value="#{catch.linuIvilnun}"><f:convertNumber /></h:outputText></td>
+						<td><h:outputText value="#{catch.hafroafli}"><f:convertNumber /></h:outputText></td>
+					</tr>
+				</ui:repeat>
+			</tbody>	
+		</table>
+		
+		<p class="informationText"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_info_text']}" /></p>
+	</ui:fragment>
 </ui:component>
 </html>

@@ -7,18 +7,6 @@
 >
 <ui:component>
 	<form id="catchQuota" class="adminForm" action="" method="post">
-		<div class="formItem">
-			<label for="prm_period"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['period']}" /></label>
-			<c:selectOne name="prm_period">
-				<ui:repeat value="#{g:getPeriods()}" var="period">
-					<c:selectOption content="#{period.period}" name="#{period.name}" selected="#{period.period eq gumboBean.period}" />
-				</ui:repeat>
-			</c:selectOne>
-		</div>
-		<div class="submit">
-			<input type="submit" name="prm_submit" value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['get']}" />
-		</div>
-
 		<table cellpadding="0" cellspacing="0" width="100%">
 			<thead>
 				<tr>

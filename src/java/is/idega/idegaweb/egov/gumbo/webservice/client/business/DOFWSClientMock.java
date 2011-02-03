@@ -1,6 +1,7 @@
 package is.idega.idegaweb.egov.gumbo.webservice.client.business;
 
 import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.AflamarkTypeUser;
+import is.fiskistofa.webservices.hlutdeild.FSWebserviceHLUTDEILD_wsdl.types.HlutdeildTypeUser;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser;
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.VeidileyfagerdTypeUser;
@@ -155,5 +156,10 @@ public class DOFWSClientMock implements DOFWSClient {
 		map.put(new BigDecimal(7), new VeidileyfagerdTypeUser(new BigDecimal(7), new BigDecimal(11), IWTimestamp.RightNow().getCalendar(), "Faxafloi", "1011", "Sudurland", "7", new BigDecimal(62), "herna", IWTimestamp.RightNow().getCalendar()));
 
 		return map;
+	}
+
+	@Override
+	public HlutdeildTypeUser[] getCatchPortion(BigDecimal skipID, String season) {
+		return null;
 	}
 }

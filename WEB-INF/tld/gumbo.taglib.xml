@@ -12,6 +12,12 @@
 	</function>
 
 	<function>
+		<function-name>getCurrentPeriod</function-name>
+		<function-class>is.idega.idegaweb.egov.gumbo.util.GumboUtil</function-class>
+		<function-signature>is.idega.idegaweb.egov.gumbo.util.Period getCurrentPeriod()</function-signature>
+	</function>
+
+	<function>
 		<function-name>encryptClassName</function-name>
 		<function-class>is.idega.idegaweb.egov.gumbo.util.GumboUtil</function-class>
 		<function-signature>java.lang.String getEncryptedClassName(java.lang.Class)</function-signature>

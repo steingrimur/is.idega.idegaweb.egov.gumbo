@@ -10,7 +10,6 @@ import javax.faces.context.FacesContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import com.idega.company.data.Company;
 import com.idega.facelets.ui.FaceletComponent;
 import com.idega.idegaweb.IWBundle;
 import com.idega.presentation.IWBaseComponent;
@@ -18,7 +17,7 @@ import com.idega.presentation.IWContext;
 import com.idega.util.PresentationUtil;
 import com.idega.util.expression.ELUtil;
 
-public class CatchQuota extends IWBaseComponent {
+public class CatchPortion extends IWBaseComponent {
 
 	private IWBundle iwb;
 	
@@ -39,16 +38,14 @@ public class CatchQuota extends IWBaseComponent {
 		iwb = getBundle(context, getBundleIdentifier());
 		
 		PresentationUtil.addStyleSheetToHeader(iwc, iwb.getVirtualPathWithFileNameString("style/gumbo.css"));
-
-		Company company = getSession().getCompany();
-		String companySSN = company != null ? company.getPersonalID() : "";
 		
 		GumboBean bean = getBeanInstance("gumboBean");
-		bean.setShips(getClient().getShipInfoByCompanySSN(companySSN));
-		bean.setCatchQuota(getClient().getCatchQuota(company.getPersonalID(), getSession().getSeason()));
-	
+		if (getSession().getShip() != null && getSession().getSeason() != null) {
+			bean.setCatchPortion(getClient().getCatchPortion(getSession().getShip().getSkipNr(), getSession().getSeason()));
+		}
+
 		FaceletComponent facelet = (FaceletComponent) iwc.getApplication().createComponent(FaceletComponent.COMPONENT_TYPE);
-		facelet.setFaceletURI(iwb.getFaceletURI("catchQuota/viewByPeriod.xhtml"));
+		facelet.setFaceletURI(iwb.getFaceletURI("catchPortion/viewByShip.xhtml"));
 		add(facelet);
 	}	
 	

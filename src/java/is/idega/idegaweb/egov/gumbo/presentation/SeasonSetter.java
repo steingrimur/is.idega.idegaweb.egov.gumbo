@@ -1,16 +1,12 @@
 package is.idega.idegaweb.egov.gumbo.presentation;
 
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
-import is.idega.idegaweb.egov.gumbo.bean.GumboBean;
 import is.idega.idegaweb.egov.gumbo.business.GumboSession;
-import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 
 import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
-import com.idega.company.data.Company;
 import com.idega.facelets.ui.FaceletComponent;
 import com.idega.idegaweb.IWBundle;
 import com.idega.presentation.IWBaseComponent;
@@ -18,13 +14,11 @@ import com.idega.presentation.IWContext;
 import com.idega.util.PresentationUtil;
 import com.idega.util.expression.ELUtil;
 
-public class CatchQuota extends IWBaseComponent {
+public class SeasonSetter extends IWBaseComponent {
 
-	private IWBundle iwb;
+	private static final String PARAMETER_SEASON = "prm_season";
 	
-	@Autowired
-	@Qualifier(DOFWSClient.WEB_SERVICE)
-	private DOFWSClient client;
+	private IWBundle iwb;
 	
 	@Autowired
 	private GumboSession session;
@@ -38,27 +32,16 @@ public class CatchQuota extends IWBaseComponent {
 		IWContext iwc = IWContext.getIWContext(context);
 		iwb = getBundle(context, getBundleIdentifier());
 		
-		PresentationUtil.addStyleSheetToHeader(iwc, iwb.getVirtualPathWithFileNameString("style/gumbo.css"));
-
-		Company company = getSession().getCompany();
-		String companySSN = company != null ? company.getPersonalID() : "";
-		
-		GumboBean bean = getBeanInstance("gumboBean");
-		bean.setShips(getClient().getShipInfoByCompanySSN(companySSN));
-		bean.setCatchQuota(getClient().getCatchQuota(company.getPersonalID(), getSession().getSeason()));
-	
-		FaceletComponent facelet = (FaceletComponent) iwc.getApplication().createComponent(FaceletComponent.COMPONENT_TYPE);
-		facelet.setFaceletURI(iwb.getFaceletURI("catchQuota/viewByPeriod.xhtml"));
-		add(facelet);
-	}	
-	
-	private DOFWSClient getClient() {
-		if (this.client == null) {
-			ELUtil.getInstance().autowire(this);
+		if (iwc.isParameterSet(PARAMETER_SEASON)) {
+			getSession().setSeason(iwc.getParameter(PARAMETER_SEASON));
 		}
 		
-		return this.client;
-	}
+		PresentationUtil.addStyleSheetToHeader(iwc, iwb.getVirtualPathWithFileNameString("style/gumbo.css"));
+		
+		FaceletComponent facelet = (FaceletComponent) iwc.getApplication().createComponent(FaceletComponent.COMPONENT_TYPE);
+		facelet.setFaceletURI(iwb.getFaceletURI("seasonSetter/view.xhtml"));
+		add(facelet);
+	}	
 	
 	private GumboSession getSession() {
 		if (this.session == null) {

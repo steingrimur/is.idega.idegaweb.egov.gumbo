@@ -2,7 +2,7 @@ package is.idega.idegaweb.egov.gumbo.presentation;
 
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.bean.GumboBean;
-import is.idega.idegaweb.egov.gumbo.business.GumboBusiness;
+import is.idega.idegaweb.egov.gumbo.business.GumboSession;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 
 import java.rmi.RemoteException;
@@ -38,7 +38,7 @@ public class LatestCatches extends IWBaseComponent {
 	private DOFWSClient client;
 	
 	@Autowired
-	private GumboBusiness business;
+	private GumboSession session;
 	
 	public String getBundleIdentifier() {
 		return GumboConstants.IW_BUNDLE_IDENTIFIER;
@@ -54,7 +54,7 @@ public class LatestCatches extends IWBaseComponent {
 		try {
 			BuilderService service = BuilderServiceFactory.getBuilderService(iwc);
 			
-			Company company = getBusiness().getCompanyForUser(iwc.getCurrentUser());
+			Company company = getSession().getCompany();
 			String companySSN = company != null ? company.getPersonalID() : "";
 			
 			GumboBean bean = getBeanInstance("gumboBean");
@@ -83,12 +83,12 @@ public class LatestCatches extends IWBaseComponent {
 		return this.client;
 	}
 
-	private GumboBusiness getBusiness() {
-		if (this.business == null) {
+	private GumboSession getSession() {
+		if (this.session == null) {
 			ELUtil.getInstance().autowire(this);
 		}
 		
-		return business;
+		return session;
 	}
 	
 	public ICPage getPage() {

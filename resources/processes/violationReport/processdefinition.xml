@@ -437,7 +437,8 @@
 	<task-node name="violationDecision">
 	   <task name="violationDecisionTask" priority="-1">
          <controller>
-            <variable name="string_rulingText" access="read,write,required"></variable>
+         	<variable name="string_actionTaken" access="read,write,required"></variable>
+            <variable name="string_rulingText" access="read,write"></variable>
             <variable name="string_caseIdentifier" access="read"></variable>
             <variable name="string_caseDescription" access="read"></variable>
             <variable name="files_processRullingAttachments" access="read,write"></variable>

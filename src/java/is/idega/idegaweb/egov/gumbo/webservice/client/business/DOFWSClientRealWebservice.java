@@ -7,6 +7,10 @@ import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.FSWebService
 import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.FSWebServiceAFLAMARK_ServiceLocator;
 import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.GetaflamarkElement;
 import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.GetaflamarksumbyutgerdElement;
+import is.fiskistofa.webservices.hlutdeild.FSWebserviceHLUTDEILD_wsdl.FSWebserviceHLUTDEILD_PortType;
+import is.fiskistofa.webservices.hlutdeild.FSWebserviceHLUTDEILD_wsdl.FSWebserviceHLUTDEILD_ServiceLocator;
+import is.fiskistofa.webservices.hlutdeild.FSWebserviceHLUTDEILD_wsdl.types.GethlutdeildskipsElement;
+import is.fiskistofa.webservices.hlutdeild.FSWebserviceHLUTDEILD_wsdl.types.HlutdeildTypeUser;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.FSWebServiceLANDANIR_PortType;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.FSWebServiceLANDANIR_ServiceLocator;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.GetlandanirbyskipElement;
@@ -84,7 +88,13 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 	private static final String LICENSE_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceVEIDILEYFISoap12HttpPort";
 	private static final String LICENSE_ENDPOINT_ATTRIBUTE_NAME = "dofws_license_endpoint";
 
+	private static final String PORTION_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceHLUTDEILDSoap12HttpPort";
+	private static final String PORTION_ENDPOINT_ATTRIBUTE_NAME = "dofws_portion_endpoint";
+
 	private static final String GUMBO_FISHING_AREAS_CACHE = "fishing_areas_cache";
+	private static final String GUMBO_COMPANY_SHIPS_CACHE = "company_ships_cache";
+	private static final String GUMBO_COMPANY_CATCH_QUOTA_CACHE = "company_catch_quota";
+	private static final String GUMBO_COMPANY_LATEST_CATCHES_CACHE = "company_latest_catches";
 
 	@Autowired
 	private GumboBusiness gumboBusiness;
@@ -197,6 +207,39 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 		return null;
 	}
 
+	private FSWebserviceHLUTDEILD_PortType getPortionPort() {
+		try {
+			String endPoint = IWMainApplication
+					.getDefaultIWApplicationContext()
+					.getApplicationSettings()
+					.getProperty(PORTION_ENDPOINT_ATTRIBUTE_NAME,
+							PORTION_DEFAULT_ENDPOINT);
+
+			FSWebserviceHLUTDEILD_ServiceLocator locator = new FSWebserviceHLUTDEILD_ServiceLocator();
+			FSWebserviceHLUTDEILD_PortType port = locator
+					.getFSWebserviceHLUTDEILDSoap12HttpPort(new URL(endPoint));
+
+			// ((org.apache.axis.client.Stub) port).setTimeout(timeout)
+
+			return port;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+	
+	public HlutdeildTypeUser[] getCatchPortion(BigDecimal skipID, String season) {
+		try {
+			GethlutdeildskipsElement parameters = new GethlutdeildskipsElement(skipID, season);
+			return getPortionPort().gethlutdeildskips(parameters);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -205,10 +248,24 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 	 */
 	@Override
 	public SkipInfoTypeUser[] getShipInfoByCompanySSN(String companySSN) {
+		Map cache = getCache(GUMBO_COMPANY_SHIPS_CACHE, 60 * 60 * 24l);
+		if (cache != null && !cache.isEmpty()) {
+			if (cache.containsKey(companySSN)) {
+				return (SkipInfoTypeUser[]) cache.get(companySSN);
+			}
+			
+		}
+		
 		try {
 			GetskipinfobyutgerdElement parameter = new GetskipinfobyutgerdElement(
 					companySSN);
-			return getShipPort().getskipinfobyutgerd(parameter);
+			SkipInfoTypeUser[] ships = getShipPort().getskipinfobyutgerd(parameter);
+			
+			if (cache != null) {
+				cache.put(companySSN, ships);
+			}
+
+			return ships;
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -296,10 +353,22 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 
 	public LondunTypeUser[] getLatestCatchInfo(String personalID,
 			int numberOfResults) {
+		Map cache = getCache(GUMBO_COMPANY_LATEST_CATCHES_CACHE, 60 * 60 * 24l);
+		if (cache != null && !cache.isEmpty()) {
+			if (cache.containsKey(personalID)) {
+				return (LondunTypeUser[]) cache.get(personalID);
+			}
+			
+		}
+		
 		try {
 			GetlastlandanirbyutgerdElement parameter = new GetlastlandanirbyutgerdElement(
 					personalID, new BigDecimal(numberOfResults));
-			return getCatchPort().getlastlandanirbyutgerd(parameter);
+			LondunTypeUser[] catches = getCatchPort().getlastlandanirbyutgerd(parameter);
+			
+			if (cache != null) {
+				cache.put(personalID, catches);
+			}
 		} catch (RemoteException re) {
 			re.printStackTrace();
 		}
@@ -334,10 +403,24 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 	 */
 	@Override
 	public AflamarkTypeUser[] getCatchQuota(String personalID, String period) {
+		Map cache = getCache(GUMBO_COMPANY_CATCH_QUOTA_CACHE, 60 * 60 * 24l);
+		if (cache != null && !cache.isEmpty()) {
+			if (cache.containsKey(personalID + "_" + period)) {
+				return (AflamarkTypeUser[]) cache.get(personalID + "_" + period);
+			}
+			
+		}
+		
 		try {
 			GetaflamarksumbyutgerdElement parameter = new GetaflamarksumbyutgerdElement(
 					personalID, period);
-			return getCatchQuotaPort().getaflamarksumbyutgerd(parameter);
+			AflamarkTypeUser[] quota = getCatchQuotaPort().getaflamarksumbyutgerd(parameter);
+			
+			if (cache != null) {
+				cache.put(personalID + "_" + period, quota);
+			}
+			
+			return quota;
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}

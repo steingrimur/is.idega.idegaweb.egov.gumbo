@@ -2,7 +2,7 @@ package is.idega.idegaweb.egov.gumbo.presentation;
 
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.bean.GumboBean;
-import is.idega.idegaweb.egov.gumbo.business.GumboBusiness;
+import is.idega.idegaweb.egov.gumbo.business.GumboSession;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 
 import java.math.BigDecimal;
@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.idega.business.IBORuntimeException;
+import com.idega.company.data.Company;
 import com.idega.core.builder.business.BuilderService;
 import com.idega.core.builder.business.BuilderServiceFactory;
 import com.idega.core.builder.data.ICPage;
@@ -43,7 +44,7 @@ public class CatchesViewer extends IWBaseComponent {
 	private DOFWSClient client;
 	
 	@Autowired
-	private GumboBusiness business;
+	private GumboSession session;
 	
 	public String getBundleIdentifier() {
 		return GumboConstants.IW_BUNDLE_IDENTIFIER;
@@ -74,7 +75,8 @@ public class CatchesViewer extends IWBaseComponent {
 			shipNumber = new BigDecimal(iwc.getParameter(PARAMETER_SHIP));
 		}
 
-		String companySSN = getBusiness().getCompanyForUser(iwc.getCurrentUser()).getPersonalID();
+		Company company = getSession().getCompany();
+		String companySSN = company != null ? company.getPersonalID() : "";
 		
 		try {
 			BuilderService service = BuilderServiceFactory.getBuilderService(iwc);
@@ -110,11 +112,11 @@ public class CatchesViewer extends IWBaseComponent {
 		return this.client;
 	}
 	
-	private GumboBusiness getBusiness() {
-		if (this.business == null) {
+	private GumboSession getSession() {
+		if (this.session == null) {
 			ELUtil.getInstance().autowire(this);
 		}
-		return this.business;
+		return this.session;
 	}
 
 	public ICPage getPage() {

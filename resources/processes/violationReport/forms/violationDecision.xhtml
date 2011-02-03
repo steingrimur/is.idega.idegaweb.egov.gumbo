@@ -86,7 +86,7 @@
                     <page-1-grant-label lang="is_IS">Senda</page-1-grant-label>
                     <page-2-info lang="en">Form submitted, thank You!</page-2-info>
                     <page-2-info lang="is_IS">Niðurstaða málsins hefur verið vistuð og skilaboð send. Ferlinu telst nú lokið en þó ekki lokað sem þýðir að enn má bæta inn skjölum og tölvupóstum.</page-2-info>
-                    <fbc_5-title lang="is_IS">Niðurstaða</fbc_5-title>
+                    <fbc_5-title lang="is_IS">Texti</fbc_5-title>
                     <fbc_5-title lang="en">Ruling text</fbc_5-title>
                     <fbc_8-title lang="is_IS">Viðhengi</fbc_8-title>
                     <fbc_8-title lang="en">Attachements</fbc_8-title>
@@ -167,19 +167,19 @@
 	                                <xf:label ref="itemLabel"/>
 	                                <xf:value ref="itemValue"/>
 	                            </xf:itemset>
+	                            <xf:dispatch ev:event="idega-xforms-ready"
+	                                name="idega-validate" target="fbc_10"/>
+	                            <xf:dispatch ev:event="xforms-value-changed"
+	                                name="idega-validate" target="fbc_10"/>
+	                            <idega:validator ev:event="idega-validate">
+	                                <idega:message errorType="required"
+	                                    model="data_model" value="instance('localized_strings')/fbc_5-required[@lang=instance('localized_strings')/current_language]"/>
+	                            </idega:validator>
+	                            <xf:alert ref="instance('error-instance')/error[@for='fbc_10']"/>
 	                        </xf:select>
 	                    </div>
                         <xf:textarea bind="fbc_5_bind" id="fbc_5">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_5-title[@lang=instance('localized_strings')/current_language]"/>
-                            <xf:dispatch ev:event="idega-xforms-ready"
-                                name="idega-validate" target="fbc_5"/>
-                            <xf:dispatch ev:event="xforms-value-changed"
-                                name="idega-validate" target="fbc_5"/>
-                            <idega:validator ev:event="idega-validate">
-                                <idega:message errorType="required"
-                                    model="data_model" value="instance('localized_strings')/fbc_5-required[@lang=instance('localized_strings')/current_language]"/>
-                            </idega:validator>
-                            <xf:alert ref="instance('error-instance')/error[@for='fbc_5']"/>
                         </xf:textarea>
                         <xf:group appearance="full" bind="fbc_8_bind"
                             id="fbc_8" type="fbc_multiupload">
