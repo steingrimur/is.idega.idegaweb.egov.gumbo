@@ -71,6 +71,8 @@
                         <to mapping="date_licenseValidTo"></to>
                     </licenseInterval>
                     <licenseIntervalVisible />
+                    <startOfFishing mapping="date_startOfFishing" xsi:nil="true"/>
+                    <startOfFishingLabel mapping="string_startOfFishingLabel"/>
                 </data>
             </xf:instance>
             <xf:instance id="control-instance">
@@ -167,6 +169,9 @@
             <xf:bind id="fbc_113_bind" nodeset="licenseIntervalVisible" relevant="instance('data-instance')/licenseInterval/from != '' and instance('data-instance')/licenseInterval/to != ''"/>
             <xf:bind id="fbc_114_bind" nodeset="licenseInterval/from" />
             <xf:bind id="fbc_115_bind" nodeset="licenseInterval/to" />
+            <xf:bind id="startOfFishing_bind" nodeset="startOfFishing"
+                required="instance('control-instance')/required = 'true'" type="date"/>
+            <xf:bind id="startOfFishingLabel_bind" nodeset="startOfFishingLabel"/>
         </xf:model>
         <xf:model id="data_model">
             <xf:instance id="localized_strings" xmlns="">
@@ -215,6 +220,8 @@
                     <fbc_48-text lang="en">Fishing company</fbc_48-text>
                     <fbc_50-label lang="is_IS">Kennitala</fbc_50-label>
                     <fbc_50-label lang="en">Social security number</fbc_50-label>
+                    <startOfFishing-label lang="is_IS">Byrjunardagsetning</startOfFishing-label>
+                    <startOfFishing-label lang="en">Start date</startOfFishing-label>
                     <fbc_51-label lang="is_IS">Heimilisfang</fbc_51-label>
                     <fbc_51-label lang="en">Address</fbc_51-label>
                     <fbc_52-label lang="is_IS">Póstnúmer</fbc_52-label>
@@ -430,7 +437,7 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                         <div class="fbc_header_text" id="fbc_19" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_19-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
-                        <div class="gpsInputs">
+                        <div class="gpsInputs hiddenLabel">
 	                        <xf:group bind="fbc_113_bind">
 		                        <xf:label model="data_model" ref="instance('localized_strings')/fbc_114-label[@lang=instance('localized_strings')/current_language]"/>
 	                            <xf:output model="data_model" bind="fbc_114_bind" />
@@ -439,7 +446,6 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
 	                            </xf:output>
 	                        </xf:group>
 	                    </div>
-                        
                         <xf:select1 appearance="minimal"
                             bind="fbc_110_bind" id="fbc_110" type="fbc_single_select_minimal">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_110-label[@lang=instance('localized_strings')/current_language]"/>
@@ -471,6 +477,12 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                             </idega:validator>
                             <xf:alert ref="instance('error-instance')/error[@for='fbc_110']"/>
                         </xf:select1>
+                        <xf:input bind="startOfFishing_bind" id="fbc_102a" type="fbc_date">
+                            <xf:label model="data_model" ref="instance('localized_strings')/startOfFishing-label[@lang=instance('localized_strings')/current_language]"/>
+                            <xf:setvalue ev:event="xforms-value-changed"
+                                ref="instance('data-instance')/startOfFishingLabel" value="instance('data-instance')/startOfFishing"/>
+                        </xf:input>
+                        
                         <div class="fbc_header_text" id="fbc_36" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_36-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
@@ -595,17 +607,22 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                         <div class="fbc_header_text" id="fbc_57" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_57-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
-                        <xf:group bind="fbc_113_bind">
-                            <xf:output model="data_model" bind="fbc_114_bind">
-                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_114-label[@lang=instance('localized_strings')/current_language]"/>
-                            </xf:output>
-                            <xf:output model="data_model" bind="fbc_115_bind">
-                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_115-label[@lang=instance('localized_strings')/current_language]"/>
-                            </xf:output>
-                        </xf:group>
                         <xf:output bind="fbc_102_bind" id="fbc_102" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_102-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
+                        <div class="gpsInputs">
+	                        <xf:group bind="fbc_113_bind">
+		                        <xf:label model="data_model" ref="instance('localized_strings')/fbc_114-label[@lang=instance('localized_strings')/current_language]"/>
+	                            <xf:output model="data_model" bind="fbc_114_bind" />
+	                            <xf:output model="data_model" bind="fbc_115_bind">
+	                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_115-label[@lang=instance('localized_strings')/current_language]"/>
+	                            </xf:output>
+	                        </xf:group>
+	                    </div>
+                        <xf:output bind="startOfFishingLabel_bind" id="fbc_154a" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/startOfFishing-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                        
                         <div class="fbc_header_text" id="fbc_59" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_59-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>

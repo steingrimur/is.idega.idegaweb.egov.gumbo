@@ -92,6 +92,8 @@
             
             <variable name="date_licenseValidFrom" access="read,write"></variable>
             <variable name="date_licenseValidTo" access="read,write"></variable>
+            <variable name="date_startOfFishing" access="read,write"></variable>
+            <variable name="string_startOfFishingLabel" access="read,write"></variable>
          </controller>
       </task>
       <event type="node-leave">
