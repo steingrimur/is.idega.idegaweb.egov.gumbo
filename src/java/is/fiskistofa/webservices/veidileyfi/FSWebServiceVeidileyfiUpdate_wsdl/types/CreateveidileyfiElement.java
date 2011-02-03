@@ -12,13 +12,11 @@ public class CreateveidileyfiElement  implements java.io.Serializable {
 
     private java.lang.String pTegundLeyfis;
 
-    private java.lang.String pSvaedi;
+    private java.util.Calendar pSvaedi;
 
     private java.util.Calendar pIGildi;
 
-    private java.util.Calendar pUrGildi;
-
-    private java.lang.String pSkyring;
+    private java.lang.String pUrGildi;
 
     public CreateveidileyfiElement() {
     }
@@ -26,16 +24,14 @@ public class CreateveidileyfiElement  implements java.io.Serializable {
     public CreateveidileyfiElement(
            java.math.BigDecimal pSkipNr,
            java.lang.String pTegundLeyfis,
-           java.lang.String pSvaedi,
+           java.util.Calendar pSvaedi,
            java.util.Calendar pIGildi,
-           java.util.Calendar pUrGildi,
-           java.lang.String pSkyring) {
+           java.lang.String pUrGildi) {
            this.pSkipNr = pSkipNr;
            this.pTegundLeyfis = pTegundLeyfis;
            this.pSvaedi = pSvaedi;
            this.pIGildi = pIGildi;
            this.pUrGildi = pUrGildi;
-           this.pSkyring = pSkyring;
     }
 
 
@@ -84,7 +80,7 @@ public class CreateveidileyfiElement  implements java.io.Serializable {
      * 
      * @return pSvaedi
      */
-    public java.lang.String getPSvaedi() {
+    public java.util.Calendar getPSvaedi() {
         return pSvaedi;
     }
 
@@ -94,7 +90,7 @@ public class CreateveidileyfiElement  implements java.io.Serializable {
      * 
      * @param pSvaedi
      */
-    public void setPSvaedi(java.lang.String pSvaedi) {
+    public void setPSvaedi(java.util.Calendar pSvaedi) {
         this.pSvaedi = pSvaedi;
     }
 
@@ -124,7 +120,7 @@ public class CreateveidileyfiElement  implements java.io.Serializable {
      * 
      * @return pUrGildi
      */
-    public java.util.Calendar getPUrGildi() {
+    public java.lang.String getPUrGildi() {
         return pUrGildi;
     }
 
@@ -134,28 +130,8 @@ public class CreateveidileyfiElement  implements java.io.Serializable {
      * 
      * @param pUrGildi
      */
-    public void setPUrGildi(java.util.Calendar pUrGildi) {
+    public void setPUrGildi(java.lang.String pUrGildi) {
         this.pUrGildi = pUrGildi;
-    }
-
-
-    /**
-     * Gets the pSkyring value for this CreateveidileyfiElement.
-     * 
-     * @return pSkyring
-     */
-    public java.lang.String getPSkyring() {
-        return pSkyring;
-    }
-
-
-    /**
-     * Sets the pSkyring value for this CreateveidileyfiElement.
-     * 
-     * @param pSkyring
-     */
-    public void setPSkyring(java.lang.String pSkyring) {
-        this.pSkyring = pSkyring;
     }
 
     private java.lang.Object __equalsCalc = null;
@@ -184,10 +160,7 @@ public class CreateveidileyfiElement  implements java.io.Serializable {
               this.pIGildi.equals(other.getPIGildi()))) &&
             ((this.pUrGildi==null && other.getPUrGildi()==null) || 
              (this.pUrGildi!=null &&
-              this.pUrGildi.equals(other.getPUrGildi()))) &&
-            ((this.pSkyring==null && other.getPSkyring()==null) || 
-             (this.pSkyring!=null &&
-              this.pSkyring.equals(other.getPSkyring())));
+              this.pUrGildi.equals(other.getPUrGildi())));
         __equalsCalc = null;
         return _equals;
     }
@@ -214,9 +187,6 @@ public class CreateveidileyfiElement  implements java.io.Serializable {
         if (getPUrGildi() != null) {
             _hashCode += getPUrGildi().hashCode();
         }
-        if (getPSkyring() != null) {
-            _hashCode += getPSkyring().hashCode();
-        }
         __hashCodeCalc = false;
         return _hashCode;
     }
@@ -242,7 +212,7 @@ public class CreateveidileyfiElement  implements java.io.Serializable {
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("PSvaedi");
         elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", "pSvaedi"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "dateTime"));
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
@@ -254,12 +224,6 @@ public class CreateveidileyfiElement  implements java.io.Serializable {
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("PUrGildi");
         elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", "pUrGildi"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "dateTime"));
-        elemField.setNillable(true);
-        typeDesc.addFieldDesc(elemField);
-        elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("PSkyring");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", "pSkyring"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
