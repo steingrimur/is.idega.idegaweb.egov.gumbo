@@ -17,7 +17,7 @@ public class SetDraganotveidiValidPeriod implements ActionHandler {
 	@Override
 	public void execute(ExecutionContext executionContext) throws Exception {
 		
-		final Inteval period;
+		final Interval period;
 		
 		final Calendar now = Calendar.getInstance();
 		now.set(Calendar.HOUR, 0);
@@ -33,7 +33,7 @@ public class SetDraganotveidiValidPeriod implements ActionHandler {
 		
 		if (now.after(mayStart) && now.before(augEnd)) {
 			
-			period = new Inteval(now.getTime(), augEnd.getTime());
+			period = new Interval(now.getTime(), augEnd.getTime());
 			
 		} else {
 			
@@ -44,7 +44,7 @@ public class SetDraganotveidiValidPeriod implements ActionHandler {
 		executionContext.setVariable("date_validityTo", period.getTo());
 	}
 	
-	private Inteval findNearestPeriod(Calendar now) {
+	private Interval findNearestPeriod(Calendar now) {
 		
 		final int year;
 		
@@ -62,6 +62,6 @@ public class SetDraganotveidiValidPeriod implements ActionHandler {
 		final Calendar augEnd = Calendar.getInstance();
 		augEnd.set(year, Calendar.AUGUST, 31, 0, 0, 0);
 		
-		return new Inteval(mayStart.getTime(), augEnd.getTime());
+		return new Interval(mayStart.getTime(), augEnd.getTime());
 	}
 }

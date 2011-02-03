@@ -1,11 +1,8 @@
 package is.idega.idegaweb.egov.gumbo.webservice.client.business;
 
-import is.fjs.secure.Gjald;
 import is.fjs.secure.Haus;
 import is.fjs.secure.ServiceLocator;
 import is.fjs.secure.ServiceSoap;
-import is.fjs.secure.TBRGjaldskra;
-import is.fjs.secure.TBRGjaldskraSvar;
 import is.fjs.secure.TBRStadaSkips;
 import is.fjs.secure.TBRStadaSkipsSvar;
 
@@ -50,7 +47,7 @@ public class FJSWSClient {
 		return null;
 	}
 	
-	public boolean getIsInDept(String shipNr) {
+	public boolean getIsInDebt(String shipNr) {
 		try {
 			TBRStadaSkips iStadaSkips = new TBRStadaSkips(getHeader(), shipNr);
 			TBRStadaSkipsSvar ret = getPort().saekjaStoduSkips(iStadaSkips);
@@ -107,7 +104,18 @@ public class FJSWSClient {
 			haus.setNotandi("FKS_Test");
 			// haus.setRadnrSkeytis("1");
 			
-			TBRGjaldskra iGjaldskra = new TBRGjaldskra(haus, "6608922069");
+			TBRStadaSkips iStadaSkips = new TBRStadaSkips(haus, "2478");
+			TBRStadaSkipsSvar ret = port.saekjaStoduSkips(iStadaSkips);
+			
+			if (ret != null) {
+				System.out.println("ret.getSkuldMillifaerslnaKvota() = " + ret.getSkuldMillifaerslnaKvota().intValue());
+				System.out.println("ret.getSkuldVeidigjalds() = " + ret.getSkuldVeidigjalds().intValue());
+				System.out.println("ret.getSkuldVeidileyfis() = " + ret.getSkuldVeidileyfis().intValue());
+			} else {
+				System.out.println("nothing returned");				
+			}
+
+			/*TBRGjaldskra iGjaldskra = new TBRGjaldskra(haus, "6608922069");
 			TBRGjaldskraSvar ret = port.saekjaGjaldskra(iGjaldskra);
 			
 			if (ret.getSvarHaus().getKodi() == 0) {
@@ -120,7 +128,7 @@ public class FJSWSClient {
 			} else {
 				System.out.println("error : " + ret.getSvarHaus().getSkyring()
 				        + ", " + ret.getSvarHaus().getNanariSkyring());
-			}
+			}*/
 			
 		} catch (MalformedURLException e) {
 			e.printStackTrace();

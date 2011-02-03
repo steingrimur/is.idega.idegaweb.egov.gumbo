@@ -2,12 +2,12 @@ package is.idega.idegaweb.egov.gumbo.licenses;
 
 import java.util.Date;
 
-public class Inteval {
+public class Interval {
 	
 	private final Date from;
 	private final Date to;
 	
-	public Inteval(Date from, Date to) {
+	public Interval(Date from, Date to) {
 		this.from = from;
 		this.to = to;
 	}
@@ -20,12 +20,12 @@ public class Inteval {
 		return to;
 	}
 	
-	public static final class XFormsInteval {
+	public static final class XFormsInterval {
 		
 		private final String from;
 		private final String to;
 		
-		public XFormsInteval(String from, String to) {
+		public XFormsInterval(String from, String to) {
 			this.from = from;
 			this.to = to;
 		}

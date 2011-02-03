@@ -38,6 +38,8 @@ import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.Gethefur
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurveidileyfiResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetstrandvlcodeforskipElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetstrandvlcodeforskipResponseElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetveidileyfagerdElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.VeidileyfagerdTypeUser;
 import is.idega.idegaweb.egov.gumbo.business.GumboBusiness;
 import is.idega.idegaweb.egov.gumbo.licenses.FishingLicenseUser.CompanyData;
 
@@ -47,6 +49,8 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.xml.rpc.ServiceException;
 
@@ -56,6 +60,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import com.idega.company.data.Company;
+import com.idega.core.cache.IWCacheManager2;
 import com.idega.idegaweb.IWMainApplication;
 import com.idega.user.data.User;
 import com.idega.util.IWTimestamp;
@@ -66,383 +71,417 @@ import com.idega.util.IWTimestamp;
 public class DOFWSClientRealWebservice implements DOFWSClient {
 	private static final String SHIP_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceSKIPSoap12HttpPort";
 	private static final String SHIP_ENDPOINT_ATTRIBUTE_NAME = "dofws_ship_endpoint";
-	
+
 	private static final String CATCH_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceLANDANIRSoap12HttpPort";
 	private static final String CATCH_ENDPOINT_ATTRIBUTE_NAME = "dofws_catch_endpoint";
-	
+
 	private static final String CATCH_QUOTA_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceAFLAMARKSoap12HttpPort";
 	private static final String CATCH_QUOTA_ENDPOINT_ATTRIBUTE_NAME = "dofws_catch_quota_endpoint";
-	
+
 	private static final String MEMBER_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceADILISoap12HttpPort";
 	private static final String MEMBER_ENDPOINT_ATTRIBUTE_NAME = "dofws_member_endpoint";
-	
+
 	private static final String LICENSE_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceVEIDILEYFISoap12HttpPort";
 	private static final String LICENSE_ENDPOINT_ATTRIBUTE_NAME = "dofws_license_endpoint";
-	
+
+	private static final String GUMBO_FISHING_AREAS_CACHE = "fishing_areas_cache";
+
 	@Autowired
 	private GumboBusiness gumboBusiness;
-	
+
 	private FSWebServiceSKIP_PortType getShipPort() {
 		try {
 			String endPoint = IWMainApplication
-			        .getDefaultIWApplicationContext()
-			        .getApplicationSettings()
-			        .getProperty(SHIP_ENDPOINT_ATTRIBUTE_NAME,
-			            SHIP_DEFAULT_ENDPOINT);
-			
+					.getDefaultIWApplicationContext()
+					.getApplicationSettings()
+					.getProperty(SHIP_ENDPOINT_ATTRIBUTE_NAME,
+							SHIP_DEFAULT_ENDPOINT);
+
 			FSWebServiceSKIP_ServiceLocator locator = new FSWebServiceSKIP_ServiceLocator();
 			FSWebServiceSKIP_PortType port = locator
-			        .getFSWebServiceSKIPSoap12HttpPort(new URL(endPoint));
-			
+					.getFSWebServiceSKIPSoap12HttpPort(new URL(endPoint));
+
 			// ((org.apache.axis.client.Stub) port).setTimeout(timeout)
-			
+
 			return port;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
-	
+
 	private FSWebServiceLANDANIR_PortType getCatchPort() {
 		try {
 			String endPoint = IWMainApplication
-			        .getDefaultIWApplicationContext()
-			        .getApplicationSettings()
-			        .getProperty(CATCH_ENDPOINT_ATTRIBUTE_NAME,
-			            CATCH_DEFAULT_ENDPOINT);
-			
+					.getDefaultIWApplicationContext()
+					.getApplicationSettings()
+					.getProperty(CATCH_ENDPOINT_ATTRIBUTE_NAME,
+							CATCH_DEFAULT_ENDPOINT);
+
 			FSWebServiceLANDANIR_ServiceLocator locator = new FSWebServiceLANDANIR_ServiceLocator();
 			FSWebServiceLANDANIR_PortType port = locator
-			        .getFSWebServiceLANDANIRSoap12HttpPort(new URL(endPoint));
-			
+					.getFSWebServiceLANDANIRSoap12HttpPort(new URL(endPoint));
+
 			// ((org.apache.axis.client.Stub) port).setTimeout(timeout)
-			
+
 			return port;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
-	
+
 	private FSWebServiceAFLAMARK_PortType getCatchQuotaPort() {
 		try {
 			String endPoint = IWMainApplication
-			        .getDefaultIWApplicationContext()
-			        .getApplicationSettings()
-			        .getProperty(CATCH_QUOTA_ENDPOINT_ATTRIBUTE_NAME,
-			            CATCH_QUOTA_DEFAULT_ENDPOINT);
-			
+					.getDefaultIWApplicationContext()
+					.getApplicationSettings()
+					.getProperty(CATCH_QUOTA_ENDPOINT_ATTRIBUTE_NAME,
+							CATCH_QUOTA_DEFAULT_ENDPOINT);
+
 			FSWebServiceAFLAMARK_ServiceLocator locator = new FSWebServiceAFLAMARK_ServiceLocator();
 			FSWebServiceAFLAMARK_PortType port = locator
-			        .getFSWebServiceAFLAMARKSoap12HttpPort(new URL(endPoint));
-			
+					.getFSWebServiceAFLAMARKSoap12HttpPort(new URL(endPoint));
+
 			return port;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
-	
+
 	private FSWebServiceADILI_PortType getMemberPort() {
 		try {
 			String endPoint = IWMainApplication
-			        .getDefaultIWApplicationContext()
-			        .getApplicationSettings()
-			        .getProperty(MEMBER_ENDPOINT_ATTRIBUTE_NAME,
-			            MEMBER_DEFAULT_ENDPOINT);
-			
+					.getDefaultIWApplicationContext()
+					.getApplicationSettings()
+					.getProperty(MEMBER_ENDPOINT_ATTRIBUTE_NAME,
+							MEMBER_DEFAULT_ENDPOINT);
+
 			FSWebServiceADILI_ServiceLocator locator = new FSWebServiceADILI_ServiceLocator();
 			FSWebServiceADILI_PortType port = locator
-			        .getFSWebServiceADILISoap12HttpPort(new URL(endPoint));
-			
+					.getFSWebServiceADILISoap12HttpPort(new URL(endPoint));
+
 			// ((org.apache.axis.client.Stub) port).setTimeout(timeout)
-			
+
 			return port;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
-	
+
 	private FSWebServiceVEIDILEYFI_PortType getLicensePort() {
 		try {
 			String endPoint = IWMainApplication
-			        .getDefaultIWApplicationContext()
-			        .getApplicationSettings()
-			        .getProperty(LICENSE_ENDPOINT_ATTRIBUTE_NAME,
-			            LICENSE_DEFAULT_ENDPOINT);
-			
+					.getDefaultIWApplicationContext()
+					.getApplicationSettings()
+					.getProperty(LICENSE_ENDPOINT_ATTRIBUTE_NAME,
+							LICENSE_DEFAULT_ENDPOINT);
+
 			FSWebServiceVEIDILEYFI_ServiceLocator locator = new FSWebServiceVEIDILEYFI_ServiceLocator();
 			FSWebServiceVEIDILEYFI_PortType port = locator
-			        .getFSWebServiceVEIDILEYFISoap12HttpPort(new URL(endPoint));
-			
+					.getFSWebServiceVEIDILEYFISoap12HttpPort(new URL(endPoint));
+
 			// ((org.apache.axis.client.Stub) port).setTimeout(timeout)
-			
+
 			return port;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
-	
-	/* (non-Javadoc)
-	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#getShipInfoByCompanySSN(java.lang.String)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#
+	 * getShipInfoByCompanySSN(java.lang.String)
 	 */
 	@Override
 	public SkipInfoTypeUser[] getShipInfoByCompanySSN(String companySSN) {
 		try {
 			GetskipinfobyutgerdElement parameter = new GetskipinfobyutgerdElement(
-			        companySSN);
+					companySSN);
 			return getShipPort().getskipinfobyutgerd(parameter);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
-		
-	/* (non-Javadoc)
-	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#getShipInfo(java.lang.String)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#
+	 * getShipInfo(java.lang.String)
 	 */
 	@Override
 	public SkipInfoTypeUser getShipInfo(String shipID) {
 		GetskipinfoElement parameter = new GetskipinfoElement(new BigDecimal(
-		        shipID));
-		
+				shipID));
+
 		try {
 			GetskipinfoResponseElement res = getShipPort().getskipinfo(
-			    parameter);
+					parameter);
 			return res.getResult();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
-	
-	/* (non-Javadoc)
-	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#getCatchInfoByShipNumber(java.math.BigDecimal, java.util.Calendar, java.util.Calendar)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#
+	 * getCatchInfoByShipNumber(java.math.BigDecimal, java.util.Calendar,
+	 * java.util.Calendar)
 	 */
 	@Override
 	public LondunTypeUser[] getCatchInfoByShipNumber(BigDecimal shipNumber,
-	        Calendar from, Calendar to) {
+			Calendar from, Calendar to) {
 		try {
 			GetlandanirbyskipElement parameter = new GetlandanirbyskipElement(
-			        shipNumber, from, to);
+					shipNumber, from, to);
 			return getCatchPort().getlandanirbyskip(parameter);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
-	
-	/* (non-Javadoc)
-	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#getCatchInfoByNumberAndPort(java.math.BigDecimal, java.math.BigDecimal)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#
+	 * getCatchInfoByNumberAndPort(java.math.BigDecimal, java.math.BigDecimal)
 	 */
 	@Override
 	public LondunTypeUser getCatchInfoByNumberAndPort(BigDecimal catchNumber,
-	        BigDecimal port) {
+			BigDecimal port) {
 		try {
 			GetlonduninfoElement parameter = new GetlonduninfoElement(port,
-			        catchNumber);
+					catchNumber);
 			GetlonduninfoResponseElement element = getCatchPort()
-			        .getlonduninfo(parameter);
+					.getlonduninfo(parameter);
 			return element.getResult();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
-	
+
 	public LondunTypeUser[] getLatestCatchInfoByShip(BigDecimal shipNumber,
-	        int numberOfResults) {
+			int numberOfResults) {
 		try {
 			GetlastlandanirbyskipElement parameter = new GetlastlandanirbyskipElement(
-			        shipNumber, new BigDecimal(numberOfResults));
+					shipNumber, new BigDecimal(numberOfResults));
 			return getCatchPort().getlastlandanirbyskip(parameter);
 		} catch (RemoteException re) {
 			re.printStackTrace();
 		}
-		
+
 		return null;
 	}
-	
+
 	public LondunTypeUser[] getLatestCatchInfo(String personalID,
-	        int numberOfResults) {
+			int numberOfResults) {
 		try {
 			GetlastlandanirbyutgerdElement parameter = new GetlastlandanirbyutgerdElement(
-			        personalID, new BigDecimal(numberOfResults));
+					personalID, new BigDecimal(numberOfResults));
 			return getCatchPort().getlastlandanirbyutgerd(parameter);
 		} catch (RemoteException re) {
 			re.printStackTrace();
 		}
-		
+
 		return null;
 	}
-	
-	/* (non-Javadoc)
-	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#getCatchQuota(java.math.BigDecimal, java.lang.String)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#
+	 * getCatchQuota(java.math.BigDecimal, java.lang.String)
 	 */
 	@Override
 	public AflamarkTypeUser[] getCatchQuota(BigDecimal shipNumber, String period) {
 		try {
 			GetaflamarkElement parameter = new GetaflamarkElement(shipNumber,
-			        period);
+					period);
 			return getCatchQuotaPort().getaflamark(parameter);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
-	
-	/* (non-Javadoc)
-	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#getCatchQuota(java.lang.String, java.lang.String)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#
+	 * getCatchQuota(java.lang.String, java.lang.String)
 	 */
 	@Override
 	public AflamarkTypeUser[] getCatchQuota(String personalID, String period) {
 		try {
 			GetaflamarksumbyutgerdElement parameter = new GetaflamarksumbyutgerdElement(
-			        personalID, period);
+					personalID, period);
 			return getCatchQuotaPort().getaflamarksumbyutgerd(parameter);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
-	
-	/* (non-Javadoc)
-	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#getHasValidSeafaringLicense(java.lang.String)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#
+	 * getHasValidSeafaringLicense(java.lang.String)
 	 */
 	@Override
 	public LicenseCheckContainer getHasValidSeafaringLicense(String shipID) {
 		GetskiphefurgilthaffaeriElement parameters = new GetskiphefurgilthaffaeriElement(
-		        new BigDecimal(shipID), IWTimestamp.RightNow().getCalendar());
+				new BigDecimal(shipID), IWTimestamp.RightNow().getCalendar());
 		try {
 			GetskiphefurgilthaffaeriResponseElement res = getShipPort()
-			        .getskiphefurgilthaffaeri(parameters);
-			
+					.getskiphefurgilthaffaeri(parameters);
+
 			LicenseCheckContainer ret = null;
 			if (res.getResult().getIsok().intValue() > 0) {
 				ret = new LicenseCheckContainer(true, res.getResult()
-				        .getMessage());
+						.getMessage());
 			} else {
 				ret = new LicenseCheckContainer(false, res.getResult()
-				        .getMessage());
+						.getMessage());
 			}
-			
+
 			return ret;
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		
+
 		return new LicenseCheckContainer(false, "error_from_web_service");
 	}
-	
-	/* (non-Javadoc)
-	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#getHasValidGeneralFishingLicense(java.lang.String)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#
+	 * getHasValidGeneralFishingLicense(java.lang.String)
 	 */
 	@Override
 	public LicenseCheckContainer getHasValidGeneralFishingLicense(String shipID) {
 		GethefurveidileyfiElement parameters = new GethefurveidileyfiElement(
-		        new BigDecimal(shipID), IWTimestamp.RightNow().getCalendar());
+				new BigDecimal(shipID), IWTimestamp.RightNow().getCalendar());
 		try {
 			GethefurveidileyfiResponseElement res = getLicensePort()
-			        .gethefurveidileyfi(parameters);
-			
+					.gethefurveidileyfi(parameters);
+
 			LicenseCheckContainer ret = null;
 			if (res.getResult().getIsok().intValue() > 0) {
 				ret = new LicenseCheckContainer(true, res.getResult()
-				        .getMessage());
+						.getMessage());
 			} else {
 				ret = new LicenseCheckContainer(false, res.getResult()
-				        .getMessage());
+						.getMessage());
 			}
-			
+
 			return ret;
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		
+
 		return new LicenseCheckContainer(false, "error_from_web_service");
 	}
-	
-	/* (non-Javadoc)
-	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#getHasValidCoastFishingLicense(java.lang.String)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#
+	 * getHasValidCoastFishingLicense(java.lang.String)
 	 */
 	@Override
 	public LicenseCheckContainer getHasValidCoastFishingLicense(String shipID) {
 		GethefurstrandveidileyfiElement parameters = new GethefurstrandveidileyfiElement(
-		        new BigDecimal(shipID), IWTimestamp.RightNow().getCalendar());
+				new BigDecimal(shipID), IWTimestamp.RightNow().getCalendar());
 		try {
 			GethefurstrandveidileyfiResponseElement res = getLicensePort()
-			        .gethefurstrandveidileyfi(parameters);
-			
+					.gethefurstrandveidileyfi(parameters);
+
 			LicenseCheckContainer ret = null;
 			if (res.getResult().getIsok().intValue() > 0) {
 				ret = new LicenseCheckContainer(true, res.getResult()
-				        .getMessage());
+						.getMessage());
 			} else {
 				ret = new LicenseCheckContainer(false, res.getResult()
-				        .getMessage());
+						.getMessage());
 			}
-			
+
 			return ret;
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		
+
 		return new LicenseCheckContainer(false, "error_from_web_service");
 	}
-	
-	/* (non-Javadoc)
-	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#getHasValidQuotaLimitFishingLicense(java.lang.String)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#
+	 * getHasValidQuotaLimitFishingLicense(java.lang.String)
 	 */
 	@Override
 	public LicenseCheckContainer getHasValidQuotaLimitFishingLicense(
-	        String shipID) {
+			String shipID) {
 		GethefuraflamarksveidilElement parameters = new GethefuraflamarksveidilElement(
-		        new BigDecimal(shipID), IWTimestamp.RightNow().getCalendar());
+				new BigDecimal(shipID), IWTimestamp.RightNow().getCalendar());
 		try {
 			GethefuraflamarksveidilResponseElement res = getLicensePort()
-			        .gethefuraflamarksveidil(parameters);
-			
+					.gethefuraflamarksveidil(parameters);
+
 			LicenseCheckContainer ret = null;
 			if (res.getResult().getIsok().intValue() > 0) {
 				ret = new LicenseCheckContainer(true, res.getResult()
-				        .getMessage());
+						.getMessage());
 			} else {
 				ret = new LicenseCheckContainer(false, res.getResult()
-				        .getMessage());
+						.getMessage());
 			}
-			
+
 			return ret;
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		
+
 		return new LicenseCheckContainer(false, "error_from_web_service");
 	}
-	
+
 	public static void main(String[] arguments) {
-		
+
 		try {
 			FSWebServiceVEIDILEYFI_ServiceLocator locator = new FSWebServiceVEIDILEYFI_ServiceLocator();
 			FSWebServiceVEIDILEYFI_PortType port = locator
-			        .getFSWebServiceVEIDILEYFISoap12HttpPort(new URL(
-			                "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceVEIDILEYFISoap12HttpPort"));
-	
-			GetgrasleppuskipnrutgerdarElement parameters = new GetgrasleppuskipnrutgerdarElement("5405025950");
+					.getFSWebServiceVEIDILEYFISoap12HttpPort(new URL(
+							"http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceVEIDILEYFISoap12HttpPort"));
+
+			GetgrasleppuskipnrutgerdarElement parameters = new GetgrasleppuskipnrutgerdarElement(
+					"5405025950");
 			BigDecimal shipnr[] = port.getgrasleppuskipnrutgerdar(parameters);
-			
+
 			for (BigDecimal bigDecimal : shipnr) {
 				System.out.println("nr = " + bigDecimal.toString());
 			}
@@ -454,84 +493,85 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 			re.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public LicenseCheckContainer getHasRevokedFishingLicense(String shipID) {
 		GetersviptingElement parameters = new GetersviptingElement(
-		        new BigDecimal(shipID));
+				new BigDecimal(shipID));
 		try {
 			GetersviptingResponseElement res = getLicensePort().getersvipting(
-			    parameters);
-			
+					parameters);
+
 			LicenseCheckContainer ret = null;
 			if (res.getResult().getIsok().intValue() > 0) {
 				ret = new LicenseCheckContainer(true, res.getResult()
-				        .getMessage());
+						.getMessage());
 			} else {
 				ret = new LicenseCheckContainer(false, res.getResult()
-				        .getMessage());
+						.getMessage());
 			}
-			
+
 			return ret;
-			
+
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 		return new LicenseCheckContainer(false, "error_from_web_service");
 	}
-	
+
 	@Override
 	public String getFishingAreaForDraganotaveidi(String shipId) {
 		GetdragnotvlcodeforskipElement parameters = new GetdragnotvlcodeforskipElement(
-		        new BigDecimal(shipId));
+				new BigDecimal(shipId));
 		;
 		try {
 			GetdragnotvlcodeforskipResponseElement res = getLicensePort()
-			        .getdragnotvlcodeforskip(parameters);
+					.getdragnotvlcodeforskip(parameters);
 			return res.getResult().getText();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		
+
 		return "error_from_web_service";
 	}
-	
+
 	public String getFishingArea(String shipId, Timestamp validFrom) {
-		
+
 		StringBuilder period = new StringBuilder();
 		IWTimestamp stamp = new IWTimestamp(validFrom);
 		period.append(stamp.getDateString("yy"));
 		stamp.addYears(1);
 		period.append(stamp.getDateString("yy"));
-		
+
 		GetstrandvlcodeforskipElement parameters = new GetstrandvlcodeforskipElement(
-		        new BigDecimal(shipId), period.toString());
+				new BigDecimal(shipId), period.toString());
 		try {
 			GetstrandvlcodeforskipResponseElement res = getLicensePort()
-			        .getstrandvlcodeforskip(parameters);
+					.getstrandvlcodeforskip(parameters);
 			return res.getResult().getText();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		
+
 		return "error_from_web_service";
 	}
-	
+
 	@Override
 	public CompanyData getCompanyForUser(User user) {
 		final Company comp = getGumboBusiness().getCompanyForUser(user);
-		
+
 		CompanyData ret = new CompanyData(comp.getPersonalID());
 		ret.setName(comp.getName());
 		if (comp.getAddress() != null) {
 			ret.setAddress(comp.getAddress().getStreetAddress());
-			
+
 			if (comp.getAddress().getPostalCode() != null) {
-				ret.setPostalCode(comp.getAddress().getPostalCode().getPostalCode());
+				ret.setPostalCode(comp.getAddress().getPostalCode()
+						.getPostalCode());
 			} else {
 				ret.setPostalCode("");
-			} 
-			
+			}
+
 			if (comp.getAddress().getCity() != null) {
 				ret.setPlace(comp.getAddress().getCity());
 			} else {
@@ -542,7 +582,7 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 			ret.setPostalCode("");
 			ret.setPlace("");
 		}
-		
+
 		if (comp.getPhone() != null) {
 			ret.setPhoneNumber(comp.getPhone().getNumber());
 		} else {
@@ -554,28 +594,90 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 		} else {
 			ret.setEmail("");
 		}
-		
+
 		if (comp.getFax() != null) {
 			ret.setFaxNumber(comp.getFax().getNumber());
 		} else {
 			ret.setFaxNumber("");
 		}
-		
+
 		return ret;
 	}
-	
+
 	private GumboBusiness getGumboBusiness() {
 		return gumboBusiness;
 	}
 
 	@Override
 	public BigDecimal[] getGrasleppuShipNrByCompanySSN(String companySSN) {
-		GetgrasleppuskipnrutgerdarElement parameters = new GetgrasleppuskipnrutgerdarElement(companySSN);
+		GetgrasleppuskipnrutgerdarElement parameters = new GetgrasleppuskipnrutgerdarElement(
+				companySSN);
 		try {
 			return getLicensePort().getgrasleppuskipnrutgerdar(parameters);
 		} catch (RemoteException e) {
 		}
 
 		return null;
+	}
+
+	@Override
+	public Map<BigDecimal, VeidileyfagerdTypeUser> getGrasleppaAreas() {
+		return getFishingAreasByType("11", null);
+	}
+
+	private Map<BigDecimal, VeidileyfagerdTypeUser> getFishingAreasByType(String type, String period) {
+		Map cache = getCache(GUMBO_FISHING_AREAS_CACHE, 60 * 60 * 24l);
+		if (cache != null && !cache.isEmpty()) {
+			if (cache.containsKey(type)) {
+				return (Map<BigDecimal, VeidileyfagerdTypeUser>) cache.get(type);
+			}
+			
+		}
+		
+		GetveidileyfagerdElement parameters = new GetveidileyfagerdElement(
+				type, period);
+		try {
+			Map<BigDecimal, VeidileyfagerdTypeUser> map = new HashMap<BigDecimal, VeidileyfagerdTypeUser>();
+			VeidileyfagerdTypeUser[] ret = getLicensePort().getveidileyfagerd(parameters);
+			if (ret != null && ret.length > 0) {
+				for (VeidileyfagerdTypeUser veidileyfagerdTypeUser : ret) {
+					map.put(veidileyfagerdTypeUser.getVlyfId(), veidileyfagerdTypeUser);
+				}
+
+				if (cache != null) {
+					cache.put(type, ret);
+				}
+			}
+			
+			return map;
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	private Map getCache(String cacheName, long ttl) {
+		IWCacheManager2 manager = IWCacheManager2.getInstance(IWMainApplication
+				.getDefaultIWMainApplication());
+		Map cache = null;
+		if (manager != null) {
+			if (ttl > 0l) {
+				cache = manager.getCache(cacheName, ttl);
+			} else {
+				cache = manager.getCache(cacheName);
+			}
+		}
+
+		return cache;
+	}
+
+	public boolean emptyCache() {
+		Map cache = getCache(GUMBO_FISHING_AREAS_CACHE, 0l);
+		if (cache != null) {
+			cache.clear();
+		}
+
+		return true;
 	}
 }

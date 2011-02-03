@@ -1,6 +1,7 @@
 package is.idega.idegaweb.egov.gumbo.licenses;
 
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.VeidileyfagerdTypeUser;
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.FJSWSClient;
@@ -10,7 +11,9 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -115,21 +118,16 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 * @return fishing areas depending on logged in user
 	 */
 	public List<Item> getFishingAreas() {
-		IWBundle iwb = getBundle(GumboConstants.IW_BUNDLE_IDENTIFIER);
+		List<Item> items = new ArrayList<Item>();
 
-		IWResourceBundle iwrb = getResourceBundle(iwb);
-
-		final List<Item> items = new ArrayList<Item>(2);
-
-		items.add(new Item("A", iwrb.getLocalizedString("AREA_A", "Faxafloi")));
-		items.add(new Item("B", iwrb.getLocalizedString("AREA_B",
-				"Breidafjordur")));
-		items.add(new Item("C", iwrb.getLocalizedString("AREA_C", "Vestfirdir")));
-		items.add(new Item("D", iwrb.getLocalizedString("AREA_D", "Hunafloi")));
-		items.add(new Item("E", iwrb.getLocalizedString("AREA_E", "Nordurland")));
-		items.add(new Item("F", iwrb.getLocalizedString("AREA_F", "Austurland")));
-		items.add(new Item("G", iwrb.getLocalizedString("AREA_G", "Sudurland")));
-
+		Map<BigDecimal, VeidileyfagerdTypeUser> ret = getClient().getGrasleppaAreas();
+		if (ret != null && !ret.isEmpty()) {
+			for (Iterator iterator = ret.entrySet().iterator(); iterator.hasNext();) {
+				VeidileyfagerdTypeUser item = (VeidileyfagerdTypeUser) iterator.next();
+				items.add(new Item(item.getVlyfId().toString(), item.getHeitiSvaedis()));
+			}
+		}
+		
 		return items;
 	}
 
@@ -189,7 +187,7 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 * @return string true or false
 	 */
 	public String getIsInDebt(String vesselId) {
-		return new Boolean(getFJSClient().getIsInDept(vesselId)).toString();
+		return new Boolean(getFJSClient().getIsInDebt(vesselId)).toString();
 	}
 
 	/**

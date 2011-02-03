@@ -3,11 +3,13 @@ package is.idega.idegaweb.egov.gumbo.webservice.client.business;
 import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.AflamarkTypeUser;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser;
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.VeidileyfagerdTypeUser;
 import is.idega.idegaweb.egov.gumbo.licenses.FishingLicenseUser.CompanyData;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Map;
 
 import com.idega.user.data.User;
 
@@ -54,4 +56,6 @@ public interface DOFWSClient {
 	public String getFishingAreaForDraganotaveidi(String shipId);
 	
 	public String getFishingArea(String shipId, Timestamp validFrom);
+	
+	public Map<BigDecimal, VeidileyfagerdTypeUser> getGrasleppaAreas();
 }
