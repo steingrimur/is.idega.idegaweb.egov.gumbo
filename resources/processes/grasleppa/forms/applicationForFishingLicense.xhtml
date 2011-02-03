@@ -326,7 +326,7 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                                     placeResponseDocument="true()"
                                     ref="instance('data-instance')/companyData" value="idega:resolveBeanProperties('fishingLicenseUser.getCompanyForCurrentUser()')"/>
             </xf:action>
-            <xf:action ev:event="xforms-ready" if="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'">
+            <xf:action ev:event="xforms-ready" if="instance('control-instance')/generatePdf = 'true' and instance('control-instance')/readonly = 'true'">
                 <idega:setvalue
                     ref="instance('data-instance')/companyHasValidGrasleppa" value="idega:resolveExpression('fishingLicenseUser.getCompanyHasValidGrasleppa()')"/>
                 <xf:dispatch name="xforms-rebuild" target="submission_model"/>
