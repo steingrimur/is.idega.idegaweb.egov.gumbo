@@ -122,8 +122,9 @@ public class FishingLicenseUser extends DefaultSpringBean {
 
 		Map<BigDecimal, VeidileyfagerdTypeUser> ret = getClient().getGrasleppaAreas();
 		if (ret != null && !ret.isEmpty()) {
-			for (Iterator iterator = ret.entrySet().iterator(); iterator.hasNext();) {
-				VeidileyfagerdTypeUser item = (VeidileyfagerdTypeUser) iterator.next();
+			
+			for (Iterator iterator = ret.keySet().iterator(); iterator.hasNext();) {
+				VeidileyfagerdTypeUser item = ret.get(iterator.next());
 				items.add(new Item(item.getVlyfId().toString(), item.getHeitiSvaedis()));
 			}
 		}

@@ -645,7 +645,7 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 				}
 
 				if (cache != null) {
-					cache.put(type, ret);
+					cache.put(type, map);
 				}
 			}
 			
