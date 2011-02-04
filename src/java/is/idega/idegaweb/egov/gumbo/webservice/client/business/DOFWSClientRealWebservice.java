@@ -44,6 +44,12 @@ import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.Getstran
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetstrandvlcodeforskipResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetveidileyfagerdElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.VeidileyfagerdTypeUser;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.FSWebServiceVeidileyfiUpdate_PortType;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.FSWebServiceVeidileyfiUpdate_ServiceLocator;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CreateveidileyfiElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CreateveidileyfiResponseElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.VirkjaveidileyfiElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.VirkjaveidileyfiResponseElement;
 import is.idega.idegaweb.egov.gumbo.business.GumboBusiness;
 import is.idega.idegaweb.egov.gumbo.licenses.FishingLicenseUser.CompanyData;
 
@@ -87,6 +93,9 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 
 	private static final String LICENSE_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceVEIDILEYFISoap12HttpPort";
 	private static final String LICENSE_ENDPOINT_ATTRIBUTE_NAME = "dofws_license_endpoint";
+
+	private static final String LICENSE_UPDATE_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceVeidileyfiUpdateSoap12HttpPort";
+	private static final String LICENSE_UPDATE_ENDPOINT_ATTRIBUTE_NAME = "dofws_license_update_endpoint";
 
 	private static final String PORTION_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceHLUTDEILDSoap12HttpPort";
 	private static final String PORTION_ENDPOINT_ATTRIBUTE_NAME = "dofws_portion_endpoint";
@@ -196,6 +205,28 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 			FSWebServiceVEIDILEYFI_ServiceLocator locator = new FSWebServiceVEIDILEYFI_ServiceLocator();
 			FSWebServiceVEIDILEYFI_PortType port = locator
 					.getFSWebServiceVEIDILEYFISoap12HttpPort(new URL(endPoint));
+
+			// ((org.apache.axis.client.Stub) port).setTimeout(timeout)
+
+			return port;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	private FSWebServiceVeidileyfiUpdate_PortType getLicenseUpdatePort() {
+		try {
+			String endPoint = IWMainApplication
+					.getDefaultIWApplicationContext()
+					.getApplicationSettings()
+					.getProperty(LICENSE_UPDATE_ENDPOINT_ATTRIBUTE_NAME,
+							LICENSE_UPDATE_DEFAULT_ENDPOINT);
+
+			FSWebServiceVeidileyfiUpdate_ServiceLocator locator = new FSWebServiceVeidileyfiUpdate_ServiceLocator();
+			FSWebServiceVeidileyfiUpdate_PortType port = locator
+					.getFSWebServiceVeidileyfiUpdateSoap12HttpPort(new URL(endPoint));
 
 			// ((org.apache.axis.client.Stub) port).setTimeout(timeout)
 
@@ -561,19 +592,20 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 					.getFSWebServiceVEIDILEYFISoap12HttpPort(new URL(
 							"http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceVEIDILEYFISoap12HttpPort"));
 
-			GetgrasleppuskipnrutgerdarElement parameters = new GetgrasleppuskipnrutgerdarElement(
-					"5405025950");
-			BigDecimal shipnr[] = port.getgrasleppuskipnrutgerdar(parameters);
-
-			for (BigDecimal bigDecimal : shipnr) {
-				System.out.println("nr = " + bigDecimal.toString());
-			}
-		} catch (ServiceException se) {
+			GetveidileyfagerdElement parameters = new GetveidileyfagerdElement(
+					"11", null);
+			try {
+				VeidileyfagerdTypeUser[] ret = port.getveidileyfagerd(parameters);
+				if (ret != null && ret.length > 0) {
+					for (VeidileyfagerdTypeUser veidileyfagerdTypeUser : ret) {
+					}
+				}
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}		} catch (ServiceException se) {
 			se.printStackTrace();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
-		} catch (RemoteException re) {
-			re.printStackTrace();
 		}
 	}
 
@@ -738,6 +770,30 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 		}
 		
 		return null;
+	}
+	
+	public BigDecimal createFishingLicense(String shipNr, String licenseType, IWTimestamp from, IWTimestamp to, String info) {		
+		CreateveidileyfiElement parameters = new CreateveidileyfiElement(new BigDecimal(shipNr), licenseType, from.getCalendar(), to.getCalendar(), info);
+		try {
+			CreateveidileyfiResponseElement res = getLicenseUpdatePort().createveidileyfi(parameters);
+			return res.getResult();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		
+		return new BigDecimal(-1);
+	}
+	
+	public boolean activateFishingLicense(BigDecimal fishingLicenseID) {
+		VirkjaveidileyfiElement parameters = new VirkjaveidileyfiElement(fishingLicenseID);
+		try {
+			VirkjaveidileyfiResponseElement res = getLicenseUpdatePort().virkjaveidileyfi(parameters);
+			return true;
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
 	}
 	
 	private Map getCache(String cacheName, long ttl) {

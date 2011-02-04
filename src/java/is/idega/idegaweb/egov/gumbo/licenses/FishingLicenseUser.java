@@ -125,7 +125,7 @@ public class FishingLicenseUser extends DefaultSpringBean {
 			
 			for (Iterator iterator = ret.keySet().iterator(); iterator.hasNext();) {
 				VeidileyfagerdTypeUser item = ret.get(iterator.next());
-				items.add(new Item(item.getVlyfId().toString(), item.getHeitiSvaedis()));
+				items.add(new Item(item.getKodiSvaedis() + " " + item.getVlyfId().toString(), item.getHeitiSvaedis()));
 			}
 		}
 		

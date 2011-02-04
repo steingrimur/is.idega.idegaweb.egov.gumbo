@@ -13,6 +13,7 @@ import java.util.Calendar;
 import java.util.Map;
 
 import com.idega.user.data.User;
+import com.idega.util.IWTimestamp;
 
 public interface DOFWSClient {
 	
@@ -61,4 +62,8 @@ public interface DOFWSClient {
 	public Map<BigDecimal, VeidileyfagerdTypeUser> getGrasleppaAreas();
 	
 	public HlutdeildTypeUser[] getCatchPortion(BigDecimal skipID, String season);
+	
+	public BigDecimal createFishingLicense(String shipNr, String licenseType, IWTimestamp from, IWTimestamp to, String info);		
+
+	public boolean activateFishingLicense(BigDecimal fishingLicenseID);
 }

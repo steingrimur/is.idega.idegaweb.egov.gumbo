@@ -5,9 +5,12 @@ import is.fiskistofa.webservices.hlutdeild.FSWebserviceHLUTDEILD_wsdl.types.Hlut
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser;
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.VeidileyfagerdTypeUser;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CreateveidileyfiElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CreateveidileyfiResponseElement;
 import is.idega.idegaweb.egov.gumbo.licenses.FishingLicenseUser.CompanyData;
 
 import java.math.BigDecimal;
+import java.rmi.RemoteException;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -161,5 +164,13 @@ public class DOFWSClientMock implements DOFWSClient {
 	@Override
 	public HlutdeildTypeUser[] getCatchPortion(BigDecimal skipID, String season) {
 		return null;
+	}
+	
+	public BigDecimal createFishingLicense(String shipNr, String licenseType, IWTimestamp from, IWTimestamp to, String info) {		
+		return new BigDecimal(-1);
+	}
+	
+	public boolean activateFishingLicense(BigDecimal fishingLicenseID) {
+		return false;
 	}
 }

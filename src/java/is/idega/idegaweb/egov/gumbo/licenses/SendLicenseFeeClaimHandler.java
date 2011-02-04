@@ -1,9 +1,12 @@
 package is.idega.idegaweb.egov.gumbo.licenses;
 
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.VeidileyfagerdTypeUser;
 import is.idega.idegaweb.egov.gumbo.dao.GumboDao;
-import is.idega.idegaweb.egov.gumbo.data.ProcessPaymentLogHeader;
+import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.FJSWSClient;
 
+import java.math.BigDecimal;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import org.jbpm.graph.def.ActionHandler;
@@ -20,6 +23,7 @@ import com.idega.business.IBOLookupException;
 import com.idega.idegaweb.IWMainApplication;
 import com.idega.idegaweb.egov.bpm.data.CaseProcInstBind;
 import com.idega.idegaweb.egov.bpm.data.dao.CasesBPMDAO;
+import com.idega.util.IWTimestamp;
 
 @Service("sendLicenseFeeClaim")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -29,7 +33,10 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 	
 	@Autowired
 	FJSWSClient fjswsClient;
-	
+
+	@Autowired
+	DOFWSClient client;
+
 	@Autowired
 	private CasesBPMDAO casesBPMDAO;
 	
@@ -55,11 +62,11 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 			return;
 		}
 		
-		System.out.println("processDefinition name = "
-		        + executionContext.getProcessDefinition().getName());
+		String processDefinitionName = executionContext.getProcessDefinition().getName();
+		String shipID = (String)executionContext.getVariable("string_vesselRegistryNr");
 		
-		System.out.println("ship id "
-		        + executionContext.getVariable("string_vesselRegistryNr"));
+		System.out.println("processDefinition name = " + processDefinitionName);
+		System.out.println("ship id = " + shipID);
 		System.out.println("payers personal id "
 		        + executionContext.getVariable("string_ownerSocialNumber"));
 		
@@ -67,11 +74,30 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 		        + executionContext.getVariable("string_typeOfFishingLicense"));
 		
 		//create log header
-		ProcessPaymentLogHeader header = this.getGumboDAO().createHeader();
+		//ProcessPaymentLogHeader header = this.getGumboDAO().createHeader();
 		
 		//get accounting keys for type. create log entries and claim
 		
 		//create license
+		if ("Grasleppa".equals(processDefinitionName)) {
+			String fromString = (String) executionContext.getVariable("date_startOfFishing");
+			String licenseType = (String) executionContext.getVariable("string_fishingAreaLabel");
+			IWTimestamp from = new IWTimestamp(fromString);
+			Map<BigDecimal, VeidileyfagerdTypeUser> map = getWSClient().getGrasleppaAreas();
+			int daysToAdd = 0;
+			if (map != null && !map.isEmpty()) {
+				VeidileyfagerdTypeUser item = map.get(new BigDecimal(licenseType));
+				if (item != null) {
+					daysToAdd = item.getDagafjoldi().intValue() - 1;
+				}
+			}
+			
+			IWTimestamp to = new IWTimestamp(from);
+			to.addDays(daysToAdd);
+			
+			BigDecimal ret = getWSClient().createFishingLicense(shipID, licenseType, from, to, theCase.getUniqueId());
+			getWSClient().activateFishingLicense(ret);
+		}
 		
 	}
 	
@@ -93,7 +119,11 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 	private FJSWSClient getFJSWSClient() {
 		return fjswsClient;
 	}
-	
+
+	private DOFWSClient getWSClient() {
+		return client;
+	}
+
 	private GumboDao getGumboDAO() {
 		return gumboDAO;
 	}
