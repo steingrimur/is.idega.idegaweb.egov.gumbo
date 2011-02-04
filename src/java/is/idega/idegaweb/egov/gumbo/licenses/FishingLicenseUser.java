@@ -63,10 +63,10 @@ public class FishingLicenseUser extends DefaultSpringBean {
 		return items;
 	}
 
-	public List<Item> getGrasleppaVesselsForUser() {
+	public List<Item> getGrasleppaVesselsForUser(String companyPersonalID) {
 		List<Item> items = null;
 		BigDecimal shipNr[] = getClient().getGrasleppuShipNrByCompanySSN(
-				getCompanyForCurrentUser().getSocialSecurityNr());
+				companyPersonalID);
 		if (shipNr != null && shipNr.length > 0) {
 			items = new ArrayList<Item>(shipNr.length);
 			for (BigDecimal nr : shipNr) {
