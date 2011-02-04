@@ -6,12 +6,14 @@ import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.FJSWSClient;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Map;
 import java.util.logging.Logger;
 
 import org.jbpm.graph.def.ActionHandler;
 import org.jbpm.graph.exe.ExecutionContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -35,6 +37,7 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 	FJSWSClient fjswsClient;
 
 	@Autowired
+	@Qualifier(DOFWSClient.WEB_SERVICE)
 	DOFWSClient client;
 
 	@Autowired
@@ -80,11 +83,11 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 		
 		//create license
 		if ("Grasleppa".equals(processDefinitionName)) {
-			String fromString = (String) executionContext.getVariable("date_startOfFishing");
-			String areaID = (String) executionContext.getVariable("string_fishingAreaLabel");
-			System.out.println("from = " + fromString);
+			Timestamp fromStamp = (Timestamp) executionContext.getVariable("date_startOfFishing");
+			String areaID = (String) executionContext.getVariable("string_fishingAreaId");
+			System.out.println("from = " + fromStamp);
 			System.out.println("areaID = " + areaID);
-			IWTimestamp from = new IWTimestamp(fromString);
+			IWTimestamp from = new IWTimestamp(fromStamp);
 			Map<BigDecimal, VeidileyfagerdTypeUser> map = getWSClient().getGrasleppaAreas();
 			int daysToAdd = 0;
 			if (map != null && !map.isEmpty()) {
