@@ -6,35 +6,29 @@ import is.idega.idegaweb.egov.gumbo.business.GumboSession;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import com.idega.block.web2.business.JQuery;
+import com.idega.block.web2.business.Web2Business;
+import com.idega.builder.bean.AdvancedProperty;
 import com.idega.business.IBORuntimeException;
 import com.idega.core.builder.business.BuilderService;
 import com.idega.core.builder.business.BuilderServiceFactory;
-import com.idega.core.builder.data.ICPage;
 import com.idega.facelets.ui.FaceletComponent;
 import com.idega.idegaweb.IWBundle;
 import com.idega.presentation.IWBaseComponent;
 import com.idega.presentation.IWContext;
-import com.idega.presentation.ui.handlers.IWDatePickerHandler;
-import com.idega.util.IWTimestamp;
 import com.idega.util.PresentationUtil;
 import com.idega.util.expression.ELUtil;
 
-public class CatchesViewer extends IWBaseComponent {
-
-	private static final String PARAMETER_FROM_DATE = "prm_from_date";
-	private static final String PARAMETER_TO_DATE = "prm_to_date";
+public class CatchQuotaEntries extends IWBaseComponent {
 
 	private IWBundle iwb;
-	
-	private ICPage page;
-	
-	private int numberOfDisplayed = 12;
 	
 	@Autowired
 	@Qualifier(DOFWSClient.WEB_SERVICE)
@@ -42,6 +36,12 @@ public class CatchesViewer extends IWBaseComponent {
 	
 	@Autowired
 	private GumboSession session;
+	
+	@Autowired
+	private Web2Business web2Business;
+	
+	@Autowired
+	private JQuery jQuery;
 	
 	public String getBundleIdentifier() {
 		return GumboConstants.IW_BUNDLE_IDENTIFIER;
@@ -52,40 +52,25 @@ public class CatchesViewer extends IWBaseComponent {
 		IWContext iwc = IWContext.getIWContext(context);
 		iwb = getBundle(context, getBundleIdentifier());
 		
+		PresentationUtil.addJavaScriptSourceLineToHeader(iwc, getJQuery().getBundleURIToJQueryLib());
+		PresentationUtil.addJavaScriptSourcesLinesToHeader(iwc, getWeb2Business().getBundleURIsToFancyBoxScriptFiles());
+		PresentationUtil.addJavaScriptSourceLineToHeader(iwc, iwb.getVirtualPathWithFileNameString("javascript/catchQuotaEntries.js"));
+		PresentationUtil.addStyleSheetToHeader(iwc, getWeb2Business().getBundleURIToFancyBoxStyleFile());
 		PresentationUtil.addStyleSheetToHeader(iwc, iwb.getVirtualPathWithFileNameString("style/gumbo.css"));
 
-		IWTimestamp fromDate = new IWTimestamp();
-		if (iwc.isParameterSet(PARAMETER_FROM_DATE)) {
-			fromDate = new IWTimestamp(IWDatePickerHandler.getParsedDate(iwc.getParameter(PARAMETER_FROM_DATE)));
-		}
-		else {
-			fromDate.addMonths(-3);
-		}
-
-		IWTimestamp toDate = new IWTimestamp();
-		if (iwc.isParameterSet(PARAMETER_TO_DATE)) {
-			toDate = new IWTimestamp(IWDatePickerHandler.getParsedDate(iwc.getParameter(PARAMETER_TO_DATE)));
-		}
-		
 		try {
 			BuilderService service = BuilderServiceFactory.getBuilderService(iwc);
-			
+	
 			GumboBean bean = getBeanInstance("gumboBean");
-			bean.setFromDate(fromDate.getDate());
-			bean.setToDate(toDate.getDate());
-			if (getSession().getShip() != null) {
-				bean.setCatches(getClient().getCatchInfoByShipNumber(getSession().getShip().getSkipNr(), fromDate.getCalendar(), toDate.getCalendar()));
-			}
-			if (getPage() != null) {
-				bean.setResponseURL(service.getPageURI(getPage()));
-			}
+			bean.setResponseURL(service.getUriToObject(CatchQuotaEntryViewer.class, new ArrayList<AdvancedProperty>()));
+			bean.setTransfers(getClient().getTransfers(getSession().getShip().getSkipNr(), "A", getSession().getSeason()));
 		}
 		catch (RemoteException re) {
 			throw new IBORuntimeException(re);
 		}
-		
+	
 		FaceletComponent facelet = (FaceletComponent) iwc.getApplication().createComponent(FaceletComponent.COMPONENT_TYPE);
-		facelet.setFaceletURI(iwb.getFaceletURI("catches/viewAll.xhtml"));
+		facelet.setFaceletURI(iwb.getFaceletURI("catchQuota/quotaEntries.xhtml"));
 		add(facelet);
 	}	
 	
@@ -101,22 +86,23 @@ public class CatchesViewer extends IWBaseComponent {
 		if (this.session == null) {
 			ELUtil.getInstance().autowire(this);
 		}
+		
 		return this.session;
 	}
-
-	public ICPage getPage() {
-		return page;
+	
+	private Web2Business getWeb2Business() {
+		if (web2Business == null) {
+			ELUtil.getInstance().autowire(this);
+		}
+		
+		return web2Business;
 	}
 
-	public void setPage(ICPage page) {
-		this.page = page;
-	}
-
-	public int getNumberOfDisplayed() {
-		return numberOfDisplayed;
-	}
-
-	public void setNumberOfDisplayed(int numberOfDisplayed) {
-		this.numberOfDisplayed = numberOfDisplayed;
+	private JQuery getJQuery() {
+		if (jQuery == null) {
+			ELUtil.getInstance().autowire(this);
+		}
+		
+		return jQuery;
 	}
 }

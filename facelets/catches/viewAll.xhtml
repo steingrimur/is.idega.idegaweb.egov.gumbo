@@ -7,21 +7,12 @@
 <ui:component>
 	<form id="catchesViewer" class="adminForm" action="" method="post">
 		<div class="formItem">
-			<label for="prm_ship_id"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['ship']}" /></label>
-			<c:selectOne name="prm_ship_id" keepStatus="true">
-				<c:selectOption content="" name="" />
-				<ui:repeat value="#{gumboBean.ships}" var="ship">
-					<c:selectOption content="#{ship.skipNr}" name="#{ship.nafn}" />
-				</ui:repeat>
-			</c:selectOne>
-		</div>
-		<div class="formItem">
 			<label for="prm_from_date"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['from_date']}" /></label>
-			<c:datePicker inputName="prm_from_date" initialDate="#{gumboBean.fromDate}" />
+			<c:datePicker inputName="prm_from_date" initialDate="#{gumboBean.fromDate}" showMonth="true" showYear="true" />
 		</div>
 		<div class="formItem">
 			<label for="prm_to_date"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['to_date']}" /></label>
-			<c:datePicker inputName="prm_to_date" initialDate="#{gumboBean.toDate}" />
+			<c:datePicker inputName="prm_to_date" initialDate="#{gumboBean.toDate}" showMonth="true" showYear="true" />
 		</div>
 		<div class="submit">
 			<input type="submit" value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['get']}" />

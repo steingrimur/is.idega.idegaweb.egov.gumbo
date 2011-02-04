@@ -3,6 +3,7 @@ package is.idega.idegaweb.egov.gumbo.webservice.client.business;
 import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.AflamarkTypeUser;
 import is.fiskistofa.webservices.hlutdeild.FSWebserviceHLUTDEILD_wsdl.types.HlutdeildTypeUser;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser;
+import is.fiskistofa.webservices.millifaerslur.FSWebserviceMILLIFAERSLUR_wsdl.MillifaerslaTypeUser;
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.VeidileyfagerdTypeUser;
 import is.idega.idegaweb.egov.gumbo.licenses.FishingLicenseUser.CompanyData;
@@ -66,4 +67,7 @@ public interface DOFWSClient {
 	public BigDecimal createFishingLicense(String shipNr, String licenseType, IWTimestamp from, IWTimestamp to, String info);		
 
 	public boolean activateFishingLicense(BigDecimal fishingLicenseID);
+	
+	public MillifaerslaTypeUser[] getTransfers(BigDecimal shipNr, String type, String period);
+	public MillifaerslaTypeUser getTransferInfo(BigDecimal reference);
 }

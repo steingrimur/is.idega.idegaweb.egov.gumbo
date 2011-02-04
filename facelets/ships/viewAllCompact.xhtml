@@ -9,7 +9,7 @@
 		<ul id="shipsViewer">
 			<ui:repeat value="#{gumboBean.ships}" var="ship">
 				<li class="#{gumboSession.ship.skipNr eq ship.skipNr ? 'selected' : 'other'}">
-					<h:outputLink value="#{gumboBean.responseURL}">
+					<h:outputLink value="#{gumboBean.responseURL}" title="#{ship.nafn}">
 						<f:param name="idegaweb_event_classname" value="#{g:encryptClassName(gumboBean.eventHandler)}" />
 						<f:param name="prm_ship_id" value="#{ship.skipNr}" />
 						<h:outputText value="#{ship.nafn}" />

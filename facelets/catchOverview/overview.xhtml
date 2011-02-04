@@ -8,7 +8,7 @@
 	<ui:fragment rendered="#{not empty gumboSession.ship and not empty gumboSession.season}">
 		<div id="catchOverviewPDF">
 			<p><h:outputText escape="false" value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_overview_text']}" /></p>
-			<h:outputLink value="http://old.fiskistofa.is/aflayfirlit.php">
+			<h:outputLink value="http://old.fiskistofa.is/aflayfirlit.php" target="_blank">
 				<f:param name="nr" value="#{gumboSession.ship.skipNr}" />
 				<f:param name="kv_time" value="#{gumboSession.season}" />
 				<h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['get_pdf_overview']}" />

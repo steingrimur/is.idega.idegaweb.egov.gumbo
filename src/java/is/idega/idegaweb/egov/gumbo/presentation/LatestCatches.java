@@ -58,6 +58,7 @@ public class LatestCatches extends IWBaseComponent {
 			String companySSN = company != null ? company.getPersonalID() : "";
 			
 			GumboBean bean = getBeanInstance("gumboBean");
+			bean.setEventHandler(ShipsViewer.class);
 			bean.setCatches(getClient().getLatestCatchInfo(companySSN, getNumberOfResults()));
 			if (getPage() != null) {
 				bean.setResponseURL(service.getPageURI(getPage()));

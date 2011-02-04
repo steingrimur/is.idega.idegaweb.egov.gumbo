@@ -4,6 +4,7 @@ import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.AflamarkType
 import is.fiskistofa.webservices.hlutdeild.FSWebserviceHLUTDEILD_wsdl.types.HlutdeildTypeUser;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunAfliTypeUser;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser;
+import is.fiskistofa.webservices.millifaerslur.FSWebserviceMILLIFAERSLUR_wsdl.MillifaerslaTypeUser;
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
 
 import java.math.BigDecimal;
@@ -28,6 +29,8 @@ public class GumboBean {
 	private LondunAfliTypeUser[] catchInfoResult;
 	private AflamarkTypeUser[] catchQuota;
 	private HlutdeildTypeUser[] catchPortion;
+	private MillifaerslaTypeUser[] transfers;
+	private MillifaerslaTypeUser transferInfo;
 	
 	private Date fromDate;
 	private Date toDate;
@@ -113,6 +116,22 @@ public class GumboBean {
 
 	public void setCatchPortion(HlutdeildTypeUser[] catchPortion) {
 		this.catchPortion = catchPortion;
+	}
+
+	public MillifaerslaTypeUser[] getTransfers() {
+		return transfers;
+	}
+
+	public void setTransfers(MillifaerslaTypeUser[] transfers) {
+		this.transfers = transfers;
+	}
+
+	public MillifaerslaTypeUser getTransferInfo() {
+		return transferInfo;
+	}
+
+	public void setTransferInfo(MillifaerslaTypeUser transferInfo) {
+		this.transferInfo = transferInfo;
 	}
 
 	public Date getFromDate() {
