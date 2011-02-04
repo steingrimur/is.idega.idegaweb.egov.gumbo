@@ -62,7 +62,6 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.sql.Timestamp;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -344,12 +343,6 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 			GetskipinfobyutgerdElement parameter = new GetskipinfobyutgerdElement(
 					companySSN);
 			SkipInfoTypeUser[] ships = getShipPort().getskipinfobyutgerd(parameter);
-			
-			Map<String, SkipInfoTypeUser> shipMap = new HashMap<String, SkipInfoTypeUser>();
-			for (SkipInfoTypeUser skipInfoTypeUser : ships) {
-				shipMap.put(skipInfoTypeUser.getSkipNr().toString(), skipInfoTypeUser);
-			}
-			IWMainApplication.getDefaultIWApplicationContext().setApplicationAttribute("ships", shipMap);
 			
 			if (cache != null) {
 				cache.put(companySSN, ships);

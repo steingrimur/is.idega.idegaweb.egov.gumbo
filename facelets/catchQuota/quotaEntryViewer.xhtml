@@ -9,7 +9,45 @@
 	<div class="quotaEntryViewer">
 		<ui:param value="#{gumboBean.transferInfo}" name="info" />
 		
-		<span><h:outputText value="#{info.tilvisun}" /></span>
+		<div class="item">
+			<label><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['transfer_reference']}" /></label>
+			<span><h:outputText value="#{info.tilvisun}" /></span>
+		</div>
+		
+		<div class="item">
+			<label><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['date']}" /></label>
+			<span><h:outputText value="#{info.IGildi.time}" /></span>
+		</div>
+		
+		<div class="item">
+			<label><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['transfer_from']}" /></label>
+			<span><h:outputText value="#{info.fraSkip}" /></span>
+		</div>
+		
+		<div class="item">
+			<label><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['transfer_to']}" /></label>
+			<span><h:outputText value="#{info.tilSkip}" /></span>
+		</div>
+		
+		<table width="100%" cellpadding="0" cellspacing="0">
+			<thead>
+				<tr>
+					<th class="firstColumn"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['type']}" /></th>
+					<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['quota_entry']}" /></th>
+					<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['value']}" /></th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<ui:repeat value="#{gumboBean.transferInfo.tegundir}" var="type">
+					<tr>
+						<td class="firstColumn"><h:outputText value="#{type.kvotategundHeiti}" /></td>
+						<td><h:outputText value="#{type.magn}"><f:convertNumber /></h:outputText></td>
+						<td><h:outputText value="?? kr." /></td>
+					</tr>
+				</ui:repeat>
+			</tbody>
+		</table>
 	</div>
 </ui:component>
 </html>

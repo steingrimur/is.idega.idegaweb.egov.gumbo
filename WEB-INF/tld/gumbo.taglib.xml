@@ -18,6 +18,12 @@
 	</function>
 
 	<function>
+		<function-name>getShip</function-name>
+		<function-class>is.idega.idegaweb.egov.gumbo.util.GumboUtil</function-class>
+		<function-signature>is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser getShip(java.math.BigDecimal)</function-signature>
+	</function>
+
+	<function>
 		<function-name>encryptClassName</function-name>
 		<function-class>is.idega.idegaweb.egov.gumbo.util.GumboUtil</function-class>
 		<function-signature>java.lang.String getEncryptedClassName(java.lang.Class)</function-signature>

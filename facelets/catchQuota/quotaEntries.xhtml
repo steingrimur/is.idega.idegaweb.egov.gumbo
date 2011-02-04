@@ -20,7 +20,7 @@
 			<ui:repeat value="#{gumboBean.transfers}" var="transfer">
 				<tr>
 					<td class="firstColumn">
-						<h:outputLink title="#{transfer.tilvisun}" styleClass="iframe" value="#{gumboBean.responseURL}">
+						<h:outputLink title="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['transfer_reference']} - #{transfer.tilvisun}" value="#{gumboBean.responseURL}">
 							<f:param name="prm_reference" value="#{transfer.tilvisun}" />
 							<h:outputText value="#{transfer.tilvisun}" />
 						</h:outputLink>
