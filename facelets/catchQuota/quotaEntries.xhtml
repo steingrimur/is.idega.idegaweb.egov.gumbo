@@ -6,33 +6,31 @@
 		xmlns:g="http://xmlns.idega.com/is.idega.idegaweb.egov.gumbo"
 >
 <ui:component>
-	<ui:fragment rendered="#{not empty gumboBean.transfers}">
-		<table id="quotaEntries" class="gumboTable" width="100%" cellspacing="0" cellpadding="0">
-			<thead>
+	<table id="quotaEntries" class="gumboTable" width="100%" cellspacing="0" cellpadding="0">
+		<thead>
+			<tr>
+				<th class="firstColumn"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['transfer_reference']}" /></th>
+				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['date']}" /></th>
+				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['ship_number']}" /></th>
+				<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['ship_name']}" /></th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<ui:repeat value="#{gumboBean.transfers}" var="transfer">
 				<tr>
-					<th class="firstColumn"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['transfer_reference']}" /></th>
-					<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['date']}" /></th>
-					<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['ship_number']}" /></th>
-					<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['ship_name']}" /></th>
+					<td class="firstColumn">
+						<h:outputLink title="#{transfer.tilvisun}" styleClass="iframe" value="#{gumboBean.responseURL}">
+							<f:param name="prm_reference" value="#{transfer.tilvisun}" />
+							<h:outputText value="#{transfer.tilvisun}" />
+						</h:outputLink>
+					</td>
+					<td><h:outputText value="#{transfer.IGildi.time}" /></td>
+					<td><h:outputText value="#{transfer.annadSkipNr}" /></td>
+					<td><h:outputText value="#{transfer.annadSkipHeiti}" /></td>
 				</tr>
-			</thead>
-			
-			<tbody>
-				<ui:repeat value="#{gumboBean.transfers}" var="transfer">
-					<tr>
-						<td class="firstColumn">
-							<h:outputLink title="#{transfer.tilvisun}" styleClass="iframe" value="#{gumboBean.responseURL}">
-								<f:param name="prm_reference" value="#{transfer.tilvisun}" />
-								<h:outputText value="#{transfer.tilvisun}" />
-							</h:outputLink>
-						</td>
-						<td><h:outputText value="#{transfer.IGildi.time}" /></td>
-						<td><h:outputText value="#{transfer.annadSkipNr}" /></td>
-						<td><h:outputText value="#{transfer.annadSkipHeiti}" /></td>
-					</tr>
-				</ui:repeat>
-			</tbody>
-		</table>
-	</ui:fragment>
+			</ui:repeat>
+		</tbody>
+	</table>
 </ui:component>
 </html>
