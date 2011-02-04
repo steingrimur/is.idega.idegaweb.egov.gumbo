@@ -6,5 +6,10 @@
 		xmlns:g="http://xmlns.idega.com/is.idega.idegaweb.egov.gumbo"
 >
 <ui:component>
+	<div class="quotaEntryViewer">
+		<ui:param value="#{gumboBean.transferInfo}" name="info" />
+		
+		<span><h:outputText value="#{info.tilvisun}" /></span>
+	</div>
 </ui:component>
 </html>
