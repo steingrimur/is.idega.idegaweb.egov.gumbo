@@ -6,7 +6,31 @@
 >
 <ui:component>
 	<ui:fragment rendered="#{not empty gumboBean.catchPortion}">
+		<div class="catchPortion">
+			<h2><h:outputText value="#{gumboSession.ship.nafn}" /></h2>
 		
+			<table class="gumboTable" width="100%" cellpadding="0" cellspacing="0">
+				<thead>
+					<tr>
+						<th class="firstColumn"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['type']}" /></th>
+						<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['portion_start']}" /></th>
+						<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['portion_end']}" /></th>
+						<th><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['portion_change']}" /></th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<ui:repeat value="#{gumboBean.catchPortion}" var="portion">
+						<tr>
+							<td class="firstColumn"><h:outputText value="#{portion.kvotategundHeiti}" /></td>
+							<td><h:outputText value="#{portion.hlutdeildUpphaf}" /></td>
+							<td><h:outputText value="#{portion.hlutdeildLok}" /></td>
+							<td><h:outputText value="#{portion.hlutdeildBreyting}" /></td>
+						</tr>
+					</ui:repeat>
+				</tbody>	
+			</table>
+		</div>	
 	</ui:fragment>
 </ui:component>
 </html>

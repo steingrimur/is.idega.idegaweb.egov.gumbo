@@ -5,7 +5,6 @@ import is.idega.idegaweb.egov.gumbo.bean.GumboBean;
 import is.idega.idegaweb.egov.gumbo.business.GumboSession;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 
-import java.math.BigDecimal;
 import java.rmi.RemoteException;
 
 import javax.faces.context.FacesContext;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.idega.business.IBORuntimeException;
-import com.idega.company.data.Company;
 import com.idega.core.builder.business.BuilderService;
 import com.idega.core.builder.business.BuilderServiceFactory;
 import com.idega.core.builder.data.ICPage;
@@ -31,7 +29,6 @@ public class CatchesViewer extends IWBaseComponent {
 
 	private static final String PARAMETER_FROM_DATE = "prm_from_date";
 	private static final String PARAMETER_TO_DATE = "prm_to_date";
-	private static final String PARAMETER_SHIP = "prm_ship_id";
 
 	private IWBundle iwb;
 	
@@ -70,26 +67,14 @@ public class CatchesViewer extends IWBaseComponent {
 			toDate = new IWTimestamp(IWDatePickerHandler.getParsedDate(iwc.getParameter(PARAMETER_TO_DATE)));
 		}
 		
-		BigDecimal shipNumber = null;
-		if (iwc.isParameterSet(PARAMETER_SHIP)) {
-			shipNumber = new BigDecimal(iwc.getParameter(PARAMETER_SHIP));
-		}
-
-		Company company = getSession().getCompany();
-		String companySSN = company != null ? company.getPersonalID() : "";
-		
 		try {
 			BuilderService service = BuilderServiceFactory.getBuilderService(iwc);
 			
 			GumboBean bean = getBeanInstance("gumboBean");
 			bean.setFromDate(fromDate.getDate());
 			bean.setToDate(toDate.getDate());
-			bean.setShips(getClient().getShipInfoByCompanySSN(companySSN));
-			if (shipNumber != null) {
-				bean.setCatches(getClient().getCatchInfoByShipNumber(shipNumber, fromDate.getCalendar(), toDate.getCalendar()));
-			}
-			else {
-				bean.setCatches(getClient().getLatestCatchInfo(companySSN, 12));
+			if (getSession().getShip() != null) {
+				bean.setCatches(getClient().getCatchInfoByShipNumber(getSession().getShip().getSkipNr(), fromDate.getCalendar(), toDate.getCalendar()));
 			}
 			if (getPage() != null) {
 				bean.setResponseURL(service.getPageURI(getPage()));

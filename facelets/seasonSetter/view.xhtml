@@ -7,11 +7,16 @@
 >
 <ui:component>
 	<form action="" method="post">
-		<c:selectOne name="prm_period" setToSubmit="true">
+		<select name="prm_season" onchange="this.form.submit();">
 			<ui:repeat value="#{g:getPeriods()}" var="period">
-				<c:selectOption content="#{period.period}" name="#{period.name}" selected="#{period.period eq gumboSession.season}" />
+				<ui:fragment rendered="#{period.period eq gumboSession.season}">
+					<option selected="selected" value="#{period.period}">#{period.name}</option>
+				</ui:fragment>
+				<ui:fragment rendered="#{period.period ne gumboSession.season}">
+					<option value="#{period.period}">#{period.name}</option>
+				</ui:fragment>
 			</ui:repeat>
-		</c:selectOne>
+		</select>
 	</form>
 </ui:component>
 </html>

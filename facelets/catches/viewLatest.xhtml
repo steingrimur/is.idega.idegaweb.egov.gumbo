@@ -27,6 +27,7 @@
 					</td>
 					<td>
 						<h:outputLink value="#{gumboBean.responseURL}">
+							<f:param name="idegaweb_event_classname" value="#{g:encryptClassName(gumboBean.eventHandler)}" />
 							<f:param name="prm_ship_id" value="#{catch.skipNr}" />
 							<h:outputText value="#{catch.skipHeiti}" />
 						</h:outputLink>

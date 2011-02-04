@@ -59,7 +59,7 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.sql.Timestamp;
 import java.util.Calendar;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.xml.rpc.ServiceException;
@@ -97,7 +97,7 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 	private static final String LICENSE_UPDATE_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceVeidileyfiUpdateSoap12HttpPort";
 	private static final String LICENSE_UPDATE_ENDPOINT_ATTRIBUTE_NAME = "dofws_license_update_endpoint";
 
-	private static final String PORTION_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceHLUTDEILDSoap12HttpPort";
+	private static final String PORTION_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices_testing/FSWebserviceHLUTDEILDSoap12HttpPort";
 	private static final String PORTION_ENDPOINT_ATTRIBUTE_NAME = "dofws_portion_endpoint";
 
 	private static final String GUMBO_FISHING_AREAS_CACHE = "fishing_areas_cache";
@@ -752,7 +752,7 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 		GetveidileyfagerdElement parameters = new GetveidileyfagerdElement(
 				type, period);
 		try {
-			Map<BigDecimal, VeidileyfagerdTypeUser> map = new HashMap<BigDecimal, VeidileyfagerdTypeUser>();
+			Map<BigDecimal, VeidileyfagerdTypeUser> map = new LinkedHashMap<BigDecimal, VeidileyfagerdTypeUser>();
 			VeidileyfagerdTypeUser[] ret = getLicensePort().getveidileyfagerd(parameters);
 			if (ret != null && ret.length > 0) {
 				for (VeidileyfagerdTypeUser veidileyfagerdTypeUser : ret) {
