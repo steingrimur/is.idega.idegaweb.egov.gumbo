@@ -81,12 +81,14 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 		//create license
 		if ("Grasleppa".equals(processDefinitionName)) {
 			String fromString = (String) executionContext.getVariable("date_startOfFishing");
-			String licenseType = (String) executionContext.getVariable("string_fishingAreaLabel");
+			String areaID = (String) executionContext.getVariable("string_fishingAreaLabel");
+			System.out.println("from = " + fromString);
+			System.out.println("areaID = " + areaID);
 			IWTimestamp from = new IWTimestamp(fromString);
 			Map<BigDecimal, VeidileyfagerdTypeUser> map = getWSClient().getGrasleppaAreas();
 			int daysToAdd = 0;
 			if (map != null && !map.isEmpty()) {
-				VeidileyfagerdTypeUser item = map.get(new BigDecimal(licenseType));
+				VeidileyfagerdTypeUser item = map.get(new BigDecimal(areaID));
 				if (item != null) {
 					daysToAdd = item.getDagafjoldi().intValue() - 1;
 				}
@@ -95,7 +97,10 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 			IWTimestamp to = new IWTimestamp(from);
 			to.addDays(daysToAdd);
 			
-			BigDecimal ret = getWSClient().createFishingLicense(shipID, licenseType, from, to, theCase.getUniqueId());
+			System.out.println("to " + to.getDateString("dd.MM.yyyy"));
+			
+			BigDecimal ret = getWSClient().createFishingLicense(shipID, areaID, from, to, theCase.getUniqueId());
+			System.out.println("license id = " + ret.intValue());
 			getWSClient().activateFishingLicense(ret);
 		}
 		

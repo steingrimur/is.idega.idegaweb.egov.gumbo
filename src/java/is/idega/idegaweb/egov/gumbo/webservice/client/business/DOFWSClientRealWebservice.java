@@ -772,8 +772,8 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 		return null;
 	}
 	
-	public BigDecimal createFishingLicense(String shipNr, String licenseType, IWTimestamp from, IWTimestamp to, String info) {		
-		CreateveidileyfiElement parameters = new CreateveidileyfiElement(new BigDecimal(shipNr), licenseType, from.getCalendar(), to.getCalendar(), info);
+	public BigDecimal createFishingLicense(String shipNr, String areaID, IWTimestamp from, IWTimestamp to, String info) {		
+		CreateveidileyfiElement parameters = new CreateveidileyfiElement(new BigDecimal(shipNr), areaID, from.getCalendar(), to.getCalendar(), info);
 		try {
 			CreateveidileyfiResponseElement res = getLicenseUpdatePort().createveidileyfi(parameters);
 			return res.getResult();
