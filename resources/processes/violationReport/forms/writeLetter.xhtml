@@ -3,10 +3,26 @@
     xmlns:idega="http://idega.com/xforms"
     xmlns:xf="http://www.w3.org/2002/xforms"
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    
+    <!-- 
+    
+    WARNING
+    
+    this form is implemented together with the javascript file - writeLetter.js as a workaround for chiba bugs
+    writeLetter.js fetches fbc_6 items by the selection of fbc_7 items.
+    
+    Thus make sure you change corresponding id's in the javascript if you change them in the xform.
+    
+    WARNING 
+    
+     -->
     <head>
         <title>
             <xf:output model="data_model" idega:ref="instance('localized_strings')/form-title[@lang=instance('localized_strings')/current_language]" ref="instance('localized_strings')/empty"/>
         </title>
+        
+        <script type="text/javascript" src="/idegaweb/bundles/is.idega.idegaweb.egov.gumbo.bundle/resources/javascript/writeLetter.js"></script>
+        
         <xf:model id="submission_model" schema="#fb-schema">
             <xf:instance id="data-instance" xmlns="">
                 <data>
@@ -115,11 +131,13 @@
             </xf:action>
             <xf:bind id="bind-submissionButton" idega:shared="true"
                 nodeset="instance('control-instance')/submissionButton" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
+                
             <xf:bind 
-                    calculate="concat(instance('data-instance')/pdfTextTemplate11, instance('data-instance')/personData/name, instance('data-instance')/pdfTextTemplate12, instance('data-instance')/personData/address, instance('data-instance')/pdfTextTemplate13, instance('data-instance')/personData/postalCode, instance('data-instance')/pdfTextTemplate14, instance('data-instance')/pdfTextTemplate21, instance('data-instance')/LetterSubject, instance('data-instance')/pdfTextTemplate22, instance('data-instance')/letterDate, instance('data-instance')/pdfTextTemplate23, instance('data-instance')/pdfTextTemplate31, instance('data-instance')/Letter_text_fbc_5, instance('data-instance')/pdfTextTemplate32, instance('data-instance')/writeLetterSubmitterName_fbc_13, instance('data-instance')/pdfTextTemplate33)"
+                    calculate="if(instance('control-instance')/readonly = 'true' or instance('control-instance')/generatePdf = 'true', concat(instance('data-instance')/pdfTextTemplate11, instance('data-instance')/personData/name, instance('data-instance')/pdfTextTemplate12, instance('data-instance')/personData/address, instance('data-instance')/pdfTextTemplate13, instance('data-instance')/personData/postalCode, instance('data-instance')/pdfTextTemplate14, instance('data-instance')/pdfTextTemplate21, instance('data-instance')/LetterSubject, instance('data-instance')/pdfTextTemplate22, instance('data-instance')/letterDate, instance('data-instance')/pdfTextTemplate23, instance('data-instance')/pdfTextTemplate31, instance('data-instance')/Letter_text_fbc_5, instance('data-instance')/pdfTextTemplate32, instance('data-instance')/writeLetterSubmitterName_fbc_13, instance('data-instance')/pdfTextTemplate33), '')"
                     id="fbc_15_bind" 
                     nodeset="pdfText"
                     type="string"/>
+                    
             <xf:bind id="fbc_5_bind" nodeset="Letter_text_fbc_5"
                 readonly="instance('control-instance')/readonly = 'true'"
                 relevant="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"
@@ -182,6 +200,8 @@
                     <page-2-info lang="is_IS">Bréfið hefur verið búið til og er aðgengilegt í málaskránni undir skjölum málsins</page-2-info>
                     <fbc_5a-label lang="is_IS">Efni</fbc_5a-label>
                     <fbc_5a-label lang="en">Subject</fbc_5a-label>
+                    <fbc_5a-required lang="en">can not be empty</fbc_5a-required>
+                    <fbc_5a-required lang="is_IS">Skilaboð mega ekki vera tóm</fbc_5a-required>
                     <fbc_5-title lang="is_IS">Texti</fbc_5-title>
                     <fbc_5-title lang="en">Letter text</fbc_5-title>
                     <fbc_5-required lang="en">can not be empty</fbc_5-required>
@@ -299,15 +319,6 @@
                                 <xf:label ref="itemLabel"/>
                                 <xf:value ref="itemValue"/>
                             </xf:itemset>
-                            
-                            <xf:action ev:event="xforms-value-changed">
-	                            
-	                            <idega:setvalue
-	                                ref="instance('fbc_6_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('violationService.getLetters({0})', '#{instance(`data-instance`)/Choose_letter_template_type_fbc_7}')"/>
-	                                
-                            </xf:action>
-                            
-                            
                         </xf:select1>
                         <xf:select1 appearance="minimal"
                             bind="fbc_6_bind" id="fbc_6" type="fbc_single_select_minimal">
@@ -316,16 +327,18 @@
                                 <xf:label ref="itemLabel"/>
                                 <xf:value ref="itemValue"/>
                             </xf:itemset>
-                            
-                            <idega:setvalue
-                                    ev:event="xforms-value-changed"
-                                    multiple="true()"
-                                    placeResponseDocument="true()"
-                                    ref="instance('data-instance')/Letter_text_fbc_5" value="idega:resolveExpression('violationService.getLetterText({0})', '#{instance(`data-instance`)/Choose_letter_template_fbc_6}')"/>
-                                    
                         </xf:select1>
                         <xf:input bind="fbc_5a_bind" id="fbc_4a">
                         	 <xf:label model="data_model" ref="instance('localized_strings')/fbc_5a-label[@lang=instance('localized_strings')/current_language]"/>
+                        	 <xf:dispatch ev:event="idega-xforms-ready"
+                                name="idega-validate" target="fbc_4a"/>
+                             <xf:dispatch ev:event="xforms-value-changed"
+                                name="idega-validate" target="fbc_4a"/>
+                        	 <idega:validator ev:event="idega-validate">
+                                <idega:message errorType="required"
+                                    model="data_model" value="instance('localized_strings')/fbc_5a-required[@lang=instance('localized_strings')/current_language]"/>
+                            </idega:validator>
+                            <xf:alert ref="instance('error-instance')/error[@for='fbc_4a']"/>
                         </xf:input>
                         <!-- class="enableHTMLEditor" -->
                         <xf:textarea bind="fbc_5_bind" id="fbc_5">

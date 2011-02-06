@@ -26,36 +26,6 @@
             <type>map</type>
           </key>
           <key>
-            <name>is.idega.idegaweb.egov.gumbo.presentation.CatchOverview</name>
-            <value>
-              <map>
-                <key>
-                  <name>component_property_file</name>
-                  <type>java.lang.String</type>
-                  <value>is.idega.idegaweb.egov.gumbo.presentation.CatchOverview.pxml</value>
-                  <simple>false</simple>
-                  <reload>false</reload>
-                </key>
-              </map>
-            </value>
-            <type>map</type>
-          </key>
-          <key>
-            <name>is.idega.idegaweb.egov.gumbo.presentation.CatchPortion</name>
-            <value>
-              <map>
-                <key>
-                  <name>component_property_file</name>
-                  <type>java.lang.String</type>
-                  <value>is.idega.idegaweb.egov.gumbo.presentation.CatchPortion.pxml</value>
-                  <simple>false</simple>
-                  <reload>false</reload>
-                </key>
-              </map>
-            </value>
-            <type>map</type>
-          </key>
-          <key>
             <name>is.idega.idegaweb.egov.gumbo.presentation.CatchQuota</name>
             <value>
               <map>
@@ -63,36 +33,6 @@
                   <name>component_property_file</name>
                   <type>java.lang.String</type>
                   <value>is.idega.idegaweb.egov.gumbo.presentation.CatchQuota.pxml</value>
-                  <simple>false</simple>
-                  <reload>false</reload>
-                </key>
-              </map>
-            </value>
-            <type>map</type>
-          </key>
-          <key>
-            <name>is.idega.idegaweb.egov.gumbo.presentation.CatchQuotaEntries</name>
-            <value>
-              <map>
-                <key>
-                  <name>component_property_file</name>
-                  <type>java.lang.String</type>
-                  <value>is.idega.idegaweb.egov.gumbo.presentation.CatchQuotaEntries.pxml</value>
-                  <simple>false</simple>
-                  <reload>false</reload>
-                </key>
-              </map>
-            </value>
-            <type>map</type>
-          </key>
-          <key>
-            <name>is.idega.idegaweb.egov.gumbo.presentation.CatchQuotaEntryViewer</name>
-            <value>
-              <map>
-                <key>
-                  <name>component_property_file</name>
-                  <type>java.lang.String</type>
-                  <value>is.idega.idegaweb.egov.gumbo.presentation.CatchQuotaEntryViewer.pxml</value>
                   <simple>false</simple>
                   <reload>false</reload>
                 </key>
@@ -123,21 +63,6 @@
                   <name>component_property_file</name>
                   <type>java.lang.String</type>
                   <value>is.idega.idegaweb.egov.gumbo.presentation.LatestCatches.pxml</value>
-                  <simple>false</simple>
-                  <reload>false</reload>
-                </key>
-              </map>
-            </value>
-            <type>map</type>
-          </key>
-          <key>
-            <name>is.idega.idegaweb.egov.gumbo.presentation.SeasonSetter</name>
-            <value>
-              <map>
-                <key>
-                  <name>component_property_file</name>
-                  <type>java.lang.String</type>
-                  <value>is.idega.idegaweb.egov.gumbo.presentation.SeasonSetter.pxml</value>
                   <simple>false</simple>
                   <reload>false</reload>
                 </key>

@@ -33,7 +33,7 @@ import com.idega.util.text.Item;
 public class FishingLicenseUser extends DefaultSpringBean {
 
 	@Autowired
-	@Qualifier(DOFWSClient.WEB_SERVICE)
+	@Qualifier(DOFWSClient.MOCK)
 	private DOFWSClient client;
 
 	@Autowired 
