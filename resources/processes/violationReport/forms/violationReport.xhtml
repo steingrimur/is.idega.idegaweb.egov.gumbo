@@ -27,7 +27,9 @@
                 <data>
                     <form_id>10464</form_id>
                     <Identifier_number_fbc_23 mapping="string_caseIdentifier"/>
+                    
                     <case_name_fbc_999 mapping="string_caseDescription"/>
+                    
                     <caseNameLabel mapping="string_caseDescriptionLabel"/>
                     <violationPersons mapping="objlist_violationPersons">
                         <list>
@@ -133,7 +135,10 @@
                         <revokeLicense mapping="string_vesselRevokeLicense"/>
                         <fisheriesName mapping="string_vesselFisheriesName"/>
                     </equipmentData>
+                    
+                    <!-- WARNING this node name is used in violationReport.js  -->
                     <Fishing_gear_fbc_192 mapping="list_vesselFishingGear"/>
+                    
                     <fishingGearsSummary mapping="string_vesselFishingGearsSummary"/>
                     <FishingGearOther mapping="string_vesselFishingGearOther"/>
                     <Police_involvement_fbc_205 mapping="string_policeInvolvement"/>
@@ -154,7 +159,10 @@
                     <Fiskistofa_office_label mapping="string_fiskistofaOfficeLabel"/>
                     <policeInvolvementTrue/>
                     <policeInvolvementFalse/>
+                    
+                    <!-- WARNING this node name is used in violationReport.js  -->
                     <Other_inspectors_fbc_221 mapping="list_otherInspectors"/>
+                    
                     <Other_inspectors_summary mapping="string_otherInspectorsSummary"/>
                 </data>
             </xf:instance>
@@ -294,7 +302,7 @@
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
             <xf:bind id="fbc_192a_bind" nodeset="FishingGearOther"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
-            <xf:bind id="fbc_198_bind" nodeset="fishingGearsSummary" />
+            <xf:bind id="fbc_198_bind" nodeset="fishingGearsSummary" type="xs:string" />
             <xf:bind id="fbc_205_bind"
                 nodeset="Police_involvement_fbc_205"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
@@ -855,6 +863,8 @@
                         <xf:output bind="fbc_23_bind">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_23-title[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
+                        
+                        <!-- WARNING the presence of value of this component is used in the violationReport.js -->
                         <xf:input bind="fbc_999_bind" id="fbc_999" type="fbc_text">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_999-label[@lang=instance('localized_strings')/current_language]"/>
                             <xf:dispatch ev:event="idega-xforms-ready"
@@ -1240,7 +1250,8 @@
                             <xf:trigger bind="bind-controlsButton"
                                 id="fbc_66" type="fbc_button_next">
                                 <xf:label model="data_model" ref="instance('localized_strings')/fbc_66-label[@lang=instance('localized_strings')/current_language]"/>
-                                <idega:toggle case="fbc_173" ev:event="DOMActivate"/>
+                                
+                                <idega:toggle ev:event="DOMActivate" case="fbc_173" />
                             </xf:trigger>
                         </div>
                     </xf:group>
