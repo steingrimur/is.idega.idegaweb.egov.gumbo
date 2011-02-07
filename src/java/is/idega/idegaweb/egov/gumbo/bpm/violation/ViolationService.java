@@ -4,6 +4,7 @@ import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.LetterType;
 import is.idega.idegaweb.egov.gumbo.bpm.violation.ViolationDataProvider.EquipmentData;
 import is.idega.idegaweb.egov.gumbo.bpm.violation.ViolationDataProvider.PersonData;
+import is.idega.idegaweb.egov.gumbo.bpm.violation.ViolationDataProvider.ViolationLocationData;
 import is.idega.idegaweb.egov.gumbo.dao.GumboDao;
 import is.idega.idegaweb.egov.gumbo.data.Letter;
 import is.idega.idegaweb.egov.gumbo.licenses.FishingLicenseUser.XFormsBooleanResult;
@@ -230,6 +231,11 @@ public class ViolationService extends DefaultSpringBean {
 		getRolesManager().getUserNativeRoles(getCurrentUser()).contains(role)
 
 		).getResult();
+	}
+	
+	public ViolationLocationData getViolationPlaceData(String byPostalCode) {
+		
+		return getViolationDataProvider().getViolationPlaceData(byPostalCode);
 	}
 	
 	@SuppressWarnings("unused")

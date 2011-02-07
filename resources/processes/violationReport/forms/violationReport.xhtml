@@ -91,25 +91,31 @@
                     <Violation_type_fbc_156 mapping="list_violationTypes"/>
                     <Violation_types_summary mapping="string_violationTypesSummary"/>
                     
-                    <GPS_location_latitude_degree mapping="string_locationLatitudeDegree" xsi:nil="true"/>
-                    <GPS_location_latitude_minute mapping="string_locationLatitudeMinute" xsi:nil="true"/>
-                    <GPS_location_latitude_second mapping="string_locationLatitudeSecond" xsi:nil="true"/>
-                    <GPS_location_latitude_pole mapping="string_locationLatitudePole">N</GPS_location_latitude_pole>
+                    <violationLocationData>
+                    
+                        <postalCode mapping="string_violationPostalCode"/>
+
+                        <latitudeDegree mapping="string_locationLatitudeDegree" xsi:nil="true"/>
+                        <latitudeMinute mapping="string_locationLatitudeMinute" xsi:nil="true"/>
+                        <latitudeSecond mapping="string_locationLatitudeSecond" xsi:nil="true"/>
+                        <latitudePole mapping="string_locationLatitudePole">N</latitudePole>
+                        
+                        <longitudeDegree mapping="string_locationLongitudeDegree" xsi:nil="true"/>
+                        <longitudeMinute mapping="string_locationLongitudeMinute" xsi:nil="true"/>
+                        <longitudeSecond mapping="string_locationLongitudeSecond" xsi:nil="true"/>
+                        <longitudeAngle mapping="string_locationLongitudeAngle">W</longitudeAngle>
+                        
+                        <harbourNr mapping="string_harbourNr"/>
+                        <harbourName mapping="string_harbourName"/>
+                        <violationAddress mapping="string_violationAddress"/>                    
+    
+                    </violationLocationData>
                     
                     <GPS_location_latitude_label mapping="string_locationLatitudeLabel"/>
-                    
-                    <GPS_location_longitude_degree mapping="string_locationLongitudeDegree" xsi:nil="true"/>
-                    <GPS_location_longitude_minute mapping="string_locationLongitudeMinute" xsi:nil="true"/>
-                    <GPS_location_longitude_second mapping="string_locationLongitudeSecond" xsi:nil="true"/>
-                    <GPS_location_longitude_angle mapping="string_locationLongitudeAngle">W</GPS_location_longitude_angle>
-                    
                     <GPS_location_longitude_label mapping="string_locationLongitudeLabel"/>
                     
-                    <Harbour_nr_fbc_37 mapping="string_harbourNr"/>
                     <HarbourLabel mapping="string_harbourLabel"/>
-                    <HarbourName mapping="string_harbourName"/>
-                    <Address_fbc_160 mapping="string_violationAddress"/>
-                    <Postal_code_fbc_161 mapping="string_violationPostalCode"/>
+                    
                     <Um_bor__skipi_fbc_163 mapping="string_violationUmBorSkipi"/>
                     <Um_bor__skipi_true/>
                     <Um_bor__skipi_false/>
@@ -211,9 +217,9 @@
                 required="true() and instance('control-instance')/generatePdf != 'true'" type="fbc_47fb_email"/>
             <xf:bind id="bind-submissionButton"
                 nodeset="instance('control-instance')/Submit_fbc_69" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
-            <xf:bind id="fbc_37_bind" nodeset="Harbour_nr_fbc_37"
+            <xf:bind id="fbc_37_bind" nodeset="violationLocationData/harbourNr"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
-            <xf:bind id="fbc_37a_bind" nodeset="HarbourName"
+            <xf:bind id="fbc_37a_bind" nodeset="violationLocationData/harbourName"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
             <xf:bind id="bind-controlsButton" idega:shared="true"
                 nodeset="instance('control-instance')/controlsButton" relevant="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"/>
@@ -228,29 +234,29 @@
             <xf:bind id="fbc_155_bind" nodeset="violationTimeLabel"/>
             
             <xf:bind id="fbc_104_bind"
-                nodeset="GPS_location_latitude_degree"
+                nodeset="violationLocationData/latitudeDegree"
                 readonly="instance('control-instance')/readonly = 'true'" type="fbc_104fb_lat"/>
             <xf:bind id="fbc_226_bind"
-                nodeset="GPS_location_latitude_minute"
+                nodeset="violationLocationData/latitudeMinute"
                 readonly="instance('control-instance')/readonly = 'true'" type="fbc_226fb_lat"/>
             <xf:bind id="fbc_227_bind"
-                nodeset="GPS_location_latitude_second"
+                nodeset="violationLocationData/latitudeSecond"
                 readonly="instance('control-instance')/readonly = 'true'" type="fbc_227fb_lat"/>
             <xf:bind id="fbc_228_bind"
-                nodeset="GPS_location_latitude_pole"
+                nodeset="violationLocationData/latitudePole"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
                 
             <xf:bind id="fbc_229_bind"
-                nodeset="GPS_location_longitude_degree"
+                nodeset="violationLocationData/longitudeDegree"
                 readonly="instance('control-instance')/readonly = 'true'" type="fbc_229fb_lng"/>
             <xf:bind id="fbc_230_bind"
-                nodeset="GPS_location_longitude_minute"
+                nodeset="violationLocationData/longitudeMinute"
                 readonly="instance('control-instance')/readonly = 'true'" type="fbc_230fb_lng"/>
             <xf:bind id="fbc_231_bind"
-                nodeset="GPS_location_longitude_second"
+                nodeset="violationLocationData/longitudeSecond"
                 readonly="instance('control-instance')/readonly = 'true'" type="fbc_231fb_lng"/>
             <xf:bind id="fbc_232_bind"
-                nodeset="GPS_location_longitude_angle"
+                nodeset="violationLocationData/longitudeAngle"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
                 
             <xf:bind id="fbc_234_bind"
@@ -274,9 +280,9 @@
                 readonly="instance('control-instance')/readonly = 'true'"
                 required="instance('control-instance')/required = 'true'" type="xs:string"/>
             <xf:bind id="fbc_224_bind" nodeset="Violation_types_summary" type="xs:string"/>
-            <xf:bind id="fbc_160_bind" nodeset="Address_fbc_160"
+            <xf:bind id="fbc_160_bind" nodeset="violationLocationData/violationAddress"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
-            <xf:bind id="fbc_161_bind" nodeset="Postal_code_fbc_161"
+            <xf:bind id="fbc_161_bind" nodeset="violationLocationData/postalCode"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
             <xf:bind id="fbc_163_bind" nodeset="Um_bor__skipi_fbc_163"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
@@ -614,19 +620,19 @@
                     ev:event="idega-latitudeValueChanged"
                     id="fbc_latitudeValueCalculator"
                     
-                    if="instance('data-instance')/GPS_location_latitude_degree != '' and instance('data-instance')/GPS_location_latitude_minute != '' and instance('data-instance')/GPS_location_latitude_second != '' and instance('data-instance')/GPS_location_latitude_pole != ''"
+                    if="instance('data-instance')/violationLocationData/latitudeDegree != '' and instance('data-instance')/violationLocationData/latitudeMinute != '' and instance('data-instance')/violationLocationData/latitudeSecond != '' and instance('data-instance')/violationLocationData/latitudePole != ''"
                     
                     model="submission_model"
-                    ref="instance('data-instance')/GPS_location_latitude_label" value="concat(instance('data-instance')/GPS_location_latitude_degree, '°', instance('data-instance')/GPS_location_latitude_minute, ',', instance('data-instance')/GPS_location_latitude_second, '´', instance('data-instance')/GPS_location_latitude_pole)"/>
+                    ref="instance('data-instance')/GPS_location_latitude_label" value="concat(instance('data-instance')/violationLocationData/latitudeDegree, '°', instance('data-instance')/violationLocationData/latitudeMinute, ',', instance('data-instance')/violationLocationData/latitudeSecond, '´', instance('data-instance')/violationLocationData/latitudePole)"/>
                     
             <xf:setvalue
                     ev:event="idega-longitudeValueChanged"
                     id="fbc_longitudeValueCalculator"
                     
-                    if="instance('data-instance')/GPS_location_longitude_degree != '' and instance('data-instance')/GPS_location_longitude_minute != '' and instance('data-instance')/GPS_location_longitude_second != '' and instance('data-instance')/GPS_location_longitude_angle != ''"
+                    if="instance('data-instance')/violationLocationData/longitudeDegree != '' and instance('data-instance')/violationLocationData/longitudeMinute != '' and instance('data-instance')/violationLocationData/longitudeSecond != '' and instance('data-instance')/violationLocationData/longitudeAngle != ''"
                     
                     model="submission_model"
-                    ref="instance('data-instance')/GPS_location_longitude_label" value="concat(instance('data-instance')/GPS_location_longitude_degree, '°', instance('data-instance')/GPS_location_longitude_minute, ',', instance('data-instance')/GPS_location_longitude_second, '´', instance('data-instance')/GPS_location_longitude_angle)"/>
+                    ref="instance('data-instance')/GPS_location_longitude_label" value="concat(instance('data-instance')/violationLocationData/longitudeDegree, '°', instance('data-instance')/violationLocationData/longitudeMinute, ',', instance('data-instance')/violationLocationData/longitudeSecond, '´', instance('data-instance')/violationLocationData/longitudeAngle)"/>
             
             <xf:instance id="fbc_37_lds" xmlns="">
                 <local_src>
@@ -828,7 +834,7 @@
             
             <xs:simpleType name="fbc_231fb_lng">
                 <xs:restriction base="xs:string">
-                    <xs:pattern value="([0-9])"/>
+                    <xs:pattern value="([0-9][0-9][0-9])"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:schema>
@@ -1194,7 +1200,7 @@
                             <idega:setvalue
                                 ev:event="xforms-value-changed"
                                 multiple="true()"
-                                ref="instance('data-instance')/HarbourLabel" value="instance('fbc_37_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/Harbour_nr_fbc_37]/itemLabel"/>
+                                ref="instance('data-instance')/HarbourLabel" value="instance('fbc_37_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/violationLocationData/harbourNr]/itemLabel"/>
                             <xf:dispatch ev:event="idega-xforms-ready"
                                 name="idega-validate" target="fbc_37"/>
                             <xf:dispatch ev:event="xforms-value-changed"
@@ -1216,6 +1222,30 @@
                         </xf:input>
                         <xf:input bind="fbc_161_bind" id="fbc_161" type="fbc_text">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_161-label[@lang=instance('localized_strings')/current_language]"/>
+                            
+                            <xf:action ev:event="xforms-value-changed">
+                            
+                                <idega:setvalue
+	                                multiple="true()"
+	                                placeResponseDocument="true()"
+	                                ref="instance('data-instance')/violationLocationData" 
+	                                value="idega:resolveBeanProperties('violationService.getViolationPlaceData({0})', '#{instance(`data-instance`)/violationLocationData/postalCode}')"/>
+	                                
+                                <idega:setvalue
+	                                multiple="true()"
+	                                ref="instance('data-instance')/HarbourLabel" value="instance('fbc_37_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/violationLocationData/harbourNr]/itemLabel"/>
+	                                
+                                <xf:dispatch
+                                    name="idega-latitudeValueChanged" target="fbc_latitudeValueCalculator"/>
+                                        
+                                <xf:dispatch
+                                    name="idega-longitudeValueChanged" target="fbc_longitudeValueCalculator"/>
+                            
+                            </xf:action>
+                            
+                            
+                                
+                                
                         </xf:input>
                         <xf:select appearance="full" bind="fbc_163_bind"
                             id="fbc_163" type="fbc_multiple_select">

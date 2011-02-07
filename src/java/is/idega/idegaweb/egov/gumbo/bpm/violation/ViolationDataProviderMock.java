@@ -1,5 +1,6 @@
 package is.idega.idegaweb.egov.gumbo.bpm.violation;
 
+import is.idega.idegaweb.egov.gumbo.bpm.violation.ViolationDataProvider.ViolationLocationData;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 
 import java.util.ArrayList;
@@ -143,5 +144,17 @@ public class ViolationDataProviderMock implements ViolationDataProvider {
 	public List<Item> getFishingGears() {
 		return Arrays.asList(new Item[] { new Item("item1", "fishing gear 1"),
 		        new Item("item2", "fishing gear 2") });
+	}
+	
+	@Override
+	public ViolationLocationData getViolationPlaceData(String byPostalCode) {
+		
+		return new ViolationLocationData(byPostalCode + " Reykjavik")
+		        .setHarbourName("harbour name").setHarbourNr("item2")
+		        .setViolationAddress("violation address")
+		        .setLatitudeDegree("01").setLatitudeMinute("02")
+		        .setLatitudeSecond("003").setLatitudePole("S")
+		        .setLongitudeDegree("004").setLongitudeMinute("05")
+		        .setLongitudeSecond("006").setLongitudeAngle("E");
 	}
 }

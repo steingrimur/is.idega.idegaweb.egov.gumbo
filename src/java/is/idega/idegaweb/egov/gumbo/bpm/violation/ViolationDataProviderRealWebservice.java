@@ -13,6 +13,7 @@ import is.idega.block.nationalregister.webservice.client.business.CompanyHolder;
 import is.idega.block.nationalregister.webservice.client.business.SkyrrClient;
 import is.idega.block.nationalregister.webservice.client.business.UserHolder;
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
+import is.idega.idegaweb.egov.gumbo.bpm.violation.ViolationDataProvider.ViolationLocationData;
 import is.idega.idegaweb.egov.gumbo.dao.GumboDao;
 import is.idega.idegaweb.egov.gumbo.data.FishingGear;
 import is.idega.idegaweb.egov.gumbo.data.Inspector;
@@ -63,29 +64,29 @@ import com.idega.util.text.SocialSecurityNumber;
 @Scope(BeanDefinition.SCOPE_SINGLETON)
 @Qualifier(DOFWSClient.WEB_SERVICE)
 public class ViolationDataProviderRealWebservice implements
-		ViolationDataProvider {
-
+        ViolationDataProvider {
+	
 	private static final String VIOLATION_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices_testing/FSWebserviceBROTAMALSoap12HttpPort";
 	private static final String VIOLATION_ENDPOINT_ATTRIBUTE_NAME = "dofws_violation_endpoint";
-
+	
 	private static final String USE_WEBSERVICE_FOR_COMPANY_LOOKUP = "COMPANY_WS_LOOKUP";
-
+	
 	@Autowired
 	private SkyrrClient skyrrClient;
-
+	
 	@Autowired
 	private GumboDao dao;
-
+	
 	public static void main(String[] arguments) {
 		try {
 			FSWebserviceBROTAMAL_Service locator = new FSWebserviceBROTAMAL_ServiceLocator();
 			FSWebserviceBROTAMAL_PortType port = locator
-					.getFSWebserviceBROTAMALSoap12HttpPort(new URL(
-							"http://hafrok.hafro.is/FSWebServices_testing/FSWebserviceBROTAMALSoap12HttpPort"));
-
+			        .getFSWebserviceBROTAMALSoap12HttpPort(new URL(
+			                "http://hafrok.hafro.is/FSWebServices_testing/FSWebserviceBROTAMALSoap12HttpPort"));
+			
 			StringBuilder ret = new StringBuilder();
 			GetVigtunarleyfiByKtElement parameters = new GetVigtunarleyfiByKtElement(
-					"5411850389");
+			        "5411850389");
 			VigtunarleyfiTypeUser res[] = port.getVigtunarleyfiByKt(parameters);
 			int len = res.length;
 			for (int i = 0; i < len; i++) {
@@ -94,7 +95,7 @@ public class ViolationDataProviderRealWebservice implements
 					ret.append(", ");
 				}
 			}
-
+			
 		} catch (ServiceException se) {
 			se.printStackTrace();
 		} catch (MalformedURLException e) {
@@ -103,41 +104,41 @@ public class ViolationDataProviderRealWebservice implements
 			e.printStackTrace();
 		}
 	}
-
+	
 	private FSWebserviceBROTAMAL_PortType getViolationPort() {
 		try {
 			String endPoint = IWMainApplication
-					.getDefaultIWApplicationContext()
-					.getApplicationSettings()
-					.getProperty(VIOLATION_ENDPOINT_ATTRIBUTE_NAME,
-							VIOLATION_DEFAULT_ENDPOINT);
-
+			        .getDefaultIWApplicationContext()
+			        .getApplicationSettings()
+			        .getProperty(VIOLATION_ENDPOINT_ATTRIBUTE_NAME,
+			            VIOLATION_DEFAULT_ENDPOINT);
+			
 			FSWebserviceBROTAMAL_Service locator = new FSWebserviceBROTAMAL_ServiceLocator();
 			FSWebserviceBROTAMAL_PortType port = locator
-					.getFSWebserviceBROTAMALSoap12HttpPort(new URL(endPoint));
-
+			        .getFSWebserviceBROTAMALSoap12HttpPort(new URL(endPoint));
+			
 			// ((org.apache.axis.client.Stub) port).setTimeout(timeout)
-
+			
 			return port;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		
 		return null;
 	}
-
+	
 	@Override
 	public PersonData getViolationPersonData(String socialNr) {
 		return !StringUtil.isEmpty(socialNr) ? getUser(socialNr)
-				: new PersonData(socialNr);
+		        : new PersonData(socialNr);
 	}
-
+	
 	@Override
 	public PersonData getViolationCompanyData(String socialNr) {
 		return !StringUtil.isEmpty(socialNr) ? getCompany(socialNr)
-				: new PersonData(socialNr);
+		        : new PersonData(socialNr);
 	}
-
+	
 	@Override
 	public PersonData getRecipientPersonDataForWriteLetter(String socialNr) {
 		if (!StringUtil.isEmpty(socialNr)) {
@@ -151,11 +152,11 @@ public class ViolationDataProviderRealWebservice implements
 		}
 		return new PersonData(socialNr);
 	}
-
+	
 	@Override
 	public List<Item> getViolationTypes() {
 		final List<Item> items = new ArrayList<Item>();
-
+		
 		List<ViolationType> types = getDao().getViolationTypes();
 		if (types != null && types.size() > 0) {
 			for (ViolationType violationType : types) {
@@ -168,37 +169,37 @@ public class ViolationDataProviderRealWebservice implements
 					prefix += " ";
 				}
 				items.add(new Item(violationType.getId().toString(), prefix
-						+ violationType.getNumber() + " "
-						+ violationType.getName()));
+				        + violationType.getNumber() + " "
+				        + violationType.getName()));
 			}
 		} else {
 			items.add(new Item("1", "No violation types in database..."));
 		}
-
+		
 		return items;
 	}
-
+	
 	@Override
 	public List<Item> getOtherInspectorsThanCurrentlyLoggedIn() {
 		final List<Item> items = new ArrayList<Item>();
-
+		
 		List<Inspector> inspectors = getDao().getInspectors();
 		if (inspectors != null && inspectors.size() > 0) {
 			for (Inspector inspector : inspectors) {
 				items.add(new Item(inspector.getNumber().toString(), inspector
-						.getName()));
+				        .getName()));
 			}
 		} else {
 			items.add(new Item("1", "No inspectors in database..."));
 		}
-
+		
 		return items;
 	}
-
+	
 	@Override
 	public List<Item> getFiskistofaOffices() {
 		final List<Item> items = new ArrayList<Item>();
-
+		
 		List<Office> offices = getDao().getOffices();
 		if (offices != null && offices.size() > 0) {
 			for (Office office : offices) {
@@ -207,56 +208,57 @@ public class ViolationDataProviderRealWebservice implements
 		} else {
 			items.add(new Item("1", "No offices in database..."));
 		}
-
+		
 		return items;
 	}
-
+	
 	@Override
 	public List<Item> getHarbours() {
 		final List<Item> items = new ArrayList<Item>();
-
+		
 		// GetHafnalistiElement parameters = new GetHafnalistiElement();
 		try {
 			CodeTypeUser whut[] = getViolationPort().getHafnalisti(null);
 			for (CodeTypeUser codeTypeUser : whut) {
 				items.add(new Item(codeTypeUser.getCode(), codeTypeUser
-						.getText()));
+				        .getText()));
 			}
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-
+		
 		return items;
 	}
-
+	
 	@Override
 	public List<Item> getDecisionRulings() {
 		final List<Item> items = new ArrayList<Item>();
-
+		
 		List<ViolationDecision> decisions = getDao().getViolationDecisions();
 		if (decisions != null && decisions.size() > 0) {
 			for (ViolationDecision decision : decisions) {
 				items.add(new Item(decision.getId().toString(), decision
-						.getName()));
+				        .getName()));
 			}
 		} else {
 			items.add(new Item("1", "No rulings in database..."));
 		}
-
+		
 		return items;
 	}
-
+	
 	@Override
 	public String getTypeLabelOfPermissionForViolationCompany(String socialNr) {
 		StringBuilder ret = new StringBuilder();
 		GetVigtunarleyfiByKtElement parameters = new GetVigtunarleyfiByKtElement(
-				socialNr);
+		        socialNr);
 		try {
 			VigtunarleyfiTypeUser res[] = getViolationPort()
-					.getVigtunarleyfiByKt(parameters);
+			        .getVigtunarleyfiByKt(parameters);
 			int len = res.length;
 			for (int i = 0; i < len; i++) {
-				ret.append(res[i].getHeitiLeyfis() + ": " + res[i].getGerdLeyfis());
+				ret.append(res[i].getHeitiLeyfis() + ": "
+				        + res[i].getGerdLeyfis());
 				if (i < (len - 1)) {
 					ret.append("<br />");
 				}
@@ -264,18 +266,18 @@ public class ViolationDataProviderRealWebservice implements
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-
+		
 		return ret.toString();
 	}
-
+	
 	@Override
 	public EquipmentData getEquipmentData(String byVesselRegistryNr) {
 		EquipmentData data = new EquipmentData();
 		GetSkipWithInfoElement parameters = new GetSkipWithInfoElement(
-				new BigDecimal(byVesselRegistryNr));
+		        new BigDecimal(byVesselRegistryNr));
 		try {
 			GetSkipWithInfoResponseElement res = getViolationPort()
-					.getSkipWithInfo(parameters);
+			        .getSkipWithInfo(parameters);
 			StringBuilder license = new StringBuilder();
 			VeidileyfiTypeUser perm[] = res.getResult().getVeidileyfi();
 			int len = perm.length;
@@ -285,31 +287,31 @@ public class ViolationDataProviderRealWebservice implements
 					license.append(", ");
 				}
 			}
-
+			
 			IWResourceBundle iwrb = IWMainApplication
-					.getDefaultIWApplicationContext().getIWMainApplication()
-					.getBundle(GumboConstants.IW_BUNDLE_IDENTIFIER)
-					.getResourceBundle(LocaleUtil.getIcelandicLocale());
-
+			        .getDefaultIWApplicationContext().getIWMainApplication()
+			        .getBundle(GumboConstants.IW_BUNDLE_IDENTIFIER)
+			        .getResourceBundle(LocaleUtil.getIcelandicLocale());
+			
 			data.setFisheriesName(res.getResult().getUtgerdNafn());
 			data.setFishingLicense(license.toString());
 			data.setFishingType(res.getResult().getUtgFlHeiti());
 			data.setName(res.getResult().getNafn());
 			data.setOwnersName(res.getResult().getEigandiNafn());
 			data.setRevokeLicense(iwrb.getLocalizedString(
-					"boolean."
-							+ Boolean.toString(res.getResult().getErsvipting()
-									.getIsok().intValue() > 0),
-					Boolean.toString(res.getResult().getErsvipting().getIsok()
-							.intValue() > 0)));
-
+			    "boolean."
+			            + Boolean.toString(res.getResult().getErsvipting()
+			                    .getIsok().intValue() > 0),
+			    Boolean.toString(res.getResult().getErsvipting().getIsok()
+			            .intValue() > 0)));
+			
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-
+		
 		return data;
 	}
-
+	
 	private PersonData getUser(String personalId) {
 		return getUser(personalId, true);
 	}
@@ -319,7 +321,7 @@ public class ViolationDataProviderRealWebservice implements
 		if (StringUtil.isEmpty(personalId)) {
 			return null;
 		}
-
+		
 		UserBusiness userBusiness = null;
 		try {
 			userBusiness = getUserBusiness();
@@ -329,13 +331,13 @@ public class ViolationDataProviderRealWebservice implements
 		if (userBusiness == null) {
 			return null;
 		}
-
+		
 		String useWS = IWMainApplication.getDefaultIWApplicationContext()
-				.getApplicationSettings()
-				.getProperty(USE_WEBSERVICE_FOR_COMPANY_LOOKUP, "false");
-
+		        .getApplicationSettings()
+		        .getProperty(USE_WEBSERVICE_FOR_COMPANY_LOOKUP, "false");
+		
 		User user = null;
-
+		
 		if (!"false".equals(useWS)) {
 			try {
 				user = userBusiness.getUser(personalId);
@@ -344,16 +346,16 @@ public class ViolationDataProviderRealWebservice implements
 			} catch (FinderException e) {
 				user = null;
 			}
-
+			
 			if (user == null) {
 				UserHolder holder = getSkyrrClient().getUser(personalId);
 				if (holder != null) {
 					IWTimestamp t = new IWTimestamp();
-
+					
 					String day = holder.getPersonalID().substring(0, 2);
 					String month = holder.getPersonalID().substring(2, 4);
 					String year = holder.getPersonalID().substring(4, 6);
-
+					
 					int iDay = Integer.parseInt(day);
 					int iMonth = Integer.parseInt(month);
 					int iYear = Integer.parseInt(year);
@@ -373,17 +375,17 @@ public class ViolationDataProviderRealWebservice implements
 					t.setYear(iYear);
 					try {
 						user = userBusiness
-								.createUserByPersonalIDIfDoesNotExist(
-										holder.getName(),
-										holder.getPersonalID(), null, t);
+						        .createUserByPersonalIDIfDoesNotExist(
+						            holder.getName(), holder.getPersonalID(),
+						            null, t);
 						StringBuilder address = new StringBuilder(
-								holder.getAddress());
+						        holder.getAddress());
 						address.append(";");
 						address.append(holder.getPostalCode());
 						address.append(" ");
 						address.append(";Iceland:is_IS;N/A");
 						userBusiness.updateUsersMainAddressByFullAddressString(
-								user, address.toString());
+						    user, address.toString());
 					} catch (RemoteException e) {
 						e.printStackTrace();
 					} catch (CreateException e) {
@@ -392,14 +394,14 @@ public class ViolationDataProviderRealWebservice implements
 				}
 			}
 		}
-
+		
 		try {
 			if (user == null) {
 				user = userBusiness.getUser(personalId);
 			}
-
+			
 			Address address = userBusiness.getUsersMainAddress(user);
-
+			
 			PersonData data = new PersonData(user.getPersonalID());
 			data.setName(user.getName());
 			if (address != null) {
@@ -411,7 +413,7 @@ public class ViolationDataProviderRealWebservice implements
 					data.setPostalCode(address.getPostalAddress());
 				}
 			}
-
+			
 			return data;
 		} catch (FinderException fe) {
 			fe.printStackTrace();
@@ -419,10 +421,10 @@ public class ViolationDataProviderRealWebservice implements
 		} catch (RemoteException re) {
 			re.printStackTrace();
 		}
-
+		
 		return null;
 	}
-
+	
 	private PersonData getCompany(String personalId) {
 		return getCompany(personalId, true);
 	}
@@ -432,7 +434,7 @@ public class ViolationDataProviderRealWebservice implements
 		if (StringUtil.isEmpty(personalId)) {
 			return null;
 		}
-
+		
 		CompanyBusiness companyBusiness = null;
 		try {
 			companyBusiness = getCompanyBusiness();
@@ -442,13 +444,13 @@ public class ViolationDataProviderRealWebservice implements
 		if (companyBusiness == null) {
 			return null;
 		}
-
+		
 		String useWS = IWMainApplication.getDefaultIWApplicationContext()
-				.getApplicationSettings()
-				.getProperty(USE_WEBSERVICE_FOR_COMPANY_LOOKUP, "false");
-
+		        .getApplicationSettings()
+		        .getProperty(USE_WEBSERVICE_FOR_COMPANY_LOOKUP, "false");
+		
 		Company company = null;
-
+		
 		if (!"false".equals(useWS)) {
 			try {
 				company = companyBusiness.getCompany(personalId);
@@ -457,31 +459,30 @@ public class ViolationDataProviderRealWebservice implements
 			} catch (FinderException e) {
 				company = null;
 			}
-
+			
 			if (company == null) {
 				CompanyHolder holder = getSkyrrClient().getCompany(personalId);
 				if (holder != null) {
 					try {
 						getCompanyRegisterBusiness().updateEntry(
-								holder.getPersonalID(), null,
-								holder.getPostalCode(), null, null,
-								holder.getName(), holder.getAddress(), null,
-								"", null, holder.getVatNumber(),
-								holder.getAddress(), "", null, null, null,
-								null, null, "", null);
+						    holder.getPersonalID(), null,
+						    holder.getPostalCode(), null, null,
+						    holder.getName(), holder.getAddress(), null, "",
+						    null, holder.getVatNumber(), holder.getAddress(),
+						    "", null, null, null, null, null, "", null);
 					} catch (RemoteException e) {
 						e.printStackTrace();
 					}
 				}
 			}
 		}
-
+		
 		try {
 			if (company == null) {
 				company = companyBusiness.getCompany(personalId);
 			}
 			Address address = company.getAddress();
-
+			
 			PersonData data = new PersonData(company.getPersonalID());
 			data.setName(company.getName());
 			if (address != null) {
@@ -493,72 +494,72 @@ public class ViolationDataProviderRealWebservice implements
 					data.setPostalCode(address.getPostalAddress());
 				}
 			}
-
+			
 			return data;
 		} catch (FinderException fe) {
 			fe.printStackTrace();
 		} catch (RemoteException re) {
 			re.printStackTrace();
 		}
-
+		
 		return null;
 	}
-
+	
 	private CompanyRegisterBusiness getCompanyRegisterBusiness() {
 		try {
 			return (CompanyRegisterBusiness) IBOLookup.getServiceInstance(
-					IWMainApplication.getDefaultIWApplicationContext(),
-					CompanyRegisterBusiness.class);
+			    IWMainApplication.getDefaultIWApplicationContext(),
+			    CompanyRegisterBusiness.class);
 		} catch (IBOLookupException ile) {
 			throw new IBORuntimeException(ile);
 		}
 	}
-
+	
 	private UserBusiness getUserBusiness() throws RemoteException {
 		return (UserBusiness) IBOLookup.getServiceInstance(
-				IWMainApplication.getDefaultIWApplicationContext(),
-				UserBusiness.class);
+		    IWMainApplication.getDefaultIWApplicationContext(),
+		    UserBusiness.class);
 	}
-
+	
 	private CompanyBusiness getCompanyBusiness() throws RemoteException {
 		return (CompanyBusiness) IBOLookup.getServiceInstance(
-				IWMainApplication.getDefaultIWApplicationContext(),
-				CompanyBusiness.class);
+		    IWMainApplication.getDefaultIWApplicationContext(),
+		    CompanyBusiness.class);
 	}
-
+	
 	private SkyrrClient getSkyrrClient() {
 		return skyrrClient;
 	}
-
+	
 	private GumboDao getDao() {
 		return dao;
 	}
-
+	
 	@Override
 	public List<Item> getLawyersUsers() {
-
+		
 		try {
 			final GroupBusiness groupBusiness = getGroupBusiness();
-
+			
 			String uniqueID = IWMainApplication
-					.getDefaultIWApplicationContext().getApplicationSettings()
-					.getProperty(GumboConstants.PROPERTY_LAWYER_GROUP_ID, "-1");
+			        .getDefaultIWApplicationContext().getApplicationSettings()
+			        .getProperty(GumboConstants.PROPERTY_LAWYER_GROUP_ID, "-1");
 			final Group lawyersGroup = groupBusiness
-					.getGroupByUniqueId(uniqueID);
-
+			        .getGroupByUniqueId(uniqueID);
+			
 			final List<User> lawyersUsers = lawyersGroup != null ? (List<User>) groupBusiness
-					.getUsers(lawyersGroup) : Collections.EMPTY_LIST;
-
+			        .getUsers(lawyersGroup) : Collections.EMPTY_LIST;
+			
 			final List<Item> lawyersUsersItems = new ArrayList<Item>(
-					lawyersUsers.size());
-
+			        lawyersUsers.size());
+			
 			for (User user : lawyersUsers) {
 				lawyersUsersItems.add(new Item(user.getPrimaryKey().toString(),
-						user.getName()));
+				        user.getName()));
 			}
-
+			
 			return lawyersUsersItems;
-
+			
 		} catch (IDOFinderException e) {
 			// TODO: log
 			return Collections.EMPTY_LIST;
@@ -568,21 +569,21 @@ public class ViolationDataProviderRealWebservice implements
 			throw new RuntimeException(e);
 		}
 	}
-
+	
 	private GroupBusiness getGroupBusiness() {
 		try {
 			return (GroupBusiness) IBOLookup.getServiceInstance(
-					IWMainApplication.getDefaultIWApplicationContext(),
-					GroupBusiness.class);
+			    IWMainApplication.getDefaultIWApplicationContext(),
+			    GroupBusiness.class);
 		} catch (IBOLookupException ile) {
 			throw new IBORuntimeException(ile);
 		}
 	}
-
+	
 	@Override
 	public List<Item> getFishingGears() {
 		final List<Item> items = new ArrayList<Item>();
-
+		
 		List<FishingGear> gears = getDao().getFishingGear();
 		if (gears != null && gears.size() > 0) {
 			for (FishingGear gear : gears) {
@@ -591,7 +592,12 @@ public class ViolationDataProviderRealWebservice implements
 		} else {
 			items.add(new Item("1", "No fishing gear in database..."));
 		}
-
+		
 		return items;
+	}
+	
+	@Override
+	public ViolationLocationData getViolationPlaceData(String byPostalCode) {
+		return new ViolationLocationData(byPostalCode);
 	}
 }

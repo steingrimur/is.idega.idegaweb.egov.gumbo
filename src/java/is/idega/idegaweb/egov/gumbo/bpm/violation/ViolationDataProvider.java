@@ -32,6 +32,9 @@ public interface ViolationDataProvider {
 	public abstract String getTypeLabelOfPermissionForViolationCompany(
 	        String socialNr);
 	
+	public abstract ViolationLocationData getViolationPlaceData(
+	        String byPostalCode);
+	
 	public abstract EquipmentData getEquipmentData(String byVesselRegistryNr);
 	
 	public abstract List<Item> getLawyersUsers();
@@ -145,4 +148,130 @@ public interface ViolationDataProvider {
 		}
 	}
 	
+	public static final class ViolationLocationData {
+		
+		private final String postalCode;
+		
+		private String latitudeDegree;
+		private String latitudeMinute;
+		private String latitudeSecond;
+		private String latitudePole;
+		
+		private String longitudeDegree;
+		private String longitudeMinute;
+		private String longitudeSecond;
+		private String longitudeAngle;
+		
+		private String harbourNr;
+		private String harbourName;
+		private String violationAddress;
+		
+		public ViolationLocationData(String postalCode) {
+			
+			this.postalCode = postalCode;
+		}
+		
+		public String getLatitudeDegree() {
+			return latitudeDegree;
+		}
+		
+		public ViolationLocationData setLatitudeDegree(String latitudeDegree) {
+			this.latitudeDegree = latitudeDegree;
+			return this;
+		}
+		
+		public String getLatitudeMinute() {
+			return latitudeMinute;
+		}
+		
+		public ViolationLocationData setLatitudeMinute(String latitudeMinute) {
+			this.latitudeMinute = latitudeMinute;
+			return this;
+		}
+		
+		public String getLatitudeSecond() {
+			return latitudeSecond;
+		}
+		
+		public ViolationLocationData setLatitudeSecond(String latitudeSecond) {
+			this.latitudeSecond = latitudeSecond;
+			return this;
+		}
+		
+		public String getLatitudePole() {
+			return latitudePole;
+		}
+		
+		public ViolationLocationData setLatitudePole(String latitudePole) {
+			this.latitudePole = latitudePole;
+			return this;
+		}
+		
+		public String getLongitudeDegree() {
+			return longitudeDegree;
+		}
+		
+		public ViolationLocationData setLongitudeDegree(String longitudeDegree) {
+			this.longitudeDegree = longitudeDegree;
+			return this;
+		}
+		
+		public String getLongitudeMinute() {
+			return longitudeMinute;
+		}
+		
+		public ViolationLocationData setLongitudeMinute(String longitudeMinute) {
+			this.longitudeMinute = longitudeMinute;
+			return this;
+		}
+		
+		public String getLongitudeSecond() {
+			return longitudeSecond;
+		}
+		
+		public ViolationLocationData setLongitudeSecond(String longitudeSecond) {
+			this.longitudeSecond = longitudeSecond;
+			return this;
+		}
+		
+		public String getLongitudeAngle() {
+			return longitudeAngle;
+		}
+		
+		public ViolationLocationData setLongitudeAngle(String longitudeAngle) {
+			this.longitudeAngle = longitudeAngle;
+			return this;
+		}
+		
+		public String getHarbourNr() {
+			return harbourNr;
+		}
+		
+		public ViolationLocationData setHarbourNr(String harbourNr) {
+			this.harbourNr = harbourNr;
+			return this;
+		}
+		
+		public String getHarbourName() {
+			return harbourName;
+		}
+		
+		public ViolationLocationData setHarbourName(String harbourName) {
+			this.harbourName = harbourName;
+			return this;
+		}
+		
+		public String getViolationAddress() {
+			return violationAddress;
+		}
+		
+		public ViolationLocationData setViolationAddress(String violationAddress) {
+			this.violationAddress = violationAddress;
+			return this;
+		}
+		
+		public String getPostalCode() {
+			return postalCode;
+		}
+	}
 }

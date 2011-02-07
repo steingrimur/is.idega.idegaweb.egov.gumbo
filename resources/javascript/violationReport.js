@@ -115,4 +115,13 @@ jQuery(document).ready(function() {
 	}
 	
 	
+	jQuery("#fbc_161-value").removeAttr('onkeydown');
+	jQuery("#fbc_161-value").removeAttr('onkeyup');
+	
+	jQuery("#fbc_161-value").keyup(function() {
+		
+		if(jQuery(this).val().length == 3) {
+			setXFormsValue(this);
+		}
+	});
 });
