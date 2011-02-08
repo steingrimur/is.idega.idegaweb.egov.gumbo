@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.idega.idegaweb.IWBundle;
+import com.idega.idegaweb.IWResourceBundle;
 import com.idega.presentation.Applet;
 import com.idega.presentation.IWBaseComponent;
 import com.idega.presentation.IWContext;
@@ -45,21 +46,21 @@ public class QuotaCalculator extends IWBaseComponent {
 		iwb = getBundle(context, getBundleIdentifier());
 		
 		PresentationUtil.addStyleSheetToHeader(iwc, iwb.getVirtualPathWithFileNameString("style/gumbo.css"));
+		IWResourceBundle iwrb = iwb.getResourceBundle(iwc.getCurrentLocale());
 
 		if (getSession().getShip() != null) {
 			Applet applet = new Applet(getAppletClass(), getAppletURL(), getWidth(), getHeight());
-			applet.setParam("kvreiknaflamark", "Aflamark");
-			applet.setParam("kvreiknafnaestaari", "Af næsta ári");
-			applet.setParam("kvreiknanaesta", "Á næsta ár");
-			applet.setParam("kvreiknanaesta", "Á næsta ár");
-			applet.setParam("kvreiknfluttmilliara", "Flutningsheimild á milli ára");
-			applet.setParam("kvreiknfrumstilla", "Frumstilla");
-			applet.setParam("kvreiknheildaraflamark", "Heildaraflamark");
-			applet.setParam("kvreiknheildarthorsk", "Heildarþorskígildi");
-			applet.setParam("kvreiknhlutdeild", "Hlutdeild(%)");
-			applet.setParam("kvreiknleidbeiningar", "Leiðbeiningar");
-			applet.setParam("kvreikntegund", "Kvótategund");
-			applet.setParam("kvreiknupphaflegheildarthorsk", "Upphafleg heildarþorskígildi");
+			applet.setParam("kvreiknaflamark", iwrb.getLocalizedString("quota_calculator.catch_quota", "Catch quota"));
+			applet.setParam("kvreiknafnaestaari", iwrb.getLocalizedString("quota_calculator.from_next_year", "From next year"));
+			applet.setParam("kvreiknanaesta", iwrb.getLocalizedString("quota_calculator.to_next_year", "To next year"));
+			applet.setParam("kvreiknfluttmilliara", iwrb.getLocalizedString("quota_calculator.transfer_permit_between_years", "Transfer permit between years"));
+			applet.setParam("kvreiknfrumstilla", iwrb.getLocalizedString("quota_calculator.setup", "Setup"));
+			applet.setParam("kvreiknheildaraflamark", iwrb.getLocalizedString("quota_calculator.total_catch_quota", "Total catch quota"));
+			applet.setParam("kvreiknheildarthorsk", iwrb.getLocalizedString("quota_calculator.total_cod_substitute", "Total cod substitute"));
+			applet.setParam("kvreiknhlutdeild", iwrb.getLocalizedString("quota_calculator.quota", "Quota (%)"));
+			applet.setParam("kvreiknleidbeiningar", iwrb.getLocalizedString("quota_calculator.instructions", "Instructions"));
+			applet.setParam("kvreikntegund", iwrb.getLocalizedString("quota_calculator.quota_type", "Quota type"));
+			applet.setParam("kvreiknupphaflegheildarthorsk", iwrb.getLocalizedString("quota_calculator.original_total_cod_substitute", "Original total cod substitute"));
 			applet.setParam("bgr_r", "255");
 			applet.setParam("bgr_g", "255");
 			applet.setParam("bgr_b", "255");
@@ -74,8 +75,8 @@ public class QuotaCalculator extends IWBaseComponent {
 				for (UthlutanirTypeUser type : portions) {
 					applet.setParam("nafn_teg" + index, type.getKvotategundHeiti());
 					applet.setParam("heildar_teg" + index, type.getUthlutun().toString());
-					applet.setParam("hlutdeild_teg" + index, type.getHlutdeild().toString());
-					applet.setParam("studull_teg" + index, type.getThIgildi().toString());
+					applet.setParam("hlutdeild_teg" + index, type.getHlutdeild() != null ? type.getHlutdeild().getHlutdeildUpphaf().toString().replace(".", ",") : ",0000000");
+					applet.setParam("studull_teg" + index, type.getThIgildi().toString().replace(".", ","));
 					applet.setParam("FHtil_teg" + index, type.getProsentaAflamarkTil().toString());
 					applet.setParam("FHfra_teg" + index, type.getProsentaAflamarkFra().toString());
 					
