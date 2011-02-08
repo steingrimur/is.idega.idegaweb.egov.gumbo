@@ -8,7 +8,9 @@ import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.Getaflamarks
 import is.fiskistofa.webservices.hlutdeild.FSWebserviceHLUTDEILD_wsdl.FSWebserviceHLUTDEILD_PortType;
 import is.fiskistofa.webservices.hlutdeild.FSWebserviceHLUTDEILD_wsdl.FSWebserviceHLUTDEILD_ServiceLocator;
 import is.fiskistofa.webservices.hlutdeild.FSWebserviceHLUTDEILD_wsdl.types.GethlutdeildskipsElement;
+import is.fiskistofa.webservices.hlutdeild.FSWebserviceHLUTDEILD_wsdl.types.GetuthlutanirskipElement;
 import is.fiskistofa.webservices.hlutdeild.FSWebserviceHLUTDEILD_wsdl.types.HlutdeildTypeUser;
+import is.fiskistofa.webservices.hlutdeild.FSWebserviceHLUTDEILD_wsdl.types.UthlutanirTypeUser;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.FSWebServiceLANDANIR_PortType;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.FSWebServiceLANDANIR_ServiceLocator;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.GetlandanirbyskipElement;
@@ -312,14 +314,25 @@ public class DOFWSClientRealWebservice implements DOFWSClient {
 		return null;
 	}
 	
-	public HlutdeildTypeUser[] getCatchPortion(BigDecimal skipID, String season) {
+	public HlutdeildTypeUser[] getCatchPortion(BigDecimal shipID, String season) {
 		try {
-			GethlutdeildskipsElement parameters = new GethlutdeildskipsElement(skipID, season);
+			GethlutdeildskipsElement parameters = new GethlutdeildskipsElement(shipID, season);
 			return getPortionPort().gethlutdeildskips(parameters);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 
+		return null;
+	}
+	
+	public UthlutanirTypeUser[] getShipPortions(BigDecimal shipID, String season) {
+		try {
+			GetuthlutanirskipElement parameters = new GetuthlutanirskipElement(shipID, season);
+			return getPortionPort().getuthlutanirskip(parameters);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 

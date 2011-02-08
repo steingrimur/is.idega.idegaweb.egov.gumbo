@@ -2,16 +2,14 @@ package is.idega.idegaweb.egov.gumbo.webservice.client.business;
 
 import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.AflamarkTypeUser;
 import is.fiskistofa.webservices.hlutdeild.FSWebserviceHLUTDEILD_wsdl.types.HlutdeildTypeUser;
+import is.fiskistofa.webservices.hlutdeild.FSWebserviceHLUTDEILD_wsdl.types.UthlutanirTypeUser;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser;
 import is.fiskistofa.webservices.millifaerslur.FSWebserviceMILLIFAERSLUR_wsdl.MillifaerslaTypeUser;
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.VeidileyfagerdTypeUser;
-import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CreateveidileyfiElement;
-import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CreateveidileyfiResponseElement;
 import is.idega.idegaweb.egov.gumbo.licenses.FishingLicenseUser.CompanyData;
 
 import java.math.BigDecimal;
-import java.rmi.RemoteException;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -164,6 +162,11 @@ public class DOFWSClientMock implements DOFWSClient {
 
 	@Override
 	public HlutdeildTypeUser[] getCatchPortion(BigDecimal skipID, String season) {
+		return null;
+	}
+	
+	@Override
+	public UthlutanirTypeUser[] getShipPortions(BigDecimal shipID, String season) {
 		return null;
 	}
 	
