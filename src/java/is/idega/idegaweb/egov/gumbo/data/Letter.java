@@ -19,7 +19,8 @@ import javax.persistence.Table;
 @Table(name = Letter.ENTITY_NAME)
 @NamedQueries({
 	@NamedQuery(name = "letter.findAll", query = "select l from Letter l order by ordering"),
-	@NamedQuery(name = "letter.findAllByType", query = "select l from Letter l where l.type = :type order by ordering")
+	@NamedQuery(name = "letter.findAllByType", query = "select l from Letter l where l.type = :type order by ordering"),
+	@NamedQuery(name = "letter.findAllTypes", query = "select distinct l.type from Letter l")
 })
 public class Letter implements Serializable {
 

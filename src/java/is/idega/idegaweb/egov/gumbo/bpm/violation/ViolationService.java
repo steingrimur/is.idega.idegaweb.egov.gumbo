@@ -79,18 +79,20 @@ public class ViolationService extends DefaultSpringBean {
 	
 	public List<Item> getLettersTypes() {
 		
-		final LetterType[] types = LetterType.values();
+		final List<LetterType> types = getDao().getLetterTypes();
 		
-		final List<Item> items = new ArrayList<Item>(types.length);
+		final List<Item> items = new ArrayList<Item>();
 		
 		IWResourceBundle iwrb = IWMainApplication
 		        .getDefaultIWApplicationContext().getIWMainApplication()
 		        .getBundle(GumboConstants.IW_BUNDLE_IDENTIFIER)
 		        .getResourceBundle(LocaleUtil.getIcelandicLocale());
 		
-		for (LetterType letterType : types) {
-			items.add(new Item(letterType.toString(), iwrb.getLocalizedString(
-			    "letter_type." + letterType.toString(), letterType.toString())));
+		if (types != null) {
+			for (LetterType letterType : types) {
+				items.add(new Item(letterType.toString(), iwrb.getLocalizedString(
+				    "letter_type." + letterType.toString(), letterType.toString())));
+			}
 		}
 		
 		return items;

@@ -30,47 +30,36 @@ public class GumboDaoImpl extends GenericDaoImpl implements GumboDao {
 
 	public List<ViolationType> getViolationTypes() {
 		return getResultList("violationType.findAll", ViolationType.class);
-		// return
-		// getEntityManager().createNamedQuery("violationType.findAll").getResultList();
 	}
 
 	public List<Office> getOffices() {
 		return getResultList("office.findAll", Office.class);
-		// return
-		// getEntityManager().createNamedQuery("office.findAll").getResultList();
 	}
 
 	public List<Inspector> getInspectors() {
 		return getResultList("inspector.findAll", Inspector.class);
-		// return
-		// getEntityManager().createNamedQuery("inspector.findAll").getResultList();
 	}
 
 	public List<FishingGear> getFishingGear() {
 		return getResultList("fishingGear.findAll", FishingGear.class);
-		// return
-		// getEntityManager().createNamedQuery("fishingGear.findAll").getResultList();
 	}
 
 	public List<ViolationDecision> getViolationDecisions() {
 		return getResultList("violationDecision.findAll",
 				ViolationDecision.class);
-		// return
-		// getEntityManager().createNamedQuery("violationDecision.findAll").getResultList();
 	}
 
 	public List<Letter> getLetters() {
 		return getResultList("letter.findAll", Letter.class);
-		// return
-		// getEntityManager().createNamedQuery("letter.findAll").getResultList();
 	}
 
 	public List<Letter> getLetters(LetterType type) {
 		Param param = new Param("type", type);
 		return getResultList("letter.findAllByType", Letter.class, param);
-		// return
-		// getEntityManager().createNamedQuery("letter.findAllByType").setParameter("type",
-		// type).getResultList();
+	}
+	
+	public List<LetterType> getLetterTypes() {
+		return getResultList("letter.findAllTypes", LetterType.class);
 	}
 
 	public List<ProcessPaymentCode> getProcessPaymentCode() {

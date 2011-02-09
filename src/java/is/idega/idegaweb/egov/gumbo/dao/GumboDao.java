@@ -31,6 +31,8 @@ public interface GumboDao extends GenericDao {
 
 	public List<Letter> getLetters(LetterType type);
 
+	public List<LetterType> getLetterTypes();
+	
 	public List<ProcessPaymentCode> getProcessPaymentCode();
 
 	public List<ProcessPaymentCode> getProcessPaymentCode(String processName);
