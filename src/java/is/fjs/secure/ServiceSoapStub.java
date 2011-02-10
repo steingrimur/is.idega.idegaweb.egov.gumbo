@@ -16,7 +16,7 @@ public class ServiceSoapStub extends org.apache.axis.client.Stub implements is.f
     static org.apache.axis.description.OperationDesc [] _operations;
 
     static {
-        _operations = new org.apache.axis.description.OperationDesc[6];
+        _operations = new org.apache.axis.description.OperationDesc[7];
         _initOperationDesc1();
     }
 
@@ -36,37 +36,37 @@ public class ServiceSoapStub extends org.apache.axis.client.Stub implements is.f
         _operations[0] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
-        oper.setName("StofnaVeidiGjald");
+        oper.setName("StofnaKrofuVeidiGjald");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://secure.fjs.is/", "iStofnaKrofu"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://secure.fjs.is/", "TBRStofnaKrofuVR"), is.fjs.secure.TBRStofnaKrofuVR.class, false, false);
         param.setOmittable(true);
         oper.addParameter(param);
         oper.setReturnType(new javax.xml.namespace.QName("http://secure.fjs.is/", "TBRStofnaKrofuSvar"));
         oper.setReturnClass(is.fjs.secure.TBRStofnaKrofuSvar.class);
-        oper.setReturnQName(new javax.xml.namespace.QName("http://secure.fjs.is/", "StofnaVeidiGjaldResult"));
+        oper.setReturnQName(new javax.xml.namespace.QName("http://secure.fjs.is/", "StofnaKrofuVeidiGjaldResult"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         _operations[1] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
-        oper.setName("StofnaVeidileyfi");
+        oper.setName("StofnaKrofuVeidileyfi");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://secure.fjs.is/", "iStofnaKrofu"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://secure.fjs.is/", "TBRStofnaKrofu"), is.fjs.secure.TBRStofnaKrofu.class, false, false);
         param.setOmittable(true);
         oper.addParameter(param);
         oper.setReturnType(new javax.xml.namespace.QName("http://secure.fjs.is/", "TBRStofnaKrofuSvar"));
         oper.setReturnClass(is.fjs.secure.TBRStofnaKrofuSvar.class);
-        oper.setReturnQName(new javax.xml.namespace.QName("http://secure.fjs.is/", "StofnaVeidileyfiResult"));
+        oper.setReturnQName(new javax.xml.namespace.QName("http://secure.fjs.is/", "StofnaKrofuVeidileyfiResult"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         _operations[2] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
-        oper.setName("StofnaFlutningAflaHeimilda");
+        oper.setName("StofnaKrofuFlutningAflaHeimilda");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://secure.fjs.is/", "iStofnaKrofu"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://secure.fjs.is/", "TBRStofnaKrofuFV1"), is.fjs.secure.TBRStofnaKrofuFV1.class, false, false);
         param.setOmittable(true);
         oper.addParameter(param);
         oper.setReturnType(new javax.xml.namespace.QName("http://secure.fjs.is/", "TBRStofnaKrofuSvar"));
         oper.setReturnClass(is.fjs.secure.TBRStofnaKrofuSvar.class);
-        oper.setReturnQName(new javax.xml.namespace.QName("http://secure.fjs.is/", "StofnaFlutningAflaHeimildaResult"));
+        oper.setReturnQName(new javax.xml.namespace.QName("http://secure.fjs.is/", "StofnaKrofuFlutningAflaHeimildaResult"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         _operations[3] = oper;
@@ -94,6 +94,18 @@ public class ServiceSoapStub extends org.apache.axis.client.Stub implements is.f
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         _operations[5] = oper;
+
+        oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("SaekjaStoduKrofu");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://secure.fjs.is/", "iStadaKrofu"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://secure.fjs.is/", "TBRStadaKrofu"), is.fjs.secure.TBRStadaKrofu.class, false, false);
+        param.setOmittable(true);
+        oper.addParameter(param);
+        oper.setReturnType(new javax.xml.namespace.QName("http://secure.fjs.is/", "TBRStadaKrofuSvar"));
+        oper.setReturnClass(is.fjs.secure.TBRStadaKrofuSvar.class);
+        oper.setReturnQName(new javax.xml.namespace.QName("http://secure.fjs.is/", "SaekjaStoduKrofuResult"));
+        oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
+        oper.setUse(org.apache.axis.constants.Use.LITERAL);
+        _operations[6] = oper;
 
     }
 
@@ -207,6 +219,20 @@ public class ServiceSoapStub extends org.apache.axis.client.Stub implements is.f
             qName = new javax.xml.namespace.QName("http://secure.fjs.is/", "TBRGjaldskraSvar");
             cachedSerQNames.add(qName);
             cls = is.fjs.secure.TBRGjaldskraSvar.class;
+            cachedSerClasses.add(cls);
+            cachedSerFactories.add(beansf);
+            cachedDeserFactories.add(beandf);
+
+            qName = new javax.xml.namespace.QName("http://secure.fjs.is/", "TBRStadaKrofu");
+            cachedSerQNames.add(qName);
+            cls = is.fjs.secure.TBRStadaKrofu.class;
+            cachedSerClasses.add(cls);
+            cachedSerFactories.add(beansf);
+            cachedDeserFactories.add(beandf);
+
+            qName = new javax.xml.namespace.QName("http://secure.fjs.is/", "TBRStadaKrofuSvar");
+            cachedSerQNames.add(qName);
+            cls = is.fjs.secure.TBRStadaKrofuSvar.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
@@ -374,19 +400,19 @@ public class ServiceSoapStub extends org.apache.axis.client.Stub implements is.f
 }
     }
 
-    public is.fjs.secure.TBRStofnaKrofuSvar stofnaVeidiGjald(is.fjs.secure.TBRStofnaKrofuVR iStofnaKrofu) throws java.rmi.RemoteException {
+    public is.fjs.secure.TBRStofnaKrofuSvar stofnaKrofuVeidiGjald(is.fjs.secure.TBRStofnaKrofuVR iStofnaKrofu) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
         _call.setOperation(_operations[1]);
         _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("http://secure.fjs.is/StofnaVeidiGjald");
+        _call.setSOAPActionURI("http://secure.fjs.is/StofnaKrofuVeidiGjald");
         _call.setEncodingStyle(null);
         _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("http://secure.fjs.is/", "StofnaVeidiGjald"));
+        _call.setOperationName(new javax.xml.namespace.QName("http://secure.fjs.is/", "StofnaKrofuVeidiGjald"));
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -408,19 +434,19 @@ public class ServiceSoapStub extends org.apache.axis.client.Stub implements is.f
 }
     }
 
-    public is.fjs.secure.TBRStofnaKrofuSvar stofnaVeidileyfi(is.fjs.secure.TBRStofnaKrofu iStofnaKrofu) throws java.rmi.RemoteException {
+    public is.fjs.secure.TBRStofnaKrofuSvar stofnaKrofuVeidileyfi(is.fjs.secure.TBRStofnaKrofu iStofnaKrofu) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
         _call.setOperation(_operations[2]);
         _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("http://secure.fjs.is/StofnaVeidileyfi");
+        _call.setSOAPActionURI("http://secure.fjs.is/StofnaKrofuVeidileyfi");
         _call.setEncodingStyle(null);
         _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("http://secure.fjs.is/", "StofnaVeidileyfi"));
+        _call.setOperationName(new javax.xml.namespace.QName("http://secure.fjs.is/", "StofnaKrofuVeidileyfi"));
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -442,19 +468,19 @@ public class ServiceSoapStub extends org.apache.axis.client.Stub implements is.f
 }
     }
 
-    public is.fjs.secure.TBRStofnaKrofuSvar stofnaFlutningAflaHeimilda(is.fjs.secure.TBRStofnaKrofuFV1 iStofnaKrofu) throws java.rmi.RemoteException {
+    public is.fjs.secure.TBRStofnaKrofuSvar stofnaKrofuFlutningAflaHeimilda(is.fjs.secure.TBRStofnaKrofuFV1 iStofnaKrofu) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
         _call.setOperation(_operations[3]);
         _call.setUseSOAPAction(true);
-        _call.setSOAPActionURI("http://secure.fjs.is/StofnaFlutningAflaHeimilda");
+        _call.setSOAPActionURI("http://secure.fjs.is/StofnaKrofuFlutningAflaHeimilda");
         _call.setEncodingStyle(null);
         _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
         _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
-        _call.setOperationName(new javax.xml.namespace.QName("http://secure.fjs.is/", "StofnaFlutningAflaHeimilda"));
+        _call.setOperationName(new javax.xml.namespace.QName("http://secure.fjs.is/", "StofnaKrofuFlutningAflaHeimilda"));
 
         setRequestHeaders(_call);
         setAttachments(_call);
@@ -537,6 +563,40 @@ public class ServiceSoapStub extends org.apache.axis.client.Stub implements is.f
                 return (is.fjs.secure.TBRStadaSkipsSvar) _resp;
             } catch (java.lang.Exception _exception) {
                 return (is.fjs.secure.TBRStadaSkipsSvar) org.apache.axis.utils.JavaUtils.convert(_resp, is.fjs.secure.TBRStadaSkipsSvar.class);
+            }
+        }
+  } catch (org.apache.axis.AxisFault axisFaultException) {
+  throw axisFaultException;
+}
+    }
+
+    public is.fjs.secure.TBRStadaKrofuSvar saekjaStoduKrofu(is.fjs.secure.TBRStadaKrofu iStadaKrofu) throws java.rmi.RemoteException {
+        if (super.cachedEndpoint == null) {
+            throw new org.apache.axis.NoEndPointException();
+        }
+        org.apache.axis.client.Call _call = createCall();
+        _call.setOperation(_operations[6]);
+        _call.setUseSOAPAction(true);
+        _call.setSOAPActionURI("http://secure.fjs.is/SaekjaStoduKrofu");
+        _call.setEncodingStyle(null);
+        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        _call.setOperationName(new javax.xml.namespace.QName("http://secure.fjs.is/", "SaekjaStoduKrofu"));
+
+        setRequestHeaders(_call);
+        setAttachments(_call);
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {iStadaKrofu});
+
+        if (_resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)_resp;
+        }
+        else {
+            extractAttachments(_call);
+            try {
+                return (is.fjs.secure.TBRStadaKrofuSvar) _resp;
+            } catch (java.lang.Exception _exception) {
+                return (is.fjs.secure.TBRStadaKrofuSvar) org.apache.axis.utils.JavaUtils.convert(_resp, is.fjs.secure.TBRStadaKrofuSvar.class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {

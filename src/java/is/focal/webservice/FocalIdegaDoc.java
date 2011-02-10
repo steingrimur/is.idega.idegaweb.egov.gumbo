@@ -9,5 +9,7 @@ package is.focal.webservice;
 
 public interface FocalIdegaDoc extends java.rmi.Remote {
     public java.lang.String CREATEUPDATEADILI(java.lang.String STRXML, java.lang.String STRACCESSKEY) throws java.rmi.RemoteException;
+    public java.lang.String ADDATTACHMENTTOIDEGACASE(java.lang.String STRCASEID, java.lang.String STRFILEPATH, java.lang.String STRACCESSKEY) throws java.rmi.RemoteException;
+    public java.lang.String CLOSEIDEGACASE(java.lang.String STRCASEID, java.lang.String STRPATH, java.lang.String STRACCESSKEY) throws java.rmi.RemoteException;
     public java.lang.String CREATEIDEGACASE(java.lang.String STRCASEXML, java.lang.String STRACCESSKEY) throws java.rmi.RemoteException;
 }
