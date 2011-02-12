@@ -11,8 +11,10 @@ import is.idega.idegaweb.egov.gumbo.licenses.FishingLicenseUser.CompanyData;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import com.idega.user.data.User;
 import com.idega.util.IWTimestamp;
+import com.idega.util.text.Item;
 
 @Scope("singleton")
 @Service
@@ -138,28 +141,56 @@ public class DOFWSClientMock implements DOFWSClient {
 		        .setPhoneNumber("222222").setEmail("x@xx.lt")
 		        .setFaxNumber("452342543").setPlace("comp place");
 	}
-
+	
 	@Override
 	public BigDecimal[] getGrasleppuShipNrByCompanySSN(String companySSN) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	@Override
 	public Map<BigDecimal, VeidileyfagerdTypeUser> getGrasleppaAreas() {
 		Map<BigDecimal, VeidileyfagerdTypeUser> map = new HashMap<BigDecimal, VeidileyfagerdTypeUser>();
-
-		map.put(new BigDecimal(1), new VeidileyfagerdTypeUser(new BigDecimal(1), new BigDecimal(11), IWTimestamp.RightNow().getCalendar(), "Faxafloi", "1011", "Faxafloi", "1", new BigDecimal(62), "herna", IWTimestamp.RightNow().getCalendar()));
-		map.put(new BigDecimal(2), new VeidileyfagerdTypeUser(new BigDecimal(2), new BigDecimal(11), IWTimestamp.RightNow().getCalendar(), "Faxafloi", "1011", "Breidafjordur", "2", new BigDecimal(62), "herna", IWTimestamp.RightNow().getCalendar()));
-		map.put(new BigDecimal(3), new VeidileyfagerdTypeUser(new BigDecimal(3), new BigDecimal(11), IWTimestamp.RightNow().getCalendar(), "Faxafloi", "1011", "Vestfirdir", "3", new BigDecimal(62), "herna", IWTimestamp.RightNow().getCalendar()));
-		map.put(new BigDecimal(4), new VeidileyfagerdTypeUser(new BigDecimal(4), new BigDecimal(11), IWTimestamp.RightNow().getCalendar(), "Faxafloi", "1011", "Hunafloi", "4", new BigDecimal(62), "herna", IWTimestamp.RightNow().getCalendar()));
-		map.put(new BigDecimal(5), new VeidileyfagerdTypeUser(new BigDecimal(5), new BigDecimal(11), IWTimestamp.RightNow().getCalendar(), "Faxafloi", "1011", "Nordurland", "5", new BigDecimal(62), "herna", IWTimestamp.RightNow().getCalendar()));
-		map.put(new BigDecimal(6), new VeidileyfagerdTypeUser(new BigDecimal(6), new BigDecimal(11), IWTimestamp.RightNow().getCalendar(), "Faxafloi", "1011", "Austurland", "6", new BigDecimal(62), "herna", IWTimestamp.RightNow().getCalendar()));
-		map.put(new BigDecimal(7), new VeidileyfagerdTypeUser(new BigDecimal(7), new BigDecimal(11), IWTimestamp.RightNow().getCalendar(), "Faxafloi", "1011", "Sudurland", "7", new BigDecimal(62), "herna", IWTimestamp.RightNow().getCalendar()));
-
+		
+		map.put(new BigDecimal(1), new VeidileyfagerdTypeUser(
+		        new BigDecimal(1), new BigDecimal(11), IWTimestamp.RightNow()
+		                .getCalendar(), "Faxafloi", "1011", "Faxafloi", "1",
+		        new BigDecimal(62), "herna", IWTimestamp.RightNow()
+		                .getCalendar()));
+		map.put(new BigDecimal(2), new VeidileyfagerdTypeUser(
+		        new BigDecimal(2), new BigDecimal(11), IWTimestamp.RightNow()
+		                .getCalendar(), "Faxafloi", "1011", "Breidafjordur",
+		        "2", new BigDecimal(62), "herna", IWTimestamp.RightNow()
+		                .getCalendar()));
+		map.put(new BigDecimal(3), new VeidileyfagerdTypeUser(
+		        new BigDecimal(3), new BigDecimal(11), IWTimestamp.RightNow()
+		                .getCalendar(), "Faxafloi", "1011", "Vestfirdir", "3",
+		        new BigDecimal(62), "herna", IWTimestamp.RightNow()
+		                .getCalendar()));
+		map.put(new BigDecimal(4), new VeidileyfagerdTypeUser(
+		        new BigDecimal(4), new BigDecimal(11), IWTimestamp.RightNow()
+		                .getCalendar(), "Faxafloi", "1011", "Hunafloi", "4",
+		        new BigDecimal(62), "herna", IWTimestamp.RightNow()
+		                .getCalendar()));
+		map.put(new BigDecimal(5), new VeidileyfagerdTypeUser(
+		        new BigDecimal(5), new BigDecimal(11), IWTimestamp.RightNow()
+		                .getCalendar(), "Faxafloi", "1011", "Nordurland", "5",
+		        new BigDecimal(62), "herna", IWTimestamp.RightNow()
+		                .getCalendar()));
+		map.put(new BigDecimal(6), new VeidileyfagerdTypeUser(
+		        new BigDecimal(6), new BigDecimal(11), IWTimestamp.RightNow()
+		                .getCalendar(), "Faxafloi", "1011", "Austurland", "6",
+		        new BigDecimal(62), "herna", IWTimestamp.RightNow()
+		                .getCalendar()));
+		map.put(new BigDecimal(7), new VeidileyfagerdTypeUser(
+		        new BigDecimal(7), new BigDecimal(11), IWTimestamp.RightNow()
+		                .getCalendar(), "Faxafloi", "1011", "Sudurland", "7",
+		        new BigDecimal(62), "herna", IWTimestamp.RightNow()
+		                .getCalendar()));
+		
 		return map;
 	}
-
+	
 	@Override
 	public HlutdeildTypeUser[] getCatchPortion(BigDecimal skipID, String season) {
 		return null;
@@ -170,22 +201,35 @@ public class DOFWSClientMock implements DOFWSClient {
 		return null;
 	}
 	
-	public BigDecimal createFishingLicense(String shipNr, String licenseType, IWTimestamp from, IWTimestamp to, String info) {		
+	public BigDecimal createFishingLicense(String shipNr, String licenseType,
+	        IWTimestamp from, IWTimestamp to, String info) {
 		return new BigDecimal(-1);
 	}
 	
 	public boolean activateFishingLicense(BigDecimal fishingLicenseID) {
 		return false;
 	}
-
+	
 	@Override
 	public MillifaerslaTypeUser[] getTransfers(BigDecimal shipNr, String type,
-			String period) {
+	        String period) {
 		return null;
 	}
-
+	
 	@Override
 	public MillifaerslaTypeUser getTransferInfo(BigDecimal reference) {
 		return null;
+	}
+	
+	@Override
+	public List<Item> getGrasleppaVesselsForUser(String companyPersonalID) {
+		
+		return getVesselsForUser(null);
+	}
+	
+	@Override
+	public List<Item> getVesselsForUser(User user) {
+		return Arrays.asList(new Item[] { new Item("1", "Vessel 1"),
+		        new Item("2", "Vessel 2") });
 	}
 }

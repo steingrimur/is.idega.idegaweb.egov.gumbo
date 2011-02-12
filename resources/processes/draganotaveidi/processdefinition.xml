@@ -288,7 +288,7 @@
 	            <handlerName>notifyFinancialControllerIfThereIsADebt</handlerName>
 	        </action>
 		</event>
-		<transition to="licenseRuling"></transition>
+		<transition to="fork2"></transition>
 	</node>
 
 	<node name="sendLicenseFeeClaim">
@@ -463,6 +463,66 @@
             </action>
        </event>
 		<transition to="updateCaseStatusToRegisteredPayment"></transition>
+	</node>
+
+	<fork name="fork2">
+		<transition to="licenseRuling" name="toLicenseRuling"></transition>
+		<transition to="deleteClaim" name="toDeleteClaim"></transition>
+	</fork>
+
+	<task-node name="deleteClaim">
+	   <task name="deleteClaimTask">
+             <controller>
+             
+                <variable name="string_caseIdentifier" access="read"></variable>
+             
+             </controller>
+            <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>jsonAssignmentHandler</handlerName>
+                <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                    <entry><key>expression</key>
+                        <value>
+                            {taskAssignment: {roles: {role: [
+                               {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}}
+                            ]} }}
+                        </value>
+                    </entry>
+                </propertyMap>
+             </assignment>
+          
+          </task>
+		<transition to="deleteAndReject" name="rejected"></transition>
+		<transition to="deleteAndActivate" name="activated"></transition>
+	</task-node>
+
+	<node name="deleteAndReject">
+	   <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>deleteAndRejectClaim</handlerName>
+            </action>
+        </event>
+		<transition to="updateCaseStatusToLicenseDenied"></transition>
+	</node>
+
+	<node name="deleteAndActivate">
+	   <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>deleteAndActivateClaim</handlerName>
+            </action>
+        </event>
+		<transition to="killCheckForPaymentTimer"></transition>
+	</node>
+
+	<node name="killCheckForPaymentTimer">
+	   <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>deleteNodeTimersHandler</handlerName>
+                <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                    <entry><key>timersNodeName</key><value>runCheckForPaymentTimer</value></entry>
+                </propertyMap>
+            </action>
+        </event>
+		<transition to="setValidPeriod"></transition>
 	</node>
 	
 	<idg:roles xmlns:idg="http://idega.com/bpm">

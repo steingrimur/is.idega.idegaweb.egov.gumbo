@@ -464,7 +464,7 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                                 ev:event="xforms-value-changed"
                                 multiple="true()"
                                 placeResponseDocument="true()"
-                                ref="instance('data-instance')/licenseInterval" value="idega:resolveBeanProperties('fishingLicensesService.getLicenseIntervalForGrasleppa({0})', '#{instance(`data-instance`)/Select_the_fishing_area_fbc_110}')"/>
+                                ref="instance('data-instance')/licenseInterval" value="idega:resolveBeanProperties('fishingLicenseUser.getLicenseIntervalForGrasleppa({0})', '#{instance(`data-instance`)/Select_the_fishing_area_fbc_110}')"/>
                             
                             <xf:dispatch ev:event="idega-xforms-ready"
                                 name="idega-validate" target="fbc_110"/>

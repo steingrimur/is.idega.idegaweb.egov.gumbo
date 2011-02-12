@@ -11,6 +11,9 @@
         <task name="licenseRulingTask">
             <viewResource resourceIdentifier="forms/licenseRuling.xhtml" viewType="xforms" viewResourceType="xforms" />
         </task>
+        <task name="deleteClaimTask">
+            <viewResource resourceIdentifier="forms/deleteClaim.xhtml" viewType="xforms" viewResourceType="xforms" />
+        </task>
     </tasks>
     
 </processBundle-config>

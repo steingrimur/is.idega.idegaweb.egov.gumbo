@@ -8,7 +8,7 @@
   </node>
   <node name="licenseRuling" x="202" y="246" width="140" height="40">
     <edge>
-      <label x="-39" y="-17"/>
+      <label x="-2" y="-72"/>
     </edge>
     <edge>
       <label x="5" y="-10"/>
@@ -22,7 +22,7 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="end-state2" x="144" y="678" width="22" height="24"/>
+  <node name="end-state2" x="187" y="610" width="22" height="24"/>
   <node name="end-state1" x="481" y="1223" width="23" height="24"/>
   <node name="end-state3" x="550" y="345" width="24" height="24"/>
   <node name="updateCaseStatusToLicenseGrantedClaimUnpaid" x="368" y="555" width="247" height="36">
@@ -30,12 +30,12 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="updateCaseStatusToLicenseDenied" x="38" y="438" width="220" height="36">
+  <node name="updateCaseStatusToLicenseDenied" x="86" y="438" width="220" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="informApplicantAboutDeny" x="46" y="619" width="223" height="36">
+  <node name="informApplicantAboutDeny" x="85" y="529" width="223" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
@@ -112,6 +112,37 @@
       <label x="5" y="-10"/>
       <bendpoint w1="147" h1="3" w2="139" h2="172"/>
       <bendpoint w1="147" h1="-171" w2="139" h2="-2"/>
+    </edge>
+  </node>
+  <node name="fork2" x="242" y="174" width="25" height="24">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="-36" y="-34"/>
+    </edge>
+  </node>
+  <node name="deleteClaim" x="10" y="237" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="deleteAndReject" x="91" y="327" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="deleteAndActivate" x="12" y="609" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="killCheckForPaymentTimer" x="11" y="685" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
     </edge>
   </node>
 </root-container>

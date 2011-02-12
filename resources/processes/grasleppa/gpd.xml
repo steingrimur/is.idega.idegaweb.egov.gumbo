@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="Grasleppa" width="670" height="1307">
+<root-container name="Grasleppa" width="729" height="1307">
   <node name="applicationForFishingLicense" x="195" y="37" width="164" height="34">
     <edge>
       <label x="5" y="-10"/>
@@ -8,7 +8,7 @@
   </node>
   <node name="licenseRuling" x="197" y="271" width="140" height="40">
     <edge>
-      <label x="-39" y="-17"/>
+      <label x="-15" y="-44"/>
     </edge>
     <edge>
       <label x="5" y="-10"/>
@@ -22,7 +22,7 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="end-state2" x="144" y="678" width="22" height="24"/>
+  <node name="end-state2" x="157" y="595" width="22" height="24"/>
   <node name="end-state1" x="486" y="1282" width="23" height="24"/>
   <node name="end-state3" x="565" y="369" width="27" height="25"/>
   <node name="updateCaseStatusToLicenseGrantedClaimUnpaid" x="368" y="555" width="247" height="36">
@@ -35,7 +35,7 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="informApplicantAboutDeny" x="46" y="619" width="223" height="36">
+  <node name="informApplicantAboutDeny" x="62" y="517" width="223" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
@@ -112,6 +112,37 @@
       <label x="5" y="-10"/>
       <bendpoint w1="142" h1="-2" w2="146" h2="182"/>
       <bendpoint w1="144" h1="-184" w2="148" h2="0"/>
+    </edge>
+  </node>
+  <node name="deleteClaim" x="-33" y="261" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="fork2" x="240" y="165" width="25" height="24">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="deleteAndReject" x="79" y="341" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="deleteAndActivate" x="-58" y="566" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="killCheckForPaymentTimer" x="-56" y="639" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
     </edge>
   </node>
 </root-container>

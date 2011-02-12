@@ -12,10 +12,12 @@ import is.idega.idegaweb.egov.gumbo.licenses.FishingLicenseUser.CompanyData;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 import com.idega.user.data.User;
 import com.idega.util.IWTimestamp;
+import com.idega.util.text.Item;
 
 public interface DOFWSClient {
 	
@@ -27,9 +29,9 @@ public interface DOFWSClient {
 	public SkipInfoTypeUser[] getShipInfoByCompanySSN(String companySSN);
 	
 	public BigDecimal[] getGrasleppuShipNrByCompanySSN(String companySSN);
-
+	
 	public SkipInfoTypeUser getShipInfo(String shipID);
-
+	
 	public LondunTypeUser[] getCatchInfoByShipNumber(BigDecimal shipNumber,
 	        Calendar from, Calendar to);
 	
@@ -67,10 +69,18 @@ public interface DOFWSClient {
 	
 	public UthlutanirTypeUser[] getShipPortions(BigDecimal shipID, String season);
 	
-	public BigDecimal createFishingLicense(String shipNr, String licenseType, IWTimestamp from, IWTimestamp to, String info);		
-
+	public BigDecimal createFishingLicense(String shipNr, String licenseType,
+	        IWTimestamp from, IWTimestamp to, String info);
+	
 	public boolean activateFishingLicense(BigDecimal fishingLicenseID);
 	
-	public MillifaerslaTypeUser[] getTransfers(BigDecimal shipNr, String type, String period);
+	public MillifaerslaTypeUser[] getTransfers(BigDecimal shipNr, String type,
+	        String period);
+	
 	public MillifaerslaTypeUser getTransferInfo(BigDecimal reference);
+	
+	public abstract List<Item> getGrasleppaVesselsForUser(
+	        String companyPersonalID);
+	
+	public abstract List<Item> getVesselsForUser(User user);
 }
