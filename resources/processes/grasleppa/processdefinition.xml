@@ -106,9 +106,13 @@
                 <variable name='date_validityFrom' access='read' mapped-name='validityFrom' />
                 <variable name='remindAfter' access='read' />
              </script>
+			<action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+            	<handlerName>fishingLicenseDescriptionHandler</handlerName>
+          	</action>
       </event>
       <transition to="notifyFinancialControllerIfThereIsADebt"></transition>
    </start-state>
+   
    <task-node name="licenseRuling">
       <task name="licenseRulingTask">
          <controller>

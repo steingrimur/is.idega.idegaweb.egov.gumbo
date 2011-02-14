@@ -200,8 +200,6 @@
                     <fbc_38-label lang="en">Your comments</fbc_38-label>
                     <fbc_39-text lang="is_IS">Athugasemdir</fbc_39-text>
                     <fbc_39-text lang="en">Comments</fbc_39-text>
-                    <fbc_40-label lang="is_IS">Vista</fbc_40-label>
-                    <fbc_40-label lang="en">Save</fbc_40-label>
                     <fbc_41-label lang="is_IS">Samantekt</fbc_41-label>
                     <fbc_41-label lang="en">Summary</fbc_41-label>
                     <fbc_42-label lang="is_IS">Nafn</fbc_42-label>
@@ -432,56 +430,6 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                         <xf:output bind="fbc_33_bind" id="fbc_33" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_56-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
-                        <hr class="fbc_separator" id="fbc_18" type="fbc_separator"/>
-                        <div class="fbc_header_text" id="fbc_19" type="fbc_header_text">
-                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_19-text[@lang=instance('localized_strings')/current_language]"/>
-                        </div>
-                        <div class="gpsInputs hiddenLabel">
-	                        <xf:group bind="fbc_113_bind">
-		                        <xf:label model="data_model" ref="instance('localized_strings')/fbc_114-label[@lang=instance('localized_strings')/current_language]"/>
-	                            <xf:output model="data_model" bind="fbc_114_bind" />
-	                            <xf:output model="data_model" bind="fbc_115_bind">
-	                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_115-label[@lang=instance('localized_strings')/current_language]"/>
-	                            </xf:output>
-	                        </xf:group>
-	                    </div>
-                        <xf:select1 appearance="minimal"
-                            bind="fbc_110_bind" id="fbc_110" type="fbc_single_select_minimal">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_110-label[@lang=instance('localized_strings')/current_language]"/>
-                            <xf:itemset model="data_model" nodeset="instance('fbc_110_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
-                                <xf:label ref="itemLabel"/>
-                                <xf:value ref="itemValue"/>
-                            </xf:itemset>
-                            <xf:help>
-                                <xf:output ref="instance('localized_strings')/fbc_110-help[@lang=instance('localized_strings')/current_language]"/>
-                            </xf:help>
-                            
-                            <idega:setvalue
-                                ev:event="xforms-value-changed"
-                                multiple="true()"
-                                ref="instance('data-instance')/fishingAreaLabel" value="instance('fbc_110_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/Select_the_fishing_area_fbc_110]/itemLabel"/>
-                            <idega:setvalue
-                                ev:event="xforms-value-changed"
-                                multiple="true()"
-                                placeResponseDocument="true()"
-                                ref="instance('data-instance')/licenseInterval" value="idega:resolveBeanProperties('fishingLicenseUser.getLicenseIntervalForGrasleppa({0})', '#{instance(`data-instance`)/Select_the_fishing_area_fbc_110}')"/>
-                            
-                            <xf:dispatch ev:event="idega-xforms-ready"
-                                name="idega-validate" target="fbc_110"/>
-                            <xf:dispatch ev:event="xforms-value-changed"
-                                name="idega-validate" target="fbc_110"/>
-                            <idega:validator ev:event="idega-validate">
-                                <idega:message errorType="required"
-                                    model="data_model" value="instance('localized_strings')/fbc_110-required[@lang=instance('localized_strings')/current_language]"/>
-                            </idega:validator>
-                            <xf:alert ref="instance('error-instance')/error[@for='fbc_110']"/>
-                        </xf:select1>
-                        <xf:input bind="startOfFishing_bind" id="fbc_102a" type="fbc_date">
-                            <xf:label model="data_model" ref="instance('localized_strings')/startOfFishing-label[@lang=instance('localized_strings')/current_language]"/>
-                            <xf:setvalue ev:event="xforms-value-changed"
-                                ref="instance('data-instance')/startOfFishingLabel" value="instance('data-instance')/startOfFishing"/>
-                        </xf:input>
-                        
                         <div class="fbc_header_text" id="fbc_36" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_36-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
@@ -537,6 +485,56 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                                 <xf:output ref="instance('localized_strings')/fbc_37-help[@lang=instance('localized_strings')/current_language]"/>
                             </xf:help>
                         </xf:select1>
+                        
+                        <div class="fbc_header_text" id="fbc_19" type="fbc_header_text">
+                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_19-text[@lang=instance('localized_strings')/current_language]"/>
+                        </div>
+                        <div class="gpsInputs hiddenLabel">
+	                        <xf:group bind="fbc_113_bind">
+		                        <xf:label model="data_model" ref="instance('localized_strings')/fbc_114-label[@lang=instance('localized_strings')/current_language]"/>
+	                            <xf:output model="data_model" bind="fbc_114_bind" />
+	                            <xf:output model="data_model" bind="fbc_115_bind">
+	                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_115-label[@lang=instance('localized_strings')/current_language]"/>
+	                            </xf:output>
+	                        </xf:group>
+	                    </div>
+                        <xf:select1 appearance="minimal"
+                            bind="fbc_110_bind" id="fbc_110" type="fbc_single_select_minimal">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_110-label[@lang=instance('localized_strings')/current_language]"/>
+                            <xf:itemset model="data_model" nodeset="instance('fbc_110_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
+                                <xf:label ref="itemLabel"/>
+                                <xf:value ref="itemValue"/>
+                            </xf:itemset>
+                            <xf:help>
+                                <xf:output ref="instance('localized_strings')/fbc_110-help[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:help>
+                            
+                            <idega:setvalue
+                                ev:event="xforms-value-changed"
+                                multiple="true()"
+                                ref="instance('data-instance')/fishingAreaLabel" value="instance('fbc_110_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/Select_the_fishing_area_fbc_110]/itemLabel"/>
+                            <idega:setvalue
+                                ev:event="xforms-value-changed"
+                                multiple="true()"
+                                placeResponseDocument="true()"
+                                ref="instance('data-instance')/licenseInterval" value="idega:resolveBeanProperties('fishingLicenseUser.getLicenseIntervalForGrasleppa({0})', '#{instance(`data-instance`)/Select_the_fishing_area_fbc_110}')"/>
+                            
+                            <xf:dispatch ev:event="idega-xforms-ready"
+                                name="idega-validate" target="fbc_110"/>
+                            <xf:dispatch ev:event="xforms-value-changed"
+                                name="idega-validate" target="fbc_110"/>
+                            <idega:validator ev:event="idega-validate">
+                                <idega:message errorType="required"
+                                    model="data_model" value="instance('localized_strings')/fbc_110-required[@lang=instance('localized_strings')/current_language]"/>
+                            </idega:validator>
+                            <xf:alert ref="instance('error-instance')/error[@for='fbc_110']"/>
+                        </xf:select1>
+                        <xf:input bind="startOfFishing_bind" id="fbc_102a" type="fbc_date">
+                            <xf:label model="data_model" ref="instance('localized_strings')/startOfFishing-label[@lang=instance('localized_strings')/current_language]"/>
+                            <xf:setvalue ev:event="xforms-value-changed"
+                                ref="instance('data-instance')/startOfFishingLabel" value="instance('data-instance')/startOfFishing"/>
+                        </xf:input>
+                        
                         <div class="fbc_header_text" id="fbc_39" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_39-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
@@ -544,27 +542,6 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_38-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:textarea>
                         <div class="fbc_button_area" id="fbc_2" type="fbc_button_area">
-                            <xf:trigger bind="bind-submissionButton"
-                                class="fbc_button_submit" id="fbc_40" type="fbc_button_save">
-                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_40-label[@lang=instance('localized_strings')/current_language]"/>
-                                <xf:action ev:event="DOMActivate">
-                                    <xf:setvalue
-                                    model="submission_model" ref="instance('saveForm-instance')/savePhase">true</xf:setvalue>
-                                    <xf:dispatch name="xforms-rebuild" target="data_model"/>
-                                    <xf:dispatch
-                                    name="xforms-recalculate" target="data_model"/>
-                                    <xf:dispatch
-                                    name="xforms-revalidate" target="data_model"/>
-                                    <xf:dispatch name="xforms-refresh" target="data_model"/>
-                                    <idega:saveForm action="save"
-                                    formId="instance('data-instance')/form_id"
-                                    instanceId="data-instance"
-                                    linkLocation="instance('saveForm-instance')/link"
-                                    model="submission_model"
-                                    submissionId="instance('data-instance')/saveFormData/submissionId" submissionIdentifier="instance('data-instance')/*[@nodeType='formIdentifier']"/>
-                                    <idega:toggle case="fbc_100"/>
-                                </xf:action>
-                            </xf:trigger>
                             <xf:trigger bind="bind-controlsButton"
                                 id="fbc_66" type="fbc_button_next">
                                 <xf:label model="data_model" ref="instance('localized_strings')/fbc_66-label[@lang=instance('localized_strings')/current_language]"/>
