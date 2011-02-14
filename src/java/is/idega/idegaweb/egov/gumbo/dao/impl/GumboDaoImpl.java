@@ -9,6 +9,8 @@ import is.idega.idegaweb.egov.gumbo.data.Office;
 import is.idega.idegaweb.egov.gumbo.data.ProcessPaymentCode;
 import is.idega.idegaweb.egov.gumbo.data.ProcessPaymentLog;
 import is.idega.idegaweb.egov.gumbo.data.ProcessPaymentLogHeader;
+import is.idega.idegaweb.egov.gumbo.data.ShipClaimPeriod;
+import is.idega.idegaweb.egov.gumbo.data.ShipClaimPeriodPK;
 import is.idega.idegaweb.egov.gumbo.data.ViolationDecision;
 import is.idega.idegaweb.egov.gumbo.data.ViolationType;
 
@@ -125,5 +127,34 @@ public class GumboDaoImpl extends GenericDaoImpl implements GumboDao {
 		getEntityManager().persist(log);
 
 		return log;
+	}
+	
+	@Transactional(readOnly = false)
+	public ShipClaimPeriod createShipClaimPeriod(String personalID, String shipNr, String period, int week, int year) {
+		ShipClaimPeriod scp = new ShipClaimPeriod();
+		scp.setId(new ShipClaimPeriodPK(shipNr, personalID));
+		scp.setPeriod(period);
+		scp.setWeek(week);
+		scp.setYear(year);
+
+		getEntityManager().persist(scp);
+
+		return scp;
+	}
+	
+	public ShipClaimPeriod getShipClaimPeriod(String personalID, String shipNr) {
+		return find(ShipClaimPeriod.class, new ShipClaimPeriodPK(shipNr, personalID));		
+	}
+
+	@Transactional(readOnly = false)
+	public ShipClaimPeriod updateShipClaimPeriod(ShipClaimPeriod entry, String period, int week, int year) {
+		entry = find(ShipClaimPeriod.class, entry.getId());
+		entry.setPeriod(period);
+		entry.setWeek(week);
+		entry.setYear(year);
+
+		getEntityManager().persist(entry);
+
+		return entry;
 	}
 }

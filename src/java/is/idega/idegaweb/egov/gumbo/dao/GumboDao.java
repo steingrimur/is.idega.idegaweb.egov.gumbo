@@ -8,6 +8,7 @@ import is.idega.idegaweb.egov.gumbo.data.Office;
 import is.idega.idegaweb.egov.gumbo.data.ProcessPaymentCode;
 import is.idega.idegaweb.egov.gumbo.data.ProcessPaymentLog;
 import is.idega.idegaweb.egov.gumbo.data.ProcessPaymentLogHeader;
+import is.idega.idegaweb.egov.gumbo.data.ShipClaimPeriod;
 import is.idega.idegaweb.egov.gumbo.data.ViolationDecision;
 import is.idega.idegaweb.egov.gumbo.data.ViolationType;
 
@@ -49,4 +50,10 @@ public interface GumboDao extends GenericDao {
 			String payersPersonalID, String shipNumber, String period,
 			String paymentCode, Integer numberOfUnits, Integer unitPrice,
 			Integer amount, String reference);
+	
+	public ShipClaimPeriod createShipClaimPeriod(String personalID, String shipNr, String period, int week, int year);
+	
+	public ShipClaimPeriod getShipClaimPeriod(String personalID, String shipNr);
+
+	public ShipClaimPeriod updateShipClaimPeriod(ShipClaimPeriod entry, String period, int week, int year);
 }
