@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document
+	PUBLIC "-//UJAC.org//Print Document//EN" 
+	"http://ujac.sourceforge.net/ujac-print-document.dtd">
+
+<document size="A4" margin-top="120" margin-bottom="25" margin-left="25" margin-right="25" rotate="false">
+	
+	<font-def name="normal" family="Times" size="10" style="normal"/>
+	<font-def name="big" family="Times" size="14" style="bold"/>
+
+	<header padding-bottom="50">
+		<header-part halign="right"><image source="fiskistofa.gif" height="100" scale-to-fit="true" /></header-part>
+    </header>
+
+	<table font="normal" padding="0" columns="2" width="100" widths="50,50" spacing-after="18.0" halign="left" border-style="none">
+		<cell>${fisheryName}</cell>
+		<cell halign="right">Vegna m.s. (${shipID}) ${shipName}</cell>
+		<cell>${fisheryAddress}</cell>
+		<cell halign="right">Kennitala ${fisheryPersonalID}</cell>
+		<cell>${fisheryPostal}</cell>
+		<cell></cell>
+	</table>
+
+	<paragraph halign="center" font="big" spacing-after="24">Leyfi til grásleppuveiða á vertíðinni 2010</paragraph>
+	<paragraph halign="center" font="big" spacing-after="24">Svæði: ${fishingArea}</paragraph>
+
+	<list font="normal" numbered="true" lettered="false" symbol-indent="15" line-spacing="1.5">
+		<list-item>${fishingAreaDescription}</list-item>
+		<list-item>Veiðitímabilið er frá og með ${dateFrom} til og með ${dateTo} og er óheimilt að leggja grásleppunet fyrir kl. 08:00 fyrsta dag veiðitímabils.</list-item>
+		<list-item>Skylt er að draga öll grásleppunet úr sjó fyrir lok veiðitímabils.</list-item>
+		<list-item>Sé einn maður í áhöfn má eigi hafa fleiri hrognkelsanet í sjó en 100.  Séu tveir í áhöfn mega hrognkelsanet ekki vera fleiri en 200.  Aldrei er heimilt að eiga fleiri en 300 hrognkelsanet í sjó.  Takmörkun þessi á netafjölda miðast við 60 faðma ófellda slöngu en sé notuð 120 faðma ófelld slanga, miðast takmörkunin við helmingi færri net.</list-item>
+		<list-item>Lágmarksmöskvastærð grásleppuneta er 10,5 þumlungar (267 mm).</list-item>
+		<list-item>Netabaujur skulu vera á báðum endum netatrossu og allar merktar með flaggi, sem komið er fyrir efst á baujustönginni. Á flaggið skal mála umdæmisnúmer eða skipaskrárnúmer þess skips, sem notar netin. Auk þessa skulu allir belgir merktir með umdæmisnúmeri eða skipaskrárnúmeri þess skips, sem notar þá. Merkingar á baujuflöggum og belgjum skulu vera greinilegar og skulu stafir stórir og skýrir. Allir netadrekar skulu, með varanlegri merkingu, vera greinilega merktir umdæmisnúmeri eða skipaskrárnúmeri þess skips sem þá notar.     Skylt er að númera netatrossur sem hver bátur á í sjó frá einum til þess fjölda trossa, sem hann á í sjó. Númer netatrossu skal skráð skýrum tölustöfum á baujuflagg eða belg á báðum endum trossu.</list-item>
+		<list-item>Um vigtun afla vísast til ákvæða laga nr. 57/1996, um umgengni um nytjastofna sjávar, og ákvæði gildandi reglugerðar um vigtun sjávarafla.</list-item>
+		<list-item>Skipstjóra er skylt að halda afladagbók sem Fiskistofa leggur til, sbr. reglugerð nr. 557/2007, um afladagbækur.  Upplýsingar í afladagbókum skulu nýtast í vísindalegum tilgangi, sem eftirlitsgögn og til annarra verkefna er varða stjórnun fiskveiða.</list-item>
+		<list-item>Ekki er heimilt að stunda á sama tíma veiðar á grásleppu og netaveiðar á þorskfiski.</list-item>
+		<list-item>Óheimilt er að stunda veiðar með rauðmaganetum frá og með 15. júní til og með 31. desember ár hvert. Óheimilt er að nota til rauðmagaveiða net með minna en 7 þumlunga möskva og net dýpri en 20 möskva. Þá er óheimilt að nota til rauðmagaveiða net með stærri möskva en 8 þumlunga (203 mm). Þá er bátum sem leyfi hafa til veiða með krókaaflamarki óheimilt að stunda veiðar með rauðmaganetum nema að fengnu sérstöku leyfi Fiskistofu.</list-item>
+		<list-item>Að öðru leyti vísast til ákvæða reglugerðar nr. 196/2009, um hrognkelsaveiðar, með síðari breytingum og reglugerðar nr. 676/2009, um veiðar í atvinnuskyni fiskveiðiárið 2009/2010.</list-item>
+	</list>
+	
+	<paragraph>Leyfisbréf þetta er gert ${dateNow} og miðast við gildandi reglur þann dag, sem geta breyst síðar.</paragraph>
+	
+</document>

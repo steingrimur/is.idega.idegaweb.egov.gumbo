@@ -7,6 +7,7 @@ import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUs
 import is.fiskistofa.webservices.millifaerslur.FSWebserviceMILLIFAERSLUR_wsdl.MillifaerslaTypeUser;
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.VeidileyfagerdTypeUser;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.VeidileyfiTypeUser;
 import is.idega.idegaweb.egov.gumbo.licenses.FishingLicenseUser.CompanyData;
 
 import java.math.BigDecimal;
@@ -73,6 +74,8 @@ public interface DOFWSClient {
 	        IWTimestamp from, IWTimestamp to, String info);
 	
 	public boolean activateFishingLicense(BigDecimal fishingLicenseID);
+	
+	public VeidileyfiTypeUser getFishingLicenseInfo(BigDecimal id);
 	
 	public MillifaerslaTypeUser[] getTransfers(BigDecimal shipNr, String type,
 	        String period);

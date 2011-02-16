@@ -1,5 +1,8 @@
 package is.idega.idegaweb.egov.gumbo.pdf;
 
+import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.VeidileyfiTypeUser;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.rmi.RemoteException;
@@ -13,6 +16,7 @@ import com.idega.block.pdf.business.PrintingContext;
 import com.idega.block.pdf.business.PrintingService;
 import com.idega.business.IBOLookup;
 import com.idega.business.IBORuntimeException;
+import com.idega.company.data.Company;
 import com.idega.idegaweb.IWApplicationContext;
 import com.idega.idegaweb.IWMainApplication;
 import com.idega.io.MemoryFileBuffer;
@@ -23,8 +27,8 @@ import com.idega.io.MemoryOutputStream;
 @Scope(BeanDefinition.SCOPE_SINGLETON)
 public class GumboPDFGenerator {
 	
-	public InputStream generateFishingLicensePDF(String licenseType, String vesselNumber, Locale locale) {
-		InputStream pdfStream = getDocumentStream(new FishingLicensePrintingContext(IWMainApplication.getDefaultIWApplicationContext(), licenseType, vesselNumber, locale));
+	public InputStream generateFishingLicensePDF(String licenseType, VeidileyfiTypeUser license, Company fishery, SkipInfoTypeUser ship, Locale locale) {
+		InputStream pdfStream = getDocumentStream(new FishingLicensePrintingContext(IWMainApplication.getDefaultIWApplicationContext(), licenseType, license, fishery, ship, locale));
 		return pdfStream;
 	}
 	
