@@ -1,11 +1,8 @@
 package is.idega.idegaweb.egov.gumbo.webservice.client.business;
 
-import is.fjs.secure.Gjald;
 import is.fjs.secure.Haus;
 import is.fjs.secure.ServiceLocator;
 import is.fjs.secure.ServiceSoap;
-import is.fjs.secure.TBRGjaldskra;
-import is.fjs.secure.TBRGjaldskraSvar;
 import is.fjs.secure.TBRStadaKrofu;
 import is.fjs.secure.TBRStadaKrofuSvar;
 import is.fjs.secure.TBRStadaSkips;
@@ -15,12 +12,9 @@ import is.fjs.secure.TBRStofnaKrofuSvar;
 import is.fjs.secure.TBRSundurlidun;
 
 import java.math.BigDecimal;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.List;
-
-import javax.xml.rpc.ServiceException;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -166,7 +160,6 @@ public class FJSWSClient {
 		int week = now.getWeekOfYear();
 		int year = now.getYear();
 
-		
 		
 		return now.getDateString("yyyy-ww");
 	}
