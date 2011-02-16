@@ -25,7 +25,7 @@
   <node name="end-state2" x="146" y="558" width="22" height="24"/>
   <node name="end-state1" x="449" y="1035" width="23" height="24"/>
   <node name="end-state3" x="656" y="335" width="23" height="28"/>
-  <node name="updateCaseStatusToLicenseGrantedClaimUnpaid" x="344" y="467" width="247" height="36">
+  <node name="updateCaseStatusToLicenseGrantedClaimUnpaid" x="351" y="529" width="247" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
@@ -45,7 +45,7 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="sendLicenseFeeClaim" x="375" y="534" width="178" height="36">
+  <node name="sendLicenseFeeClaim" x="379" y="453" width="178" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
@@ -104,15 +104,17 @@
       <bendpoint w1="165" h1="-200" w2="177" h2="-1"/>
     </edge>
   </node>
-  <node name="fork2" x="270" y="140" width="25" height="24">
+  <node name="fork2" x="303" y="541" width="25" height="24">
     <edge>
       <label x="-57" y="-23"/>
+      <bendpoint w1="-59" h1="-337" w2="183" h2="-1"/>
     </edge>
     <edge>
       <label x="5" y="-10"/>
+      <bendpoint w1="-64" h1="70" w2="-207" h2="0"/>
     </edge>
   </node>
-  <node name="deleteClaim" x="-54" y="203" width="132" height="36">
+  <node name="deleteClaim" x="7" y="199" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>

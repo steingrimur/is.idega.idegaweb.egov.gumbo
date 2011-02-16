@@ -223,7 +223,7 @@
                 <handlerName>notifyFinancialDepartment</handlerName>
             </action>
         </event>
-		<transition to="updateCaseStatusToLicenseGrantedClaimUnpaid"></transition>
+		<transition to="sendLicenseFeeClaim"></transition>
    </node>
 
 	<end-state name="end-state2" end-complete-process="true"></end-state>
@@ -237,11 +237,11 @@
             <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
                 <handlerName>casesStatusHandler</handlerName>
                 <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
-                    <entry><key>caseStatusMappedName</key><value>caseStatusGranted</value></entry>
+                    <entry><key>caseStatus</key><value>WFPA</value></entry>
                 </propertyMap>
             </action>
         </event>
-		<transition to="sendLicenseFeeClaim"></transition>
+		<transition to="updateTimerDate"></transition>
 	</node>
 
 	<node name="updateCaseStatusToLicenseDenied">
@@ -299,7 +299,7 @@
 	            <handlerName>notifyFinancialControllerIfThereIsADebt</handlerName>
 	        </action>
 		</event>
-		<transition to="fork2"></transition>
+		<transition to="licenseRuling"></transition>
 	</node>
 
 	<node name="sendLicenseFeeClaim">
@@ -308,7 +308,7 @@
                 <handlerName>sendLicenseFeeClaim</handlerName>
             </action>
         </event>
-		<transition to="updateTimerDate"></transition>
+		<transition to="fork2"></transition>
 	</node>
 
 	<state name="runCheckForPaymentTimer">
@@ -458,6 +458,7 @@
 	<fork name="fork2">
 		<transition to="licenseRuling" name="toLicenseRuling"></transition>
 		<transition to="deleteClaim" name="toDeleteClaim"></transition>
+		<transition to="updateTimerDate" name="toUpdateTimerDate"></transition>
 	</fork>
 
 	<task-node name="deleteClaim">
