@@ -297,19 +297,13 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	public void handle(Callback[] callbacks)
 			throws UnsupportedCallbackException {
 
-		String user = "idega";/*
-							 * IWMainApplication.getDefaultIWApplicationContext()
-							 * .getApplicationSettings()
-							 * .getProperty(LICENSE_UPDATE_USER, "idega");
-							 */
+		String user = IWMainApplication.getDefaultIWApplicationContext()
+				.getApplicationSettings()
+				.getProperty(LICENSE_UPDATE_USER, "idega");
 
-		String password = "ws4idega";/*
-									 * IWMainApplication.
-									 * getDefaultIWApplicationContext()
-									 * .getApplicationSettings()
-									 * .getProperty(LICENSE_UPDATE_PASSWORD,
-									 * "ws4idega");
-									 */
+		String password = IWMainApplication.getDefaultIWApplicationContext()
+				.getApplicationSettings()
+				.getProperty(LICENSE_UPDATE_PASSWORD, "ws4idega");
 
 		for (int i = 0; i < callbacks.length; i++) {
 			if (callbacks[i] instanceof WSPasswordCallback) {
@@ -799,8 +793,8 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 			stub._setProperty(WSHandlerConstants.PW_CALLBACK_CLASS, this
 					.getClass().getName());
 			stub._setProperty(WSHandlerConstants.MUST_UNDERSTAND, "false");
-			
-			stub._getServiceClient().getOptions().setProperty(WSDL2Constants.ATTRIBUTE_MUST_UNDERSTAND,"0");
+
+			// stub._getServiceClient().getOptions().setProperty(WSDL2Constants.ATTRIBUTE_MUST_UNDERSTAND,"0");
 
 			CreateveidileyfiElement parameters = new CreateveidileyfiElement(
 					new BigDecimal(2471), "1274",
