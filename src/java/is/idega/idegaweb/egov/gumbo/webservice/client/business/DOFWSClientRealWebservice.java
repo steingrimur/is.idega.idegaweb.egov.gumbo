@@ -57,8 +57,12 @@ import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.FS
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.FSWebServiceVeidileyfiUpdate_ServiceLocator;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CreateveidileyfiElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CreateveidileyfiResponseElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CreateveidileyfiWithPasswordElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CreateveidileyfiWithPasswordResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.VirkjaveidileyfiElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.VirkjaveidileyfiResponseElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.VirkjaveidileyfiWithPasswordElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.VirkjaveidileyfiWithPasswordResponseElement;
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.business.GumboBusiness;
 import is.idega.idegaweb.egov.gumbo.licenses.FishingLicenseUser.CompanyData;
@@ -105,7 +109,7 @@ import com.idega.util.text.Item;
 @Service("dofWSClient")
 @Qualifier(DOFWSClient.WEB_SERVICE)
 public class DOFWSClientRealWebservice extends DefaultSpringBean implements
-		DOFWSClient, CallbackHandler {
+		DOFWSClient {
 	private static final String SHIP_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceSKIPSoap12HttpPort";
 	private static final String SHIP_ENDPOINT_ATTRIBUTE_NAME = "dofws_ship_endpoint";
 
@@ -251,38 +255,10 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 					.getProperty(LICENSE_UPDATE_ENDPOINT_ATTRIBUTE_NAME,
 							LICENSE_UPDATE_DEFAULT_ENDPOINT);
 
-			String user = IWMainApplication.getDefaultIWApplicationContext()
-					.getApplicationSettings()
-					.getProperty(LICENSE_UPDATE_USER, "idega");
-
-			StringBuilder fileName = new StringBuilder(getBundle(
-					GumboConstants.IW_BUNDLE_IDENTIFIER).getRealPath());
-			fileName.append(File.separator);
-			fileName.append("deploy_client.wsdd");
-
-			File file = FileUtil.getFileFromWorkspace(fileName.toString());
-
-			EngineConfiguration config = new FileProvider(new FileInputStream(
-					file));
-
-			FSWebServiceVeidileyfiUpdate_ServiceLocator locator = new FSWebServiceVeidileyfiUpdate_ServiceLocator(
-					config);
+			FSWebServiceVeidileyfiUpdate_ServiceLocator locator = new FSWebServiceVeidileyfiUpdate_ServiceLocator();
 			FSWebServiceVeidileyfiUpdate_PortType port = locator
 					.getFSWebServiceVeidileyfiUpdateSoap12HttpPort(new URL(
 							endPoint));
-
-			Stub stub = ((org.apache.axis.client.Stub) port);
-			stub._setProperty(WSHandlerConstants.ACTION,
-					WSHandlerConstants.USERNAME_TOKEN);
-			stub._setProperty(WSHandlerConstants.PASSWORD_TYPE,
-					WSConstants.PW_TEXT);
-			stub._setProperty(WSHandlerConstants.USER, user);
-			stub._setProperty(WSHandlerConstants.PW_CALLBACK_CLASS, this
-					.getClass().getName());
-			stub._setProperty(WSHandlerConstants.ADD_UT_ELEMENTS,
-					"Nonce Created");
-			stub._setProperty(WSHandlerConstants.TIMESTAMP,
-					IWTimestamp.getTimestampRightNow());
 
 			// ((org.apache.axis.client.Stub) port).setTimeout(timeout)
 
@@ -292,35 +268,6 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		}
 
 		return null;
-	}
-
-	public void handle(Callback[] callbacks)
-			throws UnsupportedCallbackException {
-
-		String user = IWMainApplication.getDefaultIWApplicationContext()
-				.getApplicationSettings()
-				.getProperty(LICENSE_UPDATE_USER, "idega");
-
-		String password = IWMainApplication.getDefaultIWApplicationContext()
-				.getApplicationSettings()
-				.getProperty(LICENSE_UPDATE_PASSWORD, "ws4idega");
-
-		for (int i = 0; i < callbacks.length; i++) {
-			if (callbacks[i] instanceof WSPasswordCallback) {
-				WSPasswordCallback pc = (WSPasswordCallback) callbacks[i];
-				// mainWSPasswordCallback.
-				if (pc.getUsage() == WSPasswordCallback.USERNAME_TOKEN) {
-					if (pc.getIdentifier().equals(user)) {
-						pc.setPassword(password);
-					}
-				} else if (pc.getUsage() == WSPasswordCallback.USERNAME_TOKEN_UNKNOWN) {
-					System.out.println("How the hell do we handle this");
-				}
-			} else {
-				throw new UnsupportedCallbackException(callbacks[i],
-						"Unrecognized Callback");
-			}
-		}
 	}
 
 	private FSWebserviceHLUTDEILD_PortType getPortionPort() {
@@ -760,45 +707,29 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 
 	public void doSecurityTest() {
 		try {
-			// String endPoint =
+			//String endPoint =
 			// "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceVeidileyfiUpdateSoap12HttpPort";
 			String endPoint = "http://localhost:8080/FSWebServices_testing/FSWebServiceVeidileyfiUpdateSoap12HttpPort";
 
-			File file = new File("/Users/palli/deploy_client.wsdd");
-
-			EngineConfiguration config = new FileProvider(new FileInputStream(
-					file));
-			
-			FSWebServiceVeidileyfiUpdate_ServiceLocator locator = new FSWebServiceVeidileyfiUpdate_ServiceLocator(
-					config);
+			FSWebServiceVeidileyfiUpdate_ServiceLocator locator = new FSWebServiceVeidileyfiUpdate_ServiceLocator();
 			FSWebServiceVeidileyfiUpdate_PortType port = locator
 					.getFSWebServiceVeidileyfiUpdateSoap12HttpPort(new URL(
 							endPoint));
 
-			Stub stub = ((org.apache.axis.client.Stub) port);
-			stub._setProperty(WSHandlerConstants.ACTION,
-					WSHandlerConstants.USERNAME_TOKEN);
-			stub._setProperty(WSHandlerConstants.PASSWORD_TYPE,
-					WSConstants.PW_TEXT);
-			stub._setProperty(WSHandlerConstants.USER, "idega");
-			stub._setProperty(WSHandlerConstants.PW_CALLBACK_CLASS, this
-					.getClass().getName());
-			stub._setProperty(WSHandlerConstants.MUST_UNDERSTAND, "false");
-
 			// stub._getServiceClient().getOptions().setProperty(WSDL2Constants.ATTRIBUTE_MUST_UNDERSTAND,"0");
 
-			CreateveidileyfiElement parameters = new CreateveidileyfiElement(
+			CreateveidileyfiWithPasswordElement parameters = new CreateveidileyfiWithPasswordElement(
 					new BigDecimal(2471), "1274",
 					new IWTimestamp().getCalendar(),
-					new IWTimestamp().getCalendar(), "Test á móti Svenna");
-			CreateveidileyfiResponseElement res = port
-					.createveidileyfi(parameters);
+					new IWTimestamp().getCalendar(), "Test á móti Svenna með usr/pwd", "idega", "ws4idega");
+			CreateveidileyfiWithPasswordResponseElement res = port
+					.createveidileyfiWithPassword(parameters);
 			if (res.getResult() != null) {
 				System.out.println("res = " + res.getResult().intValue());
-				VirkjaveidileyfiElement param = new VirkjaveidileyfiElement(
-						res.getResult());
-				VirkjaveidileyfiResponseElement res2 = port
-						.virkjaveidileyfi(param);
+				VirkjaveidileyfiWithPasswordElement param = new VirkjaveidileyfiWithPasswordElement(
+						res.getResult(), "idega", "ws4idega");
+				VirkjaveidileyfiWithPasswordResponseElement res2 = port
+						.virkjaveidileyfiWithPassword(param);
 				System.out.println("res2.text = " + res2.getResult().getText());
 				System.out.println("res2.code = " + res2.getResult().getCode());
 			} else {
@@ -811,9 +742,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 			e.printStackTrace();
 		} catch (RemoteException e) {
 			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		} 
 	}
 
 	@Override
@@ -985,12 +914,21 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 
 	public BigDecimal createFishingLicense(String shipNr, String areaID,
 			IWTimestamp from, IWTimestamp to, String info) {
-		CreateveidileyfiElement parameters = new CreateveidileyfiElement(
+		String user = IWMainApplication.getDefaultIWApplicationContext()
+				.getApplicationSettings()
+				.getProperty(LICENSE_UPDATE_USER, "idega");
+
+		String password = IWMainApplication.getDefaultIWApplicationContext()
+				.getApplicationSettings()
+				.getProperty(LICENSE_UPDATE_PASSWORD, "ws4idega");
+
+		CreateveidileyfiWithPasswordElement parameters = new CreateveidileyfiWithPasswordElement(
 				new BigDecimal(shipNr), areaID, from.getCalendar(),
-				to.getCalendar(), info);
+				to.getCalendar(), info, user, password);
+
 		try {
-			CreateveidileyfiResponseElement res = getLicenseUpdatePort()
-					.createveidileyfi(parameters);
+			CreateveidileyfiWithPasswordResponseElement res = getLicenseUpdatePort()
+					.createveidileyfiWithPassword(parameters);
 			return res.getResult();
 		} catch (RemoteException e) {
 			e.printStackTrace();
