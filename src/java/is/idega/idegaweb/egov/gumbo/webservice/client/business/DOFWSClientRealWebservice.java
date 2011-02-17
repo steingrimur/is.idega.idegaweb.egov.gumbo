@@ -55,21 +55,14 @@ import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.Veidiley
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.VeidileyfiTypeUser;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.FSWebServiceVeidileyfiUpdate_PortType;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.FSWebServiceVeidileyfiUpdate_ServiceLocator;
-import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CreateveidileyfiElement;
-import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CreateveidileyfiResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CreateveidileyfiWithPasswordElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CreateveidileyfiWithPasswordResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.VirkjaveidileyfiElement;
-import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.VirkjaveidileyfiResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.VirkjaveidileyfiWithPasswordElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.VirkjaveidileyfiWithPasswordResponseElement;
-import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.business.GumboBusiness;
 import is.idega.idegaweb.egov.gumbo.licenses.FishingLicenseUser.CompanyData;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -81,17 +74,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.security.auth.callback.Callback;
-import javax.security.auth.callback.CallbackHandler;
-import javax.security.auth.callback.UnsupportedCallbackException;
 import javax.xml.rpc.ServiceException;
 
-import org.apache.axis.EngineConfiguration;
-import org.apache.axis.client.Stub;
-import org.apache.axis.configuration.FileProvider;
-import org.apache.ws.security.WSConstants;
-import org.apache.ws.security.WSPasswordCallback;
-import org.apache.ws.security.handler.WSHandlerConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
@@ -101,7 +85,6 @@ import com.idega.company.data.Company;
 import com.idega.core.business.DefaultSpringBean;
 import com.idega.idegaweb.IWMainApplication;
 import com.idega.user.data.User;
-import com.idega.util.FileUtil;
 import com.idega.util.IWTimestamp;
 import com.idega.util.text.Item;
 
@@ -721,13 +704,13 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 			CreateveidileyfiWithPasswordElement parameters = new CreateveidileyfiWithPasswordElement(
 					new BigDecimal(2471), "1274",
 					new IWTimestamp().getCalendar(),
-					new IWTimestamp().getCalendar(), "Test á móti Svenna með usr/pwd", "idega", "ws4idega");
+					new IWTimestamp().getCalendar(), "Test á móti Svenna með usr/pwd", "", "");
 			CreateveidileyfiWithPasswordResponseElement res = port
 					.createveidileyfiWithPassword(parameters);
 			if (res.getResult() != null) {
 				System.out.println("res = " + res.getResult().intValue());
 				VirkjaveidileyfiWithPasswordElement param = new VirkjaveidileyfiWithPasswordElement(
-						res.getResult(), "idega", "ws4idega");
+						res.getResult(), "", "");
 				VirkjaveidileyfiWithPasswordResponseElement res2 = port
 						.virkjaveidileyfiWithPassword(param);
 				System.out.println("res2.text = " + res2.getResult().getText());
@@ -916,11 +899,11 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 			IWTimestamp from, IWTimestamp to, String info) {
 		String user = IWMainApplication.getDefaultIWApplicationContext()
 				.getApplicationSettings()
-				.getProperty(LICENSE_UPDATE_USER, "idega");
+				.getProperty(LICENSE_UPDATE_USER, "");
 
 		String password = IWMainApplication.getDefaultIWApplicationContext()
 				.getApplicationSettings()
-				.getProperty(LICENSE_UPDATE_PASSWORD, "ws4idega");
+				.getProperty(LICENSE_UPDATE_PASSWORD, "");
 
 		CreateveidileyfiWithPasswordElement parameters = new CreateveidileyfiWithPasswordElement(
 				new BigDecimal(shipNr), areaID, from.getCalendar(),
