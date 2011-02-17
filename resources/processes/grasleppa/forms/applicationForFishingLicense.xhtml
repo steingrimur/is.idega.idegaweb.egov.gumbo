@@ -35,32 +35,32 @@
                         <ownersSocialSecurityNr mapping="string_vesselOwnersSocialSecurityNr"/>
                     </vesselData>
                     
-                    <vesselHasValidHaffairisskirteini>
+                    <vesselHasValidHaffairisskirteini mapping="string_hasValidHaffaerisskirteini">
                         <result>true</result>
                         <message>true</message>
                     </vesselHasValidHaffairisskirteini>
                     <vesselHasNotValidHaffairisskirteini/>
-                    <vesselHasValidHaffairisskirteiniMessage/>
+                    <vesselHasValidHaffairisskirteiniMessage mapping="string_validHaffaerisskirteini" />
                     
-                    <vesselHasValidGeneralFishingLicense>
+                    <vesselHasValidGeneralFishingLicense mapping="string_hasValidGeneralFishingLicense">
                         <result>true</result>
                         <message>true</message>
                     </vesselHasValidGeneralFishingLicense>
                     <vesselHasNotValidGeneralFishingLicense/>
-                    <vesselHasValidGeneralFishingLicenseMessage/>
+                    <vesselHasValidGeneralFishingLicenseMessage mapping="string_validGeneralFishingLicense" />
                     
-                    <vesselHasRevokedLicense>
+                    <vesselHasRevokedLicense mapping="string_hasRevokedLicense">
                         <result>false</result>
                         <message></message>
                     </vesselHasRevokedLicense>
                     <vesselHasNotRevokedLicense/>
-                    <vesselHasRevokedLicenseMessage/>
+                    <vesselHasRevokedLicenseMessage mapping="string_revokedLicense" />
                     
-                    <companyHasValidGrasleppa>false</companyHasValidGrasleppa>
-                    <companyHasNotValidGrasleppa/>
+                    <companyHasValidGrasleppa mapping="string_hasValidGrasleppa">false</companyHasValidGrasleppa>
+                    <companyHasNotValidGrasleppa mapping="string_hasNotValidGrasleppa" />
                     
-                    <debtMessageContainer/>
-                    <userIsInDebt>false</userIsInDebt>
+                    <debtMessageContainer mapping="string_deptMessage" />
+                    <userIsInDebt mapping="string_userInDebt">false</userIsInDebt>
                     <saveFormData>
                         <submissionId/>
                     </saveFormData>
@@ -615,35 +615,35 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_72-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
                         
-                        <xf:group bind="fbc_73_bind">
+                        <xf:group bind="fbc_73_bind" class="check">
                             <xf:output bind="fbc_116_bind" />
                         </xf:group>
-                        <xf:group bind="fbc_74_bind" class="xformErrors">
+                        <xf:group bind="fbc_74_bind" class="fail">
                             <xf:output bind="fbc_116_bind" />
                         </xf:group>
                         
-                        <xf:group bind="fbc_106_bind">
+                        <xf:group bind="fbc_106_bind" class="check">
                             <xf:output bind="fbc_117_bind" />
                         </xf:group>
-                        <xf:group bind="fbc_107_bind" class="xformErrors">
+                        <xf:group bind="fbc_107_bind" class="fail">
                             <xf:output bind="fbc_117_bind" />
                         </xf:group>
                         
-                        <xf:group bind="fbc_111_bind" class="xformErrors">
+                        <xf:group bind="fbc_111_bind" class="fail">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_111-text[@lang=instance('localized_strings')/current_language]"/>
                         </xf:group>
-                        <xf:group bind="fbc_112_bind">
+                        <xf:group bind="fbc_112_bind" class="check">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_112-text[@lang=instance('localized_strings')/current_language]"/>
                         </xf:group>
-                        <xf:group bind="debtMessageContainer">
+                        
+                        <xf:group bind="debtMessageContainer" class="warning">
                             <xf:output model="data_model" ref="instance('localized_strings')/debtMessage[@lang=instance('localized_strings')/current_language]"/>
                         </xf:group>
                         
-                        
-                        <xf:group bind="fbc_118_bind" class="xformErrors">
+                        <xf:group bind="fbc_118_bind" class="fail">
                             <xf:output bind="fbc_120_bind" />
                         </xf:group>
-                        <xf:group bind="fbc_119_bind">
+                        <xf:group bind="fbc_119_bind" class="check">
                             <xf:output bind="fbc_120_bind" />
                         </xf:group>
                         
