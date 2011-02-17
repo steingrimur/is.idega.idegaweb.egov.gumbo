@@ -5,6 +5,7 @@ import is.idega.idegaweb.egov.gumbo.data.FishingGear;
 import is.idega.idegaweb.egov.gumbo.data.Inspector;
 import is.idega.idegaweb.egov.gumbo.data.Letter;
 import is.idega.idegaweb.egov.gumbo.data.Office;
+import is.idega.idegaweb.egov.gumbo.data.ProcessFocalCode;
 import is.idega.idegaweb.egov.gumbo.data.ProcessPaymentCode;
 import is.idega.idegaweb.egov.gumbo.data.ProcessPaymentLog;
 import is.idega.idegaweb.egov.gumbo.data.ProcessPaymentLogHeader;
@@ -56,4 +57,12 @@ public interface GumboDao extends GenericDao {
 	public ShipClaimPeriod getShipClaimPeriod(String personalID, String shipNr);
 
 	public ShipClaimPeriod updateShipClaimPeriod(ShipClaimPeriod entry, String period, int week, int year);
+	
+	public List<ProcessFocalCode> getProcessFocalCode();
+
+	public List<ProcessFocalCode> getProcessFocalCode(String processName);
+
+	public List<ProcessFocalCode> getProcessFocalCode(String processName,
+			String subName);
+
 }

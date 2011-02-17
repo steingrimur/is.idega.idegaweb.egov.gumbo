@@ -762,22 +762,13 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		try {
 			// String endPoint =
 			// "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceVeidileyfiUpdateSoap12HttpPort";
-			System.out.println(WSPasswordCallback.CUSTOM_TOKEN);
-			System.out.println(WSPasswordCallback.DECRYPT);
-			System.out.println(WSPasswordCallback.ENCRYPTED_KEY_TOKEN);
-			System.out.println(WSPasswordCallback.KEY_NAME);
-			System.out.println(WSPasswordCallback.SECURITY_CONTEXT_TOKEN);
-			System.out.println(WSPasswordCallback.SIGNATURE);
-			System.out.println(WSPasswordCallback.UNKNOWN);
-			System.out.println(WSPasswordCallback.USERNAME_TOKEN);
-			System.out.println(WSPasswordCallback.USERNAME_TOKEN_UNKNOWN);
-
 			String endPoint = "http://localhost:8080/FSWebServices_testing/FSWebServiceVeidileyfiUpdateSoap12HttpPort";
 
 			File file = new File("/Users/palli/deploy_client.wsdd");
 
 			EngineConfiguration config = new FileProvider(new FileInputStream(
 					file));
+			
 			FSWebServiceVeidileyfiUpdate_ServiceLocator locator = new FSWebServiceVeidileyfiUpdate_ServiceLocator(
 					config);
 			FSWebServiceVeidileyfiUpdate_PortType port = locator

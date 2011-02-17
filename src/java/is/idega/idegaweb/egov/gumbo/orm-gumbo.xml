@@ -8,6 +8,7 @@
     <entity class="is.idega.idegaweb.egov.gumbo.data.Inspector" />
     <entity class="is.idega.idegaweb.egov.gumbo.data.Letter" />
     <entity class="is.idega.idegaweb.egov.gumbo.data.Office" />
+    <entity class="is.idega.idegaweb.egov.gumbo.data.ProcessFocalCode" />
     <entity class="is.idega.idegaweb.egov.gumbo.data.ProcessPaymentCode" />
     <entity class="is.idega.idegaweb.egov.gumbo.data.ProcessPaymentLog" />
     <entity class="is.idega.idegaweb.egov.gumbo.data.ProcessPaymentLogHeader" />

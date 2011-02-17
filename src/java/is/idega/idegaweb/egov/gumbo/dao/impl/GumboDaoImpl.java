@@ -6,6 +6,7 @@ import is.idega.idegaweb.egov.gumbo.data.FishingGear;
 import is.idega.idegaweb.egov.gumbo.data.Inspector;
 import is.idega.idegaweb.egov.gumbo.data.Letter;
 import is.idega.idegaweb.egov.gumbo.data.Office;
+import is.idega.idegaweb.egov.gumbo.data.ProcessFocalCode;
 import is.idega.idegaweb.egov.gumbo.data.ProcessPaymentCode;
 import is.idega.idegaweb.egov.gumbo.data.ProcessPaymentLog;
 import is.idega.idegaweb.egov.gumbo.data.ProcessPaymentLogHeader;
@@ -157,4 +158,23 @@ public class GumboDaoImpl extends GenericDaoImpl implements GumboDao {
 
 		return entry;
 	}
+	
+	public List<ProcessFocalCode> getProcessFocalCode() {
+		return getResultList("processFocalCode.findAll",
+				ProcessFocalCode.class);
+	}
+
+	public List<ProcessFocalCode> getProcessFocalCode(String processName) {
+		Param param = new Param("processName", processName);
+		return getResultList("processFocalCode.findAllByProcessName",
+				ProcessFocalCode.class, param);
+	}
+
+	public List<ProcessFocalCode> getProcessFocalCode(String processName,
+			String subName) {
+		Param param1 = new Param("processName", processName);
+		Param param2 = new Param("subName", subName);
+		return getResultList("processFocalCode.findAllByProcessNameAndSubName",
+				ProcessFocalCode.class, param1, param2);
+	}	
 }
