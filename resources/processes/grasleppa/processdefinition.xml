@@ -109,6 +109,9 @@
 			<action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
             	<handlerName>fishingLicenseDescriptionHandler</handlerName>
           	</action>
+			<action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+            	<handlerName>fishingLicenseToFocalHandler</handlerName>
+          	</action>
       </event>
       <transition to="notifyFinancialControllerIfThereIsADebt"></transition>
    </start-state>
