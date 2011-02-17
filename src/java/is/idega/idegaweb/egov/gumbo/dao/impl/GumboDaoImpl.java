@@ -71,7 +71,7 @@ public class GumboDaoImpl extends GenericDaoImpl implements GumboDao {
 
 	public List<ProcessPaymentCode> getProcessPaymentCode(String processName) {
 		Param param = new Param("processName", processName);
-		return getResultList("processPaymentCode.findAll",
+		return getResultList("processPaymentCode.findAllByProcessName",
 				ProcessPaymentCode.class, param);
 	}
 
@@ -79,7 +79,7 @@ public class GumboDaoImpl extends GenericDaoImpl implements GumboDao {
 			String subName) {
 		Param param1 = new Param("processName", processName);
 		Param param2 = new Param("subName", subName);
-		return getResultList("processPaymentCode.findAll",
+		return getResultList("processPaymentCode.findAllByProcessNameAndSubName",
 				ProcessPaymentCode.class, param1, param2);
 	}
 
@@ -109,10 +109,11 @@ public class GumboDaoImpl extends GenericDaoImpl implements GumboDao {
 		return header;
 	}
 
+	@Transactional(readOnly = false)
 	public ProcessPaymentLog createLogEntry(ProcessPaymentLogHeader header,
 			String payersPersonalID, String shipNumber, String period,
 			String paymentCode, Integer numberOfUnits, Integer unitPrice,
-			Integer amount, String reference) {
+			Integer amount) {
 		ProcessPaymentLog log = new ProcessPaymentLog();
 		log.setHeader(header);
 		log.setPayersPersonalID(payersPersonalID);
@@ -122,7 +123,6 @@ public class GumboDaoImpl extends GenericDaoImpl implements GumboDao {
 		log.setNumberOfUnits(numberOfUnits);
 		log.setUnitPrice(unitPrice);
 		log.setAmount(amount);
-		log.setReference(reference);
 
 		getEntityManager().persist(log);
 

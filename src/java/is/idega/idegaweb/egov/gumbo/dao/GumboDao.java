@@ -49,7 +49,7 @@ public interface GumboDao extends GenericDao {
 	public ProcessPaymentLog createLogEntry(ProcessPaymentLogHeader header,
 			String payersPersonalID, String shipNumber, String period,
 			String paymentCode, Integer numberOfUnits, Integer unitPrice,
-			Integer amount, String reference);
+			Integer amount);
 	
 	public ShipClaimPeriod createShipClaimPeriod(String personalID, String shipNr, String period, int week, int year);
 	

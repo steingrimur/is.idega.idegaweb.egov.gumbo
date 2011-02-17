@@ -10,12 +10,21 @@ import is.fjs.secure.TBRStadaSkipsSvar;
 import is.fjs.secure.TBRStofnaKrofu;
 import is.fjs.secure.TBRStofnaKrofuSvar;
 import is.fjs.secure.TBRSundurlidun;
+import is.idega.idegaweb.egov.gumbo.dao.GumboDao;
+import is.idega.idegaweb.egov.gumbo.data.ProcessPaymentCode;
+import is.idega.idegaweb.egov.gumbo.data.ProcessPaymentLog;
+import is.idega.idegaweb.egov.gumbo.data.ProcessPaymentLogHeader;
+import is.idega.idegaweb.egov.gumbo.data.ShipClaimPeriod;
 
 import java.math.BigDecimal;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import javax.xml.rpc.ServiceException;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +41,9 @@ public class FJSWSClient {
 	private static final String USER_NAME_ATTRIBUTE_NAME = "fjsws_user_name";
 	private static final String PASSWORD_ATTRIBUTE_NAME = "fjsws_password";
 	private static final String SYSTEM_ATTRIBUTE_NAME = "fjsws_system";
+
+	@Autowired
+	private GumboDao gumboDAO;
 
 	private ServiceSoap getPort() {
 		try {
@@ -54,7 +66,8 @@ public class FJSWSClient {
 
 	public boolean getIsInDebt(String shipNr) {
 		try {
-			TBRStadaSkips iStadaSkips = new TBRStadaSkips(getHeader(), shipNr);
+			TBRStadaSkips iStadaSkips = new TBRStadaSkips(getHeader(null),
+					shipNr);
 			TBRStadaSkipsSvar ret = getPort().saekjaStoduSkips(iStadaSkips);
 
 			if (ret != null) {
@@ -73,7 +86,7 @@ public class FJSWSClient {
 		return true;
 	}
 
-	private Haus getHeader() {
+	private Haus getHeader(ProcessPaymentLogHeader logHeader) {
 		Haus header = new Haus();
 
 		IWMainApplicationSettings settings = IWMainApplication
@@ -83,85 +96,80 @@ public class FJSWSClient {
 		header.setKerfi(settings.getProperty(SYSTEM_ATTRIBUTE_NAME, "FKS"));
 		header.setNotandi(settings.getProperty(USER_NAME_ATTRIBUTE_NAME,
 				"FKS_Test"));
-		// header.setRadnrSkeytis(radnrSkeytis);
+		if (logHeader != null) {
+			header.setRadnrSkeytis(logHeader.getId().toString());
+		}
 
 		return header;
 	}
 
-	public String createLicenseFeeClaim(String ssn, String shipNr, List<FeeEntry> entries) {
+	public String createLicenseFeeClaim(String ssn, String shipNr,
+			List<ProcessPaymentCode> entries) {
 		IWMainApplicationSettings settings = IWMainApplication
 				.getDefaultIWApplicationContext().getApplicationSettings();
 
-		String DOFSSN = "6608922069";
-		String DOFCode = "9635";
+		String DOFSSN = settings.getProperty("DOFSSN", "6608922069");
+		String DOFCode = settings.getProperty("DOFCompanyCode", "9635");
 
 		String period = getPeriod(ssn, shipNr);
 
+		ProcessPaymentLogHeader header = getGumboDAO().createHeader();
+
 		TBRSundurlidun wsEntries[] = new TBRSundurlidun[entries.size()];
 		int counter = 0;
-		for (FeeEntry entry : entries) {
-			wsEntries[counter++] = new TBRSundurlidun(entry.getCode(), new BigDecimal(entry.getAmount()), new BigDecimal(1), new BigDecimal(entry.getAmount()), entry.getReference());
+		ProcessPaymentLog log = null;
+		for (ProcessPaymentCode entry : entries) {
+			log = getGumboDAO().createLogEntry(header, ssn, shipNr, period,
+					entry.getPaymentCode(), 1, entry.getAmount(),
+					entry.getAmount());
+			wsEntries[counter++] = new TBRSundurlidun(entry.getPaymentCode(),
+					new BigDecimal(1), new BigDecimal(entry.getAmount()),
+					new BigDecimal(entry.getAmount()), log.getId().toString());
 		}
-		
-		TBRStofnaKrofu iStofnaKrofu = new TBRStofnaKrofu(getHeader(),
+
+		TBRStofnaKrofu iStofnaKrofu = new TBRStofnaKrofu(getHeader(header),
 				wsEntries, DOFCode, ssn, "FV2", shipNr, period, DOFSSN);
 		try {
-			TBRStofnaKrofuSvar ret = getPort().stofnaKrofuVeidileyfi(iStofnaKrofu);
-			if (ret.getSvarHaus().getKodi() == 0l) {
-				return ret.getLykill();
-			}
+			TBRStofnaKrofuSvar ret = getPort().stofnaKrofuVeidileyfi(
+					iStofnaKrofu);
+			getGumboDAO().updateHeader(header, ret.getSvarHaus().getKodi(),
+					ret.getSvarHaus().getSkyring(), ret.getLykill());
+			return ret.getLykill();
 		} catch (RemoteException e) {
+			getGumboDAO().updateHeader(header, -1l, e.getMessage(), "-1");
 			e.printStackTrace();
 		}
 
 		return null;
 	}
 
-	public class FeeEntry {
-		private String code = null;
-		private int amount = 0;
-		private String reference = null;
-		
-		public FeeEntry(String code, int amount, String reference) {
-			this.code = code;
-			this.amount = amount;
-			this.reference = reference;
-		}
-		
-		public void setCode(String code) {
-			this.code = code;
-		}
-		
-		public void setAmount(int amount) {
-			this.amount = amount;
-		}
-		
-		public void setReference(String reference) {
-			this.reference = reference;
-		}
-		
-		public String getCode() {
-			return this.code;
-		}
-		
-		public int getAmount() {
-			return this.amount;
-		}
-		
-		public String getReference() {
-			return this.reference;
-		}
-	}
-	
 	private String getPeriod(String ssn, String shipNr) {
 		IWTimestamp now = new IWTimestamp();
 		now.setMinimalDaysInFirstWeek(7);
-		
+
 		int week = now.getWeekOfYear();
 		int year = now.getYear();
 
-		
-		return now.getDateString("yyyy-ww");
+		String period = now.getDateString("yyyyww");
+
+		ShipClaimPeriod scp = getGumboDAO().getShipClaimPeriod(ssn, shipNr);
+		if (scp == null) {
+			getGumboDAO()
+					.createShipClaimPeriod(ssn, shipNr, period, week, year);
+			return period;
+		} else {
+			while (scp.getYear() >= year && scp.getWeek() >= week) {
+				now.addDays(7);
+				week = now.getWeekOfYear();
+				year = now.getYear();
+			}
+		}
+
+		period = now.getDateString("yyyyhiww");
+
+		getGumboDAO().updateShipClaimPeriod(scp, period, week, year);
+
+		return period;
 	}
 
 	public boolean cancelLicenseFeeClaim() {
@@ -173,7 +181,7 @@ public class FJSWSClient {
 			String claimNumber) {
 
 		try {
-			TBRStadaKrofu iStadaKrofu = new TBRStadaKrofu(getHeader(), ssn,
+			TBRStadaKrofu iStadaKrofu = new TBRStadaKrofu(getHeader(null), ssn,
 					shipNr, claimNumber);
 			TBRStadaKrofuSvar ret = getPort().saekjaStoduKrofu(iStadaKrofu);
 
@@ -185,12 +193,18 @@ public class FJSWSClient {
 		return false;
 	}
 
+	private GumboDao getGumboDAO() {
+		return gumboDAO;
+	}
+
 	public static void main(String args[]) {
-		IWTimestamp now = new IWTimestamp();
-		now.setMinimalDaysInFirstWeek(7);
-		System.out.println("week = " + now.getWeekOfYear());
-		System.out.println("period = " + now.getDateString("yyyy-ww"));
-/*		try {
+		/*
+		 * IWTimestamp now = new IWTimestamp();
+		 * now.setMinimalDaysInFirstWeek(7); System.out.println("week = " +
+		 * now.getWeekOfYear()); System.out.println("period = " +
+		 * now.getDateString("yyyy-ww"));
+		 */
+		try {
 			ServiceLocator locator = new ServiceLocator();
 			ServiceSoap port = locator.getServiceSoap(new URL(
 					"http://securep.fjs.is/webfjs/ws-fks/service.asmx"));
@@ -201,32 +215,32 @@ public class FJSWSClient {
 			haus.setNotandi("FKS_Test");
 			// haus.setRadnrSkeytis("1");
 
-//			TBRStadaSkips iStadaSkips = new TBRStadaSkips(haus, "2478");
-//			TBRStadaSkipsSvar ret = port.saekjaStoduSkips(iStadaSkips);
-//
-//			if (ret != null) {
-//				System.out.println("ret.getSkuldMillifaerslnaKvota() = "
-//						+ ret.getSkuldMillifaerslnaKvota().intValue());
-//				System.out.println("ret.getSkuldVeidigjalds() = "
-//						+ ret.getSkuldVeidigjalds().intValue());
-//				System.out.println("ret.getSkuldVeidileyfis() = "
-//						+ ret.getSkuldVeidileyfis().intValue());
-//			} else {
-//				System.out.println("nothing returned");
-//			}
+			TBRStadaSkips iStadaSkips = new TBRStadaSkips(haus, "2471");
+			TBRStadaSkipsSvar ret = port.saekjaStoduSkips(iStadaSkips);
 
-			
-			 TBRGjaldskra iGjaldskra = new TBRGjaldskra(haus, "6608922069");
-			  TBRGjaldskraSvar ret = port.saekjaGjaldskra(iGjaldskra);
-			  
-			  if (ret.getSvarHaus().getKodi() == 0) { Gjald fees[] =
-			  ret.getGjold(); for (int i = 0; i < fees.length; i++) {
-			  System.out.println("fee: " + fees[i].getSkyrsluform() + ", " +
-			  fees[i].getGjaldkodi() + ", " + fees[i].getUpphaed() + ", " +
-			  fees[i].getTexti()); } } else { System.out.println("error : " +
-			  ret.getSvarHaus().getSkyring() + ", " +
-			  ret.getSvarHaus().getNanariSkyring()); }
-			 
+			if (ret != null) {
+				System.out.println("ret.getSkuldMillifaerslnaKvota() = "
+						+ ret.getSkuldMillifaerslnaKvota().intValue());
+				System.out.println("ret.getSkuldVeidigjalds() = "
+						+ ret.getSkuldVeidigjalds().intValue());
+				System.out.println("ret.getSkuldVeidileyfis() = "
+						+ ret.getSkuldVeidileyfis().intValue());
+			} else {
+				System.out.println("nothing returned");
+			}
+
+			/*
+			 * TBRGjaldskra iGjaldskra = new TBRGjaldskra(haus, "6608922069");
+			 * TBRGjaldskraSvar ret = port.saekjaGjaldskra(iGjaldskra);
+			 * 
+			 * if (ret.getSvarHaus().getKodi() == 0) { Gjald fees[] =
+			 * ret.getGjold(); for (int i = 0; i < fees.length; i++) {
+			 * System.out.println("fee: " + fees[i].getSkyrsluform() + ", " +
+			 * fees[i].getGjaldkodi() + ", " + fees[i].getUpphaed() + ", " +
+			 * fees[i].getTexti()); } } else { System.out.println("error : " +
+			 * ret.getSvarHaus().getSkyring() + ", " +
+			 * ret.getSvarHaus().getNanariSkyring()); }
+			 */
 
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -234,6 +248,6 @@ public class FJSWSClient {
 			e.printStackTrace();
 		} catch (RemoteException e) {
 			e.printStackTrace();
-		}*/
+		}
 	}
 }

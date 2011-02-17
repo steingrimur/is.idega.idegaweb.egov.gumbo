@@ -1,10 +1,14 @@
 package is.idega.idegaweb.egov.gumbo.data;
 
+import java.io.Serializable;
+
 import javax.persistence.Basic;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class ShipClaimPeriodPK {
+public class ShipClaimPeriodPK implements Serializable {
+	private static final long serialVersionUID = 2436617170886314327L;
+
 	@Basic
 	private String shipNr;
 	

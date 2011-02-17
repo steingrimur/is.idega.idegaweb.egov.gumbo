@@ -44,7 +44,7 @@ public class ProcessPaymentCode implements Serializable {
 	private String paymentCode;
 
 	@Column(name = COLUMN_AMOUNT)
-	private Integer ordering;
+	private Integer amount;
 
 	public Long getId() {
 		return id;
@@ -78,14 +78,11 @@ public class ProcessPaymentCode implements Serializable {
 		this.paymentCode = paymentCode;
 	}
 
-	public Integer getOrdering() {
-		return ordering;
+	public Integer getAmount() {
+		return amount;
 	}
 
-	public void setOrdering(Integer ordering) {
-		this.ordering = ordering;
+	public void setAmount(Integer amount) {
+		this.amount = amount;
 	}
-
-	
-
 }

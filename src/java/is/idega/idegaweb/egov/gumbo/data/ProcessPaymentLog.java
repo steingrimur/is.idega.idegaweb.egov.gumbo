@@ -28,7 +28,6 @@ public class ProcessPaymentLog implements Serializable {
 	private static final String COLUMN_NUMBER_OF_UNITS = "number_of_units";
 	private static final String COLUMN_UNIT_PRICE = "unit_price";
 	private static final String COLUMN_AMOUNT = "amount";
-	private static final String COLUMN_REFERENCE = "reference";
 	
 	@Id
 	@Column(name = COLUMN_PROCESS_PAYMENT_LOG_ID)
@@ -59,9 +58,6 @@ public class ProcessPaymentLog implements Serializable {
 
 	@Column(name = ProcessPaymentLog.COLUMN_AMOUNT)
 	private Integer amount;
-
-	@Column(name = ProcessPaymentLog.COLUMN_REFERENCE)
-	private String reference;
 
 	public Long getId() {
 		return id;
@@ -117,14 +113,6 @@ public class ProcessPaymentLog implements Serializable {
 
 	public void setAmount(Integer amount) {
 		this.amount = amount;
-	}
-
-	public String getReference() {
-		return reference;
-	}
-
-	public void setReference(String reference) {
-		this.reference = reference;
 	}
 
 	public String getShipNumber() {
