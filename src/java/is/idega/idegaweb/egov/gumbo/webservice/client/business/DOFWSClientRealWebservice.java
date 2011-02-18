@@ -684,8 +684,29 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	}
 
 	public static void main(String[] arguments) {
-		DOFWSClientRealWebservice real = new DOFWSClientRealWebservice();
-		real.doSecurityTest();
+		CreateveidileyfiWithPasswordElement parameters = new CreateveidileyfiWithPasswordElement(
+				new BigDecimal(2478), "1272", new IWTimestamp("2011-03-12").getCalendar(),
+				new IWTimestamp("2011-05-12").getCalendar(), "1392", "idega", "ws4idega");
+
+		try {
+			String endPoint = "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceVeidileyfiUpdateSoap12HttpPort";
+
+			FSWebServiceVeidileyfiUpdate_ServiceLocator locator = new FSWebServiceVeidileyfiUpdate_ServiceLocator();
+			FSWebServiceVeidileyfiUpdate_PortType port = locator
+					.getFSWebServiceVeidileyfiUpdateSoap12HttpPort(new URL(
+							endPoint));
+
+			CreateveidileyfiWithPasswordResponseElement res = port.createveidileyfiWithPassword(parameters);
+			System.out.println(res.getResult());
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void doSecurityTest() {

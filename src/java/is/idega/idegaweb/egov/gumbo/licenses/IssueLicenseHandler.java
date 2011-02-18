@@ -2,6 +2,7 @@ package is.idega.idegaweb.egov.gumbo.licenses;
 
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.VeidileyfiTypeUser;
+import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.pdf.GumboPDFGenerator;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 
@@ -100,7 +101,7 @@ public class IssueLicenseHandler extends DefaultSpringBean implements ActionHand
 
 			String licenseType = ectx.getProcessDefinition().getName();
 			String vesselNumber = (String) ectx.getVariable("string_vesselRegistryNr");
-			String licenseID = theCase.getMetaData("DOF_LICENSE_KEY");
+			String licenseID = theCase.getMetaData(GumboConstants.DOF_FISHING_LICENSE_METADATA_KEY);
 			
 			VeidileyfiTypeUser license = licenseID != null ? getWSClient().getFishingLicenseInfo(new BigDecimal(licenseID)) : null;
 			SkipInfoTypeUser ship = getWSClient().getShipInfo(vesselNumber);
