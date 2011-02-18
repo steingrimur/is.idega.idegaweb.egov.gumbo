@@ -26,7 +26,8 @@ public class ProcessFocalCode implements Serializable {
 	private static final String COLUMN_PROCESS_PAYMENT_CODE_ID = "focal_code_id";
 	private static final String COLUMN_PROCESS_NAME = "process_name";
 	private static final String COLUMN_SUB_NAME = "sub_name";
-	private static final String COLUMN_FOCAL_CODE = "focal_code";
+	private static final String COLUMN_FOCAL_PROJECT_ID = "focal_project_id";
+	private static final String COLUMN_FOCAL_DOCUMENT_KEY = "focal_document_key";
 	
 	@Id
 	@Column(name = COLUMN_PROCESS_PAYMENT_CODE_ID)
@@ -39,8 +40,11 @@ public class ProcessFocalCode implements Serializable {
 	@Column(name = COLUMN_SUB_NAME)
 	private String subName;
 
-	@Column(name = COLUMN_FOCAL_CODE)
-	private String focalCode;
+	@Column(name = COLUMN_FOCAL_PROJECT_ID)
+	private String focalProjectID;
+
+	@Column(name = COLUMN_FOCAL_DOCUMENT_KEY)
+	private String focalDocumentKey;
 
 	public Long getId() {
 		return id;
@@ -66,11 +70,19 @@ public class ProcessFocalCode implements Serializable {
 		this.subName = subName;
 	}
 
-	public String getPaymentCode() {
-		return focalCode;
+	public String getFocalProjectID() {
+		return focalProjectID;
 	}
 
-	public void setPaymentCode(String focalCode) {
-		this.focalCode = focalCode;
+	public void setFocalProjectID(String focalProjectID) {
+		this.focalProjectID = focalProjectID;
+	}
+
+	public String getFocalDocumentKey() {
+		return focalDocumentKey;
+	}
+
+	public void setFocalDocumentKey(String focalDocumentKey) {
+		this.focalDocumentKey = focalDocumentKey;
 	}
 }

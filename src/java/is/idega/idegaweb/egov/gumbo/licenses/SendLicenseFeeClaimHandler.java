@@ -1,6 +1,8 @@
 package is.idega.idegaweb.egov.gumbo.licenses;
 
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.VeidileyfagerdTypeUser;
+import is.idega.idegaweb.egov.gumbo.GumboConstants;
+import is.idega.idegaweb.egov.gumbo.business.GumboProcessException;
 import is.idega.idegaweb.egov.gumbo.dao.GumboDao;
 import is.idega.idegaweb.egov.gumbo.data.ProcessPaymentCode;
 import is.idega.idegaweb.egov.gumbo.data.ProcessPaymentLogHeader;
@@ -88,10 +90,10 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 		
 		System.out.println("claimKey = " + claimKey);
 		if (claimKey != null) {
-			theCase.setMetaData("FJS_CLAIM_KEY", claimKey);
+			theCase.setMetaData(GumboConstants.FJS_CLAIM_NUMBER_METADATA_KEY, claimKey);
 		} else {
 			//throw some exception!!!!
-			throw new RuntimeException("Error registering the claim");
+			throw new GumboProcessException("Error registering the claim");
 		}
 
 		// create license
@@ -122,7 +124,7 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 
 			BigDecimal ret = getWSClient().createFishingLicense(shipID, areaID,
 					from, to, theCase.getPrimaryKey().toString());
-			theCase.setMetaData("DOF_LICENSE_KEY", ret.toString());
+			theCase.setMetaData(GumboConstants.DOF_FISHING_LICENSE_METADATA_KEY, ret.toString());
 			System.out.println("license id = " + ret.intValue());
 			System.out.println("case id = " + theCase.getUniqueId());
 			getWSClient().activateFishingLicense(ret);

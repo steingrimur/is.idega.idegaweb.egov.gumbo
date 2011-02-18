@@ -9,6 +9,8 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import com.idega.idegaweb.IWMainApplication;
+import com.idega.idegaweb.IWMainApplicationSettings;
 import com.idega.jbpm.time.CalendarOperations;
 
 @Service("updateCheckForPaymentTimerDate")
@@ -34,10 +36,11 @@ public class UpdateTimerDateHandler implements ActionHandler {
 	 * @return expressions valid in {@link CalendarOperations#add(java.util.Date, String)}
 	 */
 	private String getCheckEachExpression() {
-		
+		IWMainApplicationSettings settings = IWMainApplication
+		.getDefaultIWApplicationContext().getApplicationSettings();
 		// this method might resolve the expression from application property
 		
-		return "1 day";
+		return settings.getProperty("DOF_PAYMENT_CHECK_WAIT", "1 day");
 	}
 	
 	private CalendarOperations getCalendarOperations() {

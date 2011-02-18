@@ -129,7 +129,19 @@ public class GumboDaoImpl extends GenericDaoImpl implements GumboDao {
 
 		return log;
 	}
-	
+
+	@Transactional(readOnly = false)
+	public ProcessPaymentLog createLogEntry(ProcessPaymentLogHeader header,
+			String claimKeyToCancel) {
+		ProcessPaymentLog log = new ProcessPaymentLog();
+		log.setHeader(header);
+		log.setClaimKeyToCancel(claimKeyToCancel);
+		
+		getEntityManager().persist(log);
+
+		return log;
+	}
+
 	@Transactional(readOnly = false)
 	public ShipClaimPeriod createShipClaimPeriod(String personalID, String shipNr, String period, int week, int year) {
 		ShipClaimPeriod scp = new ShipClaimPeriod();
@@ -164,17 +176,17 @@ public class GumboDaoImpl extends GenericDaoImpl implements GumboDao {
 				ProcessFocalCode.class);
 	}
 
-	public List<ProcessFocalCode> getProcessFocalCode(String processName) {
+	public ProcessFocalCode getProcessFocalCode(String processName) {
 		Param param = new Param("processName", processName);
-		return getResultList("processFocalCode.findAllByProcessName",
+		return getSingleResult("processFocalCode.findAllByProcessName",
 				ProcessFocalCode.class, param);
 	}
 
-	public List<ProcessFocalCode> getProcessFocalCode(String processName,
+	public ProcessFocalCode getProcessFocalCode(String processName,
 			String subName) {
 		Param param1 = new Param("processName", processName);
 		Param param2 = new Param("subName", subName);
-		return getResultList("processFocalCode.findAllByProcessNameAndSubName",
+		return getSingleResult("processFocalCode.findAllByProcessNameAndSubName",
 				ProcessFocalCode.class, param1, param2);
 	}	
 }
