@@ -44,23 +44,23 @@
                         <ownersSocialSecurityNr mapping="string_vesselOwnersSocialSecurityNr"/>
                     </vesselData>
                     
-                    <vesselHasValidHaffairisskirteini mapping="string_hasValidHaffaerisskirteini">
-                        <result>true</result>
-                        <message>true</message>
+                    <vesselHasValidHaffairisskirteini>
+                        <result mapping="string_hasValidHaffaerisskirteini" />
+                        <message />
                     </vesselHasValidHaffairisskirteini>
                     <vesselHasNotValidHaffairisskirteini/>
                     <vesselHasValidHaffairisskirteiniMessage mapping="string_validHaffaerisskirteini" />
                     
-                    <vesselHasValidGeneralFishingLicense mapping="string_hasValidGeneralFishingLicense">
-                        <result>true</result>
-                        <message>true</message>
+                    <vesselHasValidGeneralFishingLicense>
+                        <result mapping="string_hasValidGeneralFishingLicense" />
+                        <message />
                     </vesselHasValidGeneralFishingLicense>
                     <vesselHasNotValidGeneralFishingLicense/>
                     <vesselHasValidGeneralFishingLicenseMessage mapping="string_validGeneralFishingLicense" />
                     
-                    <vesselHasRevokedLicense mapping="string_hasRevokedLicense">
-                        <result>false</result>
-                        <message></message>
+                    <vesselHasRevokedLicense>
+                        <result mapping="string_hasRevokedLicense" />
+                        <message />
                     </vesselHasRevokedLicense>
                     <vesselHasNotRevokedLicense/>
                     <vesselHasRevokedLicenseMessage mapping="string_revokedLicense" />
@@ -140,16 +140,16 @@
             <xf:bind id="fbc_64_bind" nodeset="vesselData/ownersName"/>
             <xf:bind id="fbc_65_bind" nodeset="vesselData/ownersSocialSecurityNr"/>
 
-            <xf:bind id="fbc_73_bind" nodeset="vesselHasValidHaffairisskirteini" relevant="instance('data-instance')/vesselHasValidHaffairisskirteini = 'true'"/>
-            <xf:bind id="fbc_74_bind" nodeset="vesselHasNotValidHaffairisskirteini" relevant="instance('data-instance')/vesselHasValidHaffairisskirteini != 'true'"/>
+            <xf:bind id="fbc_73_bind" nodeset="vesselHasValidHaffairisskirteini" relevant="instance('data-instance')/vesselHasValidHaffairisskirteini/result = 'true'"/>
+            <xf:bind id="fbc_74_bind" nodeset="vesselHasNotValidHaffairisskirteini" relevant="instance('data-instance')/vesselHasValidHaffairisskirteini/result != 'true'"/>
             <xf:bind id="fbc_116_bind" nodeset="vesselHasValidHaffairisskirteiniMessage"/>
             
-            <xf:bind id="fbc_106_bind" nodeset="vesselHasValidGeneralFishingLicense" relevant="instance('data-instance')/vesselHasValidGeneralFishingLicense = 'true'"/>
-            <xf:bind id="fbc_107_bind" nodeset="vesselHasNotValidGeneralFishingLicense" relevant="instance('data-instance')/vesselHasValidGeneralFishingLicense != 'true'"/>
+            <xf:bind id="fbc_106_bind" nodeset="vesselHasValidGeneralFishingLicense" relevant="instance('data-instance')/vesselHasValidGeneralFishingLicense/result = 'true'"/>
+            <xf:bind id="fbc_107_bind" nodeset="vesselHasNotValidGeneralFishingLicense" relevant="instance('data-instance')/vesselHasValidGeneralFishingLicense/result != 'true'"/>
             <xf:bind id="fbc_117_bind" nodeset="vesselHasValidGeneralFishingLicenseMessage"/>
             
-            <xf:bind id="fbc_118_bind" nodeset="vesselHasRevokedLicense" relevant="instance('data-instance')/vesselHasRevokedLicense = 'true'"/>
-            <xf:bind id="fbc_119_bind" nodeset="vesselHasNotRevokedLicense" relevant="instance('data-instance')/vesselHasRevokedLicense != 'true'"/>
+            <xf:bind id="fbc_118_bind" nodeset="vesselHasRevokedLicense" relevant="instance('data-instance')/vesselHasRevokedLicense/result = 'true'"/>
+            <xf:bind id="fbc_119_bind" nodeset="vesselHasNotRevokedLicense" relevant="instance('data-instance')/vesselHasRevokedLicense/result != 'true'"/>
             <xf:bind id="fbc_120_bind" nodeset="vesselHasRevokedLicenseMessage"/>
             
             <xf:bind id="debtMessageContainer" nodeset="debtMessageContainer" relevant="instance('data-instance')/userIsInDebt != 'false'"/>
@@ -257,26 +257,6 @@
             <xf:action ev:event="xforms-ready">
                 <xf:setvalue model="data_model"
                     ref="instance('localized_strings')/current_language" value="instance('locale-instance')/fb-afk-loginSession.currentLocale"/>
-
-                <idega:setvalue
-                    multiple="true()"
-                    placeResponseDocument="true()"
-                    ref="instance('data-instance')/vesselHasValidHaffairisskirteini" value="idega:resolveBeanProperties('fishingLicenseUser.getVesselHasValidHaffairisskirteini({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
-
-                <idega:setvalue
-                    multiple="true()"
-                    placeResponseDocument="true()"
-                    ref="instance('data-instance')/vesselHasValidGeneralFishingLicense" value="idega:resolveBeanProperties('fishingLicenseUser.getVesselHasValidGeneralFishingLicense({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
-                              
-                <idega:setvalue
-                    multiple="true()"
-                    placeResponseDocument="true()"
-                    ref="instance('data-instance')/vesselHasRevokedLicense" value="idega:resolveBeanProperties('fishingLicenseUser.getHasRevokedFishingLicense({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
-                    
-                <idega:setvalue
-	                multiple="true()"
-	                placeResponseDocument="true()"
-	                ref="instance('data-instance')/userIsInDebt" value="idega:resolveExpression('fishingLicenseUser.getIsInDebt({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
 
                 <idega:dispatch name="idega-xforms-ready" target="//h:body//*[starts-with(@id, 'fbc_')]"/>
             </xf:action>
