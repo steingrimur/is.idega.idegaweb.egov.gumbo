@@ -201,6 +201,11 @@ public class FJSWSClient {
 					shipNr, claimNumber);
 			TBRStadaKrofuSvar ret = getPort().saekjaStoduKrofu(iStadaKrofu);
 			
+			if (ret.getAlagning().intValue() == 0) {
+				//Krafa felld nidur, what to do!!!
+				return false;
+			}
+			
 			if (ret.getStada().intValue() == 0) {
 				return true;
 			}
