@@ -2,6 +2,7 @@ package is.idega.idegaweb.egov.gumbo.licenses.payments;
 
 import java.util.logging.Logger;
 
+import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.licenses.SendLicenseFeeClaimHandler;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.FJSWSClient;
 
@@ -38,15 +39,19 @@ public class CheckPaymentIsPaidHandler implements ActionHandler {
 
 	@Override
 	public void execute(ExecutionContext executionContext) throws Exception {
+		String shipID = (String) executionContext
+				.getVariable("string_vesselRegistryNr");
+		String ssn = (String) executionContext
+				.getVariable("string_ownerSocialNumber");
+
 		executionContext
 				.setVariable("paymentPaid", isClaimPaid(executionContext
-						.getProcessInstance().getId()) ? "true" : "false");
+						.getProcessInstance().getId(), ssn, shipID) ? "true" : "false");
 	}
 
-	private boolean isClaimPaid(long processInstanceId) throws Exception {
+	private boolean isClaimPaid(long processInstanceId, String ssn, String shipID) throws Exception {
 		CaseProcInstBind bind = getCasesBPMDAO()
-				.getCaseProcInstBindByProcessInstanceId(
-						processInstanceId);
+				.getCaseProcInstBindByProcessInstanceId(processInstanceId);
 		if (bind == null) {
 			LOGGER.warning("Case and process instance bind can not be found by process instance ID: "
 					+ processInstanceId);
@@ -55,10 +60,15 @@ public class CheckPaymentIsPaidHandler implements ActionHandler {
 
 		Case theCase = getCaseBusiness().getCase(bind.getCaseId());
 		if (theCase == null) {
-			return false ;
+			return false;
 		}
 		
-		return false;
+		String claimNumber = theCase.getMetaData(GumboConstants.FJS_CLAIM_NUMBER_METADATA_KEY);
+		if (claimNumber == null || "".equals(claimNumber)) {
+			return false;
+		}
+
+		return getFJSWSClient().getIsLicenseFeeClaimPaid(ssn, shipID, claimNumber);
 	}
 
 	CaseBusiness getCaseBusiness() {
@@ -77,5 +87,9 @@ public class CheckPaymentIsPaidHandler implements ActionHandler {
 			ELUtil.getInstance().autowire(this);
 		}
 		return casesBPMDAO;
+	}
+	
+	private FJSWSClient getFJSWSClient() {
+		return client;
 	}
 }

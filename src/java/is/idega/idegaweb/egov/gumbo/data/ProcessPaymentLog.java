@@ -28,6 +28,7 @@ public class ProcessPaymentLog implements Serializable {
 	private static final String COLUMN_NUMBER_OF_UNITS = "number_of_units";
 	private static final String COLUMN_UNIT_PRICE = "unit_price";
 	private static final String COLUMN_AMOUNT = "amount";
+	private static final String COLUMN_CANCEL_CLAIM_KEY = "cancel_claim_key";
 	
 	@Id
 	@Column(name = COLUMN_PROCESS_PAYMENT_LOG_ID)
@@ -58,6 +59,9 @@ public class ProcessPaymentLog implements Serializable {
 
 	@Column(name = ProcessPaymentLog.COLUMN_AMOUNT)
 	private Integer amount;
+
+	@Column(name = ProcessPaymentLog.COLUMN_CANCEL_CLAIM_KEY)
+	private String claimKeyToCancel;
 
 	public Long getId() {
 		return id;
@@ -129,5 +133,13 @@ public class ProcessPaymentLog implements Serializable {
 
 	public void setUnitPrice(Integer unitPrice) {
 		this.unitPrice = unitPrice;
+	}
+
+	public String getClaimKeyToCancel() {
+		return claimKeyToCancel;
+	}
+
+	public void setClaimKeyToCancel(String claimKeyToCancel) {
+		this.claimKeyToCancel = claimKeyToCancel;
 	}
 }

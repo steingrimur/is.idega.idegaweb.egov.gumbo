@@ -3,6 +3,8 @@ package is.idega.idegaweb.egov.gumbo.webservice.client.business;
 import is.fjs.secure.Haus;
 import is.fjs.secure.ServiceLocator;
 import is.fjs.secure.ServiceSoap;
+import is.fjs.secure.TBRFellaNidurKrofu;
+import is.fjs.secure.TBRFellaNidurKrofuSvar;
 import is.fjs.secure.TBRStadaKrofu;
 import is.fjs.secure.TBRStadaKrofuSvar;
 import is.fjs.secure.TBRStadaSkips;
@@ -172,8 +174,22 @@ public class FJSWSClient {
 		return period;
 	}
 
-	public boolean cancelLicenseFeeClaim() {
-
+	public boolean cancelLicenseFeeClaim(String claimKey) {
+		ProcessPaymentLogHeader header = getGumboDAO().createHeader();
+		getGumboDAO().createLogEntry(header, claimKey);
+		
+		TBRFellaNidurKrofu iFellaNidur = new TBRFellaNidurKrofu(getHeader(header), claimKey);
+		try {
+			TBRFellaNidurKrofuSvar ret = getPort().fellaNidurKrofu(iFellaNidur);
+			getGumboDAO().updateHeader(header, ret.getSvarHaus().getKodi(),
+					ret.getSvarHaus().getSkyring(), claimKey);
+			
+			if (ret.getSvarHaus().getKodi() == 0) {
+				return true;
+			}
+		} catch (RemoteException e) {
+		}
+		
 		return false;
 	}
 
@@ -184,8 +200,12 @@ public class FJSWSClient {
 			TBRStadaKrofu iStadaKrofu = new TBRStadaKrofu(getHeader(null), ssn,
 					shipNr, claimNumber);
 			TBRStadaKrofuSvar ret = getPort().saekjaStoduKrofu(iStadaKrofu);
+			
+			if (ret.getGreidslur().intValue() == 0) {
+				return true;
+			}
 
-			// ret.getSvarHaus().get
+			//ret.getSvarHaus().getKodi()
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -215,16 +235,24 @@ public class FJSWSClient {
 			haus.setNotandi("FKS_Test");
 			// haus.setRadnrSkeytis("1");
 
-			TBRStadaSkips iStadaSkips = new TBRStadaSkips(haus, "2471");
-			TBRStadaSkipsSvar ret = port.saekjaStoduSkips(iStadaSkips);
+//			TBRStadaSkips iStadaSkips = new TBRStadaSkips(haus, "2471");
+//			TBRStadaSkipsSvar ret = port.saekjaStoduSkips(iStadaSkips);
+
+//			TBRStadaKrofu iStadaKrofu = new TBRStadaKrofu(haus, "5405025950",
+//					"2478", "FV2;6771");
+			TBRStadaKrofu iStadaKrofu = new TBRStadaKrofu(haus, "4412872839",
+					"2471", "FV2;6772");
+			TBRStadaKrofuSvar ret = port.saekjaStoduKrofu(iStadaKrofu);
 
 			if (ret != null) {
-				System.out.println("ret.getSkuldMillifaerslnaKvota() = "
-						+ ret.getSkuldMillifaerslnaKvota().intValue());
-				System.out.println("ret.getSkuldVeidigjalds() = "
-						+ ret.getSkuldVeidigjalds().intValue());
-				System.out.println("ret.getSkuldVeidileyfis() = "
-						+ ret.getSkuldVeidileyfis().intValue());
+				System.out.println("ret.getTimabil() = " + ret.getTimabil());
+				System.out.println("ret.getAlagning() = " + ret.getAlagning());
+				System.out.println("ret.getGreidslur() = " + ret.getGreidslur());
+				System.out.println("ret.getKostnadur() = " + ret.getKostnadur());
+				System.out.println("ret.getStada() = " + ret.getStada());
+				System.out.println("ret.getSvarHaus().getKodi() = " + ret.getSvarHaus().getKodi());
+				System.out.println("ret.getSvarHaus().getSkyring() = " + ret.getSvarHaus().getSkyring());
+				System.out.println("ret.getVextir() = " + ret.getVextir());
 			} else {
 				System.out.println("nothing returned");
 			}

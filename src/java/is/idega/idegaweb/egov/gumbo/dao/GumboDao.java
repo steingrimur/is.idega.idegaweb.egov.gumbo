@@ -51,7 +51,10 @@ public interface GumboDao extends GenericDao {
 			String payersPersonalID, String shipNumber, String period,
 			String paymentCode, Integer numberOfUnits, Integer unitPrice,
 			Integer amount);
-	
+
+	public ProcessPaymentLog createLogEntry(ProcessPaymentLogHeader header,
+			String claimKeyToCancel);
+
 	public ShipClaimPeriod createShipClaimPeriod(String personalID, String shipNr, String period, int week, int year);
 	
 	public ShipClaimPeriod getShipClaimPeriod(String personalID, String shipNr);
@@ -60,9 +63,9 @@ public interface GumboDao extends GenericDao {
 	
 	public List<ProcessFocalCode> getProcessFocalCode();
 
-	public List<ProcessFocalCode> getProcessFocalCode(String processName);
+	public ProcessFocalCode getProcessFocalCode(String processName);
 
-	public List<ProcessFocalCode> getProcessFocalCode(String processName,
+	public ProcessFocalCode getProcessFocalCode(String processName,
 			String subName);
 
 }
