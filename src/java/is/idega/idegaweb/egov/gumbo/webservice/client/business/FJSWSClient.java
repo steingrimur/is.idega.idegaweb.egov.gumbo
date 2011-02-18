@@ -201,7 +201,7 @@ public class FJSWSClient {
 					shipNr, claimNumber);
 			TBRStadaKrofuSvar ret = getPort().saekjaStoduKrofu(iStadaKrofu);
 			
-			if (ret.getGreidslur().intValue() == 0) {
+			if (ret.getStada().intValue() == 0) {
 				return true;
 			}
 
