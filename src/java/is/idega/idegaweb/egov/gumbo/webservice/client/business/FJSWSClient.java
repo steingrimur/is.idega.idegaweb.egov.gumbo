@@ -165,7 +165,7 @@ public class FJSWSClient {
 			}
 		}
 
-		period = now.getDateString("yyyyhiww");
+		period = now.getDateString("yyyyww");
 
 		getGumboDAO().updateShipClaimPeriod(scp, period, week, year);
 
