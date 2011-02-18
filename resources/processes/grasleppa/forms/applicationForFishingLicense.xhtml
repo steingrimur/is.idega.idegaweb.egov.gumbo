@@ -333,6 +333,26 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
             <xf:action ev:event="xforms-ready" if="instance('control-instance')/generatePdf = 'true' and instance('control-instance')/readonly = 'true'">
                 <idega:setvalue
                     ref="instance('data-instance')/companyHasValidGrasleppa" value="idega:resolveExpression('fishingLicenseUser.getCompanyHasValidGrasleppa()')"/>
+                <idega:setvalue
+                 multiple="true()"
+                 placeResponseDocument="true()"
+                 ref="instance('data-instance')/vesselData" value="idega:resolveBeanProperties('fishingLicenseUser.getUserVesselData({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
+              	<idega:setvalue
+                  multiple="true()"
+                  placeResponseDocument="true()"
+                  ref="instance('data-instance')/vesselHasValidHaffairisskirteini" value="idega:resolveBeanProperties('fishingLicenseUser.getVesselHasValidHaffairisskirteini({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
+              	<idega:setvalue
+                  multiple="true()"
+                  placeResponseDocument="true()"
+                  ref="instance('data-instance')/vesselHasValidGeneralFishingLicense" value="idega:resolveBeanProperties('fishingLicenseUser.getVesselHasValidGeneralFishingLicense({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
+               	<idega:setvalue
+                   multiple="true()"
+                   placeResponseDocument="true()"
+                   ref="instance('data-instance')/vesselHasRevokedLicense" value="idega:resolveBeanProperties('fishingLicenseUser.getHasRevokedFishingLicense({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
+               	<idega:setvalue
+               multiple="true()"
+               placeResponseDocument="true()"
+               ref="instance('data-instance')/userIsInDebt" value="idega:resolveExpression('fishingLicenseUser.getIsInDebt({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
                 <xf:dispatch name="xforms-rebuild" target="submission_model"/>
                 <xf:dispatch name="xforms-recalculate" target="submission_model"/>
                 <xf:dispatch name="xforms-revalidate" target="submission_model"/>
