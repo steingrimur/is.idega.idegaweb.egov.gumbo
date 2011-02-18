@@ -12,7 +12,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = ProcessPaymentCode.ENTITY_NAME)
+@Table(name = ProcessFocalCode.ENTITY_NAME)
 @NamedQueries({
 	@NamedQuery(name = "processFocalCode.findAll", query = "select p from ProcessFocalCode p"),
 	@NamedQuery(name = "processFocalCode.findAllByProcessName", query = "select p from ProcessFocalCode p where p.processName = :processName"),
