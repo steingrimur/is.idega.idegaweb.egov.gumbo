@@ -207,7 +207,7 @@
 			       			${
 			        		Map subjectMap = new HashMap();
 			        		subjectMap.put("en", "Handler was assigned to the case");
-			        		subjectMap.put("is_IS", "Mál ({0}, {1}) í flokknum {2} ");
+			        		subjectMap.put("is_IS", "Varðandi mál númer {1} í flokknum: {2} ");
 			        		return subjectMap;
 			        		}
 			        		
@@ -219,7 +219,7 @@
 			        	${
 			        		Map messageMap = new HashMap();
 			        		messageMap.put("en", "Hi, {0}.\n Handler {1} was assigned to the case {2} with identifier {3} and description {4}");
-			        		messageMap.put("is_IS", "Sæl/ll, {0}.\n{1} hefur tekið að sér málið með nafnið : {4} ({3}) í flokknum : {2}.");
+			        		messageMap.put("is_IS", "Fiskistofa hefur tekið til vinnslu málsnúmer {3} í flokknum: {2}.");
 			        		return messageMap;
 			        		}
                 		</value>
@@ -251,7 +251,7 @@
 			        		${
 			        		Map subjectMap = new HashMap();
 			        		subjectMap.put("en", "Handler was unassigned from the case");
-			        		subjectMap.put("is_IS", "Umsjónarmannaskipti á máli ({0}, {1})");
+			        		subjectMap.put("is_IS", "Umsjónarmannaskipti á máli númer {1}");
 			        		return subjectMap;
 			        		}
 			        		
@@ -263,7 +263,7 @@
 			        		${
 			        		Map messageMap = new HashMap();
 			        		messageMap.put("en", "Hi, {0}.\n Handler was unassigned from the case {1} with identifier {2} and description {3}");
-			        		messageMap.put("is_IS", "Sæl/ll, {0}.\nUmsjónarmannaskipti hafa átt sér stað fyrir málið með nafnið: {3} ({2}) í flokknum {1}.");
+			        		messageMap.put("is_IS", "Umsjónarmannaskipti hafa átt sér stað fyrir málsnúmer {2} í flokknum: {1}.");
 			        		return messageMap;
 			        		}
                 		</value>
