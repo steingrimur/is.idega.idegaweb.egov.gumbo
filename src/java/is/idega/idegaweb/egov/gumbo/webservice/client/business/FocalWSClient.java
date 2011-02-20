@@ -57,6 +57,7 @@ public class FocalWSClient {
 			XMLDocument retDoc = parseFocalAnswer(ret);
 			if (hasAnswerErrors(retDoc)) {
 				// Do something with the error?
+				System.out.println("error = " + getFocalKeyFromAnswer(retDoc, "error"));
 				return null;
 			}
 
@@ -93,10 +94,10 @@ public class FocalWSClient {
 		custNameEl.setText(custName);
 
 		XMLElement procjectIDEl = new XMLElement("ProjectID");
-		procjectIDEl.setText(projectID);
+		procjectIDEl.setText(projectID == null ? "" : projectID);
 
 		XMLElement documentKeyEl = new XMLElement("DocumentKey");
-		documentKeyEl.setText(documentKey);
+		documentKeyEl.setText(documentKey == null ? "" : documentKey);
 
 		subRoot.addContent(idEl);
 		subRoot.addContent(caseIDEl);
@@ -153,7 +154,7 @@ public class FocalWSClient {
 		System.out.println("xml = "
 				+ client.createCaseXML("28618", "P-2011-01-14-0003",
 						"Málið mitt góða", "3107713339", "Jóhann Þ Þórðarson",
-						"0074/2011", ""));
+						"0074/2011", " "));
 
 		String dummy = client.createDummyXML();
 		System.out.println("xml = " + dummy);

@@ -80,21 +80,11 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 		String subType = (String) executionContext
 				.getVariable("string_typeOfFishingLicense");
 
-		System.out.println("processDefinition name = " + processDefinitionName);
-		System.out.println("ship id = " + shipID);
-		System.out.println("payers personal id " + ssn);
-		System.out.println("type of application " + subType);
+		//System.out.println("processDefinition name = " + processDefinitionName);
+		//System.out.println("ship id = " + shipID);
+		//System.out.println("payers personal id " + ssn);
+		//System.out.println("type of application " + subType);
 
-		// Create claim
-		String claimKey = (subType == null) ? getFJSWSClient().createLicenseFeeClaim(ssn, shipID, getGumboDAO().getProcessPaymentCode(processDefinitionName)) : getFJSWSClient().createLicenseFeeClaim(ssn, shipID, getGumboDAO().getProcessPaymentCode(processDefinitionName, subType));
-		
-		System.out.println("claimKey = " + claimKey);
-		if (claimKey != null) {
-			theCase.setMetaData(GumboConstants.FJS_CLAIM_NUMBER_METADATA_KEY, claimKey);
-		} else {
-			//throw some exception!!!!
-			throw new GumboProcessException("Error registering the claim");
-		}
 
 		// create license
 		if ("Grasleppa".equals(processDefinitionName)) {
@@ -104,8 +94,8 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 					.getVariable("date_endOfFishing");
 			String areaID = (String) executionContext
 					.getVariable("string_fishingAreaId");
-			System.out.println("from = " + fromStamp);
-			System.out.println("areaID = " + areaID);
+			//System.out.println("from = " + fromStamp);
+			//System.out.println("areaID = " + areaID);
 			IWTimestamp from = new IWTimestamp(fromStamp);
 			Map<BigDecimal, VeidileyfagerdTypeUser> map = getWSClient()
 					.getGrasleppaAreas();
@@ -120,15 +110,30 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 			IWTimestamp to = new IWTimestamp(from);
 			to.addDays(daysToAdd);
 
-			System.out.println("to " + to.getDateString("dd.MM.yyyy"));
+			//System.out.println("to " + to.getDateString("dd.MM.yyyy"));
 
 			BigDecimal ret = getWSClient().createFishingLicense(shipID, areaID,
 					from, to, theCase.getPrimaryKey().toString());
 			theCase.setMetaData(GumboConstants.DOF_FISHING_LICENSE_METADATA_KEY, ret.toString());
-			System.out.println("license id = " + ret.intValue());
-			System.out.println("case id = " + theCase.getUniqueId());
-			getWSClient().activateFishingLicense(ret);
+			//System.out.println("license id = " + ret.intValue());
+			//System.out.println("case id = " + theCase.getUniqueId());
+			//getWSClient().activateFishingLicense(ret);
+			if (ret.intValue() == -1) {
+				throw new GumboProcessException("Error creating fishing license");				
+			}
 		}
+		
+		// Create claim
+		String claimKey = (subType == null) ? getFJSWSClient().createLicenseFeeClaim(ssn, shipID, getGumboDAO().getProcessPaymentCode(processDefinitionName)) : getFJSWSClient().createLicenseFeeClaim(ssn, shipID, getGumboDAO().getProcessPaymentCode(processDefinitionName, subType));
+		
+		//System.out.println("claimKey = " + claimKey);
+		if (claimKey != null) {
+			theCase.setMetaData(GumboConstants.FJS_CLAIM_NUMBER_METADATA_KEY, claimKey);
+		} else {
+			//throw some exception!!!!
+			throw new GumboProcessException("Error registering the claim");
+		}
+
 	}
 
 	CaseBusiness getCaseBusiness() {

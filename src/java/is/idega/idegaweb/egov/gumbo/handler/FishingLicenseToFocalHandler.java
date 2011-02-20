@@ -40,6 +40,14 @@ public class FishingLicenseToFocalHandler extends SetProcessDescriptionHandler
 			.getLogger(FishingLicenseToFocalHandler.class.getName());
 
 	public void execute(ExecutionContext context) throws Exception {
+		String send = IWMainApplication.getDefaultIWApplicationContext()
+				.getApplicationSettings()
+				.getProperty("dof_send_case_to_focal", "true");
+		
+		if (!"true".equals(send)) {
+			return;
+		}
+
 		CaseProcInstBind bind = getCasesBPMDAO()
 				.getCaseProcInstBindByProcessInstanceId(
 						context.getProcessInstance().getId());
@@ -62,16 +70,21 @@ public class FishingLicenseToFocalHandler extends SetProcessDescriptionHandler
 		System.out.println("processDefinition name = " + processDefinitionName);
 		System.out.println("subType = " + subType);
 
-		ProcessFocalCode focalCode = (subType == null) ? getGumboDAO().getProcessFocalCode(processDefinitionName) : getGumboDAO().getProcessFocalCode(processDefinitionName, subType);
+		ProcessFocalCode focalCode = (subType == null) ? getGumboDAO()
+				.getProcessFocalCode(processDefinitionName) : getGumboDAO()
+				.getProcessFocalCode(processDefinitionName, subType);
 
 		String key = getFocalWSClient().createFocalCase(
-				theCase.getPrimaryKey().toString(), theCase.getCaseIdentifier(), theCase.getSubject(), theCase.getOwner().getPersonalID(),
-				theCase.getOwner().getDisplayName(), focalCode.getFocalProjectID(), focalCode.getFocalDocumentKey());
-		
+				theCase.getPrimaryKey().toString(),
+				theCase.getCaseIdentifier(), theCase.getSubject(),
+				theCase.getOwner().getPersonalID(),
+				theCase.getOwner().getDisplayName(),
+				focalCode.getFocalProjectID(), focalCode.getFocalDocumentKey());
+
 		if (key == null || "".equals(key)) {
 			throw new GumboProcessException("Error sending case to focal");
 		}
-		
+
 		theCase.setExternalId(key);
 		theCase.store();
 	}
