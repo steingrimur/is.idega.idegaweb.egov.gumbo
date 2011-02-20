@@ -231,6 +231,8 @@
 	<end-state name="end-state1" end-complete-process="true"></end-state>
 
 	<end-state name="end-state3"></end-state>
+
+	<end-state name="end-state4"></end-state>
 	
 	<node name="updateCaseStatusToLicenseGrantedClaimUnpaid">
 	   <event type="node-enter">
@@ -299,7 +301,7 @@
 	            <handlerName>notifyFinancialControllerIfThereIsADebt</handlerName>
 	        </action>
 		</event>
-		<transition to="licenseRuling"></transition>
+		<transition to="fork3"></transition>
 	</node>
 
 	<node name="sendLicenseFeeClaim">
@@ -394,7 +396,7 @@
 
 	<fork name="fork1">
 		<transition to="sendMessageToApplicant" name="toSendMessageToApplicant"></transition>
-		<transition to="licenseRuling"></transition>
+		<transition to="licenseRuling" name="toLicenseRuling"></transition>
 	</fork>
 
 	<node name="sendMessageToApplicant">
@@ -515,6 +517,15 @@
         </event>
 		<transition to="updateCaseStatusToRegisteredPayment"></transition>
 	</node>
+
+	<state name="keepMeAlive">
+		<transition to="end-state4"></transition>
+	</state>
+
+	<fork name="fork3">
+		<transition to="licenseRuling" name="toLicenseRuling"></transition>
+		<transition to="keepMeAlive" name="toKeepMeAlive"></transition>
+	</fork>
 	
 	<idg:roles xmlns:idg="http://idega.com/bpm">
         <role name="bpm_fishingLicense_caseHandler">

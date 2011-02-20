@@ -137,4 +137,18 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
+  <node name="keepMeAlive" x="493" y="117" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="fork3" x="260" y="142" width="25" height="24">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="end-state4" x="647" y="117" width="27" height="26"/>
 </root-container>
