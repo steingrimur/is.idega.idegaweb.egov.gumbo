@@ -494,6 +494,8 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 			if (cache != null) {
 				cache.put(personalID, catches);
 			}
+			
+			return catches;
 		} catch (RemoteException re) {
 			re.printStackTrace();
 		}
