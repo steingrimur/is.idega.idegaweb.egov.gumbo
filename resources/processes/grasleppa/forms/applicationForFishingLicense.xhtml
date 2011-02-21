@@ -72,6 +72,7 @@
                     </licenseInterval>
                     <licenseIntervalVisible />
                     <startOfFishing mapping="date_startOfFishing" xsi:nil="true"/>
+                    <endOfFishing mapping="date_endOfFishing" />
                     <startOfFishingLabel mapping="string_startOfFishingLabel"/>
                 </data>
             </xf:instance>
@@ -172,6 +173,7 @@
             <xf:bind id="startOfFishing_bind" nodeset="startOfFishing"
                 required="instance('control-instance')/required = 'true'" type="date"/>
             <xf:bind id="startOfFishingLabel_bind" nodeset="startOfFishingLabel"/>
+            <xf:bind id="endOfFishing_bind" nodeset="endOfFishing" />
         </xf:model>
         <xf:model id="data_model">
             <xf:instance id="localized_strings" xmlns="">
@@ -220,6 +222,10 @@
                     <fbc_50-label lang="en">Social security number</fbc_50-label>
                     <startOfFishing-label lang="is_IS">Byrjunardagsetning</startOfFishing-label>
                     <startOfFishing-label lang="en">Start date</startOfFishing-label>
+			        <startOfFishing-validation lang="is_IS">Byrjunardagsetning verður að vera innan tímaramma svæðisins</startOfFishing-validation>
+			        <startOfFishing-validation lang="en">Invalid start date</startOfFishing-validation>
+                    <endOfFishing-label lang="is_IS">Lokadagsetning</endOfFishing-label>
+                    <endOfFishing-label lang="en">End date</endOfFishing-label>
                     <fbc_51-label lang="is_IS">Heimilisfang</fbc_51-label>
                     <fbc_51-label lang="en">Address</fbc_51-label>
                     <fbc_52-label lang="is_IS">Póstnúmer</fbc_52-label>
@@ -518,6 +524,9 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                                 multiple="true()"
                                 placeResponseDocument="true()"
                                 ref="instance('data-instance')/licenseInterval" value="idega:resolveBeanProperties('fishingLicenseUser.getLicenseIntervalForGrasleppa({0})', '#{instance(`data-instance`)/Select_the_fishing_area_fbc_110}')"/>
+                            <idega:setvalue
+                                ev:event="xforms-value-changed"
+                                ref="instance('data-instance')/endOfFishing" value="idega:resolveExpression('fishingLicenseUser.getLicenseEndDate({0}, {1})', '#{instance(`data-instance`)/startOfFishing}, #{instance(`data-instance`)/Select_the_fishing_area_fbc_110}')"/>
                             
                             <xf:dispatch ev:event="idega-xforms-ready"
                                 name="idega-validate" target="fbc_110"/>
@@ -531,9 +540,23 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                         </xf:select1>
                         <xf:input bind="startOfFishing_bind" id="fbc_102a" type="fbc_date">
                             <xf:label model="data_model" ref="instance('localized_strings')/startOfFishing-label[@lang=instance('localized_strings')/current_language]"/>
+
+                            <xf:dispatch ev:event="xforms-value-changed"
+                                name="idega-validate_timeframe" target="fbc_102a"/>
                             <xf:setvalue ev:event="xforms-value-changed"
                                 ref="instance('data-instance')/startOfFishingLabel" value="instance('data-instance')/startOfFishing"/>
+                            <idega:setvalue
+                                ev:event="xforms-value-changed"
+                                ref="instance('data-instance')/endOfFishing" value="idega:resolveExpression('fishingLicenseUser.getLicenseEndDate({0}, {1})', '#{instance(`data-instance`)/startOfFishing}, #{instance(`data-instance`)/Select_the_fishing_area_fbc_110}')"/>
+				            <idega:validator errorif="idega:resolveExpression('fishingLicenseUser.isInTimeframe({0}, {1}) == false', '#{instance(`data-instance`)/startOfFishing}, #{instance(`data-instance`)/Select_the_fishing_area_fbc_110}')" ev:event="idega-validate_timeframe">
+				                <idega:message errorType="validation" model="data_model" value="instance('localized_strings')/startOfFishing-validation[@lang=instance('localized_strings')/current_language]"/>
+					            <idega:message errorType="custom" model="data_model" value="instance('localized_strings')/startOfFishing-validation[@lang=instance('localized_strings')/current_language]"/>
+					        </idega:validator>
+                            <xf:alert ref="instance('error-instance')/error[@for='fbc_102a']"/>
                         </xf:input>
+                        <xf:output bind="endOfFishing_bind" id="fbc_102b">
+                            <xf:label model="data_model" ref="instance('localized_strings')/endOfFishing-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
                         
                         <div class="fbc_header_text" id="fbc_39" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_39-text[@lang=instance('localized_strings')/current_language]"/>
@@ -603,6 +626,9 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                         </xf:output>
                         <xf:output bind="startOfFishingLabel_bind" id="fbc_154a" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/startOfFishing-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                        <xf:output bind="endOfFishing_bind" id="fbc_154b" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/endOfFishing-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
                         
                         <div class="fbc_header_text" id="fbc_70" type="fbc_header_text">

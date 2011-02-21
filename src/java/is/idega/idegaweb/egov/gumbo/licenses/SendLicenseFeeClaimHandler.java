@@ -1,19 +1,13 @@
 package is.idega.idegaweb.egov.gumbo.licenses;
 
-import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.VeidileyfagerdTypeUser;
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.business.GumboProcessException;
 import is.idega.idegaweb.egov.gumbo.dao.GumboDao;
-import is.idega.idegaweb.egov.gumbo.data.ProcessPaymentCode;
-import is.idega.idegaweb.egov.gumbo.data.ProcessPaymentLogHeader;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.FJSWSClient;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
 
 import org.jbpm.graph.def.ActionHandler;
@@ -80,47 +74,33 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 		String subType = (String) executionContext
 				.getVariable("string_typeOfFishingLicense");
 
-		//System.out.println("processDefinition name = " + processDefinitionName);
-		//System.out.println("ship id = " + shipID);
-		//System.out.println("payers personal id " + ssn);
-		//System.out.println("type of application " + subType);
-
-
 		// create license
 		if ("Grasleppa".equals(processDefinitionName)) {
 			Timestamp fromStamp = (Timestamp) executionContext
 					.getVariable("date_startOfFishing");
 			Timestamp toStamp = (Timestamp) executionContext
-					.getVariable("date_endOfFishing");
+			.getVariable("date_endOfFishing");
 			String areaID = (String) executionContext
 					.getVariable("string_fishingAreaId");
-			//System.out.println("from = " + fromStamp);
-			//System.out.println("areaID = " + areaID);
+
 			IWTimestamp from = new IWTimestamp(fromStamp);
-			Map<BigDecimal, VeidileyfagerdTypeUser> map = getWSClient()
-					.getGrasleppaAreas();
-			int daysToAdd = 0;
-			if (map != null && !map.isEmpty()) {
-				VeidileyfagerdTypeUser item = map.get(new BigDecimal(areaID));
-				if (item != null) {
-					daysToAdd = item.getDagafjoldi().intValue() - 1;
-				}
-			}
-
-			IWTimestamp to = new IWTimestamp(from);
-			to.addDays(daysToAdd);
-
-			//System.out.println("to " + to.getDateString("dd.MM.yyyy"));
+			IWTimestamp to = new IWTimestamp(toStamp);
 
 			BigDecimal ret = getWSClient().createFishingLicense(shipID, areaID,
 					from, to, theCase.getPrimaryKey().toString());
 			theCase.setMetaData(GumboConstants.DOF_FISHING_LICENSE_METADATA_KEY, ret.toString());
-			//System.out.println("license id = " + ret.intValue());
-			//System.out.println("case id = " + theCase.getUniqueId());
-			//getWSClient().activateFishingLicense(ret);
+
 			if (ret.intValue() == -1) {
 				throw new GumboProcessException("Error creating fishing license");				
 			}
+		}
+		
+		boolean send = IWMainApplication.getDefaultIWApplicationContext()
+		.getApplicationSettings()
+		.getBoolean("dof_send_claim", true);
+
+		if (!send) {
+			return;
 		}
 		
 		// Create claim

@@ -191,6 +191,14 @@
 				</entry>
 			</propertyMap>
 		</assignment>
+			<event type="task-end">
+				<script>
+					<expression>
+						taskInstanceId = taskInstance.getId();
+			 		</expression>
+					<variable name='licenseRulingTaskInstanceId' access='write' mapped-name='taskInstanceId' />
+				</script>
+			</event>
       </task>
 		<transition to="updateCaseStatusToLicenseDenied" name="denied"></transition>
 		<transition to="notifyFinanceDepartment" name="granted"></transition>
@@ -458,8 +466,8 @@
                 <handlerName>issueLicense</handlerName>
 				<propertyMap key-type='java.lang.String' value-type='java.lang.String'>
 					<entry>
-						<key>taskName</key>
-						<value>licenseRuling</value>
+						<key>taskInstance</key>
+						<value>#{licenseRulingTaskInstanceId}</value>
 					</entry>
 				</propertyMap>
             </action>

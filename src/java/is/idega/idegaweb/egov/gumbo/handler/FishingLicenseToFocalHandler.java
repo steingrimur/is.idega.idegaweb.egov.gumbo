@@ -40,11 +40,11 @@ public class FishingLicenseToFocalHandler extends SetProcessDescriptionHandler
 			.getLogger(FishingLicenseToFocalHandler.class.getName());
 
 	public void execute(ExecutionContext context) throws Exception {
-		String send = IWMainApplication.getDefaultIWApplicationContext()
+		boolean send = IWMainApplication.getDefaultIWApplicationContext()
 				.getApplicationSettings()
-				.getProperty("dof_send_case_to_focal", "true");
+				.getBoolean("dof_send_case_to_focal", true);
 		
-		if (!"true".equals(send)) {
+		if (!send) {
 			return;
 		}
 

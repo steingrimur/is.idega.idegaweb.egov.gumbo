@@ -81,6 +81,7 @@
                     <licenseIntervalVisible />
                     <startOfFishing mapping="date_startOfFishing" xsi:nil="true"/>
                     <startOfFishingLabel mapping="string_startOfFishingLabel"/>
+                    <endOfFishing mapping="date_endOfFishing" xsi:nil="true"/>
                 </data>
             </xf:instance>
             <xf:instance id="control-instance">
@@ -163,6 +164,7 @@
             <xf:bind id="fbc_115_bind" nodeset="licenseInterval/to" />
 
             <xf:bind id="startOfFishingLabel_bind" nodeset="startOfFishingLabel"/>
+            <xf:bind id="endOfFishing_bind" nodeset="endOfFishing"/>
         </xf:model>
         <xf:model id="data_model">
             <xf:instance id="localized_strings" xmlns="">
@@ -213,6 +215,8 @@
                     <fbc_50-label lang="en">Social security number</fbc_50-label>
                     <startOfFishing-label lang="is_IS">Byrjunardagsetning</startOfFishing-label>
                     <startOfFishing-label lang="en">Start date</startOfFishing-label>
+                    <endOfFishing-label lang="is_IS">Lokadagsetning</endOfFishing-label>
+                    <endOfFishing-label lang="en">End date</endOfFishing-label>
                     <fbc_51-label lang="is_IS">Heimilisfang</fbc_51-label>
                     <fbc_51-label lang="en">Address</fbc_51-label>
                     <fbc_52-label lang="is_IS">Póstnúmer</fbc_52-label>
@@ -330,6 +334,9 @@
                         </xf:output>
                         <xf:output bind="startOfFishingLabel_bind" id="fbc_154a" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/startOfFishing-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                        <xf:output bind="endOfFishing_bind" id="fbc_154b" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/endOfFishing-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
 
 						<!--  Comments -->

@@ -38,6 +38,14 @@ public class DeleteAndActivateClaimHandler implements ActionHandler {
 
 	@Override
 	public void execute(ExecutionContext executionContext) throws Exception {
+		boolean send = IWMainApplication.getDefaultIWApplicationContext()
+		.getApplicationSettings()
+		.getBoolean("dof_send_claim", true);
+
+		if (!send) {
+			return;
+		}
+		
 		CaseProcInstBind bind = getCasesBPMDAO()
 				.getCaseProcInstBindByProcessInstanceId(
 						executionContext.getProcessInstance().getId());

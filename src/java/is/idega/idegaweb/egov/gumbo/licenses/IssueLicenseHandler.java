@@ -14,7 +14,6 @@ import java.util.logging.Logger;
 
 import org.jbpm.graph.def.ActionHandler;
 import org.jbpm.graph.exe.ExecutionContext;
-import org.jbpm.graph.exe.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -35,10 +34,7 @@ import com.idega.idegaweb.IWMainApplication;
 import com.idega.idegaweb.egov.bpm.data.CaseProcInstBind;
 import com.idega.idegaweb.egov.bpm.data.dao.CasesBPMDAO;
 import com.idega.jbpm.exe.BPMFactory;
-import com.idega.jbpm.exe.ProcessInstanceW;
 import com.idega.jbpm.exe.TaskInstanceW;
-import com.idega.jbpm.variables.BinaryVariable;
-import com.idega.jbpm.view.ViewSubmission;
 import com.idega.util.CoreUtil;
 import com.idega.util.IOUtil;
 import com.idega.util.IWCalendar;
@@ -52,9 +48,7 @@ public class IssueLicenseHandler extends DefaultSpringBean implements ActionHand
 
 	private static final Logger LOGGER = Logger.getLogger(IssueLicenseHandler.class.getName());
 
-	private String taskName;
-	
-	private boolean submitted;
+	private Long taskInstance;
 
 	@Autowired
 	private GumboPDFGenerator pdfGenerator;
@@ -70,12 +64,7 @@ public class IssueLicenseHandler extends DefaultSpringBean implements ActionHand
 	DOFWSClient client;
 
 	public void execute(ExecutionContext ectx) throws Exception {
-		Token tkn = ectx.getToken();
-		Long tokenId = tkn.getId();
-		Long processInstanceId = tkn.getProcessInstance().getId();
-		
-		ProcessInstanceW piw = getBpmFactory().getProcessManagerByProcessInstanceId(processInstanceId).getProcessInstance(processInstanceId);
-		TaskInstanceW tiw = piw.getTaskMgmtInstance().createTask(getTaskName(), tokenId);
+		TaskInstanceW tiw = getBpmFactory().getTaskInstanceW(getTaskInstance());
 		
 		createFishingLicense(ectx, tiw);
 	}
@@ -115,16 +104,10 @@ public class IssueLicenseHandler extends DefaultSpringBean implements ActionHand
 			String fileName = fileNameBuffer.toString();
 			String description = fileName;
 			parkingCard = getPDFGenerator().generateFishingLicensePDF(licenseType, license, fishery, ship, locale);
-			BinaryVariable binaryVariable = tiw.addAttachment(variable, fileName, description, parkingCard);
-	
-			if (!isSubmitted()) {
-				binaryVariable.setHidden(true);
-				binaryVariable.update();
-				
-				ViewSubmission viewSubmission = getBpmFactory().getViewSubmission();
-				viewSubmission.setTaskInstanceId(tiw.getTaskInstanceId());
-				tiw.submit(viewSubmission);
-			}
+			tiw.addAttachment(variable, fileName, description, parkingCard);
+			
+			
+			getWSClient().activateFishingLicense(new BigDecimal(licenseID));
 			
 			return true;
 		} catch (Exception e) {
@@ -177,23 +160,15 @@ public class IssueLicenseHandler extends DefaultSpringBean implements ActionHand
 		this.bpmFactory = bpmFactory;
 	}
 	
-	public String getTaskName() {
-		return taskName;
-	}
-	
-	public void setTaskName(String taskName) {
-		this.taskName = taskName;
-	}
-	
 	private GumboPDFGenerator getPDFGenerator() {
 		return pdfGenerator;
 	}
-	
-	protected boolean isSubmitted() {
-		return submitted;
+
+	public Long getTaskInstance() {
+		return taskInstance;
 	}
 
-	protected void setSubmitted(boolean submitted) {
-		this.submitted = submitted;
+	public void setTaskInstance(Long taskInstance) {
+		this.taskInstance = taskInstance;
 	}
 }

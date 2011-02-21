@@ -944,10 +944,18 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	}
 
 	public boolean activateFishingLicense(BigDecimal fishingLicenseID) {
-		VirkjaveidileyfiElement parameters = new VirkjaveidileyfiElement(
-				fishingLicenseID);
+		String user = IWMainApplication.getDefaultIWApplicationContext()
+		.getApplicationSettings()
+		.getProperty(LICENSE_UPDATE_USER, "");
+
+		String password = IWMainApplication.getDefaultIWApplicationContext()
+		.getApplicationSettings()
+		.getProperty(LICENSE_UPDATE_PASSWORD, "");
+
+		VirkjaveidileyfiWithPasswordElement parameters = new VirkjaveidileyfiWithPasswordElement(
+				fishingLicenseID, user, password);
 		try {
-			getLicenseUpdatePort().virkjaveidileyfi(parameters);
+			getLicenseUpdatePort().virkjaveidileyfiWithPassword(parameters);
 			return true;
 		} catch (RemoteException e) {
 			e.printStackTrace();
