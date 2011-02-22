@@ -6,6 +6,7 @@
 <document size="A4" margin-top="30" margin-bottom="30" margin-left="30" margin-right="30" rotate="false">
 	
 	<font-def name="normal" family="Times" size="10" style="normal"/>
+	<font-def name="bold" family="Times" size="10" style="bold"/>
 	<font-def name="big" family="Times" size="14" style="bold"/>
 
 	<image source="fiskistofa.gif" halign="right" height="70" scale-to-fit="true" />
@@ -26,7 +27,7 @@
 
 	<list numbered="true" lettered="false" symbol-indent="15" line-spacing="1.5">
 		<list-item font="normal">${fishingAreaDescription}</list-item>
-		<list-item font="normal">Veiðitímabilið er frá og með ${dateFrom} til og með ${dateTo} og er óheimilt að leggja grásleppunet fyrir kl. 08:00 fyrsta dag veiðitímabils.</list-item>
+		<list-item font="normal">Veiðitímabilið er frá og með <phrase font="bold">${dateFrom}</phrase> til og með <phrase font="bold">${dateTo}</phrase> og er óheimilt að leggja grásleppunet fyrir kl. 08:00 fyrsta dag veiðitímabils.</list-item>
 		<list-item font="normal">Skylt er að draga öll grásleppunet úr sjó fyrir lok veiðitímabils.</list-item>
 		<list-item font="normal">Sé einn maður í áhöfn má eigi hafa fleiri hrognkelsanet í sjó en 100.  Séu tveir í áhöfn mega hrognkelsanet ekki vera fleiri en 200.  Aldrei er heimilt að eiga fleiri en 300 hrognkelsanet í sjó.  Takmörkun þessi á netafjölda miðast við 60 faðma ófellda slöngu en sé notuð 120 faðma ófelld slanga, miðast takmörkunin við helmingi færri net.</list-item>
 		<list-item font="normal">Lágmarksmöskvastærð grásleppuneta er 10,5 þumlungar (267 mm).</list-item>
