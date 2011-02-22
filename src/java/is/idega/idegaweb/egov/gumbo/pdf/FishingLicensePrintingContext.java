@@ -56,6 +56,7 @@ public class FishingLicensePrintingContext extends PrintingContextImpl {
 		
 		VeidileyfagerdTypeUser type = license.getGerdLeyfis();
 		props.put("fishingArea", type.getKodiSvaedis());
+		props.put("fishingAreaName", type.getHeitiSvaedis());
 		props.put("fishingAreaDescription", type.getSvaedisSkyring());
 		props.put("dateFrom", new IWTimestamp(license.getIGildi().getTime()).getDateString("dd.MM.yyyy"));
 		props.put("dateTo", new IWTimestamp(license.getUrGildi().getTime()).getDateString("dd.MM.yyyy"));

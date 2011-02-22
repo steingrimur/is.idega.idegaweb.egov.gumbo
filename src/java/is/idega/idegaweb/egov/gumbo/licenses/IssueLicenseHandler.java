@@ -31,6 +31,7 @@ import com.idega.company.business.CompanyBusiness;
 import com.idega.company.data.Company;
 import com.idega.core.business.DefaultSpringBean;
 import com.idega.idegaweb.IWMainApplication;
+import com.idega.idegaweb.IWResourceBundle;
 import com.idega.idegaweb.egov.bpm.data.CaseProcInstBind;
 import com.idega.idegaweb.egov.bpm.data.dao.CasesBPMDAO;
 import com.idega.jbpm.exe.BPMFactory;
@@ -87,6 +88,8 @@ public class IssueLicenseHandler extends DefaultSpringBean implements ActionHand
 			if (theCase == null) {
 				return false;
 			}
+			
+			IWResourceBundle iwrb = IWMainApplication.getDefaultIWMainApplication().getBundle(GumboConstants.IW_BUNDLE_IDENTIFIER).getResourceBundle(locale);
 
 			String licenseType = ectx.getProcessDefinition().getName();
 			String vesselNumber = (String) ectx.getVariable("string_vesselRegistryNr");
@@ -98,8 +101,8 @@ public class IssueLicenseHandler extends DefaultSpringBean implements ActionHand
 
 			Variable variable = Variable.parseDefaultStringRepresentation(BPMTaskPDFViewer.DOCUMENT_VARIABLE_NAME);
 			IWCalendar calendar = new IWCalendar();
-			StringBuffer fileNameBuffer = new StringBuffer(licenseType).append("-").append(vesselNumber)
-				.append(calendar.getLocaleDate(IWCalendar.SHORT)).append(".pdf");
+			StringBuffer fileNameBuffer = new StringBuffer(iwrb.getLocalizedString("fishing_license_filename." + licenseType, licenseType)).append("-").append(vesselNumber)
+				.append("-").append(calendar.getLocaleDate(IWCalendar.SHORT)).append(".pdf");
 	
 			String fileName = fileNameBuffer.toString();
 			String description = fileName;
