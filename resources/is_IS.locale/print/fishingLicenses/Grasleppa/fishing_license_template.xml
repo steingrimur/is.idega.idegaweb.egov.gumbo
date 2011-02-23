@@ -3,8 +3,8 @@
 	PUBLIC "-//UJAC.org//Print Document//EN" 
 	"http://ujac.sourceforge.net/ujac-print-document.dtd">
 
-<document size="A4" margin-top="30" margin-bottom="30" margin-left="30" margin-right="30" rotate="false">
-	
+<document size="A4"  margin-top="30" margin-bottom="30" margin-left="30" margin-right="30" rotate="false">
+
 	<font-def name="normal" family="Times" size="10" style="normal"/>
 	<font-def name="bold" family="Times" size="10" style="bold"/>
 	<font-def name="big" family="Times" size="14" style="bold"/>
@@ -25,21 +25,30 @@
 
 	<paragraph font="normal" spacing-after="18.0">Veiðileyfi þetta er gefið út fyrir ofangreindan bát á grundvelli ákvæða laga nr. 79/1997, um veiðar í fiskveiðilandhelgi Íslands, með síðari breytingum, og reglugerðar nr.196/2009, um hrognkelsaveiðar, með síðari breytingum.  Vakin er sérstök athygli á eftirgreindum reglum um veiðarnar:</paragraph>
 
-	<font name="normal">
-		<list numbered="true" lettered="false" symbol-indent="15" line-spacing="1.5">
-			<list-item font="normal">${fishingAreaDescription}</list-item>
-			<list-item font="normal">Veiðitímabilið er frá og með <phrase font="bold">${dateFrom}</phrase> til og með <phrase font="bold">${dateTo}</phrase> og er óheimilt að leggja grásleppunet fyrir kl. 08:00 fyrsta dag veiðitímabils.</list-item>
-			<list-item font="normal">Skylt er að draga öll grásleppunet úr sjó fyrir lok veiðitímabils.</list-item>
-			<list-item font="normal">Sé einn maður í áhöfn má eigi hafa fleiri hrognkelsanet í sjó en 100.  Séu tveir í áhöfn mega hrognkelsanet ekki vera fleiri en 200.  Aldrei er heimilt að eiga fleiri en 300 hrognkelsanet í sjó.  Takmörkun þessi á netafjölda miðast við 60 faðma ófellda slöngu en sé notuð 120 faðma ófelld slanga, miðast takmörkunin við helmingi færri net.</list-item>
-			<list-item font="normal">Lágmarksmöskvastærð grásleppuneta er 10,5 þumlungar (267 mm).</list-item>
-			<list-item font="normal">Netabaujur skulu vera á báðum endum netatrossu og allar merktar með flaggi, sem komið er fyrir efst á baujustönginni. Á flaggið skal mála umdæmisnúmer eða skipaskrárnúmer þess skips, sem notar netin. Auk þessa skulu allir belgir merktir með umdæmisnúmeri eða skipaskrárnúmeri þess skips, sem notar þá. Merkingar á baujuflöggum og belgjum skulu vera greinilegar og skulu stafir stórir og skýrir. Allir netadrekar skulu, með varanlegri merkingu, vera greinilega merktir umdæmisnúmeri eða skipaskrárnúmeri þess skips sem þá notar.     Skylt er að númera netatrossur sem hver bátur á í sjó frá einum til þess fjölda trossa, sem hann á í sjó. Númer netatrossu skal skráð skýrum tölustöfum á baujuflagg eða belg á báðum endum trossu.</list-item>
-			<list-item font="normal">Um vigtun afla vísast til ákvæða laga nr. 57/1996, um umgengni um nytjastofna sjávar, og ákvæði gildandi reglugerðar um vigtun sjávarafla.</list-item>
-			<list-item font="normal">Skipstjóra er skylt að halda afladagbók sem Fiskistofa leggur til, sbr. reglugerð nr. 557/2007, um afladagbækur.  Upplýsingar í afladagbókum skulu nýtast í vísindalegum tilgangi, sem eftirlitsgögn og til annarra verkefna er varða stjórnun fiskveiða.</list-item>
-			<list-item font="normal">Ekki er heimilt að stunda á sama tíma veiðar á grásleppu og netaveiðar á þorskfiski.</list-item>
-			<list-item font="normal">Óheimilt er að stunda veiðar með rauðmaganetum frá og með 15. júní til og með 31. desember ár hvert. Óheimilt er að nota til rauðmagaveiða net með minna en 7 þumlunga möskva og net dýpri en 20 möskva. Þá er óheimilt að nota til rauðmagaveiða net með stærri möskva en 8 þumlunga (203 mm). Þá er bátum sem leyfi hafa til veiða með krókaaflamarki óheimilt að stunda veiðar með rauðmaganetum nema að fengnu sérstöku leyfi Fiskistofu.</list-item>
-			<list-item font="normal">Að öðru leyti vísast til ákvæða reglugerðar nr. 196/2009, um hrognkelsaveiðar, með síðari breytingum og reglugerðar nr. 676/2009, um veiðar í atvinnuskyni fiskveiðiárið 2009/2010.</list-item>
-		</list>
-	</font>
+	<table font="normal" padding="2" columns="2" width="100" widths="4,96" border-style="none" halign="left">
+		<cell valign="top">1.</cell>
+		<cell>${fishingAreaDescription}</cell>
+		<cell valign="top">2.</cell>
+		<cell>Veiðitímabilið er frá og með <phrase font="bold">${dateFrom}</phrase> til og með <phrase font="bold">${dateTo}</phrase> og er óheimilt að leggja grásleppunet fyrir kl. 08:00 fyrsta dag veiðitímabils.</cell>
+		<cell valign="top">3.</cell>
+		<cell>Skylt er að draga öll grásleppunet úr sjó fyrir lok veiðitímabils.</cell>
+		<cell valign="top">4.</cell>
+		<cell>Sé einn maður í áhöfn má eigi hafa fleiri hrognkelsanet í sjó en 100.  Séu tveir í áhöfn mega hrognkelsanet ekki vera fleiri en 200.  Aldrei er heimilt að eiga fleiri en 300 hrognkelsanet í sjó.  Takmörkun þessi á netafjölda miðast við 60 faðma ófellda slöngu en sé notuð 120 faðma ófelld slanga, miðast takmörkunin við helmingi færri net.</cell>
+		<cell valign="top">5.</cell>
+		<cell>Lágmarksmöskvastærð grásleppuneta er 10,5 þumlungar (267 mm).</cell>
+		<cell valign="top">6.</cell>
+		<cell>Netabaujur skulu vera á báðum endum netatrossu og allar merktar með flaggi, sem komið er fyrir efst á baujustönginni. Á flaggið skal mála umdæmisnúmer eða skipaskrárnúmer þess skips, sem notar netin. Auk þessa skulu allir belgir merktir með umdæmisnúmeri eða skipaskrárnúmeri þess skips, sem notar þá. Merkingar á baujuflöggum og belgjum skulu vera greinilegar og skulu stafir stórir og skýrir. Allir netadrekar skulu, með varanlegri merkingu, vera greinilega merktir umdæmisnúmeri eða skipaskrárnúmeri þess skips sem þá notar.     Skylt er að númera netatrossur sem hver bátur á í sjó frá einum til þess fjölda trossa, sem hann á í sjó. Númer netatrossu skal skráð skýrum tölustöfum á baujuflagg eða belg á báðum endum trossu.</cell>
+		<cell valign="top">7.</cell>
+		<cell>Um vigtun afla vísast til ákvæða laga nr. 57/1996, um umgengni um nytjastofna sjávar, og ákvæði gildandi reglugerðar um vigtun sjávarafla.</cell>
+		<cell valign="top">8.</cell>
+		<cell>Skipstjóra er skylt að halda afladagbók sem Fiskistofa leggur til, sbr. reglugerð nr. 557/2007, um afladagbækur.  Upplýsingar í afladagbókum skulu nýtast í vísindalegum tilgangi, sem eftirlitsgögn og til annarra verkefna er varða stjórnun fiskveiða.</cell>
+		<cell valign="top">9.</cell>
+		<cell>Ekki er heimilt að stunda á sama tíma veiðar á grásleppu og netaveiðar á þorskfiski.</cell>
+		<cell valign="top">10.</cell>
+		<cell>Óheimilt er að stunda veiðar með rauðmaganetum frá og með 15. júní til og með 31. desember ár hvert. Óheimilt er að nota til rauðmagaveiða net með minna en 7 þumlunga möskva og net dýpri en 20 möskva. Þá er óheimilt að nota til rauðmagaveiða net með stærri möskva en 8 þumlunga (203 mm). Þá er bátum sem leyfi hafa til veiða með krókaaflamarki óheimilt að stunda veiðar með rauðmaganetum nema að fengnu sérstöku leyfi Fiskistofu.</cell>
+		<cell valign="top">11.</cell>
+		<cell>Að öðru leyti vísast til ákvæða reglugerðar nr. 196/2009, um hrognkelsaveiðar, með síðari breytingum og reglugerðar nr. 676/2009, um veiðar í atvinnuskyni fiskveiðiárið 2009/2010.</cell>
+	</table>
 		
 	<paragraph font="normal" spacing-before="18.0">Leyfisbréf þetta er gert ${dateNow} og miðast við gildandi reglur þann dag, sem geta breyst síðar.</paragraph>
 	
