@@ -157,8 +157,14 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 */
 	public XFormsBooleanResult getVesselHasValidGeneralFishingLicense(
 			String vesselId) {
-		final LicenseCheckContainer res = getClient()
-				.getHasValidGeneralFishingLicense(vesselId);
+/*		final LicenseCheckContainer res = getClient()
+				.getHasValidGeneralFishingLicense(vesselId);*/
+
+		LicenseCheckContainer res = getClient()
+		.getHasValidQuotaLimitFishingLicense(vesselId);
+		if (!res.isHasLicense()) {
+			res = getClient().getHasValidHookQuotaLimitFishingLicense(vesselId);
+		}
 
 		return new XFormsBooleanResult(res.isHasLicense(), res.getMessage());
 	}

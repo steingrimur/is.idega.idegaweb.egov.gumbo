@@ -104,6 +104,13 @@ public class DOFWSClientMock implements DOFWSClient {
 		return new LicenseCheckContainer(true,
 		        "Error message from getHasValidQuotaLimitFishingLicense");
 	}
+
+	@Override
+	public LicenseCheckContainer getHasValidHookQuotaLimitFishingLicense(
+			String shipID) {
+		return new LicenseCheckContainer(true,
+        "Error message from getHasValidQuotaLimitFishingLicense");
+	}
 	
 	@Override
 	public LicenseCheckContainer getHasRevokedFishingLicense(String shipID) {

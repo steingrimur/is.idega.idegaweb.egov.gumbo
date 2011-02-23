@@ -42,6 +42,8 @@ import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.Getersvi
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetgrasleppuskipnrutgerdarElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefuraflamarksveidilElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefuraflamarksveidilResponseElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurkrokaaflamarksveidilElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurkrokaaflamarksveidilResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurstrandveidileyfiElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurstrandveidileyfiResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurveidileyfiElement;
@@ -57,7 +59,6 @@ import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.FS
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.FSWebServiceVeidileyfiUpdate_ServiceLocator;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CreateveidileyfiWithPasswordElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CreateveidileyfiWithPasswordResponseElement;
-import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.VirkjaveidileyfiElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.VirkjaveidileyfiWithPasswordElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.VirkjaveidileyfiWithPasswordResponseElement;
 import is.idega.idegaweb.egov.gumbo.business.GumboBusiness;
@@ -667,6 +668,39 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		try {
 			GethefuraflamarksveidilResponseElement res = getLicensePort()
 					.gethefuraflamarksveidil(parameters);
+
+			LicenseCheckContainer ret = null;
+			if (res.getResult().getIsok().intValue() > 0) {
+				ret = new LicenseCheckContainer(true, res.getResult()
+						.getMessage());
+			} else {
+				ret = new LicenseCheckContainer(false, res.getResult()
+						.getMessage());
+			}
+
+			return ret;
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+
+		return new LicenseCheckContainer(false, "error_from_web_service");
+	}
+
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#
+	 * getHasValidQuotaLimitFishingLicense(java.lang.String)
+	 */
+	@Override
+	public LicenseCheckContainer getHasValidHookQuotaLimitFishingLicense(
+			String shipID) {
+		GethefurkrokaaflamarksveidilElement parameters = new GethefurkrokaaflamarksveidilElement(
+				new BigDecimal(shipID), IWTimestamp.RightNow().getCalendar());
+		try {
+			GethefurkrokaaflamarksveidilResponseElement res = getLicensePort()
+					.gethefurkrokaaflamarksveidil(parameters);
 
 			LicenseCheckContainer ret = null;
 			if (res.getResult().getIsok().intValue() > 0) {

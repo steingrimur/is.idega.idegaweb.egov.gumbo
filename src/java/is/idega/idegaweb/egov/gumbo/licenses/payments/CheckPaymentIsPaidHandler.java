@@ -50,6 +50,7 @@ public class CheckPaymentIsPaidHandler implements ActionHandler {
 	}
 
 	private boolean isClaimPaid(long processInstanceId, String ssn, String shipID) throws Exception {
+		System.out.println("Checking payment for ssn = " + ssn + ", ship = " + shipID);
 		CaseProcInstBind bind = getCasesBPMDAO()
 				.getCaseProcInstBindByProcessInstanceId(processInstanceId);
 		if (bind == null) {
@@ -68,6 +69,8 @@ public class CheckPaymentIsPaidHandler implements ActionHandler {
 			return false;
 		}
 
+		System.out.println("claim = " + claimNumber);
+		
 		return getFJSWSClient().getIsLicenseFeeClaimPaid(ssn, shipID, claimNumber);
 	}
 
