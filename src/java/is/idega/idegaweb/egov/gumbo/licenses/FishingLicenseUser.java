@@ -166,7 +166,14 @@ public class FishingLicenseUser extends DefaultSpringBean {
 			res = getClient().getHasValidHookQuotaLimitFishingLicense(vesselId);
 		}
 
-		return new XFormsBooleanResult(res.isHasLicense(), res.getMessage());
+		if (res.isHasLicense()) {
+			return new XFormsBooleanResult(res.isHasLicense(), res.getMessage());
+		} else {
+			IWBundle iwb = getBundle(GumboConstants.IW_BUNDLE_IDENTIFIER);
+			IWResourceBundle iwrb = getResourceBundle(iwb);
+			
+			return new XFormsBooleanResult(res.isHasLicense(), iwrb.getLocalizedString("NO_VALID_LICENSE_GRASLEPPA", "Ship has no valid general fishing license (aflamark or krokaflamark)"));			
+		}
 	}
 
 	/**
