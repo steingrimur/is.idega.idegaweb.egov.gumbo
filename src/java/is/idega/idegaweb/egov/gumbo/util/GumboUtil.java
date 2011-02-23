@@ -8,15 +8,27 @@ import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+
+import com.idega.bpm.xformsview.converters.DateConverter;
 import com.idega.core.cache.IWCacheManager2;
 import com.idega.idegaweb.IWMainApplication;
 import com.idega.util.IWTimestamp;
 
+@Service("gumboUtil")
+@Scope(BeanDefinition.SCOPE_SINGLETON)
 public class GumboUtil {
+
+	@Autowired
+	private DateConverter dateConverter;
 
 	private static final String GUMBO_SHIP_INFO_CACHE = "ship_info_cache";
 	private static final String SHIP_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceSKIPSoap12HttpPort";
@@ -96,6 +108,28 @@ public class GumboUtil {
 
 	public static String getEncryptedClassName(Class classToInstanciate) {
 		return IWMainApplication.getEncryptedClassName(classToInstanciate);
+	}
+
+	public String formatDate(String date) {
+		if (date == null || date.isEmpty()) {
+			return "";
+		}
+		
+		try {
+			IWTimestamp stamp = new IWTimestamp(getDateConverter()
+					.convertStringFromXFormsToDate(date));
+			
+			return stamp.getDateString("dd.MM.yyyy");
+		}
+		catch (ParseException pe) {
+			//No handling...
+		}
+		
+		return "";
+	}
+
+	private DateConverter getDateConverter() {
+		return dateConverter;
 	}
 
 	public static void main(String[] arguments) {

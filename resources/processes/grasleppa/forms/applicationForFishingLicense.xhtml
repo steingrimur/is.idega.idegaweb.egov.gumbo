@@ -74,6 +74,7 @@
                     <startOfFishing mapping="date_startOfFishing" xsi:nil="true"/>
                     <endOfFishing mapping="date_endOfFishing" />
                     <startOfFishingLabel mapping="string_startOfFishingLabel"/>
+                    <endOfFishingLabel mapping="string_endOfFishingLabel" />
                 </data>
             </xf:instance>
             <xf:instance id="control-instance">
@@ -174,6 +175,7 @@
                 required="instance('control-instance')/required = 'true'" type="date"/>
             <xf:bind id="startOfFishingLabel_bind" nodeset="startOfFishingLabel"/>
             <xf:bind id="endOfFishing_bind" nodeset="endOfFishing" />
+            <xf:bind id="endOfFishingLabel_bind" nodeset="endOfFishingLabel"/>
         </xf:model>
         <xf:model id="data_model">
             <xf:instance id="localized_strings" xmlns="">
@@ -497,10 +499,8 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                         </div>
                         <div class="gpsInputs hiddenLabel">
 	                        <xf:group bind="fbc_113_bind">
-		                        <xf:label model="data_model" ref="instance('localized_strings')/fbc_114-label[@lang=instance('localized_strings')/current_language]"/>
-	                            <xf:output model="data_model" bind="fbc_114_bind" />
-	                            <xf:output model="data_model" bind="fbc_115_bind">
-	                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_115-label[@lang=instance('localized_strings')/current_language]"/>
+	                            <xf:output model="data_model" bind="fbc_113_bind">
+			                        <xf:label model="data_model" ref="instance('localized_strings')/fbc_114-label[@lang=instance('localized_strings')/current_language]"/>
 	                            </xf:output>
 	                        </xf:group>
 	                    </div>
@@ -524,9 +524,8 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                                 multiple="true()"
                                 placeResponseDocument="true()"
                                 ref="instance('data-instance')/licenseInterval" value="idega:resolveBeanProperties('fishingLicenseUser.getLicenseIntervalForGrasleppa({0})', '#{instance(`data-instance`)/Select_the_fishing_area_fbc_110}')"/>
-                            <idega:setvalue
-                                ev:event="xforms-value-changed"
-                                ref="instance('data-instance')/endOfFishing" value="idega:resolveExpression('fishingLicenseUser.getLicenseEndDate({0}, {1})', '#{instance(`data-instance`)/startOfFishing}, #{instance(`data-instance`)/Select_the_fishing_area_fbc_110}')"/>
+                            <xf:setvalue ev:event="xforms-value-changed"
+                                ref="instance('data-instance')/licenseIntervalVisible" value="idega:resolveExpression('fishingLicenseUser.getLicenseIntervalForGrasleppaLabel({0})', '#{instance(`data-instance`)/Select_the_fishing_area_fbc_110}')"/>
                             
                             <xf:dispatch ev:event="idega-xforms-ready"
                                 name="idega-validate" target="fbc_110"/>
@@ -543,18 +542,21 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
 
                             <xf:dispatch ev:event="xforms-value-changed"
                                 name="idega-validate_timeframe" target="fbc_102a"/>
+                                
                             <xf:setvalue ev:event="xforms-value-changed"
-                                ref="instance('data-instance')/startOfFishingLabel" value="instance('data-instance')/startOfFishing"/>
-                            <idega:setvalue
-                                ev:event="xforms-value-changed"
+                                ref="instance('data-instance')/startOfFishingLabel" value="idega:resolveExpression('gumboUtil.formatDate({0})', '#{instance(`data-instance`)/startOfFishing}')"/>
+                            <xf:setvalue ev:event="xforms-value-changed"
                                 ref="instance('data-instance')/endOfFishing" value="idega:resolveExpression('fishingLicenseUser.getLicenseEndDate({0}, {1})', '#{instance(`data-instance`)/startOfFishing}, #{instance(`data-instance`)/Select_the_fishing_area_fbc_110}')"/>
+                            <xf:setvalue ev:event="xforms-value-changed"
+                                ref="instance('data-instance')/endOfFishingLabel" value="idega:resolveExpression('fishingLicenseUser.getLicenseEndDateFormatted({0}, {1})', '#{instance(`data-instance`)/startOfFishing}, #{instance(`data-instance`)/Select_the_fishing_area_fbc_110}')"/>
+				            
 				            <idega:validator errorif="idega:resolveExpression('fishingLicenseUser.isInTimeframe({0}, {1}) == false', '#{instance(`data-instance`)/startOfFishing}, #{instance(`data-instance`)/Select_the_fishing_area_fbc_110}')" ev:event="idega-validate_timeframe">
 				                <idega:message errorType="validation" model="data_model" value="instance('localized_strings')/startOfFishing-validation[@lang=instance('localized_strings')/current_language]"/>
 					            <idega:message errorType="custom" model="data_model" value="instance('localized_strings')/startOfFishing-validation[@lang=instance('localized_strings')/current_language]"/>
 					        </idega:validator>
                             <xf:alert ref="instance('error-instance')/error[@for='fbc_102a']"/>
                         </xf:input>
-                        <xf:output bind="endOfFishing_bind" id="fbc_102b">
+                        <xf:output bind="endOfFishingLabel_bind" id="fbc_102b">
                             <xf:label model="data_model" ref="instance('localized_strings')/endOfFishing-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
                         
@@ -627,7 +629,7 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                         <xf:output bind="startOfFishingLabel_bind" id="fbc_154a" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/startOfFishing-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
-                        <xf:output bind="endOfFishing_bind" id="fbc_154b" type="fbc_text_output">
+                        <xf:output bind="endOfFishingLabel_bind" id="fbc_154b" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/endOfFishing-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
                         

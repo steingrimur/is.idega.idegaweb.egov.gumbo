@@ -994,7 +994,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 			items = new ArrayList<Item>(shipNr.length);
 			for (BigDecimal nr : shipNr) {
 				SkipInfoTypeUser vessel = getShipInfo(nr.toString());
-				items.add(new Item(vessel.getSkipNr().toString(), vessel
+				items.add(new Item(vessel.getSkipNr().toString(), "(" + vessel.getSkipNr().toString() + ") " + vessel
 						.getNafn()));
 			}
 		}

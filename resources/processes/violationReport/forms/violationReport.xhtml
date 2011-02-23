@@ -929,7 +929,7 @@
                                 <xf:label model="data_model" ref="instance('localized_strings')/fbc_44-label[@lang=instance('localized_strings')/current_language]"/>
                             </xf:output>
                             <xf:input id="fbc_109"
-                                ref="./violationInvolvement" type="fbc_tex">
+                                ref="./violationInvolvement" type="fbc_text">
                                 <xf:label model="data_model" ref="instance('localized_strings')/fbc_109-label[@lang=instance('localized_strings')/current_language]"/>
                             </xf:input>
                         </xf:repeat>
@@ -986,7 +986,7 @@
                                 <xf:label model="data_model" ref="instance('localized_strings')/fbc_126-label[@lang=instance('localized_strings')/current_language]"/>
                             </xf:output>
                             <xf:input id="fbc_109a"
-                                ref="./violationInvolvement" type="fbc_tex">
+                                ref="./violationInvolvement" type="fbc_text">
                                 <xf:label model="data_model" ref="instance('localized_strings')/fbc_109a-label[@lang=instance('localized_strings')/current_language]"/>
                             </xf:input>
                         </xf:repeat>
@@ -1001,7 +1001,7 @@
                             <xf:dispatch ev:event="xforms-value-changed"
                                 name="idega-validate" target="fbc_102"/>
                             <xf:setvalue ev:event="xforms-value-changed"
-                                ref="instance('data-instance')/violationDateLabel" value="instance('data-instance')/Violation_date_fbc_102"/>
+                                ref="instance('data-instance')/violationDateLabel" value="idega:resolveExpression('gumboUtil.formatDate({0})', '#{instance(`data-instance`)/Violation_date_fbc_102}')"/>
                                 
                             <idega:validator ev:event="idega-validate" componentId="fbc_102" validateif="instance('data-instance')/Violation_date_fbc_102 = '' or idega:isBeforeNow(instance('data-instance')/Violation_date_fbc_102)">
                                 <idega:message errorType="required"

@@ -74,14 +74,9 @@
                         <submissionId/>
                     </saveFormData>
                     <fishingAreaLabel mapping="string_fishingAreaLabel"/>
-                    <licenseInterval>
-                        <from mapping="date_licenseValidFrom"></from>
-                        <to mapping="date_licenseValidTo"></to>
-                    </licenseInterval>
-                    <licenseIntervalVisible />
-                    <startOfFishing mapping="date_startOfFishing" xsi:nil="true"/>
+
                     <startOfFishingLabel mapping="string_startOfFishingLabel"/>
-                    <endOfFishing mapping="date_endOfFishing" xsi:nil="true"/>
+                    <endOfFishingLabel mapping="string_endOfFishingLabel"/>
                 </data>
             </xf:instance>
             <xf:instance id="control-instance">
@@ -159,12 +154,8 @@
             <xf:bind id="fbc_111_bind" nodeset="companyHasValidGrasleppa" relevant="instance('data-instance')/companyHasValidGrasleppa = 'true'"/>
             <xf:bind id="fbc_112_bind" nodeset="companyHasNotValidGrasleppa" relevant="instance('data-instance')/companyHasValidGrasleppa != 'true'"/>
             
-            <xf:bind id="fbc_113_bind" nodeset="licenseIntervalVisible" relevant="instance('data-instance')/licenseInterval/from != '' and instance('data-instance')/licenseInterval/to != ''"/>
-            <xf:bind id="fbc_114_bind" nodeset="licenseInterval/from" />
-            <xf:bind id="fbc_115_bind" nodeset="licenseInterval/to" />
-
             <xf:bind id="startOfFishingLabel_bind" nodeset="startOfFishingLabel"/>
-            <xf:bind id="endOfFishing_bind" nodeset="endOfFishing"/>
+            <xf:bind id="endOfFishingLabel_bind" nodeset="endOfFishingLabel"/>
         </xf:model>
         <xf:model id="data_model">
             <xf:instance id="localized_strings" xmlns="">
@@ -335,7 +326,7 @@
                         <xf:output bind="startOfFishingLabel_bind" id="fbc_154a" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/startOfFishing-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
-                        <xf:output bind="endOfFishing_bind" id="fbc_154b" type="fbc_text_output">
+                        <xf:output bind="endOfFishingLabel_bind" id="fbc_154b" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/endOfFishing-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
 

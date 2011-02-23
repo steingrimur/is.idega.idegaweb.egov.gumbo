@@ -73,13 +73,15 @@ public class ShipsViewer extends IWBaseComponent implements IWPageEventListener 
 			BuilderService service = BuilderServiceFactory.getBuilderService(iwc);
 			
 			Company company = getBusiness().getCompanyForUser(iwc.getCurrentUser());
-			String companySSN = company != null ? company.getPersonalID() : "";
+			String companySSN = company != null ? company.getPersonalID() : null;
 			
-			GumboBean bean = getBeanInstance("gumboBean");
-			bean.setEventHandler(this.getClass());
-			bean.setShips(getClient().getShipInfoByCompanySSN(companySSN));
-			if (getPage() != null) {
-				bean.setResponseURL(service.getPageURI(getPage()));
+			if (companySSN != null) {
+				GumboBean bean = getBeanInstance("gumboBean");
+				bean.setEventHandler(this.getClass());
+				bean.setShips(getClient().getShipInfoByCompanySSN(companySSN));
+				if (getPage() != null) {
+					bean.setResponseURL(service.getPageURI(getPage()));
+				}
 			}
 		}
 		catch (RemoteException re) {

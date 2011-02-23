@@ -55,16 +55,18 @@ public class LatestCatches extends IWBaseComponent {
 			BuilderService service = BuilderServiceFactory.getBuilderService(iwc);
 			
 			Company company = getSession().getCompany();
-			String companySSN = company != null ? company.getPersonalID() : "";
+			String companySSN = company != null ? company.getPersonalID() : null;
 			
-			GumboBean bean = getBeanInstance("gumboBean");
-			bean.setEventHandler(ShipsViewer.class);
-			bean.setCatches(getClient().getLatestCatchInfo(companySSN, getNumberOfResults()));
-			if (getPage() != null) {
-				bean.setResponseURL(service.getPageURI(getPage()));
-			}
-			if (getCatchesPage() != null) {
-				bean.setCatchesURL(service.getPageURI(getCatchesPage()));
+			if (companySSN != null) {
+				GumboBean bean = getBeanInstance("gumboBean");
+				bean.setEventHandler(ShipsViewer.class);
+				bean.setCatches(getClient().getLatestCatchInfo(companySSN, getNumberOfResults()));
+				if (getPage() != null) {
+					bean.setResponseURL(service.getPageURI(getPage()));
+				}
+				if (getCatchesPage() != null) {
+					bean.setCatchesURL(service.getPageURI(getCatchesPage()));
+				}
 			}
 		}
 		catch (RemoteException re) {

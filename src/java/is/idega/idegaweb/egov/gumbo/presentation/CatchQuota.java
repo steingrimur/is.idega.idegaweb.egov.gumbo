@@ -41,12 +41,14 @@ public class CatchQuota extends IWBaseComponent {
 		PresentationUtil.addStyleSheetToHeader(iwc, iwb.getVirtualPathWithFileNameString("style/gumbo.css"));
 
 		Company company = getSession().getCompany();
-		String companySSN = company != null ? company.getPersonalID() : "";
+		String companySSN = company != null ? company.getPersonalID() : null;
 		
-		GumboBean bean = getBeanInstance("gumboBean");
-		bean.setShips(getClient().getShipInfoByCompanySSN(companySSN));
-		bean.setCatchQuota(getClient().getCatchQuota(company.getPersonalID(), getSession().getSeason()));
-	
+		if (companySSN != null) {
+			GumboBean bean = getBeanInstance("gumboBean");
+			bean.setShips(getClient().getShipInfoByCompanySSN(companySSN));
+			bean.setCatchQuota(getClient().getCatchQuota(company.getPersonalID(), getSession().getSeason()));
+		}
+		
 		FaceletComponent facelet = (FaceletComponent) iwc.getApplication().createComponent(FaceletComponent.COMPONENT_TYPE);
 		facelet.setFaceletURI(iwb.getFaceletURI("catchQuota/viewByPeriod.xhtml"));
 		add(facelet);

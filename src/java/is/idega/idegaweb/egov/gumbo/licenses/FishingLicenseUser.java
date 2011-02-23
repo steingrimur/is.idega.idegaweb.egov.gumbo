@@ -4,6 +4,7 @@ import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.VeidileyfagerdTypeUser;
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.licenses.Interval.XFormsInterval;
+import is.idega.idegaweb.egov.gumbo.util.GumboUtil;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.FJSWSClient;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.LicenseCheckContainer;
@@ -42,6 +43,9 @@ public class FishingLicenseUser extends DefaultSpringBean {
 
 	@Autowired
 	private DateConverter dateConverter;
+
+	@Autowired
+	private GumboUtil gumboUtil;
 
 	public CompanyData getCompanyForCurrentUser() {
 		return getClient().getCompanyForUser(getCurrentUser());
@@ -296,7 +300,7 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	}
 
 	public String getLicenseEndDate(String from, String area) {
-		if (from == null || !isInTimeframe(from, area)) {
+		if (from == null || from.isEmpty() || !isInTimeframe(from, area)) {
 			return "";
 		}
 		
@@ -312,6 +316,10 @@ public class FishingLicenseUser extends DefaultSpringBean {
 		}
 
 		return "";
+	}
+	
+	public String getLicenseEndDateFormatted(String from, String area) {
+		return getGumboUtil().formatDate(getLicenseEndDate(from, area));
 	}
 
 	public boolean isInTimeframe(String date, String areaID) {
@@ -337,7 +345,7 @@ public class FishingLicenseUser extends DefaultSpringBean {
 		
 		return false;
 	}
-
+	
 	public XFormsInterval getLicenseIntervalForGrasleppa(String fishingAreaId) {
 
 		Map<BigDecimal, VeidileyfagerdTypeUser> ret = getClient()
@@ -354,6 +362,20 @@ public class FishingLicenseUser extends DefaultSpringBean {
 		return new XFormsInterval(getDateConverter()
 				.convertDateToComplyWithXForms(iv.getFrom()),
 				getDateConverter().convertDateToComplyWithXForms(iv.getTo()));
+	}
+
+	public String getLicenseIntervalForGrasleppaLabel(String fishingAreaId) {
+
+		Map<BigDecimal, VeidileyfagerdTypeUser> ret = getClient()
+				.getGrasleppaAreas();
+		VeidileyfagerdTypeUser type = ret.get(new BigDecimal(fishingAreaId));
+
+		IWTimestamp from = new IWTimestamp(type.getUpphafVeiditimabils().getTime());
+		IWTimestamp to = new IWTimestamp(type.getUrGildi().getTime());
+
+		StringBuilder builder = new StringBuilder(from.getDateString("dd.MM.yyyy")).append(" - ").append(to.getDateString("dd.MM.yyyy"));
+		
+		return builder.toString();
 	}
 
 	public static final class VesselData {
@@ -437,6 +459,10 @@ public class FishingLicenseUser extends DefaultSpringBean {
 
 	private DateConverter getDateConverter() {
 		return dateConverter;
+	}
+
+	private GumboUtil getGumboUtil() {
+		return gumboUtil;
 	}
 
 	public static final class CompanyData {
