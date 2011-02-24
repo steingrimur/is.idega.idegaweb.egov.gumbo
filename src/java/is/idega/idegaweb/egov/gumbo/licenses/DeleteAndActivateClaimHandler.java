@@ -1,25 +1,10 @@
 package is.idega.idegaweb.egov.gumbo.licenses;
 
-import is.idega.idegaweb.egov.gumbo.GumboConstants;
-import is.idega.idegaweb.egov.gumbo.business.GumboProcessException;
-import is.idega.idegaweb.egov.gumbo.webservice.client.business.FJSWSClient;
-
-import java.util.logging.Logger;
-
 import org.jbpm.graph.def.ActionHandler;
 import org.jbpm.graph.exe.ExecutionContext;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
-
-import com.idega.block.process.business.CaseBusiness;
-import com.idega.block.process.data.Case;
-import com.idega.business.IBOLookup;
-import com.idega.business.IBOLookupException;
-import com.idega.idegaweb.IWMainApplication;
-import com.idega.idegaweb.egov.bpm.data.CaseProcInstBind;
-import com.idega.idegaweb.egov.bpm.data.dao.CasesBPMDAO;
 
 @Service("deleteAndActivateClaim")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -27,18 +12,20 @@ public class DeleteAndActivateClaimHandler implements ActionHandler {
 	
 	private static final long serialVersionUID = -4358095189973482870L;
 
-	@Autowired
-	FJSWSClient fjswsClient;
+	/*@Autowired
+	private FJSWSClient fjswsClient;
 
 	@Autowired
 	private CasesBPMDAO casesBPMDAO;
 
 	private static final Logger LOGGER = Logger
-			.getLogger(DeleteAndRejectClaimHandler.class.getName());
+			.getLogger(DeleteAndActivateClaimHandler.class.getName());*/
 
 	@Override
 	public void execute(ExecutionContext executionContext) throws Exception {
-		boolean send = IWMainApplication.getDefaultIWApplicationContext()
+		executionContext.setVariable("paymentPaid", "true");
+
+		/*boolean send = IWMainApplication.getDefaultIWApplicationContext()
 		.getApplicationSettings()
 		.getBoolean("dof_send_claim", true);
 
@@ -69,10 +56,10 @@ public class DeleteAndActivateClaimHandler implements ActionHandler {
 		
 		if (!ret) {
 			throw new GumboProcessException("Failed to cancel claim " + claimKey);
-		}
+		}*/
 	}
 
-	CaseBusiness getCaseBusiness() {
+	/*private CaseBusiness getCaseBusiness() {
 		try {
 			return IBOLookup.getServiceInstance(
 					IWMainApplication.getDefaultIWApplicationContext(),
@@ -89,6 +76,6 @@ public class DeleteAndActivateClaimHandler implements ActionHandler {
 
 	private FJSWSClient getFJSWSClient() {
 		return fjswsClient;
-	}
+	}*/
 
 }

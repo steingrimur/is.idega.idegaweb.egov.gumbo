@@ -258,8 +258,8 @@
                     <fbc_68-label lang="en">Previous</fbc_68-label>
                     <fbc_69-label lang="is_IS">Senda</fbc_69-label>
                     <fbc_69-label lang="en">Submit</fbc_69-label>
-                    <fbc_37-required lang="is_IS">Það þarf að fylla út reitinn X</fbc_37-required>
-                    <fbc_37-required lang="en">The field X is required</fbc_37-required>
+                    <fbc_37-required lang="is_IS">Það þarf að velja skip</fbc_37-required>
+                    <fbc_37-required lang="en">You have to select a ship</fbc_37-required>
                     <fbc_37-help lang="en">Please select the vessel which the fishing
 license is applied for from the drop down
 menu.
@@ -526,11 +526,18 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                                 ref="instance('data-instance')/licenseInterval" value="idega:resolveBeanProperties('fishingLicenseUser.getLicenseIntervalForGrasleppa({0})', '#{instance(`data-instance`)/Select_the_fishing_area_fbc_110}')"/>
                             <xf:setvalue ev:event="xforms-value-changed"
                                 ref="instance('data-instance')/licenseIntervalVisible" value="idega:resolveExpression('fishingLicenseUser.getLicenseIntervalForGrasleppaLabel({0})', '#{instance(`data-instance`)/Select_the_fishing_area_fbc_110}')"/>
+                            <xf:setvalue ev:event="xforms-value-changed"
+                                ref="instance('data-instance')/endOfFishing" value="idega:resolveExpression('fishingLicenseUser.getLicenseEndDate({0}, {1})', '#{instance(`data-instance`)/startOfFishing}, #{instance(`data-instance`)/Select_the_fishing_area_fbc_110}')"/>
+                            <xf:setvalue ev:event="xforms-value-changed"
+                                ref="instance('data-instance')/endOfFishingLabel" value="idega:resolveExpression('fishingLicenseUser.getLicenseEndDateFormatted({0}, {1})', '#{instance(`data-instance`)/startOfFishing}, #{instance(`data-instance`)/Select_the_fishing_area_fbc_110}')"/>
                             
                             <xf:dispatch ev:event="idega-xforms-ready"
                                 name="idega-validate" target="fbc_110"/>
                             <xf:dispatch ev:event="xforms-value-changed"
                                 name="idega-validate" target="fbc_110"/>
+                            <xf:dispatch ev:event="xforms-value-changed"
+                                name="idega-validate_timeframe" target="fbc_102a"/>
+                                
                             <idega:validator ev:event="idega-validate">
                                 <idega:message errorType="required"
                                     model="data_model" value="instance('localized_strings')/fbc_110-required[@lang=instance('localized_strings')/current_language]"/>
@@ -550,7 +557,7 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                             <xf:setvalue ev:event="xforms-value-changed"
                                 ref="instance('data-instance')/endOfFishingLabel" value="idega:resolveExpression('fishingLicenseUser.getLicenseEndDateFormatted({0}, {1})', '#{instance(`data-instance`)/startOfFishing}, #{instance(`data-instance`)/Select_the_fishing_area_fbc_110}')"/>
 				            
-				            <idega:validator errorif="idega:resolveExpression('fishingLicenseUser.isInTimeframe({0}, {1}) == false', '#{instance(`data-instance`)/startOfFishing}, #{instance(`data-instance`)/Select_the_fishing_area_fbc_110}')" ev:event="idega-validate_timeframe">
+				            <idega:validator errorif="instance('data-instance')/Select_the_fishing_area_fbc_110 != '' and instance('data-instance')/startOfFishing != '' and idega:resolveExpression('fishingLicenseUser.isInTimeframe({0}, {1}) == false', '#{instance(`data-instance`)/startOfFishing}, #{instance(`data-instance`)/Select_the_fishing_area_fbc_110}')" ev:event="idega-validate_timeframe">
 				                <idega:message errorType="validation" model="data_model" value="instance('localized_strings')/startOfFishing-validation[@lang=instance('localized_strings')/current_language]"/>
 					            <idega:message errorType="custom" model="data_model" value="instance('localized_strings')/startOfFishing-validation[@lang=instance('localized_strings')/current_language]"/>
 					        </idega:validator>
