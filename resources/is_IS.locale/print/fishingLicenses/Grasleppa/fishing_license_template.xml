@@ -27,7 +27,7 @@
 
 	<table font="normal" padding="2" columns="2" width="100" widths="4,96" border-style="none" halign="left">
 		<cell valign="top">1.</cell>
-		<cell>Veiðileyfið gildir frá og með <phrase font="bold">${dateFrom}</phrase> til og með <phrase font="bold">${dateTo}</phrase> og er óheimilt að leggja grásleppunet fyrir kl. 08:00 fyrsta dag veiðitímabils.</cell>
+		<cell>Veiðileyfið gildir frá og með <phrase font="bold">${dateFrom}</phrase> til og með <phrase font="bold">${dateTo}</phrase> og er óheimilt að leggja grásleppunet fyrir kl. 08:00 fyrsta dag þessa tímabils.</cell>
 		<cell valign="top">2.</cell>
 		<cell>${fishingAreaDescription}</cell>
 		<cell valign="top">3.</cell>
