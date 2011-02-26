@@ -863,8 +863,8 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 				ret.setPostalCode("");
 			}
 
-			if (comp.getAddress().getCity() != null) {
-				ret.setPlace(comp.getAddress().getCity());
+			if (comp.getAddress().getPostalCode() != null) {
+				ret.setPlace(comp.getAddress().getPostalCode().getName());
 			} else {
 				ret.setPlace("");
 			}

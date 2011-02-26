@@ -10,4 +10,6 @@ public class GumboConstants {
 
 	public static final String FJS_CLAIM_NUMBER_METADATA_KEY = "FJS_CLAIM_KEY";
 
+	public static final String ATTRIBUTE_RESOURCE_URL = "gumbo.pdf.resource.url";
+
 }

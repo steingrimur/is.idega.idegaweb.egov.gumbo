@@ -64,7 +64,9 @@ public class FishingLicensePrintingContext extends PrintingContextImpl {
 		
 		setFileName(licenseType + "-" + ship.getSkipNr().toString() + ".pdf");
 		addDocumentProperties(props);
-		setResourceURL(iwac.getDomain().getURL() + "content/files/public/pdf/");
+		
+		String resourceURL = iwac.getApplicationSettings().getProperty(GumboConstants.ATTRIBUTE_RESOURCE_URL, iwac.getDomain().getURL() + "content/files/public/pdf/");
+		setResourceURL(resourceURL);
 
 		String baseDirectory = getResourceRealPath(getBundle(iwac), locale);
 		try {
