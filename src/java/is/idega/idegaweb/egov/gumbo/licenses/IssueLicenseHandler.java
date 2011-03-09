@@ -39,6 +39,7 @@ import com.idega.jbpm.exe.TaskInstanceW;
 import com.idega.util.CoreUtil;
 import com.idega.util.IOUtil;
 import com.idega.util.IWCalendar;
+import com.idega.util.IWTimestamp;
 import com.idega.util.expression.ELUtil;
 
 @Service("issueLicense")
@@ -50,6 +51,8 @@ public class IssueLicenseHandler extends DefaultSpringBean implements ActionHand
 	private static final Logger LOGGER = Logger.getLogger(IssueLicenseHandler.class.getName());
 
 	private Long taskInstance;
+	
+	private boolean updateDOF = true;
 
 	@Autowired
 	private GumboPDFGenerator pdfGenerator;
@@ -100,17 +103,17 @@ public class IssueLicenseHandler extends DefaultSpringBean implements ActionHand
 			Company fishery = getCompanyBusiness().getCompany(ship.getUtgerdKt());
 
 			Variable variable = Variable.parseDefaultStringRepresentation(BPMTaskPDFViewer.DOCUMENT_VARIABLE_NAME);
-			IWCalendar calendar = new IWCalendar();
 			StringBuffer fileNameBuffer = new StringBuffer(iwrb.getLocalizedString("fishing_license_filename." + licenseType, licenseType)).append("-").append(vesselNumber)
-				.append("-").append(calendar.getLocaleDate(IWCalendar.SHORT)).append(".pdf");
+				.append("-").append(IWTimestamp.RightNow().getDateString("dd.MM.yyyy HH:mm")).append(".pdf");
 	
 			String fileName = fileNameBuffer.toString();
 			String description = fileName;
 			parkingCard = getPDFGenerator().generateFishingLicensePDF(licenseType, license, fishery, ship, locale);
 			tiw.addAttachment(variable, fileName, description, parkingCard);
 			
-			
-			getWSClient().activateFishingLicense(new BigDecimal(licenseID));
+			if (getUpdateDOF()) {
+				getWSClient().activateFishingLicense(new BigDecimal(licenseID));
+			}
 			
 			return true;
 		} catch (Exception e) {
@@ -173,5 +176,13 @@ public class IssueLicenseHandler extends DefaultSpringBean implements ActionHand
 
 	public void setTaskInstance(Long taskInstance) {
 		this.taskInstance = taskInstance;
+	}
+	
+	public boolean getUpdateDOF() {
+		return updateDOF;
+	}
+
+	public void setUpdateDOF(boolean updateDOF) {
+		this.updateDOF = updateDOF;
 	}
 }

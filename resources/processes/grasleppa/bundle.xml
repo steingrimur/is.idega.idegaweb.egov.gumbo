@@ -14,6 +14,9 @@
         <task name="deleteClaimTask">
             <viewResource resourceIdentifier="forms/deleteClaim.xhtml" viewType="xforms" viewResourceType="xforms" />
         </task>
+        <task name="reIssueLicenseTask">
+        	<viewResource resourceIdentifier="forms/reIssueLicense.xhtml" viewType="xforms" viewResourceType="xforms" />
+        </task>
     </tasks>
     
 </processBundle-config>

@@ -305,6 +305,8 @@
 	<end-state name="end-state3"></end-state>
 
 	<end-state name="end-state4"></end-state>
+
+	<end-state name="end-state5"></end-state>
 	
 	<node name="updateCaseStatusToLicenseGrantedClaimUnpaid">
 	   <event type="node-enter">
@@ -410,7 +412,7 @@
                 <handlerName>sendLicenseToApplicant</handlerName>
             </action>
         </event>
-		<transition to="runInvalidationWarningNotificationTimer"></transition>
+		<transition to="fork4" name="to fork4"></transition>
 	</node>
 
 	<state name="runInvalidationWarningNotificationTimer">
@@ -611,6 +613,55 @@
 		<transition to="keepMeAlive" name="toKeepMeAlive"></transition>
 		<transition to="licenseRuling" name="toLicenseRuling"></transition>
 	</fork>
+
+	<fork name="fork4">
+		<transition to="runInvalidationWarningNotificationTimer"></transition>
+		<transition to="reIssueLicense" name="toReIssueLicense"></transition>
+	</fork>
+
+	<task-node name="reIssueLicense">
+		<task name="reIssueLicenseTask" priority="-1">
+	         <controller>
+	         
+	            <variable name="string_caseIdentifier" access="read"></variable>
+	         
+	         </controller>
+	        <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+	            <handlerName>jsonAssignmentHandler</handlerName>
+	            <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+	                <entry><key>expression</key>
+	                    <value>
+	                        {taskAssignment: {roles: {role: [
+	                           {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}}
+	                        ]} }}
+	                    </value>
+	                </entry>
+	            </propertyMap>
+	         </assignment>
+	      
+	      </task>
+		<transition to="reIssueLicenseNode" name="toReIssueLicenseNode"></transition>
+		
+	</task-node>
+
+	<node name="reIssueLicenseNode">
+	<event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>issueLicense</handlerName>
+				<propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+					<entry>
+						<key>taskInstance</key>
+						<value>#{licenseRulingTaskInstanceId}</value>
+					</entry>
+					<entry>
+						<key>updateDOF</key>
+						<value>false</value>
+					</entry>
+				</propertyMap>
+            </action>
+        </event>
+		<transition to="end-state5"></transition>
+	</node>
 	
 	<idg:roles xmlns:idg="http://idega.com/bpm">
         <role name="bpm_fishingLicense_caseHandler">
