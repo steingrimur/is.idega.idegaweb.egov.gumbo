@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="Grasleppa" width="1361" height="1307">
+<root-container name="Grasleppa" width="1250" height="1307">
   <node name="applicationForFishingLicense" x="195" y="37" width="164" height="34">
     <edge>
       <label x="5" y="-10"/>
@@ -26,6 +26,7 @@
   <node name="end-state1" x="486" y="1282" width="23" height="24"/>
   <node name="end-state3" x="565" y="369" width="27" height="25"/>
   <node name="end-state4" x="618" y="140" width="29" height="24"/>
+  <node name="end-state5" x="951" y="801" width="132" height="36"/>
   <node name="updateCaseStatusToLicenseGrantedClaimUnpaid" x="378" y="577" width="247" height="36">
     <edge>
       <label x="5" y="-10"/>
@@ -159,6 +160,9 @@
     <edge>
       <label x="5" y="-10"/>
     </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
   </node>
   <node name="fork4" x="690" y="1117" width="252" height="24">
     <edge>
@@ -178,5 +182,10 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="end-state5" x="951" y="801" width="132" height="36"/>
+  <node name="emailsFetcher" x="-39" y="187" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="emailsFetcherEnd" x="2" y="96" width="32" height="27"/>
 </root-container>

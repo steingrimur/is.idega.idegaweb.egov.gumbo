@@ -307,6 +307,8 @@
 	<end-state name="end-state4"></end-state>
 
 	<end-state name="end-state5"></end-state>
+
+	<end-state name="emailsFetcherEnd"></end-state>
 	
 	<node name="updateCaseStatusToLicenseGrantedClaimUnpaid">
 	   <event type="node-enter">
@@ -612,6 +614,7 @@
 	<fork name="fork3">
 		<transition to="keepMeAlive" name="toKeepMeAlive"></transition>
 		<transition to="licenseRuling" name="toLicenseRuling"></transition>
+		<transition to="emailsFetcher" name="to emailsFetcher"></transition>
 	</fork>
 
 	<fork name="fork4">
@@ -662,6 +665,26 @@
         </event>
 		<transition to="end-state5"></transition>
 	</node>
+
+	<process-state name="emailsFetcher">
+<sub-process name="fetchEmails" binding="late" />
+      <variable name="string_emailReadAssignmentExpression" access="read" mapped-name="string_emailReadAssignmentExpression" />
+      <variable name='mainProcessInstanceId' access='read' />
+      <event type="node-enter">
+         <script>
+            <expression>
+                emailReadAssignmentExpression =
+"{taskAssignment: {roles: {role: ["
++"{roleName: \""+handlerRoleName+"\", accesses: {access: [read]}}"
++"]} }}";
+            </expression>
+            <variable name='string_emailReadAssignmentExpression' access='write' mapped-name='emailReadAssignmentExpression' />
+            <variable name='handlerRoleName' access='read' />
+
+         </script>
+      </event>
+		<transition to="emailsFetcherEnd"></transition>
+	</process-state>
 	
 	<idg:roles xmlns:idg="http://idega.com/bpm">
         <role name="bpm_fishingLicense_caseHandler">
