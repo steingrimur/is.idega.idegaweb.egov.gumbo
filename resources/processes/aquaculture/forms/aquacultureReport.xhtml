@@ -305,7 +305,7 @@
                     
                 <xf:bind id="valueBind"
                     nodeset="./value"
-                    required="instance('control-instance')/required = 'true'" />
+                    calculate="../quantity * ../price" />
                     
                 <xf:bind id="buyerSocialSecurityNrBind"
                     nodeset="./buyerSocialSecurityNr"
