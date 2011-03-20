@@ -25,42 +25,52 @@ public class AquaCultureService extends DefaultSpringBean {
 	
 	public List<Item> getFarms() {
 		
-		final List<Item> farms = new ArrayList<Item>();
+		final List<Item> items = new ArrayList<Item>();
 		
-		farms.add(new Item("id1", "farm 1"));
-		farms.add(new Item("id2", "farm 2"));
+		items.add(new Item("id1", "farm 1"));
+		items.add(new Item("id2", "farm 2"));
 		
-		return farms;
+		return items;
 	}
 	
 	public List<Item> getSpeciesGroups() {
 		
-		final List<Item> farms = new ArrayList<Item>();
+		final List<Item> items = new ArrayList<Item>();
 		
-		farms.add(new Item("id1", "specie 1"));
-		farms.add(new Item("id2", "specie 2"));
+		items.add(new Item("id1", "specie group 1"));
+		items.add(new Item("id2", "specie group 2"));
 		
-		return farms;
+		return items;
 	}
 	
 	public List<Item> getAquamethods() {
 		
-		final List<Item> farms = new ArrayList<Item>();
+		final List<Item> items = new ArrayList<Item>();
 		
-		farms.add(new Item("id1", "aquamethod 1"));
-		farms.add(new Item("id2", "aquamethod 2"));
+		items.add(new Item("id1", "aquamethod 1"));
+		items.add(new Item("id2", "aquamethod 2"));
 		
-		return farms;
+		return items;
 	}
 	
 	public List<Item> getAquaEnvironments() {
 		
-		final List<Item> farms = new ArrayList<Item>();
+		final List<Item> items = new ArrayList<Item>();
 		
-		farms.add(new Item("id1", "aquaEnvironment 1"));
-		farms.add(new Item("id2", "aquaEnvironment 2"));
+		items.add(new Item("id1", "aquaEnvironment 1"));
+		items.add(new Item("id2", "aquaEnvironment 2"));
 		
-		return farms;
+		return items;
+	}
+	
+	public List<Item> getSpecies() {
+		
+		final List<Item> items = new ArrayList<Item>();
+		
+		items.add(new Item("id1", "specie 1"));
+		items.add(new Item("id2", "specie 2"));
+		
+		return items;
 	}
 	
 	public String getFarmStructureUnitOutput(String byAquamethodId) {
