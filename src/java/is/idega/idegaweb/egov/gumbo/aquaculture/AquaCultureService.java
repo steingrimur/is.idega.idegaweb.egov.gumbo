@@ -43,6 +43,31 @@ public class AquaCultureService extends DefaultSpringBean {
 		return farms;
 	}
 	
+	public List<Item> getAquamethods() {
+		
+		final List<Item> farms = new ArrayList<Item>();
+		
+		farms.add(new Item("id1", "aquamethod 1"));
+		farms.add(new Item("id2", "aquamethod 2"));
+		
+		return farms;
+	}
+	
+	public List<Item> getAquaEnvironments() {
+		
+		final List<Item> farms = new ArrayList<Item>();
+		
+		farms.add(new Item("id1", "aquaEnvironment 1"));
+		farms.add(new Item("id2", "aquaEnvironment 2"));
+		
+		return farms;
+	}
+	
+	public String getFarmStructureUnitOutput(String byAquamethodId) {
+		
+		return "Unit by " + byAquamethodId;
+	}
+	
 	public static final class AquaCultureCompanyData {
 		
 		private final String socialSecurityNr;

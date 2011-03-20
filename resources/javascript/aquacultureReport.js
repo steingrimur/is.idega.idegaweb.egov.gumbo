@@ -6,8 +6,6 @@ jQuery(document).ready(function() {
 	
 	ChibaWorkarounds.publishUIUpdatedEvent = true;
 	
-//	substitute speciesGroup
-	
 	jQuery(".insertRowButton input").attr("onclick", "");
 	
 	jQuery(".insertRowButton input").click(function() {
@@ -34,6 +32,32 @@ jQuery(document).ready(function() {
 		return null;
 	};
 	
+	var getSubstituteId = function(element) {
+		
+		var classes = element.attr("class").split(" ");
+		
+		for ( var i = 0; i < classes.length; i++) {
+			var styleClass = classes[i];
+			
+			if(styleClass.indexOf("substituteId-") == 0) {
+				return styleClass.substring("substituteId-".length);
+			}
+		}
+
+		return null;
+	};
+	
+	var copyOptions = function(from, to) {
+		
+		var options = from.get(0).options;
+		
+		for ( var i = 0; i < options.length; i++) {
+			var opt = options[i];
+			
+			to.append(new Option(opt.text, opt.value));
+		}
+	};
+	
 	jQuery(document).bind('ChibaWorkarounds-UIUpdatedEvent', function() {
 		
 		if(ChibaWorkarounds.insertFor != null) {
@@ -47,6 +71,7 @@ jQuery(document).ready(function() {
 				}
 			});
 			
+			ChibaWorkarounds.insertFor = null;
 		}
 	});
 	
@@ -57,8 +82,9 @@ jQuery(document).ready(function() {
 		var div = jQuery(document.createElement("div"));
 		var select = jQuery(document.createElement("select"));
 		
-		select.append(new Option("X1", "x1"));
-		select.append(new Option("X2", "x2"));
+		var substituteId = getSubstituteId(substitutableInput.parent(0));
+		
+		copyOptions(jQuery(".selectorItems."+substituteId+" select.value"), select);
 
 		div.addClass("select1");
 		

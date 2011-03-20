@@ -36,7 +36,7 @@ import com.idega.util.text.Item;
 public class ViolationService extends DefaultSpringBean {
 	
 	@Autowired
-	@Qualifier(DOFWSClient.MOCK)
+	@Qualifier(DOFWSClient.WEB_SERVICE)
 	private ViolationDataProvider violationDataProvider;
 	
 	@Autowired

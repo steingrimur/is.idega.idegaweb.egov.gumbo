@@ -31,43 +31,31 @@
                         <list>
                             <row>
                                 <speciesGroup/>
-                                <items>
-                                    <item value="x1">x lbl en</item>
-                                                                    <!--
-			                        <item >
- 
-			                            <itemLabel>x lbl en</itemLabel>
-			                            <itemValue>x1</itemValue>
-			                             
-			                        </item>
-			                        -->
-                                </items>
+                                <speciesGroupOutput/>
                                 <aquamethod/>
-                                <aquaEnvironment/>                                
+                                <aquamethodOutput/>
+                                <aquaEnvironment/>
+                                <aquaEnvironmentOutput/>                                
                                 <size xsi:type="xsd:float" xsi:nil="true"/>
-                                <unit/>
+                                <sizeOutput/>
+                                <unitOutput/>
                             </row>
                             <row>
                                 <speciesGroup/>
-                                <items>
-                                    <item value="x1">x lbl en</item>
-                                                                    <!--
-                                    <item >
- 
-                                        <itemLabel>x lbl en</itemLabel>
-                                        <itemValue>x1</itemValue>
-                                         
-                                    </item>
-                                    -->
-                                </items>
+                                <speciesGroupOutput/>
                                 <aquamethod/>
-                                <aquaEnvironment/>                                
+                                <aquamethodOutput/>
+                                <aquaEnvironment/>
+                                <aquaEnvironmentOutput/>                                
                                 <size xsi:type="xsd:float" xsi:nil="true"/>
-                                <unit/>
+                                <sizeOutput/>
+                                <unitOutput/>
                             </row>
                         </list>
                         <trigger/>
                     </farmStructure>
+                    
+                    <tmpVal />
                     
                 </data>
             </xf:instance>
@@ -79,6 +67,7 @@
                     <generatePdf>false</generatePdf>
                     <sendLinkSubmission>false</sendLinkSubmission>
                     <submissionButton/>
+                    <controlsButton/>
                 </control>
             </xf:instance>
             <xf:instance id="error-instance" xmlns="">
@@ -122,15 +111,30 @@
             <xf:bind id="fbc_10_bind"
                 nodeset="farmStructure/list/row[position() != last()]" readonly="instance('control-instance')/readonly = 'true'">
                 
-                <xf:bind id="fbc_10_bind_2"
-                nodeset="./speciesGroup">
-	                <xf:bind id="fbc_10_bind_3"
-	                nodeset="../items" />
-                
-                </xf:bind>
+                <xf:bind id="speciesGroupBind"
+                    nodeset="./speciesGroup"
+                    required="instance('control-instance')/required = 'true'" />
+                    
+                <xf:bind id="aquamethodBind"
+                    nodeset="./aquamethod"
+                    required="instance('control-instance')/required = 'true'" />
+                    
+                <xf:bind id="aquaEnvironmentBind"
+                    nodeset="./aquaEnvironment"
+                    required="instance('control-instance')/required = 'true'" />
+                    
+                <xf:bind id="sizeBind"
+                    nodeset="./size"
+                    required="instance('control-instance')/required = 'true'" />
+                    
+                <xf:bind id="unitBind"
+                    nodeset="./unitOutput" />
                 
             </xf:bind>
             <xf:bind id="fbc_10_trigger" nodeset="farmStructure/trigger" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
+            
+            <xf:bind id="bind-controlsButton" idega:shared="true"
+                nodeset="instance('control-instance')/controlsButton" relevant="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"/>
                 
             <xf:submission action="xformsBPM:/nouri"
                 id="submit_data_submission" method="post"
@@ -147,16 +151,30 @@
             <xf:instance id="fbc_13_lds" xmlns="">
                 <local_src>
                     <localizedEntries lang="en">
-                        <item>
-                            <itemLabel>x lbl en</itemLabel>
-                            <itemValue>x1</itemValue>
-                        </item>
+                        <item/>
                     </localizedEntries>
                     <localizedEntries lang="is_IS">
-                        <item>
-                            <itemLabel>x lbl is</itemLabel>
-                            <itemValue>x1</itemValue>
-                        </item>
+                        <item/>
+                    </localizedEntries>
+                </local_src>
+            </xf:instance>
+            <xf:instance id="fbc_21_lds" xmlns="">
+                <local_src>
+                    <localizedEntries lang="en">
+                        <item/>
+                    </localizedEntries>
+                    <localizedEntries lang="is_IS">
+                        <item/>
+                    </localizedEntries>
+                </local_src>
+            </xf:instance>
+            <xf:instance id="fbc_23_lds" xmlns="">
+                <local_src>
+                    <localizedEntries lang="en">
+                        <item/>
+                    </localizedEntries>
+                    <localizedEntries lang="is_IS">
+                        <item/>
                     </localizedEntries>
                 </local_src>
             </xf:instance>
@@ -190,6 +208,15 @@
                     <fbc_9-required lang="is_IS">Það þarf að fylla út reitinn X</fbc_9-required>
                     <fbc_9-required lang="en">The field X is required</fbc_9-required>
                     
+                    <fbc_10_repeat_id_input_speciesGroup-required lang="is_IS">fbc_10_repeat_id_input_speciesGroup-required</fbc_10_repeat_id_input_speciesGroup-required>
+                    <fbc_10_repeat_id_input_speciesGroup-required lang="en">fbc_10_repeat_id_input_speciesGroup-required</fbc_10_repeat_id_input_speciesGroup-required>
+                    <fbc_10_repeat_id_input_aquamethod-required lang="is_IS">fbc_10_repeat_id_input_aquamethod-required</fbc_10_repeat_id_input_aquamethod-required>
+                    <fbc_10_repeat_id_input_aquamethod-required lang="en">fbc_10_repeat_id_input_aquamethod-required</fbc_10_repeat_id_input_aquamethod-required>
+                    <fbc_10_repeat_id_input_aquaEnvironment-required lang="is_IS">fbc_10_repeat_id_input_aquaEnvironment-required</fbc_10_repeat_id_input_aquaEnvironment-required>
+                    <fbc_10_repeat_id_input_aquaEnvironment-required lang="en">fbc_10_repeat_id_input_aquaEnvironment-required</fbc_10_repeat_id_input_aquaEnvironment-required>
+                    <fbc_10_repeat_id_input_size-required lang="is_IS">fbc_10_repeat_id_input_size-required</fbc_10_repeat_id_input_size-required>
+                    <fbc_10_repeat_id_input_size-required lang="en">fbc_10_repeat_id_input_size-required</fbc_10_repeat_id_input_size-required>
+                    
                     <fbc_10-label lang="is_IS">Farm structure</fbc_10-label>
                     <fbc_10-label lang="en">Farm structure</fbc_10-label>
                     <fbc_10-table-count-error lang="en">Bad number format. Check again.</fbc_10-table-count-error>
@@ -198,10 +225,21 @@
                     <fbc_10-insert-label lang="is_IS">Bæta við röð</fbc_10-insert-label>
                     <fbc_10-delete-label lang="en">Delete</fbc_10-delete-label>
                     <fbc_10-delete-label lang="is_IS">Eyða röð</fbc_10-delete-label>
-                    <fbc_10-col1-label lang="en">Species group</fbc_10-col1-label>
-                    <fbc_10-col1-label lang="is_IS">Species group</fbc_10-col1-label>
-                    <fbc_10-col4-label lang="en">Size</fbc_10-col4-label>
-                    <fbc_10-col4-label lang="is_IS">Size</fbc_10-col4-label>
+                    <fbc_10-col-speciesGroup-label lang="en">Species group</fbc_10-col-speciesGroup-label>
+                    <fbc_10-col-speciesGroup-label lang="is_IS">Species group</fbc_10-col-speciesGroup-label>
+                    <fbc_10-col-aquamethod-label lang="en">Aqua method</fbc_10-col-aquamethod-label>
+                    <fbc_10-col-aquamethod-label lang="is_IS">Aqua method</fbc_10-col-aquamethod-label>
+                    <fbc_10-col-aquaEnvironment-label lang="en">Aqua environment</fbc_10-col-aquaEnvironment-label>
+                    <fbc_10-col-aquaEnvironment-label lang="is_IS">Aqua environment</fbc_10-col-aquaEnvironment-label>
+                    <fbc_10-col-size-label lang="en">Size</fbc_10-col-size-label>
+                    <fbc_10-col-size-label lang="is_IS">Size</fbc_10-col-size-label>
+                    <fbc_10-col-unit-label lang="en">Unit</fbc_10-col-unit-label>
+                    <fbc_10-col-unit-label lang="is_IS">Unit</fbc_10-col-unit-label>
+                    
+                    <fbc_18-label lang="is_IS">Næsta skref</fbc_18-label>
+                    <fbc_18-label lang="en">Next</fbc_18-label>
+                    <fbc_20-label lang="is_IS">Til baka</fbc_20-label>
+                    <fbc_20-label lang="en">Previous</fbc_20-label>
                 </localized_strings>
             </xf:instance>
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
@@ -213,6 +251,8 @@
                     if="instance('control-instance')/generatePdf='true'"
                     model="submission_model"
                     ref="instance('control-instance')/required" value="'false'"/>
+                    
+                    <idega:toggle case="fbc_17" if="instance('control-instance')/generatePdf = 'true' or instance('control-instance')/readonly='true'"/>
                     
                     <xf:action if="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'">
                     
@@ -227,10 +267,14 @@
                         <idega:setvalue
                             ref="instance('fbc_9_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('aquaCultureService.getFarms()')"/>
 
-<!--                            
                         <idega:setvalue
                             ref="instance('fbc_13_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('aquaCultureService.getSpeciesGroups()')"/>
- -->
+                            
+                        <idega:setvalue
+                            ref="instance('fbc_21_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('aquaCultureService.getAquamethods()')"/>
+                            
+                        <idega:setvalue
+                            ref="instance('fbc_23_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('aquaCultureService.getAquaEnvironments()')"/>
                     </xf:action>
                     
                 
@@ -284,7 +328,8 @@
                         </xf:output>
                         
                         <xf:select1 appearance="minimal"
-                            bind="fbc_9_bind" id="fbc_9" type="fbc_single_select_minimal">
+                            bind="fbc_9_bind"
+                            id="fbc_9" type="fbc_single_select_minimal">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_9-label[@lang=instance('localized_strings')/current_language]"/>
                             <xf:itemset model="data_model" nodeset="instance('fbc_9_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
                                 <xf:label ref="itemLabel"/>
@@ -326,30 +371,98 @@
                             </xf:trigger>
                             <xf:repeat class="farmStructure" appearance="compact" bind="fbc_10_bind" id="fbc_10_repeat_id">
                             
-                                <xf:input ref="./speciesGroup" class="substitute speciesGroup">
-                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-col1-label[@lang=instance('localized_strings')/current_language]"/>
+                                <xf:input id="fbc_10_repeat_id_input_speciesGroup" bind="speciesGroupBind" class="substitute substituteId-speciesGroup speciesGroup">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-col-speciesGroup-label[@lang=instance('localized_strings')/current_language]"/>
+                                    
+                                    <xf:dispatch ev:event="xforms-value-changed"
+                                        name="idega-validate" target="fbc_10_repeat_id_input_speciesGroup"/>
+                                    <idega:validator ev:event="idega-validate">
+		                                <idega:message errorType="required"
+		                                    model="data_model" value="instance('localized_strings')/fbc_10_repeat_id_input_speciesGroup-required[@lang=instance('localized_strings')/current_language]"/>
+		                            </idega:validator>
+                                    
+                                    <xf:action ev:event="xforms-value-changed">
+                                    
+                                        <xf:setvalue
+                                            ref="../speciesGroupOutput" 
+                                            value="instance('fbc_13_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/farmStructure/list/row[index('fbc_10_repeat_id')]/speciesGroup]/itemLabel"/>
+                                    
+                                    </xf:action>
+                                    
                                 </xf:input>
-
-<!-- 
-                                <xf:select1 appearance="minimal"
-                                ref="./speciesGroup"
-		                             type="fbc_single_select_minimal">
-		                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-col1-label[@lang=instance('localized_strings')/current_language]"/>
-		                            <xf:item>
-				                        <xf:label>Fiskur</xf:label>
-				                        <xf:value>fiskur</xf:value>
-                                    </xf:item>
-                                    <xf:item>
-                                        <xf:label>Lindýr</xf:label>
-                                        <xf:value>lindyr</xf:value>
-                                    </xf:item>
-		                        </xf:select1>
--->
-		                        
-                            
-                                <xf:input ref="./size">
-                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-col4-label[@lang=instance('localized_strings')/current_language]"/>
+                                
+                                
+                                <xf:input id="fbc_10_repeat_id_input_aquamethod" bind="aquamethodBind" class="substitute substituteId-aquamethod aquamethod">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-col-aquamethod-label[@lang=instance('localized_strings')/current_language]"/>
+                                    
+                                    <xf:dispatch ev:event="xforms-value-changed"
+                                        name="idega-validate" target="fbc_10_repeat_id_input_aquamethod"/>
+                                    <idega:validator ev:event="idega-validate">
+                                        <idega:message errorType="required"
+                                            model="data_model" value="instance('localized_strings')/fbc_10_repeat_id_input_aquamethod-required[@lang=instance('localized_strings')/current_language]"/>
+                                    </idega:validator>
+                                    
+                                    <xf:action ev:event="xforms-value-changed">
+                                    
+                                        <xf:setvalue
+                                            ref="../aquamethodOutput" 
+                                            value="instance('fbc_21_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/farmStructure/list/row[index('fbc_10_repeat_id')]/aquamethod]/itemLabel"/>
+                                            
+                                        <xf:setvalue
+                                            ref="instance('data-instance')/tmpVal" 
+                                            value="instance('data-instance')/farmStructure/list/row[index('fbc_10_repeat_id')]/aquamethod"/>
+                                         
+                                        <idega:setvalue
+                                            multiple="true()"
+                                            placeResponseDocument="true()"
+                                            ref="../unitOutput" value="idega:resolveExpression('aquaCultureService.getFarmStructureUnitOutput({0})', '#{instance(`data-instance`)/tmpVal}')"/>
+                                               
+                                    </xf:action>
+                                    
                                 </xf:input>
+                                
+                                
+                                <xf:input id="fbc_10_repeat_id_input_aquaEnvironment" bind="aquaEnvironmentBind" class="substitute substituteId-aquaEnvironment aquaEnvironment">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-col-aquaEnvironment-label[@lang=instance('localized_strings')/current_language]"/>
+                                    
+                                    <xf:dispatch ev:event="xforms-value-changed"
+                                        name="idega-validate" target="fbc_10_repeat_id_input_aquaEnvironment"/>
+                                    <idega:validator ev:event="idega-validate">
+                                        <idega:message errorType="required"
+                                            model="data_model" value="instance('localized_strings')/fbc_10_repeat_id_input_aquaEnvironment-required[@lang=instance('localized_strings')/current_language]"/>
+                                    </idega:validator>
+                                    
+                                    <xf:action ev:event="xforms-value-changed">
+                                    
+                                        <xf:setvalue
+                                            ref="../aquaEnvironmentOutput" 
+                                            value="instance('fbc_23_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/farmStructure/list/row[index('fbc_10_repeat_id')]/aquaEnvironment]/itemLabel"/>
+                                    
+                                    </xf:action>
+                                    
+                                </xf:input>
+                                
+                                
+                                <xf:input bind="sizeBind" id="fbc_10_repeat_id_input_size">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-col-size-label[@lang=instance('localized_strings')/current_language]"/>
+                                    
+                                    <xf:dispatch ev:event="xforms-value-changed"
+                                        name="idega-validate" target="fbc_10_repeat_id_input_size"/>
+                                    <idega:validator ev:event="idega-validate">
+                                        <idega:message errorType="required"
+                                            model="data_model" value="instance('localized_strings')/fbc_10_repeat_id_input_size-required[@lang=instance('localized_strings')/current_language]"/>
+                                    </idega:validator>
+                                    
+                                    <xf:setvalue
+                                            ev:event="xforms-value-changed"
+                                            ref="instance('data-instance')/farmStructure/list/row[index('fbc_10_repeat_id')]/sizeOutput" 
+                                            value="instance('data-instance')/farmStructure/list/row[index('fbc_10_repeat_id')]/size"/>
+                                            
+                                </xf:input>
+                                
+                                <xf:output bind="unitBind" id="fbc_10_repeat_id_input_unit" type="fbc_text_output">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-col-unit-label[@lang=instance('localized_strings')/current_language]"/>
+                                </xf:output>
                             </xf:repeat>
                             <!-- 
                             <xf:output class="total" value="format-number(sum(table_fbc_38/list/row/cost_estimate), '###.###,##', 'european')">
@@ -361,6 +474,78 @@
                         </xf:group>
                     
                         <div class="fbc_button_area" id="fbc_2" type="fbc_button_area">
+                            <xf:trigger bind="bind-controlsButton"
+                                id="fbc_18" type="fbc_button_next">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_18-label[@lang=instance('localized_strings')/current_language]"/>
+                                <idega:toggle case="fbc_17" ev:event="DOMActivate"/>
+                            </xf:trigger>
+                        </div>
+                        
+                        <div style="display: none;" class="selectorItems speciesGroup">
+                            <xf:select1 appearance="minimal"
+                                id="fbc_13" type="fbc_single_select_minimal">
+                                <xf:itemset model="data_model" nodeset="instance('fbc_13_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
+                                    <xf:label ref="itemLabel"/>
+                                    <xf:value ref="itemValue"/>
+                                </xf:itemset>
+                            </xf:select1>
+                        </div>
+                        <div style="display: none;" class="selectorItems aquamethod">
+                            <xf:select1 appearance="minimal"
+                                id="fbc_21" type="fbc_single_select_minimal">
+                                <xf:itemset model="data_model" nodeset="instance('fbc_21_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
+                                    <xf:label ref="itemLabel"/>
+                                    <xf:value ref="itemValue"/>
+                                </xf:itemset>
+                            </xf:select1>
+                        </div>
+                        <div style="display: none;" class="selectorItems aquaEnvironment">
+                            <xf:select1 appearance="minimal"
+                                id="fbc_23" type="fbc_single_select_minimal">
+                                <xf:itemset model="data_model" nodeset="instance('fbc_23_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
+                                    <xf:label ref="itemLabel"/>
+                                    <xf:value ref="itemValue"/>
+                                </xf:itemset>
+                            </xf:select1>
+                        </div>
+                        
+                    </xf:group>
+                </idega:case>
+                <idega:case id="fbc_17" show="instance('control-instance')/generatePdf='true'">
+                
+                    <xf:repeat appearance="compact" bind="fbc_10_bind" id="fbc_14_repeat_id">
+                            
+                                <xf:output id="fbc_15"
+                                    ref="./speciesGroupOutput" type="fbc_text_output">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-col-speciesGroup-label[@lang=instance('localized_strings')/current_language]"/>
+                                </xf:output>
+                                <xf:output id="fbc_22"
+                                    ref="./aquamethodOutput" type="fbc_text_output">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-col-aquamethod-label[@lang=instance('localized_strings')/current_language]"/>
+                                </xf:output>
+                                <xf:output id="fbc_24"
+                                    ref="./aquaEnvironmentOutput" type="fbc_text_output">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-col-aquaEnvironment-label[@lang=instance('localized_strings')/current_language]"/>
+                                </xf:output>
+                                <xf:output id="fbc_16"
+                                    ref="./sizeOutput" type="fbc_text_output">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-col-size-label[@lang=instance('localized_strings')/current_language]"/>
+                                </xf:output>
+                                <xf:output id="fbc_25" 
+                                    ref="./unitOutput" type="fbc_text_output">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-col-unit-label[@lang=instance('localized_strings')/current_language]"/>
+                                </xf:output>
+                                
+                    </xf:repeat>
+                    
+                    <div class="fbc_button_area" id="fbc_19" type="fbc_button_area">
+                    
+                            <xf:trigger bind="bind-controlsButton"
+                                id="fbc_20" type="fbc_button_previous">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_20-label[@lang=instance('localized_strings')/current_language]"/>
+                                <idega:toggle case="fbc_1" ev:event="DOMActivate"/>
+                            </xf:trigger>
+                    
                             <xf:trigger bind="bind-submissionButton"
                                 class="fbc_button_submit" id="fbc_3" type="fbc_button_submit">
                                 <xf:label model="data_model" ref="instance('localized_strings')/page-1-submit_button-label[@lang=instance('localized_strings')/current_language]"/>
@@ -384,7 +569,7 @@
                                 </xf:action>
                             </xf:trigger>
                         </div>
-                    </xf:group>
+                
                 </idega:case>
                 <idega:case id="fbc_4" type="thx_page">
                     <xf:group appearance="full" class="thx_page">
