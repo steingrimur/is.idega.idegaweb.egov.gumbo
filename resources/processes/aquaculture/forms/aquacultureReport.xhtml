@@ -3,6 +3,9 @@
     xmlns:idega="http://idega.com/xforms"
     xmlns:xf="http://www.w3.org/2002/xforms"
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    
+    <!-- TODO: store units not just as labels -->
+    
     <head>
         <title>
             <xf:output model="data_model" ref="instance('localized_strings')/form-title[@lang=instance('localized_strings')/current_language]"/>
@@ -26,6 +29,7 @@
                     
                     <reportForTheYear mapping="string_reportForTheYear"/>
                     <reportForTheFarm mapping="string_reportForTheFarm"/>
+                    <reportForTheFarmOutput mapping="string_reportForTheFarmOutput"/>
                     
                     <farmStructure mapping="objlist_farmStructure">
                         <list>
@@ -85,6 +89,67 @@
                         <trigger/>
                     </fishedForOnGrowing>
                     
+                    
+                    <sales mapping="objlist_sales">
+                        <list>
+                            <row>
+                                <speciesGroup/>
+                                <speciesGroupOutput/>
+                                <aquamethod/>
+                                <aquamethodOutput/>
+                                <aquaEnvironment/>
+                                <aquaEnvironmentOutput/>
+                                <species/>
+                                <speciesOutput/>
+                                <farminPurpose/>
+                                <farminPurposeOutput/>
+                                <statusNow/>
+                                <statusNowOutput/>
+                                <soldTo/>
+                                <soldToOutput/>
+                                <quantity xsi:type="xsd:float" xsi:nil="true"/>
+                                <quantityOutput/>
+                                <quantityUnitOutput/>
+                                <price xsi:type="xsd:float" xsi:nil="true"/>
+                                <priceOutput/>
+                                <priceUnitOutput/>
+                                <value/>
+                                <buyerSocialSecurityNr/>
+                                <buyerSocialSecurityNrOutput/>
+                                <buyerName/>
+                                <buyerNameOutput/>
+                            </row>
+                            <row>
+                                <speciesGroup/>
+                                <speciesGroupOutput/>
+                                <aquamethod/>
+                                <aquamethodOutput/>
+                                <aquaEnvironment/>
+                                <aquaEnvironmentOutput/>
+                                <species/>
+                                <speciesOutput/>
+                                <farminPurpose/>
+                                <farminPurposeOutput/>
+                                <statusNow/>
+                                <statusNowOutput/>
+                                <soldTo/>
+                                <soldToOutput/>
+                                <quantity xsi:type="xsd:float" xsi:nil="true"/>
+                                <quantityOutput/>
+                                <quantityUnitOutput/>
+                                <price xsi:type="xsd:float" xsi:nil="true"/>
+                                <priceOutput/>
+                                <priceUnitOutput/>
+                                <value/>
+                                <buyerSocialSecurityNr/>
+                                <buyerSocialSecurityNrOutput/>
+                                <buyerName/>
+                                <buyerNameOutput/>
+                            </row>
+                        </list>
+                        <trigger/>
+                    </sales>
+                    
                     <tmpVal />
                     
                 </data>
@@ -138,18 +203,22 @@
                 required="instance('control-instance')/required = 'true'"
                 type="xs:string"/>
                 
+            <xf:bind id="fbc_42_bind"
+                nodeset="reportForTheFarmOutput" 
+                type="xs:string"/>
+                
             <xf:bind id="fbc_10_bind"
                 nodeset="farmStructure/list/row[position() != last()]" readonly="instance('control-instance')/readonly = 'true'">
                 
-                <xf:bind id="speciesGroupBind"
+                <xf:bind id="speciesGroupBind_fbc_10"
                     nodeset="./speciesGroup"
                     required="instance('control-instance')/required = 'true'" />
                     
-                <xf:bind id="aquamethodBind"
+                <xf:bind id="aquamethodBind_fbc_10"
                     nodeset="./aquamethod"
                     required="instance('control-instance')/required = 'true'" />
                     
-                <xf:bind id="aquaEnvironmentBind"
+                <xf:bind id="aquaEnvironmentBind_fbc_10"
                     nodeset="./aquaEnvironment"
                     required="instance('control-instance')/required = 'true'" />
                     
@@ -165,15 +234,15 @@
             <xf:bind id="fbc_26_bind"
                 nodeset="fishedForOnGrowing/list/row[position() != last()]" readonly="instance('control-instance')/readonly = 'true'">
                 
-                <xf:bind id="speciesGroupBind"
+                <xf:bind id="speciesGroupBind_fbc_26"
                     nodeset="./speciesGroup"
                     required="instance('control-instance')/required = 'true'" />
                     
-                <xf:bind id="speciesBind"
+                <xf:bind id="speciesBind_fbc_26"
                     nodeset="./species"
                     required="instance('control-instance')/required = 'true'" />
                     
-                <xf:bind id="quantityBind"
+                <xf:bind id="quantityBind_fbc_26"
                     nodeset="./quantity"
                     required="instance('control-instance')/required = 'true'" />
                     
@@ -187,8 +256,70 @@
                 
             </xf:bind>
             
+            <xf:bind id="fbc_43_bind"
+                nodeset="sales/list/row[position() != last()]" readonly="instance('control-instance')/readonly = 'true'">
+                
+                <xf:bind id="speciesGroupBind_fbc_43"
+                    nodeset="./speciesGroup"
+                    required="instance('control-instance')/required = 'true'" />
+                    
+                <xf:bind id="aquamethodBind_fbc_43"
+                    nodeset="./aquamethod"
+                    required="instance('control-instance')/required = 'true'" />
+                    
+                <xf:bind id="aquaEnvironmentBind_fbc_43"
+                    nodeset="./aquaEnvironment"
+                    required="instance('control-instance')/required = 'true'" />
+                    
+                <xf:bind id="speciesBind_fbc_43"
+                    nodeset="./species"
+                    required="instance('control-instance')/required = 'true'" />
+                    
+                <xf:bind id="farminPurposeBind"
+                    nodeset="./farminPurpose"
+                    required="instance('control-instance')/required = 'true'" />
+                    
+                <xf:bind id="statusNowBind"
+                    nodeset="./statusNow"
+                    required="instance('control-instance')/required = 'true'" />
+                    
+                <xf:bind id="soldToBind"
+                    nodeset="./soldTo"
+                    required="instance('control-instance')/required = 'true'" />
+                    
+                <xf:bind id="quantityBind_fbc_43"
+                    nodeset="./quantity"
+                    required="instance('control-instance')/required = 'true'" />
+                    
+                <xf:bind id="quantityUnitBind"
+                    nodeset="./quantityUnitOutput"
+                    required="instance('control-instance')/required = 'true'" />
+                    
+                <xf:bind id="priceBind"
+                    nodeset="./price"
+                    required="instance('control-instance')/required = 'true'" />
+                    
+                <xf:bind id="priceUnitBind"
+                    nodeset="./priceUnitOutput"
+                    required="instance('control-instance')/required = 'true'" />
+                    
+                <xf:bind id="valueBind"
+                    nodeset="./value"
+                    required="instance('control-instance')/required = 'true'" />
+                    
+                <xf:bind id="buyerSocialSecurityNrBind"
+                    nodeset="./buyerSocialSecurityNr"
+                    required="instance('control-instance')/required = 'true'" />
+                    
+                <xf:bind id="buyerNameBind"
+                    nodeset="./buyerName"
+                    required="instance('control-instance')/required = 'true'" />
+                    
+            </xf:bind>
+            
             <xf:bind id="fbc_10_trigger" nodeset="farmStructure/trigger" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
             <xf:bind id="fbc_26_trigger" nodeset="fishedForOnGrowing/trigger" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
+            <xf:bind id="fbc_43_trigger" nodeset="sales/trigger" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
             
             <xf:bind id="bind-controlsButton" idega:shared="true"
                 nodeset="instance('control-instance')/controlsButton" relevant="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"/>
@@ -236,6 +367,36 @@
                 </local_src>
             </xf:instance>
             <xf:instance id="fbc_29_lds" xmlns="">
+                <local_src>
+                    <localizedEntries lang="en">
+                        <item/>
+                    </localizedEntries>
+                    <localizedEntries lang="is_IS">
+                        <item/>
+                    </localizedEntries>
+                </local_src>
+            </xf:instance>
+            <xf:instance id="fbc_44_lds" xmlns="">
+                <local_src>
+                    <localizedEntries lang="en">
+                        <item/>
+                    </localizedEntries>
+                    <localizedEntries lang="is_IS">
+                        <item/>
+                    </localizedEntries>
+                </local_src>
+            </xf:instance>
+            <xf:instance id="fbc_45_lds" xmlns="">
+                <local_src>
+                    <localizedEntries lang="en">
+                        <item/>
+                    </localizedEntries>
+                    <localizedEntries lang="is_IS">
+                        <item/>
+                    </localizedEntries>
+                </local_src>
+            </xf:instance>
+            <xf:instance id="fbc_46_lds" xmlns="">
                 <local_src>
                     <localizedEntries lang="en">
                         <item/>
@@ -295,6 +456,34 @@
                     <fbc_26_repeat_id_input_kg-required lang="is_IS">fbc_26_repeat_id_input_kg-required</fbc_26_repeat_id_input_kg-required>
                     <fbc_26_repeat_id_input_kg-required lang="en">fbc_26_repeat_id_input_kg-required</fbc_26_repeat_id_input_kg-required>
                     
+                    <fbc_43_repeat_id_input_speciesGroup-required lang="is_IS">fbc_43_repeat_id_input_speciesGroup-required</fbc_43_repeat_id_input_speciesGroup-required>
+                    <fbc_43_repeat_id_input_speciesGroup-required lang="en">fbc_43_repeat_id_input_speciesGroup-required</fbc_43_repeat_id_input_speciesGroup-required>
+                    <fbc_43_repeat_id_input_aquamethod-required lang="is_IS">fbc_43_repeat_id_input_aquamethod-required</fbc_43_repeat_id_input_aquamethod-required>
+                    <fbc_43_repeat_id_input_aquamethod-required lang="en">fbc_43_repeat_id_input_aquamethod-required</fbc_43_repeat_id_input_aquamethod-required>
+                    <fbc_43_repeat_id_input_aquaEnvironment-required lang="is_IS">fbc_43_repeat_id_input_aquaEnvironment-required</fbc_43_repeat_id_input_aquaEnvironment-required>
+                    <fbc_43_repeat_id_input_aquaEnvironment-required lang="en">fbc_43_repeat_id_input_aquaEnvironment-required</fbc_43_repeat_id_input_aquaEnvironment-required>
+                    <fbc_43_repeat_id_input_species-required lang="is_IS">fbc_43_repeat_id_input_species-required</fbc_43_repeat_id_input_species-required>
+                    <fbc_43_repeat_id_input_species-required lang="en">fbc_43_repeat_id_input_species-required</fbc_43_repeat_id_input_species-required>
+                    <fbc_43_repeat_id_input_farminPurpose-required lang="is_IS">fbc_43_repeat_id_input_farminPurpose-required</fbc_43_repeat_id_input_farminPurpose-required>
+                    <fbc_43_repeat_id_input_farminPurpose-required lang="en">fbc_43_repeat_id_input_farminPurpose-required</fbc_43_repeat_id_input_farminPurpose-required>
+                    <fbc_43_repeat_id_input_statusNow-required lang="is_IS">fbc_43_repeat_id_input_statusNow-required</fbc_43_repeat_id_input_statusNow-required>
+                    <fbc_43_repeat_id_input_statusNow-required lang="en">fbc_43_repeat_id_input_statusNow-required</fbc_43_repeat_id_input_statusNow-required>
+                    <fbc_43_repeat_id_input_soldTo-required lang="is_IS">fbc_43_repeat_id_input_soldTo-required</fbc_43_repeat_id_input_soldTo-required>
+                    <fbc_43_repeat_id_input_soldTo-required lang="en">fbc_43_repeat_id_input_soldTo-required</fbc_43_repeat_id_input_soldTo-required>
+                    <fbc_43_repeat_id_input_quantity-required lang="is_IS">fbc_43_repeat_id_input_quantity-required</fbc_43_repeat_id_input_quantity-required>
+                    <fbc_43_repeat_id_input_quantity-required lang="en">fbc_43_repeat_id_input_quantity-required</fbc_43_repeat_id_input_quantity-required>
+                    <fbc_43_repeat_id_input_quantityUnit-required lang="is_IS">fbc_43_repeat_id_input_quantityUnit-required</fbc_43_repeat_id_input_quantityUnit-required>
+                    <fbc_43_repeat_id_input_quantityUnit-required lang="en">fbc_43_repeat_id_input_quantityUnit-required</fbc_43_repeat_id_input_quantityUnit-required>
+                    <fbc_43_repeat_id_input_price-required lang="is_IS">fbc_43_repeat_id_input_price-required</fbc_43_repeat_id_input_price-required>
+                    <fbc_43_repeat_id_input_price-required lang="en">fbc_43_repeat_id_input_price-required</fbc_43_repeat_id_input_price-required>
+                    <fbc_43_repeat_id_input_priceUnit-required lang="is_IS">fbc_43_repeat_id_input_priceUnit-required</fbc_43_repeat_id_input_priceUnit-required>
+                    <fbc_43_repeat_id_input_priceUnit-required lang="en">fbc_43_repeat_id_input_priceUnit-required</fbc_43_repeat_id_input_priceUnit-required>
+                    <fbc_43_repeat_id_input_value-required lang="is_IS">fbc_43_repeat_id_input_value-required</fbc_43_repeat_id_input_value-required>
+                    <fbc_43_repeat_id_input_value-required lang="en">fbc_43_repeat_id_input_value-required</fbc_43_repeat_id_input_value-required>
+                    <fbc_43_repeat_id_input_buyerSocialSecurityNr-required lang="is_IS">fbc_43_repeat_id_input_buyerSocialSecurityNr-required</fbc_43_repeat_id_input_buyerSocialSecurityNr-required>
+                    <fbc_43_repeat_id_input_buyerSocialSecurityNr-required lang="en">fbc_43_repeat_id_input_buyerSocialSecurityNr-required</fbc_43_repeat_id_input_buyerSocialSecurityNr-required>
+                    <fbc_43_repeat_id_input_buyerName-required lang="is_IS">fbc_43_repeat_id_input_buyerName-required</fbc_43_repeat_id_input_buyerName-required>
+                    <fbc_43_repeat_id_input_buyerName-required lang="en">fbc_43_repeat_id_input_buyerName-required</fbc_43_repeat_id_input_buyerName-required>
                     
                     <fbc_10-label lang="is_IS">Farm structure</fbc_10-label>
                     <fbc_10-label lang="en">Farm structure</fbc_10-label>
@@ -338,6 +527,42 @@
                     <fbc_26-col-kg-label lang="en">Kr/Kg</fbc_26-col-kg-label>
                     <fbc_26-col-kg-label lang="is_IS">Kr/Kg</fbc_26-col-kg-label>
                     
+                    <fbc_43-label lang="is_IS">Sales</fbc_43-label>
+                    <fbc_43-label lang="en">Sales</fbc_43-label>
+                    <fbc_43-insert-label lang="en">Insert</fbc_43-insert-label>
+                    <fbc_43-insert-label lang="is_IS">Bæta við röð</fbc_43-insert-label>
+                    <fbc_43-delete-label lang="en">Delete</fbc_43-delete-label>
+                    <fbc_43-delete-label lang="is_IS">Eyða röð</fbc_43-delete-label>
+                    
+                    <fbc_43-col-speciesGroup-label lang="en">Species group</fbc_43-col-speciesGroup-label>
+                    <fbc_43-col-speciesGroup-label lang="is_IS">Species group</fbc_43-col-speciesGroup-label>
+                    <fbc_43-col-aquamethod-label lang="en">Aqua method</fbc_43-col-aquamethod-label>
+                    <fbc_43-col-aquamethod-label lang="is_IS">Aqua method</fbc_43-col-aquamethod-label>
+                    <fbc_43-col-aquaEnvironment-label lang="en">Aqua environment</fbc_43-col-aquaEnvironment-label>
+                    <fbc_43-col-aquaEnvironment-label lang="is_IS">Aqua environment</fbc_43-col-aquaEnvironment-label>
+                    <fbc_43-col-species-label lang="en">Species</fbc_43-col-species-label>
+                    <fbc_43-col-species-label lang="is_IS">Species</fbc_43-col-species-label>
+                    <fbc_43-col-farminPurpose-label lang="en">Farmin purpose</fbc_43-col-farminPurpose-label>
+                    <fbc_43-col-farminPurpose-label lang="is_IS">Farmin purpose</fbc_43-col-farminPurpose-label>
+                    <fbc_43-col-statusNow-label lang="en">Status now</fbc_43-col-statusNow-label>
+                    <fbc_43-col-statusNow-label lang="is_IS">Status now</fbc_43-col-statusNow-label>
+                    <fbc_43-col-soldTo-label lang="en">Sold to</fbc_43-col-soldTo-label>
+                    <fbc_43-col-soldTo-label lang="is_IS">Sold to</fbc_43-col-soldTo-label>
+                    <fbc_43-col-quantity-label lang="en">Quantity</fbc_43-col-quantity-label>
+                    <fbc_43-col-quantity-label lang="is_IS">Quantity</fbc_43-col-quantity-label>
+                    <fbc_43-col-quantityUnit-label lang="en">Unit</fbc_43-col-quantityUnit-label>
+                    <fbc_43-col-quantityUnit-label lang="is_IS">Unit</fbc_43-col-quantityUnit-label>
+                    <fbc_43-col-price-label lang="en">Price</fbc_43-col-price-label>
+                    <fbc_43-col-price-label lang="is_IS">Price</fbc_43-col-price-label>
+                    <fbc_43-col-priceUnit-label lang="en">Unit</fbc_43-col-priceUnit-label>
+                    <fbc_43-col-priceUnit-label lang="is_IS">Unit</fbc_43-col-priceUnit-label>
+                    <fbc_43-col-value-label lang="en">Value</fbc_43-col-value-label>
+                    <fbc_43-col-value-label lang="is_IS">Value</fbc_43-col-value-label>
+                    <fbc_43-col-buyerSocialSecurityNr-label lang="en">Buyer social security number</fbc_43-col-buyerSocialSecurityNr-label>
+                    <fbc_43-col-buyerSocialSecurityNr-label lang="is_IS">Buyer social security number</fbc_43-col-buyerSocialSecurityNr-label>
+                    <fbc_43-col-buyerName-label lang="en">Buyer name</fbc_43-col-buyerName-label>
+                    <fbc_43-col-buyerName-label lang="is_IS">Buyer name</fbc_43-col-buyerName-label>
+                    
                 </localized_strings>
             </xf:instance>
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
@@ -376,6 +601,15 @@
                             
                         <idega:setvalue
                             ref="instance('fbc_29_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('aquaCultureService.getSpecies()')"/>
+                            
+                        <idega:setvalue
+                            ref="instance('fbc_44_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('aquaCultureService.getFarminPurposes()')"/>
+                            
+                        <idega:setvalue
+                            ref="instance('fbc_45_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('aquaCultureService.getStatusNows()')"/>
+                            
+                        <idega:setvalue
+                            ref="instance('fbc_46_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('aquaCultureService.getSoldTos()')"/>
                     </xf:action>
                     
                 
@@ -441,6 +675,11 @@
                             <xf:dispatch ev:event="xforms-value-changed"
                                 name="idega-validate" target="fbc_9"/>
                                 
+                            <idega:setvalue
+                                ev:event="xforms-value-changed"
+                                multiple="true()"
+                                ref="instance('data-instance')/reportForTheFarmOutput" value="instance('fbc_9_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/reportForTheFarm]/itemLabel"/>
+                                
                             <idega:validator ev:event="idega-validate">
                                 <idega:message errorType="required"
                                     model="data_model" value="instance('localized_strings')/fbc_9-required[@lang=instance('localized_strings')/current_language]"/>
@@ -475,7 +714,7 @@
                             </xf:trigger>
                             <xf:repeat class="farmStructure" appearance="compact" bind="fbc_10_bind" id="fbc_10_repeat_id">
                             
-                                <xf:input id="fbc_10_repeat_id_input_speciesGroup" bind="speciesGroupBind" class="substitute substituteId-speciesGroup speciesGroup">
+                                <xf:input id="fbc_10_repeat_id_input_speciesGroup" bind="speciesGroupBind_fbc_10" class="substitute substituteId-speciesGroup speciesGroup">
                                     <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-col-speciesGroup-label[@lang=instance('localized_strings')/current_language]"/>
                                     
                                     <xf:dispatch ev:event="xforms-value-changed"
@@ -496,7 +735,7 @@
                                 </xf:input>
                                 
                                 
-                                <xf:input id="fbc_10_repeat_id_input_aquamethod" bind="aquamethodBind" class="substitute substituteId-aquamethod aquamethod">
+                                <xf:input id="fbc_10_repeat_id_input_aquamethod" bind="aquamethodBind_fbc_10" class="substitute substituteId-aquamethod aquamethod">
                                     <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-col-aquamethod-label[@lang=instance('localized_strings')/current_language]"/>
                                     
                                     <xf:dispatch ev:event="xforms-value-changed"
@@ -526,7 +765,7 @@
                                 </xf:input>
                                 
                                 
-                                <xf:input id="fbc_10_repeat_id_input_aquaEnvironment" bind="aquaEnvironmentBind" class="substitute substituteId-aquaEnvironment aquaEnvironment">
+                                <xf:input id="fbc_10_repeat_id_input_aquaEnvironment" bind="aquaEnvironmentBind_fbc_10" class="substitute substituteId-aquaEnvironment aquaEnvironment">
                                     <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-col-aquaEnvironment-label[@lang=instance('localized_strings')/current_language]"/>
                                     
                                     <xf:dispatch ev:event="xforms-value-changed"
@@ -604,7 +843,7 @@
                             </xf:trigger>
                             <xf:repeat class="fishedForOnGrowing" appearance="compact" bind="fbc_26_bind" id="fbc_26_repeat_id">
                             
-                                <xf:input id="fbc_26_repeat_id_input_speciesGroup" bind="speciesGroupBind" class="substitute substituteId-speciesGroup speciesGroup">
+                                <xf:input id="fbc_26_repeat_id_input_speciesGroup" bind="speciesGroupBind_fbc_26" class="substitute substituteId-speciesGroup speciesGroup">
                                     <xf:label model="data_model" ref="instance('localized_strings')/fbc_26-col-speciesGroup-label[@lang=instance('localized_strings')/current_language]"/>
                                     
                                     <xf:dispatch ev:event="xforms-value-changed"
@@ -625,7 +864,7 @@
                                 </xf:input>
                                 
                                 
-                                <xf:input id="fbc_26_repeat_id_input_species" bind="speciesBind" class="substitute substituteId-species species">
+                                <xf:input id="fbc_26_repeat_id_input_species" bind="speciesBind_fbc_26" class="substitute substituteId-species species">
                                     <xf:label model="data_model" ref="instance('localized_strings')/fbc_26-col-species-label[@lang=instance('localized_strings')/current_language]"/>
                                     
                                     <xf:dispatch ev:event="xforms-value-changed"
@@ -646,7 +885,7 @@
                                 </xf:input>
                                 
                                 
-                                <xf:input bind="quantityBind" id="fbc_26_repeat_id_input_quantity">
+                                <xf:input bind="quantityBind_fbc_26" id="fbc_26_repeat_id_input_quantity">
                                     <xf:label model="data_model" ref="instance('localized_strings')/fbc_26-col-quantity-label[@lang=instance('localized_strings')/current_language]"/>
                                     
                                     <xf:dispatch ev:event="xforms-value-changed"
@@ -702,6 +941,275 @@
                              <xf:alert ref="instance('error-instance')/error[@for='fbc_26']"/>
                         
                         </xf:group>
+                        
+                        
+                        <!-- sales -->
+                        <xf:group appereance="full" id="fbc_43">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-label[@lang=instance('localized_strings')/current_language]"/>
+                              
+                            <xf:dispatch ev:event="xforms-value-changed" name="idega-validate" target="fbc_43"/>
+
+<!-- TODO                            
+                            <idega:validator componentId="fbc_43" ev:event="idega-validate" validateif="string(sum(instance('data-instance')/sales/list/row/cost_estimate)) !='NaN'">
+                                <idega:message errorType="custom" model="data_model" value="instance('localized_strings')/fbc_10-table-count-error[@lang=instance('localized_strings')/current_language]"/>
+                            </idega:validator>
+-->
+                            
+                            <xf:trigger class="insertRowButton sales" bind="fbc_43_trigger" id="fbc_27">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-insert-label[@lang=instance('localized_strings')/current_language]"/>
+                                <xf:action>
+                                    <xf:insert at="last()" nodeset="../list/row" position="after"/>
+                                </xf:action>
+                            </xf:trigger>
+                            <xf:trigger bind="fbc_43_trigger" id="fbc_28">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-delete-label[@lang=instance('localized_strings')/current_language]"/>
+                                <xf:action>
+                                    <xf:delete at="last()-1" nodeset="../list/row"/>
+                                </xf:action>
+                            </xf:trigger>
+                            <xf:repeat class="sales" appearance="compact" bind="fbc_43_bind" id="fbc_43_repeat_id">
+                            
+                                <xf:input id="fbc_43_repeat_id_input_speciesGroup" bind="speciesGroupBind_fbc_43" class="substitute substituteId-speciesGroup speciesGroup">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-col-speciesGroup-label[@lang=instance('localized_strings')/current_language]"/>
+                                    
+                                    <xf:dispatch ev:event="xforms-value-changed"
+                                        name="idega-validate" target="fbc_43_repeat_id_input_speciesGroup"/>
+                                    <idega:validator ev:event="idega-validate">
+                                        <idega:message errorType="required"
+                                            model="data_model" value="instance('localized_strings')/fbc_43_repeat_id_input_speciesGroup-required[@lang=instance('localized_strings')/current_language]"/>
+                                    </idega:validator>
+                                    
+                                    <xf:action ev:event="xforms-value-changed">
+                                    
+                                        <xf:setvalue
+                                            ref="../speciesGroupOutput" 
+                                            value="instance('fbc_13_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/sales/list/row[index('fbc_43_repeat_id')]/speciesGroup]/itemLabel"/>
+                                            
+                                        <xf:setvalue
+                                            ref="instance('data-instance')/tmpVal" 
+                                            value="instance('data-instance')/sales/list/row[index('fbc_43_repeat_id')]/speciesGroup"/>
+                                         
+                                        <idega:setvalue
+                                            multiple="true()"
+                                            placeResponseDocument="true()"
+                                            ref="../quantityUnitOutput" value="idega:resolveExpression('aquaCultureService.getSalesQuantityUnitOutput({0})', '#{instance(`data-instance`)/tmpVal}')"/>
+                                            
+                                        <idega:setvalue
+                                            multiple="true()"
+                                            placeResponseDocument="true()"
+                                            ref="../priceUnitOutput" value="idega:resolveExpression('aquaCultureService.getSalesPriceUnitOutput({0})', '#{instance(`data-instance`)/tmpVal}')"/>
+                                    
+                                    </xf:action>
+                                    
+                                </xf:input>
+                                
+                                <xf:input id="fbc_43_repeat_id_input_aquamethod" bind="aquamethodBind_fbc_43" class="substitute substituteId-aquamethod aquamethod">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-col-aquamethod-label[@lang=instance('localized_strings')/current_language]"/>
+                                    
+                                    <xf:dispatch ev:event="xforms-value-changed"
+                                        name="idega-validate" target="fbc_43_repeat_id_input_aquamethod"/>
+                                    <idega:validator ev:event="idega-validate">
+                                        <idega:message errorType="required"
+                                            model="data_model" value="instance('localized_strings')/fbc_43_repeat_id_input_aquamethod-required[@lang=instance('localized_strings')/current_language]"/>
+                                    </idega:validator>
+                                    
+                                    <xf:action ev:event="xforms-value-changed">
+                                    
+                                        <xf:setvalue
+                                            ref="../aquamethodOutput" 
+                                            value="instance('fbc_21_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/sales/list/row[index('fbc_43_repeat_id')]/aquamethod]/itemLabel"/>
+                                    
+                                    </xf:action>
+                                    
+                                </xf:input>
+                                
+                                <xf:input id="fbc_43_repeat_id_input_aquaEnvironment" bind="aquaEnvironmentBind_fbc_43" class="substitute substituteId-aquaEnvironment aquaEnvironment">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-col-aquaEnvironment-label[@lang=instance('localized_strings')/current_language]"/>
+                                    
+                                    <xf:dispatch ev:event="xforms-value-changed"
+                                        name="idega-validate" target="fbc_43_repeat_id_input_aquaEnvironment"/>
+                                    <idega:validator ev:event="idega-validate">
+                                        <idega:message errorType="required"
+                                            model="data_model" value="instance('localized_strings')/fbc_43_repeat_id_input_aquaEnvironment-required[@lang=instance('localized_strings')/current_language]"/>
+                                    </idega:validator>
+                                    
+                                    <xf:action ev:event="xforms-value-changed">
+                                    
+                                        <xf:setvalue
+                                            ref="../aquaEnvironmentOutput" 
+                                            value="instance('fbc_23_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/sales/list/row[index('fbc_43_repeat_id')]/aquaEnvironment]/itemLabel"/>
+                                    
+                                    </xf:action>
+                                    
+                                </xf:input>
+                                
+                                <xf:input id="fbc_43_repeat_id_input_species" bind="speciesBind_fbc_43" class="substitute substituteId-species species">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-col-species-label[@lang=instance('localized_strings')/current_language]"/>
+                                    
+                                    <xf:dispatch ev:event="xforms-value-changed"
+                                        name="idega-validate" target="fbc_43_repeat_id_input_species"/>
+                                    <idega:validator ev:event="idega-validate">
+                                        <idega:message errorType="required"
+                                            model="data_model" value="instance('localized_strings')/fbc_43_repeat_id_input_species-required[@lang=instance('localized_strings')/current_language]"/>
+                                    </idega:validator>
+                                    
+                                    <xf:action ev:event="xforms-value-changed">
+                                    
+                                        <xf:setvalue
+                                            ref="../speciesOutput" 
+                                            value="instance('fbc_29_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/sales/list/row[index('fbc_43_repeat_id')]/species]/itemLabel"/>
+                                               
+                                    </xf:action>
+                                    
+                                </xf:input>
+                                
+                                <xf:input id="fbc_43_repeat_id_input_farminPurpose" bind="farminPurposeBind" class="substitute substituteId-farminPurpose farminPurpose">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-col-farminPurpose-label[@lang=instance('localized_strings')/current_language]"/>
+                                    
+                                    <xf:dispatch ev:event="xforms-value-changed"
+                                        name="idega-validate" target="fbc_43_repeat_id_input_farminPurpose"/>
+                                    <idega:validator ev:event="idega-validate">
+                                        <idega:message errorType="required"
+                                            model="data_model" value="instance('localized_strings')/fbc_43_repeat_id_input_farminPurpose-required[@lang=instance('localized_strings')/current_language]"/>
+                                    </idega:validator>
+                                    
+                                    <xf:action ev:event="xforms-value-changed">
+                                    
+                                        <xf:setvalue
+                                            ref="../farminPurposeOutput" 
+                                            value="instance('fbc_44_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/sales/list/row[index('fbc_43_repeat_id')]/farminPurpose]/itemLabel"/>
+                                               
+                                    </xf:action>
+                                    
+                                </xf:input>
+                                
+                                <xf:input id="fbc_43_repeat_id_input_statusNow" bind="statusNowBind" class="substitute substituteId-statusNow statusNow">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-col-statusNow-label[@lang=instance('localized_strings')/current_language]"/>
+                                    
+                                    <xf:dispatch ev:event="xforms-value-changed"
+                                        name="idega-validate" target="fbc_43_repeat_id_input_statusNow"/>
+                                    <idega:validator ev:event="idega-validate">
+                                        <idega:message errorType="required"
+                                            model="data_model" value="instance('localized_strings')/fbc_43_repeat_id_input_statusNow-required[@lang=instance('localized_strings')/current_language]"/>
+                                    </idega:validator>
+                                    
+                                    <xf:action ev:event="xforms-value-changed">
+                                    
+                                        <xf:setvalue
+                                            ref="../statusNowOutput" 
+                                            value="instance('fbc_45_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/sales/list/row[index('fbc_43_repeat_id')]/statusNow]/itemLabel"/>
+                                               
+                                    </xf:action>
+                                    
+                                </xf:input>
+                                
+                                
+                                <xf:input id="fbc_43_repeat_id_input_soldTo" bind="soldToBind" class="substitute substituteId-soldTo soldTo">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-col-soldTo-label[@lang=instance('localized_strings')/current_language]"/>
+                                    
+                                    <xf:dispatch ev:event="xforms-value-changed"
+                                        name="idega-validate" target="fbc_43_repeat_id_input_soldTo"/>
+                                    <idega:validator ev:event="idega-validate">
+                                        <idega:message errorType="required"
+                                            model="data_model" value="instance('localized_strings')/fbc_43_repeat_id_input_soldTo-required[@lang=instance('localized_strings')/current_language]"/>
+                                    </idega:validator>
+                                    
+                                    <xf:action ev:event="xforms-value-changed">
+                                    
+                                        <xf:setvalue
+                                            ref="../soldToOutput" 
+                                            value="instance('fbc_46_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/sales/list/row[index('fbc_43_repeat_id')]/soldTo]/itemLabel"/>
+                                               
+                                    </xf:action>
+                                    
+                                </xf:input>
+                                
+                                
+                                <xf:input bind="quantityBind_fbc_43" id="fbc_43_repeat_id_input_quantity">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-col-quantity-label[@lang=instance('localized_strings')/current_language]"/>
+                                    
+                                    <xf:dispatch ev:event="xforms-value-changed"
+                                        name="idega-validate" target="fbc_43_repeat_id_input_quantity"/>
+                                    <idega:validator ev:event="idega-validate">
+                                        <idega:message errorType="required"
+                                            model="data_model" value="instance('localized_strings')/fbc_43_repeat_id_input_quantity-required[@lang=instance('localized_strings')/current_language]"/>
+                                    </idega:validator>
+                                    
+                                    <xf:setvalue
+                                            ev:event="xforms-value-changed"
+                                            ref="instance('data-instance')/sales/list/row[index('fbc_43_repeat_id')]/quantityOutput" 
+                                            value="instance('data-instance')/sales/list/row[index('fbc_43_repeat_id')]/quantity"/>
+                                            
+                                </xf:input>
+                                
+                                <xf:output bind="quantityUnitBind" id="fbc_10_repeat_id_input_quantityUnit" type="fbc_text_output">
+                                        <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-col-quantityUnit-label[@lang=instance('localized_strings')/current_language]"/>
+                                </xf:output>
+                                
+                                <xf:input bind="priceBind" id="fbc_43_repeat_id_input_price">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-col-price-label[@lang=instance('localized_strings')/current_language]"/>
+                                    
+                                    <xf:dispatch ev:event="xforms-value-changed"
+                                        name="idega-validate" target="fbc_43_repeat_id_input_price"/>
+                                    <idega:validator ev:event="idega-validate">
+                                        <idega:message errorType="required"
+                                            model="data_model" value="instance('localized_strings')/fbc_43_repeat_id_input_price-required[@lang=instance('localized_strings')/current_language]"/>
+                                    </idega:validator>
+                                    
+                                    <xf:setvalue
+                                            ev:event="xforms-value-changed"
+                                            ref="instance('data-instance')/sales/list/row[index('fbc_43_repeat_id')]/priceOutput" 
+                                            value="instance('data-instance')/sales/list/row[index('fbc_43_repeat_id')]/price"/>
+                                            
+                                </xf:input>
+                                
+                                <xf:output bind="priceUnitBind" id="fbc_10_repeat_id_input_priceUnit" type="fbc_text_output">
+                                        <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-col-priceUnit-label[@lang=instance('localized_strings')/current_language]"/>
+                                </xf:output>
+                                
+                                <xf:output bind="valueBind" id="fbc_43_repeat_id_output_value" type="fbc_text_output">
+                                        <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-col-value-label[@lang=instance('localized_strings')/current_language]"/>
+                                </xf:output>
+                                
+                                <xf:input bind="buyerSocialSecurityNrBind" id="fbc_43_repeat_id_input_buyerSocialSecurityNr">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-col-buyerSocialSecurityNr-label[@lang=instance('localized_strings')/current_language]"/>
+                                    
+                                    <xf:dispatch ev:event="xforms-value-changed"
+                                        name="idega-validate" target="fbc_43_repeat_id_input_buyerSocialSecurityNr"/>
+                                    <idega:validator ev:event="idega-validate">
+                                        <idega:message errorType="required"
+                                            model="data_model" value="instance('localized_strings')/fbc_43_repeat_id_input_buyerSocialSecurityNr-required[@lang=instance('localized_strings')/current_language]"/>
+                                    </idega:validator>
+                                    
+                                    <xf:setvalue
+                                            ev:event="xforms-value-changed"
+                                            ref="instance('data-instance')/sales/list/row[index('fbc_43_repeat_id')]/buyerSocialSecurityNrOutput" 
+                                            value="instance('data-instance')/sales/list/row[index('fbc_43_repeat_id')]/buyerSocialSecurityNr"/>
+                                            
+                                </xf:input>
+                                
+                                <xf:input bind="buyerNameBind" id="fbc_43_repeat_id_input_buyerName">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-col-buyerName-label[@lang=instance('localized_strings')/current_language]"/>
+                                    
+                                    <xf:dispatch ev:event="xforms-value-changed"
+                                        name="idega-validate" target="fbc_43_repeat_id_input_buyerName"/>
+                                    <idega:validator ev:event="idega-validate">
+                                        <idega:message errorType="required"
+                                            model="data_model" value="instance('localized_strings')/fbc_43_repeat_id_input_buyerName-required[@lang=instance('localized_strings')/current_language]"/>
+                                    </idega:validator>
+                                    
+                                    <xf:setvalue
+                                            ev:event="xforms-value-changed"
+                                            ref="instance('data-instance')/sales/list/row[index('fbc_43_repeat_id')]/buyerNameOutput" 
+                                            value="instance('data-instance')/sales/list/row[index('fbc_43_repeat_id')]/buyerName"/>
+                                            
+                                </xf:input>
+                                
+                            </xf:repeat>
+                            
+                             <xf:alert ref="instance('error-instance')/error[@for='fbc_43']"/>
+                        
+                        </xf:group>
                     
                         <div class="fbc_button_area" id="fbc_2" type="fbc_button_area">
                             <xf:trigger bind="bind-controlsButton"
@@ -747,10 +1255,57 @@
                                 </xf:itemset>
                             </xf:select1>
                         </div>
+                        <div style="display: none;" class="selectorItems farminPurpose">
+                            <xf:select1 appearance="minimal"
+                                id="fbc_44" type="fbc_single_select_minimal">
+                                <xf:itemset model="data_model" nodeset="instance('fbc_44_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
+                                    <xf:label ref="itemLabel"/>
+                                    <xf:value ref="itemValue"/>
+                                </xf:itemset>
+                            </xf:select1>
+                        </div>
+                        <div style="display: none;" class="selectorItems statusNow">
+                            <xf:select1 appearance="minimal"
+                                id="fbc_45" type="fbc_single_select_minimal">
+                                <xf:itemset model="data_model" nodeset="instance('fbc_45_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
+                                    <xf:label ref="itemLabel"/>
+                                    <xf:value ref="itemValue"/>
+                                </xf:itemset>
+                            </xf:select1>
+                        </div>
+                        <div style="display: none;" class="selectorItems soldTo">
+                            <xf:select1 appearance="minimal"
+                                id="fbc_46" type="fbc_single_select_minimal">
+                                <xf:itemset model="data_model" nodeset="instance('fbc_46_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
+                                    <xf:label ref="itemLabel"/>
+                                    <xf:value ref="itemValue"/>
+                                </xf:itemset>
+                            </xf:select1>
+                        </div>
                         
                     </xf:group>
                 </idega:case>
                 <idega:case id="fbc_17" show="instance('control-instance')/generatePdf='true'">
+                
+                
+                        <xf:output bind="fbc_5_bind" id="fbc_38" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_5-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                        <xf:output bind="fbc_6_bind" id="fbc_39" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_6-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                        <xf:output bind="fbc_7_bind" id="fbc_40" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_7-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                        
+                        <xf:output bind="fbc_8_bind" id="fbc_41" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_8-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                        
+                        <xf:output bind="fbc_42_bind" id="fbc_42" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_9-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                        
                 
                 <xf:group appereance="full" id="fbc_37">
                     <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-label[@lang=instance('localized_strings')/current_language]"/>

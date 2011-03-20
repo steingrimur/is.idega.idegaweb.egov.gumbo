@@ -77,8 +77,10 @@
             <variable name="string_companyAddress" access="read,write" ></variable>
             <variable name="string_reportForTheYear" access="read,write" ></variable>
             <variable name="string_reportForTheFarm" access="read,write" ></variable>
+            <variable name="string_reportForTheFarmOutput" access="read,write" ></variable>
             <variable name="objlist_farmStructure" access="read,write" ></variable>
             <variable name="objlist_fishedForOnGrowing" access="read,write" ></variable>
+            <variable name="objlist_sales" access="read,write" ></variable>
          </controller>
       </task>
 		<transition to="doNothing"></transition>

@@ -73,9 +73,49 @@ public class AquaCultureService extends DefaultSpringBean {
 		return items;
 	}
 	
+	public List<Item> getFarminPurposes() {
+		
+		final List<Item> items = new ArrayList<Item>();
+		
+		items.add(new Item("id1", "farm purp 1"));
+		items.add(new Item("id2", "farm purp 2"));
+		
+		return items;
+	}
+	
+	public List<Item> getStatusNows() {
+		
+		final List<Item> items = new ArrayList<Item>();
+		
+		items.add(new Item("id1", "status now 1"));
+		items.add(new Item("id2", "status now 2"));
+		
+		return items;
+	}
+	
+	public List<Item> getSoldTos() {
+		
+		final List<Item> items = new ArrayList<Item>();
+		
+		items.add(new Item("id1", "sold to 1"));
+		items.add(new Item("id2", "sold to 2"));
+		
+		return items;
+	}
+	
 	public String getFarmStructureUnitOutput(String byAquamethodId) {
 		
 		return "Unit by " + byAquamethodId;
+	}
+	
+	public String getSalesQuantityUnitOutput(String bySpeciesGroupId) {
+		
+		return "Quantity unit by " + bySpeciesGroupId;
+	}
+	
+	public String getSalesPriceUnitOutput(String bySpeciesGroupId) {
+		
+		return "Price unit by " + bySpeciesGroupId;
 	}
 	
 	public static final class AquaCultureCompanyData {
