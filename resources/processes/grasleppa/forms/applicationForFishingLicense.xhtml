@@ -315,6 +315,8 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                     <fbc_114-label lang="en">Fishing period for area</fbc_114-label>
                     <fbc_115-label lang="is_IS"> - </fbc_115-label>
                     <fbc_115-label lang="en"> - </fbc_115-label>
+                    <paymentInfoText lang="is_IS">Greiða verður fyrir veiðileyfið í síðasta lagi á upphafsdegi veiðitímabils, að öðrum kosti fellur umsókn niður.</paymentInfoText>
+                    <paymentInfoText lang="en">The fishing license must be paid on the start of the fishing period, at the latest.  Otherwise the application will be rejected.</paymentInfoText>
                 </localized_strings>
             </xf:instance>
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
@@ -648,6 +650,10 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                         </xf:output>
                         <div class="fbc_header_text" id="fbc_72" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_72-text[@lang=instance('localized_strings')/current_language]"/>
+                        </div>
+                        
+                        <div class="paymentInformationText">
+                        	<xf:output model="data_model" ref="instance('localized_strings')/paymentInfoText[@lang=instance('localized_strings')/current_language]" />
                         </div>
                         
                         <xf:group bind="fbc_73_bind" class="check">

@@ -1223,30 +1223,6 @@
                         </xf:input>
                         <xf:input bind="fbc_161_bind" id="fbc_161" type="fbc_text">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_161-label[@lang=instance('localized_strings')/current_language]"/>
-                            
-                            <xf:action ev:event="xforms-value-changed">
-                            
-                                <idega:setvalue
-	                                multiple="true()"
-	                                placeResponseDocument="true()"
-	                                ref="instance('data-instance')/violationLocationData" 
-	                                value="idega:resolveBeanProperties('violationService.getViolationPlaceData({0})', '#{instance(`data-instance`)/violationLocationData/postalCode}')"/>
-	                                
-                                <idega:setvalue
-	                                multiple="true()"
-	                                ref="instance('data-instance')/HarbourLabel" value="instance('fbc_37_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/violationLocationData/harbourNr]/itemLabel"/>
-	                                
-                                <xf:dispatch
-                                    name="idega-latitudeValueChanged" target="fbc_latitudeValueCalculator"/>
-                                        
-                                <xf:dispatch
-                                    name="idega-longitudeValueChanged" target="fbc_longitudeValueCalculator"/>
-                            
-                            </xf:action>
-                            
-                            
-                                
-                                
                         </xf:input>
                         <xf:select appearance="full" bind="fbc_163_bind"
                             id="fbc_163" type="fbc_multiple_select">
