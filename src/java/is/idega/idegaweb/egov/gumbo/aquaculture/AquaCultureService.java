@@ -103,14 +103,29 @@ public class AquaCultureService extends DefaultSpringBean {
 		return items;
 	}
 	
-	public String getFarmStructureUnitOutput(String byAquamethodId) {
+	public String getFarmStructureQuantityUnit(String byAquamethodId) {
 		
-		return "Unit by " + byAquamethodId;
+		return "unit_" + byAquamethodId;
+	}
+	
+	public String getFarmStructureQuantityUnitOutput(String byAquamethodId) {
+		
+		return "Quantity unit by " + byAquamethodId;
+	}
+	
+	public String getSalesQuantityUnit(String bySpeciesGroupId) {
+		
+		return "unit_" + bySpeciesGroupId;
 	}
 	
 	public String getSalesQuantityUnitOutput(String bySpeciesGroupId) {
 		
 		return "Quantity unit by " + bySpeciesGroupId;
+	}
+	
+	public String getSalesPriceUnit(String bySpeciesGroupId) {
+		
+		return "unit_" + bySpeciesGroupId;
 	}
 	
 	public String getSalesPriceUnitOutput(String bySpeciesGroupId) {

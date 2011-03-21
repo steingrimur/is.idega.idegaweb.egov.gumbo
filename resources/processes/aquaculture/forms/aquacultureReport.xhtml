@@ -42,6 +42,7 @@
                                 <aquaEnvironmentOutput/>                                
                                 <size xsi:type="xsd:float" xsi:nil="true"/>
                                 <sizeOutput/>
+                                <unit/>
                                 <unitOutput/>
                             </row>
                             <row>
@@ -53,6 +54,7 @@
                                 <aquaEnvironmentOutput/>                                
                                 <size xsi:type="xsd:float" xsi:nil="true"/>
                                 <sizeOutput/>
+                                <unit/>
                                 <unitOutput/>
                             </row>
                         </list>
@@ -109,9 +111,11 @@
                                 <soldToOutput/>
                                 <quantity xsi:type="xsd:float" xsi:nil="true"/>
                                 <quantityOutput/>
+                                <quantityUnit/>
                                 <quantityUnitOutput/>
                                 <price xsi:type="xsd:float" xsi:nil="true"/>
                                 <priceOutput/>
+                                <priceUnit/>
                                 <priceUnitOutput/>
                                 <value/>
                                 <buyerSocialSecurityNr/>
@@ -136,9 +140,11 @@
                                 <soldToOutput/>
                                 <quantity xsi:type="xsd:float" xsi:nil="true"/>
                                 <quantityOutput/>
+                                <quantityUnit/>
                                 <quantityUnitOutput/>
                                 <price xsi:type="xsd:float" xsi:nil="true"/>
                                 <priceOutput/>
+                                <priceUnit/>
                                 <priceUnitOutput/>
                                 <value/>
                                 <buyerSocialSecurityNr/>
@@ -292,16 +298,14 @@
                     required="instance('control-instance')/required = 'true'" />
                     
                 <xf:bind id="quantityUnitBind"
-                    nodeset="./quantityUnitOutput"
-                    required="instance('control-instance')/required = 'true'" />
+                    nodeset="./quantityUnitOutput" />
                     
                 <xf:bind id="priceBind"
                     nodeset="./price"
                     required="instance('control-instance')/required = 'true'" />
                     
                 <xf:bind id="priceUnitBind"
-                    nodeset="./priceUnitOutput"
-                    required="instance('control-instance')/required = 'true'" />
+                    nodeset="./priceUnitOutput" />
                     
                 <xf:bind id="valueBind"
                     nodeset="./value"
@@ -754,12 +758,17 @@
                                         <xf:setvalue
                                             ref="instance('data-instance')/tmpVal" 
                                             value="instance('data-instance')/farmStructure/list/row[index('fbc_10_repeat_id')]/aquamethod"/>
+                                            
+                                        <idega:setvalue
+                                            multiple="true()"
+                                            placeResponseDocument="true()"
+                                            ref="../unit" value="idega:resolveExpression('aquaCultureService.getFarmStructureQuantityUnit({0})', '#{instance(`data-instance`)/tmpVal}')"/>
                                          
                                         <idega:setvalue
                                             multiple="true()"
                                             placeResponseDocument="true()"
-                                            ref="../unitOutput" value="idega:resolveExpression('aquaCultureService.getFarmStructureUnitOutput({0})', '#{instance(`data-instance`)/tmpVal}')"/>
-                                               
+                                            ref="../unitOutput" value="idega:resolveExpression('aquaCultureService.getFarmStructureQuantityUnitOutput({0})', '#{instance(`data-instance`)/tmpVal}')"/>
+                                            
                                     </xf:action>
                                     
                                 </xf:input>
@@ -955,13 +964,13 @@
                             </idega:validator>
 -->
                             
-                            <xf:trigger class="insertRowButton sales" bind="fbc_43_trigger" id="fbc_27">
+                            <xf:trigger class="insertRowButton sales" bind="fbc_43_trigger" id="fbc_63">
                                 <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-insert-label[@lang=instance('localized_strings')/current_language]"/>
                                 <xf:action>
                                     <xf:insert at="last()" nodeset="../list/row" position="after"/>
                                 </xf:action>
                             </xf:trigger>
-                            <xf:trigger bind="fbc_43_trigger" id="fbc_28">
+                            <xf:trigger bind="fbc_43_trigger" id="fbc_64">
                                 <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-delete-label[@lang=instance('localized_strings')/current_language]"/>
                                 <xf:action>
                                     <xf:delete at="last()-1" nodeset="../list/row"/>
@@ -988,11 +997,21 @@
                                         <xf:setvalue
                                             ref="instance('data-instance')/tmpVal" 
                                             value="instance('data-instance')/sales/list/row[index('fbc_43_repeat_id')]/speciesGroup"/>
+                                            
+                                        <idega:setvalue
+                                            multiple="true()"
+                                            placeResponseDocument="true()"
+                                            ref="../quantityUnit" value="idega:resolveExpression('aquaCultureService.getSalesQuantityUnit({0})', '#{instance(`data-instance`)/tmpVal}')"/>
                                          
                                         <idega:setvalue
                                             multiple="true()"
                                             placeResponseDocument="true()"
                                             ref="../quantityUnitOutput" value="idega:resolveExpression('aquaCultureService.getSalesQuantityUnitOutput({0})', '#{instance(`data-instance`)/tmpVal}')"/>
+                                            
+                                        <idega:setvalue
+                                            multiple="true()"
+                                            placeResponseDocument="true()"
+                                            ref="../priceUnit" value="idega:resolveExpression('aquaCultureService.getSalesPriceUnit({0})', '#{instance(`data-instance`)/tmpVal}')"/>
                                             
                                         <idega:setvalue
                                             multiple="true()"
