@@ -4,8 +4,6 @@
     xmlns:xf="http://www.w3.org/2002/xforms"
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     
-    <!-- TODO: store units not just as labels -->
-    
     <head>
         <title>
             <xf:output model="data_model" ref="instance('localized_strings')/form-title[@lang=instance('localized_strings')/current_language]"/>
@@ -156,6 +154,37 @@
                         <trigger/>
                     </sales>
                     
+                    <salesValuesSum mapping="string_salesValuesSum"/>
+                    <salesComments mapping="string_salesComments"/>
+                    
+                    <inventoryAtYearEnd mapping="objlist_inventoryAtYearEnd">
+                        <list>
+                            <row>
+                                <speciesGroup/>
+                                <speciesGroupOutput/>
+                                <species/>
+                                <speciesOutput/>
+                                <quantity xsi:type="xsd:float" xsi:nil="true"/>
+                                <quantityOutput/>
+                                <quantityUnit/>
+                                <quantityUnitOutput/>
+                                <comments/>
+                            </row>
+                            <row>
+                                <speciesGroup/>
+                                <speciesGroupOutput/>
+                                <species/>
+                                <speciesOutput/>
+                                <quantity xsi:type="xsd:float" xsi:nil="true"/>
+                                <quantityOutput/>
+                                <quantityUnit/>
+                                <quantityUnitOutput/>
+                                <comments/>
+                            </row>
+                        </list>
+                        <trigger/>
+                    </inventoryAtYearEnd>
+                    
                     <tmpVal />
                     
                 </data>
@@ -232,7 +261,7 @@
                     nodeset="./size"
                     required="instance('control-instance')/required = 'true'" />
                     
-                <xf:bind id="unitBind"
+                <xf:bind id="unitOutputBind"
                     nodeset="./unitOutput" />
                 
             </xf:bind>
@@ -297,14 +326,14 @@
                     nodeset="./quantity"
                     required="instance('control-instance')/required = 'true'" />
                     
-                <xf:bind id="quantityUnitBind"
+                <xf:bind id="quantityUnitOutputBind"
                     nodeset="./quantityUnitOutput" />
                     
                 <xf:bind id="priceBind"
                     nodeset="./price"
                     required="instance('control-instance')/required = 'true'" />
                     
-                <xf:bind id="priceUnitBind"
+                <xf:bind id="priceUnitOutputBind"
                     nodeset="./priceUnitOutput" />
                     
                 <xf:bind id="valueBind"
@@ -321,9 +350,41 @@
                     
             </xf:bind>
             
+            
+            <xf:bind id="fbc_69_bind"
+                nodeset="inventoryAtYearEnd/list/row[position() != last()]" readonly="instance('control-instance')/readonly = 'true'">
+                
+                <xf:bind id="speciesGroupBind_fbc_69"
+                    nodeset="./speciesGroup"
+                    required="instance('control-instance')/required = 'true'" />
+                    
+                <xf:bind id="speciesBind_fbc_69"
+                    nodeset="./species"
+                    required="instance('control-instance')/required = 'true'" />
+                    
+                <xf:bind id="quantityBind_fbc_69"
+                    nodeset="./quantity"
+                    required="instance('control-instance')/required = 'true'" />
+                    
+                <xf:bind id="quantityUnitOutputBind_fbc_69"
+                    nodeset="./quantityUnitOutput" />
+                    
+                <xf:bind id="commentsBind_fbc_69"
+                    nodeset="./comments" />
+                
+            </xf:bind>
+            
             <xf:bind id="fbc_10_trigger" nodeset="farmStructure/trigger" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
             <xf:bind id="fbc_26_trigger" nodeset="fishedForOnGrowing/trigger" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
             <xf:bind id="fbc_43_trigger" nodeset="sales/trigger" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
+            <xf:bind id="fbc_69_trigger" nodeset="inventoryAtYearEnd/trigger" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
+            
+            <xf:bind id="salesValuesSumBind"
+                    nodeset="salesValuesSum"
+                    calculate="sum(../sales/list/row/value)" />
+                    
+            <xf:bind id="salesCommentsBind"
+                    nodeset="salesComments" />
             
             <xf:bind id="bind-controlsButton" idega:shared="true"
                 nodeset="instance('control-instance')/controlsButton" relevant="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"/>
@@ -476,18 +537,23 @@
                     <fbc_43_repeat_id_input_soldTo-required lang="en">fbc_43_repeat_id_input_soldTo-required</fbc_43_repeat_id_input_soldTo-required>
                     <fbc_43_repeat_id_input_quantity-required lang="is_IS">fbc_43_repeat_id_input_quantity-required</fbc_43_repeat_id_input_quantity-required>
                     <fbc_43_repeat_id_input_quantity-required lang="en">fbc_43_repeat_id_input_quantity-required</fbc_43_repeat_id_input_quantity-required>
-                    <fbc_43_repeat_id_input_quantityUnit-required lang="is_IS">fbc_43_repeat_id_input_quantityUnit-required</fbc_43_repeat_id_input_quantityUnit-required>
-                    <fbc_43_repeat_id_input_quantityUnit-required lang="en">fbc_43_repeat_id_input_quantityUnit-required</fbc_43_repeat_id_input_quantityUnit-required>
                     <fbc_43_repeat_id_input_price-required lang="is_IS">fbc_43_repeat_id_input_price-required</fbc_43_repeat_id_input_price-required>
                     <fbc_43_repeat_id_input_price-required lang="en">fbc_43_repeat_id_input_price-required</fbc_43_repeat_id_input_price-required>
-                    <fbc_43_repeat_id_input_priceUnit-required lang="is_IS">fbc_43_repeat_id_input_priceUnit-required</fbc_43_repeat_id_input_priceUnit-required>
-                    <fbc_43_repeat_id_input_priceUnit-required lang="en">fbc_43_repeat_id_input_priceUnit-required</fbc_43_repeat_id_input_priceUnit-required>
                     <fbc_43_repeat_id_input_value-required lang="is_IS">fbc_43_repeat_id_input_value-required</fbc_43_repeat_id_input_value-required>
                     <fbc_43_repeat_id_input_value-required lang="en">fbc_43_repeat_id_input_value-required</fbc_43_repeat_id_input_value-required>
                     <fbc_43_repeat_id_input_buyerSocialSecurityNr-required lang="is_IS">fbc_43_repeat_id_input_buyerSocialSecurityNr-required</fbc_43_repeat_id_input_buyerSocialSecurityNr-required>
                     <fbc_43_repeat_id_input_buyerSocialSecurityNr-required lang="en">fbc_43_repeat_id_input_buyerSocialSecurityNr-required</fbc_43_repeat_id_input_buyerSocialSecurityNr-required>
                     <fbc_43_repeat_id_input_buyerName-required lang="is_IS">fbc_43_repeat_id_input_buyerName-required</fbc_43_repeat_id_input_buyerName-required>
                     <fbc_43_repeat_id_input_buyerName-required lang="en">fbc_43_repeat_id_input_buyerName-required</fbc_43_repeat_id_input_buyerName-required>
+                    
+                    <fbc_69_repeat_id_input_speciesGroup-required lang="is_IS">fbc_69_repeat_id_input_speciesGroup-required</fbc_69_repeat_id_input_speciesGroup-required>
+                    <fbc_69_repeat_id_input_speciesGroup-required lang="en">fbc_69_repeat_id_input_speciesGroup-required</fbc_69_repeat_id_input_speciesGroup-required>
+                    <fbc_69_repeat_id_input_species-required lang="is_IS">fbc_69_repeat_id_input_species-required</fbc_69_repeat_id_input_species-required>
+                    <fbc_69_repeat_id_input_species-required lang="en">fbc_69_repeat_id_input_species-required</fbc_69_repeat_id_input_species-required>
+                    <fbc_69_repeat_id_input_quantity-required lang="is_IS">fbc_69_repeat_id_input_quantity-required</fbc_69_repeat_id_input_quantity-required>
+                    <fbc_69_repeat_id_input_quantity-required lang="en">fbc_69_repeat_id_input_quantity-required</fbc_69_repeat_id_input_quantity-required>
+                    <fbc_69_repeat_id_input_comments-required lang="is_IS">fbc_69_repeat_id_input_comments-required</fbc_69_repeat_id_input_comments-required>
+                    <fbc_69_repeat_id_input_comments-required lang="en">fbc_69_repeat_id_input_comments-required</fbc_69_repeat_id_input_comments-required>
                     
                     <fbc_10-label lang="is_IS">Farm structure</fbc_10-label>
                     <fbc_10-label lang="en">Farm structure</fbc_10-label>
@@ -505,8 +571,8 @@
                     <fbc_10-col-aquaEnvironment-label lang="is_IS">Aqua environment</fbc_10-col-aquaEnvironment-label>
                     <fbc_10-col-size-label lang="en">Size</fbc_10-col-size-label>
                     <fbc_10-col-size-label lang="is_IS">Size</fbc_10-col-size-label>
-                    <fbc_10-col-unit-label lang="en">Unit</fbc_10-col-unit-label>
-                    <fbc_10-col-unit-label lang="is_IS">Unit</fbc_10-col-unit-label>
+                    <fbc_10-col-unitOutput-label lang="en">Unit</fbc_10-col-unitOutput-label>
+                    <fbc_10-col-unitOutput-label lang="is_IS">Unit</fbc_10-col-unitOutput-label>
                     
                     <fbc_18-label lang="is_IS">Næsta skref</fbc_18-label>
                     <fbc_18-label lang="en">Next</fbc_18-label>
@@ -554,18 +620,41 @@
                     <fbc_43-col-soldTo-label lang="is_IS">Sold to</fbc_43-col-soldTo-label>
                     <fbc_43-col-quantity-label lang="en">Quantity</fbc_43-col-quantity-label>
                     <fbc_43-col-quantity-label lang="is_IS">Quantity</fbc_43-col-quantity-label>
-                    <fbc_43-col-quantityUnit-label lang="en">Unit</fbc_43-col-quantityUnit-label>
-                    <fbc_43-col-quantityUnit-label lang="is_IS">Unit</fbc_43-col-quantityUnit-label>
+                    <fbc_43-col-quantityUnitOutput-label lang="en">Unit</fbc_43-col-quantityUnitOutput-label>
+                    <fbc_43-col-quantityUnitOutput-label lang="is_IS">Unit</fbc_43-col-quantityUnitOutput-label>
                     <fbc_43-col-price-label lang="en">Price</fbc_43-col-price-label>
                     <fbc_43-col-price-label lang="is_IS">Price</fbc_43-col-price-label>
-                    <fbc_43-col-priceUnit-label lang="en">Unit</fbc_43-col-priceUnit-label>
-                    <fbc_43-col-priceUnit-label lang="is_IS">Unit</fbc_43-col-priceUnit-label>
+                    <fbc_43-col-priceUnitOutput-label lang="en">Unit</fbc_43-col-priceUnitOutput-label>
+                    <fbc_43-col-priceUnitOutput-label lang="is_IS">Unit</fbc_43-col-priceUnitOutput-label>
                     <fbc_43-col-value-label lang="en">Value</fbc_43-col-value-label>
                     <fbc_43-col-value-label lang="is_IS">Value</fbc_43-col-value-label>
                     <fbc_43-col-buyerSocialSecurityNr-label lang="en">Buyer social security number</fbc_43-col-buyerSocialSecurityNr-label>
                     <fbc_43-col-buyerSocialSecurityNr-label lang="is_IS">Buyer social security number</fbc_43-col-buyerSocialSecurityNr-label>
                     <fbc_43-col-buyerName-label lang="en">Buyer name</fbc_43-col-buyerName-label>
                     <fbc_43-col-buyerName-label lang="is_IS">Buyer name</fbc_43-col-buyerName-label>
+                    
+                    <fbc_65-label lang="is_IS">Total sales value</fbc_65-label>
+                    <fbc_65-label lang="en">Total sales value</fbc_65-label>
+                    <fbc_67-label lang="is_IS">Comments</fbc_67-label>
+                    <fbc_67-label lang="en">Comments</fbc_67-label>
+                    
+                    <fbc_69-label lang="is_IS">Inventory at year end</fbc_69-label>
+                    <fbc_69-label lang="en">Inventory at year end</fbc_69-label>
+                    <fbc_69-insert-label lang="en">Insert</fbc_69-insert-label>
+                    <fbc_69-insert-label lang="is_IS">Bæta við röð</fbc_69-insert-label>
+                    <fbc_69-delete-label lang="en">Delete</fbc_69-delete-label>
+                    <fbc_69-delete-label lang="is_IS">Eyða röð</fbc_69-delete-label>
+                    
+                    <fbc_69-col-speciesGroup-label lang="en">Species group</fbc_69-col-speciesGroup-label>
+                    <fbc_69-col-speciesGroup-label lang="is_IS">Species group</fbc_69-col-speciesGroup-label>
+                    <fbc_69-col-species-label lang="en">Species</fbc_69-col-species-label>
+                    <fbc_69-col-species-label lang="is_IS">Species</fbc_69-col-species-label>
+                    <fbc_69-col-quantity-label lang="en">Quantity</fbc_69-col-quantity-label>
+                    <fbc_69-col-quantity-label lang="is_IS">Quantity</fbc_69-col-quantity-label>
+                    <fbc_69-col-quantityUnitOutput-label lang="en">Unit</fbc_69-col-quantityUnitOutput-label>
+                    <fbc_69-col-quantityUnitOutput-label lang="is_IS">Unit</fbc_69-col-quantityUnitOutput-label>
+                    <fbc_69-col-comments-label lang="en">Comments</fbc_69-col-comments-label>
+                    <fbc_69-col-comments-label lang="is_IS">Comments</fbc_69-col-comments-label>
                     
                 </localized_strings>
             </xf:instance>
@@ -812,8 +901,8 @@
                                             
                                 </xf:input>
                                 
-                                <xf:output bind="unitBind" id="fbc_10_repeat_id_input_unit" type="fbc_text_output">
-                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-col-unit-label[@lang=instance('localized_strings')/current_language]"/>
+                                <xf:output bind="unitOutputBind" id="fbc_10_repeat_id_input_unitOutput" type="fbc_text_output">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-col-unitOutput-label[@lang=instance('localized_strings')/current_language]"/>
                                 </xf:output>
                             </xf:repeat>
                             <!-- 
@@ -1161,8 +1250,8 @@
                                             
                                 </xf:input>
                                 
-                                <xf:output bind="quantityUnitBind" id="fbc_10_repeat_id_input_quantityUnit" type="fbc_text_output">
-                                        <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-col-quantityUnit-label[@lang=instance('localized_strings')/current_language]"/>
+                                <xf:output bind="quantityUnitOutputBind" id="fbc_10_repeat_id_input_quantityUnitOutput" type="fbc_text_output">
+                                        <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-col-quantityUnitOutput-label[@lang=instance('localized_strings')/current_language]"/>
                                 </xf:output>
                                 
                                 <xf:input bind="priceBind" id="fbc_43_repeat_id_input_price">
@@ -1182,8 +1271,8 @@
                                             
                                 </xf:input>
                                 
-                                <xf:output bind="priceUnitBind" id="fbc_10_repeat_id_input_priceUnit" type="fbc_text_output">
-                                        <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-col-priceUnit-label[@lang=instance('localized_strings')/current_language]"/>
+                                <xf:output bind="priceUnitOutputBind" id="fbc_10_repeat_id_input_priceUnitOutput" type="fbc_text_output">
+                                        <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-col-priceUnitOutput-label[@lang=instance('localized_strings')/current_language]"/>
                                 </xf:output>
                                 
                                 <xf:output bind="valueBind" id="fbc_43_repeat_id_output_value" type="fbc_text_output">
@@ -1227,6 +1316,127 @@
                             </xf:repeat>
                             
                              <xf:alert ref="instance('error-instance')/error[@for='fbc_43']"/>
+                        
+                        </xf:group>
+                        
+                        <xf:output bind="salesValuesSumBind" id="fbc_65" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_65-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                        
+                        <xf:textarea bind="salesCommentsBind" id="fbc_67" type="fbc_textarea">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_67-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:textarea>
+                        
+                        <!-- inventory at year end -->
+                        <xf:group appereance="full" id="fbc_69">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_69-label[@lang=instance('localized_strings')/current_language]"/>
+                              
+                            <xf:dispatch ev:event="xforms-value-changed" name="idega-validate" target="fbc_69"/>
+
+<!-- TODO                            
+                            <idega:validator componentId="fbc_69" ev:event="idega-validate" validateif="string(sum(instance('data-instance')/inventoryAtYearEnd/list/row/cost_estimate)) !='NaN'">
+                                <idega:message errorType="custom" model="data_model" value="instance('localized_strings')/fbc_10-table-count-error[@lang=instance('localized_strings')/current_language]"/>
+                            </idega:validator>
+-->
+                            
+                            <xf:trigger class="insertRowButton inventoryAtYearEnd" bind="fbc_69_trigger" id="fbc_70">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_69-insert-label[@lang=instance('localized_strings')/current_language]"/>
+                                <xf:action>
+                                    <xf:insert at="last()" nodeset="../list/row" position="after"/>
+                                </xf:action>
+                            </xf:trigger>
+                            <xf:trigger bind="fbc_69_trigger" id="fbc_71">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_69-delete-label[@lang=instance('localized_strings')/current_language]"/>
+                                <xf:action>
+                                    <xf:delete at="last()-1" nodeset="../list/row"/>
+                                </xf:action>
+                            </xf:trigger>
+                            <xf:repeat class="inventoryAtYearEnd" appearance="compact" bind="fbc_69_bind" id="fbc_69_repeat_id">
+                            
+                                <xf:input id="fbc_69_repeat_id_input_speciesGroup" bind="speciesGroupBind_fbc_69" class="substitute substituteId-speciesGroup speciesGroup">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_69-col-speciesGroup-label[@lang=instance('localized_strings')/current_language]"/>
+                                    
+                                    <xf:dispatch ev:event="xforms-value-changed"
+                                        name="idega-validate" target="fbc_69_repeat_id_input_speciesGroup"/>
+                                    <idega:validator ev:event="idega-validate">
+                                        <idega:message errorType="required"
+                                            model="data_model" value="instance('localized_strings')/fbc_69_repeat_id_input_speciesGroup-required[@lang=instance('localized_strings')/current_language]"/>
+                                    </idega:validator>
+                                    
+                                    <xf:action ev:event="xforms-value-changed">
+                                    
+                                        <xf:setvalue
+                                            ref="../speciesGroupOutput" 
+                                            value="instance('fbc_13_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/inventoryAtYearEnd/list/row[index('fbc_69_repeat_id')]/speciesGroup]/itemLabel"/>
+                                            
+                                        <xf:setvalue
+                                            ref="instance('data-instance')/tmpVal" 
+                                            value="instance('data-instance')/inventoryAtYearEnd/list/row[index('fbc_69_repeat_id')]/speciesGroup"/>
+                                            
+                                        <idega:setvalue
+                                            multiple="true()"
+                                            placeResponseDocument="true()"
+                                            ref="../quantityUnit" value="idega:resolveExpression('aquaCultureService.getSalesQuantityUnit({0})', '#{instance(`data-instance`)/tmpVal}')"/>
+                                         
+                                        <idega:setvalue
+                                            multiple="true()"
+                                            placeResponseDocument="true()"
+                                            ref="../quantityUnitOutput" value="idega:resolveExpression('aquaCultureService.getSalesQuantityUnitOutput({0})', '#{instance(`data-instance`)/tmpVal}')"/>
+                                    
+                                    </xf:action>
+                                    
+                                </xf:input>
+                                
+                                
+                                <xf:input id="fbc_69_repeat_id_input_species" bind="speciesBind_fbc_69" class="substitute substituteId-species species">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_69-col-species-label[@lang=instance('localized_strings')/current_language]"/>
+                                    
+                                    <xf:dispatch ev:event="xforms-value-changed"
+                                        name="idega-validate" target="fbc_69_repeat_id_input_species"/>
+                                    <idega:validator ev:event="idega-validate">
+                                        <idega:message errorType="required"
+                                            model="data_model" value="instance('localized_strings')/fbc_69_repeat_id_input_species-required[@lang=instance('localized_strings')/current_language]"/>
+                                    </idega:validator>
+                                    
+                                    <xf:action ev:event="xforms-value-changed">
+                                    
+                                        <xf:setvalue
+                                            ref="../speciesOutput" 
+                                            value="instance('fbc_29_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/inventoryAtYearEnd/list/row[index('fbc_69_repeat_id')]/species]/itemLabel"/>
+                                               
+                                    </xf:action>
+                                    
+                                </xf:input>
+                                
+                                
+                                <xf:input bind="quantityBind_fbc_69" id="fbc_69_repeat_id_input_quantity">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_69-col-quantity-label[@lang=instance('localized_strings')/current_language]"/>
+                                    
+                                    <xf:dispatch ev:event="xforms-value-changed"
+                                        name="idega-validate" target="fbc_69_repeat_id_input_quantity"/>
+                                    <idega:validator ev:event="idega-validate">
+                                        <idega:message errorType="required"
+                                            model="data_model" value="instance('localized_strings')/fbc_69_repeat_id_input_quantity-required[@lang=instance('localized_strings')/current_language]"/>
+                                    </idega:validator>
+                                    
+                                    <xf:setvalue
+                                            ev:event="xforms-value-changed"
+                                            ref="instance('data-instance')/inventoryAtYearEnd/list/row[index('fbc_69_repeat_id')]/quantityOutput" 
+                                            value="instance('data-instance')/inventoryAtYearEnd/list/row[index('fbc_69_repeat_id')]/quantity"/>
+                                            
+                                </xf:input>
+                                
+                                <xf:output bind="quantityUnitOutputBind_fbc_69" id="fbc_69_repeat_id_input_quantityUnitOutput" type="fbc_text_output">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_69-col-quantityUnitOutput-label[@lang=instance('localized_strings')/current_language]"/>
+                                </xf:output>
+                                
+                                <xf:textarea bind="commentsBind_fbc_69" id="fbc_69_repeat_id_input_comments">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_69-col-comments-label[@lang=instance('localized_strings')/current_language]"/>
+                                </xf:textarea>
+                                
+                            </xf:repeat>
+                            
+                             <xf:alert ref="instance('error-instance')/error[@for='fbc_69']"/>
                         
                         </xf:group>
                     
@@ -1348,7 +1558,7 @@
                                 </xf:output>
                                 <xf:output id="fbc_25" 
                                     ref="./unitOutput" type="fbc_text_output">
-                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-col-unit-label[@lang=instance('localized_strings')/current_language]"/>
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-col-unitOutput-label[@lang=instance('localized_strings')/current_language]"/>
                                 </xf:output>
                                 
                     </xf:repeat>
@@ -1420,7 +1630,7 @@
                                 </xf:output>
                                 <xf:output id="fbc_57"
                                     ref="./quantityUnitOutput" type="fbc_text_output">
-                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-col-quantityUnit-label[@lang=instance('localized_strings')/current_language]"/>
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-col-quantityUnitOutput-label[@lang=instance('localized_strings')/current_language]"/>
                                 </xf:output>
                                 <xf:output id="fbc_58"
                                     ref="./priceOutput" type="fbc_text_output">
@@ -1428,7 +1638,7 @@
                                 </xf:output>
                                 <xf:output id="fbc_59"
                                     ref="./priceUnitOutput" type="fbc_text_output">
-                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-col-priceUnit-label[@lang=instance('localized_strings')/current_language]"/>
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-col-priceUnitOutput-label[@lang=instance('localized_strings')/current_language]"/>
                                 </xf:output>
                                 <xf:output id="fbc_60"
                                     ref="./value" type="fbc_text_output">
@@ -1443,6 +1653,40 @@
                                     <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-col-buyerName-label[@lang=instance('localized_strings')/current_language]"/>
                                 </xf:output>
                                 
+                    </xf:repeat>
+                </xf:group>
+                
+                <xf:output bind="salesValuesSumBind" id="fbc_66" type="fbc_text_output">
+                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_65-label[@lang=instance('localized_strings')/current_language]"/>
+                </xf:output>
+                <xf:output bind="salesCommentsBind" id="fbc_68" type="fbc_text_output">
+                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_67-label[@lang=instance('localized_strings')/current_language]"/>
+                </xf:output>
+                
+                <xf:group appereance="full" id="fbc_72">
+                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_69-label[@lang=instance('localized_strings')/current_language]"/>    
+                    <xf:repeat appearance="compact" bind="fbc_69_bind" id="fbc_72_repeat_id">
+                            
+                                <xf:output id="fbc_73"
+                                    ref="./speciesGroupOutput" type="fbc_text_output">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_69-col-speciesGroup-label[@lang=instance('localized_strings')/current_language]"/>
+                                </xf:output>
+                                <xf:output id="fbc_74"
+                                    ref="./speciesOutput" type="fbc_text_output">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_69-col-species-label[@lang=instance('localized_strings')/current_language]"/>
+                                </xf:output>
+                                <xf:output id="fbc_75"
+                                    ref="./quantityOutput" type="fbc_text_output">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_69-col-quantity-label[@lang=instance('localized_strings')/current_language]"/>
+                                </xf:output>
+                                <xf:output id="fbc_76"
+                                    ref="./quantityUnitOutput" type="fbc_text_output">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_69-col-quantityUnitOutput-label[@lang=instance('localized_strings')/current_language]"/>
+                                </xf:output>
+                                <xf:output id="fbc_77"
+                                    ref="./comments" type="fbc_text_output">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_69-col-comments-label[@lang=instance('localized_strings')/current_language]"/>
+                                </xf:output>
                     </xf:repeat>
                 </xf:group>
                     

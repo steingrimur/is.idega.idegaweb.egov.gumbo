@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="Aquaculture" width="599" height="635">
+<root-container name="Aquaculture" width="524" height="708">
   <node name="aquacultureReport" x="195" y="37" width="164" height="34">
     <edge>
       <label x="5" y="-10"/>
