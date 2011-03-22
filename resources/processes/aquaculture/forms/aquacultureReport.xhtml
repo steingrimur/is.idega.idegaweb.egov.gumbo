@@ -185,6 +185,34 @@
                         <trigger/>
                     </inventoryAtYearEnd>
                     
+                    <expectedQuantityProduced mapping="objlist_expectedQuantityProduced">
+                        <list>
+                            <row>
+                                <speciesGroup/>
+                                <speciesGroupOutput/>
+                                <species/>
+                                <speciesOutput/>
+                                <quantity xsi:type="xsd:float" xsi:nil="true"/>
+                                <quantityOutput/>
+                                <quantityUnit/>
+                                <quantityUnitOutput/>
+                                <comments/>
+                            </row>
+                            <row>
+                                <speciesGroup/>
+                                <speciesGroupOutput/>
+                                <species/>
+                                <speciesOutput/>
+                                <quantity xsi:type="xsd:float" xsi:nil="true"/>
+                                <quantityOutput/>
+                                <quantityUnit/>
+                                <quantityUnitOutput/>
+                                <comments/>
+                            </row>
+                        </list>
+                        <trigger/>
+                    </expectedQuantityProduced>
+                    
                     <tmpVal />
                     
                 </data>
@@ -374,10 +402,35 @@
                 
             </xf:bind>
             
+            
+            <xf:bind id="fbc_78_bind"
+                nodeset="expectedQuantityProduced/list/row[position() != last()]" readonly="instance('control-instance')/readonly = 'true'">
+                
+                <xf:bind id="speciesGroupBind_fbc_78"
+                    nodeset="./speciesGroup"
+                    required="instance('control-instance')/required = 'true'" />
+                    
+                <xf:bind id="speciesBind_fbc_78"
+                    nodeset="./species"
+                    required="instance('control-instance')/required = 'true'" />
+                    
+                <xf:bind id="quantityBind_fbc_78"
+                    nodeset="./quantity"
+                    required="instance('control-instance')/required = 'true'" />
+                    
+                <xf:bind id="quantityUnitOutputBind_fbc_78"
+                    nodeset="./quantityUnitOutput" />
+                    
+                <xf:bind id="commentsBind_fbc_78"
+                    nodeset="./comments" />
+                
+            </xf:bind>
+            
             <xf:bind id="fbc_10_trigger" nodeset="farmStructure/trigger" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
             <xf:bind id="fbc_26_trigger" nodeset="fishedForOnGrowing/trigger" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
             <xf:bind id="fbc_43_trigger" nodeset="sales/trigger" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
             <xf:bind id="fbc_69_trigger" nodeset="inventoryAtYearEnd/trigger" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
+            <xf:bind id="fbc_78_trigger" nodeset="expectedQuantityProduced/trigger" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
             
             <xf:bind id="salesValuesSumBind"
                     nodeset="salesValuesSum"
@@ -552,8 +605,14 @@
                     <fbc_69_repeat_id_input_species-required lang="en">fbc_69_repeat_id_input_species-required</fbc_69_repeat_id_input_species-required>
                     <fbc_69_repeat_id_input_quantity-required lang="is_IS">fbc_69_repeat_id_input_quantity-required</fbc_69_repeat_id_input_quantity-required>
                     <fbc_69_repeat_id_input_quantity-required lang="en">fbc_69_repeat_id_input_quantity-required</fbc_69_repeat_id_input_quantity-required>
-                    <fbc_69_repeat_id_input_comments-required lang="is_IS">fbc_69_repeat_id_input_comments-required</fbc_69_repeat_id_input_comments-required>
-                    <fbc_69_repeat_id_input_comments-required lang="en">fbc_69_repeat_id_input_comments-required</fbc_69_repeat_id_input_comments-required>
+                    
+                    <fbc_78_repeat_id_input_speciesGroup-required lang="is_IS">fbc_78_repeat_id_input_speciesGroup-required</fbc_78_repeat_id_input_speciesGroup-required>
+                    <fbc_78_repeat_id_input_speciesGroup-required lang="en">fbc_78_repeat_id_input_speciesGroup-required</fbc_78_repeat_id_input_speciesGroup-required>
+                    <fbc_78_repeat_id_input_species-required lang="is_IS">fbc_78_repeat_id_input_species-required</fbc_78_repeat_id_input_species-required>
+                    <fbc_78_repeat_id_input_species-required lang="en">fbc_78_repeat_id_input_species-required</fbc_78_repeat_id_input_species-required>
+                    <fbc_78_repeat_id_input_quantity-required lang="is_IS">fbc_78_repeat_id_input_quantity-required</fbc_78_repeat_id_input_quantity-required>
+                    <fbc_78_repeat_id_input_quantity-required lang="en">fbc_78_repeat_id_input_quantity-required</fbc_78_repeat_id_input_quantity-required>
+                    
                     
                     <fbc_10-label lang="is_IS">Farm structure</fbc_10-label>
                     <fbc_10-label lang="en">Farm structure</fbc_10-label>
@@ -655,6 +714,25 @@
                     <fbc_69-col-quantityUnitOutput-label lang="is_IS">Unit</fbc_69-col-quantityUnitOutput-label>
                     <fbc_69-col-comments-label lang="en">Comments</fbc_69-col-comments-label>
                     <fbc_69-col-comments-label lang="is_IS">Comments</fbc_69-col-comments-label>
+                    
+                    
+                    <fbc_78-label lang="is_IS">Expected quantity produced next year</fbc_78-label>
+                    <fbc_78-label lang="en">Expected quantity produced next year</fbc_78-label>
+                    <fbc_78-insert-label lang="en">Insert</fbc_78-insert-label>
+                    <fbc_78-insert-label lang="is_IS">Bæta við röð</fbc_78-insert-label>
+                    <fbc_78-delete-label lang="en">Delete</fbc_78-delete-label>
+                    <fbc_78-delete-label lang="is_IS">Eyða röð</fbc_78-delete-label>
+                    
+                    <fbc_78-col-speciesGroup-label lang="en">Species group</fbc_78-col-speciesGroup-label>
+                    <fbc_78-col-speciesGroup-label lang="is_IS">Species group</fbc_78-col-speciesGroup-label>
+                    <fbc_78-col-species-label lang="en">Species</fbc_78-col-species-label>
+                    <fbc_78-col-species-label lang="is_IS">Species</fbc_78-col-species-label>
+                    <fbc_78-col-quantity-label lang="en">Quantity</fbc_78-col-quantity-label>
+                    <fbc_78-col-quantity-label lang="is_IS">Quantity</fbc_78-col-quantity-label>
+                    <fbc_78-col-quantityUnitOutput-label lang="en">Unit</fbc_78-col-quantityUnitOutput-label>
+                    <fbc_78-col-quantityUnitOutput-label lang="is_IS">Unit</fbc_78-col-quantityUnitOutput-label>
+                    <fbc_78-col-comments-label lang="en">Comments</fbc_78-col-comments-label>
+                    <fbc_78-col-comments-label lang="is_IS">Comments</fbc_78-col-comments-label>
                     
                 </localized_strings>
             </xf:instance>
@@ -1439,6 +1517,120 @@
                              <xf:alert ref="instance('error-instance')/error[@for='fbc_69']"/>
                         
                         </xf:group>
+                        
+                        
+                        <!-- expected quantity produced -->
+                        <xf:group appereance="full" id="fbc_78">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_78-label[@lang=instance('localized_strings')/current_language]"/>
+                              
+                            <xf:dispatch ev:event="xforms-value-changed" name="idega-validate" target="fbc_78"/>
+
+<!-- TODO                            
+                            <idega:validator componentId="fbc_78" ev:event="idega-validate" validateif="string(sum(instance('data-instance')/expectedQuantityProduced/list/row/cost_estimate)) !='NaN'">
+                                <idega:message errorType="custom" model="data_model" value="instance('localized_strings')/fbc_10-table-count-error[@lang=instance('localized_strings')/current_language]"/>
+                            </idega:validator>
+-->
+                            
+                            <xf:trigger class="insertRowButton expectedQuantityProduced" bind="fbc_78_trigger" id="fbc_79">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_78-insert-label[@lang=instance('localized_strings')/current_language]"/>
+                                <xf:action>
+                                    <xf:insert at="last()" nodeset="../list/row" position="after"/>
+                                </xf:action>
+                            </xf:trigger>
+                            <xf:trigger bind="fbc_78_trigger" id="fbc_80">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_78-delete-label[@lang=instance('localized_strings')/current_language]"/>
+                                <xf:action>
+                                    <xf:delete at="last()-1" nodeset="../list/row"/>
+                                </xf:action>
+                            </xf:trigger>
+                            <xf:repeat class="expectedQuantityProduced" appearance="compact" bind="fbc_78_bind" id="fbc_78_repeat_id">
+                            
+                                <xf:input id="fbc_78_repeat_id_input_speciesGroup" bind="speciesGroupBind_fbc_78" class="substitute substituteId-speciesGroup speciesGroup">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_78-col-speciesGroup-label[@lang=instance('localized_strings')/current_language]"/>
+                                    
+                                    <xf:dispatch ev:event="xforms-value-changed"
+                                        name="idega-validate" target="fbc_78_repeat_id_input_speciesGroup"/>
+                                    <idega:validator ev:event="idega-validate">
+                                        <idega:message errorType="required"
+                                            model="data_model" value="instance('localized_strings')/fbc_78_repeat_id_input_speciesGroup-required[@lang=instance('localized_strings')/current_language]"/>
+                                    </idega:validator>
+                                    
+                                    <xf:action ev:event="xforms-value-changed">
+                                    
+                                        <xf:setvalue
+                                            ref="../speciesGroupOutput" 
+                                            value="instance('fbc_13_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/expectedQuantityProduced/list/row[index('fbc_78_repeat_id')]/speciesGroup]/itemLabel"/>
+                                            
+                                        <xf:setvalue
+                                            ref="instance('data-instance')/tmpVal" 
+                                            value="instance('data-instance')/expectedQuantityProduced/list/row[index('fbc_78_repeat_id')]/speciesGroup"/>
+                                            
+                                        <idega:setvalue
+                                            multiple="true()"
+                                            placeResponseDocument="true()"
+                                            ref="../quantityUnit" value="idega:resolveExpression('aquaCultureService.getSalesQuantityUnit({0})', '#{instance(`data-instance`)/tmpVal}')"/>
+                                         
+                                        <idega:setvalue
+                                            multiple="true()"
+                                            placeResponseDocument="true()"
+                                            ref="../quantityUnitOutput" value="idega:resolveExpression('aquaCultureService.getSalesQuantityUnitOutput({0})', '#{instance(`data-instance`)/tmpVal}')"/>
+                                    
+                                    </xf:action>
+                                    
+                                </xf:input>
+                                
+                                
+                                <xf:input id="fbc_78_repeat_id_input_species" bind="speciesBind_fbc_78" class="substitute substituteId-species species">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_78-col-species-label[@lang=instance('localized_strings')/current_language]"/>
+                                    
+                                    <xf:dispatch ev:event="xforms-value-changed"
+                                        name="idega-validate" target="fbc_78_repeat_id_input_species"/>
+                                    <idega:validator ev:event="idega-validate">
+                                        <idega:message errorType="required"
+                                            model="data_model" value="instance('localized_strings')/fbc_78_repeat_id_input_species-required[@lang=instance('localized_strings')/current_language]"/>
+                                    </idega:validator>
+                                    
+                                    <xf:action ev:event="xforms-value-changed">
+                                    
+                                        <xf:setvalue
+                                            ref="../speciesOutput" 
+                                            value="instance('fbc_29_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/expectedQuantityProduced/list/row[index('fbc_78_repeat_id')]/species]/itemLabel"/>
+                                               
+                                    </xf:action>
+                                    
+                                </xf:input>
+                                
+                                
+                                <xf:input bind="quantityBind_fbc_78" id="fbc_78_repeat_id_input_quantity">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_78-col-quantity-label[@lang=instance('localized_strings')/current_language]"/>
+                                    
+                                    <xf:dispatch ev:event="xforms-value-changed"
+                                        name="idega-validate" target="fbc_78_repeat_id_input_quantity"/>
+                                    <idega:validator ev:event="idega-validate">
+                                        <idega:message errorType="required"
+                                            model="data_model" value="instance('localized_strings')/fbc_78_repeat_id_input_quantity-required[@lang=instance('localized_strings')/current_language]"/>
+                                    </idega:validator>
+                                    
+                                    <xf:setvalue
+                                            ev:event="xforms-value-changed"
+                                            ref="instance('data-instance')/expectedQuantityProduced/list/row[index('fbc_78_repeat_id')]/quantityOutput" 
+                                            value="instance('data-instance')/expectedQuantityProduced/list/row[index('fbc_78_repeat_id')]/quantity"/>
+                                            
+                                </xf:input>
+                                
+                                <xf:output bind="quantityUnitOutputBind_fbc_78" id="fbc_78_repeat_id_input_quantityUnitOutput" type="fbc_text_output">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_78-col-quantityUnitOutput-label[@lang=instance('localized_strings')/current_language]"/>
+                                </xf:output>
+                                
+                                <xf:textarea bind="commentsBind_fbc_78" id="fbc_78_repeat_id_input_comments">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_78-col-comments-label[@lang=instance('localized_strings')/current_language]"/>
+                                </xf:textarea>
+                                
+                            </xf:repeat>
+                            
+                             <xf:alert ref="instance('error-instance')/error[@for='fbc_78']"/>
+                        
+                        </xf:group>
                     
                         <div class="fbc_button_area" id="fbc_2" type="fbc_button_area">
                             <xf:trigger bind="bind-controlsButton"
@@ -1686,6 +1878,33 @@
                                 <xf:output id="fbc_77"
                                     ref="./comments" type="fbc_text_output">
                                     <xf:label model="data_model" ref="instance('localized_strings')/fbc_69-col-comments-label[@lang=instance('localized_strings')/current_language]"/>
+                                </xf:output>
+                    </xf:repeat>
+                </xf:group>
+                
+                <xf:group appereance="full" id="fbc_81">
+                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_78-label[@lang=instance('localized_strings')/current_language]"/>    
+                    <xf:repeat appearance="compact" bind="fbc_78_bind" id="fbc_81_repeat_id">
+                            
+                                <xf:output id="fbc_82"
+                                    ref="./speciesGroupOutput" type="fbc_text_output">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_78-col-speciesGroup-label[@lang=instance('localized_strings')/current_language]"/>
+                                </xf:output>
+                                <xf:output id="fbc_83"
+                                    ref="./speciesOutput" type="fbc_text_output">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_78-col-species-label[@lang=instance('localized_strings')/current_language]"/>
+                                </xf:output>
+                                <xf:output id="fbc_84"
+                                    ref="./quantityOutput" type="fbc_text_output">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_78-col-quantity-label[@lang=instance('localized_strings')/current_language]"/>
+                                </xf:output>
+                                <xf:output id="fbc_85"
+                                    ref="./quantityUnitOutput" type="fbc_text_output">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_78-col-quantityUnitOutput-label[@lang=instance('localized_strings')/current_language]"/>
+                                </xf:output>
+                                <xf:output id="fbc_86"
+                                    ref="./comments" type="fbc_text_output">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_78-col-comments-label[@lang=instance('localized_strings')/current_language]"/>
                                 </xf:output>
                     </xf:repeat>
                 </xf:group>

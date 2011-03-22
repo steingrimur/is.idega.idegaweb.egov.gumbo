@@ -84,6 +84,7 @@
             <variable name="string_salesValuesSum" access="read,write" ></variable>
             <variable name="string_salesComments" access="read,write" ></variable>
             <variable name="objlist_inventoryAtYearEnd" access="read,write" ></variable>
+            <variable name="objlist_expectedQuantityProduced" access="read,write" ></variable>
          </controller>
       </task>
 		<transition to="doNothing"></transition>

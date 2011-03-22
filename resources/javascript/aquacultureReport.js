@@ -2,7 +2,7 @@ if(ChibaWorkarounds == null) var ChibaWorkarounds = {};
 
 jQuery(document).ready(function() {
 	
-	var insertsFor = ['farmStructure', 'fishedForOnGrowing', 'sales', 'inventoryAtYearEnd'];
+	var insertsFor = ['farmStructure', 'fishedForOnGrowing', 'sales', 'inventoryAtYearEnd', 'expectedQuantityProduced'];
 	
 	ChibaWorkarounds.publishUIUpdatedEvent = true;
 	
