@@ -5,7 +5,7 @@
     <processBundle beanIdentifier="casesBPMProcessBundle" processManagerType="cases" />
     
     <tasks>
-        <task name="aquacultureReportTask" initial="true" order="0">
+        <task name="violationReportTask" initial="true" order="0">
             <viewResource resourceIdentifier="forms/violationReport.xhtml" viewType="xforms" viewResourceType="xforms" />
         </task>
     </tasks>
