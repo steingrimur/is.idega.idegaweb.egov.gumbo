@@ -362,7 +362,7 @@
             <expression>
                 String participantEmail;
                 
-                if(participantEmailBySuperHandler != null &amp;&amp; !participantEmailBySuperHandler.equals("")) {
+                if(!com.idega.util.StringUtil.isEmpty(participantEmailBySuperHandler)) {
                     participantEmail = participantEmailBySuperHandler;
                 } else {
                     participantEmail = participantEmailByHandler;
