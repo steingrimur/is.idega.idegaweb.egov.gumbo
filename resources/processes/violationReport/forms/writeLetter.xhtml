@@ -137,8 +137,7 @@
             <xf:bind id="fbc_6_bind"
                 nodeset="Choose_letter_template_fbc_6"
                 readonly="instance('control-instance')/readonly = 'true'"
-                relevant="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"
-                required="instance('control-instance')/required = 'true'" type="xs:string"/>
+                relevant="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'" type="string"/>
             <xf:bind id="fbc_7_bind"
                 nodeset="Choose_letter_template_type_fbc_7"
                 readonly="instance('control-instance')/readonly = 'true'"
@@ -313,7 +312,7 @@
                         </xf:input>
                         <!-- class="enableHTMLEditor" -->
                         <xf:textarea bind="fbc_5_bind"
-                            class="enableHTMLEditor enableHTMLEditor" id="fbc_5" mediatype="text/html">
+                            class="enableHTMLEditor enableHTMLEditor" id="fbc_5">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_5-title[@lang=instance('localized_strings')/current_language]"/>
                             <xf:dispatch ev:event="idega-xforms-ready"
                                 name="idega-validate" target="fbc_5"/>
