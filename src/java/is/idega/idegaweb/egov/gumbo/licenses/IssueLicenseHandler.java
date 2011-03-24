@@ -92,11 +92,17 @@ public class IssueLicenseHandler extends DefaultSpringBean implements ActionHand
 				return false;
 			}
 			
+			String licenseID = theCase.getMetaData(GumboConstants.DOF_FISHING_LICENSE_METADATA_KEY);
+
+			if (getUpdateDOF()) {
+				getWSClient().activateFishingLicense(new BigDecimal(licenseID));
+			}
+
+			
 			IWResourceBundle iwrb = IWMainApplication.getDefaultIWMainApplication().getBundle(GumboConstants.IW_BUNDLE_IDENTIFIER).getResourceBundle(locale);
 
 			String licenseType = ectx.getProcessDefinition().getName();
 			String vesselNumber = (String) ectx.getVariable("string_vesselRegistryNr");
-			String licenseID = theCase.getMetaData(GumboConstants.DOF_FISHING_LICENSE_METADATA_KEY);
 			
 			VeidileyfiTypeUser license = licenseID != null ? getWSClient().getFishingLicenseInfo(new BigDecimal(licenseID)) : null;
 			SkipInfoTypeUser ship = getWSClient().getShipInfo(vesselNumber);
@@ -111,9 +117,6 @@ public class IssueLicenseHandler extends DefaultSpringBean implements ActionHand
 			parkingCard = getPDFGenerator().generateFishingLicensePDF(licenseType, license, fishery, ship, locale);
 			tiw.addAttachment(variable, fileName, description, parkingCard);
 			
-			if (getUpdateDOF()) {
-				getWSClient().activateFishingLicense(new BigDecimal(licenseID));
-			}
 			
 			return true;
 		} catch (Exception e) {
