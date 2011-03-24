@@ -22,9 +22,9 @@ import com.idega.idegaweb.IWMainApplication;
 import com.idega.idegaweb.egov.bpm.data.CaseProcInstBind;
 import com.idega.idegaweb.egov.bpm.data.dao.CasesBPMDAO;
 
-@Service("fishingLicenseToFocalHandler")
+@Service("violationToFocalHandler")
 @Scope("prototype")
-public class FishingLicenseToFocalHandler extends SetProcessDescriptionHandler
+public class ViolationToFocalHandler extends SetProcessDescriptionHandler
 		implements ActionHandler {
 
 	@Autowired
@@ -62,24 +62,24 @@ public class FishingLicenseToFocalHandler extends SetProcessDescriptionHandler
 			return;
 		}
 
-		System.out.println("Focal handler, case id " + theCase.getUniqueId());
-
 		String processDefinitionName = context.getProcessDefinition().getName();
-		String subType = (String) context
-				.getVariable("string_typeOfFishingLicense");
-		//System.out.println("processDefinition name = " + processDefinitionName);
-		//System.out.println("subType = " + subType);
+		String types = (String) context.getVariable("string_violationTypesSummary");
 
-		ProcessFocalCode focalCode = (subType == null) ? getGumboDAO()
-				.getProcessFocalCode(processDefinitionName) : getGumboDAO()
-				.getProcessFocalCode(processDefinitionName, subType);
+		ProcessFocalCode focalCode = getGumboDAO().getProcessFocalCode(processDefinitionName);
 
+		StringBuilder documentKey = new StringBuilder(focalCode.getFocalDocumentKey());
+		documentKey.append(".");
+
+		String t[] = types.trim().replaceAll("-", "").replaceAll("\\s", "").split("\\.");
+		
+		documentKey.append(t[0]);
+		
 		String key = getFocalWSClient().createFocalCase(
 				theCase.getPrimaryKey().toString(),
 				theCase.getCaseIdentifier(), theCase.getSubject(),
 				theCase.getOwner().getPersonalID(),
 				theCase.getOwner().getDisplayName(),
-				focalCode.getFocalProjectID(), focalCode.getFocalDocumentKey());
+				focalCode.getFocalProjectID(), documentKey.toString());
 
 		if (key == null || "".equals(key)) {
 			throw new GumboProcessException("Error sending case to focal");
@@ -89,6 +89,7 @@ public class FishingLicenseToFocalHandler extends SetProcessDescriptionHandler
 		theCase.store();
 	}
 
+	
 	CaseBusiness getCaseBusiness() {
 		try {
 			return IBOLookup.getServiceInstance(

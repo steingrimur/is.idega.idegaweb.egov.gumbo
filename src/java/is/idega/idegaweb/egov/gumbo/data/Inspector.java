@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = Inspector.ENTITY_NAME)
 @NamedQueries({
-	@NamedQuery(name = "inspector.findAll", query = "select i from Inspector i order by name")
+	@NamedQuery(name = "inspector.findAll", query = "select i from Inspector i where active = 1 order by name")
 })
 public class Inspector implements Serializable {
 
@@ -25,6 +25,7 @@ public class Inspector implements Serializable {
 	private static final String COLUMN_INSPECTOR_ID = "inspector_id";
 	private static final String COLUMN_NUMBER = "inspector_number";
 	private static final String COLUMN_NAME = "name";
+	private static final String COLUMN_ACTIVE = "active";
 	
 	@Id
 	@Column(name = COLUMN_INSPECTOR_ID)
@@ -36,6 +37,9 @@ public class Inspector implements Serializable {
 	
 	@Column(name = COLUMN_NAME)
 	private String name;
+	
+	@Column(name = COLUMN_ACTIVE) 
+	private boolean active;
 
 	public Long getId() {
 		return id;
@@ -60,5 +64,13 @@ public class Inspector implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public boolean getActive() {
+		return active;
 	}
 }
