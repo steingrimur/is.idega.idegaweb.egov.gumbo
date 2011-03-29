@@ -1,1 +1,20 @@
-/* Empty css file */
+.smallerCells table div.input, .smallerCells table select.value, .smallerCells table div.output {
+    width: 50px !important;
+}
+
+.smallerCells table input.value {
+    width: 35px !important;
+}
+
+div.group table tr.repeat-header label.label {
+    width: 60px !important;
+}
+
+fieldset.group .trigger {
+    float: none !important;
+}
+
+.smallerCells span.mediatype-text-html {
+	
+	margin-left: 0;
+}
