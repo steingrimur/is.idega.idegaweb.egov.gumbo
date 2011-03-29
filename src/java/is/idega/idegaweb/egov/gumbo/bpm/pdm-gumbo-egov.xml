@@ -9,6 +9,6 @@
     
     <processBundle bundle="is.idega.idegaweb.egov.gumbo" processBundleLocationWithinBundle="resources/processes/violationReport/" autoload="true" version="33" />
     
-    <processBundle bundle="is.idega.idegaweb.egov.gumbo" processBundleLocationWithinBundle="resources/processes/aquaculture/" autoload="true" version="1" />
+    <processBundle bundle="is.idega.idegaweb.egov.gumbo" processBundleLocationWithinBundle="resources/processes/aquaculture/" autoload="true" version="2" />
 
 </processes>
