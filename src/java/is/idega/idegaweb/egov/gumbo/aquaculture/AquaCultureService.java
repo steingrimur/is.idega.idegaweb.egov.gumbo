@@ -37,14 +37,13 @@ public class AquaCultureService extends DefaultSpringBean {
 	
 	public List<Item> getSpeciesGroups() {
 		
-		final List<Item> items = new ArrayList<Item>();
+		final List<Item> items = new ArrayList<Item>(
+		        SpeciesGroups.values().length);
 		
-		items.add(new Item("fiskur", "Fiskur"));
-		items.add(new Item("seidi", "Seiði"));
-		items.add(new Item("hrogn", "Hrogn"));
-		items.add(new Item("lindyr", "Lindýr"));
-		items.add(new Item("krabbadyr", "Krabbadýr"));
-		items.add(new Item("fari", "Þari"));
+		for (SpeciesGroups gr : SpeciesGroups.values()) {
+			
+			items.add(new Item(gr.name(), gr.getLabel()));
+		}
 		
 		return items;
 	}
@@ -72,6 +71,81 @@ public class AquaCultureService extends DefaultSpringBean {
 		
 		public String getUnitId() {
 			return unitId;
+		}
+		
+		public String getUnitLabel() {
+			return unitLabel;
+		}
+	}
+	
+	private static enum SpeciesGroups {
+		
+		fiskur("Fiskur", UnitByQuantity.tonn, UnitByPrice.krkg), seidi("Seiði",
+		        UnitByQuantity.stk, UnitByPrice.krstk), hrogn("Hrogn",
+		        UnitByQuantity.ltr, UnitByPrice.krltr), lindyr("Lindýr",
+		        UnitByQuantity.tonn, UnitByPrice.krkg), krabbadyr("Krabbadýr",
+		        UnitByQuantity.tonn, UnitByPrice.krkg), fari("Þari",
+		        UnitByQuantity.tonn, UnitByPrice.krkg);
+		
+		private final String label;
+		private final UnitByQuantity unitByQuantity;
+		private final UnitByPrice unitByPrice;
+		
+		private SpeciesGroups(String label, UnitByQuantity unitByQuantity,
+		                      UnitByPrice unitByPrice) {
+			
+			this.label = label;
+			this.unitByQuantity = unitByQuantity;
+			this.unitByPrice = unitByPrice;
+		}
+		
+		public String getLabel() {
+			return label;
+		}
+		
+		public UnitByQuantity getQuantityUnit() {
+			return unitByQuantity;
+		}
+		
+		public UnitByPrice getPriceUnit() {
+			return unitByPrice;
+		}
+		
+	}
+	
+	private static enum UnitByPrice {
+		
+		krkg("Kr/kg"), krstk("Kr/stk"), krltr("Kr/ltr");
+		
+		private final String unitLabel;
+		
+		private UnitByPrice(String unitLabel) {
+			
+			this.unitLabel = unitLabel;
+		}
+		
+		public String getUnitId() {
+			return name();
+		}
+		
+		public String getUnitLabel() {
+			return unitLabel;
+		}
+	}
+	
+	private static enum UnitByQuantity {
+		
+		tonn("tonn"), stk("stk"), ltr("ltr.");
+		
+		private final String unitLabel;
+		
+		private UnitByQuantity(String unitLabel) {
+			
+			this.unitLabel = unitLabel;
+		}
+		
+		public String getUnitId() {
+			return name();
 		}
 		
 		public String getUnitLabel() {
@@ -172,14 +246,35 @@ public class AquaCultureService extends DefaultSpringBean {
 		        : Aquamethods.valueOf(aquamethodId).getUnitLabel();
 	}
 	
-	public String getQuantityUnitBySpeciesGroupId(String speciesGroupId) {
+	public String getQuantityUnitBySpeciesGroupIdForQuantity(
+	        String speciesGroupId) {
 		
-		return "unit_" + speciesGroupId;
+		return StringUtil.isEmpty(speciesGroupId) ? CoreConstants.EMPTY
+		        : SpeciesGroups.valueOf(speciesGroupId).getQuantityUnit()
+		                .getUnitId();
 	}
 	
-	public String getQuantityUnitOutputBySpeciesGroupId(String speciesGroupId) {
+	public String getQuantityUnitOutputBySpeciesGroupIdForQuantity(
+	        String speciesGroupId) {
 		
-		return "Quantity unit by " + speciesGroupId;
+		return StringUtil.isEmpty(speciesGroupId) ? CoreConstants.EMPTY
+		        : SpeciesGroups.valueOf(speciesGroupId).getQuantityUnit()
+		                .getUnitLabel();
+	}
+	
+	public String getQuantityUnitBySpeciesGroupIdForPrice(String speciesGroupId) {
+		
+		return StringUtil.isEmpty(speciesGroupId) ? CoreConstants.EMPTY
+		        : SpeciesGroups.valueOf(speciesGroupId).getPriceUnit()
+		                .getUnitId();
+	}
+	
+	public String getQuantityUnitOutputBySpeciesGroupIdForPrice(
+	        String speciesGroupId) {
+		
+		return StringUtil.isEmpty(speciesGroupId) ? CoreConstants.EMPTY
+		        : SpeciesGroups.valueOf(speciesGroupId).getPriceUnit()
+		                .getUnitLabel();
 	}
 	
 	public static final class AquaCultureCompanyData {
