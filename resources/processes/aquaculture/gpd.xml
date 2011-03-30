@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="Aquaculture" width="480" height="635">
+<root-container name="Aquaculture" width="965" height="964">
   <node name="aquacultureReport" x="195" y="37" width="164" height="34">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
     <edge>
       <label x="5" y="-10"/>
     </edge>
