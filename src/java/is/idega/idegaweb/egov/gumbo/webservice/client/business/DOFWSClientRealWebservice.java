@@ -71,22 +71,36 @@ import java.rmi.RemoteException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.ejb.FinderException;
 import javax.xml.rpc.ServiceException;
 
+import org.jbpm.context.exe.ContextInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import com.idega.block.process.business.CaseManagersProvider;
+import com.idega.block.process.business.CasesRetrievalManager;
+import com.idega.business.IBOLookupException;
 import com.idega.company.data.Company;
 import com.idega.core.business.DefaultSpringBean;
 import com.idega.idegaweb.IWMainApplication;
+import com.idega.idegaweb.egov.bpm.data.CaseProcInstBind;
+import com.idega.idegaweb.egov.bpm.data.dao.CasesBPMDAO;
+import com.idega.jbpm.bean.VariableInstanceInfo;
+import com.idega.jbpm.data.VariableInstanceQuerier;
+import com.idega.jbpm.exe.BPMFactory;
+import com.idega.jbpm.exe.ProcessInstanceW;
+import com.idega.user.business.UserBusiness;
 import com.idega.user.data.User;
 import com.idega.util.IWTimestamp;
+import com.idega.util.expression.ELUtil;
 import com.idega.util.text.Item;
 
 @Scope("singleton")
@@ -127,6 +141,18 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	@Autowired
 	private GumboBusiness gumboBusiness;
 
+	@Autowired
+	private CaseManagersProvider caseManagersProvider;
+	
+	@Autowired
+	private CasesBPMDAO casesBPMDAO;
+	
+	@Autowired
+	private BPMFactory bpmFactory;
+	
+	@Autowired
+	private VariableInstanceQuerier variablesQuerier;
+	
 	private FSWebServiceSKIP_PortType getShipPort() {
 		try {
 
@@ -191,23 +217,6 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 
 		return null;
 	}
-
-	/*
-	 * private FSWebServiceADILI_PortType getMemberPort() { try { String
-	 * endPoint = IWMainApplication .getDefaultIWApplicationContext()
-	 * .getApplicationSettings() .getProperty(MEMBER_ENDPOINT_ATTRIBUTE_NAME,
-	 * MEMBER_DEFAULT_ENDPOINT);
-	 * 
-	 * FSWebServiceADILI_ServiceLocator locator = new
-	 * FSWebServiceADILI_ServiceLocator(); FSWebServiceADILI_PortType port =
-	 * locator .getFSWebServiceADILISoap12HttpPort(new URL(endPoint));
-	 * 
-	 * // ((org.apache.axis.client.Stub) port).setTimeout(timeout)
-	 * 
-	 * return port; } catch (Exception e) { e.printStackTrace(); }
-	 * 
-	 * return null; }
-	 */
 
 	private FSWebServiceVEIDILEYFI_PortType getLicensePort() {
 		try {
@@ -1022,14 +1031,57 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 
 	@Override
 	public List<Item> getGrasleppaVesselsForUser(String companyPersonalID) {
+		//get all open cases for user
+		List<String> alreadyAppliedShips = new ArrayList<String>();
+		try {
+			User user = getUserBusiness().getUser(companyPersonalID);
+			//INPR,PEND,UBEH,OMPR,WFPA,WAIT
+			List<String> statusesToShow = new ArrayList<String>();
+			statusesToShow.add("INPR");
+			statusesToShow.add("PEND");
+			statusesToShow.add("UBEH");
+			statusesToShow.add("OMPR");
+			statusesToShow.add("WFPA");
+			statusesToShow.add("WAIT");
+
+			List<String> names = new ArrayList<String>();
+			names.add("string_vesselRegistryNr");
+
+			List<Integer> ids = getCaseManagersProvider().getCaseManager().getCaseIds(user, CasesRetrievalManager.CASE_LIST_TYPE_OPEN, null, null, statusesToShow, false);
+			List<CaseProcInstBind> binds = getCasesBPMDAO().getCasesProcInstBindsByCasesIds(ids);
+			for (CaseProcInstBind caseProcInstBind : binds) {
+				ProcessInstanceW inst = getBPMFactory().getProcessInstanceW(caseProcInstBind.getProcInstId());
+				if ("Grasleppa".equals(inst.getProcessDefinitionW().getProcessDefinition().getName())) {
+					List<Long> procIds = new ArrayList<Long>();
+					procIds.add(inst.getProcessInstanceId());
+					Collection<VariableInstanceInfo> info = getVariablesQuerier().getVariablesByProcessInstanceIdAndVariablesNames(procIds, names);
+					if (info != null) {
+						for (VariableInstanceInfo variableInstanceInfo : info) {
+							alreadyAppliedShips.add((String) variableInstanceInfo.getValue());
+						}
+					}
+				}
+			}
+		} catch (IBOLookupException e) {
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		} catch (FinderException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		List<Item> items = null;
 		BigDecimal shipNr[] = getGrasleppuShipNrByCompanySSN(companyPersonalID);
 		if (shipNr != null && shipNr.length > 0) {
 			items = new ArrayList<Item>(shipNr.length);
 			for (BigDecimal nr : shipNr) {
-				SkipInfoTypeUser vessel = getShipInfo(nr.toString());
-				items.add(new Item(vessel.getSkipNr().toString(), "(" + vessel.getSkipNr().toString() + ") " + vessel
-						.getNafn()));
+				if (!alreadyAppliedShips.contains(nr.toString())) {
+					SkipInfoTypeUser vessel = getShipInfo(nr.toString());
+					items.add(new Item(vessel.getSkipNr().toString(), "(" + vessel.getSkipNr().toString() + ") " + vessel
+							.getNafn()));
+				}
 			}
 		}
 		return items;
@@ -1050,5 +1102,37 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		}
 
 		return items;
+	}
+	
+	public CaseManagersProvider getCaseManagersProvider() {
+		if (caseManagersProvider == null) {
+			ELUtil.getInstance().autowire(this);
+		}
+		return caseManagersProvider;
+	}
+
+	public UserBusiness getUserBusiness() throws IBOLookupException {
+		return (UserBusiness) getServiceInstance(UserBusiness.class);
+	}
+	
+	private CasesBPMDAO getCasesBPMDAO() {
+		if (casesBPMDAO == null) {
+			ELUtil.getInstance().autowire(this);
+		}
+		return casesBPMDAO;
+	}
+
+	private BPMFactory getBPMFactory() {
+		if (bpmFactory == null) {
+			ELUtil.getInstance().autowire(this);
+		}
+		return bpmFactory;
+	}
+	
+	protected VariableInstanceQuerier getVariablesQuerier() {
+		if (variablesQuerier == null)
+			ELUtil.getInstance().autowire(this);
+		
+		return variablesQuerier;
 	}
 }

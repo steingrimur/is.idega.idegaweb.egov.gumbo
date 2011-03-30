@@ -67,8 +67,6 @@ public class FishingLicenseToFocalHandler extends SetProcessDescriptionHandler
 		String processDefinitionName = context.getProcessDefinition().getName();
 		String subType = (String) context
 				.getVariable("string_typeOfFishingLicense");
-		//System.out.println("processDefinition name = " + processDefinitionName);
-		//System.out.println("subType = " + subType);
 
 		ProcessFocalCode focalCode = (subType == null) ? getGumboDAO()
 				.getProcessFocalCode(processDefinitionName) : getGumboDAO()
