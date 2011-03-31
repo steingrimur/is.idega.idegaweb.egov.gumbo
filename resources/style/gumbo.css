@@ -1,20 +1,38 @@
 .smallerCells table div.input, .smallerCells table select.value, .smallerCells table div.output {
-    width: 50px !important;
+	width: 75px !important;
 }
 
 .smallerCells table input.value {
-    width: 35px !important;
+	width: 75px !important;
 }
 
 div.group table tr.repeat-header label.label {
-    width: 60px !important;
-}
-
-fieldset.group .trigger {
-    float: none !important;
+	width: 75px !important;
 }
 
 .smallerCells span.mediatype-text-html {
-	
 	margin-left: 0;
+}
+
+table td {
+	vertical-align: top;
+	padding: 3px 8px;
+}
+
+table tr.repeat-header td {
+	vertical-align: bottom;
+}
+
+div.group table td input, td select, td textarea, td label {
+	margin: 0 !important;
+	margin-right: 0 !important;
+}
+
+table tr.repeat-header label span {
+	margin: 0 !important;
+}
+
+table div.textarea textarea {
+	width: 200px !important;
+	height: 50px !important;
 }
