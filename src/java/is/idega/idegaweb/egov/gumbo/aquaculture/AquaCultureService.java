@@ -1,14 +1,21 @@
 package is.idega.idegaweb.egov.gumbo.aquaculture;
 
+import is.idega.idegaweb.egov.gumbo.business.GumboBusiness;
+import is.idega.idegaweb.egov.gumbo.dao.GumboDao;
+import is.idega.idegaweb.egov.gumbo.data.FishFarm;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import com.idega.company.data.Company;
 import com.idega.core.business.DefaultSpringBean;
 import com.idega.util.CoreConstants;
+import com.idega.util.IWTimestamp;
 import com.idega.util.StringUtil;
 import com.idega.util.text.Item;
 
@@ -16,21 +23,43 @@ import com.idega.util.text.Item;
 @Scope(BeanDefinition.SCOPE_SINGLETON)
 public class AquaCultureService extends DefaultSpringBean {
 	
+	@Autowired
+	private GumboBusiness gumboBusiness;
+	
+	@Autowired
+	private GumboDao dao;
+
 	public AquaCultureCompanyData getCompanyForCurrentUser() {
+		Company comp = getGumboBusiness().getCompanyForUser(getCurrentUser());
+		if (comp != null) {
+			AquaCultureCompanyData ret = new AquaCultureCompanyData(comp.getPersonalID());
+			ret.setName(comp.getName());
+			if (comp.getAddress() != null) {
+				ret.setAddress(comp.getAddress().getStreetAddress());
+			}
+			
+			return ret;
+		} 
+		
 		return new AquaCultureCompanyData("4252345234").setName("company name")
 		        .setAddress("company address");
 	}
 	
 	public String getReportForTheYear() {
-		return "2011";
+		IWTimestamp now = new IWTimestamp();
+		return now.getDateString("yyyy");
 	}
 	
 	public List<Item> getFarms() {
-		
 		final List<Item> items = new ArrayList<Item>();
 		
-		items.add(new Item("id1", "farm 1"));
-		items.add(new Item("id2", "farm 2"));
+		Company comp = getGumboBusiness().getCompanyForUser(getCurrentUser());
+		if (comp != null) {
+			List<FishFarm> fishFarms = getDao().getFishFarms(comp.getPersonalID());
+			for (FishFarm fishFarm : fishFarms) {
+				items.add(new Item(fishFarm.getId().toString(), fishFarm.getName()));
+			}
+		}
 		
 		return items;
 	}
@@ -309,5 +338,13 @@ public class AquaCultureService extends DefaultSpringBean {
 		public String getSocialSecurityNr() {
 			return socialSecurityNr;
 		}
+	}
+	
+	private GumboBusiness getGumboBusiness() {
+		return gumboBusiness;
+	}
+	
+	private GumboDao getDao() {
+		return dao;
 	}
 }

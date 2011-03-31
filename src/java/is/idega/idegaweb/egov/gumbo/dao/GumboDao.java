@@ -1,6 +1,7 @@
 package is.idega.idegaweb.egov.gumbo.dao;
 
 import is.idega.idegaweb.egov.gumbo.LetterType;
+import is.idega.idegaweb.egov.gumbo.data.FishFarm;
 import is.idega.idegaweb.egov.gumbo.data.FishingGear;
 import is.idega.idegaweb.egov.gumbo.data.Inspector;
 import is.idega.idegaweb.egov.gumbo.data.Letter;
@@ -68,4 +69,7 @@ public interface GumboDao extends GenericDao {
 	public ProcessFocalCode getProcessFocalCode(String processName,
 			String subName);
 
+	public List<FishFarm> getFishFarms(String companyPersonalID);
+
+	public FishFarm updateFishFarm(FishFarm farm, boolean hasFiledReport);
 }

@@ -87,6 +87,11 @@
             <variable name="objlist_expectedQuantityProduced" access="read,write" ></variable>
          </controller>
       </task>
+      <event type="node-leave">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+       		      <handlerName>fishFarmReportFiledHandler</handlerName>
+          	</action>
+      </event>
 		<transition to="doNothing"></transition>
    </start-state>
    <event type="handlerAssignedToCase">

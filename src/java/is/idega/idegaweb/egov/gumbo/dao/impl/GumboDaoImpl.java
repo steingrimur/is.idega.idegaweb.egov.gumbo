@@ -2,6 +2,7 @@ package is.idega.idegaweb.egov.gumbo.dao.impl;
 
 import is.idega.idegaweb.egov.gumbo.LetterType;
 import is.idega.idegaweb.egov.gumbo.dao.GumboDao;
+import is.idega.idegaweb.egov.gumbo.data.FishFarm;
 import is.idega.idegaweb.egov.gumbo.data.FishingGear;
 import is.idega.idegaweb.egov.gumbo.data.Inspector;
 import is.idega.idegaweb.egov.gumbo.data.Letter;
@@ -189,4 +190,20 @@ public class GumboDaoImpl extends GenericDaoImpl implements GumboDao {
 		return getSingleResult("processFocalCode.findAllByProcessNameAndSubName",
 				ProcessFocalCode.class, param1, param2);
 	}	
+	
+	public List<FishFarm> getFishFarms(String companyPersonalID) {
+		Param param = new Param("companyID", companyPersonalID);
+		return getResultList("fishFarm.findAllByCompany",
+				FishFarm.class, param);		
+	}
+
+	@Transactional(readOnly = false)
+	public FishFarm updateFishFarm(FishFarm farm, boolean hasFiledReport) {
+		farm = find(FishFarm.class, farm.getId());
+		farm.setHasFiledReport(hasFiledReport);
+
+		getEntityManager().persist(farm);
+
+		return farm;		
+	}
 }
