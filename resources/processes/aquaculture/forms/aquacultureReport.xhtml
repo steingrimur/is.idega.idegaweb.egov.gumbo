@@ -69,8 +69,6 @@
                                 <speciesGroupOutput/>
                                 <species/>
                                 <speciesOutput/>
-                                <quantity xsi:type="xsd:float" xsi:nil="true"/>
-                                <quantityOutput/>
                                 <weight xsi:type="xsd:float" xsi:nil="true"/>
                                 <weightOutput/>
                                 <kg xsi:type="xsd:float" xsi:nil="true"/>
@@ -81,8 +79,6 @@
                                 <speciesGroupOutput/>
                                 <species/>
                                 <speciesOutput/>
-                                <quantity xsi:type="xsd:float" xsi:nil="true"/>
-                                <quantityOutput/>
                                 <weight xsi:type="xsd:float" xsi:nil="true"/>
                                 <weightOutput/>
                                 <kg xsi:type="xsd:float" xsi:nil="true"/>
@@ -305,9 +301,6 @@
                     
                 <xf:bind id="speciesBind_fbc_26"
                     nodeset="./species" />
-                    
-                <xf:bind id="quantityBind_fbc_26"
-                    nodeset="./quantity" />
                     
                 <xf:bind id="weightBind"
                     nodeset="./weight" />
@@ -1043,19 +1036,6 @@
                                     
                                 </xf:input>
                                 
-                                <xf:input bind="quantityBind_fbc_26" id="fbc_26_repeat_id_input_quantity">
-                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_26-col-quantity-label[@lang=instance('localized_strings')/current_language]"/>
-                                    
-                                    <xf:dispatch ev:event="xforms-value-changed"
-                                        name="idega-validate" target="fbc_26_repeat_id_input_quantity"/>
-                                    
-                                    <xf:setvalue
-                                            ev:event="xforms-value-changed"
-                                            ref="instance('data-instance')/fishedForOnGrowing/list/row[index('fbc_26_repeat_id')]/quantityOutput" 
-                                            value="instance('data-instance')/fishedForOnGrowing/list/row[index('fbc_26_repeat_id')]/quantity"/>
-                                            
-                                </xf:input>
-                                
                                 <xf:input bind="weightBind" id="fbc_26_repeat_id_input_weight">
                                     <xf:label model="data_model" ref="instance('localized_strings')/fbc_26-col-weight-label[@lang=instance('localized_strings')/current_language]"/>
                                     
@@ -1718,10 +1698,6 @@
                                 <xf:output id="fbc_32"
                                     ref="./speciesOutput" type="fbc_text_output">
                                     <xf:label model="data_model" ref="instance('localized_strings')/fbc_26-col-species-label[@lang=instance('localized_strings')/current_language]"/>
-                                </xf:output>
-                                <xf:output id="fbc_33"
-                                    ref="./quantityOutput" type="fbc_text_output">
-                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_26-col-quantity-label[@lang=instance('localized_strings')/current_language]"/>
                                 </xf:output>
                                 <xf:output id="fbc_34"
                                     ref="./weightOutput" type="fbc_text_output">
