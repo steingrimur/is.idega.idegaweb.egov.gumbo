@@ -22,8 +22,8 @@ public class FishFarm {
 	private static final String COLUMN_PERMIT_NUBMER = "permit_number";
 	private static final String COLUMN_NAME = "name";
 	private static final String COLUMN_HAS_FILED_REPORT = "has_filed_report";
-	private static final String COLUMN_ACTIVE = "active";
-	private static final String COLUMN_ADDRESS = "address";
+	private static final String COLUMN_ACTIVE = "is_active";
+	private static final String COLUMN_ADDRESS = "company_address";
 	
 	@Id
 	@Column(name = COLUMN_FISH_FARM_ID)
