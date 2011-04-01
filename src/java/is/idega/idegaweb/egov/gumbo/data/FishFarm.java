@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = FishFarm.ENTITY_NAME)
 @NamedQueries({
-	@NamedQuery(name = "fishFarm.findAllByCompany", query = "select f from FishFarm f where f.companyID = :companyID and (f.hasFiledReport is null or f.hasFiledReport = false)")
+	@NamedQuery(name = "fishFarm.findAllByCompany", query = "select f from FishFarm f where f.companyID = :companyID and (f.hasFiledReport is null or f.hasFiledReport = false) and f.active = true")
 })
 public class FishFarm {
 	public static final String ENTITY_NAME = "gumbo_fish_farm";
@@ -22,6 +22,8 @@ public class FishFarm {
 	private static final String COLUMN_PERMIT_NUBMER = "permit_number";
 	private static final String COLUMN_NAME = "name";
 	private static final String COLUMN_HAS_FILED_REPORT = "has_filed_report";
+	private static final String COLUMN_ACTIVE = "has_filed_report";
+	private static final String COLUMN_ADDRESS = "has_filed_report";
 	
 	@Id
 	@Column(name = COLUMN_FISH_FARM_ID)
@@ -39,6 +41,12 @@ public class FishFarm {
 
 	@Column(name = COLUMN_HAS_FILED_REPORT)
 	private boolean hasFiledReport;
+
+	@Column(name = COLUMN_ACTIVE)
+	private boolean active;
+	
+	@Column(name = COLUMN_ADDRESS)
+	private String address;
 
 	public Long getId() {
 		return id;
@@ -79,5 +87,22 @@ public class FishFarm {
 
 	public void setHasFiledReport(boolean hasFiledReport) {
 		this.hasFiledReport = hasFiledReport;
-	}	
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 }

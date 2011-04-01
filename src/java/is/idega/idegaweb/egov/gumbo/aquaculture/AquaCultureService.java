@@ -67,8 +67,7 @@ public class AquaCultureService extends DefaultSpringBean {
 			List<FishFarm> fishFarms = getDao().getFishFarms(
 			    comp.getPersonalID());
 			for (FishFarm fishFarm : fishFarms) {
-				items.add(new Item(fishFarm.getId().toString(), fishFarm
-				        .getName()));
+				items.add(new Item(fishFarm.getId().toString(), fishFarm.getName() + " (" + fishFarm.getAddress() + ")"));
 			}
 		}
 		
