@@ -28,18 +28,19 @@ public class AquaCultureService extends DefaultSpringBean {
 	
 	@Autowired
 	private GumboDao dao;
-
+	
 	public AquaCultureCompanyData getCompanyForCurrentUser() {
 		Company comp = getGumboBusiness().getCompanyForUser(getCurrentUser());
 		if (comp != null) {
-			AquaCultureCompanyData ret = new AquaCultureCompanyData(comp.getPersonalID());
+			AquaCultureCompanyData ret = new AquaCultureCompanyData(
+			        comp.getPersonalID());
 			ret.setName(comp.getName());
 			if (comp.getAddress() != null) {
 				ret.setAddress(comp.getAddress().getStreetAddress());
 			}
 			
 			return ret;
-		} 
+		}
 		
 		return new AquaCultureCompanyData("4252345234").setName("company name")
 		        .setAddress("company address");
@@ -53,11 +54,21 @@ public class AquaCultureService extends DefaultSpringBean {
 	public List<Item> getFarms() {
 		final List<Item> items = new ArrayList<Item>();
 		
+		// if(true) {
+		//
+		// items.add(new Item("x1", "farm1"));
+		// items.add(new Item("x2", "farm2"));
+		//
+		// return items;
+		// }
+		
 		Company comp = getGumboBusiness().getCompanyForUser(getCurrentUser());
 		if (comp != null) {
-			List<FishFarm> fishFarms = getDao().getFishFarms(comp.getPersonalID());
+			List<FishFarm> fishFarms = getDao().getFishFarms(
+			    comp.getPersonalID());
 			for (FishFarm fishFarm : fishFarms) {
-				items.add(new Item(fishFarm.getId().toString(), fishFarm.getName()));
+				items.add(new Item(fishFarm.getId().toString(), fishFarm
+				        .getName()));
 			}
 		}
 		
