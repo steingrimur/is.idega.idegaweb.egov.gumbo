@@ -1,4 +1,4 @@
-.smallerCells table div.input, .smallerCells table select.value, .smallerCells table div.output {
+.smallerCells table div.input, .smallerCells table select.value {
 	width: 75px !important;
 }
 
@@ -6,8 +6,13 @@
 	width: 75px !important;
 }
 
+table div.output {
+	width: auto !important;
+}
+
+
 div.group table tr.repeat-header label.label {
-	width: 75px !important;
+	width: auto !important;
 }
 
 .smallerCells span.mediatype-text-html {
@@ -16,7 +21,7 @@ div.group table tr.repeat-header label.label {
 
 table td {
 	vertical-align: top;
-	padding: 3px 8px;
+	padding: 3px 7px;
 }
 
 table tr.repeat-header td {
@@ -33,6 +38,14 @@ table tr.repeat-header label span {
 }
 
 table div.textarea textarea {
-	width: 200px !important;
-	height: 50px !important;
+	width: 290px !important;
+}
+
+div.slideContent {
+	width: 732px;
+	overflow: auto;
+}
+
+.group {
+	width: 732px;
 }

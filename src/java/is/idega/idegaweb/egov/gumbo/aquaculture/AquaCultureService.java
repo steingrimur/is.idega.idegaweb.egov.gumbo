@@ -119,12 +119,12 @@ public class AquaCultureService extends DefaultSpringBean {
 	
 	private static enum SpeciesGroups {
 		
-		fiskur("Fiskur", UnitByQuantity.tonn, UnitByPrice.krkg), seidi("Seiði",
+		fiskur("Fiskur", UnitByQuantity.kg, UnitByPrice.krkg), seidi("Seiði",
 		        UnitByQuantity.stk, UnitByPrice.krstk), hrogn("Hrogn",
 		        UnitByQuantity.ltr, UnitByPrice.krltr), lindyr("Lindýr",
-		        UnitByQuantity.tonn, UnitByPrice.krkg), krabbadyr("Krabbadýr",
-		        UnitByQuantity.tonn, UnitByPrice.krkg), fari("Þari",
-		        UnitByQuantity.tonn, UnitByPrice.krkg);
+		        UnitByQuantity.kg, UnitByPrice.krkg), krabbadyr("Krabbadýr",
+		        UnitByQuantity.kg, UnitByPrice.krkg), fari("Þari",
+		        UnitByQuantity.kg, UnitByPrice.krkg);
 		
 		private final String label;
 		private final UnitByQuantity unitByQuantity;
@@ -154,7 +154,7 @@ public class AquaCultureService extends DefaultSpringBean {
 	
 	private static enum UnitByPrice {
 		
-		krkg("Kr/kg"), krstk("Kr/stk"), krltr("Kr/ltr");
+		krkg("kr/kg"), krstk("kr/stk"), krltr("kr/ltr");
 		
 		private final String unitLabel;
 		
@@ -174,7 +174,7 @@ public class AquaCultureService extends DefaultSpringBean {
 	
 	private static enum UnitByQuantity {
 		
-		tonn("tonn"), stk("stk"), ltr("ltr.");
+		tonn("tonn"), stk("stk"), ltr("ltr."), kg("kg");
 		
 		private final String unitLabel;
 		
