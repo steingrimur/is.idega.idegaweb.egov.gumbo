@@ -1,47 +1,47 @@
 /**
- * VirkjaveidileyfiElement.java
+ * GetertilovirktgrasleppulResponseElement.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types;
+package is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl;
 
-public class VirkjaveidileyfiElement  implements java.io.Serializable {
-    private java.math.BigDecimal pVeidileyfiId;
+public class GetertilovirktgrasleppulResponseElement  implements java.io.Serializable {
+    private is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.CheckReplyTypeUser result;
 
-    public VirkjaveidileyfiElement() {
+    public GetertilovirktgrasleppulResponseElement() {
     }
 
-    public VirkjaveidileyfiElement(
-           java.math.BigDecimal pVeidileyfiId) {
-           this.pVeidileyfiId = pVeidileyfiId;
-    }
-
-
-    /**
-     * Gets the pVeidileyfiId value for this VirkjaveidileyfiElement.
-     * 
-     * @return pVeidileyfiId
-     */
-    public java.math.BigDecimal getPVeidileyfiId() {
-        return pVeidileyfiId;
+    public GetertilovirktgrasleppulResponseElement(
+           is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.CheckReplyTypeUser result) {
+           this.result = result;
     }
 
 
     /**
-     * Sets the pVeidileyfiId value for this VirkjaveidileyfiElement.
+     * Gets the result value for this GetertilovirktgrasleppulResponseElement.
      * 
-     * @param pVeidileyfiId
+     * @return result
      */
-    public void setPVeidileyfiId(java.math.BigDecimal pVeidileyfiId) {
-        this.pVeidileyfiId = pVeidileyfiId;
+    public is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.CheckReplyTypeUser getResult() {
+        return result;
+    }
+
+
+    /**
+     * Sets the result value for this GetertilovirktgrasleppulResponseElement.
+     * 
+     * @param result
+     */
+    public void setResult(is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.CheckReplyTypeUser result) {
+        this.result = result;
     }
 
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
-        if (!(obj instanceof VirkjaveidileyfiElement)) return false;
-        VirkjaveidileyfiElement other = (VirkjaveidileyfiElement) obj;
+        if (!(obj instanceof GetertilovirktgrasleppulResponseElement)) return false;
+        GetertilovirktgrasleppulResponseElement other = (GetertilovirktgrasleppulResponseElement) obj;
         if (obj == null) return false;
         if (this == obj) return true;
         if (__equalsCalc != null) {
@@ -50,9 +50,9 @@ public class VirkjaveidileyfiElement  implements java.io.Serializable {
         __equalsCalc = obj;
         boolean _equals;
         _equals = true && 
-            ((this.pVeidileyfiId==null && other.getPVeidileyfiId()==null) || 
-             (this.pVeidileyfiId!=null &&
-              this.pVeidileyfiId.equals(other.getPVeidileyfiId())));
+            ((this.result==null && other.getResult()==null) || 
+             (this.result!=null &&
+              this.result.equals(other.getResult())));
         __equalsCalc = null;
         return _equals;
     }
@@ -64,8 +64,8 @@ public class VirkjaveidileyfiElement  implements java.io.Serializable {
         }
         __hashCodeCalc = true;
         int _hashCode = 1;
-        if (getPVeidileyfiId() != null) {
-            _hashCode += getPVeidileyfiId().hashCode();
+        if (getResult() != null) {
+            _hashCode += getResult().hashCode();
         }
         __hashCodeCalc = false;
         return _hashCode;
@@ -73,14 +73,14 @@ public class VirkjaveidileyfiElement  implements java.io.Serializable {
 
     // Type metadata
     private static org.apache.axis.description.TypeDesc typeDesc =
-        new org.apache.axis.description.TypeDesc(VirkjaveidileyfiElement.class, true);
+        new org.apache.axis.description.TypeDesc(GetertilovirktgrasleppulResponseElement.class, true);
 
     static {
-        typeDesc.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", ">virkjaveidileyfiElement"));
+        typeDesc.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", ">getertilovirktgrasleppulResponseElement"));
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("PVeidileyfiId");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", "pVeidileyfiId"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "decimal"));
+        elemField.setFieldName("result");
+        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "result"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "CheckReplyTypeUser"));
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
     }

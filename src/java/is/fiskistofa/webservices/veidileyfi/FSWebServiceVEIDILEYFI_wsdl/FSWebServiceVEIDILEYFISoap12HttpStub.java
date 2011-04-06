@@ -16,7 +16,7 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
     static org.apache.axis.description.OperationDesc [] _operations;
 
     static {
-        _operations = new org.apache.axis.description.OperationDesc[22];
+        _operations = new org.apache.axis.description.OperationDesc[24];
         _initOperationDesc1();
         _initOperationDesc2();
         _initOperationDesc3();
@@ -92,6 +92,28 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
         _operations[5] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("getertilovirktgrasleppul");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "getertilovirktgrasleppulElement"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", ">getertilovirktgrasleppulElement"), is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetertilovirktgrasleppulElement.class, false, false);
+        oper.addParameter(param);
+        oper.setReturnType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", ">getertilovirktgrasleppulResponseElement"));
+        oper.setReturnClass(is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetertilovirktgrasleppulResponseElement.class);
+        oper.setReturnQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "getertilovirktgrasleppulResponseElement"));
+        oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
+        oper.setUse(org.apache.axis.constants.Use.LITERAL);
+        _operations[6] = oper;
+
+        oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("getertilovirktstrandvl");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "getertilovirktstrandvlElement"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", ">getertilovirktstrandvlElement"), is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetertilovirktstrandvlElement.class, false, false);
+        oper.addParameter(param);
+        oper.setReturnType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", ">getertilovirktstrandvlResponseElement"));
+        oper.setReturnClass(is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetertilovirktstrandvlResponseElement.class);
+        oper.setReturnQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "getertilovirktstrandvlResponseElement"));
+        oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
+        oper.setUse(org.apache.axis.constants.Use.LITERAL);
+        _operations[7] = oper;
+
+        oper = new org.apache.axis.description.OperationDesc();
         oper.setName("getgrasleppuskipnrutgerdar");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "getgrasleppuskipnrutgerdarElement"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", ">getgrasleppuskipnrutgerdarElement"), is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetgrasleppuskipnrutgerdarElement.class, false, false);
         oper.addParameter(param);
@@ -102,7 +124,7 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
         param.setItemQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "result"));
         oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[6] = oper;
+        _operations[8] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("gethefuraflamarksveidil");
@@ -113,8 +135,13 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
         oper.setReturnQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "gethefuraflamarksveidilResponseElement"));
         oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[7] = oper;
+        _operations[9] = oper;
 
+    }
+
+    private static void _initOperationDesc2(){
+        org.apache.axis.description.OperationDesc oper;
+        org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("gethefurkrokaaflamarksveidil");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "gethefurkrokaaflamarksveidilElement"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", ">gethefurkrokaaflamarksveidilElement"), is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurkrokaaflamarksveidilElement.class, false, false);
@@ -124,7 +151,7 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
         oper.setReturnQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "gethefurkrokaaflamarksveidilResponseElement"));
         oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[8] = oper;
+        _operations[10] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("gethefurstrandveidileyfi");
@@ -135,13 +162,8 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
         oper.setReturnQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "gethefurstrandveidileyfiResponseElement"));
         oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[9] = oper;
+        _operations[11] = oper;
 
-    }
-
-    private static void _initOperationDesc2(){
-        org.apache.axis.description.OperationDesc oper;
-        org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("gethefurutgerdgrasleppuvlbykt");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "gethefurutgerdgrasleppuvlbyktElement"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", ">gethefurutgerdgrasleppuvlbyktElement"), is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurutgerdgrasleppuvlbyktElement.class, false, false);
@@ -151,7 +173,7 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
         oper.setReturnQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "gethefurutgerdgrasleppuvlbyktResponseElement"));
         oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[10] = oper;
+        _operations[12] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("gethefurutgerdstrandvlbykt");
@@ -162,7 +184,7 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
         oper.setReturnQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "gethefurutgerdstrandvlbyktResponseElement"));
         oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[11] = oper;
+        _operations[13] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("gethefurutgerdstrandvlbyskip");
@@ -173,7 +195,7 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
         oper.setReturnQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "gethefurutgerdstrandvlbyskipResponseElement"));
         oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[12] = oper;
+        _operations[14] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("gethefurveidileyfi");
@@ -184,7 +206,7 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
         oper.setReturnQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "gethefurveidileyfiResponseElement"));
         oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[13] = oper;
+        _operations[15] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("getskipforstrandvlforutgerd");
@@ -197,7 +219,7 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
         param.setItemQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "result"));
         oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[14] = oper;
+        _operations[16] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("getstrandvlcodeforpostnr");
@@ -208,7 +230,7 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
         oper.setReturnQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "getstrandvlcodeforpostnrResponseElement"));
         oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[15] = oper;
+        _operations[17] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("getstrandvlcodeforskip");
@@ -219,7 +241,7 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
         oper.setReturnQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "getstrandvlcodeforskipResponseElement"));
         oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[16] = oper;
+        _operations[18] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("getstrandvlcodeforutgerd");
@@ -230,8 +252,13 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
         oper.setReturnQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "getstrandvlcodeforutgerdResponseElement"));
         oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[17] = oper;
+        _operations[19] = oper;
 
+    }
+
+    private static void _initOperationDesc3(){
+        org.apache.axis.description.OperationDesc oper;
+        org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("getveidileyfagerd");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "getveidileyfagerdElement"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", ">getveidileyfagerdElement"), is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetveidileyfagerdElement.class, false, false);
@@ -243,7 +270,7 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
         param.setItemQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "result"));
         oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[18] = oper;
+        _operations[20] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("getveidileyfagerdbyid");
@@ -254,13 +281,8 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
         oper.setReturnQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "getveidileyfagerdbyidResponseElement"));
         oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[19] = oper;
+        _operations[21] = oper;
 
-    }
-
-    private static void _initOperationDesc3(){
-        org.apache.axis.description.OperationDesc oper;
-        org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("getveidileyfibyid");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "getveidileyfibyidElement"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", ">getveidileyfibyidElement"), is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetveidileyfibyidElement.class, false, false);
@@ -270,7 +292,7 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
         oper.setReturnQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "getveidileyfibyidResponseElement"));
         oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[20] = oper;
+        _operations[22] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("getveidileyfibyskip");
@@ -283,7 +305,7 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
         param.setItemQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "result"));
         oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[21] = oper;
+        _operations[23] = oper;
 
     }
 
@@ -396,6 +418,34 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
             qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", ">getersviptingResponseElement");
             cachedSerQNames.add(qName);
             cls = is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetersviptingResponseElement.class;
+            cachedSerClasses.add(cls);
+            cachedSerFactories.add(beansf);
+            cachedDeserFactories.add(beandf);
+
+            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", ">getertilovirktgrasleppulElement");
+            cachedSerQNames.add(qName);
+            cls = is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetertilovirktgrasleppulElement.class;
+            cachedSerClasses.add(cls);
+            cachedSerFactories.add(beansf);
+            cachedDeserFactories.add(beandf);
+
+            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", ">getertilovirktgrasleppulResponseElement");
+            cachedSerQNames.add(qName);
+            cls = is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetertilovirktgrasleppulResponseElement.class;
+            cachedSerClasses.add(cls);
+            cachedSerFactories.add(beansf);
+            cachedDeserFactories.add(beandf);
+
+            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", ">getertilovirktstrandvlElement");
+            cachedSerQNames.add(qName);
+            cls = is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetertilovirktstrandvlElement.class;
+            cachedSerClasses.add(cls);
+            cachedSerFactories.add(beansf);
+            cachedDeserFactories.add(beandf);
+
+            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", ">getertilovirktstrandvlResponseElement");
+            cachedSerQNames.add(qName);
+            cls = is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetertilovirktstrandvlResponseElement.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
@@ -958,12 +1008,80 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
 }
     }
 
-    public java.math.BigDecimal[] getgrasleppuskipnrutgerdar(is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetgrasleppuskipnrutgerdarElement parameters) throws java.rmi.RemoteException {
+    public is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetertilovirktgrasleppulResponseElement getertilovirktgrasleppul(is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetertilovirktgrasleppulElement parameters) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
         _call.setOperation(_operations[6]);
+        _call.setUseSOAPAction(true);
+        _call.setSOAPActionURI("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/getertilovirktgrasleppul");
+        _call.setEncodingStyle(null);
+        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP12_CONSTANTS);
+        _call.setOperationName(new javax.xml.namespace.QName("", "getertilovirktgrasleppul"));
+
+        setRequestHeaders(_call);
+        setAttachments(_call);
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {parameters});
+
+        if (_resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)_resp;
+        }
+        else {
+            extractAttachments(_call);
+            try {
+                return (is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetertilovirktgrasleppulResponseElement) _resp;
+            } catch (java.lang.Exception _exception) {
+                return (is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetertilovirktgrasleppulResponseElement) org.apache.axis.utils.JavaUtils.convert(_resp, is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetertilovirktgrasleppulResponseElement.class);
+            }
+        }
+  } catch (org.apache.axis.AxisFault axisFaultException) {
+  throw axisFaultException;
+}
+    }
+
+    public is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetertilovirktstrandvlResponseElement getertilovirktstrandvl(is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetertilovirktstrandvlElement parameters) throws java.rmi.RemoteException {
+        if (super.cachedEndpoint == null) {
+            throw new org.apache.axis.NoEndPointException();
+        }
+        org.apache.axis.client.Call _call = createCall();
+        _call.setOperation(_operations[7]);
+        _call.setUseSOAPAction(true);
+        _call.setSOAPActionURI("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/getertilovirktstrandvl");
+        _call.setEncodingStyle(null);
+        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP12_CONSTANTS);
+        _call.setOperationName(new javax.xml.namespace.QName("", "getertilovirktstrandvl"));
+
+        setRequestHeaders(_call);
+        setAttachments(_call);
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {parameters});
+
+        if (_resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)_resp;
+        }
+        else {
+            extractAttachments(_call);
+            try {
+                return (is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetertilovirktstrandvlResponseElement) _resp;
+            } catch (java.lang.Exception _exception) {
+                return (is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetertilovirktstrandvlResponseElement) org.apache.axis.utils.JavaUtils.convert(_resp, is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetertilovirktstrandvlResponseElement.class);
+            }
+        }
+  } catch (org.apache.axis.AxisFault axisFaultException) {
+  throw axisFaultException;
+}
+    }
+
+    public java.math.BigDecimal[] getgrasleppuskipnrutgerdar(is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetgrasleppuskipnrutgerdarElement parameters) throws java.rmi.RemoteException {
+        if (super.cachedEndpoint == null) {
+            throw new org.apache.axis.NoEndPointException();
+        }
+        org.apache.axis.client.Call _call = createCall();
+        _call.setOperation(_operations[8]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/getgrasleppuskipnrutgerdar");
         _call.setEncodingStyle(null);
@@ -997,7 +1115,7 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[7]);
+        _call.setOperation(_operations[9]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/gethefuraflamarksveidil");
         _call.setEncodingStyle(null);
@@ -1031,7 +1149,7 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[8]);
+        _call.setOperation(_operations[10]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/gethefurkrokaaflamarksveidil");
         _call.setEncodingStyle(null);
@@ -1065,7 +1183,7 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[9]);
+        _call.setOperation(_operations[11]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/gethefurstrandveidileyfi");
         _call.setEncodingStyle(null);
@@ -1099,7 +1217,7 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[10]);
+        _call.setOperation(_operations[12]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/gethefurutgerdgrasleppuvlbykt");
         _call.setEncodingStyle(null);
@@ -1133,7 +1251,7 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[11]);
+        _call.setOperation(_operations[13]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/gethefurutgerdstrandvlbykt");
         _call.setEncodingStyle(null);
@@ -1167,7 +1285,7 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[12]);
+        _call.setOperation(_operations[14]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/gethefurutgerdstrandvlbyskip");
         _call.setEncodingStyle(null);
@@ -1201,7 +1319,7 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[13]);
+        _call.setOperation(_operations[15]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/gethefurveidileyfi");
         _call.setEncodingStyle(null);
@@ -1235,7 +1353,7 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[14]);
+        _call.setOperation(_operations[16]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/getskipforstrandvlforutgerd");
         _call.setEncodingStyle(null);
@@ -1269,7 +1387,7 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[15]);
+        _call.setOperation(_operations[17]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/getstrandvlcodeforpostnr");
         _call.setEncodingStyle(null);
@@ -1303,7 +1421,7 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[16]);
+        _call.setOperation(_operations[18]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/getstrandvlcodeforskip");
         _call.setEncodingStyle(null);
@@ -1337,7 +1455,7 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[17]);
+        _call.setOperation(_operations[19]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/getstrandvlcodeforutgerd");
         _call.setEncodingStyle(null);
@@ -1371,7 +1489,7 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[18]);
+        _call.setOperation(_operations[20]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/getveidileyfagerd");
         _call.setEncodingStyle(null);
@@ -1405,7 +1523,7 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[19]);
+        _call.setOperation(_operations[21]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/getveidileyfagerdbyid");
         _call.setEncodingStyle(null);
@@ -1439,7 +1557,7 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[20]);
+        _call.setOperation(_operations[22]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/getveidileyfibyid");
         _call.setEncodingStyle(null);
@@ -1473,7 +1591,7 @@ public class FSWebServiceVEIDILEYFISoap12HttpStub extends org.apache.axis.client
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[21]);
+        _call.setOperation(_operations[23]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl/getveidileyfibyskip");
         _call.setEncodingStyle(null);

@@ -24,6 +24,8 @@ public class SkipExtrainfoTypeUser  extends is.fiskistofa.webservices.brotamal.F
 
     private java.lang.String eigandiKt;
 
+    private java.util.Calendar haffaeriGildirTil;
+
     private java.lang.String nafn;
 
     private is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.CheckReplyTypeUser ersvipting;
@@ -48,6 +50,7 @@ public class SkipExtrainfoTypeUser  extends is.fiskistofa.webservices.brotamal.F
            is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.VeidileyfiTypeUser[] veidileyfi,
            java.lang.String eigandiNafn,
            java.lang.String eigandiKt,
+           java.util.Calendar haffaeriGildirTil,
            java.lang.String nafn,
            is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.CheckReplyTypeUser ersvipting,
            java.lang.String utgFlHeiti,
@@ -62,6 +65,7 @@ public class SkipExtrainfoTypeUser  extends is.fiskistofa.webservices.brotamal.F
         this.veidileyfi = veidileyfi;
         this.eigandiNafn = eigandiNafn;
         this.eigandiKt = eigandiKt;
+        this.haffaeriGildirTil = haffaeriGildirTil;
         this.nafn = nafn;
         this.ersvipting = ersvipting;
         this.utgFlHeiti = utgFlHeiti;
@@ -232,6 +236,26 @@ public class SkipExtrainfoTypeUser  extends is.fiskistofa.webservices.brotamal.F
 
 
     /**
+     * Gets the haffaeriGildirTil value for this SkipExtrainfoTypeUser.
+     * 
+     * @return haffaeriGildirTil
+     */
+    public java.util.Calendar getHaffaeriGildirTil() {
+        return haffaeriGildirTil;
+    }
+
+
+    /**
+     * Sets the haffaeriGildirTil value for this SkipExtrainfoTypeUser.
+     * 
+     * @param haffaeriGildirTil
+     */
+    public void setHaffaeriGildirTil(java.util.Calendar haffaeriGildirTil) {
+        this.haffaeriGildirTil = haffaeriGildirTil;
+    }
+
+
+    /**
      * Gets the nafn value for this SkipExtrainfoTypeUser.
      * 
      * @return nafn
@@ -386,6 +410,9 @@ public class SkipExtrainfoTypeUser  extends is.fiskistofa.webservices.brotamal.F
             ((this.eigandiKt==null && other.getEigandiKt()==null) || 
              (this.eigandiKt!=null &&
               this.eigandiKt.equals(other.getEigandiKt()))) &&
+            ((this.haffaeriGildirTil==null && other.getHaffaeriGildirTil()==null) || 
+             (this.haffaeriGildirTil!=null &&
+              this.haffaeriGildirTil.equals(other.getHaffaeriGildirTil()))) &&
             ((this.nafn==null && other.getNafn()==null) || 
              (this.nafn!=null &&
               this.nafn.equals(other.getNafn()))) &&
@@ -446,6 +473,9 @@ public class SkipExtrainfoTypeUser  extends is.fiskistofa.webservices.brotamal.F
         }
         if (getEigandiKt() != null) {
             _hashCode += getEigandiKt().hashCode();
+        }
+        if (getHaffaeriGildirTil() != null) {
+            _hashCode += getHaffaeriGildirTil().hashCode();
         }
         if (getNafn() != null) {
             _hashCode += getNafn().hashCode();
@@ -522,6 +552,12 @@ public class SkipExtrainfoTypeUser  extends is.fiskistofa.webservices.brotamal.F
         elemField.setFieldName("eigandiKt");
         elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/brotamal/FSWebserviceBROTAMAL.wsdl/types/", "eigandiKt"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        elemField.setNillable(true);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("haffaeriGildirTil");
+        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/brotamal/FSWebserviceBROTAMAL.wsdl/types/", "haffaeriGildirTil"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "dateTime"));
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();

@@ -24,6 +24,8 @@ public class SkipInfoTypeUser  extends is.fiskistofa.webservices.skip.FSWebServi
 
     private java.lang.String eigandiKt;
 
+    private java.util.Calendar haffaeriGildirTil;
+
     private java.lang.String nafn;
 
     private java.lang.String utgFlHeiti;
@@ -46,6 +48,7 @@ public class SkipInfoTypeUser  extends is.fiskistofa.webservices.skip.FSWebServi
            java.math.BigDecimal utgFl,
            java.lang.String eigandiNafn,
            java.lang.String eigandiKt,
+           java.util.Calendar haffaeriGildirTil,
            java.lang.String nafn,
            java.lang.String utgFlHeiti,
            java.math.BigDecimal skipNr,
@@ -59,6 +62,7 @@ public class SkipInfoTypeUser  extends is.fiskistofa.webservices.skip.FSWebServi
         this.utgFl = utgFl;
         this.eigandiNafn = eigandiNafn;
         this.eigandiKt = eigandiKt;
+        this.haffaeriGildirTil = haffaeriGildirTil;
         this.nafn = nafn;
         this.utgFlHeiti = utgFlHeiti;
         this.skipNr = skipNr;
@@ -228,6 +232,26 @@ public class SkipInfoTypeUser  extends is.fiskistofa.webservices.skip.FSWebServi
 
 
     /**
+     * Gets the haffaeriGildirTil value for this SkipInfoTypeUser.
+     * 
+     * @return haffaeriGildirTil
+     */
+    public java.util.Calendar getHaffaeriGildirTil() {
+        return haffaeriGildirTil;
+    }
+
+
+    /**
+     * Sets the haffaeriGildirTil value for this SkipInfoTypeUser.
+     * 
+     * @param haffaeriGildirTil
+     */
+    public void setHaffaeriGildirTil(java.util.Calendar haffaeriGildirTil) {
+        this.haffaeriGildirTil = haffaeriGildirTil;
+    }
+
+
+    /**
      * Gets the nafn value for this SkipInfoTypeUser.
      * 
      * @return nafn
@@ -362,6 +386,9 @@ public class SkipInfoTypeUser  extends is.fiskistofa.webservices.skip.FSWebServi
             ((this.eigandiKt==null && other.getEigandiKt()==null) || 
              (this.eigandiKt!=null &&
               this.eigandiKt.equals(other.getEigandiKt()))) &&
+            ((this.haffaeriGildirTil==null && other.getHaffaeriGildirTil()==null) || 
+             (this.haffaeriGildirTil!=null &&
+              this.haffaeriGildirTil.equals(other.getHaffaeriGildirTil()))) &&
             ((this.nafn==null && other.getNafn()==null) || 
              (this.nafn!=null &&
               this.nafn.equals(other.getNafn()))) &&
@@ -411,6 +438,9 @@ public class SkipInfoTypeUser  extends is.fiskistofa.webservices.skip.FSWebServi
         }
         if (getEigandiKt() != null) {
             _hashCode += getEigandiKt().hashCode();
+        }
+        if (getHaffaeriGildirTil() != null) {
+            _hashCode += getHaffaeriGildirTil().hashCode();
         }
         if (getNafn() != null) {
             _hashCode += getNafn().hashCode();
@@ -483,6 +513,12 @@ public class SkipInfoTypeUser  extends is.fiskistofa.webservices.skip.FSWebServi
         elemField.setFieldName("eigandiKt");
         elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "eigandiKt"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        elemField.setNillable(true);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("haffaeriGildirTil");
+        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/skip/FSWebServiceSKIP.wsdl", "haffaeriGildirTil"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "dateTime"));
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();

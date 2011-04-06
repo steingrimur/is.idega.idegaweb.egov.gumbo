@@ -22,6 +22,8 @@ public class VeidileyfiTypeUser  extends is.fiskistofa.webservices.brotamal.FSWe
 
     private java.math.BigDecimal graslVlNr;
 
+    private is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.VeidileyfagerdTypeUser gerdLeyfis;
+
     private java.util.Calendar urGildi;
 
     public VeidileyfiTypeUser() {
@@ -35,6 +37,7 @@ public class VeidileyfiTypeUser  extends is.fiskistofa.webservices.brotamal.FSWe
            java.lang.String skyring,
            java.math.BigDecimal skipNr,
            java.math.BigDecimal graslVlNr,
+           is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.VeidileyfagerdTypeUser gerdLeyfis,
            java.util.Calendar urGildi) {
         this.tegundLeyfisHeiti = tegundLeyfisHeiti;
         this.tegundLeyfis = tegundLeyfis;
@@ -43,6 +46,7 @@ public class VeidileyfiTypeUser  extends is.fiskistofa.webservices.brotamal.FSWe
         this.skyring = skyring;
         this.skipNr = skipNr;
         this.graslVlNr = graslVlNr;
+        this.gerdLeyfis = gerdLeyfis;
         this.urGildi = urGildi;
     }
 
@@ -188,6 +192,26 @@ public class VeidileyfiTypeUser  extends is.fiskistofa.webservices.brotamal.FSWe
 
 
     /**
+     * Gets the gerdLeyfis value for this VeidileyfiTypeUser.
+     * 
+     * @return gerdLeyfis
+     */
+    public is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.VeidileyfagerdTypeUser getGerdLeyfis() {
+        return gerdLeyfis;
+    }
+
+
+    /**
+     * Sets the gerdLeyfis value for this VeidileyfiTypeUser.
+     * 
+     * @param gerdLeyfis
+     */
+    public void setGerdLeyfis(is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.VeidileyfagerdTypeUser gerdLeyfis) {
+        this.gerdLeyfis = gerdLeyfis;
+    }
+
+
+    /**
      * Gets the urGildi value for this VeidileyfiTypeUser.
      * 
      * @return urGildi
@@ -239,6 +263,9 @@ public class VeidileyfiTypeUser  extends is.fiskistofa.webservices.brotamal.FSWe
             ((this.graslVlNr==null && other.getGraslVlNr()==null) || 
              (this.graslVlNr!=null &&
               this.graslVlNr.equals(other.getGraslVlNr()))) &&
+            ((this.gerdLeyfis==null && other.getGerdLeyfis()==null) || 
+             (this.gerdLeyfis!=null &&
+              this.gerdLeyfis.equals(other.getGerdLeyfis()))) &&
             ((this.urGildi==null && other.getUrGildi()==null) || 
              (this.urGildi!=null &&
               this.urGildi.equals(other.getUrGildi())));
@@ -273,6 +300,9 @@ public class VeidileyfiTypeUser  extends is.fiskistofa.webservices.brotamal.FSWe
         }
         if (getGraslVlNr() != null) {
             _hashCode += getGraslVlNr().hashCode();
+        }
+        if (getGerdLeyfis() != null) {
+            _hashCode += getGerdLeyfis().hashCode();
         }
         if (getUrGildi() != null) {
             _hashCode += getUrGildi().hashCode();
@@ -327,6 +357,12 @@ public class VeidileyfiTypeUser  extends is.fiskistofa.webservices.brotamal.FSWe
         elemField.setFieldName("graslVlNr");
         elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/brotamal/FSWebserviceBROTAMAL.wsdl/types/", "graslVlNr"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "decimal"));
+        elemField.setNillable(true);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("gerdLeyfis");
+        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/brotamal/FSWebserviceBROTAMAL.wsdl/types/", "gerdLeyfis"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/brotamal/FSWebserviceBROTAMAL.wsdl/types/", "VeidileyfagerdTypeUser"));
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
