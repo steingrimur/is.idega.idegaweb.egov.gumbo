@@ -58,10 +58,10 @@ jQuery(document).ready(function() {
 		}
 	};
 	
-	jQuery(document).bind('ChibaWorkarounds-UIUpdatedEvent', function() {
+	jQuery(document).bind('ChibaWorkarounds-UIUpdatedEvent', function(event, updateUIData) {
 		
-		if(ChibaWorkarounds.insertFor != null) {
-		
+		if(updateUIData && ChibaWorkarounds.insertFor != null && substitutionsNeedToBeUpdated(updateUIData)) {
+			
 			jQuery(".repeat."+ChibaWorkarounds.insertFor+" .substitute input").each(function() {
 				
 				var me = jQuery(this);
@@ -74,6 +74,31 @@ jQuery(document).ready(function() {
 			ChibaWorkarounds.insertFor = null;
 		}
 	});
+	
+	var substitutionsNeedToBeUpdated = function(updateUIData) {
+		
+//		mostly copied from FluxInterface.js#updateUI
+		var eventLog = null;
+	    if (updateUIData && updateUIData.childNodes) {
+			eventLog = updateUIData.childNodes;
+	    }
+	    
+	    if (eventLog == null || eventLog.length == 0) {
+	    	return false;
+	    }
+	    
+	    for (var i = 0; i < eventLog.length; i++) {	
+	        var type = eventLog[i].getAttribute("type");  
+	        var targetName = eventLog[i].getAttribute("targetName");
+	        
+	        if(type == "chiba-item-inserted" && targetName == "repeat") {
+	        	
+	        	return true;
+	        }
+	    }
+		
+		return false;
+	};
 	
 	var updateSubstitutions = function(substitutableInput) {
 		
