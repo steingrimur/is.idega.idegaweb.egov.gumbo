@@ -97,7 +97,6 @@ public class IssueLicenseHandler extends DefaultSpringBean implements ActionHand
 			if (getUpdateDOF()) {
 				getWSClient().activateFishingLicense(new BigDecimal(licenseID));
 			}
-
 			
 			IWResourceBundle iwrb = IWMainApplication.getDefaultIWMainApplication().getBundle(GumboConstants.IW_BUNDLE_IDENTIFIER).getResourceBundle(locale);
 
@@ -116,7 +115,6 @@ public class IssueLicenseHandler extends DefaultSpringBean implements ActionHand
 			String description = fileName;
 			parkingCard = getPDFGenerator().generateFishingLicensePDF(licenseType, license, fishery, ship, locale);
 			tiw.addAttachment(variable, fileName, description, parkingCard);
-			
 			
 			return true;
 		} catch (Exception e) {

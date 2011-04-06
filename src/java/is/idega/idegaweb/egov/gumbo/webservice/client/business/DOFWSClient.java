@@ -77,7 +77,9 @@ public interface DOFWSClient {
 	        IWTimestamp from, IWTimestamp to, String info);
 	
 	public boolean activateFishingLicense(BigDecimal fishingLicenseID);
-	
+
+	public boolean cancelFishingLicense(BigDecimal fishingLicenseID);
+
 	public VeidileyfiTypeUser getFishingLicenseInfo(BigDecimal id);
 	
 	public MillifaerslaTypeUser[] getTransfers(BigDecimal shipNr, String type,

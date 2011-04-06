@@ -217,7 +217,11 @@ public class DOFWSClientMock implements DOFWSClient {
 	public boolean activateFishingLicense(BigDecimal fishingLicenseID) {
 		return false;
 	}
-	
+
+	public boolean cancelFishingLicense(BigDecimal fishingLicenseID) {
+		return false;
+	}
+
 	public VeidileyfiTypeUser getFishingLicenseInfo(BigDecimal id) {
 		return null;
 	}

@@ -2,13 +2,16 @@ package is.idega.idegaweb.egov.gumbo.licenses;
 
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.business.GumboProcessException;
+import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.FJSWSClient;
 
+import java.math.BigDecimal;
 import java.util.logging.Logger;
 
 import org.jbpm.graph.def.ActionHandler;
 import org.jbpm.graph.exe.ExecutionContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -32,9 +35,13 @@ public class DeleteAndRejectClaimHandler implements ActionHandler {
 	@Autowired
 	private CasesBPMDAO casesBPMDAO;
 
+	@Autowired
+	@Qualifier(DOFWSClient.WEB_SERVICE)
+	DOFWSClient client;
+
 	private static final Logger LOGGER = Logger
 			.getLogger(DeleteAndRejectClaimHandler.class.getName());
-
+	
 	@Override
 	public void execute(ExecutionContext executionContext) throws Exception {
 		boolean send = IWMainApplication.getDefaultIWApplicationContext()
@@ -69,6 +76,9 @@ public class DeleteAndRejectClaimHandler implements ActionHandler {
 		if (!ret) {
 			throw new GumboProcessException("Failed to cancel claim " + claimKey);
 		}
+		
+		String licenseID = theCase.getMetaData(GumboConstants.DOF_FISHING_LICENSE_METADATA_KEY);
+		getWSClient().cancelFishingLicense(new BigDecimal(licenseID));
 	}
 
 	CaseBusiness getCaseBusiness() {
@@ -88,5 +98,9 @@ public class DeleteAndRejectClaimHandler implements ActionHandler {
 
 	private FJSWSClient getFJSWSClient() {
 		return fjswsClient;
+	}
+	
+	private DOFWSClient getWSClient() {
+		return client;
 	}
 }

@@ -59,6 +59,8 @@ import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.FS
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.FSWebServiceVeidileyfiUpdate_ServiceLocator;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CreateveidileyfiWithPasswordElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CreateveidileyfiWithPasswordResponseElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.EydaOgilduVeidileyfiElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.EydaOgilduVeidileyfiResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.VirkjaveidileyfiWithPasswordElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.VirkjaveidileyfiWithPasswordResponseElement;
 import is.idega.idegaweb.egov.gumbo.business.GumboBusiness;
@@ -999,6 +1001,27 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 				fishingLicenseID, user, password);
 		try {
 			getLicenseUpdatePort().virkjaveidileyfiWithPassword(parameters);
+			return true;
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+
+	public boolean cancelFishingLicense(BigDecimal fishingLicenseID) {
+		String user = IWMainApplication.getDefaultIWApplicationContext()
+		.getApplicationSettings()
+		.getProperty(LICENSE_UPDATE_USER, "");
+
+		String password = IWMainApplication.getDefaultIWApplicationContext()
+		.getApplicationSettings()
+		.getProperty(LICENSE_UPDATE_PASSWORD, "");
+
+		EydaOgilduVeidileyfiElement parameters = new EydaOgilduVeidileyfiElement(
+				fishingLicenseID, user, password);
+		try {
+			getLicenseUpdatePort().eydaOgilduVeidileyfi(parameters);
 			return true;
 		} catch (RemoteException e) {
 			e.printStackTrace();
