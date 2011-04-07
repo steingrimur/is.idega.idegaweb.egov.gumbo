@@ -4,7 +4,6 @@ import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.VeidileyfagerdTypeUser;
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.licenses.Interval.XFormsInterval;
-import is.idega.idegaweb.egov.gumbo.presentation.ShipInfo;
 import is.idega.idegaweb.egov.gumbo.util.GumboUtil;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.FJSWSClient;
@@ -145,6 +144,14 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 */
 	public XFormsBooleanResult getVesselHasValidHaffairisskirteini(
 			String vesselId, String startOfFishing) {
+		try {
+			new BigDecimal(vesselId);
+			new IWTimestamp(startOfFishing);
+		}
+		catch (Exception e) {
+			return new XFormsBooleanResult(false, "");
+		}
+		
 		final LicenseCheckContainer res = getClient()
 				.getHasValidSeafaringLicense(vesselId);
 		

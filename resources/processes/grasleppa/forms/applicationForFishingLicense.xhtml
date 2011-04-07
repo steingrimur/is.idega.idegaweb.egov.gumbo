@@ -463,7 +463,7 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
 		                            <idega:setvalue
 		                                multiple="true()"
 		                                placeResponseDocument="true()"
-		                                ref="instance('data-instance')/vesselHasValidHaffairisskirteini" value="idega:resolveBeanProperties('fishingLicenseUser.getVesselHasValidHaffairisskirteini({0}, {1})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37},#{instance(`data-instance`)/startOfFishing}')"/>
+		                                ref="instance('data-instance')/vesselHasValidHaffairisskirteini" value="idega:resolveBeanProperties('fishingLicenseUser.getVesselHasValidHaffairisskirteini({0}, {1})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}, #{instance(`data-instance`)/startOfFishing}')"/>
 		                            <xf:setvalue
 		                                    model="submission_model" ref="instance('data-instance')/vesselHasValidHaffairisskirteiniMessage" value="instance('data-instance')/vesselHasValidHaffairisskirteini/message" />
 		                            <idega:setvalue
@@ -558,6 +558,12 @@ Skilyrði fyrir veitingu veiðileyfis er að skipið hafi gilt haffærisskírtei
                                 ref="instance('data-instance')/endOfFishing" value="idega:resolveExpression('fishingLicenseUser.getLicenseEndDate({0}, {1})', '#{instance(`data-instance`)/startOfFishing}, #{instance(`data-instance`)/Select_the_fishing_area_fbc_110}')"/>
                             <xf:setvalue ev:event="xforms-value-changed"
                                 ref="instance('data-instance')/endOfFishingLabel" value="idega:resolveExpression('fishingLicenseUser.getLicenseEndDateFormatted({0}, {1})', '#{instance(`data-instance`)/startOfFishing}, #{instance(`data-instance`)/Select_the_fishing_area_fbc_110}')"/>
+                            <idega:setvalue ev:event="xforms-value-changed"
+                                multiple="true()"
+                                placeResponseDocument="true()"
+                                ref="instance('data-instance')/vesselHasValidHaffairisskirteini" value="idega:resolveBeanProperties('fishingLicenseUser.getVesselHasValidHaffairisskirteini({0}, {1})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}, #{instance(`data-instance`)/startOfFishing}')"/>
+                            <xf:setvalue ev:event="xforms-value-changed"
+                                    model="submission_model" ref="instance('data-instance')/vesselHasValidHaffairisskirteiniMessage" value="instance('data-instance')/vesselHasValidHaffairisskirteini/message" />
 				            
 				            <idega:validator errorif="instance('data-instance')/Select_the_fishing_area_fbc_110 != '' and instance('data-instance')/startOfFishing != '' and idega:resolveExpression('fishingLicenseUser.isInTimeframe({0}, {1}) == false', '#{instance(`data-instance`)/startOfFishing}, #{instance(`data-instance`)/Select_the_fishing_area_fbc_110}')" ev:event="idega-validate_timeframe">
 				                <idega:message errorType="validation" model="data_model" value="instance('localized_strings')/startOfFishing-validation[@lang=instance('localized_strings')/current_language]"/>

@@ -1071,16 +1071,18 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 			names.add("string_vesselRegistryNr");
 
 			List<Integer> ids = getCaseManagersProvider().getCaseManager().getCaseIds(user, CasesRetrievalManager.CASE_LIST_TYPE_OPEN, null, null, statusesToShow, false);
-			List<CaseProcInstBind> binds = getCasesBPMDAO().getCasesProcInstBindsByCasesIds(ids);
-			for (CaseProcInstBind caseProcInstBind : binds) {
-				ProcessInstanceW inst = getBPMFactory().getProcessInstanceW(caseProcInstBind.getProcInstId());
-				if ("Grasleppa".equals(inst.getProcessDefinitionW().getProcessDefinition().getName())) {
-					List<Long> procIds = new ArrayList<Long>();
-					procIds.add(inst.getProcessInstanceId());
-					Collection<VariableInstanceInfo> info = getVariablesQuerier().getVariablesByProcessInstanceIdAndVariablesNames(procIds, names);
-					if (info != null) {
-						for (VariableInstanceInfo variableInstanceInfo : info) {
-							alreadyAppliedShips.add((String) variableInstanceInfo.getValue());
+			if (ids != null) {
+				List<CaseProcInstBind> binds = getCasesBPMDAO().getCasesProcInstBindsByCasesIds(ids);
+				for (CaseProcInstBind caseProcInstBind : binds) {
+					ProcessInstanceW inst = getBPMFactory().getProcessInstanceW(caseProcInstBind.getProcInstId());
+					if ("Grasleppa".equals(inst.getProcessDefinitionW().getProcessDefinition().getName())) {
+						List<Long> procIds = new ArrayList<Long>();
+						procIds.add(inst.getProcessInstanceId());
+						Collection<VariableInstanceInfo> info = getVariablesQuerier().getVariablesByProcessInstanceIdAndVariablesNames(procIds, names);
+						if (info != null) {
+							for (VariableInstanceInfo variableInstanceInfo : info) {
+								alreadyAppliedShips.add((String) variableInstanceInfo.getValue());
+							}
 						}
 					}
 				}
