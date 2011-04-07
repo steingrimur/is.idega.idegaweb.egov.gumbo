@@ -369,13 +369,13 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	 */
 	@Override
 	public SkipInfoTypeUser[] getShipInfoByCompanySSN(String companySSN) {
-		Map cache = getCache(GUMBO_COMPANY_SHIPS_CACHE, 60 * 60 * 24l);
+		/*Map cache = getCache(GUMBO_COMPANY_SHIPS_CACHE, 60 * 60 * 24l);
 		if (cache != null && !cache.isEmpty()) {
 			if (cache.containsKey(companySSN)) {
 				return (SkipInfoTypeUser[]) cache.get(companySSN);
 			}
 
-		}
+		}*/
 
 		try {
 			GetskipinfobyutgerdElement parameter = new GetskipinfobyutgerdElement(
@@ -383,9 +383,9 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 			SkipInfoTypeUser[] ships = getShipPort().getskipinfobyutgerd(
 					parameter);
 
-			if (cache != null) {
+			/*if (cache != null) {
 				cache.put(companySSN, ships);
-			}
+			}*/
 
 			return ships;
 		} catch (RemoteException e) {
@@ -403,13 +403,13 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	 */
 	@Override
 	public SkipInfoTypeUser getShipInfo(String shipID) {
-		Map cache = getCache(GUMBO_SHIP_INFO_CACHE, 60 * 60 * 24l);
+		/*Map cache = getCache(GUMBO_SHIP_INFO_CACHE, 60 * 60 * 24l);
 		if (cache != null && !cache.isEmpty()) {
 			if (cache.containsKey(shipID)) {
 				return (SkipInfoTypeUser) cache.get(shipID);
 			}
 
-		}
+		}*/
 
 		GetskipinfoElement parameter = new GetskipinfoElement(new BigDecimal(
 				shipID));
@@ -419,9 +419,9 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 					parameter);
 			SkipInfoTypeUser ship = res.getResult();
 
-			if (cache != null) {
+			/*if (cache != null) {
 				cache.put(shipID, ship);
-			}
+			}*/
 
 			return ship;
 		} catch (RemoteException e) {
