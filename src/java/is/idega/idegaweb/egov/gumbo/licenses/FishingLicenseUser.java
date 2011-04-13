@@ -281,7 +281,7 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 */
 	public XFormsBooleanResult getFishingCompanyHasValidStrandveidileyfi() {
 		CheckReplyTypeUser ret = getClient().getFishingCompanyHasValidStrandveidileyfi(getCompanyForCurrentUser().getSocialSecurityNr());
-		return new XFormsBooleanResult(ret.getIsok().intValue() > 0, ret.getMessage());
+		return new XFormsBooleanResult(ret.getIsok().intValue() == 0, ret.getMessage());
 	}
 
 	/**
