@@ -498,7 +498,7 @@ Unnt er að óska skriflega eftir rökstuðningi við ákvörðun þessa.</appli
                                 <xf:dispatch 
                                     name="idega-validate" target="fbc_101"/>
                                 <xf:setvalue 
-                                    ref="instance('data-instance')/validityFrom" value="instance('data-instance')/From_date_fbc_101"/>
+                                    ref="instance('data-instance')/validityFrom" value="idega:resolveExpression('gumboUtil.formatDate({0})', '#{instance(`data-instance`)/From_date_fbc_101}')"/>
                                 <xf:setvalue 
                                     ref="instance('data-instance')/validityTo" value="concat(substring(instance('data-instance')/From_date_fbc_101, 1, 4), '-08-31')"/>
                                     
