@@ -33,8 +33,11 @@ import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.GetskipinfoElement;
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.GetskipinfoResponseElement;
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.GetskipinfobyutgerdElement;
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.CheckReplyTypeUser;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.FSWebServiceVEIDILEYFI_PortType;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.FSWebServiceVEIDILEYFI_ServiceLocator;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetaflamflutningstekkforskipElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetaflamflutningstekkforskipResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetdragnotvlcodeforskipElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetdragnotvlcodeforskipResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetersviptingElement;
@@ -46,6 +49,8 @@ import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.Gethefur
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurkrokaaflamarksveidilResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurstrandveidileyfiElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurstrandveidileyfiResponseElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurutgerdstrandvlbyktElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurutgerdstrandvlbyktResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurveidileyfiElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurveidileyfiResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetskipforstrandvlforutgerdElement;
@@ -862,16 +867,10 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	}
 
 	@Override
-	public String getFishingAreaStrandveidi(String postNr, Timestamp validFrom) {
-
-		StringBuilder period = new StringBuilder();
-		IWTimestamp stamp = new IWTimestamp(validFrom);
-		period.append(stamp.getDateString("yy"));
-		stamp.addYears(1);
-		period.append(stamp.getDateString("yy"));
+	public String getFishingAreaStrandveidi(String postNr) {
 
 		GetstrandvlcodeforpostnrElement parameters = new GetstrandvlcodeforpostnrElement(
-				new BigDecimal(postNr), period.toString());
+				new BigDecimal(postNr), null);
 		try {
 			GetstrandvlcodeforpostnrResponseElement res = getLicensePort()
 					.getstrandvlcodeforpostnr(parameters);
@@ -883,6 +882,20 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		return "error_from_web_service";
 	}
 
+	@Override
+	public CheckReplyTypeUser getFishingCompanyHasValidStrandveidileyfi(String companySSN) {
+		GethefurutgerdstrandvlbyktElement parameters = new GethefurutgerdstrandvlbyktElement(companySSN, null);
+		try {
+			GethefurutgerdstrandvlbyktResponseElement res = getLicensePort().gethefurutgerdstrandvlbykt(parameters);
+			return res.getResult();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
 	
 	@Override
 	public CompanyData getCompanyForUser(User user) {
@@ -1082,6 +1095,19 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		return null;
 	}
 
+	@Override
+	public CheckReplyTypeUser getQuotaTransferCheckForShip(String vesselID) {
+		GetaflamflutningstekkforskipElement parameters = new GetaflamflutningstekkforskipElement(new BigDecimal(vesselID));
+		try {
+			GetaflamflutningstekkforskipResponseElement res = getLicensePort().getaflamflutningstekkforskip(parameters);
+			return res.getResult();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
 	public boolean emptyCache() {
 		Map cache = getCache(GUMBO_FISHING_AREAS_CACHE, 0l);
 		if (cache != null) {

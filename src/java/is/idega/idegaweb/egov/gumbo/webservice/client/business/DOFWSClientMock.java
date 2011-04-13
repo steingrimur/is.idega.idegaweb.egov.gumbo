@@ -6,6 +6,7 @@ import is.fiskistofa.webservices.hlutdeild.FSWebserviceHLUTDEILD_wsdl.types.Uthl
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUser;
 import is.fiskistofa.webservices.millifaerslur.FSWebserviceMILLIFAERSLUR_wsdl.MillifaerslaTypeUser;
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.CheckReplyTypeUser;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.VeidileyfagerdTypeUser;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.VeidileyfiTypeUser;
 import is.idega.idegaweb.egov.gumbo.licenses.FishingLicenseUser.CompanyData;
@@ -58,6 +59,16 @@ public class DOFWSClientMock implements DOFWSClient {
 	}
 	
 	@Override
+	public CheckReplyTypeUser getQuotaTransferCheckForShip(String vesselID) {
+		throw new UnsupportedOperationException();		
+	}
+	
+	@Override
+	public CheckReplyTypeUser getFishingCompanyHasValidStrandveidileyfi(String companySSN) {
+		throw new UnsupportedOperationException();				
+	}
+	
+	@Override
 	public LondunTypeUser[] getCatchInfoByShipNumber(BigDecimal shipNumber,
 	        Calendar from, Calendar to) {
 		throw new UnsupportedOperationException();
@@ -70,7 +81,7 @@ public class DOFWSClientMock implements DOFWSClient {
 	}
 	
 	@Override
-	public String getFishingAreaStrandveidi(String postNr, Timestamp validFrom) {
+	public String getFishingAreaStrandveidi(String postNr) {
 		return null;
 	}
 	

@@ -1,6 +1,7 @@
 package is.idega.idegaweb.egov.gumbo.licenses;
 
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.CheckReplyTypeUser;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.VeidileyfagerdTypeUser;
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.licenses.Interval.XFormsInterval;
@@ -278,9 +279,9 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 * 
 	 * @return string true or false
 	 */
-	public String getFishingCompanyHasValidStrandveidileyfi() {
-
-		return "false";
+	public XFormsBooleanResult getFishingCompanyHasValidStrandveidileyfi() {
+		CheckReplyTypeUser ret = getClient().getFishingCompanyHasValidStrandveidileyfi(getCompanyForCurrentUser().getSocialSecurityNr());
+		return new XFormsBooleanResult(ret.getIsok().intValue() > 0, ret.getMessage());
 	}
 
 	/**
@@ -288,9 +289,9 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 * 
 	 * @return string true or false
 	 */
-	public String getFishingQuotaWithinLimits(String vesselId) {
-
-		return "true";
+	public XFormsBooleanResult getFishingQuotaWithinLimits(String vesselId) {
+		CheckReplyTypeUser ret = getClient().getQuotaTransferCheckForShip(vesselId);
+		return new XFormsBooleanResult(ret.getIsok().intValue() > 0, ret.getMessage());
 	}
 
 	/**
@@ -300,20 +301,13 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 */
 	public String getFishingAreaStrandveidi(String validFrom) {
 
-		try {
 			//Nota skyrr
 			CompanyData comp = getCompanyForCurrentUser();
 			
 			return getClient()
 					.getFishingAreaStrandveidi(
-							comp.getPostalCode(),
-							new Timestamp(getDateConverter()
-									.convertStringFromXFormsToDate(validFrom)
-									.getTime()));
+							comp.getPostalCode());
 
-		} catch (ParseException e) {
-			throw new RuntimeException(e);
-		}
 	}
 
 	public IWTimestamp getEndDateOfFishing(IWTimestamp from, String areaID) {
