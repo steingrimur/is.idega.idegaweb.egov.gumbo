@@ -281,7 +281,8 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 */
 	public XFormsBooleanResult getFishingCompanyHasValidStrandveidileyfi() {
 		CheckReplyTypeUser ret = getClient().getFishingCompanyHasValidStrandveidileyfi(getCompanyForCurrentUser().getSocialSecurityNr());
-		return new XFormsBooleanResult(ret.getIsok().intValue() == 0, ret.getMessage());
+		boolean isValid = ret.getIsok().intValue() > 0;
+		return new XFormsBooleanResult(isValid, ret.getMessage());
 	}
 
 	/**
@@ -291,7 +292,8 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 */
 	public XFormsBooleanResult getFishingQuotaWithinLimits(String vesselId) {
 		CheckReplyTypeUser ret = getClient().getQuotaTransferCheckForShip(vesselId);
-		return new XFormsBooleanResult(ret.getIsok().intValue() > 0, ret.getMessage());
+		boolean isValid = ret.getIsok().intValue() > 0;
+		return new XFormsBooleanResult(isValid, ret.getMessage());
 	}
 
 	/**
