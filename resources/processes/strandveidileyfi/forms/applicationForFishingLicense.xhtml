@@ -501,8 +501,6 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
 	                                ref="instance('data-instance')/vesselHasValidHaffairisskirteini" value="idega:resolveBeanProperties('fishingLicenseUser.getVesselHasValidHaffairisskirteini({0}, {1})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}, #{instance(`data-instance`)/From_date_fbc_101}')"/>
                                 <xf:setvalue
                                     model="submission_model" ref="instance('data-instance')/vesselHasValidHaffairisskirteiniMessage" value="instance('data-instance')/vesselHasValidHaffairisskirteini/message" />
-                                <xf:setvalue
-                                        model="submission_model" ref="instance('data-instance')/vesselHasRevokedLicenseMessage" value="instance('data-instance')/vesselHasRevokedLicense/message" />
                                         
                                 <xf:action if="instance('data-instance')/License_for_following_vessel_fbc_37 != '' and instance('data-instance')/From_date_fbc_101 != ''">
                                          <idega:setvalue
