@@ -88,9 +88,25 @@
             <variable name="string_vesselOwnersName" access="read,write"></variable>
             <variable name="string_vesselOwnersSocialSecurityNr" access="read,write"></variable>
             
+            <variable name="date_startOfFishing" access="read,write"></variable>
             <variable name="string_fishingArea" access="read,write"></variable>
             <variable name="date_validityFrom" access="read,write"></variable>
             <variable name="date_validityTo" access="read,write"></variable>
+
+            <variable name="string_hasValidHaffaerisskirteini" access="read,write"></variable>
+            <variable name="string_validHaffaerisskirteini" access="read,write"></variable>
+            
+            <variable name="string_hasValidCompanyLicense" access="read,write"></variable>
+            <variable name="string_validCompanyLicense" access="read,write"></variable>
+            
+            <variable name="string_hasRevokedLicense" access="read,write"></variable>
+            <variable name="string_revokedLicense" access="read,write"></variable>
+            
+            <variable name="string_hasQuotaWithinLimits" access="read,write"></variable>
+            <variable name="string_quotaWithinLimits" access="read,write"></variable>
+
+            <variable name="string_userInDebt" access="read,write"></variable>
+            <variable name="string_deptMessage" access="read,write"></variable>
          </controller>
       </task>
       <event type="node-leave">

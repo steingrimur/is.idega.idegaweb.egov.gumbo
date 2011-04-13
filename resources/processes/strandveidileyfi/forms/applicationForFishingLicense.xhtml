@@ -36,30 +36,39 @@
                     </vesselData>
                     
                     <vesselHasValidHaffairisskirteini>
-                        <result>true</result>
+                        <result mapping="string_hasValidHaffaerisskirteini">true</result>
                         <message></message>
                     </vesselHasValidHaffairisskirteini>
                     <vesselHasNotValidHaffairisskirteini/>
-                    <vesselHasValidHaffairisskirteiniMessage/>
+                    <vesselHasValidHaffairisskirteiniMessage mapping="string_validHaffaerisskirteini"/>
                     
-                    <companyLicenseValid>false</companyLicenseValid>
+                    <companyLicenseValid>
+                        <result mapping="string_hasValidCompanyLicense" >false</result>
+                        <message></message>
+                    </companyLicenseValid>
                     <companyLicenseInvalid/>
-                    <quotaWithinLimits>true</quotaWithinLimits>
+                    <companyLicenseMessage mapping="string_validCompanyLicense"/>
+
+                    <quotaWithinLimits>
+                        <result mapping="string_hasQuotaWithinLimits">false</result>
+                        <message></message>
+                    </quotaWithinLimits>
                     <quotaNotWithinLimits/>
+                    <quotaWithinLimitsMessage mapping="string_quotaWithinLimits"/>
                     
                     <vesselHasRevokedLicense>
-                        <result>false</result>
+                        <result mapping="string_hasRevokedLicense">false</result>
                         <message></message>
                     </vesselHasRevokedLicense>
                     <vesselHasNotRevokedLicense/>
-                    <vesselHasRevokedLicenseMessage/>
+                    <vesselHasRevokedLicenseMessage mapping="string_revokedLicense"/>
                     
-                    <debtMessageContainer/>
-                    <userIsInDebt>false</userIsInDebt>
+                    <debtMessageContainer mapping="string_deptMessage"/>
+                    <userIsInDebt mapping="string_userInDebt">false</userIsInDebt>
                     <saveFormData>
                         <submissionId/>
                     </saveFormData>
-                    <From_date_fbc_101 xsi:nil="true"/>
+                    <From_date_fbc_101 mapping="date_startOfFishing" xsi:nil="true"/>
                     <fishingArea mapping="string_fishingArea" />
                     <validityFrom mapping="date_validityFrom" />
                     <validityTo mapping="date_validityTo" />
@@ -141,9 +150,11 @@
             
             <xf:bind id="fbc_104_bind" nodeset="companyLicenseValid" relevant="instance('data-instance')/companyLicenseValid = 'true'"/>
             <xf:bind id="fbc_105_bind" nodeset="companyLicenseInvalid" relevant="instance('data-instance')/companyLicenseValid != 'true'"/>
+            <xf:bind id="fbc_105a_bind" nodeset="companyLicenseMessage"/>
             
             <xf:bind id="fbc_106_bind" nodeset="quotaWithinLimits" relevant="instance('data-instance')/quotaWithinLimits = 'true'"/>
             <xf:bind id="fbc_107_bind" nodeset="quotaNotWithinLimits" relevant="instance('data-instance')/quotaWithinLimits != 'true'"/>
+            <xf:bind id="fbc_107a_bind" nodeset="quotaWithinLimitsMessage"/>
             
             <xf:bind id="fbc_112_bind" nodeset="vesselHasRevokedLicense" relevant="instance('data-instance')/vesselHasRevokedLicense/result = 'true'"/>
             <xf:bind id="fbc_113_bind" nodeset="vesselHasNotRevokedLicense" relevant="instance('data-instance')/vesselHasRevokedLicense/result != 'true'"/>
@@ -321,7 +332,13 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
             </xf:action>
             <xf:action ev:event="xforms-ready" if="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'">
                 <idega:setvalue
-                    ref="instance('data-instance')/companyLicenseValid" value="idega:resolveExpression('fishingLicenseUser.getFishingCompanyHasValidStrandveidileyfi()')"/>
+                    multiple="true()"
+                    placeResponseDocument="true()"
+                    ref="instance('data-instance')/companyLicenseValid" value="idega:resolveBeanProperties('fishingLicenseUser.getFishingCompanyHasValidStrandveidileyfi()')"/>
+
+                <xf:setvalue
+                    model="submission_model" ref="instance('data-instance')/companyLicenseMessage" value="instance('data-instance')/companyLicenseValid/message" />
+
                 <xf:dispatch name="xforms-rebuild" target="submission_model"/>
                 <xf:dispatch name="xforms-recalculate" target="submission_model"/>
                 <xf:dispatch name="xforms-revalidate" target="submission_model"/>
@@ -435,7 +452,9 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
 		                            <idega:setvalue
 		                                multiple="true()"
 		                                placeResponseDocument="true()"
-		                                ref="instance('data-instance')/quotaWithinLimits" value="idega:resolveExpression('fishingLicenseUser.getFishingQuotaWithinLimits({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
+		                                ref="instance('data-instance')/quotaWithinLimits" value="idega:resolveBeanProperties('fishingLicenseUser.getFishingQuotaWithinLimits({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
+                                    <xf:setvalue
+                                        model="submission_model" ref="instance('data-instance')/quotaWithinLimitsMessage" value="instance('data-instance')/quotaWithinLimits/message" />
 		                                
                                     <idega:setvalue
                                         multiple="true()"
@@ -618,17 +637,17 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                         </xf:group>
                         
                         <xf:group bind="fbc_104_bind" class="fail">
-                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_104-text[@lang=instance('localized_strings')/current_language]"/>
+                            <xf:output bind="fbc_105a_bind" />
                         </xf:group>
                         <xf:group bind="fbc_105_bind" class="check">
-                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_105-label[@lang=instance('localized_strings')/current_language]"/>
+                            <xf:output bind="fbc_105a_bind" />
                         </xf:group>
                         
                         <xf:group bind="fbc_106_bind" class="check">
-                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_106-label[@lang=instance('localized_strings')/current_language]"/>
+                            <xf:output bind="fbc_107a_bind" />
                         </xf:group>
                         <xf:group bind="fbc_107_bind" class="fail">
-                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_107-text[@lang=instance('localized_strings')/current_language]"/>
+                            <xf:output bind="fbc_107a_bind" />
                         </xf:group>
                         
                         <div class="fbc_button_area" id="fbc_67" type="fbc_button_area">
@@ -651,11 +670,11 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                                     <xf:dispatch
                                     name="xforms-revalidate" target="data_model"/>
                                     <xf:dispatch name="xforms-refresh" target="data_model"/>
-                                    <xf:action if="count-non-empty(instance('error-instance')/error)=0 and instance('data-instance')/vesselHasValidHaffairisskirteini/result='true' and instance('data-instance')/companyLicenseValid!='true' and instance('data-instance')/vesselHasRevokedLicense/result!='true' and instance('data-instance')/quotaWithinLimits='true'">
+                                    <xf:action if="count-non-empty(instance('error-instance')/error)=0 and instance('data-instance')/vesselHasValidHaffairisskirteini/result='true' and instance('data-instance')/companyLicenseValid/result!='true' and instance('data-instance')/vesselHasRevokedLicense/result!='true' and instance('data-instance')/quotaWithinLimits/result='true'">
                                     <xf:send submission="submit_data_submission"/>
                                     </xf:action>
                                     <xf:dispatch
-                                    if="count-non-empty(instance('error-instance')/error)!=0 or instance('data-instance')/vesselHasValidHaffairisskirteini/result!='true' or instance('data-instance')/companyLicenseValid='true' or instance('data-instance')/vesselHasRevokedLicense/result='true' or instance('data-instance')/quotaWithinLimits!='true'"
+                                    if="count-non-empty(instance('error-instance')/error)!=0 or instance('data-instance')/vesselHasValidHaffairisskirteini/result!='true' or instance('data-instance')/companyLicenseValid/result='true' or instance('data-instance')/vesselHasRevokedLicense/result='true' or instance('data-instance')/quotaWithinLimits/result!='true'"
                                     name="idega-submit-error" target="idega-submission-error"/>
                                 </xf:action>
                             </xf:trigger>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="Strandveidileyfi" width="1302" height="1248">
+<root-container name="Strandveidileyfi" width="1255" height="1248">
   <node name="applicationForFishingLicense" x="195" y="37" width="164" height="34">
     <edge>
       <label x="5" y="-10"/>
