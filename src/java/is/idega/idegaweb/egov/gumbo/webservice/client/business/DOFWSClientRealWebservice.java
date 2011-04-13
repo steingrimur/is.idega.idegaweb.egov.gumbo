@@ -48,6 +48,9 @@ import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.Gethefur
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurstrandveidileyfiResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurveidileyfiElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurveidileyfiResponseElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetskipforstrandvlforutgerdElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetstrandvlcodeforpostnrElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetstrandvlcodeforpostnrResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetstrandvlcodeforskipElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetstrandvlcodeforskipResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetveidileyfagerdElement;
@@ -135,10 +138,10 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	private static final String TRANSFERS_ENDPOINT_ATTRIBUTE_NAME = "dofws_transfers_endpoint";
 
 	private static final String GUMBO_FISHING_AREAS_CACHE = "fishing_areas_cache";
-	private static final String GUMBO_COMPANY_SHIPS_CACHE = "company_ships_cache";
+	//private static final String GUMBO_COMPANY_SHIPS_CACHE = "company_ships_cache";
 	private static final String GUMBO_COMPANY_CATCH_QUOTA_CACHE = "company_catch_quota_cache";
 	private static final String GUMBO_COMPANY_LATEST_CATCHES_CACHE = "company_latest_catches_cache";
-	private static final String GUMBO_SHIP_INFO_CACHE = "ship_info_cache";
+	//private static final String GUMBO_SHIP_INFO_CACHE = "ship_info_cache";
 
 	@Autowired
 	private GumboBusiness gumboBusiness;
@@ -825,7 +828,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	public String getFishingAreaForDraganotaveidi(String shipId) {
 		GetdragnotvlcodeforskipElement parameters = new GetdragnotvlcodeforskipElement(
 				new BigDecimal(shipId));
-		;
+
 		try {
 			GetdragnotvlcodeforskipResponseElement res = getLicensePort()
 					.getdragnotvlcodeforskip(parameters);
@@ -858,6 +861,29 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		return "error_from_web_service";
 	}
 
+	@Override
+	public String getFishingAreaStrandveidi(String postNr, Timestamp validFrom) {
+
+		StringBuilder period = new StringBuilder();
+		IWTimestamp stamp = new IWTimestamp(validFrom);
+		period.append(stamp.getDateString("yy"));
+		stamp.addYears(1);
+		period.append(stamp.getDateString("yy"));
+
+		GetstrandvlcodeforpostnrElement parameters = new GetstrandvlcodeforpostnrElement(
+				new BigDecimal(postNr), period.toString());
+		try {
+			GetstrandvlcodeforpostnrResponseElement res = getLicensePort()
+					.getstrandvlcodeforpostnr(parameters);
+			return res.getResult().getText();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+
+		return "error_from_web_service";
+	}
+
+	
 	@Override
 	public CompanyData getCompanyForUser(User user) {
 		final Company comp = getGumboBusiness().getCompanyForUser(user);
@@ -922,6 +948,19 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		return null;
 	}
 
+	@Override
+	public BigDecimal[] getStrandveidiShipNrByCompanySSN(String companySSN) {
+		GetskipforstrandvlforutgerdElement parameters = new GetskipforstrandvlforutgerdElement(
+				companySSN);
+		try {
+			return getLicensePort().getskipforstrandvlforutgerd(parameters);
+		} catch (RemoteException e) {
+		}
+
+		return null;
+	}
+
+	
 	@Override
 	public Map<BigDecimal, VeidileyfagerdTypeUser> getGrasleppaAreas() {
 		return getFishingAreasByType("11", null);
@@ -1107,6 +1146,66 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 					items.add(new Item(vessel.getSkipNr().toString(), "(" + vessel.getSkipNr().toString() + ") " + vessel
 							.getNafn()));
 				}
+			}
+		}
+		return items;
+	}
+
+	@Override
+	public List<Item> getStrandveidiVesselsForUser(String companyPersonalID) {
+		//get all open cases for user
+		/*List<String> alreadyAppliedShips = new ArrayList<String>();
+		try {
+			User user = getUserBusiness().getUser(companyPersonalID);
+			//INPR,PEND,UBEH,OMPR,WFPA,WAIT
+			List<String> statusesToShow = new ArrayList<String>();
+			statusesToShow.add("INPR");
+			statusesToShow.add("PEND");
+			statusesToShow.add("UBEH");
+			statusesToShow.add("OMPR");
+			statusesToShow.add("WFPA");
+			statusesToShow.add("WAIT");
+
+			List<String> names = new ArrayList<String>();
+			names.add("string_vesselRegistryNr");
+
+			List<Integer> ids = getCaseManagersProvider().getCaseManager().getCaseIds(user, CasesRetrievalManager.CASE_LIST_TYPE_OPEN, null, null, statusesToShow, false);
+			if (ids != null) {
+				List<CaseProcInstBind> binds = getCasesBPMDAO().getCasesProcInstBindsByCasesIds(ids);
+				for (CaseProcInstBind caseProcInstBind : binds) {
+					ProcessInstanceW inst = getBPMFactory().getProcessInstanceW(caseProcInstBind.getProcInstId());
+					if ("Grasleppa".equals(inst.getProcessDefinitionW().getProcessDefinition().getName())) {
+						List<Long> procIds = new ArrayList<Long>();
+						procIds.add(inst.getProcessInstanceId());
+						Collection<VariableInstanceInfo> info = getVariablesQuerier().getVariablesByProcessInstanceIdAndVariablesNames(procIds, names);
+						if (info != null) {
+							for (VariableInstanceInfo variableInstanceInfo : info) {
+								alreadyAppliedShips.add((String) variableInstanceInfo.getValue());
+							}
+						}
+					}
+				}
+			}
+		} catch (IBOLookupException e) {
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		} catch (FinderException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}*/
+		
+		List<Item> items = null;
+		BigDecimal shipNr[] = getGrasleppuShipNrByCompanySSN(companyPersonalID);
+		if (shipNr != null && shipNr.length > 0) {
+			items = new ArrayList<Item>(shipNr.length);
+			for (BigDecimal nr : shipNr) {
+			//	if (!alreadyAppliedShips.contains(nr.toString())) {
+					SkipInfoTypeUser vessel = getShipInfo(nr.toString());
+					items.add(new Item(vessel.getSkipNr().toString(), "(" + vessel.getSkipNr().toString() + ") " + vessel
+							.getNafn()));
+//				}
 			}
 		}
 		return items;

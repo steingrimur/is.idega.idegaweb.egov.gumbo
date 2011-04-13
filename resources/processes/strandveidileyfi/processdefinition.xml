@@ -243,7 +243,7 @@
                 </propertyMap>
             </action>
         </event>
-		<transition to="updateTimerDate"></transition>
+		<transition to="fork2"></transition>
 	</node>
 
 	<node name="updateCaseStatusToLicenseDenied">
@@ -310,7 +310,7 @@
                 <handlerName>sendLicenseFeeClaim</handlerName>
             </action>
         </event>
-		<transition to="fork2"></transition>
+		<transition to="updateCaseStatusToLicenseGrantedClaimUnpaid"></transition>
 	</node>
 
 	<state name="runCheckForPaymentTimer">
@@ -457,12 +457,6 @@
 		<transition to="updateTimerDate" name="false"></transition>
 	</decision>
 
-	<fork name="fork2">
-		<transition to="licenseRuling" name="toLicenseRuling"></transition>
-		<transition to="deleteClaim" name="toDeleteClaim"></transition>
-		<transition to="updateTimerDate" name="toUpdateTimerDate"></transition>
-	</fork>
-
 	<task-node name="deleteClaim">
 	   <task name="deleteClaimTask">
              <controller>
@@ -525,6 +519,11 @@
 	<fork name="fork3">
 		<transition to="licenseRuling" name="toLicenseRuling"></transition>
 		<transition to="keepMeAlive" name="toKeepMeAlive"></transition>
+	</fork>
+
+	<fork name="fork2">
+		<transition to="updateTimerDate" name="toUpdateTimerDate"></transition>
+		<transition to="deleteClaim" name="toDeleteClaim"></transition>
 	</fork>
 	
 	<idg:roles xmlns:idg="http://idega.com/bpm">

@@ -322,7 +322,7 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                     model="submission_model"
                     ref="instance('control-instance')/required" value="'false'"/>
                 <idega:setvalue
-                    ref="instance('fbc_37_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('fishingLicenseUser.getVesselsForUser()')"/>
+                    ref="instance('fbc_37_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('fishingLicenseUser.getStrandveidiVesselsForUser')"/>
                     
                 <idega:setvalue
                                     if="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"
@@ -439,7 +439,7 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                                         
                                 <xf:action if="instance('data-instance')/License_for_following_vessel_fbc_37 != '' and instance('data-instance')/From_date_fbc_101 != ''">
                                          <idega:setvalue
-                                         ref="instance('data-instance')/fishingArea" value="idega:resolveExpression('fishingLicenseUser.getFishingArea({0}, {1})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}, #{instance(`data-instance`)/From_date_fbc_101}')"/>
+                                         ref="instance('data-instance')/fishingArea" value="idega:resolveExpression('fishingLicenseUser.getFishingAreaStrandveidi({0})', '#{instance(`data-instance`)/From_date_fbc_101}')"/>
                                     </xf:action>
                             </xf:action>
                             

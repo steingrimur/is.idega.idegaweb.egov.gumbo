@@ -56,6 +56,11 @@ public class FishingLicenseUser extends DefaultSpringBean {
 		return getClient().getVesselsForUser(getCurrentUser());
 	}
 
+	public List<Item> getStrandveidiVesselsForUser() {
+
+		return getClient().getVesselsForUser(getCurrentUser());
+	}
+
 	public List<Item> getGrasleppaVesselsForUser(String companyPersonalID) {
 
 		return getClient().getGrasleppaVesselsForUser(companyPersonalID);
@@ -293,12 +298,15 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 * 
 	 * @return label of the fishing area for vessel
 	 */
-	public String getFishingArea(String shipId, String validFrom) {
+	public String getFishingAreaStrandveidi(String validFrom) {
 
 		try {
+			//Nota skyrr
+			CompanyData comp = getCompanyForCurrentUser();
+			
 			return getClient()
-					.getFishingArea(
-							shipId,
+					.getFishingAreaStrandveidi(
+							comp.getPostalCode(),
 							new Timestamp(getDateConverter()
 									.convertStringFromXFormsToDate(validFrom)
 									.getTime()));

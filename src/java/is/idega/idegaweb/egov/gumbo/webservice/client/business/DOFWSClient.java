@@ -30,6 +30,9 @@ public interface DOFWSClient {
 	public SkipInfoTypeUser[] getShipInfoByCompanySSN(String companySSN);
 	
 	public BigDecimal[] getGrasleppuShipNrByCompanySSN(String companySSN);
+	public BigDecimal[] getStrandveidiShipNrByCompanySSN(String companySSN);
+	
+	public String getFishingAreaStrandveidi(String postNr, Timestamp validFrom);
 	
 	public SkipInfoTypeUser getShipInfo(String shipID);
 	
@@ -89,6 +92,8 @@ public interface DOFWSClient {
 	
 	public abstract List<Item> getGrasleppaVesselsForUser(
 	        String companyPersonalID);
+	public abstract List<Item> getStrandveidiVesselsForUser(String companyPersonalID);
+
 	
 	public abstract List<Item> getVesselsForUser(User user);
 }

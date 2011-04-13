@@ -70,6 +70,11 @@ public class DOFWSClientMock implements DOFWSClient {
 	}
 	
 	@Override
+	public String getFishingAreaStrandveidi(String postNr, Timestamp validFrom) {
+		return null;
+	}
+	
+	@Override
 	public AflamarkTypeUser[] getCatchQuota(BigDecimal shipNumber, String period) {
 		throw new UnsupportedOperationException();
 	}
@@ -152,6 +157,12 @@ public class DOFWSClientMock implements DOFWSClient {
 	
 	@Override
 	public BigDecimal[] getGrasleppuShipNrByCompanySSN(String companySSN) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public BigDecimal[] getStrandveidiShipNrByCompanySSN(String companySSN) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -242,6 +253,13 @@ public class DOFWSClientMock implements DOFWSClient {
 		
 		return getVesselsForUser(null);
 	}
+	
+	@Override
+	public List<Item> getStrandveidiVesselsForUser(String companyPersonalID) {
+		
+		return getVesselsForUser(null);
+	}
+
 	
 	@Override
 	public List<Item> getVesselsForUser(User user) {
