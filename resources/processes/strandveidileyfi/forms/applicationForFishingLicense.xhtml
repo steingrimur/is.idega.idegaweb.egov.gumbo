@@ -310,6 +310,13 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                     <fbc_102-label lang="en">Fishing area</fbc_102-label>
                     <fbc_103-label lang="is_IS">Gildistimi frá</fbc_103-label>
                     <fbc_103-label lang="en">Validity from</fbc_103-label>
+                    
+                    <applicationError-info lang="is_IS">Skilyrðum fyrir úthlutun veiðileyfis er ekki fullnægt.
+Ákvörðun þessa má kæra samkvæmt 1. mgr. 26. gr. stjórnsýslulaga nr. 37/1993 til sjávarútvegs- og landbúnaðarráðuneytisins, Skúlagötu 4, 150 Reykjavík, innan þriggja mánaða. 
+Unnt er að óska skriflega eftir rökstuðningi við ákvörðun þessa.</applicationError-info>
+                    <applicationError-info lang="en">Skilyrðum fyrir úthlutun veiðileyfis er ekki fullnægt.
+Ákvörðun þessa má kæra samkvæmt 1. mgr. 26. gr. stjórnsýslulaga nr. 37/1993 til sjávarútvegs- og landbúnaðarráðuneytisins, Skúlagötu 4, 150 Reykjavík, innan þriggja mánaða. 
+Unnt er að óska skriflega eftir rökstuðningi við ákvörðun þessa.</applicationError-info>
                 </localized_strings>
             </xf:instance>
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
@@ -648,6 +655,15 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                             <xf:output bind="fbc_107a_bind" />
                         </xf:group>
                         
+						<xf:group ref=".[/vesselHasValidHaffairisskirteini/result!='true' or /companyLicenseValid/result='true' or /vesselHasRevokedLicense/result='true' or /quotaWithinLimits/result!='true']" class="applicationError">
+	                		<xf:output value="concat(substring(now(),9,2),
+					            '.',
+					            substring(now(),6,2),
+					            '.',
+					            substring(now(),1,4))" />
+	                		<xf:output model="data_model" value="instance('localized_strings')/applicationError-info[@lang=instance('localized_strings')/current_language]"/>
+	                	</xf:group>
+	                                        
                         <div class="fbc_button_area" id="fbc_67" type="fbc_button_area">
                             <xf:trigger bind="bind-controlsButton"
                                 id="fbc_68" type="fbc_button_previous">
