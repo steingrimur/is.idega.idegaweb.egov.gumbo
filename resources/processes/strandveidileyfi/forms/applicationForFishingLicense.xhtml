@@ -417,44 +417,6 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                         <xf:output bind="fbc_33_bind" id="fbc_33" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_56-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
-                        <hr class="fbc_separator" id="fbc_18" type="fbc_separator"/>
-                        <div class="fbc_header_text" id="fbc_19" type="fbc_header_text">
-                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_19-text[@lang=instance('localized_strings')/current_language]"/>
-                        </div>
-                        <xf:input bind="fbc_101_bind" id="fbc_101" type="fbc_date">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_101-label[@lang=instance('localized_strings')/current_language]"/>
-                            <xf:dispatch ev:event="idega-xforms-ready"
-                                name="idega-validate" target="fbc_101"/>
-                                
-                            <xf:action ev:event="xforms-value-changed">
-                                <xf:dispatch 
-                                    name="idega-validate" target="fbc_101"/>
-                                <xf:setvalue 
-                                    ref="instance('data-instance')/validityFrom" value="instance('data-instance')/From_date_fbc_101"/>
-                                <xf:setvalue 
-                                    ref="instance('data-instance')/validityTo" value="concat(substring(instance('data-instance')/From_date_fbc_101, 1, 4), '-08-31')"/>
-                                    
-                                <xf:setvalue
-                                        model="submission_model" ref="instance('data-instance')/vesselHasRevokedLicenseMessage" value="instance('data-instance')/vesselHasRevokedLicense/message" />
-                                        
-                                <xf:action if="instance('data-instance')/License_for_following_vessel_fbc_37 != '' and instance('data-instance')/From_date_fbc_101 != ''">
-                                         <idega:setvalue
-                                         ref="instance('data-instance')/fishingArea" value="idega:resolveExpression('fishingLicenseUser.getFishingAreaStrandveidi({0})', '#{instance(`data-instance`)/From_date_fbc_101}')"/>
-                                    </xf:action>
-                            </xf:action>
-                            
-                            <idega:validator ev:event="idega-validate" validateif=". = '' or ( days-from-date(.) &gt; days-from-date(concat(substring(., 1, 4), '-05-01'))-1 and days-from-date(.) &lt; days-from-date(concat(substring(., 1, 4), '-08-31'))+1 )" componentId="fbc_101">
-                                <idega:message errorType="required"
-                                    model="data_model" value="instance('localized_strings')/fbc_101-required[@lang=instance('localized_strings')/current_language]"/>
-                                <idega:message errorType="custom"
-                                    model="data_model" value="instance('localized_strings')/fbc_101-wrongInterval[@lang=instance('localized_strings')/current_language]"/>
-                            </idega:validator>
-                            
-                            <xf:alert ref="instance('error-instance')/error[@for='fbc_101']"/>
-                            <xf:help>
-                                <xf:output ref="instance('localized_strings')/fbc_101-help[@lang=instance('localized_strings')/current_language]"/>
-                            </xf:help>
-                        </xf:input>
                         <div class="fbc_header_text" id="fbc_36" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_36-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
@@ -478,7 +440,7 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
 		                            <idega:setvalue
 		                                multiple="true()"
 		                                placeResponseDocument="true()"
-		                                ref="instance('data-instance')/vesselHasValidHaffairisskirteini" value="idega:resolveBeanProperties('fishingLicenseUser.getVesselHasValidHaffairisskirteini({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
+		                                ref="instance('data-instance')/vesselHasValidHaffairisskirteini" value="idega:resolveBeanProperties('fishingLicenseUser.getVesselHasValidHaffairisskirteini({0}, {1})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}, #{instance(`data-instance`)/From_date_fbc_101}')"/>
                                     <xf:setvalue
                                         model="submission_model" ref="instance('data-instance')/vesselHasValidHaffairisskirteiniMessage" value="instance('data-instance')/vesselHasValidHaffairisskirteini/message" />
 		                            <idega:setvalue
@@ -520,6 +482,49 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                                 <xf:output ref="instance('localized_strings')/fbc_37-help[@lang=instance('localized_strings')/current_language]"/>
                             </xf:help>
                         </xf:select1>
+                        <div class="fbc_header_text" id="fbc_19" type="fbc_header_text">
+                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_19-text[@lang=instance('localized_strings')/current_language]"/>
+                        </div>
+                        <xf:input bind="fbc_101_bind" id="fbc_101" type="fbc_date">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_101-label[@lang=instance('localized_strings')/current_language]"/>
+                            <xf:dispatch ev:event="idega-xforms-ready"
+                                name="idega-validate" target="fbc_101"/>
+                                
+                            <xf:action ev:event="xforms-value-changed">
+                                <xf:dispatch 
+                                    name="idega-validate" target="fbc_101"/>
+                                <xf:setvalue 
+                                    ref="instance('data-instance')/validityFrom" value="instance('data-instance')/From_date_fbc_101"/>
+                                <xf:setvalue 
+                                    ref="instance('data-instance')/validityTo" value="concat(substring(instance('data-instance')/From_date_fbc_101, 1, 4), '-08-31')"/>
+                                    
+	                            <idega:setvalue
+	                                multiple="true()"
+	                                placeResponseDocument="true()"
+	                                ref="instance('data-instance')/vesselHasValidHaffairisskirteini" value="idega:resolveBeanProperties('fishingLicenseUser.getVesselHasValidHaffairisskirteini({0}, {1})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}, #{instance(`data-instance`)/From_date_fbc_101}')"/>
+                                <xf:setvalue
+                                    model="submission_model" ref="instance('data-instance')/vesselHasValidHaffairisskirteiniMessage" value="instance('data-instance')/vesselHasValidHaffairisskirteini/message" />
+                                <xf:setvalue
+                                        model="submission_model" ref="instance('data-instance')/vesselHasRevokedLicenseMessage" value="instance('data-instance')/vesselHasRevokedLicense/message" />
+                                        
+                                <xf:action if="instance('data-instance')/License_for_following_vessel_fbc_37 != '' and instance('data-instance')/From_date_fbc_101 != ''">
+                                         <idega:setvalue
+                                         ref="instance('data-instance')/fishingArea" value="idega:resolveExpression('fishingLicenseUser.getFishingAreaStrandveidi({0})', '#{instance(`data-instance`)/From_date_fbc_101}')"/>
+                                    </xf:action>
+                            </xf:action>
+                            
+                            <idega:validator ev:event="idega-validate" validateif=". = '' or ( days-from-date(.) &gt; days-from-date(concat(substring(., 1, 4), '-05-01'))-1 and days-from-date(.) &lt; days-from-date(concat(substring(., 1, 4), '-08-31'))+1 )" componentId="fbc_101">
+                                <idega:message errorType="required"
+                                    model="data_model" value="instance('localized_strings')/fbc_101-required[@lang=instance('localized_strings')/current_language]"/>
+                                <idega:message errorType="custom"
+                                    model="data_model" value="instance('localized_strings')/fbc_101-wrongInterval[@lang=instance('localized_strings')/current_language]"/>
+                            </idega:validator>
+                            
+                            <xf:alert ref="instance('error-instance')/error[@for='fbc_101']"/>
+                            <xf:help>
+                                <xf:output ref="instance('localized_strings')/fbc_101-help[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:help>
+                        </xf:input>
                         <div class="fbc_header_text" id="fbc_39" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_39-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
@@ -620,42 +625,38 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_72-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
                         
-                        <xf:group bind="fbc_73_bind">
+                        <xf:group bind="fbc_73_bind" class="check">
                             <xf:output bind="fbc_110_bind" />
                         </xf:group>
-                        <xf:group bind="fbc_74_bind" class="xformErrors">
+                        <xf:group bind="fbc_74_bind" class="fail">
                             <xf:output bind="fbc_110_bind" />
                         </xf:group>
                         
-                        <xf:group bind="fbc_108_bind" class="xformErrors">
+                        <xf:group bind="fbc_108_bind" class="fail">
                             <xf:output bind="fbc_111_bind" />
                         </xf:group>
-                        <xf:group bind="fbc_109_bind">
+                        <xf:group bind="fbc_109_bind" class="check">
                             <xf:output bind="fbc_111_bind" />
                         </xf:group>
                         
-                        <xf:group bind="fbc_112_bind" class="xformErrors">
+                        <xf:group bind="fbc_112_bind" class="fail">
                             <xf:output bind="fbc_114_bind" />
                         </xf:group>
-                        <xf:group bind="fbc_113_bind">
+                        <xf:group bind="fbc_113_bind" class="check">
                             <xf:output bind="fbc_114_bind" />
                         </xf:group>
                         
-                        <xf:group bind="fbc_104_bind" class="xformErrors">
+                        <xf:group bind="fbc_104_bind" class="fail">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_104-text[@lang=instance('localized_strings')/current_language]"/>
                         </xf:group>
-                        <xf:group bind="fbc_105_bind">
-                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_105-text[@lang=instance('localized_strings')/current_language]">
-                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_105-label[@lang=instance('localized_strings')/current_language]"/>
-                            </xf:output>
+                        <xf:group bind="fbc_105_bind" class="check">
+                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_105-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:group>
                         
-                        <xf:group bind="fbc_106_bind">
-                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_106-text[@lang=instance('localized_strings')/current_language]">
-                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_106-label[@lang=instance('localized_strings')/current_language]"/>
-                            </xf:output>
+                        <xf:group bind="fbc_106_bind" class="check">
+                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_106-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:group>
-                        <xf:group bind="fbc_107_bind" class="xformErrors">
+                        <xf:group bind="fbc_107_bind" class="fail">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_107-text[@lang=instance('localized_strings')/current_language]"/>
                         </xf:group>
                         
