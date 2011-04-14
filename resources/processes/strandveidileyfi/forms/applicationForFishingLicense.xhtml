@@ -148,12 +148,12 @@
             <xf:bind id="fbc_74_bind" nodeset="vesselHasNotValidHaffairisskirteini" relevant="instance('data-instance')/vesselHasValidHaffairisskirteini/result != 'true'"/>
             <xf:bind id="fbc_110_bind" nodeset="vesselHasValidHaffairisskirteiniMessage"/>
             
-            <xf:bind id="fbc_104_bind" nodeset="companyLicenseValid" relevant="instance('data-instance')/companyLicenseValid != 'true'"/>
-            <xf:bind id="fbc_105_bind" nodeset="companyLicenseInvalid" relevant="instance('data-instance')/companyLicenseValid = 'true'"/>
+            <xf:bind id="fbc_104_bind" nodeset="companyLicenseValid" relevant="instance('data-instance')/companyLicenseValid/result = 'true'"/>
+            <xf:bind id="fbc_105_bind" nodeset="companyLicenseInvalid" relevant="instance('data-instance')/companyLicenseValid/result != 'true'"/>
             <xf:bind id="fbc_105a_bind" nodeset="companyLicenseMessage"/>
             
-            <xf:bind id="fbc_106_bind" nodeset="quotaWithinLimits" relevant="instance('data-instance')/quotaWithinLimits != 'true'"/>
-            <xf:bind id="fbc_107_bind" nodeset="quotaNotWithinLimits" relevant="instance('data-instance')/quotaWithinLimits = 'true'"/>
+            <xf:bind id="fbc_106_bind" nodeset="quotaWithinLimits" relevant="instance('data-instance')/quotaWithinLimits/result = 'true'"/>
+            <xf:bind id="fbc_107_bind" nodeset="quotaNotWithinLimits" relevant="instance('data-instance')/quotaWithinLimits/result != 'true'"/>
             <xf:bind id="fbc_107a_bind" nodeset="quotaWithinLimitsMessage"/>
             
             <xf:bind id="fbc_112_bind" nodeset="vesselHasRevokedLicense" relevant="instance('data-instance')/vesselHasRevokedLicense/result = 'true'"/>
@@ -641,10 +641,10 @@ Unnt er að óska skriflega eftir rökstuðningi við ákvörðun þessa.</appli
                             <xf:output bind="fbc_114_bind" />
                         </xf:group>
                         
-                        <xf:group bind="fbc_104_bind" class="check">
+                        <xf:group bind="fbc_104_bind" class="fail">
                             <xf:output bind="fbc_105a_bind" />
                         </xf:group>
-                        <xf:group bind="fbc_105_bind" class="fail">
+                        <xf:group bind="fbc_105_bind" class="check">
                             <xf:output bind="fbc_105a_bind" />
                         </xf:group>
                         
