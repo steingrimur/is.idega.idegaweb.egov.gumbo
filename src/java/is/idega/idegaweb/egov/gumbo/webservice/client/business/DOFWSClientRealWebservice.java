@@ -34,6 +34,7 @@ import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.GetskipinfoResponseE
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.GetskipinfobyutgerdElement;
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.CheckReplyTypeUser;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.CodeTypeUser;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.FSWebServiceVEIDILEYFI_PortType;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.FSWebServiceVEIDILEYFI_ServiceLocator;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetaflamflutningstekkforskipElement;
@@ -867,19 +868,19 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	}
 
 	@Override
-	public String getFishingAreaStrandveidi(String postNr) {
+	public CodeTypeUser getFishingAreaStrandveidi(String postNr) {
 
 		GetstrandvlcodeforpostnrElement parameters = new GetstrandvlcodeforpostnrElement(
 				new BigDecimal(postNr), null);
 		try {
 			GetstrandvlcodeforpostnrResponseElement res = getLicensePort()
 					.getstrandvlcodeforpostnr(parameters);
-			return res.getResult().getText();
+			return res.getResult();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 
-		return "error_from_web_service";
+		return null;
 	}
 
 	@Override
@@ -979,6 +980,12 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		return getFishingAreasByType("11", null);
 	}
 
+	@Override
+	public Map<BigDecimal, VeidileyfagerdTypeUser> getStrandveidiAreas() {
+		return getFishingAreasByType("37", null);
+	}
+	
+	
 	private Map<BigDecimal, VeidileyfagerdTypeUser> getFishingAreasByType(
 			String type, String period) {
 		Map cache = getCache(GUMBO_FISHING_AREAS_CACHE, 60 * 60 * 24l);

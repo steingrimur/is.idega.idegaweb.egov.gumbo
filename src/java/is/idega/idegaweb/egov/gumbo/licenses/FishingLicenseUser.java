@@ -2,6 +2,7 @@ package is.idega.idegaweb.egov.gumbo.licenses;
 
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.CheckReplyTypeUser;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.CodeTypeUser;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.VeidileyfagerdTypeUser;
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.licenses.Interval.XFormsInterval;
@@ -11,7 +12,6 @@ import is.idega.idegaweb.egov.gumbo.webservice.client.business.FJSWSClient;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.LicenseCheckContainer;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -153,23 +153,23 @@ public class FishingLicenseUser extends DefaultSpringBean {
 		try {
 			new BigDecimal(vesselId);
 			new IWTimestamp(startOfFishing);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			return new XFormsBooleanResult(false, "");
 		}
-		
+
 		final LicenseCheckContainer res = getClient()
 				.getHasValidSeafaringLicense(vesselId);
-		
+
 		if (!res.isHasLicense()) {
-			return new XFormsBooleanResult(res.isHasLicense(), res.getMessage());			
+			return new XFormsBooleanResult(res.isHasLicense(), res.getMessage());
 		}
-		
+
 		SkipInfoTypeUser info = getClient().getShipInfo(vesselId);
-		IWTimestamp infoValidTo = new IWTimestamp(info.getHaffaeriGildirTil().getTime());
+		IWTimestamp infoValidTo = new IWTimestamp(info.getHaffaeriGildirTil()
+				.getTime());
 		IWTimestamp selectedFrom = new IWTimestamp(startOfFishing);
 		if (infoValidTo.isEarlierThan(selectedFrom)) {
-			return new XFormsBooleanResult(false, res.getMessage());			
+			return new XFormsBooleanResult(false, res.getMessage());
 		}
 
 		return new XFormsBooleanResult(res.isHasLicense(), res.getMessage());
@@ -182,11 +182,13 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 */
 	public XFormsBooleanResult getVesselHasValidGeneralFishingLicense(
 			String vesselId) {
-/*		final LicenseCheckContainer res = getClient()
-				.getHasValidGeneralFishingLicense(vesselId);*/
+		/*
+		 * final LicenseCheckContainer res = getClient()
+		 * .getHasValidGeneralFishingLicense(vesselId);
+		 */
 
 		LicenseCheckContainer res = getClient()
-		.getHasValidQuotaLimitFishingLicense(vesselId);
+				.getHasValidQuotaLimitFishingLicense(vesselId);
 		if (!res.isHasLicense()) {
 			res = getClient().getHasValidHookQuotaLimitFishingLicense(vesselId);
 		}
@@ -196,8 +198,11 @@ public class FishingLicenseUser extends DefaultSpringBean {
 		} else {
 			IWBundle iwb = getBundle(GumboConstants.IW_BUNDLE_IDENTIFIER);
 			IWResourceBundle iwrb = getResourceBundle(iwb);
-			
-			return new XFormsBooleanResult(res.isHasLicense(), iwrb.getLocalizedString("NO_VALID_LICENSE_GRASLEPPA", "Ship has no valid general fishing license (aflamark or krokaflamark)"));			
+
+			return new XFormsBooleanResult(
+					res.isHasLicense(),
+					iwrb.getLocalizedString("NO_VALID_LICENSE_GRASLEPPA",
+							"Ship has no valid general fishing license (aflamark or krokaflamark)"));
 		}
 	}
 
@@ -280,7 +285,9 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 * @return string true or false
 	 */
 	public XFormsBooleanResult getFishingCompanyHasValidStrandveidileyfi() {
-		CheckReplyTypeUser ret = getClient().getFishingCompanyHasValidStrandveidileyfi(getCompanyForCurrentUser().getSocialSecurityNr());
+		CheckReplyTypeUser ret = getClient()
+				.getFishingCompanyHasValidStrandveidileyfi(
+						getCompanyForCurrentUser().getSocialSecurityNr());
 		boolean isValid = ret.getIsok().intValue() > 0;
 		return new XFormsBooleanResult(isValid, ret.getMessage());
 	}
@@ -291,7 +298,8 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 * @return string true or false
 	 */
 	public XFormsBooleanResult getFishingQuotaWithinLimits(String vesselId) {
-		CheckReplyTypeUser ret = getClient().getQuotaTransferCheckForShip(vesselId);
+		CheckReplyTypeUser ret = getClient().getQuotaTransferCheckForShip(
+				vesselId);
 		boolean isValid = ret.getIsok().intValue() > 0;
 		return new XFormsBooleanResult(isValid, ret.getMessage());
 	}
@@ -306,9 +314,15 @@ public class FishingLicenseUser extends DefaultSpringBean {
 			//Nota skyrr
 			CompanyData comp = getCompanyForCurrentUser();
 			
-			return getClient()
+			CodeTypeUser ret = getClient()
 					.getFishingAreaStrandveidi(
 							comp.getPostalCode());
+			
+			if (ret != null) {
+				return ret.getText();
+			} 
+			
+			return "error_from_webservice";
 
 	}
 
@@ -339,7 +353,7 @@ public class FishingLicenseUser extends DefaultSpringBean {
 		if (from == null || from.isEmpty() || !isInTimeframe(from, area)) {
 			return "";
 		}
-		
+
 		try {
 			IWTimestamp stamp = new IWTimestamp(getDateConverter()
 					.convertStringFromXFormsToDate(from));
@@ -348,12 +362,12 @@ public class FishingLicenseUser extends DefaultSpringBean {
 			return getDateConverter().convertDateToComplyWithXForms(
 					to.getDate());
 		} catch (ParseException e) {
-			//Screw you, hippie!!
+			// Screw you, hippie!!
 		}
 
 		return "";
 	}
-	
+
 	public String getLicenseEndDateFormatted(String from, String area) {
 		return getGumboUtil().formatDate(getLicenseEndDate(from, area));
 	}
@@ -367,7 +381,8 @@ public class FishingLicenseUser extends DefaultSpringBean {
 		if (map != null && !map.isEmpty()) {
 			VeidileyfagerdTypeUser item = map.get(new BigDecimal(areaID));
 			if (item != null) {
-				firstPossibleDate = new IWTimestamp(item.getUpphafVeiditimabils().getTime());
+				firstPossibleDate = new IWTimestamp(item
+						.getUpphafVeiditimabils().getTime());
 				lastPossibleDate = new IWTimestamp(item.getUrGildi().getTime());
 			}
 		}
@@ -378,10 +393,10 @@ public class FishingLicenseUser extends DefaultSpringBean {
 				return stamp.isBetween(firstPossibleDate, lastPossibleDate);
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	public XFormsInterval getLicenseIntervalForGrasleppa(String fishingAreaId) {
 
 		Map<BigDecimal, VeidileyfagerdTypeUser> ret = getClient()
@@ -406,11 +421,14 @@ public class FishingLicenseUser extends DefaultSpringBean {
 				.getGrasleppaAreas();
 		VeidileyfagerdTypeUser type = ret.get(new BigDecimal(fishingAreaId));
 
-		IWTimestamp from = new IWTimestamp(type.getUpphafVeiditimabils().getTime());
+		IWTimestamp from = new IWTimestamp(type.getUpphafVeiditimabils()
+				.getTime());
 		IWTimestamp to = new IWTimestamp(type.getUrGildi().getTime());
 
-		StringBuilder builder = new StringBuilder(from.getDateString("dd.MM.yyyy")).append(" - ").append(to.getDateString("dd.MM.yyyy"));
-		
+		StringBuilder builder = new StringBuilder(
+				from.getDateString("dd.MM.yyyy")).append(" - ").append(
+				to.getDateString("dd.MM.yyyy"));
+
 		return builder.toString();
 	}
 

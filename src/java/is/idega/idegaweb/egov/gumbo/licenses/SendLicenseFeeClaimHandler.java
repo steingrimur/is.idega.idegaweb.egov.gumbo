@@ -1,5 +1,8 @@
 package is.idega.idegaweb.egov.gumbo.licenses;
 
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.CheckReplyTypeUser;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.CodeTypeUser;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.VeidileyfagerdTypeUser;
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.business.GumboProcessException;
 import is.idega.idegaweb.egov.gumbo.dao.GumboDao;
@@ -8,6 +11,8 @@ import is.idega.idegaweb.egov.gumbo.webservice.client.business.FJSWSClient;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import org.jbpm.graph.def.ActionHandler;
@@ -26,6 +31,7 @@ import com.idega.idegaweb.IWMainApplication;
 import com.idega.idegaweb.egov.bpm.data.CaseProcInstBind;
 import com.idega.idegaweb.egov.bpm.data.dao.CasesBPMDAO;
 import com.idega.util.IWTimestamp;
+import com.idega.util.text.Item;
 
 @Service("sendLicenseFeeClaim")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -79,7 +85,7 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 			Timestamp fromStamp = (Timestamp) executionContext
 					.getVariable("date_startOfFishing");
 			Timestamp toStamp = (Timestamp) executionContext
-			.getVariable("date_endOfFishing");
+					.getVariable("date_endOfFishing");
 			String areaID = (String) executionContext
 					.getVariable("string_fishingAreaId");
 
@@ -88,29 +94,96 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 
 			BigDecimal ret = getWSClient().createFishingLicense(shipID, areaID,
 					from, to, theCase.getPrimaryKey().toString());
-			theCase.setMetaData(GumboConstants.DOF_FISHING_LICENSE_METADATA_KEY, ret.toString());
+			theCase.setMetaData(
+					GumboConstants.DOF_FISHING_LICENSE_METADATA_KEY,
+					ret.toString());
 
 			if (ret.intValue() == -1) {
-				throw new GumboProcessException("Error creating fishing license");				
+				throw new GumboProcessException(
+						"Error creating fishing license");
+			}
+		} else if ("Strandveidileyfi".equals(processDefinitionName)) {
+
+			CheckReplyTypeUser quotaCheck = getWSClient()
+					.getQuotaTransferCheckForShip(shipID);
+			boolean isValid = quotaCheck.getIsok().intValue() > 0;
+			if (!isValid) {
+				throw new GumboProcessException(
+						"Error creating fishing license");
+			}
+
+			Timestamp fromStamp = (Timestamp) executionContext
+					.getVariable("date_startOfFishing");
+			String postalCode = (String) executionContext
+					.getVariable("string_ownerPostCode");
+
+			String areaID = null;
+			CodeTypeUser areaInfo = getWSClient().getFishingAreaStrandveidi(
+					postalCode);
+			if (areaInfo == null) {
+				throw new GumboProcessException(
+						"Error creating fishing license");
+			}
+
+			Map<BigDecimal, VeidileyfagerdTypeUser> areas = getWSClient()
+					.getStrandveidiAreas();
+			if (areas != null && !areas.isEmpty()) {
+
+				for (Iterator iterator = areas.keySet().iterator(); iterator
+						.hasNext();) {
+					VeidileyfagerdTypeUser item = areas.get(iterator.next());
+					if (item.getKodiSvaedis().equals(areaInfo.getCode())) {
+						areaID = item.getVlyfId().toString();
+						break;
+					}
+				}
+			}
+
+			if (areaID == null) {
+				throw new GumboProcessException(
+						"Error creating fishing license");
+			}
+
+			IWTimestamp from = new IWTimestamp(fromStamp);
+
+			BigDecimal ret = getWSClient().createFishingLicense(shipID, areaID,
+					from, null, theCase.getPrimaryKey().toString());
+			theCase.setMetaData(
+					GumboConstants.DOF_FISHING_LICENSE_METADATA_KEY,
+					ret.toString());
+
+			if (ret.intValue() == -1) {
+				throw new GumboProcessException(
+						"Error creating fishing license");
 			}
 		}
-		
+
 		boolean send = IWMainApplication.getDefaultIWApplicationContext()
-		.getApplicationSettings()
-		.getBoolean("dof_send_claim", true);
+				.getApplicationSettings().getBoolean("dof_send_claim", true);
 
 		if (!send) {
 			return;
 		}
-		
+
 		// Create claim
-		String claimKey = (subType == null) ? getFJSWSClient().createLicenseFeeClaim(ssn, shipID, getGumboDAO().getProcessPaymentCode(processDefinitionName)) : getFJSWSClient().createLicenseFeeClaim(ssn, shipID, getGumboDAO().getProcessPaymentCode(processDefinitionName, subType));
-		
-		//System.out.println("claimKey = " + claimKey);
+		String claimKey = (subType == null) ? getFJSWSClient()
+				.createLicenseFeeClaim(
+						ssn,
+						shipID,
+						getGumboDAO().getProcessPaymentCode(
+								processDefinitionName)) : getFJSWSClient()
+				.createLicenseFeeClaim(
+						ssn,
+						shipID,
+						getGumboDAO().getProcessPaymentCode(
+								processDefinitionName, subType));
+
+		// System.out.println("claimKey = " + claimKey);
 		if (claimKey != null) {
-			theCase.setMetaData(GumboConstants.FJS_CLAIM_NUMBER_METADATA_KEY, claimKey);
+			theCase.setMetaData(GumboConstants.FJS_CLAIM_NUMBER_METADATA_KEY,
+					claimKey);
 		} else {
-			//throw some exception!!!!
+			// throw some exception!!!!
 			throw new GumboProcessException("Error registering the claim");
 		}
 

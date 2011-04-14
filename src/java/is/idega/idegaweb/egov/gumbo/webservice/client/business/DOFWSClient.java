@@ -7,6 +7,7 @@ import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunTypeUs
 import is.fiskistofa.webservices.millifaerslur.FSWebserviceMILLIFAERSLUR_wsdl.MillifaerslaTypeUser;
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.CheckReplyTypeUser;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.CodeTypeUser;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.VeidileyfagerdTypeUser;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.VeidileyfiTypeUser;
 import is.idega.idegaweb.egov.gumbo.licenses.FishingLicenseUser.CompanyData;
@@ -33,7 +34,7 @@ public interface DOFWSClient {
 	public BigDecimal[] getGrasleppuShipNrByCompanySSN(String companySSN);
 	public BigDecimal[] getStrandveidiShipNrByCompanySSN(String companySSN);
 	
-	public String getFishingAreaStrandveidi(String postNr);
+	public CodeTypeUser getFishingAreaStrandveidi(String postNr);
 	
 	public CheckReplyTypeUser getQuotaTransferCheckForShip(String vesselID);
 	
@@ -76,6 +77,8 @@ public interface DOFWSClient {
 	public String getFishingArea(String shipId, Timestamp validFrom);
 	
 	public Map<BigDecimal, VeidileyfagerdTypeUser> getGrasleppaAreas();
+	
+	public Map<BigDecimal, VeidileyfagerdTypeUser> getStrandveidiAreas();
 	
 	public HlutdeildTypeUser[] getCatchPortion(BigDecimal skipID, String season);
 	
