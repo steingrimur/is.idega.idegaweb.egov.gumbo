@@ -90,8 +90,8 @@
             
             <variable name="date_startOfFishing" access="read,write"></variable>
             <variable name="string_fishingArea" access="read,write"></variable>
-            <variable name="date_validityFrom" access="read,write"></variable>
-            <variable name="date_validityTo" access="read,write"></variable>
+            <variable name="string_validityFrom" access="read,write"></variable>
+            <variable name="string_validityTo" access="read,write"></variable>
 
             <variable name="string_hasValidHaffaerisskirteini" access="read,write"></variable>
             <variable name="string_validHaffaerisskirteini" access="read,write"></variable>
