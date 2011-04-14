@@ -1187,7 +1187,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	@Override
 	public List<Item> getStrandveidiVesselsForUser(String companyPersonalID) {
 		//get all open cases for user
-		/*List<String> alreadyAppliedShips = new ArrayList<String>();
+		List<String> alreadyAppliedShips = new ArrayList<String>();
 		try {
 			User user = getUserBusiness().getUser(companyPersonalID);
 			//INPR,PEND,UBEH,OMPR,WFPA,WAIT
@@ -1207,7 +1207,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 				List<CaseProcInstBind> binds = getCasesBPMDAO().getCasesProcInstBindsByCasesIds(ids);
 				for (CaseProcInstBind caseProcInstBind : binds) {
 					ProcessInstanceW inst = getBPMFactory().getProcessInstanceW(caseProcInstBind.getProcInstId());
-					if ("Grasleppa".equals(inst.getProcessDefinitionW().getProcessDefinition().getName())) {
+					if ("Strandveidileyfi".equals(inst.getProcessDefinitionW().getProcessDefinition().getName())) {
 						List<Long> procIds = new ArrayList<Long>();
 						procIds.add(inst.getProcessInstanceId());
 						Collection<VariableInstanceInfo> info = getVariablesQuerier().getVariablesByProcessInstanceIdAndVariablesNames(procIds, names);
@@ -1227,7 +1227,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}*/
+		}
 		
 		List<Item> items = null;
 		BigDecimal shipNr[] = getGrasleppuShipNrByCompanySSN(companyPersonalID);
