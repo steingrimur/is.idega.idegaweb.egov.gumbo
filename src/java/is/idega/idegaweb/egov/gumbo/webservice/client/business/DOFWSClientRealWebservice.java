@@ -1234,11 +1234,11 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		if (shipNr != null && shipNr.length > 0) {
 			items = new ArrayList<Item>(shipNr.length);
 			for (BigDecimal nr : shipNr) {
-			//	if (!alreadyAppliedShips.contains(nr.toString())) {
+				if (!alreadyAppliedShips.contains(nr.toString())) {
 					SkipInfoTypeUser vessel = getShipInfo(nr.toString());
 					items.add(new Item(vessel.getSkipNr().toString(), "(" + vessel.getSkipNr().toString() + ") " + vessel
 							.getNafn()));
-//				}
+				}
 			}
 		}
 		return items;
