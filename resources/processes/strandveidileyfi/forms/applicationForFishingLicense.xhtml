@@ -655,7 +655,7 @@ Unnt er að óska skriflega eftir rökstuðningi við ákvörðun þessa.</appli
                             <xf:output bind="fbc_107a_bind" />
                         </xf:group>
                         
-						<xf:group ref=".[/vesselHasValidHaffairisskirteini/result!='true' or /companyLicenseValid/result='true' or /vesselHasRevokedLicense/result='true' or /quotaWithinLimits/result!='true']" class="applicationError">
+						<xf:group ref=".[/vesselHasValidHaffairisskirteini/result!='true' or /companyLicenseValid/result='true' or /vesselHasRevokedLicense/result='true' or /quotaWithinLimits/result='true']" class="applicationError">
 	                		<xf:output value="concat(substring(now(),9,2),
 					            '.',
 					            substring(now(),6,2),
