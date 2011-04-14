@@ -255,6 +255,10 @@
 	<end-state name="end-state3"></end-state>
 
 	<end-state name="end-state4"></end-state>
+
+	<end-state name="emailsFetcherEnd"></end-state>
+
+	<end-state name="end-state5"></end-state>
 	
 	<node name="updateCaseStatusToLicenseGrantedClaimUnpaid">
 	   <event type="node-enter">
@@ -360,7 +364,7 @@
                 <handlerName>sendLicenseToApplicant</handlerName>
             </action>
         </event>
-		<transition to="runInvalidationWarningNotificationTimer"></transition>
+		<transition to="fork4"></transition>
 	</node>
 
 	<state name="runInvalidationWarningNotificationTimer">
@@ -541,12 +545,84 @@
 	<fork name="fork3">
 		<transition to="licenseRuling" name="toLicenseRuling"></transition>
 		<transition to="keepMeAlive" name="toKeepMeAlive"></transition>
+		<transition to="emailsFetcher" name="to emailsFetcher"></transition>
 	</fork>
 
 	<fork name="fork2">
 		<transition to="updateTimerDate" name="toUpdateTimerDate"></transition>
 		<transition to="deleteClaim" name="toDeleteClaim"></transition>
 	</fork>
+
+	<process-state name="emailsFetcher">
+<sub-process name="fetchEmails" binding="late" />
+      <variable name="string_emailReadAssignmentExpression" access="read" mapped-name="string_emailReadAssignmentExpression" />
+      <variable name='mainProcessInstanceId' access='read' />
+      <event type="node-enter">
+         <script>
+            <expression>
+                emailReadAssignmentExpression =
+"{taskAssignment: {roles: {role: ["
++"{roleName: \""+handlerRoleName+"\", accesses: {access: [read]}}"
++"]} }}";
+            </expression>
+            <variable name='string_emailReadAssignmentExpression' access='write' mapped-name='emailReadAssignmentExpression' />
+            <variable name='handlerRoleName' access='read' />
+
+         </script>
+      </event>
+		<transition to="emailsFetcherEnd"></transition>
+	</process-state>
+
+	<fork name="fork4">
+		<transition to="reIssueLicense" name="to reIssueLicense"></transition>
+		<transition to="runInvalidationWarningNotificationTimer" name="to runInvalidationWarningNotificationTimer"></transition>
+	</fork>
+
+	<task-node name="reIssueLicense">
+		<task name="reIssueLicenseTask" priority="-1">
+	         <controller>
+	         
+	            <variable name="string_caseIdentifier" access="read"></variable>
+	         
+	         </controller>
+	        <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+	            <handlerName>jsonAssignmentHandler</handlerName>
+	            <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+	                <entry><key>expression</key>
+	                    <value>
+	                        {taskAssignment: {roles: {role: [
+	                           {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}}
+	                        ]} }}
+	                    </value>
+	                </entry>
+	            </propertyMap>
+	         </assignment>
+	      
+	      </task>
+		<transition to="reIssueLicenseNode"></transition>
+	
+		
+	</task-node>
+
+	<node name="reIssueLicenseNode">
+	<event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>issueLicense</handlerName>
+				<propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+					<entry>
+						<key>taskInstance</key>
+						<value>#{licenseRulingTaskInstanceId}</value>
+					</entry>
+					<entry>
+						<key>updateDOF</key>
+						<value>false</value>
+					</entry>
+				</propertyMap>
+            </action>
+        </event>
+		<transition to="end-state5"></transition>
+		
+	</node>
 	
 	<idg:roles xmlns:idg="http://idega.com/bpm">
         <role name="bpm_fishingLicense_caseHandler">

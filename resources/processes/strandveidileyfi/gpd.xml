@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="Strandveidileyfi" width="1255" height="1248">
+<root-container name="Strandveidileyfi" width="1302" height="1248">
   <node name="applicationForFishingLicense" x="195" y="37" width="164" height="34">
     <edge>
       <label x="5" y="-10"/>
@@ -150,6 +150,9 @@
     <edge>
       <label x="5" y="-10"/>
     </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
   </node>
   <node name="fork2" x="304" y="586" width="25" height="24">
     <edge>
@@ -158,6 +161,31 @@
     <edge>
       <label x="-36" y="-34"/>
       <bendpoint w1="-50" h1="-254" w2="190" h2="89"/>
+    </edge>
+  </node>
+  <node name="emailsFetcherEnd" x="14" y="167" width="132" height="36"/>
+  <node name="emailsFetcher" x="3" y="108" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="fork4" x="676" y="979" width="46" height="24">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="end-state5" x="815" y="798" width="132" height="36"/>
+  <node name="reIssueLicense" x="799" y="948" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="reIssueLicenseNode" x="816" y="871" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
     </edge>
   </node>
 </root-container>
