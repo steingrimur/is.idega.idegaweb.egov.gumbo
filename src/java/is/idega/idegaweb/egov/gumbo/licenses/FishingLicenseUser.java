@@ -59,7 +59,7 @@ public class FishingLicenseUser extends DefaultSpringBean {
 
 	public List<Item> getStrandveidiVesselsForUser() {
 
-		return getClient().getVesselsForUser(getCurrentUser());
+		return getClient().getStrandveidiVesselsForUser(getCompanyForCurrentUser().getSocialSecurityNr());
 	}
 
 	public List<Item> getGrasleppaVesselsForUser(String companyPersonalID) {
