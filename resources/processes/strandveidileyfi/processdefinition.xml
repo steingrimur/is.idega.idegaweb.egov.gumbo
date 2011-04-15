@@ -295,7 +295,7 @@
                             ${
                             Map subjectMap = new HashMap();
                             subjectMap.put("en", "Fishing license denied");
-                            subjectMap.put("is_IS", "Umsókn þinni um veiðileyfi hefur verið hafnað");
+                            subjectMap.put("is_IS", "Umsókn þinni um veiðileyfi hefur verið hafnað.");
                             return subjectMap;
                             }
                         </value>
@@ -306,8 +306,8 @@
                             ${
                             
                             Map messageMap = new HashMap();
-                            messageMap.put("en", "Your application for a fishing license has been denied.");
-                            messageMap.put("is_IS", "Umsókn þinni um veiðileyfi hefur verið hafnað.");
+                            messageMap.put("en", "Your application for a fishing license has been denied.\n\n"+resolver.get("string_rulingText")");
+                            messageMap.put("is_IS", "Umsókn þinni um veiðileyfi hefur verið hafnað.\n\n"+resolver.get("string_rulingText")");
                             
                             return messageMap;
                             
@@ -447,8 +447,8 @@
                         <value>
                             ${
                             Map messageMap = new HashMap();
-                            messageMap.put("en", "Application was suspended. Message from the handler: "+resolver.get("string_rulingText"));
-                            messageMap.put("is_IS", "Umsókn þín er í skoðun hjá Fiskistofu. "+resolver.get("string_rulingText"));
+                            messageMap.put("en", "Application was suspended.\n\nMessage from the handler: "+resolver.get("string_rulingText"));
+                            messageMap.put("is_IS", "Umsókn þín er í skoðun hjá Fiskistofu.\n\n"+resolver.get("string_rulingText"));
                             return messageMap;
                             }
                         </value>
