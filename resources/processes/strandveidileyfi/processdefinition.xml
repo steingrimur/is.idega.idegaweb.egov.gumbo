@@ -132,6 +132,45 @@
          <controller>
             <variable name="string_rulingText" access="read,write"></variable>
             <variable name="files_processRullingAttachments"></variable>
+            
+            <variable name="string_ownerFullName" access="read" ></variable>
+            <variable name="string_ownerSocialNumber" access="read"></variable>
+            <variable name="string_ownerAddress" access="read"></variable>
+            <variable name="string_ownerPostCode" access="read"></variable>
+            <variable name="string_ownerMunicipality" access="read"></variable>
+            <variable name="string_ownerPhone" access="read"></variable>
+            <variable name="string_ownerFax" access="read"></variable>
+            <variable name="string_ownerEmailAddress" access="read"></variable>
+            <variable name="string_ownerComments" access="read"></variable>
+            
+            <variable name="string_vessel" access="read"></variable>
+            <variable name="string_vesselRegistryNr" access="read"></variable>
+            <variable name="string_vesselName" access="read"></variable>
+            <variable name="string_vesselOwnersName" access="read"></variable>
+            <variable name="string_vesselOwnersSocialSecurityNr" access="read"></variable>
+            
+            <variable name="date_startOfFishing" access="read"></variable>
+            <variable name="string_fishingArea" access="read"></variable>
+            <variable name="string_validityFrom" access="read"></variable>
+            <variable name="string_validityTo" access="read"></variable>
+
+            <variable name="string_hasValidHaffaerisskirteini" access="read"></variable>
+            <variable name="string_validHaffaerisskirteini" access="read"></variable>
+            
+            <variable name="string_hasValidCompanyLicense" access="read"></variable>
+            <variable name="string_validCompanyLicense" access="read"></variable>
+            
+            <variable name="string_hasRevokedLicense" access="read"></variable>
+            <variable name="string_revokedLicense" access="read"></variable>
+            
+            <variable name="string_hasQuotaWithinLimits" access="read"></variable>
+            <variable name="string_quotaWithinLimits" access="read"></variable>
+
+            <variable name="string_userInDebt" access="read"></variable>
+            <variable name="string_deptMessage" access="read"></variable>
+
+            <variable name="string_userInDebt" access="read"></variable>
+            <variable name="string_deptMessage" access="read"></variable>
          </controller>
         <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
 			<handlerName>jsonAssignmentHandler</handlerName>
@@ -307,7 +346,7 @@
                             
                             Map messageMap = new HashMap();
                             messageMap.put("en", "Your application for a fishing license has been denied.\n\n"+resolver.get("string_rulingText")");
-                            messageMap.put("is_IS", "Umsókn þinni um veiðileyfi hefur verið hafnað.\n\n"+resolver.get("string_rulingText")");
+                            messageMap.put("is_IS", "Umsókn þinni um veiðileyfi hefur verið hafnað.\n\n"+resolver.get("string_rulingText")\n\nEf skilyrðum fyrir úthlutun veiðileyfis er ekki fullnægt má kæra þessa ákvörðun samkvæmt 1. mgr. 26. gr. stjórnsýslulaga nr. 37/1993 til sjávarútvegs- og landbúnaðarráðuneytisins, Skúlagötu 4, 150 Reykjavík, innan þriggja mánaða. Unnt er að óska skriflega eftir rökstuðningi við ákvörðun þessa.");
                             
                             return messageMap;
                             
