@@ -624,8 +624,8 @@
 	</process-state>
 
 	<fork name="fork4">
-		<transition to="reIssueLicense" name="to reIssueLicense"></transition>
-		<transition to="runInvalidationWarningNotificationTimer" name="to runInvalidationWarningNotificationTimer"></transition>
+		<transition to="reIssueLicense" name="toReIssueLicense"></transition>
+		<transition to="runInvalidationWarningNotificationTimer" name="toRunInvalidationWarningNotificationTimer"></transition>
 	</fork>
 
 	<task-node name="reIssueLicense">
@@ -649,7 +649,7 @@
 	         </assignment>
 	      
 	      </task>
-		<transition to="reIssueLicenseNode"></transition>
+		<transition to="reIssueLicenseNode" name="toReIssueLicenseNode"></transition>
 	
 		
 	</task-node>

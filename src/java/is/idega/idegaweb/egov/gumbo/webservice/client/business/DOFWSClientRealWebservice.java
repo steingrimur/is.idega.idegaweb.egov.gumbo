@@ -144,26 +144,27 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	private static final String TRANSFERS_ENDPOINT_ATTRIBUTE_NAME = "dofws_transfers_endpoint";
 
 	private static final String GUMBO_FISHING_AREAS_CACHE = "fishing_areas_cache";
-	//private static final String GUMBO_COMPANY_SHIPS_CACHE = "company_ships_cache";
+	// private static final String GUMBO_COMPANY_SHIPS_CACHE =
+	// "company_ships_cache";
 	private static final String GUMBO_COMPANY_CATCH_QUOTA_CACHE = "company_catch_quota_cache";
 	private static final String GUMBO_COMPANY_LATEST_CATCHES_CACHE = "company_latest_catches_cache";
-	//private static final String GUMBO_SHIP_INFO_CACHE = "ship_info_cache";
+	// private static final String GUMBO_SHIP_INFO_CACHE = "ship_info_cache";
 
 	@Autowired
 	private GumboBusiness gumboBusiness;
 
 	@Autowired
 	private CaseManagersProvider caseManagersProvider;
-	
+
 	@Autowired
 	private CasesBPMDAO casesBPMDAO;
-	
+
 	@Autowired
 	private BPMFactory bpmFactory;
-	
+
 	@Autowired
 	private VariableInstanceQuerier variablesQuerier;
-	
+
 	private FSWebServiceSKIP_PortType getShipPort() {
 		try {
 
@@ -378,13 +379,14 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	 */
 	@Override
 	public SkipInfoTypeUser[] getShipInfoByCompanySSN(String companySSN) {
-		/*Map cache = getCache(GUMBO_COMPANY_SHIPS_CACHE, 60 * 60 * 24l);
-		if (cache != null && !cache.isEmpty()) {
-			if (cache.containsKey(companySSN)) {
-				return (SkipInfoTypeUser[]) cache.get(companySSN);
-			}
-
-		}*/
+		/*
+		 * Map cache = getCache(GUMBO_COMPANY_SHIPS_CACHE, 60 * 60 * 24l); if
+		 * (cache != null && !cache.isEmpty()) { if
+		 * (cache.containsKey(companySSN)) { return (SkipInfoTypeUser[])
+		 * cache.get(companySSN); }
+		 * 
+		 * }
+		 */
 
 		try {
 			GetskipinfobyutgerdElement parameter = new GetskipinfobyutgerdElement(
@@ -392,9 +394,9 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 			SkipInfoTypeUser[] ships = getShipPort().getskipinfobyutgerd(
 					parameter);
 
-			/*if (cache != null) {
-				cache.put(companySSN, ships);
-			}*/
+			/*
+			 * if (cache != null) { cache.put(companySSN, ships); }
+			 */
 
 			return ships;
 		} catch (RemoteException e) {
@@ -412,13 +414,13 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	 */
 	@Override
 	public SkipInfoTypeUser getShipInfo(String shipID) {
-		/*Map cache = getCache(GUMBO_SHIP_INFO_CACHE, 60 * 60 * 24l);
-		if (cache != null && !cache.isEmpty()) {
-			if (cache.containsKey(shipID)) {
-				return (SkipInfoTypeUser) cache.get(shipID);
-			}
-
-		}*/
+		/*
+		 * Map cache = getCache(GUMBO_SHIP_INFO_CACHE, 60 * 60 * 24l); if (cache
+		 * != null && !cache.isEmpty()) { if (cache.containsKey(shipID)) {
+		 * return (SkipInfoTypeUser) cache.get(shipID); }
+		 * 
+		 * }
+		 */
 
 		GetskipinfoElement parameter = new GetskipinfoElement(new BigDecimal(
 				shipID));
@@ -428,9 +430,9 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 					parameter);
 			SkipInfoTypeUser ship = res.getResult();
 
-			/*if (cache != null) {
-				cache.put(shipID, ship);
-			}*/
+			/*
+			 * if (cache != null) { cache.put(shipID, ship); }
+			 */
 
 			return ship;
 		} catch (RemoteException e) {
@@ -515,7 +517,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 			if (cache != null) {
 				cache.put(personalID, catches);
 			}
-			
+
 			return catches;
 		} catch (RemoteException re) {
 			re.printStackTrace();
@@ -706,7 +708,6 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		return new LicenseCheckContainer(false, "error_from_web_service");
 	}
 
-	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -741,8 +742,10 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 
 	public static void main(String[] arguments) {
 		CreateveidileyfiWithPasswordElement parameters = new CreateveidileyfiWithPasswordElement(
-				new BigDecimal(2478), "1272", new IWTimestamp("2011-03-12").getCalendar(),
-				new IWTimestamp("2011-05-12").getCalendar(), "1392", "idega", "ws4idega");
+				new BigDecimal(2478), "1272",
+				new IWTimestamp("2011-03-12").getCalendar(), new IWTimestamp(
+						"2011-05-12").getCalendar(), "1392", "idega",
+				"ws4idega");
 
 		try {
 			String endPoint = "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceVeidileyfiUpdateSoap12HttpPort";
@@ -752,7 +755,8 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 					.getFSWebServiceVeidileyfiUpdateSoap12HttpPort(new URL(
 							endPoint));
 
-			CreateveidileyfiWithPasswordResponseElement res = port.createveidileyfiWithPassword(parameters);
+			CreateveidileyfiWithPasswordResponseElement res = port
+					.createveidileyfiWithPassword(parameters);
 			System.out.println(res.getResult());
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -767,7 +771,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 
 	public void doSecurityTest() {
 		try {
-			//String endPoint =
+			// String endPoint =
 			// "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceVeidileyfiUpdateSoap12HttpPort";
 			String endPoint = "http://localhost:8080/FSWebServices_testing/FSWebServiceVeidileyfiUpdateSoap12HttpPort";
 
@@ -781,7 +785,8 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 			CreateveidileyfiWithPasswordElement parameters = new CreateveidileyfiWithPasswordElement(
 					new BigDecimal(2471), "1274",
 					new IWTimestamp().getCalendar(),
-					new IWTimestamp().getCalendar(), "Test á móti Svenna með usr/pwd", "", "");
+					new IWTimestamp().getCalendar(),
+					"Test á móti Svenna með usr/pwd", "", "");
 			CreateveidileyfiWithPasswordResponseElement res = port
 					.createveidileyfiWithPassword(parameters);
 			if (res.getResult() != null) {
@@ -802,7 +807,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 			e.printStackTrace();
 		} catch (RemoteException e) {
 			e.printStackTrace();
-		} 
+		}
 	}
 
 	@Override
@@ -884,20 +889,22 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	}
 
 	@Override
-	public CheckReplyTypeUser getFishingCompanyHasValidStrandveidileyfi(String companySSN) {
-		GethefurutgerdstrandvlbyktElement parameters = new GethefurutgerdstrandvlbyktElement(companySSN, null);
+	public CheckReplyTypeUser getFishingCompanyHasValidStrandveidileyfi(
+			String companySSN) {
+		GethefurutgerdstrandvlbyktElement parameters = new GethefurutgerdstrandvlbyktElement(
+				companySSN, null);
 		try {
-			GethefurutgerdstrandvlbyktResponseElement res = getLicensePort().gethefurutgerdstrandvlbykt(parameters);
+			GethefurutgerdstrandvlbyktResponseElement res = getLicensePort()
+					.gethefurutgerdstrandvlbykt(parameters);
 			return res.getResult();
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
-	
-	
+
 	@Override
 	public CompanyData getCompanyForUser(User user) {
 		final Company comp = getGumboBusiness().getCompanyForUser(user);
@@ -974,7 +981,6 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		return null;
 	}
 
-	
 	@Override
 	public Map<BigDecimal, VeidileyfagerdTypeUser> getGrasleppaAreas() {
 		return getFishingAreasByType("11", null);
@@ -984,8 +990,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	public Map<BigDecimal, VeidileyfagerdTypeUser> getStrandveidiAreas() {
 		return getFishingAreasByType("37", null);
 	}
-	
-	
+
 	private Map<BigDecimal, VeidileyfagerdTypeUser> getFishingAreasByType(
 			String type, String period) {
 		Map cache = getCache(GUMBO_FISHING_AREAS_CACHE, 60 * 60 * 24l);
@@ -1025,8 +1030,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	public BigDecimal createFishingLicense(String shipNr, String areaID,
 			IWTimestamp from, IWTimestamp to, String info) {
 		String user = IWMainApplication.getDefaultIWApplicationContext()
-				.getApplicationSettings()
-				.getProperty(LICENSE_UPDATE_USER, "");
+				.getApplicationSettings().getProperty(LICENSE_UPDATE_USER, "");
 
 		String password = IWMainApplication.getDefaultIWApplicationContext()
 				.getApplicationSettings()
@@ -1049,12 +1053,11 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 
 	public boolean activateFishingLicense(BigDecimal fishingLicenseID) {
 		String user = IWMainApplication.getDefaultIWApplicationContext()
-		.getApplicationSettings()
-		.getProperty(LICENSE_UPDATE_USER, "");
+				.getApplicationSettings().getProperty(LICENSE_UPDATE_USER, "");
 
 		String password = IWMainApplication.getDefaultIWApplicationContext()
-		.getApplicationSettings()
-		.getProperty(LICENSE_UPDATE_PASSWORD, "");
+				.getApplicationSettings()
+				.getProperty(LICENSE_UPDATE_PASSWORD, "");
 
 		VirkjaveidileyfiWithPasswordElement parameters = new VirkjaveidileyfiWithPasswordElement(
 				fishingLicenseID, user, password);
@@ -1070,12 +1073,11 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 
 	public boolean cancelFishingLicense(BigDecimal fishingLicenseID) {
 		String user = IWMainApplication.getDefaultIWApplicationContext()
-		.getApplicationSettings()
-		.getProperty(LICENSE_UPDATE_USER, "");
+				.getApplicationSettings().getProperty(LICENSE_UPDATE_USER, "");
 
 		String password = IWMainApplication.getDefaultIWApplicationContext()
-		.getApplicationSettings()
-		.getProperty(LICENSE_UPDATE_PASSWORD, "");
+				.getApplicationSettings()
+				.getProperty(LICENSE_UPDATE_PASSWORD, "");
 
 		EydaOgilduVeidileyfiElement parameters = new EydaOgilduVeidileyfiElement(
 				fishingLicenseID, user, password);
@@ -1104,17 +1106,19 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 
 	@Override
 	public CheckReplyTypeUser getQuotaTransferCheckForShip(String vesselID) {
-		GetaflamflutningstekkforskipElement parameters = new GetaflamflutningstekkforskipElement(new BigDecimal(vesselID));
+		GetaflamflutningstekkforskipElement parameters = new GetaflamflutningstekkforskipElement(
+				new BigDecimal(vesselID));
 		try {
-			GetaflamflutningstekkforskipResponseElement res = getLicensePort().getaflamflutningstekkforskip(parameters);
+			GetaflamflutningstekkforskipResponseElement res = getLicensePort()
+					.getaflamflutningstekkforskip(parameters);
 			return res.getResult();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
-	
+
 	public boolean emptyCache() {
 		Map cache = getCache(GUMBO_FISHING_AREAS_CACHE, 0l);
 		if (cache != null) {
@@ -1126,11 +1130,11 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 
 	@Override
 	public List<Item> getGrasleppaVesselsForUser(String companyPersonalID) {
-		//get all open cases for user
+		// get all open cases for user
 		List<String> alreadyAppliedShips = new ArrayList<String>();
 		try {
 			User user = getUserBusiness().getUser(companyPersonalID);
-			//INPR,PEND,UBEH,OMPR,WFPA,WAIT
+			// INPR,PEND,UBEH,OMPR,WFPA,WAIT
 			List<String> statusesToShow = new ArrayList<String>();
 			statusesToShow.add("INPR");
 			statusesToShow.add("PEND");
@@ -1142,18 +1146,29 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 			List<String> names = new ArrayList<String>();
 			names.add("string_vesselRegistryNr");
 
-			List<Integer> ids = getCaseManagersProvider().getCaseManager().getCaseIds(user, CasesRetrievalManager.CASE_LIST_TYPE_OPEN, null, null, statusesToShow, false);
+			List<Integer> ids = getCaseManagersProvider().getCaseManager()
+					.getCaseIds(user,
+							CasesRetrievalManager.CASE_LIST_TYPE_OPEN, null,
+							null, statusesToShow, false);
 			if (ids != null) {
-				List<CaseProcInstBind> binds = getCasesBPMDAO().getCasesProcInstBindsByCasesIds(ids);
+				List<CaseProcInstBind> binds = getCasesBPMDAO()
+						.getCasesProcInstBindsByCasesIds(ids);
 				for (CaseProcInstBind caseProcInstBind : binds) {
-					ProcessInstanceW inst = getBPMFactory().getProcessInstanceW(caseProcInstBind.getProcInstId());
-					if ("Grasleppa".equals(inst.getProcessDefinitionW().getProcessDefinition().getName())) {
+					ProcessInstanceW inst = getBPMFactory()
+							.getProcessInstanceW(
+									caseProcInstBind.getProcInstId());
+					if ("Grasleppa".equals(inst.getProcessDefinitionW()
+							.getProcessDefinition().getName())) {
 						List<Long> procIds = new ArrayList<Long>();
 						procIds.add(inst.getProcessInstanceId());
-						Collection<VariableInstanceInfo> info = getVariablesQuerier().getVariablesByProcessInstanceIdAndVariablesNames(procIds, names);
+						Collection<VariableInstanceInfo> info = getVariablesQuerier()
+								.getVariablesByProcessInstanceIdAndVariablesNames(
+										procIds, names);
 						if (info != null) {
 							for (VariableInstanceInfo variableInstanceInfo : info) {
-								alreadyAppliedShips.add((String) variableInstanceInfo.getValue());
+								alreadyAppliedShips
+										.add((String) variableInstanceInfo
+												.getValue());
 							}
 						}
 					}
@@ -1168,7 +1183,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		List<Item> items = null;
 		BigDecimal shipNr[] = getGrasleppuShipNrByCompanySSN(companyPersonalID);
 		if (shipNr != null && shipNr.length > 0) {
@@ -1176,8 +1191,9 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 			for (BigDecimal nr : shipNr) {
 				if (!alreadyAppliedShips.contains(nr.toString())) {
 					SkipInfoTypeUser vessel = getShipInfo(nr.toString());
-					items.add(new Item(vessel.getSkipNr().toString(), "(" + vessel.getSkipNr().toString() + ") " + vessel
-							.getNafn()));
+					items.add(new Item(vessel.getSkipNr().toString(), "("
+							+ vessel.getSkipNr().toString() + ") "
+							+ vessel.getNafn()));
 				}
 			}
 		}
@@ -1186,11 +1202,11 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 
 	@Override
 	public List<Item> getStrandveidiVesselsForUser(String companyPersonalID) {
-		//get all open cases for user
-		List<String> alreadyAppliedShips = new ArrayList<String>();
+		// get all open cases for user
+		boolean showShips = true;
 		try {
 			User user = getUserBusiness().getUser(companyPersonalID);
-			//INPR,PEND,UBEH,OMPR,WFPA,WAIT
+			// INPR,PEND,UBEH,OMPR,WFPA,WAIT
 			List<String> statusesToShow = new ArrayList<String>();
 			statusesToShow.add("INPR");
 			statusesToShow.add("PEND");
@@ -1200,22 +1216,39 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 			statusesToShow.add("WAIT");
 
 			List<String> names = new ArrayList<String>();
-			names.add("string_vesselRegistryNr");
+			names.add("string_ownerSocialNumber");
 
-			List<Integer> ids = getCaseManagersProvider().getCaseManager().getCaseIds(user, CasesRetrievalManager.CASE_LIST_TYPE_OPEN, null, null, statusesToShow, false);
+			List<Integer> ids = getCaseManagersProvider().getCaseManager()
+					.getCaseIds(user,
+							CasesRetrievalManager.CASE_LIST_TYPE_OPEN, null,
+							null, statusesToShow, false);
 			if (ids != null) {
-				List<CaseProcInstBind> binds = getCasesBPMDAO().getCasesProcInstBindsByCasesIds(ids);
+				List<CaseProcInstBind> binds = getCasesBPMDAO()
+						.getCasesProcInstBindsByCasesIds(ids);
 				for (CaseProcInstBind caseProcInstBind : binds) {
-					ProcessInstanceW inst = getBPMFactory().getProcessInstanceW(caseProcInstBind.getProcInstId());
-					if ("Strandveidileyfi".equals(inst.getProcessDefinitionW().getProcessDefinition().getName())) {
+					ProcessInstanceW inst = getBPMFactory()
+							.getProcessInstanceW(
+									caseProcInstBind.getProcInstId());
+					if ("Strandveidileyfi".equals(inst.getProcessDefinitionW()
+							.getProcessDefinition().getName())) {
 						List<Long> procIds = new ArrayList<Long>();
 						procIds.add(inst.getProcessInstanceId());
-						Collection<VariableInstanceInfo> info = getVariablesQuerier().getVariablesByProcessInstanceIdAndVariablesNames(procIds, names);
+						Collection<VariableInstanceInfo> info = getVariablesQuerier()
+								.getVariablesByProcessInstanceIdAndVariablesNames(
+										procIds, names);
 						if (info != null) {
 							for (VariableInstanceInfo variableInstanceInfo : info) {
-								alreadyAppliedShips.add((String) variableInstanceInfo.getValue());
+								if (((String) variableInstanceInfo.getValue())
+										.equals(companyPersonalID)) {
+									showShips = false;
+									break;
+								}
 							}
 						}
+					}
+
+					if (!showShips) {
+						break;
 					}
 				}
 			}
@@ -1228,16 +1261,17 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		List<Item> items = null;
-		BigDecimal shipNr[] = getGrasleppuShipNrByCompanySSN(companyPersonalID);
-		if (shipNr != null && shipNr.length > 0) {
-			items = new ArrayList<Item>(shipNr.length);
-			for (BigDecimal nr : shipNr) {
-				if (!alreadyAppliedShips.contains(nr.toString())) {
+		if (showShips) {
+			BigDecimal shipNr[] = getGrasleppuShipNrByCompanySSN(companyPersonalID);
+			if (shipNr != null && shipNr.length > 0) {
+				items = new ArrayList<Item>(shipNr.length);
+				for (BigDecimal nr : shipNr) {
 					SkipInfoTypeUser vessel = getShipInfo(nr.toString());
-					items.add(new Item(vessel.getSkipNr().toString(), "(" + vessel.getSkipNr().toString() + ") " + vessel
-							.getNafn()));
+					items.add(new Item(vessel.getSkipNr().toString(), "("
+							+ vessel.getSkipNr().toString() + ") "
+							+ vessel.getNafn()));
 				}
 			}
 		}
@@ -1260,7 +1294,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 
 		return items;
 	}
-	
+
 	public CaseManagersProvider getCaseManagersProvider() {
 		if (caseManagersProvider == null) {
 			ELUtil.getInstance().autowire(this);
@@ -1271,7 +1305,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	public UserBusiness getUserBusiness() throws IBOLookupException {
 		return (UserBusiness) getServiceInstance(UserBusiness.class);
 	}
-	
+
 	private CasesBPMDAO getCasesBPMDAO() {
 		if (casesBPMDAO == null) {
 			ELUtil.getInstance().autowire(this);
@@ -1285,11 +1319,11 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		}
 		return bpmFactory;
 	}
-	
+
 	protected VariableInstanceQuerier getVariablesQuerier() {
 		if (variablesQuerier == null)
 			ELUtil.getInstance().autowire(this);
-		
+
 		return variablesQuerier;
 	}
 }
