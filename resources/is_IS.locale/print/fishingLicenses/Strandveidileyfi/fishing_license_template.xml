@@ -54,7 +54,7 @@
 		<cell>Brot á reglum sem gilda um strandveiðar varða viðurlögum samkvæmt ákvæðum ofannefndra laga og fari afli báts umfram sett hámark skal beita ákvæðum laga nr. 37/1992, um sérstakt gjald vegna ólögmæts sjávarafla.</cell>
 	</table>
 		
-	<paragraph font="normal" align="center" spacing-before="18.0">Leyfisbréf þetta er gert ${dateNow} og miðast við gildandi reglur þann dag, sem geta breyst síðar.</paragraph>
+	<paragraph font="normal" halign="center" spacing-before="18.0">Leyfisbréf þetta er gert ${dateNow} og miðast við gildandi reglur þann dag, sem geta breyst síðar.</paragraph>
 	
 	<paragraph font="normal" spacing-before="24.0">Gjald fyrir veiðileyfið er kr. 22.000,-</paragraph>
 	
