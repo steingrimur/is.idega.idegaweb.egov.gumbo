@@ -1264,7 +1264,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 
 		List<Item> items = null;
 		if (showShips) {
-			BigDecimal shipNr[] = getGrasleppuShipNrByCompanySSN(companyPersonalID);
+			BigDecimal shipNr[] = getStrandveidiShipNrByCompanySSN(companyPersonalID);
 			if (shipNr != null && shipNr.length > 0) {
 				items = new ArrayList<Item>(shipNr.length);
 				for (BigDecimal nr : shipNr) {
