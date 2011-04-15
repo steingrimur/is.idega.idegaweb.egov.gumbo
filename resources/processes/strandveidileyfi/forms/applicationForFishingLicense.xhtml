@@ -311,12 +311,10 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                     <fbc_103-label lang="is_IS">Gildistimi frá</fbc_103-label>
                     <fbc_103-label lang="en">Validity from</fbc_103-label>
                     
-                    <applicationError-info lang="is_IS">Skilyrðum fyrir úthlutun veiðileyfis er ekki fullnægt.
-Ákvörðun þessa má kæra samkvæmt 1. mgr. 26. gr. stjórnsýslulaga nr. 37/1993 til sjávarútvegs- og landbúnaðarráðuneytisins, Skúlagötu 4, 150 Reykjavík, innan þriggja mánaða. 
-Unnt er að óska skriflega eftir rökstuðningi við ákvörðun þessa.</applicationError-info>
-                    <applicationError-info lang="en">Skilyrðum fyrir úthlutun veiðileyfis er ekki fullnægt.
-Ákvörðun þessa má kæra samkvæmt 1. mgr. 26. gr. stjórnsýslulaga nr. 37/1993 til sjávarútvegs- og landbúnaðarráðuneytisins, Skúlagötu 4, 150 Reykjavík, innan þriggja mánaða. 
-Unnt er að óska skriflega eftir rökstuðningi við ákvörðun þessa.</applicationError-info>
+                    <paymentInfoText lang="is_IS">Greiða verður veiðileyfi fyrir kl. 21 næsta virka dag á undan upphafsdegi veiðitímabils, að öðrum kosti fellur umsókn niður.</paymentInfoText>
+                    <paymentInfoText lang="en">The fishing license must be paid on the start of the fishing period, at the latest.  Otherwise the application will be rejected.</paymentInfoText>
+                    <applicationError-info lang="is_IS">Ef ofangreindum skilyrðum fyrir úthlutun veiðileyfis er ekki fullnægt má kæra þessa ákvörðun samkvæmt 1. mgr. 26. gr. stjórnsýslulaga nr. 37/1993 til sjávarútvegs- og landbúnaðarráðuneytisins, Skúlagötu 4, 150 Reykjavík, innan þriggja mánaða. Unnt er að óska skriflega eftir rökstuðningi við ákvörðun þessa.</applicationError-info>
+                    <applicationError-info lang="en">Ef ofangreindum skilyrðum fyrir úthlutun veiðileyfis er ekki fullnægt má kæra þessa ákvörðun samkvæmt 1. mgr. 26. gr. stjórnsýslulaga nr. 37/1993 til sjávarútvegs- og landbúnaðarráðuneytisins, Skúlagötu 4, 150 Reykjavík, innan þriggja mánaða. Unnt er að óska skriflega eftir rökstuðningi við ákvörðun þessa.</applicationError-info>
                 </localized_strings>
             </xf:instance>
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
@@ -625,6 +623,10 @@ Unnt er að óska skriflega eftir rökstuðningi við ákvörðun þessa.</appli
                         </xf:output>
                         <div class="fbc_header_text" id="fbc_72" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_72-text[@lang=instance('localized_strings')/current_language]"/>
+                        </div>
+                        
+                        <div class="paymentInformationText">
+                        	<xf:output model="data_model" ref="instance('localized_strings')/paymentInfoText[@lang=instance('localized_strings')/current_language]" />
                         </div>
                         
                         <xf:group bind="fbc_73_bind" class="check">
