@@ -3,7 +3,7 @@
 	PUBLIC "-//UJAC.org//Print Document//EN" 
 	"http://ujac.sourceforge.net/ujac-print-document.dtd">
 
-<document size="A4"  margin-top="30" margin-bottom="30" margin-left="30" margin-right="30" rotate="false">
+<document size="A4"  margin-top="20" margin-bottom="20" margin-left="30" margin-right="30" rotate="false">
 
 	<font-def name="normal" family="Times" size="10" style="normal"/>
 	<font-def name="bold" family="Times" size="10" style="bold"/>
@@ -27,7 +27,7 @@
 
 	<paragraph font="normal" spacing-after="12.0">Leyfið gildir frá og með ${dateFrom} til og með ${dateTo} og falla á þeim tíma úr gildi öll önnur veiðileyfi sem bundin kunna að vera við bátinn og gefin eru út með stoð í lögum nr. 116/2006 og lögum nr. 79/1997, um veiðar í fiskveiðilandhelgi Íslands.</paragraph>
 
-	<paragraph font="normal" spacing-after="12.0">Leyfið er bundið þeim skilyrðum að útgerð bátsins eigi heimilisfesti innan svæðis sem afmarkast af ${fishingAreaDescription} og að afla bátsins sem fenginn er samkvæmt leyfinu sé landað innan þess svæðis  Aðeins er heimilt að veita báti leyfi til strandveiða miðað við eitt landsvæði á fiskveiðiárinu.</paragraph>
+	<paragraph font="normal" spacing-after="12.0">Leyfið er bundið þeim skilyrðum að útgerð bátsins eigi heimilisfesti innan svæðis sem afmarkast af ${fishingAreaDescription} og að afla bátsins sem fenginn er samkvæmt leyfinu sé landað innan þess svæðis.  Aðeins er heimilt að veita báti leyfi til strandveiða miðað við eitt landsvæði á fiskveiðiárinu.</paragraph>
 
 	<paragraph font="bold" spacing-after="12.0">Um reglur varðandi strandveiðar vísast til ofangreindra laga og reglugerðar, ákvæða laga nr. 57/1996, um umgengni um nytjastofna sjávar, sem og reglna sem settar hafa verið og settar kunna að verða samkvæmt framannefndum lögum. Útgerðarmönnum og skipstjórnendum er bent á að kynna sér þessar reglur og fara eftir þeim í hvívetna.</paragraph>
 
@@ -55,7 +55,5 @@
 	</table>
 		
 	<paragraph font="normal" halign="center" spacing-before="12.0">Leyfisbréf þetta er gert ${dateNow} og miðast við gildandi reglur þann dag, sem geta breyst síðar.</paragraph>
-	
-	<paragraph font="normal" spacing-before="18.0">Gjald fyrir veiðileyfið er kr. 22.000,-</paragraph>
 	
 </document>
