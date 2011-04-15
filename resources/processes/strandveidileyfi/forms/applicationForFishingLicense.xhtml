@@ -657,7 +657,11 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                             <xf:output bind="fbc_107a_bind" />
                         </xf:group>
                         
-						<xf:group ref=".[instance('data-instance')/vesselHasValidHaffairisskirteini/result!='true' or instance('data-instance')/companyLicenseValid/result='true' or instance('data-instance')/vesselHasRevokedLicense/result='true' or instance('data-instance')/quotaWithinLimits/result='true']" class="applicationError">
+                        <xf:group bind="debtMessageContainer" class="warning">
+                            <xf:output model="data_model" ref="instance('localized_strings')/debtMessage[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:group>
+                        
+						<xf:group ref=".[instance('data-instance')/vesselHasValidHaffairisskirteini/result!='true' or instance('data-instance')/companyLicenseValid/result='true' or instance('data-instance')/vesselHasRevokedLicense/result='true' or instance('data-instance')/quotaWithinLimits/result!='true']" class="applicationError">
 	                		<xf:output value="concat(substring(now(),9,2),
 					            '.',
 					            substring(now(),6,2),
@@ -701,9 +705,6 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                     <xf:group appearance="full">
                         <xf:label model="data_model" ref="instance('localized_strings')/page-2-label[@lang=instance('localized_strings')/current_language]"/>
                         <xf:output model="data_model" ref="instance('localized_strings')/page-2-info[@lang=instance('localized_strings')/current_language]"/>
-                        <xf:group bind="debtMessageContainer">
-                            <xf:output model="data_model" ref="instance('localized_strings')/debtMessage[@lang=instance('localized_strings')/current_language]"/>
-                        </xf:group>
                     </xf:group>
                 </idega:case>
                 <idega:case id="fbc_100" type="save_page">

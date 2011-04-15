@@ -168,9 +168,6 @@
 
             <variable name="string_userInDebt" access="read"></variable>
             <variable name="string_deptMessage" access="read"></variable>
-
-            <variable name="string_userInDebt" access="read"></variable>
-            <variable name="string_deptMessage" access="read"></variable>
          </controller>
         <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
 			<handlerName>jsonAssignmentHandler</handlerName>

@@ -31,7 +31,6 @@ import com.idega.idegaweb.IWMainApplication;
 import com.idega.idegaweb.egov.bpm.data.CaseProcInstBind;
 import com.idega.idegaweb.egov.bpm.data.dao.CasesBPMDAO;
 import com.idega.util.IWTimestamp;
-import com.idega.util.text.Item;
 
 @Service("sendLicenseFeeClaim")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -77,12 +76,14 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 				.getVariable("string_vesselRegistryNr");
 		String ssn = (String) executionContext
 				.getVariable("string_ownerSocialNumber");
-		String subType = (String) executionContext
-				.getVariable("string_typeOfFishingLicense");
+		String subType = null;
 
 		// create license
 		if ("Grasleppa".equals(processDefinitionName)) {
-			Timestamp fromStamp = (Timestamp) executionContext
+			 subType = (String) executionContext
+				.getVariable("string_typeOfFishingLicense");
+			 
+			 Timestamp fromStamp = (Timestamp) executionContext
 					.getVariable("date_startOfFishing");
 			Timestamp toStamp = (Timestamp) executionContext
 					.getVariable("date_endOfFishing");
