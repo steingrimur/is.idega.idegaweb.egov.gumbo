@@ -1034,7 +1034,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 
 		CreateveidileyfiWithPasswordElement parameters = new CreateveidileyfiWithPasswordElement(
 				new BigDecimal(shipNr), areaID, from.getCalendar(),
-				to.getCalendar(), info, user, password);
+				(to == null) ? null : to.getCalendar(), info, user, password);
 
 		try {
 			CreateveidileyfiWithPasswordResponseElement res = getLicenseUpdatePort()
