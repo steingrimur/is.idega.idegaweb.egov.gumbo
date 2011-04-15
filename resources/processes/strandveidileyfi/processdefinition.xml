@@ -593,8 +593,8 @@
 	</state>
 
 	<fork name="fork3">
-		<transition to="licenseRuling" name="toLicenseRuling"></transition>
 		<transition to="keepMeAlive" name="toKeepMeAlive"></transition>
+		<transition to="licenseRuling" name="toLicenseRuling"></transition>
 		<transition to="emailsFetcher" name="to emailsFetcher"></transition>
 	</fork>
 
@@ -624,8 +624,8 @@
 	</process-state>
 
 	<fork name="fork4">
+		<transition to="runInvalidationWarningNotificationTimer"></transition>
 		<transition to="reIssueLicense" name="toReIssueLicense"></transition>
-		<transition to="runInvalidationWarningNotificationTimer" name="toRunInvalidationWarningNotificationTimer"></transition>
 	</fork>
 
 	<task-node name="reIssueLicense">
