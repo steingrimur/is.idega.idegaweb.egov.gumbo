@@ -56,18 +56,16 @@
                     <current_language>is_IS</current_language>
                     <submission-error_message lang="en">Submission error. Please check your form!</submission-error_message>
                     <submission-error_message lang="is_IS">Villa varð við að senda formið vinsamlegast athugið hvort stjörnumerktir reitir hafi allir verið útfylltir og að engar villur séu í forminu.</submission-error_message>
-                    <form-title lang="en">Delete claim/Activate license</form-title>
-                    <form-title lang="is_IS">Fella niður kröfu/Virkja veiðileyfi</form-title>
+                    <form-title lang="en">Re-issue license</form-title>
+                    <form-title lang="is_IS">Endurútgefa veiðileyfi</form-title>
                     <page-2-label lang="en">Submitted</page-2-label>
-                    <page-2-label lang="is_IS">Málinu lokað</page-2-label>
-                    <page-1-submit-label lang="en">Delete a claim and reject the application</page-1-submit-label>
-                    <page-1-submit-label lang="is_IS">Eyða kröfu og fella niður umsókn</page-1-submit-label>
-                    <page-1-submit_fbc_5-label lang="en">Activate the application</page-1-submit_fbc_5-label>
-                    <page-1-submit_fbc_5-label lang="is_IS">Virkja veiðileyfi</page-1-submit_fbc_5-label>
+                    <page-2-label lang="is_IS">Veiðileyfi endurútgefið</page-2-label>
+                    <page-1-submit_fbc_5-label lang="en">Re-issue license</page-1-submit_fbc_5-label>
+                    <page-1-submit_fbc_5-label lang="is_IS">Endurútgefa veiðileyfi</page-1-submit_fbc_5-label>
                     <page-2-info lang="en">Form submitted, thank You!</page-2-info>
-                    <page-2-info lang="is_IS">Málinu hefur verið nú verið lokað og ekki hægt að meðhöndla það frekar.  Ef veiðileyfið var virkjað er hægt að nálgast PDF skjalið með því undir Lokuð mál með því að opna þetta mál þar.</page-2-info>
+                    <page-2-info lang="is_IS">Veiðileyfið var endurútgefið og er hægt að nálgast PDF skjalið undir Lokuð mál með því að opna þetta mál þar.</page-2-info>
                     <fbc_19-text lang="en">Choose the appropriate action when dropping claim.</fbc_19-text>
-                    <fbc_19-text lang="is_IS">Veljið viðeigandi aðgerð.  Ef fella á niður málið er kröfunni eytt og umsókninni sjálfkrafa hafnað.  Við virkjun veiðileyfisins er PDF skjalið útbúið og ganga þarf frá kröfunni sérstaklega hjá Fjársýslu ríkisins.</fbc_19-text>
+                    <fbc_19-text lang="is_IS">Við endurútgáfu veiðileyfisins er PDF skjalið útbúið og hengt á málið.</fbc_19-text>
                     <fbc_9-label lang="is_IS">Málsnúmer</fbc_9-label>
                     <fbc_9-label lang="en">Identifier number</fbc_9-label>
                 </localized_strings>
@@ -104,29 +102,6 @@
                     	</div>
                     
                         <div class="fbc_button_area" id="fbc_2" type="fbc_button_area">
-                            <xf:trigger bind="bind-submissionButton"
-                                class="fbc_button_submit" id="fbc_3" type="fbc_button_submit">
-                                <xf:label model="data_model" ref="instance('localized_strings')/page-1-submit-label[@lang=instance('localized_strings')/current_language]"/>
-                                <xf:action ev:event="DOMActivate">
-                                    <xf:setvalue
-                                    ref="instance('control-instance')/submission" value="'true'"/>
-                                    <xf:setvalue bind="actionTaken">rejected</xf:setvalue>
-                                    <idega:dispatch
-                                    name="idega-validate" target="//h:body//*[starts-with(@id, 'fbc_')]"/>
-                                    <xf:dispatch name="xforms-rebuild" target="data_model"/>
-                                    <xf:dispatch
-                                    name="xforms-recalculate" target="data_model"/>
-                                    <xf:dispatch
-                                    name="xforms-revalidate" target="data_model"/>
-                                    <xf:dispatch name="xforms-refresh" target="data_model"/>
-                                    <xf:action if="count-non-empty(instance('error-instance')/error)=0">
-                                    <xf:send submission="submit_data_submission"/>
-                                    </xf:action>
-                                    <xf:dispatch
-                                    if="count-non-empty(instance('error-instance')/error)!=0"
-                                    name="idega-submit-error" target="idega-submission-error"/>
-                                </xf:action>
-                            </xf:trigger>
                             
                             <xf:trigger bind="bind-submissionButton"
                                 class="fbc_button_submit" id="fbc_5" type="fbc_button_submit">
@@ -134,7 +109,7 @@
                                 <xf:action ev:event="DOMActivate">
                                     <xf:setvalue
                                     ref="instance('control-instance')/submission" value="'true'"/>
-                                    <xf:setvalue bind="actionTaken">activated</xf:setvalue>
+                                    <xf:setvalue bind="actionTaken">toReIssueLicenseNode</xf:setvalue>
                                     <idega:dispatch
                                     name="idega-validate" target="//h:body//*[starts-with(@id, 'fbc_')]"/>
                                     <xf:dispatch name="xforms-rebuild" target="data_model"/>

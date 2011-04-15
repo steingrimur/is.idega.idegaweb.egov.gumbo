@@ -182,6 +182,14 @@
 				</entry>
 			</propertyMap>
 		</assignment>
+			<event type="task-end">
+				<script>
+					<expression>
+						taskInstanceId = taskInstance.getId();
+			 		</expression>
+					<variable name='licenseRulingTaskInstanceId' access='write' mapped-name='taskInstanceId' />
+				</script>
+			</event>
       </task>
 		<transition to="updateCaseStatusToLicenseDenied" name="denied"></transition>
 		<transition to="notifyFinanceDepartment" name="granted"></transition>
@@ -451,6 +459,12 @@
 	   <event type="node-enter">
             <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
                 <handlerName>issueLicense</handlerName>
+				<propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+					<entry>
+						<key>taskInstance</key>
+						<value>#{licenseRulingTaskInstanceId}</value>
+					</entry>
+				</propertyMap>
             </action>
         </event>
 		<transition to="sendLicenseToApplicant"></transition>

@@ -77,6 +77,7 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 		String ssn = (String) executionContext
 				.getVariable("string_ownerSocialNumber");
 		String subType = null;
+		BigDecimal fishingLicenseKey = null;
 
 		// create license
 		if ("Grasleppa".equals(processDefinitionName)) {
@@ -93,13 +94,13 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 			IWTimestamp from = new IWTimestamp(fromStamp);
 			IWTimestamp to = new IWTimestamp(toStamp);
 
-			BigDecimal ret = getWSClient().createFishingLicense(shipID, areaID,
+			fishingLicenseKey = getWSClient().createFishingLicense(shipID, areaID,
 					from, to, theCase.getPrimaryKey().toString());
 			theCase.setMetaData(
 					GumboConstants.DOF_FISHING_LICENSE_METADATA_KEY,
-					ret.toString());
+					fishingLicenseKey.toString());
 
-			if (ret.intValue() == -1) {
+			if (fishingLicenseKey.intValue() == -1) {
 				throw new GumboProcessException(
 						"Error creating fishing license");
 			}
@@ -147,13 +148,13 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 
 			IWTimestamp from = new IWTimestamp(fromStamp);
 
-			BigDecimal ret = getWSClient().createFishingLicense(shipID, areaID,
+			fishingLicenseKey = getWSClient().createFishingLicense(shipID, areaID,
 					from, null, theCase.getPrimaryKey().toString());
 			theCase.setMetaData(
 					GumboConstants.DOF_FISHING_LICENSE_METADATA_KEY,
-					ret.toString());
+					fishingLicenseKey.toString());
 
-			if (ret.intValue() == -1) {
+			if (fishingLicenseKey.intValue() == -1) {
 				throw new GumboProcessException(
 						"Error creating fishing license");
 			}
@@ -184,6 +185,7 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 			theCase.setMetaData(GumboConstants.FJS_CLAIM_NUMBER_METADATA_KEY,
 					claimKey);
 		} else {
+			getWSClient().cancelFishingLicense(fishingLicenseKey);
 			// throw some exception!!!!
 			throw new GumboProcessException("Error registering the claim");
 		}
