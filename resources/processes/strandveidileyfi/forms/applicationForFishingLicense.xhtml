@@ -327,7 +327,7 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                     model="submission_model"
                     ref="instance('control-instance')/required" value="'false'"/>
                 <idega:setvalue
-                    ref="instance('fbc_37_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('fishingLicenseUser.getStrandveidiVesselsForUser()')"/>
+                    ref="instance('fbc_37_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('fishingLicenseUser.getStrandveidiVesselsForUser({0})', '#{instance(`data-instance`)/companyData/socialSecurityNr}')"/>
                     
                 <idega:setvalue
                                     if="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"
