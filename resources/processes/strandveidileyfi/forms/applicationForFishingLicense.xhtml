@@ -327,13 +327,13 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                     model="submission_model"
                     ref="instance('control-instance')/required" value="'false'"/>
                 <idega:setvalue
-                    ref="instance('fbc_37_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('fishingLicenseUser.getStrandveidiVesselsForUser({0})', '#{instance(`data-instance`)/companyData/socialSecurityNr}')"/>
-                    
-                <idega:setvalue
                                     if="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"
                                     multiple="true()"
                                     placeResponseDocument="true()"
                                     ref="instance('data-instance')/companyData" value="idega:resolveBeanProperties('fishingLicenseUser.getCompanyForCurrentUser()')"/>
+                <idega:setvalue
+                    ref="instance('fbc_37_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('fishingLicenseUser.getStrandveidiVesselsForUser({0})', '#{instance(`data-instance`)/companyData/socialSecurityNr}')"/>
+                    
             </xf:action>
             <xf:action ev:event="xforms-ready" if="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'">
                 <idega:setvalue
