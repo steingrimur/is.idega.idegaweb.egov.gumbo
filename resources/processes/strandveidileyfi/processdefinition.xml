@@ -408,7 +408,7 @@
                 <handlerName>sendLicenseToApplicant</handlerName>
             </action>
         </event>
-		<transition to="fork4"></transition>
+		<transition to="fork4" name="to fork4"></transition>
 	</node>
 
 	<state name="runInvalidationWarningNotificationTimer">
@@ -623,7 +623,7 @@
 		<transition to="emailsFetcherEnd"></transition>
 	</process-state>
 
-	<fork name="fork4">
+<fork name="fork4">
 		<transition to="runInvalidationWarningNotificationTimer"></transition>
 		<transition to="reIssueLicense" name="toReIssueLicense"></transition>
 	</fork>
@@ -650,7 +650,6 @@
 	      
 	      </task>
 		<transition to="reIssueLicenseNode" name="toReIssueLicenseNode"></transition>
-	
 		
 	</task-node>
 
@@ -671,7 +670,6 @@
             </action>
         </event>
 		<transition to="end-state5"></transition>
-		
 	</node>
 	
 	<idg:roles xmlns:idg="http://idega.com/bpm">
