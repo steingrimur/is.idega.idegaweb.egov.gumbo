@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="Strandveidileyfi" width="1302" height="1248">
+<root-container name="Strandveidileyfi" width="1257" height="1248">
   <node name="applicationForFishingLicense" x="195" y="37" width="164" height="34">
     <edge>
       <label x="5" y="-10"/>
@@ -68,7 +68,7 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="runInvalidationWarningNotificationTimer" x="368" y="1082" width="231" height="36">
+  <node name="runInvalidationWarningNotificationTimer" x="378" y="1064" width="231" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
@@ -170,7 +170,7 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="fork4" x="819" y="1111" width="252" height="24">
+  <node name="fork4" x="676" y="979" width="46" height="24">
     <edge>
       <label x="5" y="-10"/>
     </edge>
@@ -178,12 +178,12 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="reIssueLicense" x="902" y="999" width="132" height="36">
+  <node name="reIssueLicense" x="799" y="948" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="reIssueLicenseNode" x="846" y="916" width="132" height="36">
+  <node name="reIssueLicenseNode" x="816" y="871" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
