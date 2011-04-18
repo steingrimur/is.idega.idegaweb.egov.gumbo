@@ -350,8 +350,8 @@
                             ${
                             
                             Map messageMap = new HashMap();
-                            messageMap.put("en", "Your application for a fishing license has been denied.\n\n"+resolver.get("string_rulingText")");
-                            messageMap.put("is_IS", "Umsókn þinni um veiðileyfi hefur verið hafnað.\n\n"+resolver.get("string_rulingText")\n\nEf skilyrðum fyrir úthlutun veiðileyfis er ekki fullnægt má kæra þessa ákvörðun samkvæmt 1. mgr. 26. gr. stjórnsýslulaga nr. 37/1993 til sjávarútvegs- og landbúnaðarráðuneytisins, Skúlagötu 4, 150 Reykjavík, innan þriggja mánaða. Unnt er að óska skriflega eftir rökstuðningi við ákvörðun þessa.");
+                            messageMap.put("en", "Your application for a fishing license has been denied.\n\n"+resolver.get("string_rulingText"));
+                            messageMap.put("is_IS", "Umsókn þinni um veiðileyfi hefur verið hafnað.\n\n"+resolver.get("string_rulingText")+"\n\nEf skilyrðum fyrir úthlutun veiðileyfis er ekki fullnægt má kæra þessa ákvörðun samkvæmt 1. mgr. 26. gr. stjórnsýslulaga nr. 37/1993 til sjávarútvegs- og landbúnaðarráðuneytisins, Skúlagötu 4, 150 Reykjavík, innan þriggja mánaða. Unnt er að óska skriflega eftir rökstuðningi við ákvörðun þessa.");
                             
                             return messageMap;
                             
