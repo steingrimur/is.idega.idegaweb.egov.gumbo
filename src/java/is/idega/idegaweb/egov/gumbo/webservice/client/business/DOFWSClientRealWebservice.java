@@ -69,9 +69,11 @@ import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.FS
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CreateveidileyfiWithPasswordElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CreateveidileyfiWithPasswordResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.EydaOgilduVeidileyfiElement;
-import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.EydaOgilduVeidileyfiResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.VirkjaveidileyfiWithPasswordElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.VirkjaveidileyfiWithPasswordResponseElement;
+import is.idega.block.nationalregister.webservice.client.business.CompanyHolder;
+import is.idega.block.nationalregister.webservice.client.business.SkyrrClient;
+import is.idega.block.nationalregister.webservice.client.business.UserHolder;
 import is.idega.idegaweb.egov.gumbo.business.GumboBusiness;
 import is.idega.idegaweb.egov.gumbo.licenses.FishingLicenseUser.CompanyData;
 
@@ -90,7 +92,6 @@ import java.util.Map;
 import javax.ejb.FinderException;
 import javax.xml.rpc.ServiceException;
 
-import org.jbpm.context.exe.ContextInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
@@ -164,6 +165,9 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 
 	@Autowired
 	private VariableInstanceQuerier variablesQuerier;
+
+	@Autowired
+	private SkyrrClient skyrrClient;
 
 	private FSWebServiceSKIP_PortType getShipPort() {
 		try {
@@ -898,7 +902,6 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 					.gethefurutgerdstrandvlbykt(parameters);
 			return res.getResult();
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -908,28 +911,55 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	@Override
 	public CompanyData getCompanyForUser(User user) {
 		final Company comp = getGumboBusiness().getCompanyForUser(user);
+		
+		CompanyHolder holder = getSkyrrClient().getCompany(comp.getPersonalID());
+		UserHolder uHolder = null;
+		if (holder == null) {
+			uHolder = getSkyrrClient().getUser(comp.getPersonalID());
+		}
 
 		CompanyData ret = new CompanyData(comp.getPersonalID());
 		ret.setName(comp.getName());
-		if (comp.getAddress() != null) {
-			ret.setAddress(comp.getAddress().getStreetAddress());
-
-			if (comp.getAddress().getPostalCode() != null) {
-				ret.setPostalCode(comp.getAddress().getPostalCode()
-						.getPostalCode());
+		if (holder != null) {
+			if (holder.getAddress() != null) {
+				ret.setAddress(holder.getAddress());
+	
+				if (holder.getPostalCode() != null) {
+					ret.setPostalCode(holder.getPostalCode());
+				} else {
+					ret.setPostalCode("");
+				}
+	
+				if (holder.getPostalAddress() != null) {
+					ret.setPlace(holder.getPostalAddress());
+				} else {
+					ret.setPlace("");
+				}
 			} else {
+				ret.setAddress("");
 				ret.setPostalCode("");
-			}
-
-			if (comp.getAddress().getPostalCode() != null) {
-				ret.setPlace(comp.getAddress().getPostalCode().getName());
-			} else {
 				ret.setPlace("");
 			}
+		} else if (uHolder != null) {
+			if (uHolder.getAddress() != null) {
+				ret.setAddress(uHolder.getAddress());
+
+				if (uHolder.getPostalCode() != null) {
+					ret.setPostalCode(uHolder.getPostalCode());
+				} else {
+					ret.setPostalCode("");
+				}
+
+				if (uHolder.getPostalAddress() != null) {
+					ret.setPlace(uHolder.getPostalAddress());
+				} else {
+					ret.setPlace("");
+				}
+			}			
 		} else {
 			ret.setAddress("");
 			ret.setPostalCode("");
-			ret.setPlace("");
+			ret.setPlace("");			
 		}
 
 		if (comp.getPhone() != null) {
@@ -1320,6 +1350,13 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 			ELUtil.getInstance().autowire(this);
 		}
 		return bpmFactory;
+	}
+
+	private SkyrrClient getSkyrrClient() {
+		if (skyrrClient == null) {
+			ELUtil.getInstance().autowire(this);
+		}
+		return skyrrClient;
 	}
 
 	protected VariableInstanceQuerier getVariablesQuerier() {
