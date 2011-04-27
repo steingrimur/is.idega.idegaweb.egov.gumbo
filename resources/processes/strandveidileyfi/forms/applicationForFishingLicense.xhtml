@@ -532,27 +532,6 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_38-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:textarea>
                         <div class="fbc_button_area" id="fbc_2" type="fbc_button_area">
-                            <xf:trigger bind="bind-submissionButton"
-                                class="fbc_button_submit" id="fbc_40" type="fbc_button_save">
-                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_40-label[@lang=instance('localized_strings')/current_language]"/>
-                                <xf:action ev:event="DOMActivate">
-                                    <xf:setvalue
-                                    model="submission_model" ref="instance('saveForm-instance')/savePhase">true</xf:setvalue>
-                                    <xf:dispatch name="xforms-rebuild" target="data_model"/>
-                                    <xf:dispatch
-                                    name="xforms-recalculate" target="data_model"/>
-                                    <xf:dispatch
-                                    name="xforms-revalidate" target="data_model"/>
-                                    <xf:dispatch name="xforms-refresh" target="data_model"/>
-                                    <idega:saveForm action="save"
-                                    formId="instance('data-instance')/form_id"
-                                    instanceId="data-instance"
-                                    linkLocation="instance('saveForm-instance')/link"
-                                    model="submission_model"
-                                    submissionId="instance('data-instance')/saveFormData/submissionId" submissionIdentifier="instance('data-instance')/*[@nodeType='formIdentifier']"/>
-                                    <idega:toggle case="fbc_100"/>
-                                </xf:action>
-                            </xf:trigger>
                             <xf:trigger bind="bind-controlsButton"
                                 id="fbc_66" type="fbc_button_next">
                                 <xf:label model="data_model" ref="instance('localized_strings')/fbc_66-label[@lang=instance('localized_strings')/current_language]"/>
