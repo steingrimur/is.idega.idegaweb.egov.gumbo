@@ -80,11 +80,11 @@ public class AquaCultureService extends DefaultSpringBean {
 	
 	private static enum Aquamethods {
 		
-		sjokviar("Sjókvíar", "rumm", "Rúmm."), jardtjarnir("Jarðtjarnir", "m2",
+		sjokviar("Sjókvíar", "rumm", "m3"), jardtjarnir("Jarðtjarnir", "m2",
 		        "m2"), kerogrennslisfrair("Ker og rennslisþrær", "rumm",
-		        "Rúmm."), botnraikt("Botnrækt", "m2", "m2"), raiktunmeflinum(
+		        "m3"), botnraikt("Botnrækt", "m2", "m2"), raiktunmeflinum(
 		        "Ræktun með línum", "m", "m"), afrarafferfir("Aðrar aðferðir",
-		        "rumm", "Rúmm.");
+		        "rumm", "m3");
 		
 		private final String label, unitId, unitLabel;
 		
