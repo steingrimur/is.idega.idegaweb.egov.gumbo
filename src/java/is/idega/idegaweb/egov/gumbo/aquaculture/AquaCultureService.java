@@ -65,6 +65,24 @@ public class AquaCultureService extends DefaultSpringBean {
 		
 		return items;
 	}
+
+	public List<Item> getAllFarms() {
+		final List<Item> items = new ArrayList<Item>();
+		
+		Company comp = getGumboBusiness().getCompanyForUser(getCurrentUser());
+		if (comp != null) {
+			List<FishFarm> fishFarms = getDao().getAllFishFarms();
+			for (FishFarm fishFarm : fishFarms) {
+				items.add(new Item(fishFarm.getId().toString(), fishFarm.getName() + " (" + fishFarm.getAddress() + ")"));
+			}
+		}
+		
+		return items;
+	}
+
+	public String getBuyersName(String personalID) {
+		return "todo implement";
+	}
 	
 	public List<Item> getSpeciesGroups() {		
 		final List<Item> items = new ArrayList<Item>(
@@ -306,6 +324,8 @@ public class AquaCultureService extends DefaultSpringBean {
 		        : SpeciesGroups.valueOf(speciesGroupId).getPriceUnit()
 		                .getUnitLabel();
 	}
+	
+	
 	
 	public static final class AquaCultureCompanyData {
 		

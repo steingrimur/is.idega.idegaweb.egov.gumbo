@@ -12,6 +12,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = FishFarm.ENTITY_NAME)
 @NamedQueries({
+	@NamedQuery(name = "fishFarm.findAll", query = "select f from FishFarm f where f.active = true order by f.name"),
 	@NamedQuery(name = "fishFarm.findAllByCompany", query = "select f from FishFarm f where f.companyID = :companyID and (f.hasFiledReport is null or f.hasFiledReport = false) and f.active = true")
 })
 public class FishFarm {

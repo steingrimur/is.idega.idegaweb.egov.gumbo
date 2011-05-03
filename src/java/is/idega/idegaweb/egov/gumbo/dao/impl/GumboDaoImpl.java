@@ -197,6 +197,10 @@ public class GumboDaoImpl extends GenericDaoImpl implements GumboDao {
 				FishFarm.class, param);		
 	}
 
+	public List<FishFarm> getAllFishFarms() {
+		return getResultList("fishFarm.findAll", FishFarm.class);		
+	}
+
 	@Transactional(readOnly = false)
 	public FishFarm updateFishFarm(FishFarm farm, boolean hasFiledReport) {
 		farm = find(FishFarm.class, farm.getId());

@@ -206,11 +206,9 @@ public class FJSWSClient {
 				return false;
 			}
 			
-			if (ret.getStada().intValue() == 0) {
+			if (ret.getStada().intValue() <= 0 && ret.getAlagning().intValue() > 0) {
 				return true;
 			}
-
-			//ret.getSvarHaus().getKodi()
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -233,6 +231,7 @@ public class FJSWSClient {
 			ServiceLocator locator = new ServiceLocator();
 			ServiceSoap port = locator.getServiceSoap(new URL(
 					"http://securep.fjs.is/webfjs/ws-fks/service.asmx"));
+			
 
 			Haus haus = new Haus();
 			haus.setAdgangsord("FKS_Ysa");
@@ -245,8 +244,8 @@ public class FJSWSClient {
 
 //			TBRStadaKrofu iStadaKrofu = new TBRStadaKrofu(haus, "5405025950",
 //					"2478", "FV2;6771");
-			TBRStadaKrofu iStadaKrofu = new TBRStadaKrofu(haus, "4412872839",
-					"2471", "FV2;6772");
+			TBRStadaKrofu iStadaKrofu = new TBRStadaKrofu(haus, "6102022090",
+					"7262", "FV2;45320");
 			TBRStadaKrofuSvar ret = port.saekjaStoduKrofu(iStadaKrofu);
 
 			if (ret != null) {

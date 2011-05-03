@@ -70,6 +70,7 @@ public interface GumboDao extends GenericDao {
 			String subName);
 
 	public List<FishFarm> getFishFarms(String companyPersonalID);
+	public List<FishFarm> getAllFishFarms();
 
 	public FishFarm updateFishFarm(FishFarm farm, boolean hasFiledReport);
 }
