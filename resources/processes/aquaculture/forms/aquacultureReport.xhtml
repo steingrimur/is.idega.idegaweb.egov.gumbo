@@ -118,6 +118,9 @@
                                 <buyerSocialSecurityNrOutput/>
                                 <buyerName/>
                                 <buyerNameOutput/>
+                                <fishFarm/>
+                                <fishFarmOutput/>
+                                <fishFarmPermitNumber/>
                             </row>
                             <row>
                                 <speciesGroup/>
@@ -147,6 +150,9 @@
                                 <buyerSocialSecurityNrOutput/>
                                 <buyerName/>
                                 <buyerNameOutput/>
+                                <fishFarm/>
+                                <fishFarmOutput/>
+                                <fishFarmPermitNumber/>
                             </row>
                         </list>
                         <trigger/>
@@ -367,6 +373,9 @@
                 <xf:bind id="buyerNameBind"
                     nodeset="./buyerName" />
                     
+                <xf:bind id="fishFarmBind"
+                    nodeset="./fishFarm" />
+                    
             </xf:bind>
             
             
@@ -506,6 +515,16 @@
                 </local_src>
             </xf:instance>
             <xf:instance id="fbc_46_lds" xmlns="">
+                <local_src>
+                    <localizedEntries lang="en">
+                        <item/>
+                    </localizedEntries>
+                    <localizedEntries lang="is_IS">
+                        <item/>
+                    </localizedEntries>
+                </local_src>
+            </xf:instance>
+            <xf:instance id="fbc_47_lds" xmlns="">
                 <local_src>
                     <localizedEntries lang="en">
                         <item/>
@@ -682,6 +701,8 @@
                     <fbc_43-col-buyerSocialSecurityNr-label lang="is_IS">Kennitala kaupanda</fbc_43-col-buyerSocialSecurityNr-label>
                     <fbc_43-col-buyerName-label lang="en">Buyer name</fbc_43-col-buyerName-label>
                     <fbc_43-col-buyerName-label lang="is_IS">Nafn kaupanda</fbc_43-col-buyerName-label>
+                    <fbc_43-col-fishFarm-label lang="en">Fish farm</fbc_43-col-fishFarm-label>
+                    <fbc_43-col-fishFarm-label lang="is_IS">Fiskeldisstöð</fbc_43-col-fishFarm-label>
                     
                     <fbc_65-label lang="is_IS">Verðmæti</fbc_65-label>
                     <fbc_65-label lang="en">Total sales value</fbc_65-label>
@@ -774,6 +795,9 @@
                             
                         <idega:setvalue
                             ref="instance('fbc_46_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('aquaCultureService.getSoldTos()')"/>
+                            
+                        <idega:setvalue
+                            ref="instance('fbc_47_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('aquaCultureService.getAllFarms()')"/>
                     </xf:action>
                     
                 
@@ -1327,6 +1351,12 @@
 	                                            ref="instance('data-instance')/sales/list/row[index('fbc_43_repeat_id')]/buyerSocialSecurityNrOutput" 
 	                                            value="instance('data-instance')/sales/list/row[index('fbc_43_repeat_id')]/buyerSocialSecurityNr"/>
 	                                            
+	                                    <idega:setvalue
+			                                    ev:event="xforms-value-changed"
+			                                    ref="instance('data-instance')/sales/list/row[index('fbc_43_repeat_id')]/buyerName"
+			                                    value="idega:resolveExpression('aquaCultureService.getBuyersName({0})', '#{instance(`data-instance`)/sales/list/row[index(`fbc_43_repeat_id`)]/buyerSocialSecurityNr}')"/>
+	                                    
+	                                            
 	                                </xf:input>
 	                                
 	                                <xf:input bind="buyerNameBind" id="fbc_43_repeat_id_input_buyerName">
@@ -1340,6 +1370,17 @@
 	                                            ref="instance('data-instance')/sales/list/row[index('fbc_43_repeat_id')]/buyerNameOutput" 
 	                                            value="instance('data-instance')/sales/list/row[index('fbc_43_repeat_id')]/buyerName"/>
 	                                            
+	                                </xf:input>
+	                                
+	                                <xf:input id="fbc_43_repeat_id_input_fishFarm" bind="fishFarmBind" class="substitute substituteId-fishFarm fishFarm">
+	                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-col-fishFarm-label[@lang=instance('localized_strings')/current_language]"/>
+	                                    
+	                                    <xf:action ev:event="xforms-value-changed">
+	                                        <xf:setvalue
+	                                            ref="../fishFarmOutput" 
+	                                            value="instance('fbc_47_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/sales/list/row[index('fbc_43_repeat_id')]/fishFarm]/itemLabel"/>
+	                                    </xf:action>
+	                                    
 	                                </xf:input>
 	                                
 	                            </xf:repeat>
@@ -1655,6 +1696,15 @@
                                 </xf:itemset>
                             </xf:select1>
                         </div>
+                        <div style="display: none;" class="selectorItems fishFarm">
+                            <xf:select1 appearance="minimal"
+                                id="fbc_47" type="fbc_single_select_minimal">
+                                <xf:itemset model="data_model" nodeset="instance('fbc_47_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
+                                    <xf:label ref="itemLabel"/>
+                                    <xf:value ref="itemValue"/>
+                                </xf:itemset>
+                            </xf:select1>
+                        </div>
                         
                     </xf:group>
                 </idega:case>
@@ -1793,7 +1843,10 @@
                                     ref="./buyerNameOutput" type="fbc_text_output">
                                     <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-col-buyerName-label[@lang=instance('localized_strings')/current_language]"/>
                                 </xf:output>
-                                
+                                <xf:output id="fbc_62a"
+                                    ref="./fishFarmOutput" type="fbc_text_output">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-col-fishFarm-label[@lang=instance('localized_strings')/current_language]"/>
+                                </xf:output>
 	                    </xf:repeat>
 	                </div>
                 </xf:group>
