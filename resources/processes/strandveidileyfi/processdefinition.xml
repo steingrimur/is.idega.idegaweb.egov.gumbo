@@ -467,6 +467,14 @@
 				</propertyMap>
             </action>
         </event>
+        <event type="node-leave">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>hideTaskInstances</handlerName>
+                <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                    <entry><key>taskName</key><value>deleteClaimTask</value></entry>
+                </propertyMap>
+            </action>
+        </event>
 		<transition to="sendLicenseToApplicant"></transition>
 	</node>
 
