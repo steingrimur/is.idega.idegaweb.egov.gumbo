@@ -189,7 +189,11 @@ public class GumboDaoImpl extends GenericDaoImpl implements GumboDao {
 		Param param2 = new Param("subName", subName);
 		return getSingleResult("processFocalCode.findAllByProcessNameAndSubName",
 				ProcessFocalCode.class, param1, param2);
-	}	
+	}
+	
+	public FishFarm getFishFarm(Long id) {
+		return find(FishFarm.class, id);
+	}
 	
 	public List<FishFarm> getFishFarms(String companyPersonalID) {
 		Param param = new Param("companyID", companyPersonalID);

@@ -91,6 +91,9 @@
             <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
        		      <handlerName>fishFarmReportFiledHandler</handlerName>
           	</action>
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+       		      <handlerName>aquaCultureReportDescriptionHandler</handlerName>
+          	</action>
       </event>
 		<transition to="doNothing"></transition>
    </start-state>

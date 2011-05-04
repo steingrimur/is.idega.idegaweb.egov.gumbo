@@ -69,6 +69,7 @@ public interface GumboDao extends GenericDao {
 	public ProcessFocalCode getProcessFocalCode(String processName,
 			String subName);
 
+	public FishFarm getFishFarm(Long id);
 	public List<FishFarm> getFishFarms(String companyPersonalID);
 	public List<FishFarm> getAllFishFarms();
 

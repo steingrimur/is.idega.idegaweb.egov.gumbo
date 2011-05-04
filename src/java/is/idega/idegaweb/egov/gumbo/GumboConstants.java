@@ -12,4 +12,6 @@ public class GumboConstants {
 
 	public static final String ATTRIBUTE_RESOURCE_URL = "gumbo.pdf.resource.url";
 
+	public static final String PROPERTY_FISH_FARM_YEAR = "gumbo.fish.farm.year";
+
 }

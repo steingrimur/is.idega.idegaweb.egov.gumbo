@@ -68,6 +68,8 @@
                                 <speciesGroupOutput/>
                                 <species/>
                                 <speciesOutput/>
+                                <count/>
+                                <countOutput/>
                                 <weight xsi:type="xsd:float" xsi:nil="true"/>
                                 <weightOutput/>
                                 <kg xsi:type="xsd:float" xsi:nil="true"/>
@@ -78,6 +80,8 @@
                                 <speciesGroupOutput/>
                                 <species/>
                                 <speciesOutput/>
+                                <count/>
+                                <countOutput/>
                                 <weight xsi:type="xsd:float" xsi:nil="true"/>
                                 <weightOutput/>
                                 <kg xsi:type="xsd:float" xsi:nil="true"/>
@@ -196,8 +200,6 @@
                                 <speciesGroupOutput/>
                                 <species/>
                                 <speciesOutput/>
-                                <count/>
-                                <countOutput/>
                                 <quantity xsi:type="xsd:float" xsi:nil="true"/>
                                 <quantityOutput/>
                                 <quantityUnit/>
@@ -209,8 +211,6 @@
                                 <speciesGroupOutput/>
                                 <species/>
                                 <speciesOutput/>
-                                <count/>
-                                <countOutput/>
                                 <quantity xsi:type="xsd:float" xsi:nil="true"/>
                                 <quantityOutput/>
                                 <quantityUnit/>
@@ -310,6 +310,9 @@
                     
                 <xf:bind id="speciesBind_fbc_26"
                     nodeset="./species" />
+                    
+                <xf:bind id="count_fbc_26"
+                    nodeset="./count" />
                     
                 <xf:bind id="weightBind"
                     nodeset="./weight" />
@@ -411,9 +414,6 @@
                     
                 <xf:bind id="speciesBind_fbc_78"
                     nodeset="./species" />
-                    
-                <xf:bind id="count_fbc_78"
-                    nodeset="./count" />
                     
                 <xf:bind id="quantityBind_fbc_78"
                     nodeset="./quantity" />
@@ -709,8 +709,8 @@
                     <fbc_67-label lang="is_IS">Athugasemdir</fbc_67-label>
                     <fbc_67-label lang="en">Comments</fbc_67-label>
                     
-                    <fbc_69-label lang="is_IS">Birgðastaða um áramót 2011 - 2012</fbc_69-label>
-                    <fbc_69-label lang="en">Inventory at year end 2011 - 2012</fbc_69-label>
+                    <fbc_69-label lang="is_IS">Birgðastaða um áramót 2010</fbc_69-label>
+                    <fbc_69-label lang="en">Inventory at year end 2010</fbc_69-label>
                     <fbc_69-insert-label lang="en">Insert</fbc_69-insert-label>
                     <fbc_69-insert-label lang="is_IS">Bæta við röð</fbc_69-insert-label>
                     <fbc_69-delete-label lang="en">Delete</fbc_69-delete-label>
@@ -728,7 +728,7 @@
                     <fbc_69-col-comments-label lang="is_IS">Athugasemdir</fbc_69-col-comments-label>
                     
                     
-                    <fbc_78-label lang="is_IS">Áætlað magn frá stöðinni á árinu 2012</fbc_78-label>
+                    <fbc_78-label lang="is_IS">Áætlað magn frá stöðinni á árinu 2011</fbc_78-label>
                     <fbc_78-label lang="en">Expected quantity produced next year</fbc_78-label>
                     <fbc_78-insert-label lang="en">Insert</fbc_78-insert-label>
                     <fbc_78-insert-label lang="is_IS">Bæta við röð</fbc_78-insert-label>
@@ -1066,6 +1066,19 @@
                                                
                                     </xf:action>
                                     
+                                </xf:input>
+                                
+                                <xf:input bind="count_fbc_26" id="fbc_26_repeat_id_input_count">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_78-col-count-label[@lang=instance('localized_strings')/current_language]"/>
+                                    
+                                    <xf:dispatch ev:event="xforms-value-changed"
+                                        name="idega-validate" target="fbc_26_repeat_id_input_count"/>
+                                    
+                                    <xf:setvalue
+                                            ev:event="xforms-value-changed"
+                                            ref="instance('data-instance')/fishedForOnGrowing/list/row[index('fbc_26_repeat_id')]/countOutput" 
+                                            value="instance('data-instance')/fishedForOnGrowing/list/row[index('fbc_26_repeat_id')]/count"/>
+                                            
                                 </xf:input>
                                 
                                 <xf:input bind="weightBind" id="fbc_26_repeat_id_input_weight">
@@ -1585,19 +1598,6 @@
                                 </xf:input>
                                 
                                 
-                                <xf:input bind="count_fbc_78" id="fbc_78_repeat_id_input_count">
-                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_78-col-count-label[@lang=instance('localized_strings')/current_language]"/>
-                                    
-                                    <xf:dispatch ev:event="xforms-value-changed"
-                                        name="idega-validate" target="fbc_78_repeat_id_input_count"/>
-                                    
-                                    <xf:setvalue
-                                            ev:event="xforms-value-changed"
-                                            ref="instance('data-instance')/expectedQuantityProduced/list/row[index('fbc_78_repeat_id')]/countOutput" 
-                                            value="instance('data-instance')/expectedQuantityProduced/list/row[index('fbc_78_repeat_id')]/count"/>
-                                            
-                                </xf:input>
-                                
                                 <xf:input bind="quantityBind_fbc_78" id="fbc_78_repeat_id_input_quantity">
                                     <xf:label model="data_model" ref="instance('localized_strings')/fbc_78-col-quantity-label[@lang=instance('localized_strings')/current_language]"/>
                                     
@@ -1770,6 +1770,10 @@
                                     ref="./speciesOutput" type="fbc_text_output">
                                     <xf:label model="data_model" ref="instance('localized_strings')/fbc_26-col-species-label[@lang=instance('localized_strings')/current_language]"/>
                                 </xf:output>
+                                <xf:output id="fbc_84a"
+                                    ref="./countOutput" type="fbc_text_output">
+                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_78-col-count-label[@lang=instance('localized_strings')/current_language]"/>
+                                </xf:output>
                                 <xf:output id="fbc_34"
                                     ref="./weightOutput" type="fbc_text_output">
                                     <xf:label model="data_model" ref="instance('localized_strings')/fbc_26-col-weight-label[@lang=instance('localized_strings')/current_language]"/>
@@ -1896,10 +1900,6 @@
                                 <xf:output id="fbc_83"
                                     ref="./speciesOutput" type="fbc_text_output">
                                     <xf:label model="data_model" ref="instance('localized_strings')/fbc_78-col-species-label[@lang=instance('localized_strings')/current_language]"/>
-                                </xf:output>
-                                <xf:output id="fbc_84a"
-                                    ref="./countOutput" type="fbc_text_output">
-                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_78-col-count-label[@lang=instance('localized_strings')/current_language]"/>
                                 </xf:output>
                                 <xf:output id="fbc_84"
                                     ref="./quantityOutput" type="fbc_text_output">
