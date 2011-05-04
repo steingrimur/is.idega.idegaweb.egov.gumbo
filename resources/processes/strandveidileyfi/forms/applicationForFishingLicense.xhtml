@@ -304,6 +304,8 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                     <fbc_101-required lang="en">The field X is required</fbc_101-required>
                     <fbc_101-wrongInterval lang="is_IS">Upphafsdagur veiðileyfis verður að vera á tímabilinu 01.05 til 31.08</fbc_101-wrongInterval>
                     <fbc_101-wrongInterval lang="en">License start date should fall into interval 05/01 to 08/31</fbc_101-wrongInterval>
+                    <fbc_101-beforeNow lang="is_IS">Það má ekki velja dagsetningu aftur í tímann</fbc_101-beforeNow>
+                    <fbc_101-beforeNow lang="en">You can not choose a date back in time</fbc_101-beforeNow>
                     <fbc_101-help lang="is_IS">Vinsamlega veljið  upphafsdag veiða úr dagatalinu hér til hliðar.</fbc_101-help>
                     <fbc_101-help lang="en">Please select the "from date" for the fishing license from the small calendar.</fbc_101-help>
                     <fbc_102-label lang="is_IS">Veiðisvæði</fbc_102-label>
@@ -491,10 +493,14 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_101-label[@lang=instance('localized_strings')/current_language]"/>
                             <xf:dispatch ev:event="idega-xforms-ready"
                                 name="idega-validate" target="fbc_101"/>
+                            <xf:dispatch ev:event="idega-xforms-ready"
+                                name="idega-validate2" target="fbc_101"/>
                                 
                             <xf:action ev:event="xforms-value-changed">
                                 <xf:dispatch 
                                     name="idega-validate" target="fbc_101"/>
+                                <xf:dispatch
+                                	name="idega-validate2" target="fbc_101"/>
                                 <xf:setvalue 
                                     ref="instance('data-instance')/validityFrom" value="idega:resolveExpression('gumboUtil.formatDate({0})', '#{instance(`data-instance`)/From_date_fbc_101}')"/>
                                 <xf:setvalue 
@@ -520,6 +526,11 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                                     model="data_model" value="instance('localized_strings')/fbc_101-wrongInterval[@lang=instance('localized_strings')/current_language]"/>
                             </idega:validator>
                             
+                            <idega:validator ev:event="idega-validate2" errorif="instance('data-instance')/From_date_fbc_101 != '' and idega:isBeforeNow(instance('data-instance')/From_date_fbc_101)" componentId="fbc_101">
+                                <idega:message errorType="custom"
+                                    model="data_model" value="instance('localized_strings')/fbc_101-beforeNow[@lang=instance('localized_strings')/current_language]"/>
+                            </idega:validator>
+
                             <xf:alert ref="instance('error-instance')/error[@for='fbc_101']"/>
                             <xf:help>
                                 <xf:output ref="instance('localized_strings')/fbc_101-help[@lang=instance('localized_strings')/current_language]"/>
