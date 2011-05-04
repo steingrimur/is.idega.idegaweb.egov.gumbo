@@ -10,6 +10,7 @@
         </title>
         
         <link rel="stylesheet" type="text/css" href="/idegaweb/bundles/is.idega.idegaweb.egov.gumbo.bundle/resources/style/gumbo.css" />
+        <link rel="stylesheet" media="print" type="text/css" href="/idegaweb/bundles/is.idega.idegaweb.egov.gumbo.bundle/resources/style/aqua-culture-print.css" />
         <script type="text/javascript" src="/idegaweb/bundles/is.idega.idegaweb.egov.gumbo.bundle/resources/javascript/aquacultureReport.js"></script>
         
         
@@ -1369,7 +1370,11 @@
 			                                    ref="instance('data-instance')/sales/list/row[index('fbc_43_repeat_id')]/buyerName"
 			                                    value="idega:resolveExpression('aquaCultureService.getBuyersName({0})', '#{instance(`data-instance`)/sales/list/row[index(`fbc_43_repeat_id`)]/buyerSocialSecurityNr}')"/>
 	                                    
-	                                            
+	                                    <idega:setvalue
+			                                    ev:event="xforms-value-changed"
+			                                    ref="instance('data-instance')/sales/list/row[index('fbc_43_repeat_id')]/buyerNameOutput"
+			                                    value="idega:resolveExpression('aquaCultureService.getBuyersName({0})', '#{instance(`data-instance`)/sales/list/row[index(`fbc_43_repeat_id`)]/buyerSocialSecurityNr}')"/>
+	                                    
 	                                </xf:input>
 	                                
 	                                <xf:input bind="buyerNameBind" id="fbc_43_repeat_id_input_buyerName">
