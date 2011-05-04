@@ -1,6 +1,13 @@
 package is.idega.idegaweb.egov.gumbo.dao;
 
 import is.idega.idegaweb.egov.gumbo.LetterType;
+import is.idega.idegaweb.egov.gumbo.data.AquaCountry;
+import is.idega.idegaweb.egov.gumbo.data.AquaEnvironment;
+import is.idega.idegaweb.egov.gumbo.data.AquaFarmingType;
+import is.idega.idegaweb.egov.gumbo.data.AquaMethod;
+import is.idega.idegaweb.egov.gumbo.data.AquaProcessingMethod;
+import is.idega.idegaweb.egov.gumbo.data.AquaSpecies;
+import is.idega.idegaweb.egov.gumbo.data.AquaSpeciesGroup;
 import is.idega.idegaweb.egov.gumbo.data.FishFarm;
 import is.idega.idegaweb.egov.gumbo.data.FishingGear;
 import is.idega.idegaweb.egov.gumbo.data.Inspector;
@@ -74,4 +81,22 @@ public interface GumboDao extends GenericDao {
 	public List<FishFarm> getAllFishFarms();
 
 	public FishFarm updateFishFarm(FishFarm farm, boolean hasFiledReport);
+	
+	public List<AquaCountry> getAquaCountries();
+	
+	public List<AquaProcessingMethod> getAquaProcessingMethods();
+
+	public List<AquaSpecies> getAquaSpecies();
+	
+	public List<AquaEnvironment> getAquaEnvironments();
+
+	public List<AquaFarmingType> getAquaFarmingTypes();
+
+	public List<AquaSpeciesGroup> getAquaSpeciesGroups();
+
+	public List<AquaMethod> getAquaMethods();
+	
+	public AquaSpeciesGroup getAquaSpeciesGroup(Long id);
+
+	public AquaMethod getAquaMethod(Long id);
 }

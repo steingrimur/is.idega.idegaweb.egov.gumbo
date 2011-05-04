@@ -2,6 +2,13 @@ package is.idega.idegaweb.egov.gumbo.dao.impl;
 
 import is.idega.idegaweb.egov.gumbo.LetterType;
 import is.idega.idegaweb.egov.gumbo.dao.GumboDao;
+import is.idega.idegaweb.egov.gumbo.data.AquaCountry;
+import is.idega.idegaweb.egov.gumbo.data.AquaEnvironment;
+import is.idega.idegaweb.egov.gumbo.data.AquaFarmingType;
+import is.idega.idegaweb.egov.gumbo.data.AquaMethod;
+import is.idega.idegaweb.egov.gumbo.data.AquaProcessingMethod;
+import is.idega.idegaweb.egov.gumbo.data.AquaSpecies;
+import is.idega.idegaweb.egov.gumbo.data.AquaSpeciesGroup;
 import is.idega.idegaweb.egov.gumbo.data.FishFarm;
 import is.idega.idegaweb.egov.gumbo.data.FishingGear;
 import is.idega.idegaweb.egov.gumbo.data.Inspector;
@@ -213,5 +220,41 @@ public class GumboDaoImpl extends GenericDaoImpl implements GumboDao {
 		getEntityManager().persist(farm);
 
 		return farm;		
+	}
+	
+	public List<AquaCountry> getAquaCountries() {
+		return getResultList("aquaCountry.findAll", AquaCountry.class);				
+	}
+	
+	public List<AquaProcessingMethod> getAquaProcessingMethods() {
+		return getResultList("aquaProcessingMethod.findAll", AquaProcessingMethod.class);						
+	}
+	
+	public List<AquaSpecies> getAquaSpecies() {
+		return getResultList("aquaSpecies.findAll", AquaSpecies.class);								
+	}
+	
+	public List<AquaEnvironment> getAquaEnvironments() {
+		return getResultList("aquaEnvironment.findAll", AquaEnvironment.class);										
+	}
+	
+	public List<AquaFarmingType> getAquaFarmingTypes() {
+		return getResultList("aquaFarmingType.findAll", AquaFarmingType.class);												
+	}
+	
+	public List<AquaSpeciesGroup> getAquaSpeciesGroups() {
+		return getResultList("aquaSpeciesGroup.findAll", AquaSpeciesGroup.class);										
+	}
+	
+	public List<AquaMethod> getAquaMethods() {
+		return getResultList("aquaMethod.findAll", AquaMethod.class);												
+	}
+	
+	public AquaSpeciesGroup getAquaSpeciesGroup(Long id) {
+		return find(AquaSpeciesGroup.class, id);		
+	}
+
+	public AquaMethod getAquaMethod(Long id) {
+		return find(AquaMethod.class, id);		
 	}
 }

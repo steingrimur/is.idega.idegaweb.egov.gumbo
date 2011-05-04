@@ -5,6 +5,13 @@ import is.idega.block.nationalregister.webservice.client.business.SkyrrClient;
 import is.idega.block.nationalregister.webservice.client.business.UserHolder;
 import is.idega.idegaweb.egov.gumbo.business.GumboBusiness;
 import is.idega.idegaweb.egov.gumbo.dao.GumboDao;
+import is.idega.idegaweb.egov.gumbo.data.AquaCountry;
+import is.idega.idegaweb.egov.gumbo.data.AquaEnvironment;
+import is.idega.idegaweb.egov.gumbo.data.AquaFarmingType;
+import is.idega.idegaweb.egov.gumbo.data.AquaMethod;
+import is.idega.idegaweb.egov.gumbo.data.AquaProcessingMethod;
+import is.idega.idegaweb.egov.gumbo.data.AquaSpecies;
+import is.idega.idegaweb.egov.gumbo.data.AquaSpeciesGroup;
 import is.idega.idegaweb.egov.gumbo.data.FishFarm;
 
 import java.util.ArrayList;
@@ -62,6 +69,7 @@ public class AquaCultureService extends DefaultSpringBean {
 
 	public String getReportForTheYear() {
 		IWTimestamp now = new IWTimestamp();
+		now.addYears(-1);
 		return now.getDateString("yyyy");
 	}
 
@@ -133,129 +141,23 @@ public class AquaCultureService extends DefaultSpringBean {
 	}
 
 	public List<Item> getSpeciesGroups() {
-		final List<Item> items = new ArrayList<Item>(
-				SpeciesGroups.values().length);
+		final List<Item> items = new ArrayList<Item>();
 
-		for (SpeciesGroups gr : SpeciesGroups.values()) {
-
-			items.add(new Item(gr.name(), gr.getLabel()));
+		List<AquaSpeciesGroup> speciesGroup = getDao().getAquaSpeciesGroups();
+		for (AquaSpeciesGroup aquaSpeciesGroup : speciesGroup) {
+			items.add(new Item(aquaSpeciesGroup.getId().toString(), aquaSpeciesGroup.getSpeciesGroupName()));
 		}
 
 		return items;
 	}
 
-	private static enum Aquamethods {
-
-		sjokviar("Sjókvíar", "rumm", "m3"), jardtjarnir("Jarðtjarnir", "m2",
-				"m2"), kerogrennslisfrair("Ker og rennslisþrær", "rumm", "m3"), botnraikt(
-				"Botnrækt", "m2", "m2"), raiktunmeflinum("Ræktun með línum",
-				"m", "m"), afrarafferfir("Aðrar aðferðir", "rumm", "m3");
-
-		private final String label, unitId, unitLabel;
-
-		private Aquamethods(String label, String unitId, String unitLabel) {
-
-			this.label = label;
-			this.unitId = unitId;
-			this.unitLabel = unitLabel;
-		}
-
-		public String getLabel() {
-			return label;
-		}
-
-		public String getUnitId() {
-			return unitId;
-		}
-
-		public String getUnitLabel() {
-			return unitLabel;
-		}
-	}
-
-	private static enum SpeciesGroups {
-
-		fiskur("Fiskur", UnitByQuantity.kg, UnitByPrice.krkg), seidi("Seiði",
-				UnitByQuantity.stk, UnitByPrice.krstk), hrogn("Hrogn",
-				UnitByQuantity.ltr, UnitByPrice.krltr), lindyr("Lindýr",
-				UnitByQuantity.kg, UnitByPrice.krkg), krabbadyr("Krabbadýr",
-				UnitByQuantity.kg, UnitByPrice.krkg), fari("Þari",
-				UnitByQuantity.kg, UnitByPrice.krkg);
-
-		private final String label;
-		private final UnitByQuantity unitByQuantity;
-		private final UnitByPrice unitByPrice;
-
-		private SpeciesGroups(String label, UnitByQuantity unitByQuantity,
-				UnitByPrice unitByPrice) {
-
-			this.label = label;
-			this.unitByQuantity = unitByQuantity;
-			this.unitByPrice = unitByPrice;
-		}
-
-		public String getLabel() {
-			return label;
-		}
-
-		public UnitByQuantity getQuantityUnit() {
-			return unitByQuantity;
-		}
-
-		public UnitByPrice getPriceUnit() {
-			return unitByPrice;
-		}
-
-	}
-
-	private static enum UnitByPrice {
-
-		krkg("kr/kg"), krstk("kr/stk"), krltr("kr/ltr");
-
-		private final String unitLabel;
-
-		private UnitByPrice(String unitLabel) {
-
-			this.unitLabel = unitLabel;
-		}
-
-		public String getUnitId() {
-			return name();
-		}
-
-		public String getUnitLabel() {
-			return unitLabel;
-		}
-	}
-
-	private static enum UnitByQuantity {
-
-		tonn("tonn"), stk("stk"), ltr("ltr."), kg("kg");
-
-		private final String unitLabel;
-
-		private UnitByQuantity(String unitLabel) {
-
-			this.unitLabel = unitLabel;
-		}
-
-		public String getUnitId() {
-			return name();
-		}
-
-		public String getUnitLabel() {
-			return unitLabel;
-		}
-	}
-
 	public List<Item> getAquamethods() {
 
-		final List<Item> items = new ArrayList<Item>(
-				Aquamethods.values().length);
+		final List<Item> items = new ArrayList<Item>();
 
-		for (Aquamethods meth : Aquamethods.values()) {
-
-			items.add(new Item(meth.name(), meth.getLabel()));
+		List<AquaMethod> method = getDao().getAquaMethods();
+		for (AquaMethod aquaMethod : method) {
+			items.add(new Item(aquaMethod.getId().toString(), aquaMethod.getMethodName()));			
 		}
 
 		return items;
@@ -265,9 +167,14 @@ public class AquaCultureService extends DefaultSpringBean {
 
 		final List<Item> items = new ArrayList<Item>();
 
-		items.add(new Item("ferskvatn", "Ferskvatn"));
-		items.add(new Item("fullsalt", "Fullsalt"));
-		items.add(new Item("halfsalt", "Hálfsalt"));
+		List<AquaEnvironment> environment = getDao().getAquaEnvironments();
+		for (AquaEnvironment aquaEnvironment : environment) {
+			items.add(new Item(aquaEnvironment.getId().toString(), aquaEnvironment.getEnvironmentName()));
+		}
+
+//		items.add(new Item("ferskvatn", "Ferskvatn"));
+//		items.add(new Item("fullsalt", "Fullsalt"));
+//		items.add(new Item("halfsalt", "Hálfsalt"));
 
 		return items;
 	}
@@ -276,17 +183,22 @@ public class AquaCultureService extends DefaultSpringBean {
 
 		final List<Item> items = new ArrayList<Item>();
 
-		items.add(new Item("barri", "Barri"));
-		items.add(new Item("bleikja", "Bleikja"));
-		items.add(new Item("lax", "Lax"));
-		items.add(new Item("luda", "Lúða"));
-		items.add(new Item("regnbogasilungur", "Regnbogasilungur"));
-		items.add(new Item("senegalflura", "Senegalflúra"));
-		items.add(new Item("sandhverfa", "Sandhverfa"));
-		items.add(new Item("ufsi", "Ufsi"));
-		items.add(new Item("ysa", "Ýsa"));
-		items.add(new Item("forskur", "Þorskur"));
-		items.add(new Item("annaf", "Annað"));
+		List<AquaSpecies> species = getDao().getAquaSpecies();
+		for (AquaSpecies aquaSpecies : species) {
+			items.add(new Item(aquaSpecies.getId().toString(), aquaSpecies.getSpeciesName()));			
+		}
+
+//		items.add(new Item("barri", "Barri"));
+//		items.add(new Item("bleikja", "Bleikja"));
+//		items.add(new Item("lax", "Lax"));
+//		items.add(new Item("luda", "Lúða"));
+//		items.add(new Item("regnbogasilungur", "Regnbogasilungur"));
+//		items.add(new Item("senegalflura", "Senegalflúra"));
+//		items.add(new Item("sandhverfa", "Sandhverfa"));
+//		items.add(new Item("ufsi", "Ufsi"));
+//		items.add(new Item("ysa", "Ýsa"));
+//		items.add(new Item("forskur", "Þorskur"));
+//		items.add(new Item("annaf", "Annað"));
 
 		return items;
 	}
@@ -295,10 +207,15 @@ public class AquaCultureService extends DefaultSpringBean {
 
 		final List<Item> items = new ArrayList<Item>();
 
-		items.add(new Item("aframeldi", "Áframeldi"));
-		items.add(new Item("aleldi", "Aleldi"));
-		items.add(new Item("fiskraikt", "Fiskrækt"));
-		items.add(new Item("raiktun", "Ræktun"));
+		List<AquaFarmingType> farmingType = getDao().getAquaFarmingTypes();
+		for (AquaFarmingType aquaFarmingType : farmingType) {
+			items.add(new Item(aquaFarmingType.getId().toString(), aquaFarmingType.getFarmingTypeName()));						
+		}
+
+//		items.add(new Item("aframeldi", "Áframeldi"));
+//		items.add(new Item("aleldi", "Aleldi"));
+//		items.add(new Item("fiskraikt", "Fiskrækt"));
+//		items.add(new Item("raiktun", "Ræktun"));
 
 		return items;
 	}
@@ -307,73 +224,144 @@ public class AquaCultureService extends DefaultSpringBean {
 
 		final List<Item> items = new ArrayList<Item>();
 
-		items.add(new Item("slaigt", "Slægt"));
-		items.add(new Item("oslaigt", "Óslægt"));
-		items.add(new Item("lifandi", "Lifandi"));
-		items.add(new Item("unnif", "Unnið"));
-		items.add(new Item("ounnif", "Óunnið"));
+		List<AquaProcessingMethod> method = getDao().getAquaProcessingMethods();
+		for (AquaProcessingMethod aquaProcessingMethod : method) {
+			items.add(new Item(aquaProcessingMethod.getId().toString(), aquaProcessingMethod.getProcessingMethodName()));
+		}
+
+//		items.add(new Item("slaigt", "Slægt"));
+//		items.add(new Item("oslaigt", "Óslægt"));
+//		items.add(new Item("lifandi", "Lifandi"));
+//		items.add(new Item("unnif", "Unnið"));
+//		items.add(new Item("ounnif", "Óunnið"));
 
 		return items;
 	}
 
 	public List<Item> getSoldTos() {
-
 		final List<Item> items = new ArrayList<Item>();
 
-		items.add(new Item("island", "Ísland"));
-		items.add(new Item("usa", "USA"));
-		items.add(new Item("noregur", "Noregur"));
-
-		// TODO: add countries from table
-
+		List<AquaCountry> countries = getDao().getAquaCountries();
+		for (AquaCountry aquaCountry : countries) {
+			items.add(new Item(aquaCountry.getId().toString(), aquaCountry.getCountryName()));			
+		}
+		
+//		items.add(new Item("island", "Ísland"));
+//		items.add(new Item("usa", "USA"));
+//		items.add(new Item("noregur", "Noregur"));
 		return items;
 	}
 
 	public String getQuantityUnitByAquamethodId(String aquamethodId) {
-
-		return StringUtil.isEmpty(aquamethodId) ? CoreConstants.EMPTY
-				: Aquamethods.valueOf(aquamethodId).getUnitId();
+		if (StringUtil.isEmpty(aquamethodId)) {
+			return CoreConstants.EMPTY;
+		}
+		
+		try {
+			Long id = new Long(aquamethodId);
+			AquaMethod method = getDao().getAquaMethod(id);
+			return method.getUnit();
+		} catch (Exception e) {
+		}
+		
+		return CoreConstants.EMPTY;
+//		return StringUtil.isEmpty(aquamethodId) ? CoreConstants.EMPTY
+//				: Aquamethods.valueOf(aquamethodId).getUnitId();
 	}
 
 	public String getQuantityUnitOutputByAquamethodId(String aquamethodId) {
+		if (StringUtil.isEmpty(aquamethodId)) {
+			return CoreConstants.EMPTY;
+		}
 
-		return StringUtil.isEmpty(aquamethodId) ? CoreConstants.EMPTY
-				: Aquamethods.valueOf(aquamethodId).getUnitLabel();
+		try {
+			Long id = new Long(aquamethodId);
+			AquaMethod method = getDao().getAquaMethod(id);
+			return method.getUnitLabel();
+		} catch (Exception e) {
+		}
+		
+		return CoreConstants.EMPTY;
+//		return StringUtil.isEmpty(aquamethodId) ? CoreConstants.EMPTY
+//				: Aquamethods.valueOf(aquamethodId).getUnitLabel();
 	}
 
 	public String getQuantityUnitBySpeciesGroupIdForQuantity(
 			String speciesGroupId) {
+		if (StringUtil.isEmpty(speciesGroupId)) {
+			return CoreConstants.EMPTY;
+		}
 
-		return StringUtil.isEmpty(speciesGroupId) ? CoreConstants.EMPTY
-				: SpeciesGroups.valueOf(speciesGroupId).getQuantityUnit()
-						.getUnitId();
+		try {
+			Long id = new Long(speciesGroupId);
+			AquaSpeciesGroup group = getDao().getAquaSpeciesGroup(id);
+			return group.getQuantityUnit();
+		} catch (Exception e) {
+		}
+		
+		return CoreConstants.EMPTY;		
+//		return StringUtil.isEmpty(speciesGroupId) ? CoreConstants.EMPTY
+//				: SpeciesGroups.valueOf(speciesGroupId).getQuantityUnit()
+//						.getUnitId();
 	}
 
 	public String getQuantityUnitOutputBySpeciesGroupIdForQuantity(
 			String speciesGroupId) {
+		if (StringUtil.isEmpty(speciesGroupId)) {
+			return CoreConstants.EMPTY;
+		}
 
-		return StringUtil.isEmpty(speciesGroupId) ? CoreConstants.EMPTY
-				: SpeciesGroups.valueOf(speciesGroupId).getQuantityUnit()
-						.getUnitLabel();
+		try {
+			Long id = new Long(speciesGroupId);
+			AquaSpeciesGroup group = getDao().getAquaSpeciesGroup(id);
+			return group.getQuantityUnitLabel();
+		} catch (Exception e) {
+		}
+		
+		return CoreConstants.EMPTY;				
+//		return StringUtil.isEmpty(speciesGroupId) ? CoreConstants.EMPTY
+//				: SpeciesGroups.valueOf(speciesGroupId).getQuantityUnit()
+//						.getUnitLabel();
 	}
 
 	public String getQuantityUnitBySpeciesGroupIdForPrice(String speciesGroupId) {
+		if (StringUtil.isEmpty(speciesGroupId)) {
+			return CoreConstants.EMPTY;
+		}
 
-		return StringUtil.isEmpty(speciesGroupId) ? CoreConstants.EMPTY
-				: SpeciesGroups.valueOf(speciesGroupId).getPriceUnit()
-						.getUnitId();
+		try {
+			Long id = new Long(speciesGroupId);
+			AquaSpeciesGroup group = getDao().getAquaSpeciesGroup(id);
+			return group.getPriceUnit();
+		} catch (Exception e) {
+		}
+		
+		return CoreConstants.EMPTY;		
+//		return StringUtil.isEmpty(speciesGroupId) ? CoreConstants.EMPTY
+//				: SpeciesGroups.valueOf(speciesGroupId).getPriceUnit()
+//						.getUnitId();
 	}
 
 	public String getQuantityUnitOutputBySpeciesGroupIdForPrice(
 			String speciesGroupId) {
+		if (StringUtil.isEmpty(speciesGroupId)) {
+			return CoreConstants.EMPTY;
+		}
 
-		return StringUtil.isEmpty(speciesGroupId) ? CoreConstants.EMPTY
-				: SpeciesGroups.valueOf(speciesGroupId).getPriceUnit()
-						.getUnitLabel();
+		try {
+			Long id = new Long(speciesGroupId);
+			AquaSpeciesGroup group = getDao().getAquaSpeciesGroup(id);
+			return group.getPriceUnitLabel();
+		} catch (Exception e) {
+		}
+		
+		return CoreConstants.EMPTY;		
+//		return StringUtil.isEmpty(speciesGroupId) ? CoreConstants.EMPTY
+//				: SpeciesGroups.valueOf(speciesGroupId).getPriceUnit()
+//						.getUnitLabel();
 	}
 
 	public static final class AquaCultureCompanyData {
-
 		private final String socialSecurityNr;
 		private String name;
 		private String address;
