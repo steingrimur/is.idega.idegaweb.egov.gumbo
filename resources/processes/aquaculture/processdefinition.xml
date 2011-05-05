@@ -85,6 +85,7 @@
             <variable name="string_salesComments" access="read,write" ></variable>
             <variable name="objlist_inventoryAtYearEnd" access="read,write" ></variable>
             <variable name="objlist_expectedQuantityProduced" access="read,write" ></variable>
+            <variable name="string_gatherInformation" access="read,write" ></variable>
          </controller>
       </task>
       <event type="node-leave">

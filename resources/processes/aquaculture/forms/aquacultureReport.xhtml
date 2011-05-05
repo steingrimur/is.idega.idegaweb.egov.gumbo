@@ -1652,13 +1652,15 @@
                         
                         </xf:group>
                     
-                        <xf:select appearance="full" bind="gatherInformation_bind"
-                            id="fbc_205" type="fbc_multiple_select">
-                            <xf:itemset model="data_model" nodeset="instance('fbc_205_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
-                                <xf:label ref="itemLabel"/>
-                                <xf:value ref="itemValue"/>
-                            </xf:itemset>
-                        </xf:select>
+                    	<div class="gatherInformation">
+	                        <xf:select appearance="full" bind="gatherInformation_bind"
+	                            id="fbc_205" type="fbc_multiple_select">
+	                            <xf:itemset model="data_model" nodeset="instance('fbc_205_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
+	                                <xf:label ref="itemLabel"/>
+	                                <xf:value ref="itemValue"/>
+	                            </xf:itemset>
+	                        </xf:select>
+	                    </div>
 
                         <div class="fbc_button_area" id="fbc_2" type="fbc_button_area">
                             <xf:trigger bind="bind-controlsButton"
