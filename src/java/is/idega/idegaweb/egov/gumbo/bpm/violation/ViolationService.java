@@ -129,63 +129,18 @@ public class ViolationService extends DefaultSpringBean {
 	}
 	
 	public String getLetterText(String byLetterId) {
+		final String text;
 		
-		if (false) {
+		if (!StringUtil.isEmpty(byLetterId)) {
 			
-			final String text;
+			final Letter letter = findLetter(byLetterId);
+			text = letter != null ? letter.getText() : CoreConstants.EMPTY;
 			
-			if (!StringUtil.isEmpty(byLetterId)) {
-				
-				final Letter letter = findLetter(byLetterId);
-				text = letter != null ? letter.getText() : CoreConstants.EMPTY;
-				// text = letter != null ?
-				// "Samkvæmt upplýsingum Fiskistofu fór [skipsnafn, númer], sem hefur leyfi til strandveiða, í veiðiferð frá [..staðs. dags. tími]. Þessari veiðiferð lauk sama dag á sama stað [kl. &&&]. Tími veiðiferðar var því [&klst. og &&.mínútur]. Einnig fór báturinn í veiðiferð frá [&staðs&dags&tími]. Þessari veiðiferð lauk sama dag á sama stað [..kl. &]. Tími veiðiferðar var því [&&..klst. og &mín.] Einnig fór báturinn í veiðiferð frá [..staðs. dags. tími]. Þessari veiðiferð lauk sama dag á sama stað [..kl. &]. Tími veiðiferðar var því [&&..klst. og &mín.]. Í 2. tl. 6. mgr. 6. gr. a. laga nr. 116/2006 um stjórn fiskveiða, sbr. 1. gr. laga nr. 32/2010, um breytingu á lögum nr. 116/2006, um stjórn fiskveiða, með síðari breytingum segir: Hver veiðiferð skal eigi standa lengur en 14 klukkustundir. Miðað er við þann tíma er fiskiskip lætur úr höfn til veiða til þess er það kemur til hafnar aftur til löndunar. Aðeins er heimilt að fara í eina veiðiferða á hverjum degi. Viðurlög vegna brota á fyrrgreindum lögum, reglum settum samkvæmt þeim og ákvæðum leyfisbréfa fer skv. VI. Kafla laga nr. 116/2006, um stjórn fiskveiða, og IV. kafla laga nr. 57/1996, um umgengni um nytjastofna sjávar. Í 24. gr. laga nr. 116/2006, um stjórn fiskveiða, sbr. 5. gr. laga nr. 32/2010 um breytingu á lögum nr. 116/2006, um stjórn fiskveiða, með síðari breytingum, er kveðið á um að Fiskistofa skuli veita áminningar og svipta skip leyfi til veiða í atvinnuskyni fyrir brot á lögum þessum eða reglum settum samkvæmt þeim eftir því sem nánar er fyrir mælt í lögum um umgengni um nytjastofna sjávar. Í 15. gr. laga nr. 57/1996, um umgengni um nytjastofna sjávar er kveðið á um að Fiskistofa skuli svipta skip leyfi til veiða í atvinnuskyni ef útgerð eða áhöfn skips eða aðrir þeir sem í þágu útgerðar starfa hafa brotið gegn ákvæðum laga þessara eða reglum settum samkvæmt þeim. Við fyrsta brot, sem varðar sviptingu veiðileyfis skal leyfissvipting ekki standa skemur en eina viku og ekki lengur en tólf vikur eftir eðli og umfangi brots. Við ítrekuð brot skal svipting ekki standa skemur en fjórar vikur og ekki lengur en eitt ár. Við fyrsta minni háttar brot skal Fiskistofa, þrátt fyrir ákvæði 1. og 2. mgr., veita hlutaðeigandi útgerð skriflega áminningu. Fiskistofa hefur mál þetta til skoðunar. Áður en ákvörðun verður tekin um hvort tilefni er til beitingar viðurlaga svo sem veitingar skriflegrar áminninga eða hvort og til hve langs tíma [ skipsnafn og númer], verður svipt leyfi til strandveiða og/eða hvort kært verði til lögreglu vegna hins meinta brots er yður gefinn kostur á að koma andmælum yðar og skýringum á framfæri við Fiskistofu. Það skal gert skriflega eða með tölvupósti á póstfangið athugasemdir@fiskistofa.is eigi síðar en [&dags&..]."
-				// + byLetterId
-				// : CoreConstants.EMPTY;
-				
-			} else {
-				text = CoreConstants.EMPTY;
-			}
-			
-			/*
-			final StringBuilder xxx = new StringBuilder();
-			
-			for (int i = 0; i < 1000; i++) {
-			    
-				xxx.append("Samkvæmt ");
-			}
-			
-			System.out.println("text: " + text);
-			System.out.println("text length: " + text.length());
-			
-			//		return text.substring(0, text.length() - 1700);
-			//		return xxx.toString();
-			
-			
-			System.out.println("WTF__2_____");
-			
-			*/
-			System.out.println("by letter id: " + byLetterId);
-			
-			return byLetterId.equals("1") ? "Samkvæmt upplýsingum Fiskistofu fór [skipsnafn, númer], sem hefur leyfi til strandveiða, í veiðiferð frá [..staðs. dags. tími]. Þessari veiðiferð lauk sama dag á sama stað [kl. &&&]. Tími veiðiferðar var því [&klst. og &&.mínútur]. Einnig fór báturinn í veiðiferð frá [&staðs&dags&tími]. Þessari veiðiferð lauk sama dag á sama stað [..kl. &]. Tími veiðiferðar var því [&&..klst. og &mín.] Einnig fór báturinn í veiðiferð frá [..staðs. dags. tími]. Þessari veiðiferð lauk sama dag á sama stað [..kl. &]. Tími veiðiferðar var því [&&..klst. og &mín.]. Í 2. tl. 6. mgr. 6. gr. a. laga nr. 116/2006 um stjórn fiskveiða, sbr. 1. gr. laga nr. 32/2010, um breytingu á lögum nr. 116/2006, um stjórn fiskveiða, með síðari breytingum segir: Hver veiðiferð skal eigi standa lengur en 14 klukkustundir. Miðað er við þann tíma er fiskiskip lætur úr höfn til veiða til þess er það kemur til hafnar aftur til löndunar. Aðeins er heimilt að fara í eina veiðiferða á hverjum degi. Viðurlög vegna brota á fyrrgreindum lögum, reglum settum samkvæmt þeim og ákvæðum leyfisbréfa fer skv. VI. Kafla laga nr. 116/2006, um stjórn fiskveiða, og IV. kafla laga nr. 57/1996, um umgengni um nytjastofna sjávar. Í 24. gr. laga nr. 116/2006, um stjórn fiskveiða, sbr. 5. gr. laga nr. 32/2010 um breytingu á lögum nr. 116/2006, um stjórn fiskveiða, með síðari breytingum, er kveðið á um að Fiskistofa skuli veita áminningar og svipta skip leyfi til veiða í atvinnuskyni fyrir brot á lögum þessum eða reglum settum samkvæmt þeim eftir því sem nánar er fyrir mælt í lögum um umgengni um nytjastofna sjávar. Í 15. gr. laga nr. 57/1996, um umgengni um nytjastofna sjávar er kveðið á um að Fiskistofa skuli svipta skip leyfi til veiða í atvinnuskyni ef útgerð eða áhöfn skips eða aðrir þeir sem í þágu útgerðar starfa hafa brotið gegn ákvæðum laga þessara eða reglum settum samkvæmt þeim. Við fyrsta brot, sem varðar sviptingu veiðileyfis skal leyfissvipting ekki standa skemur en eina viku og ekki lengur en tólf vikur eftir eðli og umfangi brots. Við ítrekuð brot skal svipting ekki standa skemur en fjórar vikur og ekki lengur en eitt ár. Við fyrsta minni háttar brot skal Fiskistofa, þrátt fyrir ákvæði 1. og 2. mgr., veita hlutaðeigandi útgerð skriflega áminningu. Fiskistofa hefur mál þetta til skoðunar. Áður en ákvörðun verður tekin um hvort tilefni er til beitingar viðurlaga svo sem veitingar skriflegrar áminninga eða hvort og til hve langs tíma [ skipsnafn og númer], verður svipt leyfi til strandveiða og/eða hvort kært verði til lögreglu vegna hins meinta brots er yður gefinn kostur á að koma andmælum yðar og skýringum á framfæri við Fiskistofu. Það skal gert skriflega eða með tölvupósti á póstfangið athugasemdir@fiskistofa.is eigi síðar en [&dags&..]."
-			        : "something simple " + byLetterId;
-			
-			// return text;
 		} else {
-			
-			final String text;
-			
-			if (!StringUtil.isEmpty(byLetterId)) {
-				
-				final Letter letter = findLetter(byLetterId);
-				text = letter != null ? letter.getText() : CoreConstants.EMPTY;
-				
-			} else {
-				text = CoreConstants.EMPTY;
-			}
-			
-			return text;
+			text = CoreConstants.EMPTY;
 		}
+		
+		return text;
 	}
 	
 	private Letter findLetter(String byLetterId) {

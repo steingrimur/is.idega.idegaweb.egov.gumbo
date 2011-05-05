@@ -224,6 +224,8 @@
                     
                     <tmpVal />
                     
+                    <gatherInformation mapping="string_gatherInformation" />
+                    
                 </data>
             </xf:instance>
             <xf:instance id="control-instance">
@@ -439,7 +441,11 @@
                     
             <xf:bind id="salesCommentsBind"
                     nodeset="salesComments" />
-            
+                    
+            <xf:bind id="gatherInformation_bind"
+                nodeset="gatherInformation"
+                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+                    
             <xf:bind id="bind-controlsButton" idega:shared="true"
                 nodeset="instance('control-instance')/controlsButton" relevant="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"/>
                 
@@ -532,6 +538,22 @@
                     </localizedEntries>
                     <localizedEntries lang="is_IS">
                         <item/>
+                    </localizedEntries>
+                </local_src>
+            </xf:instance>
+           <xf:instance id="fbc_205_lds" xmlns="">
+                <local_src>
+                    <localizedEntries lang="en">
+                        <item>
+                            <itemLabel>Yes, I allow Fiskistofa to redirect this information to the authorities.</itemLabel>
+                            <itemValue>true</itemValue>
+                        </item>
+                    </localizedEntries>
+                    <localizedEntries lang="is_IS">
+                        <item>
+                            <itemLabel>Já, ég heimila Fiskistofu að miðla þessum upplýsingum til Landssambands fiskeldisstöðva.</itemLabel>
+                            <itemValue>true</itemValue>
+                        </item>
                     </localizedEntries>
                 </local_src>
             </xf:instance>
@@ -1630,6 +1652,14 @@
                         
                         </xf:group>
                     
+                        <xf:select appearance="full" bind="gatherInformation_bind"
+                            id="fbc_205" type="fbc_multiple_select">
+                            <xf:itemset model="data_model" nodeset="instance('fbc_205_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
+                                <xf:label ref="itemLabel"/>
+                                <xf:value ref="itemValue"/>
+                            </xf:itemset>
+                        </xf:select>
+
                         <div class="fbc_button_area" id="fbc_2" type="fbc_button_area">
                             <xf:trigger bind="bind-controlsButton"
                                 id="fbc_18" type="fbc_button_next">

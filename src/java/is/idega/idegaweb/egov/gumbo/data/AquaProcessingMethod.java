@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = AquaProcessingMethod.ENTITY_NAME)
-@NamedQueries({ @NamedQuery(name = "aquaProcessingMethod.findAll", query = "select a from AquaProcessingMethod a") })
+@NamedQueries({ @NamedQuery(name = "aquaProcessingMethod.findAll", query = "select a from AquaProcessingMethod a order by processingMethodName") })
 public class AquaProcessingMethod {
 	public static final String ENTITY_NAME = "aqua_processing_method";
 
@@ -31,7 +31,7 @@ public class AquaProcessingMethod {
 	}
 
 	@SuppressWarnings("unused")
-	public void setId(Long id) {
+	private void setId(Long id) {
 		this.id = id;
 	}
 

@@ -13,7 +13,6 @@ import is.idega.block.nationalregister.webservice.client.business.CompanyHolder;
 import is.idega.block.nationalregister.webservice.client.business.SkyrrClient;
 import is.idega.block.nationalregister.webservice.client.business.UserHolder;
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
-import is.idega.idegaweb.egov.gumbo.bpm.violation.ViolationDataProvider.ViolationLocationData;
 import is.idega.idegaweb.egov.gumbo.dao.GumboDao;
 import is.idega.idegaweb.egov.gumbo.data.FishingGear;
 import is.idega.idegaweb.egov.gumbo.data.Inspector;

@@ -1,6 +1,5 @@
 package is.idega.idegaweb.egov.gumbo.bpm.violation;
 
-import is.idega.idegaweb.egov.gumbo.bpm.violation.ViolationDataProvider.ViolationLocationData;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 
 import java.util.ArrayList;

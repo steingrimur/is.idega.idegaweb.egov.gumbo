@@ -38,7 +38,6 @@ import com.idega.jbpm.exe.BPMFactory;
 import com.idega.jbpm.exe.TaskInstanceW;
 import com.idega.util.CoreUtil;
 import com.idega.util.IOUtil;
-import com.idega.util.IWCalendar;
 import com.idega.util.IWTimestamp;
 import com.idega.util.expression.ELUtil;
 
