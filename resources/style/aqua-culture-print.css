@@ -1,3 +1,10 @@
 @page {
     size: landscape;
 }
+
+div.gatherInformation div.select > span, div.gatherInformation span.output label {
+	float: none !important;
+	width: auto !important;
+	color: #a00;
+	font-weight: bold;	
+}
