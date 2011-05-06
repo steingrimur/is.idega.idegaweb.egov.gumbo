@@ -50,9 +50,9 @@ div.slideContent {
 	width: 732px;
 }
 
-div.gatherInformation div.select > span {
-	float: none;
-	width: auto;
+div.gatherInformation div.select > span, div.gatherInformation label {
+	float: none !important;
+	width: auto !important;
 	color: #a00;
 	font-weight: bold;	
 }

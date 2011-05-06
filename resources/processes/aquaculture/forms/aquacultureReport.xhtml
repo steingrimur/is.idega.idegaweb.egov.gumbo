@@ -770,6 +770,8 @@
                     <fbc_78-col-quantityUnitOutput-label lang="is_IS">Eining</fbc_78-col-quantityUnitOutput-label>
                     <fbc_78-col-comments-label lang="en">Comments</fbc_78-col-comments-label>
                     <fbc_78-col-comments-label lang="is_IS">Athugasemdir</fbc_78-col-comments-label>
+                    <gatherInformation-label lang="en">Yes, I allow Fiskistofa to redirect this information to the authorities.</gatherInformation-label>
+                    <gatherInformation-label lang="is_IS">Já, ég heimila Fiskistofu að miðla þessum upplýsingum til Landssambands fiskeldisstöðva.</gatherInformation-label>
                     
                 </localized_strings>
             </xf:instance>
@@ -1952,6 +1954,14 @@
                                 </xf:output>
                     </xf:repeat>
                 </xf:group>
+                
+	              	<div class="gatherInformation">
+		                <xf:group appearance="minimal" ref=".[instance('data-instance')/gatherInformation != '']">
+		                	<xf:output id="fbc_987" type="fbc_text_output">
+				                <xf:label model="data_model" ref="instance('localized_strings')/gatherInformation-label[@lang=instance('localized_strings')/current_language]"/>
+				            </xf:output>
+		                </xf:group>
+	                </div>
                     
                     <div class="fbc_button_area" id="fbc_19" type="fbc_button_area">
                     
