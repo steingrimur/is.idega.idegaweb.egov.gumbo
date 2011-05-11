@@ -191,22 +191,22 @@
 	</state>
 	
 	<idg:roles xmlns:idg="http://idega.com/bpm">
-        <role name="bpm_fishingLicense_caseHandler">
+        <role name="bpm_aquaculture_caseHandler">
           <labels>
             <label lang="en">caseHandler</label>
             <label lang="is_IS">Umsjónarmaður</label>
           </labels>
         </role>
-        <role name="bpm_fishingLicense_handler" createNative="true">
+        <role name="bpm_aquaculture_handler" createNative="true">
           <labels>
             <label lang="en">handler</label>
-            <label lang="is_IS">Kærunefnd</label>
+            <label lang="is_IS">Meðhöndlun</label>
           </labels>
         </role>
-        <role name="bpm_fishingLicense_owner">
+        <role name="bpm_aquaculture_owner">
           <labels>
             <label lang="en">owner</label>
-            <label lang="is_IS">Álitsbeiðandi</label>
+            <label lang="is_IS">Fiskeldi</label>
           </labels>
         </role>
     </idg:roles>
