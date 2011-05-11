@@ -54,7 +54,7 @@ jQuery(document).ready(function() {
 		for ( var i = 0; i < options.length; i++) {
 			var opt = options[i];
 			
-			to.append(new Option(opt.text, opt.value));
+			to.append('<option value="' + opt.value + '">' + opt.text + '</option>');
 		}
 	};
 	
