@@ -383,6 +383,7 @@
 	<task-node name="writeLetter">
 	   <task name="writeLetterTask" priority="-1">
          <controller>
+            <variable name="string_caseIdentifier" access="read"></variable>
             <variable name="string_letterSubject" access="write,required"></variable>
             <variable name="string_letterText" access="write,required"></variable>
             <variable name="string_letterType" access="write"></variable>
@@ -393,6 +394,8 @@
             <variable name="string_recipientPostalCode" access="write"></variable>
             <variable name="string_writeLetterSubmitterName" access="write"></variable>
             <variable name="string_letterDate" access="write"></variable>
+            <variable name="string_letterOffice" access="write"></variable>
+            <variable name="string_letterOfficeLabel" access="write"></variable>
          </controller>
         <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
             <handlerName>jsonAssignmentHandler</handlerName>
@@ -676,7 +679,7 @@
                             ${
                             Map subjectMap = new HashMap();
                             subjectMap.put("en", "Violation decision has been submitted");
-                            subjectMap.put("is_IS", "Niðurstaða máls sett");
+                            subjectMap.put("is_IS", "Niðurstaða máls {0}, {1}");
                             return subjectMap;
                             }
                             
@@ -688,9 +691,21 @@
                             ${
                             Map messageMap = new HashMap();
                             messageMap.put("en", "Violation decision has been submitted");
-                            messageMap.put("is_IS", "Mál hefur verið afgreitt og komin niðurstaða.");
+                            messageMap.put("is_IS", "Niðurstaða í máli {0}, {1} hefur verið ákvörðuð");
                             return messageMap;
                             }
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>subjectValues</key>
+                        <value>
+                            {list: {mv: [{type: "bean", value: "piw.processDescription"}, {type: "bean", value: "piw.processIdentifier"}]}}
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>messageValues</key>
+                        <value>
+                            {list: {mv: [{type: "bean", value: "piw.processDescription"}, {type: "bean", value: "piw.processIdentifier"}]}}
                         </value>
                     </entry>
                     <entry><key>sendToRoles</key><value>bpm_violationReport_handler</value></entry>

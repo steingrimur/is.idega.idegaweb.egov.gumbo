@@ -27,6 +27,8 @@
             <xf:instance id="data-instance" xmlns="">
                 <data>
                     <form_id>231608</form_id>
+
+                    <caseIdentifier mapping="string_caseIdentifier"/>
                     <Letter_text_fbc_5 mapping="string_letterText"/>
                     <LetterSubject mapping="string_letterSubject"/>
                     <Choose_letter_template_fbc_6
@@ -42,37 +44,54 @@
                     <writeLetterSubmitterName_fbc_13 mapping="string_writeLetterSubmitterName"/>
                     <pdfViewContainer/>
                     <letterDate mapping="string_letterDate"/>
+                    <Fiskistofa_office_fbc_213 mapping="string_letterOffice"/>
+                    <Fiskistofa_office_label mapping="string_letterOfficeLabel"/>
+
                     <pdfText/>
+                    
                     <pdfTextTemplate11>
                     &lt;div style="width:680px;"&gt;
-                    &lt;div style="float: left"&gt;
+                    &lt;div style="float: left; margin-top: 80px"&gt;
                     </pdfTextTemplate11>
                     <!--  recipient name -->
+                    
                     <pdfTextTemplate12>
                     &lt;br&gt;
                     </pdfTextTemplate12>
                     <!--  address -->
+                    
                     <pdfTextTemplate13>
                     &lt;br&gt;
                     </pdfTextTemplate13>
                     <!--  postal code -->
+                    
                     <pdfTextTemplate14>
                     &lt;/div&gt; 
                     &lt;img style="float: right;" src="http://www.fiskistofa.is/img/logofisk-2009.gif" /&gt;
                     </pdfTextTemplate14>
+                    
                     <pdfTextTemplate21>
-                    &lt;p style="clear: left; padding-top: 50px;"&gt;
+                    &lt;p style="clear: both; padding-top: 30px;"&gt;
                     &lt;b&gt;Efni:&lt;/b&gt;
                     </pdfTextTemplate21>
                     <!-- letter subject name -->
+                    
                     <pdfTextTemplate22>
                     &lt;div style="float:right;"&gt;
                     </pdfTextTemplate22>
                     <!-- letter date -->
+                    
+                    <pdfTextTemplate23a>
+                    &lt;/div&gt; 
+                    &lt;div style="float:right; clear: both;"&gt;
+                    </pdfTextTemplate23a>
+                    <!-- case identifier -->
+
                     <pdfTextTemplate23>
                     &lt;/div&gt;
                     &lt;/p&gt;
                     </pdfTextTemplate23>
+
                     <pdfTextTemplate31>
                     &lt;div style="padding-top: 30px;"&gt;
                     </pdfTextTemplate31>
@@ -86,8 +105,8 @@
                     &lt;p style="text-align: center; padding-top: 50px;"&gt;
                     </pdfTextTemplate32>
                     <!-- submitter name -->
+
                     <pdfTextTemplate33>
-                    
                     &lt;/p&gt;
                     &lt;/div&gt;
                     </pdfTextTemplate33>
@@ -124,7 +143,7 @@
             <xf:bind id="bind-submissionButton" idega:shared="true"
                 nodeset="instance('control-instance')/submissionButton" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
             <xf:bind
-                calculate="if(instance('control-instance')/readonly = 'true' or instance('control-instance')/generatePdf = 'true', concat(instance('data-instance')/pdfTextTemplate11, instance('data-instance')/personData/name, instance('data-instance')/pdfTextTemplate12, instance('data-instance')/personData/address, instance('data-instance')/pdfTextTemplate13, instance('data-instance')/personData/postalCode, instance('data-instance')/pdfTextTemplate14, instance('data-instance')/pdfTextTemplate21, instance('data-instance')/LetterSubject, instance('data-instance')/pdfTextTemplate22, instance('data-instance')/letterDate, instance('data-instance')/pdfTextTemplate23, instance('data-instance')/pdfTextTemplate31, instance('data-instance')/Letter_text_fbc_5, instance('data-instance')/pdfTextTemplate32, instance('data-instance')/writeLetterSubmitterName_fbc_13, instance('data-instance')/pdfTextTemplate33), '')"
+                calculate="if(instance('control-instance')/readonly = 'true' or instance('control-instance')/generatePdf = 'true', concat(instance('data-instance')/pdfTextTemplate11, instance('data-instance')/personData/name, instance('data-instance')/pdfTextTemplate12, instance('data-instance')/personData/address, instance('data-instance')/pdfTextTemplate13, instance('data-instance')/personData/postalCode, instance('data-instance')/pdfTextTemplate14, instance('data-instance')/pdfTextTemplate21, instance('data-instance')/LetterSubject, instance('data-instance')/pdfTextTemplate22, instance('data-instance')/Fiskistofa_office_label, ', ', instance('data-instance')/letterDate, instance('data-instance')/pdfTextTemplate23a, instance('data-instance')/caseIdentifier, instance('data-instance')/pdfTextTemplate23, instance('data-instance')/pdfTextTemplate31, instance('data-instance')/Letter_text_fbc_5, instance('data-instance')/pdfTextTemplate32, instance('data-instance')/writeLetterSubmitterName_fbc_13, instance('data-instance')/pdfTextTemplate33), '')"
                 id="fbc_15_bind" nodeset="pdfText" type="string"/>
             <xf:bind id="fbc_5_bind" nodeset="Letter_text_fbc_5"
                 readonly="instance('control-instance')/readonly = 'true'"
@@ -134,6 +153,11 @@
                 readonly="instance('control-instance')/readonly = 'true'"
                 relevant="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"
                 required="instance('control-instance')/generatePdf != 'true'" type="string"/>
+            <xf:bind id="fbc_213_bind"
+                nodeset="Fiskistofa_office_fbc_213"
+                relevant="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"
+                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+            <xf:bind id="fbc_223_bind" nodeset="Fiskistofa_office_label"/>
             <xf:bind id="fbc_6_bind"
                 nodeset="Choose_letter_template_fbc_6"
                 readonly="instance('control-instance')/readonly = 'true'"
@@ -158,6 +182,10 @@
             <xf:bind id="fbc_13_bind"
                 nodeset="writeLetterSubmitterName_fbc_13" type="xs:string"/>
             <xf:bind id="fbc_14_bind" nodeset="pdfViewContainer" relevant="instance('control-instance')/generatePdf = 'true' or instance('control-instance')/readonly = 'true'"/>
+            <xf:bind id="fbc_16_bind" nodeset="caseIdentifier"
+                readonly="instance('control-instance')/readonly = 'true'"
+                relevant="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"
+                type="string"/>
             <xf:instance id="fbc_13_autofill-instance"
                 relevant="false()" src="context:fb-afk-loginSession.user.name"/>
         </xf:model>
@@ -199,8 +227,10 @@
                     <fbc_10-label lang="en">Address</fbc_10-label>
                     <fbc_11-label lang="is_IS">Póstnúmer</fbc_11-label>
                     <fbc_11-label lang="en">Post code</fbc_11-label>
-                    <fbc_16-pdf-label lang="is_IS">Sækja sem PDF</fbc_16-pdf-label>
-                    <fbc_16-pdf-label lang="en">Get as PDF</fbc_16-pdf-label>
+                    <fbc_16-label lang="is_IS">Málsnúmer</fbc_16-label>
+                    <fbc_16-label lang="en">Case identifier</fbc_16-label>
+                    <fbc_213-label lang="is_IS">Starfsstöð</fbc_213-label>
+                    <fbc_213-label lang="en">Fiskistofa office</fbc_213-label>
                 </localized_strings>
             </xf:instance>
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
@@ -208,6 +238,8 @@
                 <xf:setvalue model="data_model"
                     ref="instance('localized_strings')/current_language" value="instance('locale-instance')/fb-afk-loginSession.currentLocale"/>
                 <idega:dispatch name="idega-xforms-ready" target="//h:body//*[starts-with(@id, 'fbc_')]"/>
+                <idega:setvalue 
+                    ref="instance('fbc_213_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('violationService.getFiskistofaOffices()')"/>
                 <idega:setvalue
                     ref="instance('fbc_7_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('violationService.getLettersTypes()')"/>
                 <xf:setvalue bind="fbc_13_bind"
@@ -238,6 +270,16 @@
                     </localizedEntries>
                 </local_src>
             </xf:instance>
+            <xf:instance id="fbc_213_lds" xmlns="">
+                <local_src>
+                    <localizedEntries lang="en">
+                        <item/>
+                    </localizedEntries>
+                    <localizedEntries lang="is_IS">
+                        <item/>
+                    </localizedEntries>
+                </local_src>
+            </xf:instance>
             <xf:instance id="fbc_6_eds" xmlns="">
                 <ext_src/>
             </xf:instance>
@@ -256,6 +298,9 @@
             <idega:switch>
                 <idega:case id="fbc_1" show="instance('control-instance')/generatePdf='true'">
                     <xf:group appearance="full">
+                        <xf:output bind="fbc_16_bind" id="fbc_16" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_16-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
                         <xf:input bind="fbc_8_bind" id="fbc_8" type="fbc_text">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_8-label[@lang=instance('localized_strings')/current_language]"/>
                             <xf:dispatch ev:event="idega-xforms-ready"
@@ -282,6 +327,18 @@
                         <xf:output bind="fbc_11_bind" id="fbc_11" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_11-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
+                        <xf:select1 appearance="minimal"
+                            bind="fbc_213_bind" id="fbc_213" type="fbc_single_select_minimal">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_213-label[@lang=instance('localized_strings')/current_language]"/>
+                            <xf:itemset model="data_model" nodeset="instance('fbc_213_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
+                                <xf:label ref="itemLabel"/>
+                                <xf:value ref="itemValue"/>
+                            </xf:itemset>
+                            <idega:setvalue
+                                ev:event="xforms-value-changed"
+                                multiple="true()"
+                                ref="instance('data-instance')/Fiskistofa_office_label" value="instance('fbc_213_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/Fiskistofa_office_fbc_213]/itemLabel"/>
+                        </xf:select1>
                         <xf:select1 appearance="minimal"
                             bind="fbc_7_bind" id="fbc_7" type="fbc_single_select_minimal">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_7-label[@lang=instance('localized_strings')/current_language]"/>

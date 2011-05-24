@@ -416,10 +416,14 @@ public class ViolationDataProviderRealWebservice implements
 			return data;
 		} catch (FinderException fe) {
 			fe.printStackTrace();
-			return null;
 		} catch (RemoteException re) {
 			re.printStackTrace();
 		}
+
+		PersonData data = new PersonData(personalId);
+		data.setName("No user found with personal ID...");
+		data.setAddress("");
+		data.setPostalCode("");
 		
 		return null;
 	}
