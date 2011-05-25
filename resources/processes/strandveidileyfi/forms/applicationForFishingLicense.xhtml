@@ -7,6 +7,8 @@
         <title>
             <xf:output model="data_model" ref="instance('localized_strings')/form-title[@lang=instance('localized_strings')/current_language]"/>
         </title>
+        <link rel="stylesheet" type="text/css" href="/idegaweb/bundles/is.idega.idegaweb.egov.gumbo.bundle/resources/style/fishing-license.css" />
+
         <xf:model id="submission_model" schema="#fb-schema">
             <xf:instance id="data-instance" xmlns="">
                 <data>
@@ -72,6 +74,7 @@
                     <fishingArea mapping="string_fishingArea" />
                     <validityFrom mapping="string_validityFrom" />
                     <validityTo mapping="string_validityTo" />
+                    <acceptTerms mapping="string_acceptTerms" />
                 </data>
             </xf:instance>
             <xf:instance id="control-instance">
@@ -167,6 +170,8 @@
                 
             <xf:bind id="fbc_102_bind" nodeset="fishingArea"/>
             <xf:bind id="fbc_103_bind" nodeset="validityFrom"/>
+            <xf:bind id="acceptTerms_bind" nodeset="acceptTerms" type="xs:string"/>
+                    
         </xf:model>
         <xf:model id="data_model">
             <xf:instance id="localized_strings" xmlns="">
@@ -245,8 +250,10 @@
                     <fbc_68-label lang="en">Previous</fbc_68-label>
                     <fbc_69-label lang="is_IS">Senda</fbc_69-label>
                     <fbc_69-label lang="en">Submit</fbc_69-label>
-                    <fbc_37-required lang="is_IS">Það þarf að fylla út reitinn X</fbc_37-required>
-                    <fbc_37-required lang="en">The field X is required</fbc_37-required>
+                    <fbc_205-required lang="is_IS">Þú verður að samþykkja skilmálana til að geta sent umsóknina.</fbc_205-required>
+                    <fbc_205-required lang="en">You have to agree to the terms to be able to send the application.</fbc_205-required>
+                    <fbc_37-required lang="is_IS">Þú verður að velja skip til að sækja um fyrir.</fbc_37-required>
+                    <fbc_37-required lang="en">You have to select a vessel to apply for.</fbc_37-required>
                     <fbc_37-help lang="en">Please select the vessel which the fishing
 license is applied for from the drop down
 menu.
@@ -300,8 +307,8 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                     <page-4-info lang="is_IS">Hlekkur á umsóknina hefur verið sendur á netfangið sem þú skráðir</page-4-info>
                     <fbc_101-label lang="is_IS">Dagsetning frá</fbc_101-label>
                     <fbc_101-label lang="en">From date</fbc_101-label>
-                    <fbc_101-required lang="is_IS">Það þarf að fylla út reitinn X</fbc_101-required>
-                    <fbc_101-required lang="en">The field X is required</fbc_101-required>
+                    <fbc_101-required lang="is_IS">Þú verður að velja upphafsdag veiða.</fbc_101-required>
+                    <fbc_101-required lang="en">You have to select a start date.</fbc_101-required>
                     <fbc_101-wrongInterval lang="is_IS">Upphafsdagur veiðileyfis verður að vera á tímabilinu 01.05 til 31.08</fbc_101-wrongInterval>
                     <fbc_101-wrongInterval lang="en">License start date should fall into interval 05/01 to 08/31</fbc_101-wrongInterval>
                     <fbc_101-beforeNow lang="is_IS">Það má ekki velja dagsetningu aftur í tímann</fbc_101-beforeNow>
@@ -317,6 +324,8 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                     <paymentInfoText lang="en">The fishing license must be paid on the start of the fishing period, at the latest.  Otherwise the application will be rejected.</paymentInfoText>
                     <applicationError-info lang="is_IS">Ef ofangreindum skilyrðum fyrir úthlutun veiðileyfis er ekki fullnægt má kæra þessa ákvörðun samkvæmt 1. mgr. 26. gr. stjórnsýslulaga nr. 37/1993 til sjávarútvegs- og landbúnaðarráðuneytisins, Skúlagötu 4, 150 Reykjavík, innan þriggja mánaða. Unnt er að óska skriflega eftir rökstuðningi við ákvörðun þessa.</applicationError-info>
                     <applicationError-info lang="en">Ef ofangreindum skilyrðum fyrir úthlutun veiðileyfis er ekki fullnægt má kæra þessa ákvörðun samkvæmt 1. mgr. 26. gr. stjórnsýslulaga nr. 37/1993 til sjávarútvegs- og landbúnaðarráðuneytisins, Skúlagötu 4, 150 Reykjavík, innan þriggja mánaða. Unnt er að óska skriflega eftir rökstuðningi við ákvörðun þessa.</applicationError-info>
+                    <acceptTerms-label lang="en">Applicant is familiar with the terms and conditions of granting of fishing license.</acceptTerms-label>
+                    <acceptTerms-label lang="is_IS">Umsækjandi hefur kynnt sér skilyrði fyrir veitingu veiðileyfis.</acceptTerms-label>
                 </localized_strings>
             </xf:instance>
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
@@ -363,6 +372,22 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
             </xf:instance>
             <xf:instance id="fbc_37_eds" xmlns="">
                 <ext_src/>
+            </xf:instance>
+           <xf:instance id="fbc_205_lds" xmlns="">
+                <local_src>
+                    <localizedEntries lang="en">
+                        <item>
+                            <itemLabel>I have studied the terms and conditions for granting of fishing license: </itemLabel>
+                            <itemValue>true</itemValue>
+                        </item>
+                    </localizedEntries>
+                    <localizedEntries lang="is_IS">
+                        <item>
+                            <itemLabel>Ég hef kynnt mér skilyrði fyrir veitingu veiðileyfis: </itemLabel>
+                            <itemValue>true</itemValue>
+                        </item>
+                    </localizedEntries>
+                </local_src>
             </xf:instance>
         </xf:model>
         <xs:schema id="fb-schema">
@@ -542,6 +567,26 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                         <xf:textarea bind="fbc_38_bind" id="fbc_38" type="fbc_textarea">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_38-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:textarea>
+
+                    	<div class="acceptTerms">
+	                        <xf:select appearance="full" bind="acceptTerms_bind"
+	                            id="fbc_205" type="fbc_multiple_select">
+	                            <xf:itemset model="data_model" nodeset="instance('fbc_205_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
+	                                <xf:label ref="itemLabel"/>
+	                                <xf:value ref="itemValue"/>
+	                            </xf:itemset>
+
+	                            <xf:dispatch ev:event="xforms-submit"
+	                                name="idega-validate" target="fbc_205"/>
+	                                
+	                            <idega:validator ev:event="idega-validate" errorif="instance('data-instance')/acceptTerms != 'true'">
+	                                <idega:message errorType="custom" model="data_model" value="instance('localized_strings')/fbc_205-required[@lang=instance('localized_strings')/current_language]"/>
+	                            </idega:validator>
+	                            <xf:alert ref="instance('error-instance')/error[@for='fbc_205']"/>
+	                        </xf:select>
+	                        <a href="/content/files/public/skilmalar_strandveidileyfi.pdf" target="_blank">Skilmálar</a>
+	                    </div>
+
                         <div class="fbc_button_area" id="fbc_2" type="fbc_button_area">
                             <xf:trigger bind="bind-controlsButton"
                                 id="fbc_66" type="fbc_button_next">
@@ -650,6 +695,10 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                         <xf:group bind="debtMessageContainer" class="warning">
                             <xf:output model="data_model" ref="instance('localized_strings')/debtMessage[@lang=instance('localized_strings')/current_language]"/>
                         </xf:group>
+                        
+		                <xf:group class="check" ref=".[instance('data-instance')/acceptTerms != '']">
+                            <xf:output model="data_model" ref="instance('localized_strings')/acceptTerms-label[@lang=instance('localized_strings')/current_language]"/>
+		                </xf:group>
                         
 						<xf:group ref=".[instance('data-instance')/vesselHasValidHaffairisskirteini/result!='true' or instance('data-instance')/companyLicenseValid/result='true' or instance('data-instance')/vesselHasRevokedLicense/result='true' or instance('data-instance')/quotaWithinLimits/result!='true']" class="applicationError">
 	                		<xf:output value="concat(substring(now(),9,2),

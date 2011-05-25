@@ -1,0 +1,28 @@
+div.acceptTerms div.select {
+	float: left;
+	width: auto;
+	overflow: visible !important;
+}
+
+div.acceptTerms div.select span, div.acceptTerms div.invalid span {
+	width: auto !important;
+	margin-right: 2px;
+	font-weight: bold;
+	padding: 0;
+	border: 0;
+	background-color: transparent;
+	overflow: visible;
+}
+
+div.acceptTerms a {
+	display: block;
+	float: left;
+	padding-top: 2px;
+}
+
+div.acceptTerms div.invalid span.alert {
+	margin-left: 0;
+	position: absolute;
+	width: 700px !important;
+	top: 16px;
+}
