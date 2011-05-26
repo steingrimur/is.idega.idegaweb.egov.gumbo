@@ -317,6 +317,8 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                     <fbc_115-label lang="en"> - </fbc_115-label>
                     <paymentInfoText lang="is_IS">Greiða verður veiðileyfi fyrir kl. 21 næsta virka dag á undan upphafsdegi veiðitímabils, að öðrum kosti fellur umsókn niður.</paymentInfoText>
                     <paymentInfoText lang="en">The fishing license must be paid on the start of the fishing period, at the latest.  Otherwise the application will be rejected.</paymentInfoText>
+                    <applicationError-info lang="is_IS">Ef ofangreindum skilyrðum fyrir úthlutun veiðileyfis er ekki fullnægt má kæra þessa ákvörðun samkvæmt 1. mgr. 26. gr. stjórnsýslulaga nr. 37/1993 til sjávarútvegs- og landbúnaðarráðuneytisins, Skúlagötu 4, 150 Reykjavík, innan þriggja mánaða. Unnt er að óska skriflega eftir rökstuðningi við ákvörðun þessa.</applicationError-info>
+                    <applicationError-info lang="en">Ef ofangreindum skilyrðum fyrir úthlutun veiðileyfis er ekki fullnægt má kæra þessa ákvörðun samkvæmt 1. mgr. 26. gr. stjórnsýslulaga nr. 37/1993 til sjávarútvegs- og landbúnaðarráðuneytisins, Skúlagötu 4, 150 Reykjavík, innan þriggja mánaða. Unnt er að óska skriflega eftir rökstuðningi við ákvörðun þessa.</applicationError-info>
                 </localized_strings>
             </xf:instance>
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
@@ -662,39 +664,57 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                         	<xf:output model="data_model" ref="instance('localized_strings')/paymentInfoText[@lang=instance('localized_strings')/current_language]" />
                         </div>
                         
-                        <xf:group bind="fbc_73_bind" class="check">
+                        <xf:group bind="fbc_73_bind" class="statusIcon">
+                        	<img src="/content/files/public/style/check.png" alt="" />
                             <xf:output bind="fbc_116_bind" />
                         </xf:group>
-                        <xf:group bind="fbc_74_bind" class="fail">
+                        <xf:group bind="fbc_74_bind" class="statusIcon">
+                        	<img src="/content/files/public/style/fail.png" alt="" />
                             <xf:output bind="fbc_116_bind" />
                         </xf:group>
                         
-                        <xf:group bind="fbc_106_bind" class="check">
+                        <xf:group bind="fbc_106_bind" class="statusIcon">
+                        	<img src="/content/files/public/style/check.png" alt="" />
                             <xf:output bind="fbc_117_bind" />
                         </xf:group>
-                        <xf:group bind="fbc_107_bind" class="fail">
+                        <xf:group bind="fbc_107_bind" class="statusIcon">
+                        	<img src="/content/files/public/style/fail.png" alt="" />
                             <xf:output bind="fbc_117_bind" />
                         </xf:group>
                         
-                        <xf:group bind="fbc_111_bind" class="fail">
+                        <xf:group bind="fbc_111_bind" class="statusIcon">
+                        	<img src="/content/files/public/style/fail.png" alt="" />
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_111-text[@lang=instance('localized_strings')/current_language]"/>
                         </xf:group>
-                        <xf:group bind="fbc_112_bind" class="check">
+                        <xf:group bind="fbc_112_bind" class="statusIcon">
+                        	<img src="/content/files/public/style/check.png" alt="" />
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_112-text[@lang=instance('localized_strings')/current_language]"/>
                         </xf:group>
                         
-                        <xf:group bind="debtMessageContainer" class="warning">
+                        <xf:group bind="debtMessageContainer" class="statusIcon">
+                        	<img src="/content/files/public/style/warning.png" alt="" />
                             <xf:output model="data_model" ref="instance('localized_strings')/debtMessage[@lang=instance('localized_strings')/current_language]"/>
                         </xf:group>
                         
-                        <xf:group bind="fbc_118_bind" class="fail">
+                        <xf:group bind="fbc_118_bind" class="statusIcon">
+                        	<img src="/content/files/public/style/fail.png" alt="" />
                             <xf:output bind="fbc_120_bind" />
                         </xf:group>
-                        <xf:group bind="fbc_119_bind" class="check">
+                        <xf:group bind="fbc_119_bind" class="statusIcon">
+                        	<img src="/content/files/public/style/check.png" alt="" />
                             <xf:output bind="fbc_120_bind" />
                         </xf:group>
                         
-                        <div class="fbc_button_area" id="fbc_67" type="fbc_button_area">
+						<xf:group ref=".[instance('data-instance')/vesselHasValidHaffairisskirteini/result!='true' or instance('data-instance')/vesselHasValidGeneralFishingLicense/result!='true' or instance('data-instance')/vesselHasRevokedLicense/result='true' or instance('data-instance')/companyHasValidGrasleppa='true']" class="applicationError">
+	                		<xf:output value="concat(substring(now(),9,2),
+					            '.',
+					            substring(now(),6,2),
+					            '.',
+					            substring(now(),1,4))" />
+	                		<xf:output model="data_model" value="instance('localized_strings')/applicationError-info[@lang=instance('localized_strings')/current_language]"/>
+	                	</xf:group>
+	                	
+	                	<div class="fbc_button_area" id="fbc_67" type="fbc_button_area">
                             <xf:trigger bind="bind-controlsButton"
                                 id="fbc_68" type="fbc_button_previous">
                                 <xf:label model="data_model" ref="instance('localized_strings')/fbc_68-label[@lang=instance('localized_strings')/current_language]"/>

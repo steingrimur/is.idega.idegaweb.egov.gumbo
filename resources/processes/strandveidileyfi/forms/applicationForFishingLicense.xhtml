@@ -664,39 +664,49 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                         	<xf:output model="data_model" ref="instance('localized_strings')/paymentInfoText[@lang=instance('localized_strings')/current_language]" />
                         </div>
                         
-                        <xf:group bind="fbc_73_bind" class="check">
+                        <xf:group bind="fbc_73_bind" class="statusIcon">
+                        	<img src="/content/files/public/style/check.png" alt="" />
                             <xf:output bind="fbc_110_bind" />
                         </xf:group>
-                        <xf:group bind="fbc_74_bind" class="fail">
+                        <xf:group bind="fbc_74_bind" class="statusIcon">
+                        	<img src="/content/files/public/style/fail.png" alt="" />
                             <xf:output bind="fbc_110_bind" />
                         </xf:group>
                         
-                        <xf:group bind="fbc_112_bind" class="fail">
+                        <xf:group bind="fbc_112_bind" class="statusIcon">
+                        	<img src="/content/files/public/style/fail.png" alt="" />
                             <xf:output bind="fbc_114_bind" />
                         </xf:group>
-                        <xf:group bind="fbc_113_bind" class="check">
+                        <xf:group bind="fbc_113_bind" class="statusIcon">
+                        	<img src="/content/files/public/style/check.png" alt="" />
                             <xf:output bind="fbc_114_bind" />
                         </xf:group>
                         
-                        <xf:group bind="fbc_104_bind" class="fail">
+                        <xf:group bind="fbc_104_bind" class="statusIcon">
+                        	<img src="/content/files/public/style/fail.png" alt="" />
                             <xf:output bind="fbc_105a_bind" />
                         </xf:group>
-                        <xf:group bind="fbc_105_bind" class="check">
+                        <xf:group bind="fbc_105_bind" class="statusIcon">
+                        	<img src="/content/files/public/style/check.png" alt="" />
                             <xf:output bind="fbc_105a_bind" />
                         </xf:group>
                         
-                        <xf:group bind="fbc_106_bind" class="check">
+                        <xf:group bind="fbc_106_bind" class="statusIcon">
+                        	<img src="/content/files/public/style/check.png" alt="" />
                             <xf:output bind="fbc_107a_bind" />
                         </xf:group>
-                        <xf:group bind="fbc_107_bind" class="fail">
+                        <xf:group bind="fbc_107_bind" class="statusIcon">
+                        	<img src="/content/files/public/style/fail.png" alt="" />
                             <xf:output bind="fbc_107a_bind" />
                         </xf:group>
                         
-                        <xf:group bind="debtMessageContainer" class="warning">
+                        <xf:group bind="debtMessageContainer" class="statusIcon">
+                        	<img src="/content/files/public/style/warning.png" alt="" />
                             <xf:output model="data_model" ref="instance('localized_strings')/debtMessage[@lang=instance('localized_strings')/current_language]"/>
                         </xf:group>
                         
-		                <xf:group class="check" ref=".[instance('data-instance')/acceptTerms != '']">
+		                <xf:group class="statusIcon" ref=".[instance('data-instance')/acceptTerms != '']">
+                        	<img src="/content/files/public/style/check.png" alt="" />
                             <xf:output model="data_model" ref="instance('localized_strings')/acceptTerms-label[@lang=instance('localized_strings')/current_language]"/>
 		                </xf:group>
                         
