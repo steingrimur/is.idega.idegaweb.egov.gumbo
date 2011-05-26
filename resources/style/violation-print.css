@@ -1,3 +1,17 @@
 div#chiba-head {
-	display: none;	
+	display: none;
+}
+
+div#chiba-body {
+	font-family: Times !important;
+	font-size: 15px !important;
+}
+
+span.output span {
+	font-family: Times !important;
+	font-size: 15px !important;
+}
+
+img {
+	width: 340px !important;	
 }

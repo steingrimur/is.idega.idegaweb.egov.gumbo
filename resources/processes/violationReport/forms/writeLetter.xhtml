@@ -51,8 +51,8 @@
                     <pdfText/>
                     
                     <pdfTextTemplate11>
-                    &lt;div style="width:680px;font-size:12px !important;"&gt;
-                    &lt;div style="float: left; margin-top: 80px"&gt;
+                    &lt;div style="margin: 0 20px;width:640px;"&gt;
+                    &lt;div style="float: left; margin-top: 100px"&gt;
                     </pdfTextTemplate11>
                     <!--  recipient name -->
                     
@@ -68,11 +68,12 @@
                     
                     <pdfTextTemplate14>
                     &lt;/div&gt; 
-                    &lt;img style="float: right;" width="300" src="https://uggi.fiskistofa.is/content/files/public/pdf/fiskistofa.gif" /&gt;
+                    &lt;img style="float: right;" width="340" src="https://uggi.fiskistofa.is/content/files/public/pdf/fiskistofa.gif" /&gt;
                     </pdfTextTemplate14>
                     
                     <pdfTextTemplate22>
-                    &lt;div style="float:right; clear: both; padding-top: 24px;"&gt;
+                    &lt;/p&gt;
+                    &lt;div style="float:right; clear: both;"&gt;
                     </pdfTextTemplate22>
                     <!-- letter date -->
                     
@@ -83,14 +84,13 @@
                     <!-- case identifier -->
 
                     <pdfTextTemplate21>
-                    &lt;/div&gt;
-                    &lt;p style="clear: both; padding-top: 12px;"&gt;
+                    &lt;p style="clear: both; padding-top: 72px;"&gt;
 					&lt;b&gt;Efni: &lt;/b&gt;
                     </pdfTextTemplate21>
                     <!-- letter subject name -->
                     
                     <pdfTextTemplate23>
-                    &lt;/p&gt;
+                    &lt;/div&gt;
                     </pdfTextTemplate23>
 
                     <pdfTextTemplate31>
@@ -144,7 +144,7 @@
             <xf:bind id="bind-submissionButton" idega:shared="true"
                 nodeset="instance('control-instance')/submissionButton" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'"/>
             <xf:bind
-                calculate="if(instance('control-instance')/readonly = 'true' or instance('control-instance')/generatePdf = 'true', concat(instance('data-instance')/pdfTextTemplate11, instance('data-instance')/personData/name, instance('data-instance')/pdfTextTemplate12, instance('data-instance')/personData/address, instance('data-instance')/pdfTextTemplate13, instance('data-instance')/personData/postalCode, instance('data-instance')/pdfTextTemplate14, instance('data-instance')/pdfTextTemplate22, instance('data-instance')/Fiskistofa_office_label, ', ', instance('data-instance')/letterDate, instance('data-instance')/pdfTextTemplate23a, ' ', instance('data-instance')/caseIdentifier, instance('data-instance')/pdfTextTemplate21, instance('data-instance')/LetterSubject, instance('data-instance')/pdfTextTemplate23, instance('data-instance')/pdfTextTemplate31, instance('data-instance')/Letter_text_fbc_5, instance('data-instance')/pdfTextTemplate32, instance('data-instance')/writeLetterSubmitterName_fbc_13, instance('data-instance')/pdfTextTemplate33), '')"
+                calculate="if(instance('control-instance')/readonly = 'true' or instance('control-instance')/generatePdf = 'true', concat(instance('data-instance')/pdfTextTemplate11, instance('data-instance')/personData/name, instance('data-instance')/pdfTextTemplate12, instance('data-instance')/personData/address, instance('data-instance')/pdfTextTemplate13, instance('data-instance')/personData/postalCode, instance('data-instance')/pdfTextTemplate14, instance('data-instance')/pdfTextTemplate21, instance('data-instance')/LetterSubject, instance('data-instance')/pdfTextTemplate22, instance('data-instance')/Fiskistofa_office_label, ', ', instance('data-instance')/letterDate, instance('data-instance')/pdfTextTemplate23a, ' ', instance('data-instance')/caseIdentifier, instance('data-instance')/pdfTextTemplate23, instance('data-instance')/pdfTextTemplate31, instance('data-instance')/Letter_text_fbc_5, instance('data-instance')/pdfTextTemplate32, instance('data-instance')/writeLetterSubmitterName_fbc_13, instance('data-instance')/pdfTextTemplate33), '')"
                 id="fbc_15_bind" nodeset="pdfText" type="string"/>
             <xf:bind id="fbc_5_bind" nodeset="Letter_text_fbc_5"
                 readonly="instance('control-instance')/readonly = 'true'"
