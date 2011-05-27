@@ -162,6 +162,8 @@
                     </Attachments_fbc_208>
                     <AttachmentDescription mapping="string_attachmentDescription"/>
                     <Responsible_inspector_fbc_211 mapping="string_responsibleInspector"/>
+                    <reportDate mapping="date_reportDate" xsi:nil="true" />
+                    <reportDateLabel mapping="string_reportDateLabel"/>
                     <Fiskistofa_office_fbc_213 mapping="string_fiskistofaOffice"/>
                     <Fiskistofa_office_label mapping="string_fiskistofaOfficeLabel"/>
                     <policeInvolvementTrue/>
@@ -331,6 +333,9 @@
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
             <xf:instance id="fbc_211_autofill-instance"
                 relevant="false()" src="context:fb-afk-loginSession.user.name"/>
+            <xf:bind id="reportDate_bind" nodeset="reportDate"
+                required="instance('control-instance')/required = 'true'" type="date"/>
+            <xf:bind id="reportDateLabel_bind" nodeset="reportDateLabel"/>
             <xf:bind id="fbc_213_bind"
                 nodeset="Fiskistofa_office_fbc_213"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
@@ -593,6 +598,11 @@
                     <fbc_216-text lang="en">Not selected</fbc_216-text>
                     <fbc_221-label lang="is_IS">Aðrir sem koma að málinu</fbc_221-label>
                     <fbc_221-label lang="en">Other inspectors</fbc_221-label>
+                    
+                    <reportDate-label lang="is_IS">Dagsetning skýrslu</reportDate-label>
+                    <reportDate-label lang="en">Report date</reportDate-label>
+                    <reportDate-required lang="is_IS">Það verður að velja dagsetningu skýrslu</reportDate-required>
+                    <reportDate-required lang="en">You have to select a report date</reportDate-required>
                 </localized_strings>
             </xf:instance>
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
@@ -883,7 +893,7 @@
                                 <idega:message errorType="required"
                                     model="data_model" value="instance('localized_strings')/fbc_999-required[@lang=instance('localized_strings')/current_language]"/>
                             </idega:validator>
-                            <xf:alert ref="instance('error-instance')/error[@for='fbc_102']"/>
+                            <xf:alert ref="instance('error-instance')/error[@for='fbc_999']"/>
                         </xf:input>
                         <div class="fbc_header_text" id="fbc_5" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_5-text[@lang=instance('localized_strings')/current_language]"/>
@@ -1464,6 +1474,23 @@
                         <xf:input bind="fbc_211_bind" id="fbc_211">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_211-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:input>
+                        <xf:input bind="reportDate_bind" id="fbc_211a" type="fbc_date">
+                            <xf:label model="data_model" ref="instance('localized_strings')/reportDate-label[@lang=instance('localized_strings')/current_language]"/>
+
+							<xf:dispatch ev:event="xforms-submit"
+							    name="idega-validate" target="fbc_211a"/>
+							<xf:dispatch ev:event="xforms-value-changed"
+							    name="idega-validate" target="fbc_211a"/>
+                            <xf:setvalue ev:event="xforms-value-changed"
+                                ref="instance('data-instance')/reportDateLabel" value="idega:resolveExpression('gumboUtil.formatDate({0})', '#{instance(`data-instance`)/reportDate}')"/>
+
+                            <idega:validator ev:event="idega-validate" errorif="instance('data-instance')/reportDate = ''">
+                                <idega:message errorType="required"
+                                    model="data_model" value="instance('localized_strings')/reportDate-required[@lang=instance('localized_strings')/current_language]"/>
+                            </idega:validator>
+
+							<xf:alert ref="instance('error-instance')/error[@for='fbc_211a']"/>
+                        </xf:input>
                         <div class="threeColumns">
                             <xf:select class="box" appearance="full" bind="fbc_221_bind" id="fbc_221" type="fbc_multiple_select_minimal">
                                 <xf:label model="data_model" ref="instance('localized_strings')/fbc_221-label[@lang=instance('localized_strings')/current_language]"/>
@@ -1699,6 +1726,9 @@
                         
                         <xf:output bind="fbc_211_bind" id="fbc_219" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_211-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
+                        <xf:output bind="reportDateLabel_bind" id="fbc_219a" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/reportDate-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
                         <xf:output bind="fbc_222_bind" id="fbc_222" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_221-label[@lang=instance('localized_strings')/current_language]"/>

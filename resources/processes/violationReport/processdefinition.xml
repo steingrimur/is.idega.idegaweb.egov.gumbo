@@ -132,6 +132,8 @@
 				<variable name="files_attachments" access="read,write"></variable>
 				<variable name="string_attachmentDescription" access="read,write"></variable>
 				<variable name="string_responsibleInspector" access="read,write"></variable>
+				<variable name="date_reportDate" access="read,write"></variable>
+				<variable name="string_reportDateLabel" access="read,write"></variable>
 				<variable name="string_fiskistofaOffice" access="read,write"></variable>
 				<variable name="string_fiskistofaOfficeLabel" access="read,write"></variable>
 				<variable name="list_otherInspectors" access="read,write"></variable>
@@ -899,6 +901,8 @@
 				<variable name="files_attachments" access="read,write"></variable>
 				<variable name="string_attachmentDescription" access="read,write"></variable>
 				<variable name="string_responsibleInspector" access="read,write"></variable>
+				<variable name="date_reportDate" access="read,write"></variable>
+				<variable name="string_reportDateLabel" access="read,write"></variable>
 				<variable name="string_fiskistofaOffice" access="read,write"></variable>
 				<variable name="string_fiskistofaOfficeLabel" access="read,write"></variable>
 				<variable name="list_otherInspectors" access="read,write"></variable>
