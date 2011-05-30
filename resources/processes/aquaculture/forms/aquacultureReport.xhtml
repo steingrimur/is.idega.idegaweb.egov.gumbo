@@ -374,6 +374,7 @@
                     calculate="../quantity * ../price" />
                     
                 <xf:bind id="buyerSocialSecurityNrBind"
+                	required="../soldToOutput = 'Ísland'"
                     nodeset="./buyerSocialSecurityNr" />
                     
                 <xf:bind id="buyerNameBind"
@@ -584,8 +585,8 @@
                     <fbc_8-label lang="en">Report for the year</fbc_8-label>
                     <fbc_9-label lang="is_IS">Stöð</fbc_9-label>
                     <fbc_9-label lang="en">Farm</fbc_9-label>
-                    <fbc_9-required lang="is_IS">Það þarf að fylla út reitinn X</fbc_9-required>
-                    <fbc_9-required lang="en">The field X is required</fbc_9-required>
+                    <fbc_9-required lang="is_IS">Það verður að velja stöð</fbc_9-required>
+                    <fbc_9-required lang="en">You have to select station</fbc_9-required>
                     
                     <fbc_10_repeat_id_input_speciesGroup-required lang="is_IS">fbc_10_repeat_id_input_speciesGroup-required</fbc_10_repeat_id_input_speciesGroup-required>
                     <fbc_10_repeat_id_input_speciesGroup-required lang="en">fbc_10_repeat_id_input_speciesGroup-required</fbc_10_repeat_id_input_speciesGroup-required>
@@ -627,8 +628,8 @@
                     <fbc_43_repeat_id_input_price-required lang="en">fbc_43_repeat_id_input_price-required</fbc_43_repeat_id_input_price-required>
                     <fbc_43_repeat_id_input_value-required lang="is_IS">fbc_43_repeat_id_input_value-required</fbc_43_repeat_id_input_value-required>
                     <fbc_43_repeat_id_input_value-required lang="en">fbc_43_repeat_id_input_value-required</fbc_43_repeat_id_input_value-required>
-                    <fbc_43_repeat_id_input_buyerSocialSecurityNr-required lang="is_IS">fbc_43_repeat_id_input_buyerSocialSecurityNr-required</fbc_43_repeat_id_input_buyerSocialSecurityNr-required>
-                    <fbc_43_repeat_id_input_buyerSocialSecurityNr-required lang="en">fbc_43_repeat_id_input_buyerSocialSecurityNr-required</fbc_43_repeat_id_input_buyerSocialSecurityNr-required>
+                    <fbc_43_repeat_id_input_buyerSocialSecurityNr-required lang="is_IS">Þú verður að setja inn kennitölu kaupanda</fbc_43_repeat_id_input_buyerSocialSecurityNr-required>
+                    <fbc_43_repeat_id_input_buyerSocialSecurityNr-required lang="en">You have to enter buyer personal ID</fbc_43_repeat_id_input_buyerSocialSecurityNr-required>
                     <fbc_43_repeat_id_input_buyerName-required lang="is_IS">fbc_43_repeat_id_input_buyerName-required</fbc_43_repeat_id_input_buyerName-required>
                     <fbc_43_repeat_id_input_buyerName-required lang="en">fbc_43_repeat_id_input_buyerName-required</fbc_43_repeat_id_input_buyerName-required>
                     
@@ -1366,6 +1367,8 @@
 	                                    
 	                                    <xf:dispatch ev:event="xforms-value-changed"
 	                                        name="idega-validate" target="fbc_43_repeat_id_input_soldTo"/>
+	                                    <xf:dispatch ev:event="xforms-value-changed"
+	                                        name="idega-validate" target="fbc_43_repeat_id_input_buyerSocialSecurityNr"/>
 	                                    
 	                                    <xf:action ev:event="xforms-value-changed">
 	                                    
@@ -1398,7 +1401,13 @@
 			                                    ev:event="xforms-value-changed"
 			                                    ref="instance('data-instance')/sales/list/row[index('fbc_43_repeat_id')]/buyerNameOutput"
 			                                    value="idega:resolveExpression('aquaCultureService.getBuyersName({0})', '#{instance(`data-instance`)/sales/list/row[index(`fbc_43_repeat_id`)]/buyerSocialSecurityNr}')"/>
+
+	                                    <idega:validator ev:event="idega-validate">
+			                                <idega:message errorType="required"
+			                                    model="data_model" value="instance('localized_strings')/fbc_43_repeat_id_input_buyerSocialSecurityNr-required[@lang=instance('localized_strings')/current_language]"/>
+			                            </idega:validator>
 	                                    
+										<xf:alert ref="instance('error-instance')/error[@for='fbc_43_repeat_id_input_buyerSocialSecurityNr']" />
 	                                </xf:input>
 	                                
 	                                <xf:input bind="buyerNameBind" id="fbc_43_repeat_id_input_buyerName">
