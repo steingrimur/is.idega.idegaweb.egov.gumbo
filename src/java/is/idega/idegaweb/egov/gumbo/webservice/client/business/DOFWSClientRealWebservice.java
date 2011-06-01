@@ -1179,7 +1179,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 			List<Integer> ids = getCaseManagersProvider().getCaseManager()
 					.getCaseIds(user,
 							CasesRetrievalManager.CASE_LIST_TYPE_OPEN, null,
-							null, statusesToShow, false);
+							null, statusesToShow, false, false);
 			if (ids != null) {
 				List<CaseProcInstBind> binds = getCasesBPMDAO()
 						.getCasesProcInstBindsByCasesIds(ids);
@@ -1251,7 +1251,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 			List<Integer> ids = getCaseManagersProvider().getCaseManager()
 					.getCaseIds(user,
 							CasesRetrievalManager.CASE_LIST_TYPE_OPEN, null,
-							null, statusesToShow, false);
+							null, statusesToShow, false, false);
 			if (ids != null) {
 				List<CaseProcInstBind> binds = getCasesBPMDAO()
 						.getCasesProcInstBindsByCasesIds(ids);
