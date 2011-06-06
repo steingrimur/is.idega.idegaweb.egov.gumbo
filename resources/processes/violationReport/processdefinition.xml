@@ -194,7 +194,7 @@
 			        		{list: {mv: [{type: "bean", value: "user.name"}, {type: "roleUsers", value: "{role: {roleName: \"bpm_violationReport_caseHandler\"}}"}, {type: "bean", value: "piw.processDefinitionW.startTaskName"}, {type: "bean", value: "piw.processIdentifier"}, {type: "bean", value: "piw.processDescription"}]}}
                 		</value>
                 	</entry>
-                	<entry><key>sendToRoles</key><value>bpm_violationReport_owner bpm_violationReport_handler</value></entry>
+                	<entry><key>sendToRoles</key><value>bpm_violationReport_handler</value></entry>
 			    </propertyMap>
 			</action>
     </event>
@@ -255,7 +255,8 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}}
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}},
+                           {roleName: "bpm_violationReport_owner", accesses: {access: [read]}}
                         ]} }}
                     </value>
                 </entry>
@@ -293,7 +294,8 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}}
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}},
+                           {roleName: "bpm_violationReport_owner", accesses: {access: [read]}}
                         ]} }}
                     </value>
                 </entry>
@@ -355,6 +357,7 @@
                     <value>
                         {taskAssignment: {roles: {role: [
                            {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}},
+                           {roleName: "bpm_violationReport_owner", accesses: {access: [read]}}
                            {roleName: "bpm_violationReport_superHandler", accesses: {access: [read, write]}}
                         ]} }}
                     </value>
@@ -405,7 +408,8 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}}
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}},
+                           {roleName: "bpm_violationReport_owner", accesses: {access: [read]}}
                         ]} }}
                     </value>
                 </entry>
@@ -453,7 +457,8 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}}
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}},
+                           {roleName: "bpm_violationReport_owner", accesses: {access: [read]}}
                         ]} }}
                     </value>
                 </entry>
@@ -478,7 +483,8 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}}
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}},
+                           {roleName: "bpm_violationReport_owner", accesses: {access: [read]}}
                         ]} }}
                     </value>
                 </entry>
@@ -498,7 +504,8 @@
             <expression>
                 addAttachmentAssignmentExpression = 
                        "{taskAssignment: {roles: {role: ["+
-                       		"{roleName: \"bpm_violationReport_handler\", accesses: {access: [read,write]}}"+
+                           "{roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}},"+
+                           "{roleName: "bpm_violationReport_owner", accesses: {access: [read]}}"+
                        "]}}}";
             </expression>
             <variable name='string_addAttachmentAssignmentExpression' access='write' mapped-name='addAttachmentAssignmentExpression' />
@@ -550,7 +557,8 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}}
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}},
+                           {roleName: "bpm_violationReport_owner", accesses: {access: [read]}}
                         ]} }}
                     </value>
                 </entry>
@@ -710,7 +718,7 @@
                             {list: {mv: [{type: "bean", value: "piw.processDescription"}, {type: "bean", value: "piw.processIdentifier"}]}}
                         </value>
                     </entry>
-                    <entry><key>sendToRoles</key><value>bpm_violationReport_handler</value></entry>
+                    <entry><key>sendToRoles</key><value>bpm_violationReport_superHandler</value></entry>
                 </propertyMap>
         </action>
       
@@ -761,6 +769,7 @@
                     </entry>
                 <entry><key>sendToRoles</key><value>bpm_violationReport_handler</value></entry>
                 <entry><key>handlerUserId</key><value>#{string_lawyerUserId}</value></entry>
+                <entry><key>recipientUserId</key><value>#{string_lawyerUserId}</value></entry>
                 </propertyMap>
          	</action>
     	</event>
@@ -808,10 +817,9 @@
 	                            {list: {mv: [{type: "bean", value: "user.name"},  {type: "bean", value: "piw.processDefinitionW.startTaskName"}, {type: "bean", value: "piw.processIdentifier"}, {type: "bean", value: "piw.processDescription"},{type: "bean", value: "caseUser.urlToTheCase"}]}}
 	                        </value>
 	                    </entry>
-	                    <entry><key>sendToRoles</key><value>bpm_violationReport_handler</value></entry>
+	                    <entry><key>sendToRoles</key><value>bpm_violationReport_handler bpm_violationReport_superHandler</value></entry>
 	                </propertyMap>
 	        </action>
-
 	      </event>
 		<transition to="end-state1"></transition>
 	</node>
@@ -836,7 +844,8 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}}
+                           {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}},
+                           {roleName: "bpm_violationReport_owner", accesses: {access: [read]}}
                         ]} }}
                     </value>
                 </entry>
