@@ -357,7 +357,7 @@
                     <value>
                         {taskAssignment: {roles: {role: [
                            {roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}},
-                           {roleName: "bpm_violationReport_owner", accesses: {access: [read]}}
+                           {roleName: "bpm_violationReport_owner", accesses: {access: [read]}},
                            {roleName: "bpm_violationReport_superHandler", accesses: {access: [read, write]}}
                         ]} }}
                     </value>
@@ -817,7 +817,7 @@
 	                            {list: {mv: [{type: "bean", value: "user.name"},  {type: "bean", value: "piw.processDefinitionW.startTaskName"}, {type: "bean", value: "piw.processIdentifier"}, {type: "bean", value: "piw.processDescription"},{type: "bean", value: "caseUser.urlToTheCase"}]}}
 	                        </value>
 	                    </entry>
-	                    <entry><key>sendToRoles</key><value>bpm_violationReport_handler bpm_violationReport_superHandler</value></entry>
+	                    <entry><key>sendToRoles</key><value>bpm_violationReport_superHandler</value></entry>
 	                </propertyMap>
 	        </action>
 	      </event>
