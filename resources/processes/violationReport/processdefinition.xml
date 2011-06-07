@@ -502,11 +502,7 @@
         <event type="node-enter">
          <script>
             <expression>
-                addAttachmentAssignmentExpression = 
-                       "{taskAssignment: {roles: {role: ["+
-                           "{roleName: "bpm_violationReport_handler", accesses: {access: [read, write]}},"+
-                           "{roleName: "bpm_violationReport_owner", accesses: {access: [read]}}"+
-                       "]}}}";
+                addAttachmentAssignmentExpression = "{taskAssignment: {roles: {role: [{roleName: \"bpm_violationReport_handler\", accesses: {access: [read, write]}}, {roleName: \"bpm_violationReport_owner\", accesses: {access: [read]}}]}}}";
             </expression>
             <variable name='string_addAttachmentAssignmentExpression' access='write' mapped-name='addAttachmentAssignmentExpression' />
          </script>
