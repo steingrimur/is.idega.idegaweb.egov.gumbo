@@ -445,7 +445,7 @@ public class ViolationDataProviderRealWebservice implements
 			return null;
 		}
 		
-		if (SocialSecurityNumber.isIndividualSocialSecurityNumber(personalId, LocaleUtil.getIcelandicLocale())) {
+		if (SocialSecurityNumber.isCompanySocialSecurityNumber(personalId, LocaleUtil.getIcelandicLocale())) {
 			CompanyBusiness companyBusiness = null;
 			try {
 				companyBusiness = getCompanyBusiness();
