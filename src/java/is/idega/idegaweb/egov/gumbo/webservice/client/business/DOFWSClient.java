@@ -76,6 +76,10 @@ public interface DOFWSClient {
 	
 	public String getFishingArea(String shipId, Timestamp validFrom);
 	
+	public Map<BigDecimal, VeidileyfagerdTypeUser> getAlmennAreas();
+	
+	public Map<BigDecimal, VeidileyfagerdTypeUser> getDragnotaAreas();
+	
 	public Map<BigDecimal, VeidileyfagerdTypeUser> getGrasleppaAreas();
 	
 	public Map<BigDecimal, VeidileyfagerdTypeUser> getStrandveidiAreas();

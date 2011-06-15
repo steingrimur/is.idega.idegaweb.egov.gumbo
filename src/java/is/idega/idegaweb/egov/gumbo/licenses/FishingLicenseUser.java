@@ -280,6 +280,17 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	}
 
 	/**
+	 * used in forms: dragnot
+	 * 
+	 * @return string true or false
+	 */
+	public String getCompanyHasValidDragnot() {
+		// Is always true, since Fiskisofa only returns us the ships that have
+		// this license.
+		return "true";
+	}
+
+	/**
 	 * used in forms: strandveidileyfi
 	 * 
 	 * @return string true or false

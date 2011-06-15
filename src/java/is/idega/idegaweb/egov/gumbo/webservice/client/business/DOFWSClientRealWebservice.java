@@ -1012,6 +1012,16 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	}
 
 	@Override
+	public Map<BigDecimal, VeidileyfagerdTypeUser> getAlmennAreas() {
+		return getFishingAreasByType("37", null);
+	}
+
+	@Override
+	public Map<BigDecimal, VeidileyfagerdTypeUser> getDragnotaAreas() {
+		return getFishingAreasByType("37", null);
+	}
+
+	@Override
 	public Map<BigDecimal, VeidileyfagerdTypeUser> getGrasleppaAreas() {
 		return getFishingAreasByType("11", null);
 	}
@@ -1020,7 +1030,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	public Map<BigDecimal, VeidileyfagerdTypeUser> getStrandveidiAreas() {
 		return getFishingAreasByType("37", null);
 	}
-
+	
 	private Map<BigDecimal, VeidileyfagerdTypeUser> getFishingAreasByType(
 			String type, String period) {
 		Map cache = getCache(GUMBO_FISHING_AREAS_CACHE, 60 * 60 * 24l);

@@ -445,6 +445,7 @@
 	   <task name="violationDecisionTask" priority="-1">
          <controller>
          	<variable name="string_actionTaken" access="read,write,required"></variable>
+         	<variable name="string_actionTakenSummary" access="read,write"></variable>
             <variable name="string_rulingText" access="read,write"></variable>
             <variable name="string_caseIdentifier" access="read"></variable>
             <variable name="string_caseDescription" access="read"></variable>
@@ -695,8 +696,8 @@
                         <value>
                             ${
                             Map messageMap = new HashMap();
-                            messageMap.put("en", "Violation decision has been submitted");
-                            messageMap.put("is_IS", "Niðurstaða í máli {0}, {1} hefur verið ákvörðuð");
+                            messageMap.put("en", "Violation decision for {0}, {1} has been submitted with the following: " + resolver.get("string_actionTakenSummary"));
+                            messageMap.put("is_IS", "Niðurstaða í máli {0}, {1} hefur verið ákvörðuð eftirfarandi: " + resolver.get("string_actionTakenSummary"));
                             return messageMap;
                             }
                         </value>

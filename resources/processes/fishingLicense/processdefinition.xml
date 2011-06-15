@@ -8,9 +8,12 @@
             <expression>
                 String handlerRoleName = "bpm_fishingLicense_handler";
                 String ownerRoleName = "bpm_fishingLicense_owner";
+                
+                String remindAfter = "50 weeks";
             </expression>
             <variable name='handlerRoleName' access='write' />
             <variable name='ownerRoleName' access='write' />
+            <variable name='remindAfter' access='write' />
          </script>
   </event>
   <event type="process-start">
@@ -79,16 +82,50 @@
             <variable name="string_ownerComments" access="read,write"></variable>
             <variable name="string_caseIdentifier" access="read"></variable>
             
-            <variable name="string_typeOfFishingLicense" access="read,write"></variable>
-            <variable name="string_licenseTypeLabel" access="read,write"></variable>
-            
             <variable name="string_vessel" access="read,write"></variable>
             <variable name="string_vesselRegistryNr" access="read,write"></variable>
             <variable name="string_vesselName" access="read,write"></variable>
             <variable name="string_vesselOwnersName" access="read,write"></variable>
             <variable name="string_vesselOwnersSocialSecurityNr" access="read,write"></variable>
+            
+            <variable name="date_startOfFishing" access="read,write"></variable>
+            <variable name="string_fishingArea" access="read,write"></variable>
+            <variable name="string_validityFrom" access="read,write"></variable>
+            <variable name="string_validityTo" access="read,write"></variable>
+
+            <variable name="string_hasValidHaffaerisskirteini" access="read,write"></variable>
+            <variable name="string_validHaffaerisskirteini" access="read,write"></variable>
+            
+            <variable name="string_hasValidCompanyLicense" access="read,write"></variable>
+            <variable name="string_validCompanyLicense" access="read,write"></variable>
+            
+            <variable name="string_hasRevokedLicense" access="read,write"></variable>
+            <variable name="string_revokedLicense" access="read,write"></variable>
+            
+            <variable name="string_hasQuotaWithinLimits" access="read,write"></variable>
+            <variable name="string_quotaWithinLimits" access="read,write"></variable>
+
+            <variable name="string_userInDebt" access="read,write"></variable>
+            <variable name="string_deptMessage" access="read,write"></variable>
+            <variable name="string_gatherInformation" access="read,write" ></variable>
          </controller>
       </task>
+      <event type="node-leave">
+           <script>
+                <expression>
+                    cardExpireRemindDate = com.idega.jbpm.proxy.JbpmHandlerProxy.bean("calendarOps").add(validityFrom, remindAfter);
+                </expression>
+                <variable name='date_cardExpireRemindDate' access='write' mapped-name='cardExpireRemindDate' />
+                <variable name='date_validityFrom' access='read' mapped-name='validityFrom' />
+                <variable name='remindAfter' access='read' />
+             </script>
+			<action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+            	<handlerName>fishingLicenseDescriptionHandler</handlerName>
+          	</action>
+			<action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+            	<handlerName>fishingLicenseToFocalHandler</handlerName>
+          	</action>
+        </event>
       <transition to="notifyFinancialControllerIfThereIsADebt"></transition>
    </start-state>
    <task-node name="licenseRuling">
@@ -96,6 +133,42 @@
          <controller>
             <variable name="string_rulingText" access="read,write"></variable>
             <variable name="files_processRullingAttachments"></variable>
+            
+            <variable name="string_ownerFullName" access="read" ></variable>
+            <variable name="string_ownerSocialNumber" access="read"></variable>
+            <variable name="string_ownerAddress" access="read"></variable>
+            <variable name="string_ownerPostCode" access="read"></variable>
+            <variable name="string_ownerMunicipality" access="read"></variable>
+            <variable name="string_ownerPhone" access="read"></variable>
+            <variable name="string_ownerFax" access="read"></variable>
+            <variable name="string_ownerEmailAddress" access="read"></variable>
+            <variable name="string_ownerComments" access="read"></variable>
+            
+            <variable name="string_vessel" access="read"></variable>
+            <variable name="string_vesselRegistryNr" access="read"></variable>
+            <variable name="string_vesselName" access="read"></variable>
+            <variable name="string_vesselOwnersName" access="read"></variable>
+            <variable name="string_vesselOwnersSocialSecurityNr" access="read"></variable>
+            
+            <variable name="date_startOfFishing" access="read"></variable>
+            <variable name="string_fishingArea" access="read"></variable>
+            <variable name="string_validityFrom" access="read"></variable>
+            <variable name="string_validityTo" access="read"></variable>
+
+            <variable name="string_hasValidHaffaerisskirteini" access="read"></variable>
+            <variable name="string_validHaffaerisskirteini" access="read"></variable>
+            
+            <variable name="string_hasValidCompanyLicense" access="read"></variable>
+            <variable name="string_validCompanyLicense" access="read"></variable>
+            
+            <variable name="string_hasRevokedLicense" access="read"></variable>
+            <variable name="string_revokedLicense" access="read"></variable>
+            
+            <variable name="string_hasQuotaWithinLimits" access="read"></variable>
+            <variable name="string_quotaWithinLimits" access="read"></variable>
+
+            <variable name="string_userInDebt" access="read"></variable>
+            <variable name="string_deptMessage" access="read"></variable>
          </controller>
         <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
 			<handlerName>jsonAssignmentHandler</handlerName>
@@ -110,10 +183,18 @@
 				</entry>
 			</propertyMap>
 		</assignment>
+			<event type="task-end">
+				<script>
+					<expression>
+						taskInstanceId = taskInstance.getId();
+			 		</expression>
+					<variable name='licenseRulingTaskInstanceId' access='write' mapped-name='taskInstanceId' />
+				</script>
+			</event>
       </task>
 		<transition to="updateCaseStatusToLicenseDenied" name="denied"></transition>
 		<transition to="notifyFinanceDepartment" name="granted"></transition>
-		<transition to="fork1" name="pend"></transition>
+		<transition to="updateCaseStatusToPending" name="pend"></transition>
    </task-node>
 
    <event type="handlerAssignedToCase">
@@ -209,7 +290,7 @@
                 <handlerName>notifyFinancialDepartment</handlerName>
             </action>
         </event>
-   	  <transition to="sendLicenseFeeClaim"></transition>
+		<transition to="sendLicenseFeeClaim"></transition>
    </node>
 
 	<end-state name="end-state2" end-complete-process="true"></end-state>
@@ -219,6 +300,10 @@
 	<end-state name="end-state3"></end-state>
 
 	<end-state name="end-state4"></end-state>
+
+	<end-state name="emailsFetcherEnd"></end-state>
+
+	<end-state name="end-state5"></end-state>
 	
 	<node name="updateCaseStatusToLicenseGrantedClaimUnpaid">
 	   <event type="node-enter">
@@ -244,6 +329,18 @@
 		<transition to="informApplicantAboutDeny"></transition>
 	</node>
 
+	<node name="updateCaseStatusToPending">
+	   <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>casesStatusHandler</handlerName>
+                <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                    <entry><key>caseStatusMappedName</key><value>caseStatusWait</value></entry>
+                </propertyMap>
+            </action>
+        </event>
+		<transition to="fork1"></transition>
+	</node>
+
 	<node name="informApplicantAboutDeny">
 	   <event type="node-enter">
             <action class="com.idega.jbpm.proxy.JbpmHandlerProxy">
@@ -255,7 +352,7 @@
                             ${
                             Map subjectMap = new HashMap();
                             subjectMap.put("en", "Fishing license denied");
-                            subjectMap.put("is_IS", "Umsókn þinni um veiðileyfi hefur verið hafnað");
+                            subjectMap.put("is_IS", "Umsókn þinni um veiðileyfi hefur verið hafnað.");
                             return subjectMap;
                             }
                         </value>
@@ -266,8 +363,8 @@
                             ${
                             
                             Map messageMap = new HashMap();
-                            messageMap.put("en", "Your application for a fishing license has been denied.");
-                            messageMap.put("is_IS", "Umsókn þinni um veiðileyfi hefur verið hafnað.");
+                            messageMap.put("en", "Your application for a fishing license has been denied.\n\n"+resolver.get("string_rulingText"));
+                            messageMap.put("is_IS", "Umsókn þinni um veiðileyfi hefur verið hafnað.\n\n"+resolver.get("string_rulingText")+"\n\nEf skilyrðum fyrir úthlutun veiðileyfis er ekki fullnægt má kæra þessa ákvörðun samkvæmt 1. mgr. 26. gr. stjórnsýslulaga nr. 37/1993 til sjávarútvegs- og landbúnaðarráðuneytisins, Skúlagötu 4, 150 Reykjavík, innan þriggja mánaða. Unnt er að óska skriflega eftir rökstuðningi við ákvörðun þessa.");
                             
                             return messageMap;
                             
@@ -324,33 +421,82 @@
                 <handlerName>sendLicenseToApplicant</handlerName>
             </action>
         </event>
+		<transition to="fork4" name="to fork4"></transition>
+	</node>
+
+	<state name="runInvalidationWarningNotificationTimer">
+	   <timer duedate='#{date_cardExpireRemindDate}'
+              transition='reminded'>
+       </timer>
+		<transition to="sendInvalidationWarningNotification" name="reminded"></transition>
+	</state>
+
+	<node name="sendInvalidationWarningNotification">
+	   <event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy">
+                <handlerName>sendCaseMessagesHandler</handlerName>
+                <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                    <entry>
+                        <key>inlineSubject</key>
+                        <value>
+                            ${
+                            Map subjectMap = new HashMap();
+                            subjectMap.put("en", "Please update your fishing license");
+                            subjectMap.put("is_IS", "Vinsamlega endurnýjið veiðileyfi fyrir komandi fiskveiðiár");
+                            return subjectMap;
+                            }
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>inlineMessage</key>
+                        <value>
+                            ${
+                            
+                            Map messageMap = new HashMap();
+                            messageMap.put("en", "Please update your fishing license");
+                            messageMap.put("is_IS", "Vinsamlega endurnýjið veiðileyfi fyrir komandi fiskveiðiár.");
+                            
+                            return messageMap;
+                            
+                            }
+                        </value>
+                    </entry>
+                    <entry><key>sendToRoles</key><value>bpm_fishingLicense_owner</value></entry>
+                </propertyMap>
+            </action>
+        </event>
 		<transition to="end-state1"></transition>
 	</node>
 
 	<node name="issueLicense">
 	   <event type="node-enter">
-           <script>
-                <expression>
-                    validityFrom = new java.util.Date();
-                </expression>
-                <variable name='date_validityFrom' access='write' mapped-name='validityFrom' />
-             </script>
-      </event>
-	   <event type="node-enter">
             <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
                 <handlerName>issueLicense</handlerName>
+				<propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+					<entry>
+						<key>taskInstance</key>
+						<value>#{licenseRulingTaskInstanceId}</value>
+					</entry>
+				</propertyMap>
+            </action>
+        </event>
+        <event type="node-leave">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>hideTaskInstances</handlerName>
+                <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                    <entry><key>taskName</key><value>deleteClaimTask</value></entry>
+                </propertyMap>
             </action>
         </event>
 		<transition to="sendLicenseToApplicant"></transition>
 	</node>
 
 	<fork name="fork1">
-		<transition to="licenseRuling" name="toLicenseRuling"></transition>
 		<transition to="sendMessageToApplicant" name="toSendMessageToApplicant"></transition>
+		<transition to="licenseRuling" name="toLicenseRuling"></transition>
 	</fork>
 
 	<node name="sendMessageToApplicant">
-	
 	   <event type="node-enter">
         <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
                 <handlerName>sendCaseMessagesHandler</handlerName>
@@ -372,8 +518,8 @@
                         <value>
                             ${
                             Map messageMap = new HashMap();
-                            messageMap.put("en", "Application was suspended. Message from the handler: "+resolver.get("string_rulingText"));
-                            messageMap.put("is_IS", "Umsókn þín er í skoðun hjá Fiskistofu. "+resolver.get("string_rulingText"));
+                            messageMap.put("en", "Application was suspended.\n\nMessage from the handler: "+resolver.get("string_rulingText"));
+                            messageMap.put("is_IS", "Umsókn þín er í skoðun hjá Fiskistofu.\n\n"+resolver.get("string_rulingText"));
                             return messageMap;
                             }
                         </value>
@@ -386,7 +532,7 @@
 	</node>
 
 	<node name="updateTimerDate">
-	    <event type="node-enter">
+        <event type="node-enter">
             <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
                 <handlerName>updateCheckForPaymentTimerDate</handlerName>
             </action>
@@ -408,32 +554,27 @@
 		<transition to="updateTimerDate" name="false"></transition>
 	</decision>
 
-	<fork name="fork2">
-		<transition to="deleteClaim" name="toDeleteClaim"></transition>
-		<transition to="updateTimerDate" name="toUpdateTimerDate"></transition>
-	</fork>
-
 	<task-node name="deleteClaim">
 	   <task name="deleteClaimTask">
-         <controller>
-         
-            <variable name="string_caseIdentifier" access="read"></variable>
-         
-         </controller>
-        <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
-            <handlerName>jsonAssignmentHandler</handlerName>
-            <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
-                <entry><key>expression</key>
-                    <value>
-                        {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}}
-                        ]} }}
-                    </value>
-                </entry>
-            </propertyMap>
-         </assignment>
-      
-      </task>
+             <controller>
+             
+                <variable name="string_caseIdentifier" access="read"></variable>
+             
+             </controller>
+            <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>jsonAssignmentHandler</handlerName>
+                <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                    <entry><key>expression</key>
+                        <value>
+                            {taskAssignment: {roles: {role: [
+                               {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}}
+                            ]} }}
+                        </value>
+                    </entry>
+                </propertyMap>
+             </assignment>
+          
+          </task>
 		<transition to="deleteAndReject" name="rejected"></transition>
 		<transition to="deleteAndActivate" name="activated"></transition>
 	</task-node>
@@ -475,7 +616,82 @@
 	<fork name="fork3">
 		<transition to="keepMeAlive" name="toKeepMeAlive"></transition>
 		<transition to="licenseRuling" name="toLicenseRuling"></transition>
+		<transition to="emailsFetcher" name="to emailsFetcher"></transition>
 	</fork>
+
+	<fork name="fork2">
+		<transition to="updateTimerDate" name="toUpdateTimerDate"></transition>
+		<transition to="deleteClaim" name="toDeleteClaim"></transition>
+	</fork>
+
+	<process-state name="emailsFetcher">
+<sub-process name="fetchEmails" binding="late" />
+      <variable name="string_emailReadAssignmentExpression" access="read" mapped-name="string_emailReadAssignmentExpression" />
+      <variable name='mainProcessInstanceId' access='read' />
+      <event type="node-enter">
+         <script>
+            <expression>
+                emailReadAssignmentExpression =
+"{taskAssignment: {roles: {role: ["
++"{roleName: \""+handlerRoleName+"\", accesses: {access: [read]}}"
++"]} }}";
+            </expression>
+            <variable name='string_emailReadAssignmentExpression' access='write' mapped-name='emailReadAssignmentExpression' />
+            <variable name='handlerRoleName' access='read' />
+
+         </script>
+      </event>
+		<transition to="emailsFetcherEnd"></transition>
+	</process-state>
+
+<fork name="fork4">
+		<transition to="runInvalidationWarningNotificationTimer"></transition>
+		<transition to="reIssueLicense" name="toReIssueLicense"></transition>
+	</fork>
+
+	<task-node name="reIssueLicense">
+		<task name="reIssueLicenseTask" priority="-1">
+	         <controller>
+	         
+	            <variable name="string_caseIdentifier" access="read"></variable>
+	         
+	         </controller>
+	        <assignment class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+	            <handlerName>jsonAssignmentHandler</handlerName>
+	            <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+	                <entry><key>expression</key>
+	                    <value>
+	                        {taskAssignment: {roles: {role: [
+	                           {roleName: "bpm_fishingLicense_handler", accesses: {access: [read, write]}}
+	                        ]} }}
+	                    </value>
+	                </entry>
+	            </propertyMap>
+	         </assignment>
+	      
+	      </task>
+		<transition to="reIssueLicenseNode" name="toReIssueLicenseNode"></transition>
+		
+	</task-node>
+
+	<node name="reIssueLicenseNode">
+	<event type="node-enter">
+            <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+                <handlerName>issueLicense</handlerName>
+				<propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+					<entry>
+						<key>taskInstance</key>
+						<value>#{licenseRulingTaskInstanceId}</value>
+					</entry>
+					<entry>
+						<key>updateDOF</key>
+						<value>false</value>
+					</entry>
+				</propertyMap>
+            </action>
+        </event>
+		<transition to="end-state5"></transition>
+	</node>
 	
 	<idg:roles xmlns:idg="http://idega.com/bpm">
         <role name="bpm_fishingLicense_caseHandler">
@@ -487,13 +703,13 @@
         <role name="bpm_fishingLicense_handler" createNative="true">
           <labels>
             <label lang="en">handler</label>
-            <label lang="is_IS">Kærunefnd</label>
+            <label lang="is_IS">Meðhöndlun</label>
           </labels>
         </role>
         <role name="bpm_fishingLicense_owner">
           <labels>
             <label lang="en">owner</label>
-            <label lang="is_IS">Álitsbeiðandi</label>
+            <label lang="is_IS">Umsækjandi</label>
           </labels>
         </role>
     </idg:roles>

@@ -47,6 +47,7 @@ import com.idega.company.companyregister.business.CompanyRegisterBusiness;
 import com.idega.company.data.Company;
 import com.idega.core.location.data.Address;
 import com.idega.data.IDOFinderException;
+import com.idega.idegaweb.IWBundle;
 import com.idega.idegaweb.IWMainApplication;
 import com.idega.idegaweb.IWResourceBundle;
 import com.idega.user.business.GroupBusiness;
@@ -128,14 +129,18 @@ public class ViolationDataProviderRealWebservice implements
 	
 	@Override
 	public PersonData getViolationPersonData(String socialNr) {
-		return !StringUtil.isEmpty(socialNr) ? getUser(socialNr)
-		        : new PersonData(socialNr);
+		if (!StringUtil.isEmpty(socialNr)) {
+			return getUser(socialNr);
+		}
+		return new PersonData(socialNr);
 	}
 	
 	@Override
 	public PersonData getViolationCompanyData(String socialNr) {
-		return !StringUtil.isEmpty(socialNr) ? getCompany(socialNr)
-		        : new PersonData(socialNr);
+		if (!StringUtil.isEmpty(socialNr)) {
+			return getCompany(socialNr);
+		}
+		return new PersonData(socialNr);
 	}
 	
 	@Override
@@ -321,111 +326,113 @@ public class ViolationDataProviderRealWebservice implements
 			return null;
 		}
 		
-		UserBusiness userBusiness = null;
-		try {
-			userBusiness = getUserBusiness();
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
-		if (userBusiness == null) {
-			return null;
-		}
-		
-		String useWS = IWMainApplication.getDefaultIWApplicationContext()
-		        .getApplicationSettings()
-		        .getProperty(USE_WEBSERVICE_FOR_COMPANY_LOOKUP, "false");
-		
-		User user = null;
-		
-		if (!"false".equals(useWS)) {
+		if (SocialSecurityNumber.isIndividualSocialSecurityNumber(personalId, LocaleUtil.getIcelandicLocale())) {
+			UserBusiness userBusiness = null;
 			try {
-				user = userBusiness.getUser(personalId);
+				userBusiness = getUserBusiness();
 			} catch (RemoteException e) {
 				e.printStackTrace();
-			} catch (FinderException e) {
-				user = null;
+			}
+			if (userBusiness == null) {
+				return null;
 			}
 			
-			if (user == null) {
-				UserHolder holder = getSkyrrClient().getUser(personalId);
-				if (holder != null) {
-					IWTimestamp t = new IWTimestamp();
-					
-					String day = holder.getPersonalID().substring(0, 2);
-					String month = holder.getPersonalID().substring(2, 4);
-					String year = holder.getPersonalID().substring(4, 6);
-					
-					int iDay = Integer.parseInt(day);
-					int iMonth = Integer.parseInt(month);
-					int iYear = Integer.parseInt(year);
-					if (holder.getPersonalID().substring(9).equals("9")) {
-						iYear += 1900;
-					} else if (holder.getPersonalID().substring(9).equals("0")) {
-						iYear += 2000;
-					} else if (holder.getPersonalID().substring(9).equals("8")) {
-						iYear += 1800;
-					}
-					t.setHour(0);
-					t.setMinute(0);
-					t.setSecond(0);
-					t.setMilliSecond(0);
-					t.setDay(iDay);
-					t.setMonth(iMonth);
-					t.setYear(iYear);
-					try {
-						user = userBusiness
-						        .createUserByPersonalIDIfDoesNotExist(
-						            holder.getName(), holder.getPersonalID(),
-						            null, t);
-						StringBuilder address = new StringBuilder(
-						        holder.getAddress());
-						address.append(";");
-						address.append(holder.getPostalCode());
-						address.append(" ");
-						address.append(";Iceland:is_IS;N/A");
-						userBusiness.updateUsersMainAddressByFullAddressString(
-						    user, address.toString());
-					} catch (RemoteException e) {
-						e.printStackTrace();
-					} catch (CreateException e) {
-						e.printStackTrace();
+			String useWS = IWMainApplication.getDefaultIWApplicationContext()
+			        .getApplicationSettings()
+			        .getProperty(USE_WEBSERVICE_FOR_COMPANY_LOOKUP, "false");
+			
+			User user = null;
+			
+			if (!"false".equals(useWS)) {
+				try {
+					user = userBusiness.getUser(personalId);
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				} catch (FinderException e) {
+					user = null;
+				}
+				
+				if (user == null) {
+					UserHolder holder = getSkyrrClient().getUser(personalId);
+					if (holder != null) {
+						IWTimestamp t = new IWTimestamp();
+						
+						String day = holder.getPersonalID().substring(0, 2);
+						String month = holder.getPersonalID().substring(2, 4);
+						String year = holder.getPersonalID().substring(4, 6);
+						
+						int iDay = Integer.parseInt(day);
+						int iMonth = Integer.parseInt(month);
+						int iYear = Integer.parseInt(year);
+						if (holder.getPersonalID().substring(9).equals("9")) {
+							iYear += 1900;
+						} else if (holder.getPersonalID().substring(9).equals("0")) {
+							iYear += 2000;
+						} else if (holder.getPersonalID().substring(9).equals("8")) {
+							iYear += 1800;
+						}
+						t.setHour(0);
+						t.setMinute(0);
+						t.setSecond(0);
+						t.setMilliSecond(0);
+						t.setDay(iDay);
+						t.setMonth(iMonth);
+						t.setYear(iYear);
+						try {
+							user = userBusiness
+							        .createUserByPersonalIDIfDoesNotExist(
+							            holder.getName(), holder.getPersonalID(),
+							            null, t);
+							StringBuilder address = new StringBuilder(
+							        holder.getAddress());
+							address.append(";");
+							address.append(holder.getPostalCode());
+							address.append(" ");
+							address.append(";Iceland:is_IS;N/A");
+							userBusiness.updateUsersMainAddressByFullAddressString(
+							    user, address.toString());
+						} catch (RemoteException e) {
+							e.printStackTrace();
+						} catch (CreateException e) {
+							e.printStackTrace();
+						}
 					}
 				}
+			}
+			
+			try {
+				if (user == null) {
+					user = userBusiness.getUser(personalId);
+				}
+				
+				Address address = userBusiness.getUsersMainAddress(user);
+				
+				PersonData data = new PersonData(user.getPersonalID());
+				data.setName(user.getName());
+				if (address != null) {
+					if (combineAddressAndPostal) {
+						data.setAddress(address.getStreetAddress() + ", "
+						        + address.getPostalAddress());
+					} else {
+						data.setAddress(address.getStreetAddress());
+						data.setPostalCode(address.getPostalAddress());
+					}
+				}
+				
+				return data;
+			} catch (FinderException fe) {
+				fe.printStackTrace();
+			} catch (RemoteException re) {
+				re.printStackTrace();
 			}
 		}
 		
-		try {
-			if (user == null) {
-				user = userBusiness.getUser(personalId);
-			}
-			
-			Address address = userBusiness.getUsersMainAddress(user);
-			
-			PersonData data = new PersonData(user.getPersonalID());
-			data.setName(user.getName());
-			if (address != null) {
-				if (combineAddressAndPostal) {
-					data.setAddress(address.getStreetAddress() + ", "
-					        + address.getPostalAddress());
-				} else {
-					data.setAddress(address.getStreetAddress());
-					data.setPostalCode(address.getPostalAddress());
-				}
-			}
-			
-			return data;
-		} catch (FinderException fe) {
-			fe.printStackTrace();
-		} catch (RemoteException re) {
-			re.printStackTrace();
-		}
-
 		PersonData data = new PersonData(personalId);
-		data.setName("No user found with personal ID...");
+		data.setName(getLocalizedString("no_user_found", "No user found with personal ID..."));
 		data.setAddress("");
 		data.setPostalCode("");
 		
-		return null;
+		return data;
 	}
 	
 	private PersonData getCompany(String personalId) {
@@ -438,74 +445,89 @@ public class ViolationDataProviderRealWebservice implements
 			return null;
 		}
 		
-		CompanyBusiness companyBusiness = null;
-		try {
-			companyBusiness = getCompanyBusiness();
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
-		if (companyBusiness == null) {
-			return null;
-		}
-		
-		String useWS = IWMainApplication.getDefaultIWApplicationContext()
-		        .getApplicationSettings()
-		        .getProperty(USE_WEBSERVICE_FOR_COMPANY_LOOKUP, "false");
-		
-		Company company = null;
-		
-		if (!"false".equals(useWS)) {
+		if (SocialSecurityNumber.isIndividualSocialSecurityNumber(personalId, LocaleUtil.getIcelandicLocale())) {
+			CompanyBusiness companyBusiness = null;
 			try {
-				company = companyBusiness.getCompany(personalId);
+				companyBusiness = getCompanyBusiness();
 			} catch (RemoteException e) {
 				e.printStackTrace();
-			} catch (FinderException e) {
-				company = null;
+			}
+			if (companyBusiness == null) {
+				return null;
 			}
 			
-			if (company == null) {
-				CompanyHolder holder = getSkyrrClient().getCompany(personalId);
-				if (holder != null) {
-					try {
-						getCompanyRegisterBusiness().updateEntry(
-						    holder.getPersonalID(), null,
-						    holder.getPostalCode(), null, null,
-						    holder.getName(), holder.getAddress(), null, "",
-						    null, holder.getVatNumber(), holder.getAddress(),
-						    "", null, null, null, null, null, "", null);
-					} catch (RemoteException e) {
-						e.printStackTrace();
+			String useWS = IWMainApplication.getDefaultIWApplicationContext()
+			        .getApplicationSettings()
+			        .getProperty(USE_WEBSERVICE_FOR_COMPANY_LOOKUP, "false");
+			
+			Company company = null;
+			
+			if (!"false".equals(useWS)) {
+				try {
+					company = companyBusiness.getCompany(personalId);
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				} catch (FinderException e) {
+					company = null;
+				}
+				
+				if (company == null) {
+					CompanyHolder holder = getSkyrrClient().getCompany(personalId);
+					if (holder != null) {
+						try {
+							getCompanyRegisterBusiness().updateEntry(
+							    holder.getPersonalID(), null,
+							    holder.getPostalCode(), null, null,
+							    holder.getName(), holder.getAddress(), null, "",
+							    null, holder.getVatNumber(), holder.getAddress(),
+							    "", null, null, null, null, null, "", null);
+						} catch (RemoteException e) {
+							e.printStackTrace();
+						}
 					}
 				}
 			}
-		}
-		
-		try {
-			if (company == null) {
-				company = companyBusiness.getCompany(personalId);
-			}
-			Address address = company.getAddress();
 			
-			PersonData data = new PersonData(company.getPersonalID());
-			data.setName(company.getName());
-			if (address != null) {
-				if (combineAddressAndPostal) {
-					data.setAddress(address.getStreetAddress() + ", "
-					        + address.getPostalAddress());
-				} else {
-					data.setAddress(address.getStreetAddress());
-					data.setPostalCode(address.getPostalAddress());
+			try {
+				if (company == null) {
+					company = companyBusiness.getCompany(personalId);
 				}
+				Address address = company.getAddress();
+				
+				PersonData data = new PersonData(company.getPersonalID());
+				data.setName(company.getName());
+				if (address != null) {
+					if (combineAddressAndPostal) {
+						data.setAddress(address.getStreetAddress() + ", "
+						        + address.getPostalAddress());
+					} else {
+						data.setAddress(address.getStreetAddress());
+						data.setPostalCode(address.getPostalAddress());
+					}
+				}
+				
+				return data;
+			} catch (FinderException fe) {
+				fe.printStackTrace();
+			} catch (RemoteException re) {
+				re.printStackTrace();
 			}
-			
-			return data;
-		} catch (FinderException fe) {
-			fe.printStackTrace();
-		} catch (RemoteException re) {
-			re.printStackTrace();
 		}
 		
-		return null;
+		
+		PersonData data = new PersonData(personalId);
+		data.setName(getLocalizedString("no_company_found", "No company found with personal ID"));
+		data.setAddress("");
+		data.setPostalCode("");
+		
+		return data;
+	}
+	
+	private String getLocalizedString(String key, String defaultValue) {
+		IWBundle iwb = IWMainApplication.getDefaultIWMainApplication().getBundle(GumboConstants.IW_BUNDLE_IDENTIFIER);
+		IWResourceBundle iwrb = iwb.getResourceBundle(IWMainApplication.getDefaultIWApplicationContext().getApplicationSettings().getDefaultLocale());
+		
+		return iwrb.getLocalizedString(key, defaultValue);
 	}
 	
 	private CompanyRegisterBusiness getCompanyRegisterBusiness() {

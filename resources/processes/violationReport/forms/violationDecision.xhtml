@@ -17,6 +17,7 @@
                     
                     <Ruling_text_fbc_5 mapping="string_rulingText"/>
                     <actionTaken mapping="string_actionTaken"/>
+                    <actionTakenSummary mapping="string_actionTakenSummary"/>
                     <Multi_file_upload_with_description_fbc_8 mapping="files_processRullingAttachments">
                         <group/>
                         <entry filename="" mediatype="">
@@ -64,6 +65,8 @@
             <xf:bind id="fbc_10" nodeset="actionTaken"
                 readonly="instance('control-instance')/readonly = 'true'"
                 required="instance('control-instance')/required = 'true'" type="xs:string"/>
+            <xf:bind id="fbc_10a" nodeset="actionTakenSummary"
+                readonly="instance('control-instance')/readonly = 'true'" />
             
             <xf:bind id="fbc_8_bind"
                 nodeset="Multi_file_upload_with_description_fbc_8/group" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'">
@@ -170,6 +173,13 @@
 	                                <xf:label ref="itemLabel"/>
 	                                <xf:value ref="itemValue"/>
 	                            </xf:itemset>
+	                            
+	                            <idega:separateSelectionLabels
+                                   ref="instance('data-instance')/actionTaken"
+                                   val="instance('data-instance')/actionTakenSummary"
+                                   itemsNodeset="instance('fbc_10_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]" 
+                                   ev:event="xforms-value-changed" />
+                                   
 	                            <xf:dispatch ev:event="idega-xforms-ready"
 	                                name="idega-validate" target="fbc_10"/>
 	                            <xf:dispatch ev:event="xforms-value-changed"

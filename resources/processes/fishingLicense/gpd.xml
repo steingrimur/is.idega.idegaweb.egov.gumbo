@@ -1,120 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="FishingLicense" width="823" height="1060">
-  <node name="applicationForFishingLicense" x="195" y="3" width="164" height="34">
-    <edge>
-      <label x="-16" y="-9"/>
-    </edge>
-  </node>
-  <node name="licenseRuling" x="294" y="199" width="140" height="40">
-    <edge>
-      <label x="33" y="-69"/>
-    </edge>
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
+<root-container name="FishingLicense" width="1266" height="1258">
+  <node name="applicationForFishingLicense" x="195" y="37" width="164" height="34">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="notifyFinanceDepartment" x="352" y="345" width="220" height="36">
+  <node name="licenseRuling" x="202" y="246" width="140" height="40">
     <edge>
-      <label x="5" y="-10"/>
+      <label x="-2" y="-72"/>
     </edge>
-  </node>
-  <node name="end-state2" x="146" y="558" width="22" height="24"/>
-  <node name="end-state1" x="449" y="1035" width="23" height="24"/>
-  <node name="end-state3" x="656" y="335" width="23" height="28"/>
-  <node name="updateCaseStatusToLicenseGrantedClaimUnpaid" x="351" y="529" width="247" height="36">
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-  </node>
-  <node name="updateCaseStatusToLicenseDenied" x="47" y="402" width="220" height="36">
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-  </node>
-  <node name="informApplicantAboutDeny" x="46" y="484" width="223" height="36">
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-  </node>
-  <node name="notifyFinancialControllerIfThereIsADebt" x="160" y="70" width="235" height="36">
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-  </node>
-  <node name="sendLicenseFeeClaim" x="379" y="453" width="178" height="36">
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-  </node>
-  <node name="runCheckForPaymentTimer" x="384" y="679" width="166" height="36">
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-  </node>
-  <node name="updateCaseStatusToRegisteredPayment" x="357" y="869" width="207" height="36">
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-  </node>
-  <node name="sendLicenseToApplicant" x="354" y="978" width="212" height="36">
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-  </node>
-  <node name="issueLicense" x="393" y="923" width="132" height="36">
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-  </node>
-  <node name="fork1" x="543" y="186" width="26" height="24">
-    <edge>
-      <label x="5" y="-10"/>
-      <bendpoint w1="-3" h1="46" w2="277" h2="32"/>
-    </edge>
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-  </node>
-  <node name="sendMessageToApplicant" x="591" y="269" width="147" height="36">
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-  </node>
-  <node name="updateTimerDate" x="392" y="605" width="132" height="36">
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-  </node>
-  <node name="checkPaymentIsPaid" x="399" y="747" width="132" height="36">
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-  </node>
-  <node name="isPaid" x="404" y="804" width="132" height="36">
-    <edge>
-      <label x="5" y="-10"/>
-    </edge>
-    <edge>
-      <label x="5" y="-10"/>
-      <bendpoint w1="163" h1="1" w2="175" h2="200"/>
-      <bendpoint w1="165" h1="-200" w2="177" h2="-1"/>
-    </edge>
-  </node>
-  <node name="fork2" x="303" y="541" width="25" height="24">
-    <edge>
-      <label x="-57" y="-23"/>
-      <bendpoint w1="-59" h1="-337" w2="183" h2="-1"/>
-    </edge>
-    <edge>
-      <label x="5" y="-10"/>
-      <bendpoint w1="-64" h1="70" w2="-207" h2="0"/>
-    </edge>
-  </node>
-  <node name="deleteClaim" x="7" y="199" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
@@ -122,27 +17,78 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="deleteAndReject" x="64" y="285" width="132" height="36">
+  <node name="notifyFinanceDepartment" x="374" y="438" width="220" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="deleteAndActivate" x="-65" y="550" width="132" height="36">
+  <node name="end-state2" x="187" y="610" width="22" height="24"/>
+  <node name="end-state1" x="481" y="1223" width="23" height="24"/>
+  <node name="end-state3" x="550" y="345" width="24" height="24"/>
+  <node name="end-state4" x="624" y="159" width="24" height="24"/>
+  <node name="emailsFetcherEnd" x="14" y="167" width="132" height="36"/>
+  <node name="end-state5" x="815" y="798" width="132" height="36"/>
+  <node name="updateCaseStatusToLicenseGrantedClaimUnpaid" x="366" y="579" width="247" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="killCheckForPaymentTimer" x="-64" y="650" width="132" height="36">
+  <node name="updateCaseStatusToLicenseDenied" x="86" y="438" width="220" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="keepMeAlive" x="493" y="117" width="132" height="36">
+  <node name="updateCaseStatusToPending" x="0" y="0" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="fork3" x="260" y="142" width="25" height="24">
+  <node name="informApplicantAboutDeny" x="85" y="529" width="223" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="notifyFinancialControllerIfThereIsADebt" x="160" y="104" width="235" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="sendLicenseFeeClaim" x="398" y="496" width="178" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="runCheckForPaymentTimer" x="423" y="733" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="updateCaseStatusToRegisteredPayment" x="385" y="896" width="207" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="sendLicenseToApplicant" x="381" y="1014" width="212" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="runInvalidationWarningNotificationTimer" x="378" y="1064" width="231" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="sendInvalidationWarningNotification" x="399" y="1150" width="199" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="issueLicense" x="425" y="953" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="fork1" x="0" y="0" width="252" height="24">
     <edge>
       <label x="5" y="-10"/>
     </edge>
@@ -150,5 +96,97 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="end-state4" x="647" y="117" width="27" height="26"/>
+  <node name="sendMessageToApplicant" x="0" y="0" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="updateTimerDate" x="0" y="0" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="checkPaymentIsPaid" x="0" y="0" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="isPaid" x="0" y="0" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="deleteClaim" x="0" y="0" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="deleteAndReject" x="0" y="0" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="deleteAndActivate" x="0" y="0" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="killCheckForPaymentTimer" x="0" y="0" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="keepMeAlive" x="0" y="0" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="fork3" x="0" y="0" width="252" height="24">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="fork2" x="0" y="0" width="252" height="24">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="emailsFetcher" x="0" y="0" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="fork4" x="0" y="0" width="252" height="24">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="reIssueLicense" x="0" y="0" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="reIssueLicenseNode" x="0" y="0" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
 </root-container>
