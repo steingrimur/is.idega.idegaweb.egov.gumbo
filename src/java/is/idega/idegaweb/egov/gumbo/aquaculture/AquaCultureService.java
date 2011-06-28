@@ -15,7 +15,10 @@ import is.idega.idegaweb.egov.gumbo.data.AquaSpeciesGroup;
 import is.idega.idegaweb.egov.gumbo.data.FishFarm;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
+import java.util.logging.Level;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -28,6 +31,8 @@ import com.idega.business.IBORuntimeException;
 import com.idega.company.business.CompanyBusiness;
 import com.idega.company.data.Company;
 import com.idega.core.business.DefaultSpringBean;
+import com.idega.core.localisation.business.ICLocaleBusiness;
+import com.idega.core.persistence.Param;
 import com.idega.idegaweb.IWMainApplication;
 import com.idega.user.business.UserBusiness;
 import com.idega.user.data.User;
@@ -41,6 +46,8 @@ import com.idega.util.text.Item;
 @Scope(BeanDefinition.SCOPE_SINGLETON)
 public class AquaCultureService extends DefaultSpringBean {
 
+	private List<String> countriesRequiringBuyerSocialId = Arrays.asList("is_IS");
+	
 	@Autowired
 	private GumboBusiness gumboBusiness;
 
@@ -427,5 +434,46 @@ public class AquaCultureService extends DefaultSpringBean {
 			ELUtil.getInstance().autowire(this);
 		}
 		return skyrrClient;
+	}
+	
+	public boolean isSocialIdRequired(String aquaCountryId) {
+		if (StringUtil.isEmpty(aquaCountryId))
+			return false;
+		
+		AquaCountry country = null;
+		try {
+			country = getDao().getSingleResult(AquaCountry.QUERY_FIND_BY_ID, AquaCountry.class,
+					new Param(AquaCountry.PARAMETER_COUNTRY_ID, Long.valueOf(aquaCountryId)));
+		} catch (Exception e) {
+			getLogger().log(Level.WARNING, "Error getting aqua contry by ID: " + aquaCountryId, e);
+		}
+		
+		return isCountryRequiringBuyerSocialId(country);
+	}
+	
+	private boolean isCountryRequiringBuyerSocialId(AquaCountry country) {
+		if (country == null)
+			return false;
+		
+		String countryName = country.getCountryName();
+		if (StringUtil.isEmpty(countryName))
+			return false;
+		
+		Locale currentLocale = getCurrentLocale();
+		if (currentLocale == null)
+			return false;
+		
+		for (String localeId: countriesRequiringBuyerSocialId) {
+			Locale locale = ICLocaleBusiness.getLocaleFromLocaleString(localeId);
+			if (locale == null) {
+				getLogger().warning("Unable to get locale by ID: " + localeId);
+				continue;
+			}
+			
+			if (countryName.equals(locale.getDisplayCountry(currentLocale)))
+				return true;
+		}
+		
+		return false;
 	}
 }

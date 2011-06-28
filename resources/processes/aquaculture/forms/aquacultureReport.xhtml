@@ -723,6 +723,8 @@
                     <fbc_43-col-value-label lang="is_IS">Verðmæti</fbc_43-col-value-label>
                     <fbc_43-col-buyerSocialSecurityNr-label lang="en">Buyer social security number</fbc_43-col-buyerSocialSecurityNr-label>
                     <fbc_43-col-buyerSocialSecurityNr-label lang="is_IS">Kt. kaupanda (ef Ísland)</fbc_43-col-buyerSocialSecurityNr-label>
+                    <fbc_43-col-buyerSocialSecurityNr-required lang="en">Buyer social security number must be provided</fbc_43-col-buyerSocialSecurityNr-required>
+                    <fbc_43-col-buyerSocialSecurityNr-required lang="is_IS">Kaupandi kennitölu skulu vera</fbc_43-col-buyerSocialSecurityNr-required>
                     <fbc_43-col-buyerName-label lang="en">Buyer name</fbc_43-col-buyerName-label>
                     <fbc_43-col-buyerName-label lang="is_IS">Nafn kaupanda</fbc_43-col-buyerName-label>
                     <fbc_43-col-fishFarm-label lang="en">Fish farm</fbc_43-col-fishFarm-label>
@@ -1365,27 +1367,28 @@
 	                                    
 	                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-col-soldTo-label[@lang=instance('localized_strings')/current_language]" />
 	                                    
-	                                    <xf:dispatch ev:event="xforms-value-changed"
-	                                        name="idega-validate" target="fbc_43_repeat_id_input_soldTo"/>
-	                                    <xf:dispatch ev:event="xforms-value-changed"
-	                                        name="idega-validate" target="fbc_43_repeat_id_input_buyerSocialSecurityNr"/>
+	                                    <xf:dispatch ev:event="xforms-value-changed" name="idega-validate" target="fbc_43_repeat_id_input_soldTo"/>
+	                                    <xf:dispatch ev:event="xforms-value-changed" name="idega-validate" target="fbc_43_repeat_id_input_buyerSocialSecurityNr"/>
 	                                    
 	                                    <xf:action ev:event="xforms-value-changed">
-	                                    
-	                                        <xf:setvalue
-	                                            ref="../soldToOutput" 
-	                                            value="instance('fbc_46_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/sales/list/row[index('fbc_43_repeat_id')]/soldTo]/itemLabel"/>
-	                                               
+	                                        <xf:setvalue ref="../soldToOutput" value="instance('fbc_46_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/sales/list/row[index('fbc_43_repeat_id')]/soldTo]/itemLabel"/>
 	                                    </xf:action>
 	                                    
+	                                    <xf:dispatch ev:event="xforms-value-changed" name="idega-validate_country" target="fbc_43_repeat_id_input_buyerSocialSecurityNr"/>
 	                                </xf:input>
 	                                 
 	                                 <xf:input bind="buyerSocialSecurityNrBind" id="fbc_43_repeat_id_input_buyerSocialSecurityNr">
 	                                 
 	                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-col-buyerSocialSecurityNr-label[@lang=instance('localized_strings')/current_language]" />
 	                                    
-	                                    <xf:dispatch ev:event="xforms-value-changed"
-	                                        name="idega-validate" target="fbc_43_repeat_id_input_buyerSocialSecurityNr"/>
+	                                    <xf:dispatch ev:event="xforms-value-changed" name="idega-validate" target="fbc_43_repeat_id_input_buyerSocialSecurityNr"/>
+	                                    <xf:dispatch ev:event="xforms-value-changed" name="idega-validate_country" target="fbc_43_repeat_id_input_buyerSocialSecurityNr"/>
+	                                    
+	                                    <idega:validator validateif="instance('data-instance')/sales/list/row[index('fbc_43_repeat_id')]/buyerSocialSecurityNr = ''" errorif="idega:resolveExpression('aquaCultureService.isSocialIdRequired({0}) == true', '#{instance(`data-instance`)/sales/list/row[index(`fbc_43_repeat_id`)]/soldTo}')" ev:event="idega-validate_country">
+							            	<idega:message errorType="required" model="data_model" value="instance('localized_strings')/fbc_43-col-buyerSocialSecurityNr-required[@lang=instance('localized_strings')/current_language]"/>
+							            	<idega:message errorType="custom" model="data_model" value="instance('localized_strings')/fbc_43-col-buyerSocialSecurityNr-required[@lang=instance('localized_strings')/current_language]"/>
+							            	<idega:message errorType="validation" model="data_model" value="instance('localized_strings')/fbc_43-col-buyerSocialSecurityNr-required[@lang=instance('localized_strings')/current_language]"/>
+								        </idega:validator>
 	                                    
 	                                    <xf:setvalue
 	                                            ev:event="xforms-value-changed"
