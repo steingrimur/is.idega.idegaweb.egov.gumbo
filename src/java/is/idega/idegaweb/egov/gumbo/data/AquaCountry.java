@@ -11,9 +11,17 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = AquaCountry.ENTITY_NAME)
-@NamedQueries({ @NamedQuery(name = "aquaCountry.findAll", query = "select a from AquaCountry a order by countryName") })
+@NamedQueries({
+	@NamedQuery(name = "aquaCountry.findAll", query = "select a from AquaCountry a order by countryName"),
+	@NamedQuery(name = AquaCountry.QUERY_FIND_BY_ID, query = "select c from AquaCountry c where c.id = :" + AquaCountry.PARAMETER_COUNTRY_ID)
+})
 public class AquaCountry {
-	public static final String ENTITY_NAME = "aqua_country";
+	
+	public static final String ENTITY_NAME = "aqua_country",
+	
+								QUERY_FIND_BY_ID = "aquaContry.findById",
+								
+								PARAMETER_COUNTRY_ID = "country_id";
 
 	private static final String COLUMN_AQUA_COUNTRY_ID = "aqua_country_id";
 	private static final String COLUMN_COUNTRY_NAME = "country_name";
