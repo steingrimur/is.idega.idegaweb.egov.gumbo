@@ -21,7 +21,9 @@ import org.springframework.stereotype.Service;
 import com.idega.bpm.xformsview.converters.DateConverter;
 import com.idega.core.cache.IWCacheManager2;
 import com.idega.idegaweb.IWMainApplication;
+import com.idega.util.CoreConstants;
 import com.idega.util.IWTimestamp;
+import com.idega.util.StringUtil;
 
 @Service("gumboUtil")
 @Scope(BeanDefinition.SCOPE_SINGLETON)
@@ -62,14 +64,14 @@ public class GumboUtil {
 
 	public static SkipInfoTypeUser getShip(BigDecimal shipID) {
 		IWCacheManager2 manager = IWCacheManager2.getInstance(IWMainApplication.getDefaultIWMainApplication());
-		Map cache = null;
+		Map<BigDecimal, SkipInfoTypeUser> cache = null;
 		if (manager != null) {
 			cache = manager.getCache(GUMBO_SHIP_INFO_CACHE, 60 * 60 * 24l);
 		}
 
 		if (cache != null && !cache.isEmpty()) {
 			if (cache.containsKey(shipID)) {
-				return (SkipInfoTypeUser) cache.get(shipID);
+				return cache.get(shipID);
 			}
 
 		}
@@ -106,26 +108,22 @@ public class GumboUtil {
 		return getPeriods().iterator().next();
 	}
 
-	public static String getEncryptedClassName(Class classToInstanciate) {
+	public static String getEncryptedClassName(Class<?> classToInstanciate) {
 		return IWMainApplication.getEncryptedClassName(classToInstanciate);
 	}
 
 	public String formatDate(String date) {
-		if (date == null || date.isEmpty()) {
-			return "";
-		}
+		if (StringUtil.isEmpty(date))
+			return CoreConstants.EMPTY;
 		
 		try {
-			IWTimestamp stamp = new IWTimestamp(getDateConverter()
-					.convertStringFromXFormsToDate(date));
-			
+			IWTimestamp stamp = new IWTimestamp(getDateConverter().convertStringFromXFormsToDate(date));
 			return stamp.getDateString("dd.MM.yyyy");
-		}
-		catch (ParseException pe) {
+		} catch (ParseException pe) {
 			//No handling...
 		}
 		
-		return "";
+		return CoreConstants.EMPTY;
 	}
 
 	private DateConverter getDateConverter() {
