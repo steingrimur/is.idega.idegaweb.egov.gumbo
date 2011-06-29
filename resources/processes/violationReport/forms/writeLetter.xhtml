@@ -28,7 +28,7 @@
             <xf:instance id="data-instance" xmlns="">
                 <data>
                     <form_id>231608</form_id>
-
+                    
                     <caseIdentifier mapping="string_caseIdentifier"/>
                     <Letter_text_fbc_5 mapping="string_letterText"/>
                     <LetterSubject mapping="string_letterSubject"/>
@@ -47,7 +47,7 @@
                     <letterDate mapping="string_letterDate"/>
                     <Fiskistofa_office_fbc_213 mapping="string_letterOffice"/>
                     <Fiskistofa_office_label mapping="string_letterOfficeLabel"/>
-
+                    
                     <pdfText/>
                     
                     <pdfTextTemplate11>
@@ -70,7 +70,6 @@
                     &lt;/div&gt; 
                     &lt;img style="float: right;" width="360" src="https://uggi.fiskistofa.is/content/files/public/pdf/fiskistofa-trimmed.gif" /&gt;
                     </pdfTextTemplate14>
-                    
                     <pdfTextTemplate22>
                     &lt;/p&gt;
                     &lt;div style="float:right; clear: both;"&gt;
@@ -82,7 +81,7 @@
                     &lt;div style="float:right; clear: both;"&gt;
                     Tilvísun: </pdfTextTemplate23a>
                     <!-- case identifier -->
-
+                    
                     <pdfTextTemplate21>
                     &lt;p style="clear: both; padding-top: 72px;"&gt;
 					&lt;b&gt;Efni: &lt;/b&gt;
@@ -92,7 +91,7 @@
                     <pdfTextTemplate23>
                     &lt;/div&gt;
                     </pdfTextTemplate23>
-
+                    
                     <pdfTextTemplate31>
                     &lt;div style="padding-top: 30px;"&gt;
                     </pdfTextTemplate31>
@@ -106,11 +105,15 @@
                     &lt;p style="text-align: center; padding-top: 50px;"&gt;
                     </pdfTextTemplate32>
                     <!-- submitter name -->
-
+                    
                     <pdfTextTemplate33>
                     &lt;/p&gt;
                     &lt;/div&gt;
                     </pdfTextTemplate33>
+                    
+                    <saveFormData>
+                        <submissionId/>
+                    </saveFormData>
                 </data>
             </xf:instance>
             <xf:instance id="control-instance">
@@ -130,6 +133,12 @@
                     <error for=""/>
                 </data>
             </xf:instance>
+            <xf:instance id="downloadFormAsPDF-instance">
+				<data xmlns="">
+					<link/>
+				</data>
+			</xf:instance>
+            
             <xf:submission action="xformsBPM:/nouri"
                 id="submit_data_submission" method="post"
                 ref="instance('data-instance')" replace="none">
@@ -156,8 +165,8 @@
                 required="instance('control-instance')/generatePdf != 'true'" type="string"/>
             <xf:bind id="fbc_213_bind"
                 nodeset="Fiskistofa_office_fbc_213"
-                relevant="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"
-                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+                readonly="instance('control-instance')/readonly = 'true'"
+                relevant="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'" type="xs:string"/>
             <xf:bind id="fbc_223_bind" nodeset="Fiskistofa_office_label"/>
             <xf:bind id="fbc_6_bind"
                 nodeset="Choose_letter_template_fbc_6"
@@ -185,8 +194,7 @@
             <xf:bind id="fbc_14_bind" nodeset="pdfViewContainer" relevant="instance('control-instance')/generatePdf = 'true' or instance('control-instance')/readonly = 'true'"/>
             <xf:bind id="fbc_16_bind" nodeset="caseIdentifier"
                 readonly="instance('control-instance')/readonly = 'true'"
-                relevant="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"
-                type="string"/>
+                relevant="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'" type="string"/>
             <xf:instance id="fbc_13_autofill-instance"
                 relevant="false()" src="context:fb-afk-loginSession.user.name"/>
         </xf:model>
@@ -232,6 +240,8 @@
                     <fbc_16-label lang="en">Case identifier</fbc_16-label>
                     <fbc_213-label lang="is_IS">Starfsstöð</fbc_213-label>
                     <fbc_213-label lang="en">Fiskistofa office</fbc_213-label>
+                    <fbc_214-pdf-label lang="is_IS">Forskoða bréf</fbc_214-pdf-label>
+                    <fbc_214-pdf-label lang="en">Preview letter</fbc_214-pdf-label>
                 </localized_strings>
             </xf:instance>
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
@@ -239,7 +249,7 @@
                 <xf:setvalue model="data_model"
                     ref="instance('localized_strings')/current_language" value="instance('locale-instance')/fb-afk-loginSession.currentLocale"/>
                 <idega:dispatch name="idega-xforms-ready" target="//h:body//*[starts-with(@id, 'fbc_')]"/>
-                <idega:setvalue 
+                <idega:setvalue
                     ref="instance('fbc_213_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('violationService.getFiskistofaOffices()')"/>
                 <idega:setvalue
                     ref="instance('fbc_7_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('violationService.getLettersTypes()')"/>
@@ -370,7 +380,7 @@
                         </xf:input>
                         <!-- class="enableHTMLEditor" -->
                         <xf:textarea bind="fbc_5_bind"
-                            class="enableHTMLEditor enableHTMLEditor" id="fbc_5">
+                            class="enableHTMLEditor enableHTMLEditor enableHTMLEditor enableHTMLEditor" id="fbc_5">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_5-title[@lang=instance('localized_strings')/current_language]"/>
                             <xf:dispatch ev:event="idega-xforms-ready"
                                 name="idega-validate" target="fbc_5"/>
@@ -383,6 +393,20 @@
                             <xf:alert ref="instance('error-instance')/error[@for='fbc_5']"/>
                         </xf:textarea>
                         <div class="fbc_button_area" id="fbc_2" type="fbc_button_area">
+                        	<xf:trigger bind="bind-submissionButton"
+                                class="fbc_button_submit" id="fbc_214" type="fbc_button_get_as_pdf">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_214-pdf-label[@lang=instance('localized_strings')/current_language]"/>
+                                <xf:action ev:event="DOMActivate">
+                                    <idega:saveFormAndGeneratePdf
+                                    action="saveFormAndGeneratePdf"
+                                    formId="instance('data-instance')/form_id"
+                                    instanceId="data-instance"
+                                    linkLocation="instance('downloadFormAsPDF-instance')/link"
+                                    model="submission_model"
+                                    submissionId="instance('data-instance')/saveFormData/submissionId" submissionIdentifier="instance('data-instance')/*[@nodeType='formIdentifier']"/>
+                                </xf:action>
+                                <xf:load ref="instance('downloadFormAsPDF-instance')/link" show="handlemanually_window" />
+                            </xf:trigger>
                             <xf:trigger bind="bind-submissionButton"
                                 class="fbc_button_submit" id="fbc_3" type="fbc_button_submit">
                                 <xf:label model="data_model" ref="instance('localized_strings')/page-1-submit-label[@lang=instance('localized_strings')/current_language]"/>
