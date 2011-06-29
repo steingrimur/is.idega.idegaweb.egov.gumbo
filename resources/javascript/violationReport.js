@@ -124,4 +124,18 @@ jQuery(document).ready(function() {
 			setXFormsValue(this);
 		}
 	});
+	
+	jQuery('#fbc_204-value').click(function() {
+		showLoadingMessage(Localization.LOADING_MSG);
+		LazyLoader.loadMultiple(['/dwr/engine.js', '/dwr/interface/ChibaUtils.js'], function() {
+			ChibaUtils.getElementValue(FluxInterfaceHelper.getXFormSessionKey(), 'fbc_207', {
+				callback: function(value) {
+					if (value == null)
+						value = '';
+					jQuery('#fbc_218-value').html(value);
+					closeAllLoadingMessages();
+				}
+			});
+		}, null);
+	});
 });
