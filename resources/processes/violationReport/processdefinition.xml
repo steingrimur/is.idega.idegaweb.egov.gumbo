@@ -665,8 +665,14 @@
         <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
             <handlerName>casesStatusHandler</handlerName>
             <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
-                    <entry><key>caseStatusMappedName</key><value>caseStatusReview</value></entry>
-                    <entry><key>processInstanceId</key><value>#{mainProcessInstanceId}</value></entry>
+                    <entry>
+                    	<key>caseStatusMappedName</key>
+                    	<value>caseStatusReview</value>
+                    </entry>
+                    <entry>
+                    	<key>processInstanceId</key>
+                    	<value>#{mainProcessInstanceId}</value>
+                    </entry>
             </propertyMap>
         </action>
        </event>
@@ -930,8 +936,33 @@
         <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
             <handlerName>casesStatusHandler</handlerName>
             <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
-                    <entry><key>caseStatusMappedName</key><value>caseStatusInProcess</value></entry>
-                    <entry><key>processInstanceId</key><value>#{mainProcessInstanceId}</value></entry>
+            	<entry>
+            		<key>caseStatusMappedName</key>
+            		<value>caseStatusInProcess</value>
+            	</entry>
+                <entry>
+                	<key>processInstanceId</key>
+                	<value>#{mainProcessInstanceId}</value>
+               	</entry>
+               	<!--
+               	<entry>
+			        <key>commentExpression</key>
+			        <value>
+			        ${
+			        	Map commentMap = new HashMap();
+			        	commentMap.put("en", "Hi, {0}.\n Comment was written to the case {1} with identifier {2} and description {3}");
+			        	commentMap.put("is_IS", "Sæl/ll, {0}.\n Comment was written! Hefur tekið að sér málið með nafnið: {3} ({2}) í flokknum : {1}.");
+			        	return commentMap;
+			        }
+                	</value>
+                </entry>
+                <entry>
+			       	<key>commentValues</key>
+			       	<value>
+			       		{list: {mv: [{type: "bean", value: "user.name"}, {type: "bean", value: "piw.processDefinitionW.startTaskName"}, {type: "bean", value: "piw.processIdentifier"}, {type: "bean", value: "piw.processDescription"}]}}
+                	</value>
+                </entry>
+                -->
             </propertyMap>
         </action>
        </event>
