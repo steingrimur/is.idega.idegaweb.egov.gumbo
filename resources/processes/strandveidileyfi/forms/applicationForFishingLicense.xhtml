@@ -516,16 +516,16 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                         </div>
                         <xf:input bind="fbc_101_bind" id="fbc_101" type="fbc_date">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_101-label[@lang=instance('localized_strings')/current_language]"/>
-                            <xf:dispatch ev:event="idega-xforms-ready"
+                            <xf:dispatch ev:event="xforms-ready"
                                 name="idega-validate" target="fbc_101"/>
-                            <xf:dispatch ev:event="idega-xforms-ready"
-                                name="idega-validate2" target="fbc_101"/>
+                            <!-- <xf:dispatch ev:event="xforms-ready"
+                                name="idega-validate2" target="fbc_101"/> -->
                                 
                             <xf:action ev:event="xforms-value-changed">
                                 <xf:dispatch 
                                     name="idega-validate" target="fbc_101"/>
-                                <xf:dispatch
-                                	name="idega-validate2" target="fbc_101"/>
+                                <!-- <xf:dispatch
+                                	name="idega-validate2" target="fbc_101"/> -->
                                 <xf:setvalue 
                                     ref="instance('data-instance')/validityFrom" value="idega:resolveExpression('gumboUtil.formatDate({0})', '#{instance(`data-instance`)/From_date_fbc_101}')"/>
                                 <xf:setvalue 
@@ -544,17 +544,19 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                                     </xf:action>
                             </xf:action>
                             
-                            <idega:validator ev:event="idega-validate" validateif=". = '' or ( days-from-date(.) &gt; days-from-date(concat(substring(., 1, 4), '-05-01'))-1 and days-from-date(.) &lt; days-from-date(concat(substring(., 1, 4), '-08-31'))+1 )" componentId="fbc_101">
+                            <idega:validator ev:event="idega-validate" validateif=". = '' or (( days-from-date(.) &gt; days-from-date(concat(substring(., 1, 4), '-05-01'))-1 and days-from-date(.) &lt; days-from-date(concat(substring(., 1, 4), '-08-31'))+1 ) and idega:isAfterNow(instance('data-instance')/From_date_fbc_101))" componentId="fbc_101">
                                 <idega:message errorType="required"
                                     model="data_model" value="instance('localized_strings')/fbc_101-required[@lang=instance('localized_strings')/current_language]"/>
                                 <idega:message errorType="custom"
                                     model="data_model" value="instance('localized_strings')/fbc_101-wrongInterval[@lang=instance('localized_strings')/current_language]"/>
-                            </idega:validator>
-                            
-                            <idega:validator ev:event="idega-validate2" errorif="instance('data-instance')/From_date_fbc_101 != '' and idega:isBeforeNow(instance('data-instance')/From_date_fbc_101)" componentId="fbc_101">
                                 <idega:message errorType="custom"
                                     model="data_model" value="instance('localized_strings')/fbc_101-beforeNow[@lang=instance('localized_strings')/current_language]"/>
                             </idega:validator>
+                            
+                            <!-- <idega:validator ev:event="idega-validate2" errorif="instance('data-instance')/From_date_fbc_101 != '' and idega:isBeforeNow(instance('data-instance')/From_date_fbc_101)" componentId="fbc_101">
+                                <idega:message errorType="custom"
+                                    model="data_model" value="instance('localized_strings')/fbc_101-beforeNow[@lang=instance('localized_strings')/current_language]"/>
+                            </idega:validator> -->
 
                             <xf:alert ref="instance('error-instance')/error[@for='fbc_101']"/>
                             <xf:help>

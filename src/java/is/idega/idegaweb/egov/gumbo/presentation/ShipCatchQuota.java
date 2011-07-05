@@ -40,7 +40,7 @@ public class ShipCatchQuota extends IWBaseComponent {
 		PresentationUtil.addStyleSheetToHeader(iwc, iwb.getVirtualPathWithFileNameString("style/gumbo.css"));
 
 		GumboBean bean = getBeanInstance("gumboBean");
-		if (bean.getShipNumber() != null) {
+		if (getSession().getShip() != null && getSession().getSeason() != null) {
 			bean.setCatchQuota(getClient().getCatchQuota(getSession().getShip().getSkipNr(), getSession().getSeason()));
 		}
 		
