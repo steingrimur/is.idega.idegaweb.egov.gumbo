@@ -1,5 +1,6 @@
 package is.idega.idegaweb.egov.gumbo.bean;
 
+import is.fiskistofa.webservices.aflaheimildskerding.FSWebserviceAFLAHEIMILDSKERDING_wsdl.AflaHeimildSkerdingAlltTypUser;
 import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.AflamarkTypeUser;
 import is.fiskistofa.webservices.hlutdeild.FSWebserviceHLUTDEILD_wsdl.types.HlutdeildTypeUser;
 import is.fiskistofa.webservices.landanir.FSWebServiceLANDANIR_wsdl.LondunAfliTypeUser;
@@ -37,6 +38,9 @@ public class GumboBean {
 	
 	private String responseURL;
 	private String catchesURL;
+	
+	private is.fiskistofa.webservices.aflaheimildskerding.FSWebserviceAFLAHEIMILDSKERDING_wsdl.SkipInfoTypeUser[] catchDelimiterShips;
+	private AflaHeimildSkerdingAlltTypUser catchDelimiterInfo;
 
 	public Class getEventHandler() {
 		return eventHandler;
@@ -164,5 +168,23 @@ public class GumboBean {
 
 	public void setCatchesURL(String catchesURL) {
 		this.catchesURL = catchesURL;
+	}
+
+	public is.fiskistofa.webservices.aflaheimildskerding.FSWebserviceAFLAHEIMILDSKERDING_wsdl.SkipInfoTypeUser[] getCatchDelimiterShips() {
+		return catchDelimiterShips;
+	}
+
+	public void setCatchDelimiterShips(
+			is.fiskistofa.webservices.aflaheimildskerding.FSWebserviceAFLAHEIMILDSKERDING_wsdl.SkipInfoTypeUser[] catchDelimiterShips) {
+		this.catchDelimiterShips = catchDelimiterShips;
+	}
+
+	public AflaHeimildSkerdingAlltTypUser getCatchDelimiterInfo() {
+		return catchDelimiterInfo;
+	}
+
+	public void setCatchDelimiterInfo(
+			AflaHeimildSkerdingAlltTypUser catchDelimiterInfo) {
+		this.catchDelimiterInfo = catchDelimiterInfo;
 	}
 }

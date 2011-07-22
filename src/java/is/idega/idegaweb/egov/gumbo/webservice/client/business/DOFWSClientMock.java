@@ -1,5 +1,6 @@
 package is.idega.idegaweb.egov.gumbo.webservice.client.business;
 
+import is.fiskistofa.webservices.aflaheimildskerding.FSWebserviceAFLAHEIMILDSKERDING_wsdl.AflaHeimildSkerdingAlltTypUser;
 import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.AflamarkTypeUser;
 import is.fiskistofa.webservices.hlutdeild.FSWebserviceHLUTDEILD_wsdl.types.HlutdeildTypeUser;
 import is.fiskistofa.webservices.hlutdeild.FSWebserviceHLUTDEILD_wsdl.types.UthlutanirTypeUser;
@@ -406,5 +407,29 @@ public class DOFWSClientMock implements DOFWSClient {
 		                .getCalendar()));
 		
 		return map;
+	}
+
+	@Override
+	public is.fiskistofa.webservices.aflaheimildskerding.FSWebserviceAFLAHEIMILDSKERDING_wsdl.SkipInfoTypeUser[] getCatchDelimiterShips(
+			String personalID) {
+		return null;
+	}
+
+	@Override
+	public AflaHeimildSkerdingAlltTypUser getCatchDelimiterShipInfo(
+			BigDecimal shipNumber) {
+		return null;
+	}
+
+	@Override
+	public AflaHeimildSkerdingAlltTypUser calculateCatchDelimiter(
+			AflaHeimildSkerdingAlltTypUser delimiter) {
+		return null;
+	}
+
+	@Override
+	public AflaHeimildSkerdingAlltTypUser sendCatchDelimiter(
+			AflaHeimildSkerdingAlltTypUser delimiter) {
+		return null;
 	}
 }

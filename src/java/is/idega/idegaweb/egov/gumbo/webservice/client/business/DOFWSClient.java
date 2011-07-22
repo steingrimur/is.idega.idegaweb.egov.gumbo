@@ -1,5 +1,6 @@
 package is.idega.idegaweb.egov.gumbo.webservice.client.business;
 
+import is.fiskistofa.webservices.aflaheimildskerding.FSWebserviceAFLAHEIMILDSKERDING_wsdl.AflaHeimildSkerdingAlltTypUser;
 import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.AflamarkTypeUser;
 import is.fiskistofa.webservices.hlutdeild.FSWebserviceHLUTDEILD_wsdl.types.HlutdeildTypeUser;
 import is.fiskistofa.webservices.hlutdeild.FSWebserviceHLUTDEILD_wsdl.types.UthlutanirTypeUser;
@@ -105,7 +106,11 @@ public interface DOFWSClient {
 	public abstract List<Item> getGrasleppaVesselsForUser(
 	        String companyPersonalID);
 	public abstract List<Item> getStrandveidiVesselsForUser(String companyPersonalID);
-
 	
 	public abstract List<Item> getVesselsForUser(User user);
+
+	public is.fiskistofa.webservices.aflaheimildskerding.FSWebserviceAFLAHEIMILDSKERDING_wsdl.SkipInfoTypeUser[] getCatchDelimiterShips(String personalID);
+	public AflaHeimildSkerdingAlltTypUser getCatchDelimiterShipInfo(BigDecimal shipNumber);
+	public AflaHeimildSkerdingAlltTypUser calculateCatchDelimiter(AflaHeimildSkerdingAlltTypUser delimiter);
+	public AflaHeimildSkerdingAlltTypUser sendCatchDelimiter(AflaHeimildSkerdingAlltTypUser delimiter);
 }

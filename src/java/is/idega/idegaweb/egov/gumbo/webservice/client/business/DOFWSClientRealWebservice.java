@@ -1,5 +1,12 @@
 package is.idega.idegaweb.egov.gumbo.webservice.client.business;
 
+import is.fiskistofa.webservices.aflaheimildskerding.FSWebserviceAFLAHEIMILDSKERDING_wsdl.AflaHeimildSkerdingAlltTypUser;
+import is.fiskistofa.webservices.aflaheimildskerding.FSWebserviceAFLAHEIMILDSKERDING_wsdl.FSWebserviceAFLAHEIMILDSKERDING_PortType;
+import is.fiskistofa.webservices.aflaheimildskerding.FSWebserviceAFLAHEIMILDSKERDING_wsdl.FSWebserviceAFLAHEIMILDSKERDING_ServiceLocator;
+import is.fiskistofa.webservices.aflaheimildskerding.FSWebserviceAFLAHEIMILDSKERDING_wsdl.OstadfestSkipEigandaElement;
+import is.fiskistofa.webservices.aflaheimildskerding.FSWebserviceAFLAHEIMILDSKERDING_wsdl.ReiknaElement;
+import is.fiskistofa.webservices.aflaheimildskerding.FSWebserviceAFLAHEIMILDSKERDING_wsdl.StadfestaElement;
+import is.fiskistofa.webservices.aflaheimildskerding.FSWebserviceAFLAHEIMILDSKERDING_wsdl.UpphafsstillaElement;
 import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.AflamarkTypeUser;
 import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.FSWebServiceAFLAMARK_PortType;
 import is.fiskistofa.webservices.aflamark.FSWebServiceAFLAMARK_wsdl.FSWebServiceAFLAMARK_ServiceLocator;
@@ -144,6 +151,9 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	private static final String TRANSFERS_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices_testing/FSWebserviceMILLIFAERSLURSoap12HttpPort";
 	private static final String TRANSFERS_ENDPOINT_ATTRIBUTE_NAME = "dofws_transfers_endpoint";
 
+	private static final String CATCH_DELIMITER_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices_dev/FSWebserviceAFLAHEIMILDSKERDINGSoap12HttpPort";
+	private static final String CATCH_DELIMITER_ENDPOINT_ATTRIBUTE_NAME = "dofws_catch_delimiter_endpoint";
+
 	private static final String GUMBO_FISHING_AREAS_CACHE = "fishing_areas_cache";
 	// private static final String GUMBO_COMPANY_SHIPS_CACHE =
 	// "company_ships_cache";
@@ -225,6 +235,26 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 			FSWebServiceAFLAMARK_ServiceLocator locator = new FSWebServiceAFLAMARK_ServiceLocator();
 			FSWebServiceAFLAMARK_PortType port = locator
 					.getFSWebServiceAFLAMARKSoap12HttpPort(new URL(endPoint));
+
+			return port;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	private FSWebserviceAFLAHEIMILDSKERDING_PortType getCatchDelimiterPort() {
+		try {
+			String endPoint = IWMainApplication
+					.getDefaultIWApplicationContext()
+					.getApplicationSettings()
+					.getProperty(CATCH_DELIMITER_ENDPOINT_ATTRIBUTE_NAME,
+							CATCH_DELIMITER_DEFAULT_ENDPOINT);
+
+			FSWebserviceAFLAHEIMILDSKERDING_ServiceLocator locator = new FSWebserviceAFLAHEIMILDSKERDING_ServiceLocator();
+			FSWebserviceAFLAHEIMILDSKERDING_PortType port = locator
+					.getFSWebserviceAFLAHEIMILDSKERDINGSoap12HttpPort(new URL(endPoint));
 
 			return port;
 		} catch (Exception e) {
@@ -1346,6 +1376,50 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 
 	public UserBusiness getUserBusiness() throws IBOLookupException {
 		return (UserBusiness) getServiceInstance(UserBusiness.class);
+	}
+	
+	public is.fiskistofa.webservices.aflaheimildskerding.FSWebserviceAFLAHEIMILDSKERDING_wsdl.SkipInfoTypeUser[] getCatchDelimiterShips(String personalID) {
+		try {
+			OstadfestSkipEigandaElement parameters = new OstadfestSkipEigandaElement(personalID);
+			return getCatchDelimiterPort().ostadfestSkipEiganda(parameters);
+		}
+		catch (RemoteException re) {
+			re.printStackTrace();
+			return null;
+		}
+	}
+	
+	public AflaHeimildSkerdingAlltTypUser getCatchDelimiterShipInfo(BigDecimal shipNumber) {
+		try {
+			UpphafsstillaElement parameters = new UpphafsstillaElement(shipNumber);
+			return getCatchDelimiterPort().upphafsstilla(parameters).getResult();
+		}
+		catch (RemoteException re) {
+			re.printStackTrace();
+			return null;
+		}
+	}
+	
+	public AflaHeimildSkerdingAlltTypUser calculateCatchDelimiter(AflaHeimildSkerdingAlltTypUser delimiter) {
+		try {
+			ReiknaElement parameters = new ReiknaElement(delimiter);
+			return getCatchDelimiterPort().reikna(parameters).getResult();
+		}
+		catch (RemoteException re) {
+			re.printStackTrace();
+			return null;
+		}
+	}
+
+	public AflaHeimildSkerdingAlltTypUser sendCatchDelimiter(AflaHeimildSkerdingAlltTypUser delimiter) {
+		try {
+			StadfestaElement parameters = new StadfestaElement(delimiter, null, null);
+			return getCatchDelimiterPort().stadfesta(parameters).getResult();
+		}
+		catch (RemoteException re) {
+			re.printStackTrace();
+			return null;
+		}
 	}
 
 	private CasesBPMDAO getCasesBPMDAO() {
