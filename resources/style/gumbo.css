@@ -56,3 +56,55 @@ div.gatherInformation div.select > span, div.gatherInformation label {
 	color: #a00;
 	font-weight: bold;	
 }
+
+form#catchQuotaDelimiter table {
+	font-size: 0.9167em;
+	margin-bottom: 16px;
+}
+
+form#catchQuotaDelimiter th {
+	vertical-align: bottom;
+	padding: 2px 4px;
+}
+
+form#catchQuotaDelimiter table input {
+	text-align: right;
+	width: 70px;
+}
+
+form#catchQuotaDelimiter tr.units th {
+	font-style: italic;
+	border-bottom: 1px #ddd solid;
+}
+
+form#catchQuotaDelimiter td {
+	text-align: right;
+	border-bottom: 1px #efefef solid;
+border-left: 1px #efefef solid;
+	vertical-align: middle;
+	padding: 2px 4px;
+}
+
+form#catchQuotaDelimiter tfoot td {
+	border: 0;
+}
+
+form#catchQuotaDelimiter td.type {
+	text-align: left;
+	border-left: 0;
+}
+
+form#catchQuotaDelimiter div.formSection {
+	margin-bottom: 16px;
+}
+
+form#catchQuotaDelimiter div.formItem {
+	width: auto;
+	overflow: hidden;
+}
+
+form#catchQuotaDelimiter div.formItem label {
+	float: left;
+	width: 80px;
+	line-height: 1.5em;
+}

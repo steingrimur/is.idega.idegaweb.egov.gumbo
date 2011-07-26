@@ -24,6 +24,9 @@
 			</div>
 		</div>
 		<ui:fragment rendered="#{not empty gumboBean.catchDelimiterInfo}">
+			<ui:fragment rendered="#{gumboBean.catchDelimiterInfo.status ne 0}">
+				<div class="errors"><h:outputText value="#{gumboBean.catchDelimiterInfo.skilabod}" /></div>
+			</ui:fragment>		
 			<table cellpadding="0" cellspacing="0" width="100%">
 				<thead>
 					<tr>
@@ -37,12 +40,24 @@
 						<th colspan="2" class="totalDeduction"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter_total_deduction']}" /></th>
 						<th class="finalAllocation"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter_final_allocation']}" /></th>
 					</tr>
+					<tr class="units">
+						<th class="type"></th>
+						<th class="allocation"></th>
+						<th class="initialAllocation"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter.unit_kg']}" /></th>
+						<th class="defaultDeduction"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter.unit_kg']}" /></th>
+						<th class="allocationAfterDeduction"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter.unit_kg']}" /></th>
+						<th class="forAllocation"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter.unit_codUnits']}" /></th>
+						<th class="deduction"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter.unit_codUnits']}" /></th>
+						<th class="totalDeduction"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter.unit_codUnits']}" /></th>
+						<th class="totalDeduction"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter.unit_kg']}" /></th>
+						<th class="finalAllocation"></th>
+					</tr>
 				</thead>
 				
 				<tfoot>
 					<tr>
-						<td colspan="6"></td>
-						<td colspan="4"><h:outputText value="#{gumboBean.catchDelimiterInfo.sumA}"><f:convertNumber /></h:outputText></td>
+						<td colspan="7"><h:outputText value="#{gumboBean.catchDelimiterInfo.sumA}"><f:convertNumber /></h:outputText></td>
+						<td colspan="3"></td>
 					</tr>
 				</tfoot>
 
@@ -54,7 +69,7 @@
 							<td class="initialAllocation"><h:outputText value="#{aValues.upphUthl}"><f:convertNumber /></h:outputText></td>
 							<td class="defaultDeduction"><h:outputText value="#{aValues.upphSkerding}"><f:convertNumber /></h:outputText></td>
 							<td class="allocationAfterDeduction"><h:outputText value="#{aValues.upphUthlSkerding}"><f:convertNumber /></h:outputText></td>
-							<td class="forAllocation"><h:outputText value="#{aValues.hamarksSkerdingThIgildi}"><f:convertNumber /></h:outputText></td>
+							<td class="forAllocation"><h:outputText value="#{aValues.hamarksSkerdingThIgildi - aValues.upphSkerdingThig}"><f:convertNumber /></h:outputText></td>
 							<td class="deduction">
 								<input type="text" name="aValue_#{aValues.fisktegund}" value="#{aValues.skipti}" />
 							</td>
@@ -74,17 +89,26 @@
 						<th class="initialAllocation"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter_inital_allocation']}" /></th>
 						<th class="defaultDeduction"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter_default_deduction']}" /></th>
 						<th class="allocationAfterDeduction"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter_allocation_after_deduction']}" /></th>
-						<th class="forAllocation"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter_for_allocation']}" /></th>
 						<th class="deduction"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter_deduction']}" /></th>
-						<th colspan="2" class="totalDeduction"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter_total_deduction']}" /></th>
+						<th class="totalDeduction"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter_total_deduction']}" /></th>
 						<th class="finalAllocation"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter_final_allocation']}" /></th>
+					</tr>
+					<tr class="units">
+						<th class="type"></th>
+						<th class="allocation"></th>
+						<th class="initialAllocation"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter.unit_kg']}" /></th>
+						<th class="defaultDeduction"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter.unit_kg']}" /></th>
+						<th class="allocationAfterDeduction"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter.unit_kg']}" /></th>
+						<th class="deduction"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter.unit_codUnits']}" /></th>
+						<th class="totalDeduction"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter.unit_kg']}" /></th>
+						<th class="finalAllocation"></th>
 					</tr>
 				</thead>
 
 				<tfoot>
 					<tr>
-						<td colspan="7"></td>
-						<td colspan="3"><h:outputText value="#{gumboBean.catchDelimiterInfo.sumB}"><f:convertNumber /></h:outputText></td>
+						<td colspan="6"><h:outputText value="#{gumboBean.catchDelimiterInfo.sumB}"><f:convertNumber /></h:outputText></td>
+						<td colspan="2"></td>
 					</tr>
 				</tfoot>
 
@@ -96,8 +120,6 @@
 							<td class="initialAllocation"><h:outputText value="#{aValues.upphUthl}"><f:convertNumber /></h:outputText></td>
 							<td class="defaultDeduction"><h:outputText value="#{aValues.upphSkerding}"><f:convertNumber /></h:outputText></td>
 							<td class="allocationAfterDeduction"><h:outputText value="#{aValues.upphUthlSkerding}"><f:convertNumber /></h:outputText></td>
-							<td class="forAllocation"></td>
-							<td class="deduction"></td>
 							<td class="totalDeduction"><h:outputText value="#{aValues.lokaSkerdingThig}"><f:convertNumber /></h:outputText></td>
 							<td class="totalDeduction"><input name="bValue_#{aValues.fisktegund}" value="#{aValues.lokaSkerding}" /></td>
 							<td class="finalAllocation"><h:outputText value="#{aValues.lokaUthlSkerding}"><f:convertNumber /></h:outputText></td>
@@ -107,8 +129,13 @@
 			</table>
 
 			<h:outputText value="Mismunur: #{gumboBean.catchDelimiterInfo.mism}" />
-			<br />
-			<button type="submit" name="prm_action" value="calculate"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['calculate']}" /></button>
+			<div class="buttonLayer">
+				<button type="submit" name="prm_action" value="calculate"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['calculate']}" /></button>
+				<button type="reset" name="prm_action" value="reset"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['reset']}" /></button>
+				<ui:fragment rendered="#{gumboBean.catchDelimiterInfo.status ne -1 and gumboBean.catchDelimiterInfo.mism eq 0}">
+					<button type="submit" name="prm_action" value="calculate"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['send']}" /></button>
+				</ui:fragment>
+			</div>
 		</ui:fragment>
 	</form>
 </ui:component>
