@@ -1413,7 +1413,14 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 
 	public AflaHeimildSkerdingAlltTypUser sendCatchDelimiter(AflaHeimildSkerdingAlltTypUser delimiter) {
 		try {
-			StadfestaElement parameters = new StadfestaElement(delimiter, null, null);
+			String user = IWMainApplication.getDefaultIWApplicationContext()
+					.getApplicationSettings().getProperty(LICENSE_UPDATE_USER, "");
+	
+			String password = IWMainApplication.getDefaultIWApplicationContext()
+					.getApplicationSettings()
+					.getProperty(LICENSE_UPDATE_PASSWORD, "");
+
+			StadfestaElement parameters = new StadfestaElement(delimiter, user, password);
 			return getCatchDelimiterPort().stadfesta(parameters).getResult();
 		}
 		catch (RemoteException re) {

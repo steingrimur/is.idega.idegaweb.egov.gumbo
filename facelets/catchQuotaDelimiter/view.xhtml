@@ -7,7 +7,7 @@
 >
 <ui:component>
 	<form id="catchQuotaDelimiter" class="adminForm" method="post" action="">
-		<a href="#" class="helpLink" target="_blank"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter.help']}" /></a>
+		<a href="/content/files/public/Leidbeiningar.doc" class="helpLink" target="_blank"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter.help']}" /></a>
 		
 		<div class="formSection">
 			<div class="formItem">
@@ -24,6 +24,12 @@
 					</ui:repeat>
 				</select>
 			</div>
+			<ui:fragment rendered="#{not empty gumboBean.catchDelimiterInfo}">
+				<div class="formItem">
+					<label><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['ship_number']}" /></label>
+					<span><h:outputText value="#{gumboBean.catchDelimiterInfo.skipNr}" /></span>
+				</div>
+			</ui:fragment>
 		</div>
 		
 		<ui:fragment rendered="#{not empty gumboBean.catchDelimiterInfo}">
