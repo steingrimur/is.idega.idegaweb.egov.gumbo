@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document
+	PUBLIC "-//UJAC.org//Print Document//EN" 
+	"http://ujac.sourceforge.net/ujac-print-document.dtd">
+
+<document size="A4"  margin-top="20" margin-bottom="20" margin-left="50" margin-right="50" rotate="false">
+
+	<font-def name="small" family="Times" size="9" style="normal"/>
+	<font-def name="normal" family="Times" size="10" style="normal"/>
+	<font-def name="bold" family="Times" size="10" style="bold"/>
+	<font-def name="smallBold" family="Times" size="9" style="bold"/>
+	<font-def name="big" family="Times" size="14" style="bold"/>
+
+	<image source="fiskistofa.gif" halign="right" height="100" scale-to-fit="true" />
+
+	<paragraph font="big">Frádráttur aflamarks</paragraph>
+	
+	<table font="normal" padding="3" columns="2" width="100" widths="20,80" spacing-before="12.0" border-style="none">
+		<table-row>
+			<cell font="bold">Dagsetning</cell>
+			<cell>${date}</cell>
+		</table-row>
+	</table>
+
+	<table font="normal" padding="3" columns="2" width="100" widths="20,80" spacing-before="12.0" border-style="none">
+		<table-header font="bold" halign="left" border-style="bottom" border-width="1.5">
+			<cell colspan="2">Eigandi</cell>
+		</table-header>
+		<table-row>
+			<cell font="bold">Nafn</cell>
+			<cell>${appBean.name}</cell>
+		</table-row>
+		<table-row>
+			<cell font="bold">Kennitala</cell>
+			<cell>${appBean.personalID}</cell>
+		</table-row>
+		<table-row>
+			<cell font="bold">Heimilisfang</cell>
+			<cell>${appBean.address}</cell>
+		</table-row>
+		<table-row>
+			<cell font="bold">Póstnúmer</cell>
+			<cell>${appBean.postal}</cell>
+		</table-row>
+		<table-row>
+			<cell font="bold">Sími</cell>
+			<cell>${appBean.postal}</cell>
+		</table-row>
+		<table-row>
+			<cell font="bold">Fax</cell>
+			<cell>${appBean.body}</cell>
+		</table-row>
+		<table-row>
+			<cell font="bold">Netfang</cell>
+			<cell>${appBean.email}</cell>
+		</table-row>
+	</table>
+
+	<table font="normal" padding="3" columns="2" width="100" widths="20,80" spacing-before="12.0" border-style="none">
+		<table-header font="bold" halign="left" border-style="bottom" border-width="1.5">
+			<cell colspan="2">Skip</cell>
+		</table-header>
+		<table-row>
+			<cell font="bold">Skipaskrárnúmer</cell>
+			<cell><number-format format="###.###" value="${shipInfo.skipNr}" /></cell>
+		</table-row>
+		<table-row>
+			<cell font="bold">Nafn skips</cell>
+			<cell>${shipInfo.skipHeiti}</cell>
+		</table-row>
+	</table>
+
+	<paragraph font="bold"></paragraph>
+
+	<table font="small" padding="3" columns="6" width="100" spacing-before="12.0" spacing-after="15.0" border-style="none">
+		<table-header font="smallBold" halign="right" border-style="bottom" border-width="1.5">
+			<cell halign="left">Tegund</cell>
+			<cell>Hlutdeild</cell>
+			<cell>Upphafsúthlutun (kg)</cell>
+			<cell>Sjálfgefinn frádráttur (kg)</cell>
+			<cell>Heildarfrádráttur (kg)</cell>
+			<cell>Lokaúthlutun</cell>
+		</table-header>
+		
+		<foreach sequence="${shipInfo.ahSkerdingA}" loop-variable="aValues">
+			<table-row halign="right" border-style="bottom" border-width="0.5">
+				<cell halign="left">${aValues.fisktegundheiti}</cell>
+				<cell><number-format format="###.#######" value="${aValues.hlutd}" /></cell>
+				<cell><number-format format="###.###" value="${aValues.upphUthl}" /></cell>
+				<cell><number-format format="###.###" value="${aValues.upphSkerding}" /></cell>
+				<cell><number-format format="###.###" value="${aValues.lokaSkerding}" /></cell>
+				<cell><number-format format="###.###" value="${aValues.lokaUthlSkerding}" /></cell>
+			</table-row>
+		</foreach>
+		
+		<table-row><cell colspan="6"></cell></table-row>
+		
+		<foreach sequence="${shipInfo.ahSkerdingB}" loop-variable="bValues">
+			<table-row halign="right" border-style="bottom" border-width="0.5">
+				<cell halign="left">${bValues.fisktegundheiti}</cell>
+				<cell><number-format format="###.#######" value="${bValues.hlutd}" /></cell>
+				<cell><number-format format="###.###" value="${bValues.upphUthl}" /></cell>
+				<cell><number-format format="###.###" value="${bValues.upphSkerding}" /></cell>
+				<cell><number-format format="###.###" value="${bValues.lokaSkerding}" /></cell>
+				<cell><number-format format="###.###" value="${bValues.lokaUthlSkerding}" /></cell>
+			</table-row>
+		</foreach>
+	</table>
+	
+</document>

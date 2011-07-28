@@ -1,0 +1,66 @@
+<html
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:c="http://xmlns.idega.com/com.idega.core"
+		xmlns:g="http://xmlns.idega.com/is.idega.idegaweb.egov.gumbo"
+>
+<ui:component>
+	<form id="catchQuotaDelimiter" class="adminForm" method="get" action="#{gumboBean.responseURL}" target="_blank">
+		<div class="formSection">
+			<div class="formItem">
+				<label><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['date']}" /></label>
+				<span><h:outputText value="#{gumboBean.period}" /></span>
+			</div>
+		</div>
+		
+		<h2><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['owner_info']}" /></h2>
+		<div class="formSection">
+			<div class="formItem">
+				<label><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['owner.name']}" /></label>
+				<span><h:outputText value="#{applicationBean.name}" /></span>
+			</div>
+			<div class="formItem">
+				<label><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['owner.personal_id']}" /></label>
+				<span><h:outputText value="#{applicationBean.personalID}" /></span>
+			</div>
+			<div class="formItem">
+				<label><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['owner.address']}" /></label>
+				<span><h:outputText value="#{applicationBean.address}" /></span>
+			</div>
+			<div class="formItem">
+				<label><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['owner.postal']}" /></label>
+				<span><h:outputText value="#{applicationBean.postal}" /></span>
+			</div>
+			<div class="formItem">
+				<label><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['owner.phone']}" /></label>
+				<span><h:outputText value="#{applicationBean.phone}" /></span>
+			</div>
+			<div class="formItem">
+				<label><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['owner.fax']}" /></label>
+				<span><h:outputText value="#{applicationBean.body}" /></span>
+			</div>
+			<div class="formItem">
+				<label><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['owner.email']}" /></label>
+				<span><h:outputText value="#{applicationBean.email}" /></span>
+			</div>
+		</div>
+
+		<h2><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['ship_info']}" /></h2>
+		<div class="formSection">
+			<div class="formItem">
+				<label><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['ship_name']}" /></label>
+				<span><h:outputText value="#{gumboBean.shipInfo.nafn}" /></span>
+			</div>
+			<div class="formItem">
+				<label><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['ship_number']}" /></label>
+				<span><h:outputText value="#{gumboBean.shipInfo.skipNr}" /></span>
+			</div>
+		</div>
+
+		<div class="buttonLayer">
+			<button class="submit" type="submit" name="get" value="pdf"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['get_pdf']}" /></button>
+		</div>
+	</form>
+</ui:component>
+</html>

@@ -57,6 +57,30 @@ div.gatherInformation div.select > span, div.gatherInformation label {
 	font-weight: bold;	
 }
 
+form#catchQuotaDelimiter {
+	position: relative;
+}
+
+form#catchQuotaDelimiter a.helpLink {
+	position: absolute;
+	right: 0;
+}
+
+form#catchQuotaDelimiter h2 {
+	font-size: 1.1em;
+	border-bottom: 1px #ddd solid;
+	padding-bottom: 4px;
+	margin-bottom: 8px;
+}
+
+form#catchQuotaDelimiter div.errors {
+	border: 1px #f33 solid;
+	background: #faa;
+	font-weight: bold;
+	margin-bottom: 12px;
+	padding: 10px;
+}
+
 form#catchQuotaDelimiter table {
 	font-size: 0.9167em;
 	margin-bottom: 16px;
@@ -65,11 +89,20 @@ form#catchQuotaDelimiter table {
 form#catchQuotaDelimiter th {
 	vertical-align: bottom;
 	padding: 2px 4px;
+	width: 10%;
+}
+
+form#catchQuotaDelimiter .double {
+	width: 20%;
 }
 
 form#catchQuotaDelimiter table input {
 	text-align: right;
 	width: 70px;
+}
+
+form#catchQuotaDelimiter .double input {
+	width: 120px;
 }
 
 form#catchQuotaDelimiter tr.units th {
@@ -80,13 +113,15 @@ form#catchQuotaDelimiter tr.units th {
 form#catchQuotaDelimiter td {
 	text-align: right;
 	border-bottom: 1px #efefef solid;
-border-left: 1px #efefef solid;
+	border-left: 1px #efefef solid;
 	vertical-align: middle;
 	padding: 2px 4px;
+	width: 10%;
 }
 
 form#catchQuotaDelimiter tfoot td {
 	border: 0;
+	font-weight: bold;
 }
 
 form#catchQuotaDelimiter td.type {
@@ -101,10 +136,34 @@ form#catchQuotaDelimiter div.formSection {
 form#catchQuotaDelimiter div.formItem {
 	width: auto;
 	overflow: hidden;
+	margin-bottom: 4px;
 }
 
 form#catchQuotaDelimiter div.formItem label {
 	float: left;
-	width: 80px;
+	width: 120px;
 	line-height: 1.5em;
+	font-weight: bold;
+}
+
+form#catchQuotaDelimiter div.formItem span {
+	line-height: 1.5em;
+}
+
+form#catchQuotaDelimiter div.sum {
+	margin-bottom: 12px;
+	font-size: 1.1em;
+}
+
+form#catchQuotaDelimiter div.sum label {
+	font-weight: bold;
+}
+
+form#catchQuotaDelimiter div.buttonLayer {
+	width: auto;
+	overflow: hidden;
+}
+
+form#catchQuotaDelimiter div.buttonLayer .submit {
+	float: right;
 }
