@@ -76,7 +76,7 @@
 					</tr>
 					<tr class="units">
 						<th class="type"></th>
-						<th class="allocation"></th>
+						<th class="allocation"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter.unit_percent']}" /></th>
 						<th class="initialAllocation"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter.unit_kg']}" /></th>
 						<th class="defaultDeduction"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter.unit_kg']}" /></th>
 						<th class="allocationAfterDeduction"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter.unit_kg']}" /></th>
@@ -100,7 +100,7 @@
 					<ui:repeat value="#{gumboBean.catchDelimiterInfo.ahSkerdingA}" var="aValues">
 						<tr>
 							<td class="type"><h:outputText value="#{aValues.fisktegundheiti}" /></td>
-							<td class="allocation"><h:outputText value="#{aValues.hlutd}"><f:convertNumber /></h:outputText></td>
+							<td class="allocation"><h:outputText value="#{aValues.hlutd}"><f:convertNumber minFractionDigits="7" /></h:outputText></td>
 							<td class="initialAllocation"><h:outputText value="#{aValues.upphUthl}"><f:convertNumber /></h:outputText></td>
 							<td class="defaultDeduction"><h:outputText value="#{aValues.upphSkerding}"><f:convertNumber /></h:outputText></td>
 							<td class="allocationAfterDeduction"><h:outputText value="#{aValues.upphUthlSkerding}"><f:convertNumber /></h:outputText></td>
@@ -132,7 +132,7 @@
 					</tr>
 					<tr class="units">
 						<th class="type"></th>
-						<th class="allocation"></th>
+						<th class="allocation"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter.unit_percent']}" /></th>
 						<th class="initialAllocation"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter.unit_kg']}" /></th>
 						<th class="defaultDeduction"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter.unit_kg']}" /></th>
 						<th class="allocationAfterDeduction"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['catch_delimiter.unit_kg']}" /></th>
@@ -155,7 +155,7 @@
 					<ui:repeat value="#{gumboBean.catchDelimiterInfo.ahSkerdingB}" var="aValues">
 						<tr>
 							<td class="type"><h:outputText value="#{aValues.fisktegundheiti}" /></td>
-							<td class="allocation"><h:outputText value="#{aValues.hlutd}"><f:convertNumber /></h:outputText></td>
+							<td class="allocation"><h:outputText value="#{aValues.hlutd}"><f:convertNumber minFractionDigits="7" /></h:outputText></td>
 							<td class="initialAllocation"><h:outputText value="#{aValues.upphUthl}"><f:convertNumber /></h:outputText></td>
 							<td class="defaultDeduction"><h:outputText value="#{aValues.upphSkerding}"><f:convertNumber /></h:outputText></td>
 							<td class="allocationAfterDeduction"><h:outputText value="#{aValues.upphUthlSkerding}"><f:convertNumber /></h:outputText></td>
