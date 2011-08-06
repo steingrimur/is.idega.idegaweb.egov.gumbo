@@ -141,6 +141,9 @@ public class CatchQuotaDelimiter extends IWBaseComponent {
 			
 			if (!error) {
 				shipInfo = getClient().calculateCatchDelimiter(shipInfo);
+				if (action.equals(ACTION_SEND)) {
+					shipInfo = getClient().sendCatchDelimiter(shipInfo);
+				}
 			}
 		}
 		
@@ -156,7 +159,7 @@ public class CatchQuotaDelimiter extends IWBaseComponent {
 			bean.setPeriod(new IWTimestamp().getLocaleDateAndTime(iwc.getCurrentLocale(), IWTimestamp.SHORT, IWTimestamp.SHORT));
 		}
 		
-		if (action.equals(ACTION_VIEW) || action.equals(ACTION_CALCULATE) || action.equals(ACTION_RESET)) {
+		if ((shipInfo != null && (shipInfo.getStatus().intValue() == -1 || shipInfo.getMism().intValue() != 0)) || action.equals(ACTION_VIEW) || action.equals(ACTION_CALCULATE) || action.equals(ACTION_RESET)) {
 			FaceletComponent facelet = (FaceletComponent) iwc.getApplication().createComponent(FaceletComponent.COMPONENT_TYPE);
 			facelet.setFaceletURI(iwb.getFaceletURI("catchQuotaDelimiter/view.xhtml"));
 			add(facelet);
@@ -167,7 +170,6 @@ public class CatchQuotaDelimiter extends IWBaseComponent {
 			add(facelet);
 		}
 		else if (action.equals(ACTION_SEND)) {
-			getClient().sendCatchDelimiter(shipInfo);
 			getBusiness().storeCatchDelimiterInfo(shipInfo, appBean, iwc.getCurrentUser());
 			
 			FaceletComponent facelet = (FaceletComponent) iwc.getApplication().createComponent(FaceletComponent.COMPONENT_TYPE);

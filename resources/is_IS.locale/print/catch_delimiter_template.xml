@@ -44,7 +44,7 @@
 		</table-row>
 		<table-row>
 			<cell font="bold">Sími</cell>
-			<cell>${appBean.postal}</cell>
+			<cell>${appBean.phone}</cell>
 		</table-row>
 		<table-row>
 			<cell font="bold">Fax</cell>
