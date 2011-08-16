@@ -1,23 +1,23 @@
 /**
- * VirkjaveidileyfiWithPasswordElement.java
+ * EydaOgilduVeidileyfiElement.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types;
+package is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl;
 
-public class VirkjaveidileyfiWithPasswordElement  implements java.io.Serializable {
+public class EydaOgilduVeidileyfiElement  implements java.io.Serializable {
     private java.math.BigDecimal pVeidileyfiId;
 
     private java.lang.String pUsername;
 
     private java.lang.String pPassword;
 
-    public VirkjaveidileyfiWithPasswordElement() {
+    public EydaOgilduVeidileyfiElement() {
     }
 
-    public VirkjaveidileyfiWithPasswordElement(
+    public EydaOgilduVeidileyfiElement(
            java.math.BigDecimal pVeidileyfiId,
            java.lang.String pUsername,
            java.lang.String pPassword) {
@@ -28,7 +28,7 @@ public class VirkjaveidileyfiWithPasswordElement  implements java.io.Serializabl
 
 
     /**
-     * Gets the pVeidileyfiId value for this VirkjaveidileyfiWithPasswordElement.
+     * Gets the pVeidileyfiId value for this EydaOgilduVeidileyfiElement.
      * 
      * @return pVeidileyfiId
      */
@@ -38,7 +38,7 @@ public class VirkjaveidileyfiWithPasswordElement  implements java.io.Serializabl
 
 
     /**
-     * Sets the pVeidileyfiId value for this VirkjaveidileyfiWithPasswordElement.
+     * Sets the pVeidileyfiId value for this EydaOgilduVeidileyfiElement.
      * 
      * @param pVeidileyfiId
      */
@@ -48,7 +48,7 @@ public class VirkjaveidileyfiWithPasswordElement  implements java.io.Serializabl
 
 
     /**
-     * Gets the pUsername value for this VirkjaveidileyfiWithPasswordElement.
+     * Gets the pUsername value for this EydaOgilduVeidileyfiElement.
      * 
      * @return pUsername
      */
@@ -58,7 +58,7 @@ public class VirkjaveidileyfiWithPasswordElement  implements java.io.Serializabl
 
 
     /**
-     * Sets the pUsername value for this VirkjaveidileyfiWithPasswordElement.
+     * Sets the pUsername value for this EydaOgilduVeidileyfiElement.
      * 
      * @param pUsername
      */
@@ -68,7 +68,7 @@ public class VirkjaveidileyfiWithPasswordElement  implements java.io.Serializabl
 
 
     /**
-     * Gets the pPassword value for this VirkjaveidileyfiWithPasswordElement.
+     * Gets the pPassword value for this EydaOgilduVeidileyfiElement.
      * 
      * @return pPassword
      */
@@ -78,7 +78,7 @@ public class VirkjaveidileyfiWithPasswordElement  implements java.io.Serializabl
 
 
     /**
-     * Sets the pPassword value for this VirkjaveidileyfiWithPasswordElement.
+     * Sets the pPassword value for this EydaOgilduVeidileyfiElement.
      * 
      * @param pPassword
      */
@@ -88,8 +88,8 @@ public class VirkjaveidileyfiWithPasswordElement  implements java.io.Serializabl
 
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
-        if (!(obj instanceof VirkjaveidileyfiWithPasswordElement)) return false;
-        VirkjaveidileyfiWithPasswordElement other = (VirkjaveidileyfiWithPasswordElement) obj;
+        if (!(obj instanceof EydaOgilduVeidileyfiElement)) return false;
+        EydaOgilduVeidileyfiElement other = (EydaOgilduVeidileyfiElement) obj;
         if (obj == null) return false;
         if (this == obj) return true;
         if (__equalsCalc != null) {
@@ -133,25 +133,25 @@ public class VirkjaveidileyfiWithPasswordElement  implements java.io.Serializabl
 
     // Type metadata
     private static org.apache.axis.description.TypeDesc typeDesc =
-        new org.apache.axis.description.TypeDesc(VirkjaveidileyfiWithPasswordElement.class, true);
+        new org.apache.axis.description.TypeDesc(EydaOgilduVeidileyfiElement.class, true);
 
     static {
-        typeDesc.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", ">virkjaveidileyfiWithPasswordElement"));
+        typeDesc.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl", ">eydaOgilduVeidileyfiElement"));
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("PVeidileyfiId");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", "pVeidileyfiId"));
+        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl", "pVeidileyfiId"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "decimal"));
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("PUsername");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", "pUsername"));
+        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl", "pUsername"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("PPassword");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", "pPassword"));
+        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl", "pPassword"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);

@@ -25,33 +25,33 @@ public class FSWebServiceVeidileyfiUpdateSoap12HttpStub extends org.apache.axis.
         org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("createveidileyfiWithPassword");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", "createveidileyfiWithPasswordElement"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", ">createveidileyfiWithPasswordElement"), is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CreateveidileyfiWithPasswordElement.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl", "createveidileyfiWithPasswordElement"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl", ">createveidileyfiWithPasswordElement"), is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.CreateveidileyfiWithPasswordElement.class, false, false);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", ">createveidileyfiWithPasswordResponseElement"));
-        oper.setReturnClass(is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CreateveidileyfiWithPasswordResponseElement.class);
-        oper.setReturnQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", "createveidileyfiWithPasswordResponseElement"));
+        oper.setReturnType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl", ">createveidileyfiWithPasswordResponseElement"));
+        oper.setReturnClass(is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.CreateveidileyfiWithPasswordResponseElement.class);
+        oper.setReturnQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl", "createveidileyfiWithPasswordResponseElement"));
         oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         _operations[0] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("eydaOgilduVeidileyfi");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", "eydaOgilduVeidileyfiElement"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", ">eydaOgilduVeidileyfiElement"), is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.EydaOgilduVeidileyfiElement.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl", "eydaOgilduVeidileyfiElement"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl", ">eydaOgilduVeidileyfiElement"), is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.EydaOgilduVeidileyfiElement.class, false, false);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", ">eydaOgilduVeidileyfiResponseElement"));
-        oper.setReturnClass(is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.EydaOgilduVeidileyfiResponseElement.class);
-        oper.setReturnQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", "eydaOgilduVeidileyfiResponseElement"));
+        oper.setReturnType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl", ">eydaOgilduVeidileyfiResponseElement"));
+        oper.setReturnClass(is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.EydaOgilduVeidileyfiResponseElement.class);
+        oper.setReturnQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl", "eydaOgilduVeidileyfiResponseElement"));
         oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         _operations[1] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("virkjaveidileyfiWithPassword");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", "virkjaveidileyfiWithPasswordElement"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", ">virkjaveidileyfiWithPasswordElement"), is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.VirkjaveidileyfiWithPasswordElement.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl", "virkjaveidileyfiWithPasswordElement"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl", ">virkjaveidileyfiWithPasswordElement"), is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.VirkjaveidileyfiWithPasswordElement.class, false, false);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", ">virkjaveidileyfiWithPasswordResponseElement"));
-        oper.setReturnClass(is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.VirkjaveidileyfiWithPasswordResponseElement.class);
-        oper.setReturnQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", "virkjaveidileyfiWithPasswordResponseElement"));
+        oper.setReturnType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl", ">virkjaveidileyfiWithPasswordResponseElement"));
+        oper.setReturnClass(is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.VirkjaveidileyfiWithPasswordResponseElement.class);
+        oper.setReturnQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl", "virkjaveidileyfiWithPasswordResponseElement"));
         oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         _operations[2] = oper;
@@ -87,58 +87,58 @@ public class FSWebServiceVeidileyfiUpdateSoap12HttpStub extends org.apache.axis.
             java.lang.Class simpledf = org.apache.axis.encoding.ser.SimpleDeserializerFactory.class;
             java.lang.Class simplelistsf = org.apache.axis.encoding.ser.SimpleListSerializerFactory.class;
             java.lang.Class simplelistdf = org.apache.axis.encoding.ser.SimpleListDeserializerFactory.class;
-            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", ">createveidileyfiWithPasswordElement");
+            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl", ">createveidileyfiWithPasswordElement");
             cachedSerQNames.add(qName);
-            cls = is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CreateveidileyfiWithPasswordElement.class;
+            cls = is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.CreateveidileyfiWithPasswordElement.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
-            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", ">createveidileyfiWithPasswordResponseElement");
+            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl", ">createveidileyfiWithPasswordResponseElement");
             cachedSerQNames.add(qName);
-            cls = is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CreateveidileyfiWithPasswordResponseElement.class;
+            cls = is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.CreateveidileyfiWithPasswordResponseElement.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
-            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", ">eydaOgilduVeidileyfiElement");
+            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl", ">eydaOgilduVeidileyfiElement");
             cachedSerQNames.add(qName);
-            cls = is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.EydaOgilduVeidileyfiElement.class;
+            cls = is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.EydaOgilduVeidileyfiElement.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
-            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", ">eydaOgilduVeidileyfiResponseElement");
+            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl", ">eydaOgilduVeidileyfiResponseElement");
             cachedSerQNames.add(qName);
-            cls = is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.EydaOgilduVeidileyfiResponseElement.class;
+            cls = is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.EydaOgilduVeidileyfiResponseElement.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
-            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", ">virkjaveidileyfiWithPasswordElement");
+            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl", ">virkjaveidileyfiWithPasswordElement");
             cachedSerQNames.add(qName);
-            cls = is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.VirkjaveidileyfiWithPasswordElement.class;
+            cls = is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.VirkjaveidileyfiWithPasswordElement.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
-            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", ">virkjaveidileyfiWithPasswordResponseElement");
+            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl", ">virkjaveidileyfiWithPasswordResponseElement");
             cachedSerQNames.add(qName);
-            cls = is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.VirkjaveidileyfiWithPasswordResponseElement.class;
+            cls = is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.VirkjaveidileyfiWithPasswordResponseElement.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
-            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", "CodeTypeBase");
+            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl", "CodeTypeBase");
             cachedSerQNames.add(qName);
-            cls = is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CodeTypeBase.class;
+            cls = is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.CodeTypeBase.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
-            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", "CodeTypeUser");
+            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl", "CodeTypeUser");
             cachedSerQNames.add(qName);
-            cls = is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CodeTypeUser.class;
+            cls = is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.CodeTypeUser.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
@@ -209,7 +209,7 @@ public class FSWebServiceVeidileyfiUpdateSoap12HttpStub extends org.apache.axis.
         }
     }
 
-    public is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CreateveidileyfiWithPasswordResponseElement createveidileyfiWithPassword(is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CreateveidileyfiWithPasswordElement parameters) throws java.rmi.RemoteException {
+    public is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.CreateveidileyfiWithPasswordResponseElement createveidileyfiWithPassword(is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.CreateveidileyfiWithPasswordElement parameters) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -233,9 +233,9 @@ public class FSWebServiceVeidileyfiUpdateSoap12HttpStub extends org.apache.axis.
         else {
             extractAttachments(_call);
             try {
-                return (is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CreateveidileyfiWithPasswordResponseElement) _resp;
+                return (is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.CreateveidileyfiWithPasswordResponseElement) _resp;
             } catch (java.lang.Exception _exception) {
-                return (is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CreateveidileyfiWithPasswordResponseElement) org.apache.axis.utils.JavaUtils.convert(_resp, is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CreateveidileyfiWithPasswordResponseElement.class);
+                return (is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.CreateveidileyfiWithPasswordResponseElement) org.apache.axis.utils.JavaUtils.convert(_resp, is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.CreateveidileyfiWithPasswordResponseElement.class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -243,7 +243,7 @@ public class FSWebServiceVeidileyfiUpdateSoap12HttpStub extends org.apache.axis.
 }
     }
 
-    public is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.EydaOgilduVeidileyfiResponseElement eydaOgilduVeidileyfi(is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.EydaOgilduVeidileyfiElement parameters) throws java.rmi.RemoteException {
+    public is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.EydaOgilduVeidileyfiResponseElement eydaOgilduVeidileyfi(is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.EydaOgilduVeidileyfiElement parameters) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -267,9 +267,9 @@ public class FSWebServiceVeidileyfiUpdateSoap12HttpStub extends org.apache.axis.
         else {
             extractAttachments(_call);
             try {
-                return (is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.EydaOgilduVeidileyfiResponseElement) _resp;
+                return (is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.EydaOgilduVeidileyfiResponseElement) _resp;
             } catch (java.lang.Exception _exception) {
-                return (is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.EydaOgilduVeidileyfiResponseElement) org.apache.axis.utils.JavaUtils.convert(_resp, is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.EydaOgilduVeidileyfiResponseElement.class);
+                return (is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.EydaOgilduVeidileyfiResponseElement) org.apache.axis.utils.JavaUtils.convert(_resp, is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.EydaOgilduVeidileyfiResponseElement.class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -277,7 +277,7 @@ public class FSWebServiceVeidileyfiUpdateSoap12HttpStub extends org.apache.axis.
 }
     }
 
-    public is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.VirkjaveidileyfiWithPasswordResponseElement virkjaveidileyfiWithPassword(is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.VirkjaveidileyfiWithPasswordElement parameters) throws java.rmi.RemoteException {
+    public is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.VirkjaveidileyfiWithPasswordResponseElement virkjaveidileyfiWithPassword(is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.VirkjaveidileyfiWithPasswordElement parameters) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -301,9 +301,9 @@ public class FSWebServiceVeidileyfiUpdateSoap12HttpStub extends org.apache.axis.
         else {
             extractAttachments(_call);
             try {
-                return (is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.VirkjaveidileyfiWithPasswordResponseElement) _resp;
+                return (is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.VirkjaveidileyfiWithPasswordResponseElement) _resp;
             } catch (java.lang.Exception _exception) {
-                return (is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.VirkjaveidileyfiWithPasswordResponseElement) org.apache.axis.utils.JavaUtils.convert(_resp, is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.VirkjaveidileyfiWithPasswordResponseElement.class);
+                return (is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.VirkjaveidileyfiWithPasswordResponseElement) org.apache.axis.utils.JavaUtils.convert(_resp, is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.VirkjaveidileyfiWithPasswordResponseElement.class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {

@@ -1,47 +1,47 @@
 /**
- * VirkjaveidileyfiWithPasswordResponseElement.java
+ * EydaOgilduVeidileyfiResponseElement.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types;
+package is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl;
 
-public class VirkjaveidileyfiWithPasswordResponseElement  implements java.io.Serializable {
-    private is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CodeTypeUser result;
+public class EydaOgilduVeidileyfiResponseElement  implements java.io.Serializable {
+    private is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.CodeTypeUser result;
 
-    public VirkjaveidileyfiWithPasswordResponseElement() {
+    public EydaOgilduVeidileyfiResponseElement() {
     }
 
-    public VirkjaveidileyfiWithPasswordResponseElement(
-           is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CodeTypeUser result) {
+    public EydaOgilduVeidileyfiResponseElement(
+           is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.CodeTypeUser result) {
            this.result = result;
     }
 
 
     /**
-     * Gets the result value for this VirkjaveidileyfiWithPasswordResponseElement.
+     * Gets the result value for this EydaOgilduVeidileyfiResponseElement.
      * 
      * @return result
      */
-    public is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CodeTypeUser getResult() {
+    public is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.CodeTypeUser getResult() {
         return result;
     }
 
 
     /**
-     * Sets the result value for this VirkjaveidileyfiWithPasswordResponseElement.
+     * Sets the result value for this EydaOgilduVeidileyfiResponseElement.
      * 
      * @param result
      */
-    public void setResult(is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types.CodeTypeUser result) {
+    public void setResult(is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.CodeTypeUser result) {
         this.result = result;
     }
 
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
-        if (!(obj instanceof VirkjaveidileyfiWithPasswordResponseElement)) return false;
-        VirkjaveidileyfiWithPasswordResponseElement other = (VirkjaveidileyfiWithPasswordResponseElement) obj;
+        if (!(obj instanceof EydaOgilduVeidileyfiResponseElement)) return false;
+        EydaOgilduVeidileyfiResponseElement other = (EydaOgilduVeidileyfiResponseElement) obj;
         if (obj == null) return false;
         if (this == obj) return true;
         if (__equalsCalc != null) {
@@ -73,14 +73,14 @@ public class VirkjaveidileyfiWithPasswordResponseElement  implements java.io.Ser
 
     // Type metadata
     private static org.apache.axis.description.TypeDesc typeDesc =
-        new org.apache.axis.description.TypeDesc(VirkjaveidileyfiWithPasswordResponseElement.class, true);
+        new org.apache.axis.description.TypeDesc(EydaOgilduVeidileyfiResponseElement.class, true);
 
     static {
-        typeDesc.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", ">virkjaveidileyfiWithPasswordResponseElement"));
+        typeDesc.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl", ">eydaOgilduVeidileyfiResponseElement"));
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("result");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", "result"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", "CodeTypeUser"));
+        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl", "result"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl", "CodeTypeUser"));
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
     }

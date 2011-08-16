@@ -1,47 +1,47 @@
 /**
- * CreateveidileyfiWithPasswordResponseElement.java
+ * GetmestiaflvisirResponseElement.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.types;
+package is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl;
 
-public class CreateveidileyfiWithPasswordResponseElement  implements java.io.Serializable {
-    private java.math.BigDecimal result;
+public class GetmestiaflvisirResponseElement  implements java.io.Serializable {
+    private is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.CheckReplyTypeUser result;
 
-    public CreateveidileyfiWithPasswordResponseElement() {
+    public GetmestiaflvisirResponseElement() {
     }
 
-    public CreateveidileyfiWithPasswordResponseElement(
-           java.math.BigDecimal result) {
+    public GetmestiaflvisirResponseElement(
+           is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.CheckReplyTypeUser result) {
            this.result = result;
     }
 
 
     /**
-     * Gets the result value for this CreateveidileyfiWithPasswordResponseElement.
+     * Gets the result value for this GetmestiaflvisirResponseElement.
      * 
      * @return result
      */
-    public java.math.BigDecimal getResult() {
+    public is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.CheckReplyTypeUser getResult() {
         return result;
     }
 
 
     /**
-     * Sets the result value for this CreateveidileyfiWithPasswordResponseElement.
+     * Sets the result value for this GetmestiaflvisirResponseElement.
      * 
      * @param result
      */
-    public void setResult(java.math.BigDecimal result) {
+    public void setResult(is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.CheckReplyTypeUser result) {
         this.result = result;
     }
 
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
-        if (!(obj instanceof CreateveidileyfiWithPasswordResponseElement)) return false;
-        CreateveidileyfiWithPasswordResponseElement other = (CreateveidileyfiWithPasswordResponseElement) obj;
+        if (!(obj instanceof GetmestiaflvisirResponseElement)) return false;
+        GetmestiaflvisirResponseElement other = (GetmestiaflvisirResponseElement) obj;
         if (obj == null) return false;
         if (this == obj) return true;
         if (__equalsCalc != null) {
@@ -73,14 +73,14 @@ public class CreateveidileyfiWithPasswordResponseElement  implements java.io.Ser
 
     // Type metadata
     private static org.apache.axis.description.TypeDesc typeDesc =
-        new org.apache.axis.description.TypeDesc(CreateveidileyfiWithPasswordResponseElement.class, true);
+        new org.apache.axis.description.TypeDesc(GetmestiaflvisirResponseElement.class, true);
 
     static {
-        typeDesc.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", ">createveidileyfiWithPasswordResponseElement"));
+        typeDesc.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", ">getmestiaflvisirResponseElement"));
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("result");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVeidileyfiUpdate.wsdl/types/", "result"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "decimal"));
+        elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "result"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "CheckReplyTypeUser"));
         elemField.setNillable(true);
         typeDesc.addFieldDesc(elemField);
     }
