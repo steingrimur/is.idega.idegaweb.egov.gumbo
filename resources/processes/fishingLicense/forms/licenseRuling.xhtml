@@ -51,20 +51,13 @@
                     <vesselHasNotValidHaffairisskirteini/>
                     <vesselHasValidHaffairisskirteiniMessage mapping="string_validHaffaerisskirteini"/>
                     
-                    <companyLicenseValid>
-                        <result mapping="string_hasValidCompanyLicense" >false</result>
+                    <vesselLicenseValid>
+                        <result mapping="string_hasValidGeneralLicense" >false</result>
                         <message></message>
-                    </companyLicenseValid>
-                    <companyLicenseInvalid/>
-                    <companyLicenseMessage mapping="string_validCompanyLicense"/>
+                    </vesselLicenseValid>
+                    <vesselLicenseInvalid/>
+                    <vesselLicenseMessage mapping="string_validVesselLicense"/>
 
-                    <quotaWithinLimits>
-                        <result mapping="string_hasQuotaWithinLimits">false</result>
-                        <message></message>
-                    </quotaWithinLimits>
-                    <quotaNotWithinLimits/>
-                    <quotaWithinLimitsMessage mapping="string_quotaWithinLimits"/>
-                    
                     <vesselHasRevokedLicense>
                         <result mapping="string_hasRevokedLicense">false</result>
                         <message></message>
@@ -75,7 +68,6 @@
                     <debtMessageContainer mapping="string_deptMessage"/>
                     <userIsInDebt mapping="string_userInDebt">false</userIsInDebt>
 
-                    <fishingArea mapping="string_fishingArea" />
                     <validityFrom mapping="string_validityFrom" />
                 </data>
             </xf:instance>
@@ -140,13 +132,9 @@
             <xf:bind id="fbc_74_bind" nodeset="vesselHasNotValidHaffairisskirteini" relevant="instance('data-instance')/vesselHasValidHaffairisskirteini/result != 'true'"/>
             <xf:bind id="fbc_110_bind" nodeset="vesselHasValidHaffairisskirteiniMessage"/>
             
-            <xf:bind id="fbc_104_bind" nodeset="companyLicenseValid" relevant="instance('data-instance')/companyLicenseValid/result = 'true'"/>
-            <xf:bind id="fbc_105_bind" nodeset="companyLicenseInvalid" relevant="instance('data-instance')/companyLicenseValid/result != 'true'"/>
-            <xf:bind id="fbc_105a_bind" nodeset="companyLicenseMessage"/>
-            
-            <xf:bind id="fbc_106_bind" nodeset="quotaWithinLimits" relevant="instance('data-instance')/quotaWithinLimits/result = 'true'"/>
-            <xf:bind id="fbc_107_bind" nodeset="quotaNotWithinLimits" relevant="instance('data-instance')/quotaWithinLimits/result != 'true'"/>
-            <xf:bind id="fbc_107a_bind" nodeset="quotaWithinLimitsMessage"/>
+            <xf:bind id="fbc_104_bind" nodeset="vesselLicenseValid" relevant="instance('data-instance')/vesselLicenseValid/result = 'true'"/>
+            <xf:bind id="fbc_105_bind" nodeset="vesselLicenseInvalid" relevant="instance('data-instance')/vesselLicenseInvalid/result != 'true'"/>
+            <xf:bind id="fbc_105a_bind" nodeset="vesselLicenseMessage"/>
             
             <xf:bind id="fbc_112_bind" nodeset="vesselHasRevokedLicense" relevant="instance('data-instance')/vesselHasRevokedLicense/result = 'true'"/>
             <xf:bind id="fbc_113_bind" nodeset="vesselHasNotRevokedLicense" relevant="instance('data-instance')/vesselHasRevokedLicense/result != 'true'"/>
@@ -157,7 +145,6 @@
             <xf:bind id="fbc_101_bind" nodeset="From_date_fbc_101"
                 required="instance('control-instance')/required = 'true'" type="date"/>
                 
-            <xf:bind id="fbc_102_bind" nodeset="fishingArea"/>
             <xf:bind id="fbc_103_bind" nodeset="validityFrom"/>
         </xf:model>
         <xf:model id="data_model">
@@ -221,8 +208,8 @@
                     <fbc_55-label lang="en">Fax</fbc_55-label>
                     <fbc_56-label lang="is_IS">Netfang</fbc_56-label>
                     <fbc_56-label lang="en">Email</fbc_56-label>
-                    <fbc_57-text lang="is_IS">Veiðisvæði og gildistími</fbc_57-text>
-                    <fbc_57-text lang="en">Fishing area and validity</fbc_57-text>
+                    <fbc_57-text lang="is_IS">Gildistími</fbc_57-text>
+                    <fbc_57-text lang="en">Validity</fbc_57-text>
                     <fbc_59-text lang="is_IS">Skip</fbc_59-text>
                     <fbc_59-text lang="en">Vessel</fbc_59-text>
                     <fbc_61-label lang="is_IS">Nafn skips</fbc_61-label>
@@ -241,12 +228,6 @@
                     <fbc_72-text lang="en">Conditions for granting the fishing license</fbc_72-text>
                     <debtMessage lang="is_IS">Þú ert í skuld við Fiskistofu. Vinsamlega hafðu samband við fjármáladeild Fiskistofu.</debtMessage>
                     <debtMessage lang="en">You have a debt at Fiskistofa</debtMessage>
-                    <fbc_102-label lang="is_IS">Veiðisvæði</fbc_102-label>
-                    <fbc_102-label lang="en">Fishing area</fbc_102-label>
-                    <fbc_111-text lang="is_IS">Útgerðaraðilinn hefur nú þegar gilt leyfi til grásleppuveiða. Vinsamlega hafið samband við Fiskistofu. Ekki er hægt að senda inn umsóknina.</fbc_111-text>
-                    <fbc_111-text lang="en">The company already has a valid "Grasleppa". Please contact Fiskistofa. It is not possible to submit the application under these conditions.</fbc_111-text>
-                    <fbc_112-text lang="is_IS">Skip hefur virkt grásleppuleyfi</fbc_112-text>
-                    <fbc_112-text lang="en">The Fishing company has a valid "grasleppa"</fbc_112-text>
                 </localized_strings>
             </xf:instance>
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
@@ -320,9 +301,6 @@
                         <div class="fbc_header_text" id="fbc_57" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_57-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
-                        <xf:output bind="fbc_102_bind" id="fbc_102" type="fbc_text_output">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_102-label[@lang=instance('localized_strings')/current_language]"/>
-                        </xf:output>
                         <xf:output bind="fbc_103_bind" id="fbc_154a" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/startOfFishing-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
@@ -352,13 +330,6 @@
                         </xf:group>
                         <xf:group bind="fbc_105_bind" class="check">
                             <xf:output bind="fbc_105a_bind" />
-                        </xf:group>
-                        
-                        <xf:group bind="fbc_106_bind" class="check">
-                            <xf:output bind="fbc_107a_bind" />
-                        </xf:group>
-                        <xf:group bind="fbc_107_bind" class="fail">
-                            <xf:output bind="fbc_107a_bind" />
                         </xf:group>
                         
                         <xf:group bind="fbc_112_bind" class="fail">

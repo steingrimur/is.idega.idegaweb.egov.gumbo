@@ -61,6 +61,8 @@ public interface DOFWSClient {
 	
 	public LicenseCheckContainer getHasValidSeafaringLicense(String shipID);
 	
+	public LicenseCheckContainer getHasValidFishingLicense(String shipID, String licenseType);
+	
 	public LicenseCheckContainer getHasValidGeneralFishingLicense(String shipID);
 	
 	public LicenseCheckContainer getHasValidCoastFishingLicense(String shipID);
@@ -73,7 +75,7 @@ public interface DOFWSClient {
 	
 	public LicenseCheckContainer getHasRevokedFishingLicense(String shipID);
 	
-	public String getFishingAreaForDraganotaveidi(String shipId);
+	public CodeTypeUser getFishingAreaForDraganotaveidi(String shipId);
 	
 	public String getFishingArea(String shipId, Timestamp validFrom);
 	
@@ -113,4 +115,7 @@ public interface DOFWSClient {
 	public AflaHeimildSkerdingAlltTypUser getCatchDelimiterShipInfo(BigDecimal shipNumber);
 	public AflaHeimildSkerdingAlltTypUser calculateCatchDelimiter(AflaHeimildSkerdingAlltTypUser delimiter);
 	public AflaHeimildSkerdingAlltTypUser sendCatchDelimiter(AflaHeimildSkerdingAlltTypUser delimiter);
+	
+	public LicenseCheckContainer getMaximumLength(BigDecimal shipID);
+	public LicenseCheckContainer getMaximumPower(BigDecimal shipID);
 }

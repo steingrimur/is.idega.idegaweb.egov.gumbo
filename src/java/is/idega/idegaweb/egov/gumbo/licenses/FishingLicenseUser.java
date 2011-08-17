@@ -92,10 +92,10 @@ public class FishingLicenseUser extends DefaultSpringBean {
 
 		final List<Item> items = new ArrayList<Item>(2);
 
-		items.add(new Item("aflamarks", iwrb.getLocalizedString(
-				"LICENSE_TYPE_AFLAMARK", "Aflamarks")));
-		items.add(new Item("krokaaflamarks", iwrb.getLocalizedString(
-				"LICENSE_TYPE_KROKAFLAMARK", "Krokaaflamarks")));
+		items.add(new Item(FishingLicenseType.CATCH_QUOTA.toString(), iwrb.getLocalizedString(
+				"license_type." + FishingLicenseType.CATCH_QUOTA.toString().toLowerCase(), FishingLicenseType.CATCH_QUOTA.toString().toLowerCase())));
+		items.add(new Item(FishingLicenseType.HOOK_CATCH_QUOTA.toString(), iwrb.getLocalizedString(
+				"license_type." + FishingLicenseType.HOOK_CATCH_QUOTA.toString().toLowerCase(), FishingLicenseType.HOOK_CATCH_QUOTA.toString().toLowerCase())));
 
 		return items;
 	}
@@ -129,9 +129,18 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 * @return
 	 */
 	public String getFishingAreaForDraganotaveidi(String shipId) {
-		return getClient().getFishingAreaForDraganotaveidi(shipId);
+		return getClient().getFishingAreaForDraganotaveidi(shipId).getText();
 	}
 
+	public XFormsBooleanResult getVesselHasValidGeneralLicense(String shipId, String licenseType) {
+		if (shipId == null || shipId.length() == 0 || licenseType == null || licenseType.length() == 0) {
+			return new XFormsBooleanResult(false, "");
+		}
+		
+		LicenseCheckContainer res = getClient().getHasValidFishingLicense(shipId, licenseType);
+		return new XFormsBooleanResult(res.isHasLicense(), res.getMessage());
+	}
+	
 	/**
 	 * used in the forms: general fishing license
 	 * 
@@ -314,6 +323,30 @@ public class FishingLicenseUser extends DefaultSpringBean {
 		boolean isValid = ret.getIsok().intValue() > 0;
 		return new XFormsBooleanResult(isValid, ret.getMessage());
 	}
+	
+	public XFormsBooleanResult doesNotExceedMaximumLength(String shipID) {
+		try {
+			new BigDecimal(shipID);
+		}
+		catch (Exception e) {
+			return new XFormsBooleanResult(false, "");
+		}
+
+		LicenseCheckContainer res = getClient().getMaximumLength(new BigDecimal(shipID));
+		return new XFormsBooleanResult(res.isHasLicense(), res.getMessage());
+	}
+	
+	public XFormsBooleanResult doesNotExceedMaximumPower(String shipID) {
+		try {
+			new BigDecimal(shipID);
+		}
+		catch (Exception e) {
+			return new XFormsBooleanResult(false, "");
+		}
+
+		LicenseCheckContainer res = getClient().getMaximumPower(new BigDecimal(shipID));
+		return new XFormsBooleanResult(res.isHasLicense(), res.getMessage());
+	}
 
 	/**
 	 * used in forms: strandveidileyfi
@@ -334,7 +367,6 @@ public class FishingLicenseUser extends DefaultSpringBean {
 			} 
 			
 			return "error_from_webservice";
-
 	}
 
 	public IWTimestamp getEndDateOfFishing(IWTimestamp from, String areaID) {

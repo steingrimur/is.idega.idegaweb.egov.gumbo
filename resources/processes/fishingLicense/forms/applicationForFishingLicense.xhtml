@@ -27,9 +27,11 @@
                     
                     <Identifier_number_fbc_23 mapping="string_caseIdentifier"/>
                     
+                    <Type_of_fishing_license_fbc_35 mapping="string_typeOfFishingLicense"/>
                     <License_for_following_vessel_fbc_37 mapping="string_vessel"/>
                     <Your_comments_fbc_38 mapping="string_ownerComments"/>
                     
+                    <licenseTypeLabel mapping="string_licenseTypeLabel"/>
                     <vesselData>
                         <registryNr mapping="string_vesselRegistryNr"/>
                         <name mapping="string_vesselName"/>
@@ -44,20 +46,13 @@
                     <vesselHasNotValidHaffairisskirteini/>
                     <vesselHasValidHaffairisskirteiniMessage mapping="string_validHaffaerisskirteini"/>
                     
-                    <companyLicenseValid>
-                        <result mapping="string_hasValidCompanyLicense" >false</result>
+                    <vesselLicenseValid>
+                        <result mapping="string_hasValidGeneralLicense" >false</result>
                         <message></message>
-                    </companyLicenseValid>
-                    <companyLicenseInvalid/>
-                    <companyLicenseMessage mapping="string_validCompanyLicense"/>
+                    </vesselLicenseValid>
+                    <vesselLicenseInvalid/>
+                    <vesselLicenseMessage mapping="string_validVesselLicense"/>
 
-                    <quotaWithinLimits>
-                        <result mapping="string_hasQuotaWithinLimits">false</result>
-                        <message></message>
-                    </quotaWithinLimits>
-                    <quotaNotWithinLimits/>
-                    <quotaWithinLimitsMessage mapping="string_quotaWithinLimits"/>
-                    
                     <vesselHasRevokedLicense>
                         <result mapping="string_hasRevokedLicense">false</result>
                         <message></message>
@@ -71,7 +66,6 @@
                         <submissionId/>
                     </saveFormData>
                     <From_date_fbc_101 mapping="date_startOfFishing" xsi:nil="true"/>
-                    <fishingArea mapping="string_fishingArea" />
                     <validityFrom mapping="string_validityFrom" />
                     <validityTo mapping="string_validityTo" />
                     <acceptTerms mapping="string_acceptTerms" />
@@ -127,6 +121,10 @@
                 readonly="instance('control-instance')/readonly = 'true'" type="fbc_33fb_email"/>
             <xf:bind id="fbc_34_bind" nodeset="companyData/faxNumber"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+            <xf:bind id="fbc_35_bind"
+                nodeset="Type_of_fishing_license_fbc_35"
+                readonly="instance('control-instance')/readonly = 'true'"
+                required="instance('control-instance')/required = 'true'" type="xs:string"/>
             <xf:bind id="fbc_37_bind"
                 nodeset="License_for_following_vessel_fbc_37"
                 readonly="instance('control-instance')/readonly = 'true'"
@@ -140,6 +138,7 @@
             <xf:bind id="fbc_44_bind" nodeset="companyData/address" readonly="instance('control-instance')/readonly = 'true'"/>
             <xf:bind id="fbc_45_bind" nodeset="companyData/postalCode" readonly="instance('control-instance')/readonly = 'true'"/>
             <xf:bind id="fbc_46_bind" nodeset="companyData/place" readonly="instance('control-instance')/readonly = 'true'"/>
+            <xf:bind id="fbc_58_bind" nodeset="licenseTypeLabel"/>
             <xf:bind id="fbc_61_bind" nodeset="vesselData/name"/>
             <xf:bind id="fbc_62_bind" nodeset="vesselData/registryNr"/>
             <xf:bind id="fbc_64_bind" nodeset="vesselData/ownersName"/>
@@ -151,13 +150,9 @@
             <xf:bind id="fbc_74_bind" nodeset="vesselHasNotValidHaffairisskirteini" relevant="instance('data-instance')/vesselHasValidHaffairisskirteini/result != 'true'"/>
             <xf:bind id="fbc_110_bind" nodeset="vesselHasValidHaffairisskirteiniMessage"/>
             
-            <xf:bind id="fbc_104_bind" nodeset="companyLicenseValid" relevant="instance('data-instance')/companyLicenseValid/result = 'true'"/>
-            <xf:bind id="fbc_105_bind" nodeset="companyLicenseInvalid" relevant="instance('data-instance')/companyLicenseValid/result != 'true'"/>
-            <xf:bind id="fbc_105a_bind" nodeset="companyLicenseMessage"/>
-            
-            <xf:bind id="fbc_106_bind" nodeset="quotaWithinLimits" relevant="instance('data-instance')/quotaWithinLimits/result = 'true'"/>
-            <xf:bind id="fbc_107_bind" nodeset="quotaNotWithinLimits" relevant="instance('data-instance')/quotaWithinLimits/result != 'true'"/>
-            <xf:bind id="fbc_107a_bind" nodeset="quotaWithinLimitsMessage"/>
+            <xf:bind id="fbc_104_bind" nodeset="vesselLicenseValid" relevant="instance('data-instance')/vesselLicenseValid/result = 'true'"/>
+            <xf:bind id="fbc_105_bind" nodeset="vesselLicenseInvalid" relevant="instance('data-instance')/vesselLicenseValid/result != 'true'"/>
+            <xf:bind id="fbc_105a_bind" nodeset="vesselLicenseMessage"/>
             
             <xf:bind id="fbc_112_bind" nodeset="vesselHasRevokedLicense" relevant="instance('data-instance')/vesselHasRevokedLicense/result = 'true'"/>
             <xf:bind id="fbc_113_bind" nodeset="vesselHasNotRevokedLicense" relevant="instance('data-instance')/vesselHasRevokedLicense/result != 'true'"/>
@@ -168,7 +163,6 @@
             <xf:bind id="fbc_101_bind" nodeset="From_date_fbc_101"
                 required="instance('control-instance')/required = 'true'" type="date"/>
                 
-            <xf:bind id="fbc_102_bind" nodeset="fishingArea"/>
             <xf:bind id="fbc_103_bind" nodeset="validityFrom"/>
             <xf:bind id="acceptTerms_bind" nodeset="acceptTerms" type="xs:string"/>
                     
@@ -188,10 +182,12 @@
                     <page-2-info lang="is_IS">Fiskistofa hefur nú móttekið umsókn þína. Skilaboð vegna afgreiðslu umsóknarinnar munu berast í tölvupósti og hægt er að nálgast allar upplýsingar hér á vefnum undir "Erindin mín".</page-2-info>
                     <fbc_5-text lang="en">Fishing company</fbc_5-text>
                     <fbc_5-text lang="is_IS">Útgerðaraðili</fbc_5-text>
-                    <fbc_19-text lang="en"> Validity</fbc_19-text>
-                    <fbc_19-text lang="is_IS">Gildistími</fbc_19-text>
+                    <fbc_19-text lang="en">Fishing license type</fbc_19-text>
+                    <fbc_19-text lang="is_IS">Tegung veiðileyfis</fbc_19-text>
                     <fbc_23-title lang="is_IS">Málsnúmer</fbc_23-title>
                     <fbc_23-title lang="en">Identifier number</fbc_23-title>
+                    <fbc_35-label lang="is_IS">Tegund veiðileyfis</fbc_35-label>
+                    <fbc_35-label lang="en">Type of fishing license</fbc_35-label>
                     <fbc_36-text lang="is_IS">Skip</fbc_36-text>
                     <fbc_36-text lang="en">Vessel</fbc_36-text>
                     <fbc_37-label lang="is_IS">Veiðileyfi fyrir eftirfarandi skip</fbc_37-label>
@@ -232,8 +228,10 @@
                     <fbc_55-label lang="en">Fax</fbc_55-label>
                     <fbc_56-label lang="is_IS">Netfang</fbc_56-label>
                     <fbc_56-label lang="en">Email</fbc_56-label>
-                    <fbc_57-text lang="is_IS">Veiðisvæði og gildistími</fbc_57-text>
-                    <fbc_57-text lang="en">Fishing area and validity</fbc_57-text>
+                    <fbc_58-label lang="is_IS">Tegund veiðileyfis</fbc_58-label>
+                    <fbc_58-label lang="en">Type of fishing license</fbc_58-label>
+                    <fbc_57-text lang="is_IS">Tegund veiðileyfis og gildistími</fbc_57-text>
+                    <fbc_57-text lang="en">Fishing license type and validity</fbc_57-text>
                     <fbc_59-text lang="is_IS">Skip</fbc_59-text>
                     <fbc_59-text lang="en">Vessel</fbc_59-text>
                     <fbc_61-label lang="is_IS">Nafn skips</fbc_61-label>
@@ -250,6 +248,10 @@
                     <fbc_68-label lang="en">Previous</fbc_68-label>
                     <fbc_69-label lang="is_IS">Senda</fbc_69-label>
                     <fbc_69-label lang="en">Submit</fbc_69-label>
+                    <fbc_35-required lang="is_IS">Þú verður að velja tegund veiðileyfis</fbc_35-required>
+                    <fbc_35-required lang="en">The field X is required</fbc_35-required>
+                    <fbc_35-help lang="is_IS">Veldu tegund veiðileyfis úr fellilistanum</fbc_35-help>
+                    <fbc_35-help lang="en">Please select the type of fishing license from the drop down menu</fbc_35-help>
                     <fbc_205-required lang="is_IS">Þú verður að samþykkja skilmálana til að geta sent umsóknina.</fbc_205-required>
                     <fbc_205-required lang="en">You have to agree to the terms to be able to send the application.</fbc_205-required>
                     <fbc_37-required lang="is_IS">Þú verður að velja skip til að sækja um fyrir.</fbc_37-required>
@@ -337,29 +339,36 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                     if="instance('control-instance')/generatePdf='true'"
                     model="submission_model"
                     ref="instance('control-instance')/required" value="'false'"/>
+				<idega:setvalue
+                    ref="instance('fbc_35_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('fishingLicenseUser.getTypesOfFishingLicenses()')"/>
                 <idega:setvalue
                                     if="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'"
                                     multiple="true()"
                                     placeResponseDocument="true()"
                                     ref="instance('data-instance')/companyData" value="idega:resolveBeanProperties('fishingLicenseUser.getCompanyForCurrentUser()')"/>
                 <idega:setvalue
-                    ref="instance('fbc_37_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('fishingLicenseUser.getVesselsForUser({0})', '#{instance(`data-instance`)/companyData/socialSecurityNr}')"/>
+                    ref="instance('fbc_37_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('fishingLicenseUser.getVesselsForUser()')"/>
                     
             </xf:action>
             <xf:action ev:event="xforms-ready" if="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'">
-                <idega:setvalue
-                    multiple="true()"
-                    placeResponseDocument="true()"
-                    ref="instance('data-instance')/companyLicenseValid" value="idega:resolveBeanProperties('fishingLicenseUser.getFishingCompanyHasValidStrandveidileyfi()')"/>
-
-                <xf:setvalue
-                    model="submission_model" ref="instance('data-instance')/companyLicenseMessage" value="instance('data-instance')/companyLicenseValid/message" />
-
                 <xf:dispatch name="xforms-rebuild" target="submission_model"/>
                 <xf:dispatch name="xforms-recalculate" target="submission_model"/>
                 <xf:dispatch name="xforms-revalidate" target="submission_model"/>
                 <xf:dispatch name="xforms-refresh" target="submission_model"/>                                
             </xf:action>
+            <xf:instance id="fbc_35_lds" xmlns="">
+                <local_src>
+                    <localizedEntries lang="en">
+                        <item/>
+                    </localizedEntries>
+                    <localizedEntries lang="is_IS">
+                        <item/>
+                    </localizedEntries>
+                </local_src>
+            </xf:instance>
+            <xf:instance id="fbc_35_eds" xmlns="">
+                <ext_src/>
+            </xf:instance>
             <xf:instance id="fbc_37_lds" xmlns="">
                 <local_src>
                     <localizedEntries lang="en">
@@ -455,6 +464,49 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                         <xf:output bind="fbc_33_bind" id="fbc_33" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_56-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
+                        
+                        <div class="fbc_header_text" id="fbc_19" type="fbc_header_text">
+                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_19-text[@lang=instance('localized_strings')/current_language]"/>
+                        </div>
+                        <xf:select1 appearance="minimal"
+                            bind="fbc_35_bind" id="fbc_35" type="fbc_single_select_minimal">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_35-label[@lang=instance('localized_strings')/current_language]"/>
+                            <xf:itemset model="data_model" nodeset="instance('fbc_35_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
+                                <xf:label ref="itemLabel"/>
+                                <xf:value ref="itemValue"/>
+                            </xf:itemset>
+                            <idega:setvalue
+                                ev:event="xforms-value-changed"
+                                multiple="true()"
+                                ref="instance('data-instance')/*[@mapping='string_typeOfFishingLicense']"
+                                type="mappingSiblingsUpdater" value="instance('data-instance')/Type_of_fishing_license_fbc_35"/>
+                            <idega:setvalue
+                                ev:event="xforms-value-changed"
+                                multiple="true()"
+                                ref="instance('data-instance')/licenseTypeLabel" value="instance('fbc_35_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/Type_of_fishing_license_fbc_35]/itemLabel"/>
+                            <xf:action ev:event="xforms-value-changed">
+	                          <idega:setvalue
+	                              multiple="true()"
+	                              placeResponseDocument="true()"
+	                              ref="instance('data-instance')/vesselLicenseValid" value="idega:resolveBeanProperties('fishingLicenseUser.getVesselHasValidGeneralLicense({0}, {1})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}, #{instance(`data-instance`)/Type_of_fishing_license_fbc_35}')"/>
+                                <xf:setvalue
+                                    model="submission_model" ref="instance('data-instance')/vesselLicenseMessage" value="instance('data-instance')/vesselLicenseValid/message" />
+							</xf:action>		                                
+
+                            <xf:dispatch ev:event="idega-xforms-ready"
+                                name="idega-validate" target="fbc_35"/>
+                            <xf:dispatch ev:event="xforms-value-changed"
+                                name="idega-validate" target="fbc_35"/>
+                            <idega:validator ev:event="idega-validate">
+                                <idega:message errorType="required"
+                                    model="data_model" value="instance('localized_strings')/fbc_35-required[@lang=instance('localized_strings')/current_language]"/>
+                            </idega:validator>
+                            <xf:alert ref="instance('error-instance')/error[@for='fbc_35']"/>
+                            <xf:help>
+                                <xf:output ref="instance('localized_strings')/fbc_35-help[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:help>
+                        </xf:select1>
+
                         <div class="fbc_header_text" id="fbc_36" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_36-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
@@ -475,18 +527,20 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
 		                                multiple="true()"
 		                                placeResponseDocument="true()"
 		                                ref="instance('data-instance')/vesselData" value="idega:resolveBeanProperties('fishingLicenseUser.getUserVesselData({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
+		                            
 		                            <idega:setvalue
 		                                multiple="true()"
 		                                placeResponseDocument="true()"
 		                                ref="instance('data-instance')/vesselHasValidHaffairisskirteini" value="idega:resolveBeanProperties('fishingLicenseUser.getVesselHasValidHaffairisskirteini({0}, {1})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}, #{instance(`data-instance`)/From_date_fbc_101}')"/>
                                     <xf:setvalue
                                         model="submission_model" ref="instance('data-instance')/vesselHasValidHaffairisskirteiniMessage" value="instance('data-instance')/vesselHasValidHaffairisskirteini/message" />
+		                                
 		                            <idega:setvalue
 		                                multiple="true()"
 		                                placeResponseDocument="true()"
-		                                ref="instance('data-instance')/quotaWithinLimits" value="idega:resolveBeanProperties('fishingLicenseUser.getFishingQuotaWithinLimits({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
+		                                ref="instance('data-instance')/vesselLicenseValid" value="idega:resolveBeanProperties('fishingLicenseUser.getVesselHasValidGeneralLicense({0}, {1})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}, #{instance(`data-instance`)/Type_of_fishing_license_fbc_35}')"/>
                                     <xf:setvalue
-                                        model="submission_model" ref="instance('data-instance')/quotaWithinLimitsMessage" value="instance('data-instance')/quotaWithinLimits/message" />
+                                        model="submission_model" ref="instance('data-instance')/vesselLicenseMessage" value="instance('data-instance')/vesselLicenseValid/message" />
 		                                
                                     <idega:setvalue
                                         multiple="true()"
@@ -538,10 +592,6 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                                 <xf:setvalue
                                     model="submission_model" ref="instance('data-instance')/vesselHasValidHaffairisskirteiniMessage" value="instance('data-instance')/vesselHasValidHaffairisskirteini/message" />
                                         
-                                <xf:action if="instance('data-instance')/License_for_following_vessel_fbc_37 != '' and instance('data-instance')/From_date_fbc_101 != ''">
-                                         <idega:setvalue
-                                         ref="instance('data-instance')/fishingArea" value="idega:resolveExpression('fishingLicenseUser.getFishingAreaStrandveidi({0})', '#{instance(`data-instance`)/From_date_fbc_101}')"/>
-                                    </xf:action>
                             </xf:action>
                             
                             <idega:validator ev:event="idega-validate" validateif=". = '' or ( days-from-date(.) &gt; days-from-date(concat(substring(., 1, 4), '-05-01'))-1 and days-from-date(.) &lt; days-from-date(concat(substring(., 1, 4), '-08-31'))+1 )" componentId="fbc_101">
@@ -629,8 +679,8 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                         <div class="fbc_header_text" id="fbc_57" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_57-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
-                        <xf:output bind="fbc_102_bind" id="fbc_102" type="fbc_text_output">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_102-label[@lang=instance('localized_strings')/current_language]"/>
+						<xf:output bind="fbc_58_bind" id="fbc_58" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_58-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
                         <xf:output bind="fbc_103_bind" id="fbc_103" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_103-label[@lang=instance('localized_strings')/current_language]"/>
@@ -691,15 +741,6 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                             <xf:output bind="fbc_105a_bind" />
                         </xf:group>
                         
-                        <xf:group bind="fbc_106_bind" class="statusIcon">
-                        	<img src="/content/files/public/style/check.png" alt="" />
-                            <xf:output bind="fbc_107a_bind" />
-                        </xf:group>
-                        <xf:group bind="fbc_107_bind" class="statusIcon">
-                        	<img src="/content/files/public/style/fail.png" alt="" />
-                            <xf:output bind="fbc_107a_bind" />
-                        </xf:group>
-                        
                         <xf:group bind="debtMessageContainer" class="statusIcon">
                         	<img src="/content/files/public/style/warning.png" alt="" />
                             <xf:output model="data_model" ref="instance('localized_strings')/debtMessage[@lang=instance('localized_strings')/current_language]"/>
@@ -710,7 +751,7 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                             <xf:output model="data_model" ref="instance('localized_strings')/acceptTerms-label[@lang=instance('localized_strings')/current_language]"/>
 		                </xf:group>
                         
-						<xf:group ref=".[instance('data-instance')/vesselHasValidHaffairisskirteini/result!='true' or instance('data-instance')/companyLicenseValid/result='true' or instance('data-instance')/vesselHasRevokedLicense/result='true' or instance('data-instance')/quotaWithinLimits/result!='true']" class="applicationError">
+						<xf:group ref=".[instance('data-instance')/vesselHasValidHaffairisskirteini/result!='true' or instance('data-instance')/companyLicenseValid/result='true' or instance('data-instance')/vesselHasRevokedLicense/result='true']" class="applicationError">
 	                		<xf:output value="concat(substring(now(),9,2),
 					            '.',
 					            substring(now(),6,2),
@@ -739,11 +780,11 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                                     <xf:dispatch
                                     name="xforms-revalidate" target="data_model"/>
                                     <xf:dispatch name="xforms-refresh" target="data_model"/>
-                                    <xf:action if="count-non-empty(instance('error-instance')/error)=0 and instance('data-instance')/vesselHasValidHaffairisskirteini/result='true' and instance('data-instance')/companyLicenseValid/result!='true' and instance('data-instance')/vesselHasRevokedLicense/result!='true' and instance('data-instance')/quotaWithinLimits/result='true'">
+                                    <xf:action if="count-non-empty(instance('error-instance')/error)=0 and instance('data-instance')/vesselHasValidHaffairisskirteini/result='true' or instance('data-instance')/companyLicenseValid/result!='true' or instance('data-instance')/vesselHasRevokedLicense/result!='true'">
                                     <xf:send submission="submit_data_submission"/>
                                     </xf:action>
                                     <xf:dispatch
-                                    if="count-non-empty(instance('error-instance')/error)!=0 or instance('data-instance')/vesselHasValidHaffairisskirteini/result!='true' or instance('data-instance')/companyLicenseValid/result='true' or instance('data-instance')/vesselHasRevokedLicense/result='true' or instance('data-instance')/quotaWithinLimits/result!='true'"
+                                    if="count-non-empty(instance('error-instance')/error)!=0 or instance('data-instance')/vesselHasValidHaffairisskirteini/result!='true' or instance('data-instance')/companyLicenseValid/result='true' or instance('data-instance')/vesselHasRevokedLicense/result='true'"
                                     name="idega-submit-error" target="idega-submission-error"/>
                                 </xf:action>
                             </xf:trigger>

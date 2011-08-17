@@ -80,7 +80,7 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 		BigDecimal fishingLicenseKey = null;
 
 		// create license
-		if ("Grasleppa".equals(processDefinitionName)) {
+		if ("Grasleppa".equals(processDefinitionName) || "FishingLicense".equals(processDefinitionName)) {
 			 subType = (String) executionContext
 				.getVariable("string_typeOfFishingLicense");
 			 
@@ -92,7 +92,16 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 					.getVariable("string_fishingAreaId");
 
 			IWTimestamp from = new IWTimestamp(fromStamp);
-			IWTimestamp to = new IWTimestamp(toStamp);
+			IWTimestamp to = toStamp != null ? new IWTimestamp(toStamp) : null;
+			if (to == null) {
+				to = new IWTimestamp(from);
+				to.setMonth(8);
+				to.setDay(31);
+				
+				if (to.isEarlierThan(from)) {
+					to.addYears(1);
+				}
+			}
 
 			fishingLicenseKey = getWSClient().createFishingLicense(shipID, areaID,
 					from, to, theCase.getPrimaryKey().toString());
@@ -150,6 +159,30 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 
 			fishingLicenseKey = getWSClient().createFishingLicense(shipID, areaID,
 					from, null, theCase.getPrimaryKey().toString());
+			theCase.setMetaData(
+					GumboConstants.DOF_FISHING_LICENSE_METADATA_KEY,
+					fishingLicenseKey.toString());
+
+			if (fishingLicenseKey.intValue() == -1) {
+				throw new GumboProcessException(
+						"Error creating fishing license");
+			}
+		}
+		else if ("Draganotaveidi".equals(processDefinitionName)) {
+			Timestamp fromStamp = (Timestamp) executionContext.getVariable("date_startOfFishing");
+
+			IWTimestamp from = new IWTimestamp(fromStamp);
+			IWTimestamp to = new IWTimestamp(from);
+			to.setMonth(8);
+			to.setDay(31);
+			if (to.isEarlierThan(from)) {
+				to.addYears(1);
+			}
+
+			String areaID  = getWSClient().getFishingAreaForDraganotaveidi(shipID).getCode();
+
+			fishingLicenseKey = getWSClient().createFishingLicense(shipID, areaID,
+					from, to, theCase.getPrimaryKey().toString());
 			theCase.setMetaData(
 					GumboConstants.DOF_FISHING_LICENSE_METADATA_KEY,
 					fishingLicenseKey.toString());
