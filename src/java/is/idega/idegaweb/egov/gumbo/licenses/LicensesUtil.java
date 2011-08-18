@@ -1,5 +1,7 @@
 package is.idega.idegaweb.egov.gumbo.licenses;
 
+import is.idega.idegaweb.egov.gumbo.GumboConstants;
+
 import java.io.File;
 import java.util.Locale;
 import java.util.logging.Level;
@@ -14,6 +16,7 @@ import com.idega.block.form.business.FormConverterToPDF;
 import com.idega.block.form.data.dao.XFormsDAO;
 import com.idega.core.business.DefaultSpringBean;
 import com.idega.idegaweb.IWMainApplication;
+import com.idega.idegaweb.IWResourceBundle;
 import com.idega.presentation.IWContext;
 import com.idega.slide.business.IWSlideService;
 import com.idega.util.CoreConstants;
@@ -39,11 +42,10 @@ public class LicensesUtil extends DefaultSpringBean {
 	@Autowired
 	private DocumentManagerFactory documentManager;
 	
-	//	TODO: finish up!
-	public Boolean sendPDFByEmail(String to, String subject, String basedOnWarningValues) {
-//		if (StringUtil.isEmpty(to) || StringUtil.isEmpty(subject))
-//			return Boolean.FALSE;
-		
+	public Boolean sendPDFByEmail(String to, String shipID) {
+		if (StringUtil.isEmpty(to) || StringUtil.isEmpty(shipID))
+			return Boolean.FALSE;
+
 		File xformInPDF = null;
 		try {
 			IWContext iwc = CoreUtil.getIWContext();
@@ -57,20 +59,20 @@ public class LicensesUtil extends DefaultSpringBean {
 			
 			String pdfName = getLocalizedFormName(getFormSubmission(formSubmissionId), getCurrentLocale());
 			
-			boolean basedOnWarning = StringUtil.isEmpty(basedOnWarningValues) ? false : Boolean.valueOf(basedOnWarningValues);
-			//	TODO
-			
 			String path = CoreConstants.CONTENT_PATH + "/xforms/pdf/" + formSubmissionId;
 			String linkToPDF = xFormConverter.getGeneratedPDFFromXForm(null, null, formSubmissionId, path, pdfName, false);
 			if (StringUtil.isEmpty(linkToPDF))
 				return Boolean.FALSE;
+			
+			IWResourceBundle iwrb = IWMainApplication.getDefaultIWMainApplication().getBundle(GumboConstants.IW_BUNDLE_IDENTIFIER).getResourceBundle(getCurrentLocale());
+			String subject = iwrb.getLocalizedString("sending_failure_message", "Uggi: Error when trying to send application for ship") + ": " + shipID;
 			
 			xformInPDF = new File(pdfName.concat(".pdf"));
 			if (!xformInPDF.exists())
 				xformInPDF.createNewFile();
 			IWSlideService slide = getServiceInstance(IWSlideService.class);
 			FileUtil.streamToFile(slide.getInputStream(linkToPDF), xformInPDF);
-			SendMail.send("test@idega.com", "laddi@idega.com", null, null, null, subject, "XForm is attached", xformInPDF);
+			SendMail.send("fiskistofa@fiskistofa.is", to, null, null, null, subject, "", xformInPDF);
 			
 			return Boolean.TRUE;
 		} catch (Exception e) {
@@ -106,6 +108,5 @@ public class LicensesUtil extends DefaultSpringBean {
 
 	private Submission getFormSubmission(String formSubmissionUniqueId) throws Exception {
 		return xformsDAO.getSubmissionBySubmissionUUID(formSubmissionUniqueId);
-	}
-	
+	}	
 }

@@ -588,6 +588,17 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                                 id="fbc_66" type="fbc_button_next">
                                 <xf:label model="data_model" ref="instance('localized_strings')/fbc_66-label[@lang=instance('localized_strings')/current_language]"/>
                                 <idega:toggle case="fbc_41" ev:event="DOMActivate"/>
+
+                                <xf:action if="instance('data-instance')/vesselHasValidHaffairisskirteini/result!='true' or instance('data-instance')/vesselHasValidGeneralFishingLicense/result!='true' or instance('data-instance')/companyHasValidGrasleppa='true' or instance('data-instance')/vesselHasRevokedLicense/result='true'">
+	                                <idega:execute expression="'fiskistofaLicensesUtil.sendPDFByEmail({0}, {1}, {2})', fiskistofa@fiskistofa.is, #{instance(`data-instance`)/vesselData/registryNr}"
+	                                	action="saveFormAndGeneratePdf"
+										formId="instance('data-instance')/form_id"
+										instanceId="data-instance"
+										linkLocation="instance('downloadFormAsPDF-instance')/link"
+										model="submission_model"
+										submissionId="instance('data-instance')/saveFormData/submissionId"
+										submissionIdentifier="instance('data-instance')/*[@nodeType='formIdentifier']" />
+								</xf:action>
                             </xf:trigger>
                         </div>
                     </xf:group>

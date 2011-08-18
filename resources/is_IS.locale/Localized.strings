@@ -117,6 +117,7 @@ registration_number=Skipaskr\u00E1rn\u00FAmer
 reset=Frumstilla
 select_ship=Veldu skip
 send=Senda
+sending_failure_message=Uggi: Sj\u00E1lfvirk h\u00F6fnun ums\u00F3knar um vei\u00F0ileyfi fyrir skip
 ship=Skip nr.
 ship_brutto_tons=Br\u00FAtt\u00F3tonn
 ship_home_port=Heimah\u00F6fn

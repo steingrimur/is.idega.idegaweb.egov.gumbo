@@ -121,6 +121,7 @@ registration_number=Skipaskr\u00E1rn\u00FAmer
 reset=Frumstilla
 select_ship=Veldu skip
 send=Senda
+sending_failure_message=Uggi: Error when trying to send application for ship
 ship=Skip
 ship_brutto_tons=Br\u00FAtt\u00F3tonn
 ship_home_port=Heimah\u00F6fn
