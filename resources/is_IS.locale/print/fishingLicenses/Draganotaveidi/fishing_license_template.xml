@@ -20,8 +20,7 @@
 		<cell></cell>
 	</table>
 
-	<paragraph halign="center" font="big" spacing-after="6.0">Leyfi til dragnótaveiða á vertíðinni 2011</paragraph>
-	<paragraph halign="center" font="big" spacing-after="18.0">Svæði: ${fishingArea} - ${fishingAreaName}</paragraph>
+	<paragraph halign="center" font="big" spacing-after="18.0">Leyfi til dragnótaveiða: ${fishingAreaName}</paragraph>
 
 	<paragraph font="normal" spacing-after="10.0">Veiðileyfi þetta er gefið út fyrir ofangreindan bát á grundvelli ákvæða laga nr. 79/1997, um veiðar í fiskveiðilandhelgi Íslands, með síðari breytingum, og reglugerðar nr. 196/2009, um hrognkelsaveiðar, með síðari breytingum.  Vakin er sérstök athygli á eftirgreindum reglum um veiðarnar:</paragraph>
 

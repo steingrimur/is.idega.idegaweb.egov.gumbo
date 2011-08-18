@@ -11,6 +11,7 @@ import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.CheckRep
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.CodeTypeUser;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.VeidileyfagerdTypeUser;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.VeidileyfiTypeUser;
+import is.idega.idegaweb.egov.gumbo.licenses.FishingLicenseType;
 import is.idega.idegaweb.egov.gumbo.licenses.FishingLicenseUser.CompanyData;
 
 import java.math.BigDecimal;
@@ -79,7 +80,7 @@ public interface DOFWSClient {
 	
 	public String getFishingArea(String shipId, Timestamp validFrom);
 	
-	public Map<BigDecimal, VeidileyfagerdTypeUser> getAlmennAreas();
+	public Map<BigDecimal, VeidileyfagerdTypeUser> getAlmennAreas(FishingLicenseType type);
 	
 	public Map<BigDecimal, VeidileyfagerdTypeUser> getDragnotaAreas();
 	

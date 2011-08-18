@@ -80,7 +80,7 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 		BigDecimal fishingLicenseKey = null;
 
 		// create license
-		if ("Grasleppa".equals(processDefinitionName) || "FishingLicense".equals(processDefinitionName)) {
+		if ("Grasleppa".equals(processDefinitionName)) {
 			 subType = (String) executionContext
 				.getVariable("string_typeOfFishingLicense");
 			 
@@ -92,16 +92,7 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 					.getVariable("string_fishingAreaId");
 
 			IWTimestamp from = new IWTimestamp(fromStamp);
-			IWTimestamp to = toStamp != null ? new IWTimestamp(toStamp) : null;
-			if (to == null) {
-				to = new IWTimestamp(from);
-				to.setMonth(8);
-				to.setDay(31);
-				
-				if (to.isEarlierThan(from)) {
-					to.addYears(1);
-				}
-			}
+			IWTimestamp to = new IWTimestamp(toStamp);
 
 			fishingLicenseKey = getWSClient().createFishingLicense(shipID, areaID,
 					from, to, theCase.getPrimaryKey().toString());
@@ -179,7 +170,60 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 				to.addYears(1);
 			}
 
-			String areaID  = getWSClient().getFishingAreaForDraganotaveidi(shipID).getCode();
+			String areaID = null;
+			CodeTypeUser areaInfo = getWSClient().getFishingAreaForDraganotaveidi(shipID);
+			Map<BigDecimal, VeidileyfagerdTypeUser> areas = getWSClient().getDragnotaAreas();
+			if (areas != null && !areas.isEmpty()) {
+				for (Iterator iterator = areas.keySet().iterator(); iterator
+						.hasNext();) {
+					VeidileyfagerdTypeUser item = areas.get(iterator.next());
+					if (item.getKodiSvaedis().equals(areaInfo.getCode())) {
+						areaID = item.getVlyfId().toString();
+						break;
+					}
+				}
+			}
+			
+			if (areaID == null) {
+				throw new GumboProcessException(
+						"Error creating fishing license");
+			}
+
+			fishingLicenseKey = getWSClient().createFishingLicense(shipID, areaID,
+					from, to, theCase.getPrimaryKey().toString());
+			theCase.setMetaData(
+					GumboConstants.DOF_FISHING_LICENSE_METADATA_KEY,
+					fishingLicenseKey.toString());
+
+			if (fishingLicenseKey.intValue() == -1) {
+				throw new GumboProcessException(
+						"Error creating fishing license");
+			}
+		}
+		else if ("FishingLicense".equals(processDefinitionName)) {
+			subType = (String) executionContext.getVariable("string_typeOfFishingLicense");
+
+			Timestamp fromStamp = (Timestamp) executionContext.getVariable("date_startOfFishing");
+
+			IWTimestamp from = new IWTimestamp(fromStamp);
+			IWTimestamp to = new IWTimestamp(from);
+			to.setMonth(8);
+			to.setDay(31);
+			if (to.isEarlierThan(from)) {
+				to.addYears(1);
+			}
+
+			String areaID = null;
+			Map<BigDecimal, VeidileyfagerdTypeUser> areas = getWSClient().getAlmennAreas(FishingLicenseType.valueOf(subType));
+			if (areas != null && !areas.isEmpty()) {
+				VeidileyfagerdTypeUser item = areas.values().iterator().next();
+				areaID = item.getVlyfId().toString();
+			}
+			
+			if (areaID == null) {
+				throw new GumboProcessException(
+						"Error creating fishing license");
+			}
 
 			fishingLicenseKey = getWSClient().createFishingLicense(shipID, areaID,
 					from, to, theCase.getPrimaryKey().toString());

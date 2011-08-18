@@ -1066,13 +1066,21 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	}
 
 	@Override
-	public Map<BigDecimal, VeidileyfagerdTypeUser> getAlmennAreas() {
-		return getFishingAreasByType("37", null);
+	public Map<BigDecimal, VeidileyfagerdTypeUser> getAlmennAreas(FishingLicenseType type) {
+		if (type == FishingLicenseType.CATCH_QUOTA) {
+			return getFishingAreasByType("1", null);
+		}
+		else if (type == FishingLicenseType.HOOK_CATCH_QUOTA) {
+			return getFishingAreasByType("32", null);
+		}
+		else {
+			return getFishingAreasByType("1", null);
+		}
 	}
 
 	@Override
 	public Map<BigDecimal, VeidileyfagerdTypeUser> getDragnotaAreas() {
-		return getFishingAreasByType("37", null);
+		return getFishingAreasByType("8", null);
 	}
 
 	@Override
