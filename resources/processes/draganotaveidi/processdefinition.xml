@@ -93,17 +93,20 @@
             <variable name="string_validityFrom" access="read,write"></variable>
             <variable name="string_validityTo" access="read,write"></variable>
 
+            <variable name="string_hasValidGeneralLicense" access="read,write"></variable>
+            <variable name="string_validGeneralLicense" access="read,write"></variable>
+            
             <variable name="string_hasValidHaffaerisskirteini" access="read,write"></variable>
             <variable name="string_validHaffaerisskirteini" access="read,write"></variable>
-            
-            <variable name="string_hasValidCompanyLicense" access="read,write"></variable>
-            <variable name="string_validCompanyLicense" access="read,write"></variable>
             
             <variable name="string_hasRevokedLicense" access="read,write"></variable>
             <variable name="string_revokedLicense" access="read,write"></variable>
             
-            <variable name="string_hasQuotaWithinLimits" access="read,write"></variable>
-            <variable name="string_quotaWithinLimits" access="read,write"></variable>
+            <variable name="string_hasValidLength" access="read,write"></variable>
+            <variable name="string_validLength" access="read,write"></variable>
+            
+            <variable name="string_hasValidPower" access="read,write"></variable>
+            <variable name="string_validPower" access="read,write"></variable>
 
             <variable name="string_userInDebt" access="read,write"></variable>
             <variable name="string_deptMessage" access="read,write"></variable>
@@ -155,17 +158,20 @@
             <variable name="string_validityFrom" access="read"></variable>
             <variable name="string_validityTo" access="read"></variable>
 
+            <variable name="string_hasValidGeneralLicense" access="read"></variable>
+            <variable name="string_validGeneralLicense" access="read"></variable>
+            
             <variable name="string_hasValidHaffaerisskirteini" access="read"></variable>
             <variable name="string_validHaffaerisskirteini" access="read"></variable>
-            
-            <variable name="string_hasValidCompanyLicense" access="read"></variable>
-            <variable name="string_validCompanyLicense" access="read"></variable>
             
             <variable name="string_hasRevokedLicense" access="read"></variable>
             <variable name="string_revokedLicense" access="read"></variable>
             
-            <variable name="string_hasQuotaWithinLimits" access="read"></variable>
-            <variable name="string_quotaWithinLimits" access="read"></variable>
+            <variable name="string_hasValidLength" access="read"></variable>
+            <variable name="string_validLength" access="read"></variable>
+            
+            <variable name="string_hasValidPower" access="read"></variable>
+            <variable name="string_validPower" access="read"></variable>
 
             <variable name="string_userInDebt" access="read"></variable>
             <variable name="string_deptMessage" access="read"></variable>

@@ -61,6 +61,10 @@ import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.Gethefur
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurutgerdstrandvlbyktResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurveidileyfiElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurveidileyfiResponseElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetmestalengdyfirmorkumElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetmestalengdyfirmorkumResponseElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetmestiaflvisirElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetmestiaflvisirResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetskipforstrandvlforutgerdElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetstrandvlcodeforpostnrElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetstrandvlcodeforpostnrResponseElement;
@@ -82,6 +86,7 @@ import is.idega.block.nationalregister.webservice.client.business.CompanyHolder;
 import is.idega.block.nationalregister.webservice.client.business.SkyrrClient;
 import is.idega.block.nationalregister.webservice.client.business.UserHolder;
 import is.idega.idegaweb.egov.gumbo.business.GumboBusiness;
+import is.idega.idegaweb.egov.gumbo.licenses.FishingLicenseType;
 import is.idega.idegaweb.egov.gumbo.licenses.FishingLicenseUser.CompanyData;
 
 import java.math.BigDecimal;
@@ -678,6 +683,25 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 
 		return new LicenseCheckContainer(false, "error_from_web_service");
 	}
+	
+	@Override
+	public LicenseCheckContainer getHasValidFishingLicense(String shipID, String licenseType) {
+		if (shipID == null || shipID.length() == 0) {
+			return new LicenseCheckContainer(false, "Ship not selected");
+		}
+		
+		if (licenseType == null || licenseType.length() == 0) {
+			return new LicenseCheckContainer(false, "License type not selected");
+		}
+		else if (licenseType.equals(FishingLicenseType.CATCH_QUOTA.toString())) {
+			return getHasValidQuotaLimitFishingLicense(shipID);
+		}
+		else if (licenseType.equals(FishingLicenseType.HOOK_CATCH_QUOTA.toString())) {
+			return getHasValidHookQuotaLimitFishingLicense(shipID);
+		}
+
+		return new LicenseCheckContainer(false, "error_from_web_service");
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -870,21 +894,21 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	}
 
 	@Override
-	public String getFishingAreaForDraganotaveidi(String shipId) {
+	public CodeTypeUser getFishingAreaForDraganotaveidi(String shipId) {
 		GetdragnotvlcodeforskipElement parameters = new GetdragnotvlcodeforskipElement(
 				new BigDecimal(shipId));
 
 		try {
 			GetdragnotvlcodeforskipResponseElement res = getLicensePort()
 					.getdragnotvlcodeforskip(parameters);
-			return res.getResult().getText();
+			return res.getResult();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 
-		return "error_from_web_service";
+		return null;
 	}
-
+	
 	public String getFishingArea(String shipId, Timestamp validFrom) {
 
 		StringBuilder period = new StringBuilder();
@@ -1427,6 +1451,46 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 			re.printStackTrace();
 			return null;
 		}
+	}
+	
+	public LicenseCheckContainer getMaximumLength(BigDecimal shipID) {
+		try {
+			GetmestalengdyfirmorkumElement parameters = new GetmestalengdyfirmorkumElement(shipID);
+			GetmestalengdyfirmorkumResponseElement res = getLicensePort().getmestalengdyfirmorkum(parameters);
+			CheckReplyTypeUser result = res.getResult();
+			
+			if (result.getIsok().intValue() > 0) {
+				return new LicenseCheckContainer(true, result.getMessage());
+			}
+			else {
+				return new LicenseCheckContainer(false, result.getMessage());
+			}
+		}
+		catch (RemoteException re) {
+			re.printStackTrace();
+		}
+		
+		return new LicenseCheckContainer(false, "error_from_web_service");
+	}
+	
+	public LicenseCheckContainer getMaximumPower(BigDecimal shipID) {
+		try {
+			GetmestiaflvisirElement parameters = new GetmestiaflvisirElement(shipID);
+			GetmestiaflvisirResponseElement res = getLicensePort().getmestiaflvisir(parameters );
+			CheckReplyTypeUser result = res.getResult();
+			
+			if (result.getIsok().intValue() > 0) {
+				return new LicenseCheckContainer(true, result.getMessage());
+			}
+			else {
+				return new LicenseCheckContainer(false, result.getMessage());
+			}
+		}
+		catch (RemoteException re) {
+			re.printStackTrace();
+		}
+
+		return new LicenseCheckContainer(false, "error_from_web_service");
 	}
 
 	private CasesBPMDAO getCasesBPMDAO() {

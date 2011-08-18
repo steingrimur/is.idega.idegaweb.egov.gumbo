@@ -110,6 +110,11 @@ public class DOFWSClientMock implements DOFWSClient {
 		        "Error message from getHasValidGeneralFishingLicens");
 	}
 	
+	public LicenseCheckContainer getHasValidFishingLicense(String shipID, String licenseType) {
+		return new LicenseCheckContainer(true,
+        	"Error message from getHasValidFishingLicense");
+	}
+	
 	@Override
 	public LicenseCheckContainer getHasValidCoastFishingLicense(String shipID) {
 		return new LicenseCheckContainer(false,
@@ -150,8 +155,8 @@ public class DOFWSClientMock implements DOFWSClient {
 	}
 	
 	@Override
-	public String getFishingAreaForDraganotaveidi(String shipId) {
-		return "Fishing area for draganotaveidi";
+	public CodeTypeUser getFishingAreaForDraganotaveidi(String shipId) {
+		return null;
 	}
 	
 	@Override
@@ -431,5 +436,17 @@ public class DOFWSClientMock implements DOFWSClient {
 	public AflaHeimildSkerdingAlltTypUser sendCatchDelimiter(
 			AflaHeimildSkerdingAlltTypUser delimiter) {
 		return null;
+	}
+	
+	public LicenseCheckContainer getMaximumLength(
+			BigDecimal shipID) {
+		return new LicenseCheckContainer(true,
+        "Error message from getMaximumLength");
+	}
+
+	public LicenseCheckContainer getMaximumPower(
+			BigDecimal shipID) {
+		return new LicenseCheckContainer(true,
+        "Error message from getMaximumPower");
 	}
 }
