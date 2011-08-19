@@ -106,8 +106,8 @@ public interface DOFWSClient {
 	
 	public MillifaerslaTypeUser getTransferInfo(BigDecimal reference);
 	
-	public abstract List<Item> getGrasleppaVesselsForUser(
-	        String companyPersonalID);
+	public abstract List<Item> getDragnotVesselsForUser(String companyPersonalID);
+	public abstract List<Item> getGrasleppaVesselsForUser(String companyPersonalID);
 	public abstract List<Item> getStrandveidiVesselsForUser(String companyPersonalID);
 	
 	public abstract List<Item> getVesselsForUser(User user);

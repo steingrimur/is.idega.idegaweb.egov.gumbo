@@ -316,7 +316,7 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                     <page-4-label lang="is_IS">Hlekkur sendur</page-4-label>
                     <page-4-info lang="en">Link sent, thank You!</page-4-info>
                     <page-4-info lang="is_IS">Hlekkur á umsóknina hefur verið sendur á netfangið sem þú skráðir</page-4-info>
-                    <fbc_101-label lang="is_IS">Dagsetning frá</fbc_101-label>
+                    <fbc_101-label lang="is_IS">Veiðileyfi tekur gildi þann</fbc_101-label>
                     <fbc_101-label lang="en">From date</fbc_101-label>
                     <fbc_101-required lang="is_IS">Þú verður að velja upphafsdag veiða.</fbc_101-required>
                     <fbc_101-required lang="en">You have to select a start date.</fbc_101-required>
@@ -328,7 +328,7 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                     <fbc_101-help lang="en">Please select the "from date" for the fishing license from the small calendar.</fbc_101-help>
                     <fbc_102-label lang="is_IS">Veiðisvæði</fbc_102-label>
                     <fbc_102-label lang="en">Fishing area</fbc_102-label>
-                    <fbc_103-label lang="is_IS">Gildistimi frá</fbc_103-label>
+                    <fbc_103-label lang="is_IS">Veiðileyfi tekur gildi þann</fbc_103-label>
                     <fbc_103-label lang="en">Validity from</fbc_103-label>
                     
                     <paymentInfoText lang="is_IS">Greiða verður veiðileyfi fyrir kl. 21 næsta virka dag á undan upphafsdegi veiðitímabils, að öðrum kosti fellur umsókn niður.</paymentInfoText>
@@ -354,7 +354,7 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                                     placeResponseDocument="true()"
                                     ref="instance('data-instance')/companyData" value="idega:resolveBeanProperties('fishingLicenseUser.getCompanyForCurrentUser()')"/>
                 <idega:setvalue
-                    ref="instance('fbc_37_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('fishingLicenseUser.getVesselsForUser()')"/>
+                    ref="instance('fbc_37_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('fishingLicenseUser.getDragnotVesselsForUser({0})', '#{instance(`data-instance`)/companyData/socialSecurityNr}')"/>
                     
             </xf:action>
             <xf:action ev:event="xforms-ready" if="instance('control-instance')/generatePdf != 'true' and instance('control-instance')/readonly != 'true'">
@@ -612,7 +612,7 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                                 <idega:toggle case="fbc_41" ev:event="DOMActivate"/>
 
                                 <xf:action if="instance('data-instance')/vesselHasValidHaffairisskirteini/result!='true' or instance('data-instance')/vesselHasGeneralLicense/result!='true' or instance('data-instance')/vesselHasRevokedLicense/result='true' or instance('data-instance')/vesselHasValidLength/result!='true' or instance('data-instance')/vesselHasValidPower/result!='true'">
-	                                <idega:execute expression="'fiskistofaLicensesUtil.sendPDFByEmail({0}, {1}, {2})', fiskistofa@fiskistofa.is, #{instance(`data-instance`)/vesselData/registryNr}"
+	                                <idega:execute expression="'fiskistofaLicensesUtil.sendPDFByEmail({0}, {1})', notset, #{instance(`data-instance`)/vesselData/registryNr}"
 	                                	action="saveFormAndGeneratePdf"
 										formId="instance('data-instance')/form_id"
 										instanceId="data-instance"
@@ -743,7 +743,7 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                             <xf:output model="data_model" ref="instance('localized_strings')/debtMessage[@lang=instance('localized_strings')/current_language]"/>
                         </xf:group>
                         
-		                <xf:group class="statusIcon" ref=".[instance('data-instance')/acceptTerms != '']">
+		                <xf:group class="statusIcon" ref=".[instance('data-instance')/acceptTerms = 'true']">
                         	<img src="/content/files/public/style/check.png" alt="" />
                             <xf:output model="data_model" ref="instance('localized_strings')/acceptTerms-label[@lang=instance('localized_strings')/current_language]"/>
 		                </xf:group>
@@ -777,7 +777,7 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                                     <xf:dispatch
                                     name="xforms-revalidate" target="data_model"/>
                                     <xf:dispatch name="xforms-refresh" target="data_model"/>
-                                    <xf:action if="count-non-empty(instance('error-instance')/error)=0 and instance('data-instance')/vesselHasValidHaffairisskirteini/result='true' or instance('data-instance')/vesselHasGeneralLicense/result='true' or instance('data-instance')/vesselHasRevokedLicense/result!='true' or instance('data-instance')/vesselHasValidLength/result='true' or instance('data-instance')/vesselHasValidPower/result='true'">
+                                    <xf:action if="count-non-empty(instance('error-instance')/error)=0 and instance('data-instance')/vesselHasValidHaffairisskirteini/result='true' and instance('data-instance')/vesselHasGeneralLicense/result='true' and instance('data-instance')/vesselHasRevokedLicense/result!='true' and instance('data-instance')/vesselHasValidLength/result='true' and instance('data-instance')/vesselHasValidPower/result='true'">
                                     <xf:send submission="submit_data_submission"/>
                                     </xf:action>
                                     <xf:dispatch

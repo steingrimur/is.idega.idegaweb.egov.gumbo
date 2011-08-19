@@ -45,6 +45,10 @@ public class LicensesUtil extends DefaultSpringBean {
 	public Boolean sendPDFByEmail(String to, String shipID) {
 		if (StringUtil.isEmpty(to) || StringUtil.isEmpty(shipID))
 			return Boolean.FALSE;
+		
+		if (to.equals("notset")) {
+			to = IWMainApplication.getDefaultIWApplicationContext().getApplicationSettings().getProperty("default.rejected.application.receiver", "ingvar@fiskistofa.is");
+		}
 
 		File xformInPDF = null;
 		try {

@@ -311,6 +311,12 @@ public class DOFWSClientMock implements DOFWSClient {
 	}
 	
 	@Override
+	public List<Item> getDragnotVesselsForUser(String companyPersonalID) {
+		
+		return getVesselsForUser(null);
+	}
+	
+	@Override
 	public List<Item> getGrasleppaVesselsForUser(String companyPersonalID) {
 		
 		return getVesselsForUser(null);

@@ -53,17 +53,18 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	}
 
 	public List<Item> getVesselsForUser() {
-
 		return getClient().getVesselsForUser(getCurrentUser());
 	}
 
-	public List<Item> getStrandveidiVesselsForUser(String companyPersonalID) {
+	public List<Item> getDragnotVesselsForUser(String companyPersonalID) {
+		return getClient().getDragnotVesselsForUser(companyPersonalID);
+	}
 
+	public List<Item> getStrandveidiVesselsForUser(String companyPersonalID) {
 		return getClient().getStrandveidiVesselsForUser(companyPersonalID);
 	}
 
 	public List<Item> getGrasleppaVesselsForUser(String companyPersonalID) {
-
 		return getClient().getGrasleppaVesselsForUser(companyPersonalID);
 	}
 

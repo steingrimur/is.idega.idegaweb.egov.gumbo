@@ -596,7 +596,7 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                                 <idega:toggle case="fbc_41" ev:event="DOMActivate"/>
 
                                 <xf:action if="instance('data-instance')/vesselHasValidHaffairisskirteini/result!='true' or instance('data-instance')/companyLicenseValid/result='true' or instance('data-instance')/vesselHasRevokedLicense/result='true' or instance('data-instance')/quotaWithinLimits/result!='true'">
-	                                <idega:execute expression="'fiskistofaLicensesUtil.sendPDFByEmail({0}, {1}, {2})', fiskistofa@fiskistofa.is, #{instance(`data-instance`)/vesselData/registryNr}"
+	                                <idega:execute expression="'fiskistofaLicensesUtil.sendPDFByEmail({0}, {1})', notset, #{instance(`data-instance`)/vesselData/registryNr}"
 	                                	action="saveFormAndGeneratePdf"
 										formId="instance('data-instance')/form_id"
 										instanceId="data-instance"
@@ -718,7 +718,7 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                             <xf:output model="data_model" ref="instance('localized_strings')/debtMessage[@lang=instance('localized_strings')/current_language]"/>
                         </xf:group>
                         
-		                <xf:group class="statusIcon" ref=".[instance('data-instance')/acceptTerms != '']">
+		                <xf:group class="statusIcon" ref=".[instance('data-instance')/acceptTerms = 'true']">
                         	<img src="/content/files/public/style/check.png" alt="" />
                             <xf:output model="data_model" ref="instance('localized_strings')/acceptTerms-label[@lang=instance('localized_strings')/current_language]"/>
 		                </xf:group>
