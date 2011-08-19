@@ -1234,8 +1234,9 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	public List<Item> getDragnotVesselsForUser(String companyPersonalID) {
 		// get all open cases for user
 		List<String> alreadyAppliedShips = new ArrayList<String>();
+		User user = null;
 		try {
-			User user = getUserBusiness().getUser(companyPersonalID);
+			user = getUserBusiness().getUser(companyPersonalID);
 			// INPR,PEND,UBEH,OMPR,WFPA,WAIT
 			List<String> statusesToShow = new ArrayList<String>();
 			statusesToShow.add("INPR");
@@ -1287,15 +1288,14 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		}
 
 		List<Item> items = null;
-		BigDecimal shipNr[] = getGrasleppuShipNrByCompanySSN(companyPersonalID);
-		if (shipNr != null && shipNr.length > 0) {
-			items = new ArrayList<Item>(shipNr.length);
-			for (BigDecimal nr : shipNr) {
-				if (!alreadyAppliedShips.contains(nr.toString())) {
-					SkipInfoTypeUser vessel = getShipInfo(nr.toString());
-					items.add(new Item(vessel.getSkipNr().toString(), "("
-							+ vessel.getSkipNr().toString() + ") "
-							+ vessel.getNafn()));
+		if (user != null) {
+			List<Item> ships = getVesselsForUser(user);
+			if (ships != null && ships.size() > 0) {
+				items = new ArrayList<Item>(ships.size());
+				for (Item item : ships) {
+					if (!alreadyAppliedShips.contains(item.getItemValue())) {
+						items.add(item);
+					}
 				}
 			}
 		}
