@@ -108,7 +108,25 @@ public class CatchQuotaDelimiter extends IWBaseComponent {
 			shipInfo = getClient().getCatchDelimiterShipInfo(shipNumber);
 		}
 		
-		String action = iwc.isParameterSet(PARAMETER_ACTION) ? iwc.getParameter(PARAMETER_ACTION) : ACTION_VIEW;
+		String localizedAction = iwc.isParameterSet(PARAMETER_ACTION) ? iwc.getParameter(PARAMETER_ACTION) : iwrb.getLocalizedString(ACTION_VIEW, ACTION_VIEW);
+		
+		String action = "";
+		if (localizedAction.equals(iwrb.getLocalizedString(ACTION_VIEW, ACTION_VIEW))) {
+			action = ACTION_VIEW;
+		}
+		else if (localizedAction.equals(iwrb.getLocalizedString(ACTION_RESET, ACTION_RESET))) {
+			action = ACTION_RESET;
+		}
+		else if (localizedAction.equals(iwrb.getLocalizedString(ACTION_CALCULATE, ACTION_CALCULATE))) {
+			action = ACTION_CALCULATE;
+		}
+		else if (localizedAction.equals(iwrb.getLocalizedString(ACTION_NEXT, ACTION_NEXT))) {
+			action = ACTION_NEXT;
+		}
+		else if (localizedAction.equals(iwrb.getLocalizedString(ACTION_SEND, ACTION_SEND))) {
+			action = ACTION_SEND;
+		}
+		
 		if (action.equals(ACTION_CALCULATE) || action.equals(ACTION_NEXT) || action.equals(ACTION_SEND)) {
 			boolean error = false;
 			AflaHeimildSkerdingTypUser[] aValues = shipInfo.getAhSkerdingA();

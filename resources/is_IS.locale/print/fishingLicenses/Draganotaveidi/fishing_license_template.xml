@@ -24,7 +24,7 @@
 
 	<paragraph font="normal" spacing-after="10.0">Samkvæmt ákvæðum laga nr. 79/1997 um veiðar í fiskveiðilandhelgi Íslands, með síðari breytingum, og ákvæðum reglugerðar nr. 788, 19. september 2006, um dragnótaveiðar, með síðari breytingum, er ofangreindu fiskiskipi heimilt að stunda dragnótaveiðar innan fiskveiðilandhelgi Íslands í samræmi við togveiðiheimildir skipsins skv. lögum nr. 79/1997, með síðari breytingum.</paragraph>
 
-	<paragraph font="normal" spacing-after="10.0">Með vísan til ákvæða ofangreindra laga og reglugerðar heimilar Fiskistofa ofangreindu fiskiskipi ennfremur dragnótaveiðar á svæði ${fishingAreaDescription}.</paragraph>
+	<paragraph font="normal" spacing-after="10.0">Með vísan til ákvæða ofangreindra laga og reglugerðar heimilar Fiskistofa ofangreindu fiskiskipi ennfremur dragnótaveiðar á svæði ${fishingAreaDescription}</paragraph>
 
 	<paragraph font="normal" spacing-after="10.0">Áskilinn er réttur til fyrirvaralausra breytinga á veiðisvæðum.</paragraph>
 

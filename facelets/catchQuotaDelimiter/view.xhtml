@@ -147,10 +147,10 @@
 				<span><h:outputText value="#{gumboBean.catchDelimiterInfo.mism}" /></span>
 			</div>
 			<div class="buttonLayer">
-				<button type="submit" name="prm_action" value="calculate"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['calculate']}" /></button>
-				<button type="submit" name="prm_action" value="reset"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['reset']}" /></button>
+				<input type="submit" name="prm_action" value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['calculate']}" />
+				<input type="submit" name="prm_action" value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['reset']}" />
 				<ui:fragment rendered="#{gumboBean.catchDelimiterInfo.status ne -1 and gumboBean.catchDelimiterInfo.mism eq 0}">
-					<button class="submit" type="submit" name="prm_action" value="next"><h:outputText value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['next']}" /></button>
+					<input class="submit" type="submit" name="prm_action" value="#{localizedStrings['is.idega.idegaweb.egov.gumbo']['next']}" />
 				</ui:fragment>
 			</div>
 		</ui:fragment>
