@@ -65,6 +65,8 @@ import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.Getmesta
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetmestalengdyfirmorkumResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetmestiaflvisirElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetmestiaflvisirResponseElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetskipekkiflokkurdragnotElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetskipekkiflokkurdragnotResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetskipforstrandvlforutgerdElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetstrandvlcodeforpostnrElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetstrandvlcodeforpostnrResponseElement;
@@ -1300,6 +1302,29 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 			}
 		}
 		return items;
+	}
+	
+	public LicenseCheckContainer getIfDragnotVessel(BigDecimal shipID) {
+		GetskipekkiflokkurdragnotElement parameters = new GetskipekkiflokkurdragnotElement(shipID, null);
+		
+		try {
+			GetskipekkiflokkurdragnotResponseElement res = getLicensePort().getskipekkiflokkurdragnot(parameters);
+
+			LicenseCheckContainer ret = null;
+			if (res.getResult().getIsok().intValue() > 0) {
+				ret = new LicenseCheckContainer(true, res.getResult()
+						.getMessage());
+			} else {
+				ret = new LicenseCheckContainer(false, res.getResult()
+						.getMessage());
+			}
+
+			return ret;
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+
+		return new LicenseCheckContainer(false, "error_from_web_service");
 	}
 
 	@Override

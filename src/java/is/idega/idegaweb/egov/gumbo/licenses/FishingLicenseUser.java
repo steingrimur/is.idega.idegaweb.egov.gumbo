@@ -348,6 +348,18 @@ public class FishingLicenseUser extends DefaultSpringBean {
 		LicenseCheckContainer res = getClient().getMaximumPower(new BigDecimal(shipID));
 		return new XFormsBooleanResult(res.isHasLicense(), res.getMessage());
 	}
+	
+	public XFormsBooleanResult isDragnotVessel(String shipID) {
+		try {
+			new BigDecimal(shipID);
+		}
+		catch (Exception e) {
+			return new XFormsBooleanResult(false, "");
+		}
+
+		LicenseCheckContainer res = getClient().getIfDragnotVessel(new BigDecimal(shipID));
+		return new XFormsBooleanResult(res.isHasLicense(), res.getMessage());
+	}
 
 	/**
 	 * used in forms: strandveidileyfi

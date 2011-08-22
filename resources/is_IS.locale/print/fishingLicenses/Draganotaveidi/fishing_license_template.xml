@@ -6,6 +6,7 @@
 <document size="A4"  margin-top="20" margin-bottom="20" margin-left="50" margin-right="50" rotate="false">
 
 	<font-def name="normal" family="Times" size="10" style="normal"/>
+	<font-def name="italic" family="Times" size="10" style="italic"/>
 	<font-def name="bold" family="Times" size="10" style="bold"/>
 	<font-def name="big" family="Times" size="14" style="bold"/>
 
@@ -20,7 +21,8 @@
 		<cell></cell>
 	</table>
 
-	<paragraph halign="center" font="big" spacing-after="18.0">Leyfi til dragnótaveiða: ${fishingAreaName}</paragraph>
+	<paragraph halign="center" font="big">Leyfi til dragnótaveiða: ${fishingAreaName}</paragraph>
+	<paragraph halign="center" font=italic" spacing-after="18.0">Fiskveiðiárið 1. september 2011 - 31. ágúst 2012 </paragraph>
 
 	<paragraph font="normal" spacing-after="10.0">Samkvæmt ákvæðum laga nr. 79/1997 um veiðar í fiskveiðilandhelgi Íslands, með síðari breytingum, og ákvæðum reglugerðar nr. 788, 19. september 2006, um dragnótaveiðar, með síðari breytingum, er ofangreindu fiskiskipi heimilt að stunda dragnótaveiðar innan fiskveiðilandhelgi Íslands í samræmi við togveiðiheimildir skipsins skv. lögum nr. 79/1997, með síðari breytingum.</paragraph>
 

@@ -108,6 +108,9 @@
             <variable name="string_hasValidPower" access="read,write"></variable>
             <variable name="string_validPower" access="read,write"></variable>
 
+            <variable name="string_isDragnotVessel" access="read,write"></variable>
+            <variable name="string_dragnotVessel" access="read,write"></variable>
+
             <variable name="string_userInDebt" access="read,write"></variable>
             <variable name="string_deptMessage" access="read,write"></variable>
             <variable name="string_gatherInformation" access="read,write" ></variable>
@@ -172,6 +175,9 @@
             
             <variable name="string_hasValidPower" access="read"></variable>
             <variable name="string_validPower" access="read"></variable>
+
+            <variable name="string_isDragnotVessel" access="read"></variable>
+            <variable name="string_dragnotVessel" access="read"></variable>
 
             <variable name="string_userInDebt" access="read"></variable>
             <variable name="string_deptMessage" access="read"></variable>

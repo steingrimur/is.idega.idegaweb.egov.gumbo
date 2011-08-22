@@ -456,4 +456,9 @@ public class DOFWSClientMock implements DOFWSClient {
 		return new LicenseCheckContainer(true,
         "Error message from getMaximumPower");
 	}
+	
+	public LicenseCheckContainer getIfDragnotVessel(BigDecimal shipID) {
+		return new LicenseCheckContainer(true,
+        "Error message from getIfDragnotVessel");
+	}
 }

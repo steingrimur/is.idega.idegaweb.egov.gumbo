@@ -72,6 +72,13 @@
                     <vesselHasNotValidPower/>
                     <validPowerMessage mapping="string_validPower"/>
                     
+                    <vesselHasDragnot>
+                        <result mapping="string_isDragnotVessel">false</result>
+                        <message></message>
+                    </vesselHasDragnot>
+                    <vesselHasNotDragnot/>
+                    <vesselHasDragnotMessage mapping="string_dragnotVessel"/>
+                    
                     <vesselHasRevokedLicense>
                         <result mapping="string_hasRevokedLicense">false</result>
                         <message></message>
@@ -158,6 +165,10 @@
             <xf:bind id="fbc_106a_bind" nodeset="vesselHasValidPower" relevant="instance('data-instance')/vesselHasValidPower/result = 'true'"/>
             <xf:bind id="fbc_107b_bind" nodeset="vesselHasNotValidPower" relevant="instance('data-instance')/vesselHasValidPower/result != 'true'"/>
             <xf:bind id="fbc_107c_bind" nodeset="validPowerMessage"/>
+            
+            <xf:bind id="fbc_115_bind" nodeset="vesselHasDragnot" relevant="instance('data-instance')/vesselHasDragnot/result = 'true'"/>
+            <xf:bind id="fbc_116_bind" nodeset="vesselHasNotDragnot" relevant="instance('data-instance')/vesselHasDragnot/result != 'true'"/>
+            <xf:bind id="fbc_117_bind" nodeset="vesselHasDragnotMessage"/>
             
             <xf:bind id="fbc_112_bind" nodeset="vesselHasRevokedLicense" relevant="instance('data-instance')/vesselHasRevokedLicense/result = 'true'"/>
             <xf:bind id="fbc_113_bind" nodeset="vesselHasNotRevokedLicense" relevant="instance('data-instance')/vesselHasRevokedLicense/result != 'true'"/>
@@ -370,6 +381,15 @@
                         </xf:group>
                         <xf:group bind="fbc_74a_bind" class="fail">
                             <xf:output bind="fbc_110a_bind" />
+                        </xf:group>
+                        
+                        <xf:group bind="fbc_115_bind" class="statusIcon">
+                        	<img src="/content/files/public/style/check.png" alt="" />
+                            <xf:output bind="fbc_117_bind" />
+                        </xf:group>
+                        <xf:group bind="fbc_116_bind" class="statusIcon">
+                        	<img src="/content/files/public/style/fail.png" alt="" />
+                            <xf:output bind="fbc_117_bind" />
                         </xf:group>
                         
                         <xf:group bind="fbc_106_bind" class="check">
