@@ -119,5 +119,5 @@ public interface DOFWSClient {
 	
 	public LicenseCheckContainer getMaximumLength(BigDecimal shipID);
 	public LicenseCheckContainer getMaximumPower(BigDecimal shipID);
-	public LicenseCheckContainer getIfDragnotVessel(BigDecimal shipID);
+	public LicenseCheckContainer getIfDragnotVessel(BigDecimal shipID, String validFrom);
 }

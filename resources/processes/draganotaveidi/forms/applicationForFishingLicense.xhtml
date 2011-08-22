@@ -521,20 +521,20 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                                     <idega:setvalue
                                         multiple="true()"
                                         placeResponseDocument="true()"
-                                        ref="instance('data-instance')/vesselHasDragnot" value="idega:resolveBeanProperties('fishingLicenseUser.doesNotExceedMaximumLength({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
+                                        ref="instance('data-instance')/vesselHasValidPower" value="idega:resolveBeanProperties('fishingLicenseUser.doesNotExceedMaximumPower({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
+                                    <xf:setvalue
+                                        model="submission_model" ref="instance('data-instance')/validPowerMessage" value="instance('data-instance')/vesselHasValidPower/message" />
+                                        
+                                    <idega:setvalue
+                                        multiple="true()"
+                                        placeResponseDocument="true()"
+                                        ref="instance('data-instance')/vesselHasDragnot" value="idega:resolveBeanProperties('fishingLicenseUser.isDragnotVessel({0}, {1})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}, #{instance(`data-instance`)/From_date_fbc_101}')"/>
                                     <xf:setvalue
                                         model="submission_model" ref="instance('data-instance')/vesselHasDragnotMessage" value="instance('data-instance')/vesselHasDragnot/message" />
                                         
                                     <idega:setvalue
                                         ref="instance('data-instance')/fishingArea" value="idega:resolveExpression('fishingLicenseUser.getFishingAreaForDraganotaveidi({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
 
-                                    <idega:setvalue
-                                        multiple="true()"
-                                        placeResponseDocument="true()"
-                                        ref="instance('data-instance')/vesselHasValidPower" value="idega:resolveBeanProperties('fishingLicenseUser.isDragnotVessel({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
-                                    <xf:setvalue
-                                        model="submission_model" ref="instance('data-instance')/validPowerMessage" value="instance('data-instance')/vesselHasValidPower/message" />
-                                        
                                     <idega:setvalue
 	                                    multiple="true()"
 	                                    placeResponseDocument="true()"
@@ -578,6 +578,13 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                                 <xf:setvalue
                                     model="submission_model" ref="instance('data-instance')/vesselHasValidHaffairisskirteiniMessage" value="instance('data-instance')/vesselHasValidHaffairisskirteini/message" />
                                         
+                                <idega:setvalue
+                                    multiple="true()"
+                                    placeResponseDocument="true()"
+                                    ref="instance('data-instance')/vesselHasDragnot" value="idega:resolveBeanProperties('fishingLicenseUser.isDragnotVessel({0}, {1})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}, #{instance(`data-instance`)/From_date_fbc_101}')"/>
+                                <xf:setvalue
+                                    model="submission_model" ref="instance('data-instance')/vesselHasDragnotMessage" value="instance('data-instance')/vesselHasDragnot/message" />
+                                    
                             </xf:action>
                             
                             <idega:validator ev:event="idega-validate" validateif=". = '' or ( days-from-date(.) &gt; days-from-date(concat(substring(., 1, 4), '-05-01'))-1 and days-from-date(.) &lt; days-from-date(concat(substring(., 1, 4), '-08-31'))+1 )" componentId="fbc_101">

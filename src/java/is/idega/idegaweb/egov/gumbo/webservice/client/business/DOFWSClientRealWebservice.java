@@ -1304,8 +1304,8 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		return items;
 	}
 	
-	public LicenseCheckContainer getIfDragnotVessel(BigDecimal shipID) {
-		GetskipekkiflokkurdragnotElement parameters = new GetskipekkiflokkurdragnotElement(shipID, null);
+	public LicenseCheckContainer getIfDragnotVessel(BigDecimal shipID, String validFrom) {
+		GetskipekkiflokkurdragnotElement parameters = new GetskipekkiflokkurdragnotElement(shipID, validFrom);
 		
 		try {
 			GetskipekkiflokkurdragnotResponseElement res = getLicensePort().getskipekkiflokkurdragnot(parameters);

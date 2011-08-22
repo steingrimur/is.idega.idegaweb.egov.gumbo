@@ -349,15 +349,17 @@ public class FishingLicenseUser extends DefaultSpringBean {
 		return new XFormsBooleanResult(res.isHasLicense(), res.getMessage());
 	}
 	
-	public XFormsBooleanResult isDragnotVessel(String shipID) {
+	public XFormsBooleanResult isDragnotVessel(String shipID, String date) {
+		IWTimestamp stamp = null;
 		try {
 			new BigDecimal(shipID);
+			stamp = new IWTimestamp(getDateConverter().convertStringFromXFormsToDate(date));
 		}
 		catch (Exception e) {
 			return new XFormsBooleanResult(false, "");
 		}
-
-		LicenseCheckContainer res = getClient().getIfDragnotVessel(new BigDecimal(shipID));
+		
+		LicenseCheckContainer res = getClient().getIfDragnotVessel(new BigDecimal(shipID), stamp.getDateString("dd.MM.yyyy"));
 		return new XFormsBooleanResult(res.isHasLicense(), res.getMessage());
 	}
 
