@@ -81,7 +81,7 @@ public class GumboUtil {
 			String yearString = String.valueOf(stamp.getYear());
 			String stampYear = yearString.substring(2);
 
-			stamp.addYears(-1);
+			stamp.addYears(1);
 			String nextYearString = String.valueOf(stamp.getYear());
 			String stampNextYear = nextYearString.substring(2);
 			
