@@ -1103,9 +1103,9 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 			String type, String period) {
 		Map cache = getCache(GUMBO_FISHING_AREAS_CACHE, 60 * 60 * 24l);
 		if (cache != null && !cache.isEmpty()) {
-			if (cache.containsKey(type)) {
+			if (cache.containsKey(type + "_" + period)) {
 				return (Map<BigDecimal, VeidileyfagerdTypeUser>) cache
-						.get(type);
+						.get(type + "_" + period);
 			}
 
 		}
@@ -1123,7 +1123,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 				}
 
 				if (cache != null) {
-					cache.put(type, map);
+					cache.put(type + "_" + period, map);
 				}
 			}
 
