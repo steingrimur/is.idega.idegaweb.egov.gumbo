@@ -131,6 +131,13 @@ public class DOFWSClientMock implements DOFWSClient {
 	}
 
 	@Override
+	public LicenseCheckContainer getHasValidQuotaLimitFishingLicenseDragnot(
+	        String shipID) {
+		return new LicenseCheckContainer(true,
+		        "Error message from getHasValidQuotaLimitFishingLicenseDragnot");
+	}
+
+	@Override
 	public LicenseCheckContainer getHasValidHookQuotaLimitFishingLicense(
 			String shipID) {
 		return new LicenseCheckContainer(true,

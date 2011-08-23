@@ -71,6 +71,7 @@ public interface DOFWSClient {
 	
 	public LicenseCheckContainer getHasValidQuotaLimitFishingLicense(
 	        String shipID);
+	public LicenseCheckContainer getHasValidQuotaLimitFishingLicenseDragnot(String shipID);
 	
 	public LicenseCheckContainer getHasValidHookQuotaLimitFishingLicense(
 	        String shipID);

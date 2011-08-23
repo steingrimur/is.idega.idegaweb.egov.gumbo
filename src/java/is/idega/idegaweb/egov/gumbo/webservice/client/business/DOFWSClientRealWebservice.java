@@ -53,6 +53,8 @@ import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.Getersvi
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetgrasleppuskipnrutgerdarElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefuraflamarksveidilElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefuraflamarksveidilResponseElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefuraflamarksveidileyfiElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefuraflamarksveidileyfiResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurkrokaaflamarksveidilElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurkrokaaflamarksveidilResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurstrandveidileyfiElement;
@@ -721,6 +723,37 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		try {
 			GethefurstrandveidileyfiResponseElement res = getLicensePort()
 					.gethefurstrandveidileyfi(parameters);
+
+			LicenseCheckContainer ret = null;
+			if (res.getResult().getIsok().intValue() > 0) {
+				ret = new LicenseCheckContainer(true, res.getResult()
+						.getMessage());
+			} else {
+				ret = new LicenseCheckContainer(false, res.getResult()
+						.getMessage());
+			}
+
+			return ret;
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+
+		return new LicenseCheckContainer(false, "error_from_web_service");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#
+	 * getHasValidQuotaLimitFishingLicense(java.lang.String)
+	 */
+	@Override
+	public LicenseCheckContainer getHasValidQuotaLimitFishingLicenseDragnot(String shipID) {
+		GethefuraflamarksveidileyfiElement parameters = new GethefuraflamarksveidileyfiElement(
+				new BigDecimal(shipID), IWTimestamp.RightNow().getCalendar());
+		try {
+			GethefuraflamarksveidileyfiResponseElement res = getLicensePort()
+					.gethefuraflamarksveidileyfi(parameters);
 
 			LicenseCheckContainer ret = null;
 			if (res.getResult().getIsok().intValue() > 0) {

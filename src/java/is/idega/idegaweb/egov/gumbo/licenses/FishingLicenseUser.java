@@ -257,6 +257,19 @@ public class FishingLicenseUser extends DefaultSpringBean {
 	 * 
 	 * @return Result With Message
 	 */
+	public XFormsBooleanResult getVesselHasValidAflamarksleyfiDragnot(String vesselId) {
+
+		final LicenseCheckContainer res = getClient()
+				.getHasValidQuotaLimitFishingLicenseDragnot(vesselId);
+
+		return new XFormsBooleanResult(res.isHasLicense(), res.getMessage());
+	}
+
+	/**
+	 * used in forms: draganotaveidi
+	 * 
+	 * @return Result With Message
+	 */
 	public XFormsBooleanResult getVesselHasValidAflamarksleyfi(String vesselId) {
 
 		final LicenseCheckContainer res = getClient()

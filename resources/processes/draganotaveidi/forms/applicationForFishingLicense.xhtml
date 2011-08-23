@@ -500,7 +500,7 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
 		                            <idega:setvalue
 		                                multiple="true()"
 		                                placeResponseDocument="true()"
-		                                ref="instance('data-instance')/vesselHasGeneralLicense" value="idega:resolveBeanProperties('fishingLicenseUser.getVesselHasValidGeneralFishingLicense({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
+		                                ref="instance('data-instance')/vesselHasGeneralLicense" value="idega:resolveBeanProperties('fishingLicenseUser.getVesselHasValidAflamarksleyfiDragnot({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
                                     <xf:setvalue
                                         model="submission_model" ref="instance('data-instance')/generalLicenseMessage" value="instance('data-instance')/vesselHasGeneralLicense/message" />
 		                                
