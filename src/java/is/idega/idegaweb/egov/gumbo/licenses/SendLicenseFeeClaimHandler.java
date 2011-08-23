@@ -172,7 +172,7 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 
 			String areaID = null;
 			CodeTypeUser areaInfo = getWSClient().getFishingAreaForDraganotaveidi(shipID);
-			Map<BigDecimal, VeidileyfagerdTypeUser> areas = getWSClient().getDragnotaAreas();
+			Map<BigDecimal, VeidileyfagerdTypeUser> areas = getWSClient().getDragnotaAreas(from.getDate());
 			if (areas != null && !areas.isEmpty()) {
 				for (Iterator iterator = areas.keySet().iterator(); iterator
 						.hasNext();) {

@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -60,6 +61,33 @@ public class GumboUtil {
 		}
 
 		return periods;
+	}
+	
+	public static Period getPeriodByDate(Date date) {
+		IWTimestamp stamp = new IWTimestamp(date);
+		
+		if (stamp.getMonth() < 9) {
+			String yearString = String.valueOf(stamp.getYear());
+			String stampYear = yearString.substring(2);
+
+			stamp.addYears(-1);
+			String previousYearString = String.valueOf(stamp.getYear());
+			String stampPreviousYear = previousYearString.substring(2);
+			
+			Period period = new Period(stampPreviousYear + stampYear, previousYearString + " - " + yearString);
+			return period;
+		}
+		else {
+			String yearString = String.valueOf(stamp.getYear());
+			String stampYear = yearString.substring(2);
+
+			stamp.addYears(-1);
+			String nextYearString = String.valueOf(stamp.getYear());
+			String stampNextYear = nextYearString.substring(2);
+			
+			Period period = new Period(stampYear + stampNextYear, yearString + " - " + nextYearString);
+			return period;
+		}
 	}
 
 	public static SkipInfoTypeUser getShip(BigDecimal shipID) {

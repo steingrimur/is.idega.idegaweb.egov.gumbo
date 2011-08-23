@@ -17,6 +17,7 @@ import is.idega.idegaweb.egov.gumbo.licenses.FishingLicenseUser.CompanyData;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -82,7 +83,7 @@ public interface DOFWSClient {
 	
 	public Map<BigDecimal, VeidileyfagerdTypeUser> getAlmennAreas(FishingLicenseType type);
 	
-	public Map<BigDecimal, VeidileyfagerdTypeUser> getDragnotaAreas();
+	public Map<BigDecimal, VeidileyfagerdTypeUser> getDragnotaAreas(Date date);
 	
 	public Map<BigDecimal, VeidileyfagerdTypeUser> getGrasleppaAreas();
 	

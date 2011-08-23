@@ -90,6 +90,8 @@ import is.idega.block.nationalregister.webservice.client.business.UserHolder;
 import is.idega.idegaweb.egov.gumbo.business.GumboBusiness;
 import is.idega.idegaweb.egov.gumbo.licenses.FishingLicenseType;
 import is.idega.idegaweb.egov.gumbo.licenses.FishingLicenseUser.CompanyData;
+import is.idega.idegaweb.egov.gumbo.util.GumboUtil;
+import is.idega.idegaweb.egov.gumbo.util.Period;
 
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
@@ -99,6 +101,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -1081,8 +1084,9 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	}
 
 	@Override
-	public Map<BigDecimal, VeidileyfagerdTypeUser> getDragnotaAreas() {
-		return getFishingAreasByType("8", null);
+	public Map<BigDecimal, VeidileyfagerdTypeUser> getDragnotaAreas(Date date) {
+		Period period = GumboUtil.getPeriodByDate(date);
+		return getFishingAreasByType("8", period.getPeriod());
 	}
 
 	@Override

@@ -18,6 +18,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -379,7 +380,7 @@ public class DOFWSClientMock implements DOFWSClient {
 	}
 
 	@Override
-	public Map<BigDecimal, VeidileyfagerdTypeUser> getDragnotaAreas() {
+	public Map<BigDecimal, VeidileyfagerdTypeUser> getDragnotaAreas(Date date) {
 		Map<BigDecimal, VeidileyfagerdTypeUser> map = new HashMap<BigDecimal, VeidileyfagerdTypeUser>();
 		
 		map.put(new BigDecimal(1), new VeidileyfagerdTypeUser(
