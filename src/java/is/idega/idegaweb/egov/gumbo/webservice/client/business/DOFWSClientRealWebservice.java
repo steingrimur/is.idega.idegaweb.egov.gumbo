@@ -51,10 +51,10 @@ import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.Getdragn
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetersviptingElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetersviptingResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetgrasleppuskipnrutgerdarElement;
-import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefuraflamarksveidilElement;
-import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefuraflamarksveidilResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefuraflamarksveidileyfiElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefuraflamarksveidileyfiResponseElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefuraflamarksveidilgrslElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefuraflamarksveidilgrslResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurkrokaaflamarksveidilElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurkrokaaflamarksveidilResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GethefurstrandveidileyfiElement;
@@ -781,11 +781,11 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	@Override
 	public LicenseCheckContainer getHasValidQuotaLimitFishingLicense(
 			String shipID) {
-		GethefuraflamarksveidilElement parameters = new GethefuraflamarksveidilElement(
+		GethefuraflamarksveidilgrslElement parameters = new GethefuraflamarksveidilgrslElement(
 				new BigDecimal(shipID), IWTimestamp.RightNow().getCalendar());
 		try {
-			GethefuraflamarksveidilResponseElement res = getLicensePort()
-					.gethefuraflamarksveidil(parameters);
+			GethefuraflamarksveidilgrslResponseElement res = getLicensePort()
+					.gethefuraflamarksveidilgrsl(parameters);
 
 			LicenseCheckContainer ret = null;
 			if (res.getResult().getIsok().intValue() > 0) {

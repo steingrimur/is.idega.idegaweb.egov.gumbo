@@ -1,5 +1,5 @@
 /**
- * GethefuraflamarksveidilResponseElement.java
+ * GeterskipflokkurkrokaflamarkResponseElement.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
@@ -7,20 +7,20 @@
 
 package is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl;
 
-public class GethefuraflamarksveidilResponseElement  implements java.io.Serializable {
+public class GeterskipflokkurkrokaflamarkResponseElement  implements java.io.Serializable {
     private is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.CheckReplyTypeUser result;
 
-    public GethefuraflamarksveidilResponseElement() {
+    public GeterskipflokkurkrokaflamarkResponseElement() {
     }
 
-    public GethefuraflamarksveidilResponseElement(
+    public GeterskipflokkurkrokaflamarkResponseElement(
            is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.CheckReplyTypeUser result) {
            this.result = result;
     }
 
 
     /**
-     * Gets the result value for this GethefuraflamarksveidilResponseElement.
+     * Gets the result value for this GeterskipflokkurkrokaflamarkResponseElement.
      * 
      * @return result
      */
@@ -30,7 +30,7 @@ public class GethefuraflamarksveidilResponseElement  implements java.io.Serializ
 
 
     /**
-     * Sets the result value for this GethefuraflamarksveidilResponseElement.
+     * Sets the result value for this GeterskipflokkurkrokaflamarkResponseElement.
      * 
      * @param result
      */
@@ -40,8 +40,8 @@ public class GethefuraflamarksveidilResponseElement  implements java.io.Serializ
 
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
-        if (!(obj instanceof GethefuraflamarksveidilResponseElement)) return false;
-        GethefuraflamarksveidilResponseElement other = (GethefuraflamarksveidilResponseElement) obj;
+        if (!(obj instanceof GeterskipflokkurkrokaflamarkResponseElement)) return false;
+        GeterskipflokkurkrokaflamarkResponseElement other = (GeterskipflokkurkrokaflamarkResponseElement) obj;
         if (obj == null) return false;
         if (this == obj) return true;
         if (__equalsCalc != null) {
@@ -73,10 +73,10 @@ public class GethefuraflamarksveidilResponseElement  implements java.io.Serializ
 
     // Type metadata
     private static org.apache.axis.description.TypeDesc typeDesc =
-        new org.apache.axis.description.TypeDesc(GethefuraflamarksveidilResponseElement.class, true);
+        new org.apache.axis.description.TypeDesc(GeterskipflokkurkrokaflamarkResponseElement.class, true);
 
     static {
-        typeDesc.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", ">gethefuraflamarksveidilResponseElement"));
+        typeDesc.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", ">geterskipflokkurkrokaflamarkResponseElement"));
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("result");
         elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "result"));

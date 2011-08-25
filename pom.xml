@@ -61,6 +61,10 @@
     <dependency>
       <groupId>com.idega.block.egov</groupId>
       <artifactId>is.idega.idegaweb.egov.bpm</artifactId>
-    </dependency>    
+    </dependency>
+    <dependency>
+      <groupId>com.idega.block.addon</groupId>
+      <artifactId>com.idega.block.form</artifactId>
+    </dependency>
   </dependencies>
 </project>

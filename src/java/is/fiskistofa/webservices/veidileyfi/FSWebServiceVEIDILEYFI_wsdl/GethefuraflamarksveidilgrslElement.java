@@ -1,5 +1,5 @@
 /**
- * GethefuraflamarksveidilElement.java
+ * GethefuraflamarksveidilgrslElement.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
@@ -7,15 +7,15 @@
 
 package is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl;
 
-public class GethefuraflamarksveidilElement  implements java.io.Serializable {
+public class GethefuraflamarksveidilgrslElement  implements java.io.Serializable {
     private java.math.BigDecimal pSkipNr;
 
     private java.util.Calendar pDags;
 
-    public GethefuraflamarksveidilElement() {
+    public GethefuraflamarksveidilgrslElement() {
     }
 
-    public GethefuraflamarksveidilElement(
+    public GethefuraflamarksveidilgrslElement(
            java.math.BigDecimal pSkipNr,
            java.util.Calendar pDags) {
            this.pSkipNr = pSkipNr;
@@ -24,7 +24,7 @@ public class GethefuraflamarksveidilElement  implements java.io.Serializable {
 
 
     /**
-     * Gets the pSkipNr value for this GethefuraflamarksveidilElement.
+     * Gets the pSkipNr value for this GethefuraflamarksveidilgrslElement.
      * 
      * @return pSkipNr
      */
@@ -34,7 +34,7 @@ public class GethefuraflamarksveidilElement  implements java.io.Serializable {
 
 
     /**
-     * Sets the pSkipNr value for this GethefuraflamarksveidilElement.
+     * Sets the pSkipNr value for this GethefuraflamarksveidilgrslElement.
      * 
      * @param pSkipNr
      */
@@ -44,7 +44,7 @@ public class GethefuraflamarksveidilElement  implements java.io.Serializable {
 
 
     /**
-     * Gets the pDags value for this GethefuraflamarksveidilElement.
+     * Gets the pDags value for this GethefuraflamarksveidilgrslElement.
      * 
      * @return pDags
      */
@@ -54,7 +54,7 @@ public class GethefuraflamarksveidilElement  implements java.io.Serializable {
 
 
     /**
-     * Sets the pDags value for this GethefuraflamarksveidilElement.
+     * Sets the pDags value for this GethefuraflamarksveidilgrslElement.
      * 
      * @param pDags
      */
@@ -64,8 +64,8 @@ public class GethefuraflamarksveidilElement  implements java.io.Serializable {
 
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
-        if (!(obj instanceof GethefuraflamarksveidilElement)) return false;
-        GethefuraflamarksveidilElement other = (GethefuraflamarksveidilElement) obj;
+        if (!(obj instanceof GethefuraflamarksveidilgrslElement)) return false;
+        GethefuraflamarksveidilgrslElement other = (GethefuraflamarksveidilgrslElement) obj;
         if (obj == null) return false;
         if (this == obj) return true;
         if (__equalsCalc != null) {
@@ -103,10 +103,10 @@ public class GethefuraflamarksveidilElement  implements java.io.Serializable {
 
     // Type metadata
     private static org.apache.axis.description.TypeDesc typeDesc =
-        new org.apache.axis.description.TypeDesc(GethefuraflamarksveidilElement.class, true);
+        new org.apache.axis.description.TypeDesc(GethefuraflamarksveidilgrslElement.class, true);
 
     static {
-        typeDesc.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", ">gethefuraflamarksveidilElement"));
+        typeDesc.setXmlType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", ">gethefuraflamarksveidilgrslElement"));
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("PSkipNr");
         elemField.setXmlName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "pSkipNr"));
