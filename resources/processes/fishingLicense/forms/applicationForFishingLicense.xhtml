@@ -184,6 +184,8 @@
                     <fbc_5-text lang="is_IS">Útgerðaraðili</fbc_5-text>
                     <fbc_19-text lang="en">Fishing license type</fbc_19-text>
                     <fbc_19-text lang="is_IS">Tegund veiðileyfis</fbc_19-text>
+                    <fbc_19a-text lang="en">Validity from</fbc_19a-text>
+                    <fbc_19a-text lang="is_IS">Gildistími</fbc_19a-text>
                     <fbc_23-title lang="is_IS">Málsnúmer</fbc_23-title>
                     <fbc_23-title lang="en">Identifier number</fbc_23-title>
                     <fbc_35-label lang="is_IS">Tegund veiðileyfis</fbc_35-label>
@@ -307,7 +309,7 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                     <page-4-label lang="is_IS">Hlekkur sendur</page-4-label>
                     <page-4-info lang="en">Link sent, thank You!</page-4-info>
                     <page-4-info lang="is_IS">Hlekkur á umsóknina hefur verið sendur á netfangið sem þú skráðir</page-4-info>
-                    <fbc_101-label lang="is_IS">Gildistími frá</fbc_101-label>
+                    <fbc_101-label lang="is_IS">Veiðileyfi tekur gildi þann/fbc_101-label>
                     <fbc_101-label lang="en">From date</fbc_101-label>
                     <fbc_101-required lang="is_IS">Þú verður að velja upphafsdag veiða.</fbc_101-required>
                     <fbc_101-required lang="en">You have to select a start date.</fbc_101-required>
@@ -565,8 +567,8 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                             </xf:help>
                         </xf:select1>
 
-                        <div class="fbc_header_text" id="fbc_19" type="fbc_header_text">
-                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_19-text[@lang=instance('localized_strings')/current_language]"/>
+                        <div class="fbc_header_text" id="fbc_19a" type="fbc_header_text">
+                            <xf:output model="data_model" ref="instance('localized_strings')/fbc_19a-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
                         <xf:input bind="fbc_101_bind" id="fbc_101" type="fbc_date">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_101-label[@lang=instance('localized_strings')/current_language]"/>
