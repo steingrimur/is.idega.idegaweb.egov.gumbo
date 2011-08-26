@@ -48,6 +48,10 @@ import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.Getaflam
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetaflamflutningstekkforskipResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetdragnotvlcodeforskipElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetdragnotvlcodeforskipResponseElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GeterskipflokkuraflamarkElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GeterskipflokkuraflamarkResponseElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GeterskipflokkurkrokaflamarkElement;
+import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GeterskipflokkurkrokaflamarkResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetersviptingElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetersviptingResponseElement;
 import is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.GetgrasleppuskipnrutgerdarElement;
@@ -701,10 +705,40 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 			return new LicenseCheckContainer(false, "License type not selected");
 		}
 		else if (licenseType.equals(FishingLicenseType.CATCH_QUOTA.toString())) {
-			return getHasValidQuotaLimitFishingLicense(shipID);
+			GeterskipflokkuraflamarkElement parameters = new GeterskipflokkuraflamarkElement(new BigDecimal(shipID), IWTimestamp.RightNow().getCalendar());
+			try {
+				GeterskipflokkuraflamarkResponseElement res = getLicensePort().geterskipflokkuraflamark(parameters);
+				LicenseCheckContainer ret = null;
+				if (res.getResult().getIsok().intValue() > 0) {
+					ret = new LicenseCheckContainer(true, res.getResult()
+							.getMessage());
+				} else {
+					ret = new LicenseCheckContainer(false, res.getResult()
+							.getMessage());
+				}
+
+				return ret;
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
 		}
 		else if (licenseType.equals(FishingLicenseType.HOOK_CATCH_QUOTA.toString())) {
-			return getHasValidHookQuotaLimitFishingLicense(shipID);
+			GeterskipflokkurkrokaflamarkElement parameters = new GeterskipflokkurkrokaflamarkElement(new BigDecimal(shipID), IWTimestamp.RightNow().getCalendar());
+			try {
+				GeterskipflokkurkrokaflamarkResponseElement res = getLicensePort().geterskipflokkurkrokaflamark(parameters);
+				LicenseCheckContainer ret = null;
+				if (res.getResult().getIsok().intValue() > 0) {
+					ret = new LicenseCheckContainer(true, res.getResult()
+							.getMessage());
+				} else {
+					ret = new LicenseCheckContainer(false, res.getResult()
+							.getMessage());
+				}
+
+				return ret;
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return new LicenseCheckContainer(false, "error_from_web_service");
