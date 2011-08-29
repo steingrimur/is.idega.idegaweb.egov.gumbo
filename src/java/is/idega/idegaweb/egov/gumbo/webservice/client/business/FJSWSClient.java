@@ -19,12 +19,9 @@ import is.idega.idegaweb.egov.gumbo.data.ProcessPaymentLogHeader;
 import is.idega.idegaweb.egov.gumbo.data.ShipClaimPeriod;
 
 import java.math.BigDecimal;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.List;
-
-import javax.xml.rpc.ServiceException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -67,6 +64,12 @@ public class FJSWSClient {
 	}
 
 	public boolean getIsInDebt(String shipNr) {
+		if (shipNr != null && !"".equals(shipNr)) {
+			if (shipNr.length() < 4) {
+				shipNr = "0000".substring(0, 4 - shipNr.length()) + shipNr;
+			}
+		} 
+		
 		try {
 			TBRStadaSkips iStadaSkips = new TBRStadaSkips(getHeader(null),
 					shipNr);
@@ -117,6 +120,12 @@ public class FJSWSClient {
 
 		ProcessPaymentLogHeader header = getGumboDAO().createHeader();
 
+		if (shipNr != null && !"".equals(shipNr)) {
+			if (shipNr.length() < 4) {
+				shipNr = "0000".substring(0, 4 - shipNr.length()) + shipNr;
+			}
+		} 
+		
 		TBRSundurlidun wsEntries[] = new TBRSundurlidun[entries.size()];
 		int counter = 0;
 		ProcessPaymentLog log = null;
@@ -138,7 +147,8 @@ public class FJSWSClient {
 					ret.getSvarHaus().getSkyring(), ret.getLykill());
 			return ret.getLykill();
 		} catch (RemoteException e) {
-			getGumboDAO().updateHeader(header, -1l, e.getMessage(), "-1");
+			getGumboDAO().updateHeader(header, -1l, e.getMessage(), "-1"); // Have to get this to commit somehow, independant of the rest of the process?
+			System.out.println("FJS ERROR = " + e.getMessage());
 			e.printStackTrace();
 		}
 
@@ -196,6 +206,12 @@ public class FJSWSClient {
 	public boolean getIsLicenseFeeClaimPaid(String ssn, String shipNr,
 			String claimNumber) {
 
+		if (shipNr != null && !"".equals(shipNr)) {
+			if (shipNr.length() < 4) {
+				shipNr = "0000".substring(0, 4 - shipNr.length()) + shipNr;
+			}
+		} 
+
 		try {
 			TBRStadaKrofu iStadaKrofu = new TBRStadaKrofu(getHeader(null), ssn,
 					shipNr, claimNumber);
@@ -221,65 +237,14 @@ public class FJSWSClient {
 	}
 
 	public static void main(String args[]) {
-		/*
-		 * IWTimestamp now = new IWTimestamp();
-		 * now.setMinimalDaysInFirstWeek(7); System.out.println("week = " +
-		 * now.getWeekOfYear()); System.out.println("period = " +
-		 * now.getDateString("yyyy-ww"));
-		 */
-		try {
-			ServiceLocator locator = new ServiceLocator();
-			ServiceSoap port = locator.getServiceSoap(new URL(
-					"http://securep.fjs.is/webfjs/ws-fks/service.asmx"));
-			
-
-			Haus haus = new Haus();
-			haus.setAdgangsord("FKS_Ysa");
-			haus.setKerfi("FKS");
-			haus.setNotandi("FKS_Test");
-			// haus.setRadnrSkeytis("1");
-
-//			TBRStadaSkips iStadaSkips = new TBRStadaSkips(haus, "2471");
-//			TBRStadaSkipsSvar ret = port.saekjaStoduSkips(iStadaSkips);
-
-//			TBRStadaKrofu iStadaKrofu = new TBRStadaKrofu(haus, "5405025950",
-//					"2478", "FV2;6771");
-			TBRStadaKrofu iStadaKrofu = new TBRStadaKrofu(haus, "6102022090",
-					"7262", "FV2;45320");
-			TBRStadaKrofuSvar ret = port.saekjaStoduKrofu(iStadaKrofu);
-
-			if (ret != null) {
-				System.out.println("ret.getTimabil() = " + ret.getTimabil());
-				System.out.println("ret.getAlagning() = " + ret.getAlagning());
-				System.out.println("ret.getGreidslur() = " + ret.getGreidslur());
-				System.out.println("ret.getKostnadur() = " + ret.getKostnadur());
-				System.out.println("ret.getStada() = " + ret.getStada());
-				System.out.println("ret.getSvarHaus().getKodi() = " + ret.getSvarHaus().getKodi());
-				System.out.println("ret.getSvarHaus().getSkyring() = " + ret.getSvarHaus().getSkyring());
-				System.out.println("ret.getVextir() = " + ret.getVextir());
-			} else {
-				System.out.println("nothing returned");
+		String shipNr = "1002";
+		
+		if (shipNr != null && !"".equals(shipNr)) {
+			if (shipNr.length() < 4) {
+				shipNr = "0000".substring(0, 4 - shipNr.length()) + shipNr;
 			}
+		} 
 
-			/*
-			 * TBRGjaldskra iGjaldskra = new TBRGjaldskra(haus, "6608922069");
-			 * TBRGjaldskraSvar ret = port.saekjaGjaldskra(iGjaldskra);
-			 * 
-			 * if (ret.getSvarHaus().getKodi() == 0) { Gjald fees[] =
-			 * ret.getGjold(); for (int i = 0; i < fees.length; i++) {
-			 * System.out.println("fee: " + fees[i].getSkyrsluform() + ", " +
-			 * fees[i].getGjaldkodi() + ", " + fees[i].getUpphaed() + ", " +
-			 * fees[i].getTexti()); } } else { System.out.println("error : " +
-			 * ret.getSvarHaus().getSkyring() + ", " +
-			 * ret.getSvarHaus().getNanariSkyring()); }
-			 */
-
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (ServiceException e) {
-			e.printStackTrace();
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
+		System.out.println("shipNr = " + shipNr);
 	}
 }
