@@ -29,10 +29,12 @@ public class FishingLicensePrintingContext extends PrintingContextImpl {
 	protected IWResourceBundle iwrb;
 	
 	private String licenseType;
+	private String subType;
 
-	public FishingLicensePrintingContext(IWApplicationContext iwac, String licenseType, VeidileyfiTypeUser license, Company fishery, SkipInfoTypeUser ship, Locale locale) {
+	public FishingLicensePrintingContext(IWApplicationContext iwac, String licenseType, String subType, VeidileyfiTypeUser license, Company fishery, SkipInfoTypeUser ship, Locale locale) {
 		try {
 			this.licenseType = licenseType;
+			this.subType = subType;
 			init(iwac, license, fishery, ship, locale);
 		}
 		catch (RemoteException re) {
@@ -81,6 +83,10 @@ public class FishingLicensePrintingContext extends PrintingContextImpl {
 
 	protected String getResourceRealPath(IWBundle iwb, Locale locale) {
 		String printFolder = iwb.getApplication().getSettings().getProperty("gumbo.fishing_license_folder", "/print/fishingLicenses/") + licenseType + "/";
+		
+		if (subType != null) {
+			printFolder = printFolder + subType.toLowerCase() + "/";
+		}
 
 		if (locale != null) {
 			return iwb.getResourcesRealPath(locale) + printFolder;

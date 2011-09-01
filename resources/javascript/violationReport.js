@@ -17,7 +17,6 @@ jQuery(document).ready(function() {
 		jQuery(document).bind('ChibaWorkarounds-UIUpdatedEvent', function() {
 			
 			if(!ChibaWorkarounds.cloneFbc_213ValueResetted && jQuery("#clone-fbc_213-value").val() != "") {
-				
 				jQuery("#clone-fbc_213-value").val("");
 				ChibaWorkarounds.cloneFbc_213ValueResetted = true;
 			}

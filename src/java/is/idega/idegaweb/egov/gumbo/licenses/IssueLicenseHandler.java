@@ -101,18 +101,23 @@ public class IssueLicenseHandler extends DefaultSpringBean implements ActionHand
 
 			String licenseType = ectx.getProcessDefinition().getName();
 			String vesselNumber = (String) ectx.getVariable("string_vesselRegistryNr");
+			String subType = (String) ectx.getVariable("string_typeOfFishingLicense");
 			
 			VeidileyfiTypeUser license = licenseID != null ? getWSClient().getFishingLicenseInfo(new BigDecimal(licenseID)) : null;
 			SkipInfoTypeUser ship = getWSClient().getShipInfo(vesselNumber);
 			Company fishery = getCompanyBusiness().getCompany(ship.getUtgerdKt());
 
 			Variable variable = Variable.parseDefaultStringRepresentation(BPMTaskPDFViewer.DOCUMENT_VARIABLE_NAME);
-			StringBuffer fileNameBuffer = new StringBuffer(iwrb.getLocalizedString("fishing_license_filename." + licenseType, licenseType)).append("-").append(vesselNumber)
+			StringBuffer fileNameBuffer = new StringBuffer(iwrb.getLocalizedString("fishing_license_filename." + licenseType, licenseType));
+			if (subType != null) {
+				fileNameBuffer.append("-").append(iwrb.getLocalizedString("fishing_license_subtype." + subType, subType));
+			}
+			fileNameBuffer.append("-").append(vesselNumber)
 				.append("-").append(IWTimestamp.RightNow().getDateString("dd.MM.yyyy HH:mm")).append(".pdf");
 	
 			String fileName = fileNameBuffer.toString();
 			String description = fileName;
-			parkingCard = getPDFGenerator().generateFishingLicensePDF(licenseType, license, fishery, ship, locale);
+			parkingCard = getPDFGenerator().generateFishingLicensePDF(licenseType, subType, license, fishery, ship, locale);
 			tiw.addAttachment(variable, fileName, description, parkingCard);
 			
 			return true;

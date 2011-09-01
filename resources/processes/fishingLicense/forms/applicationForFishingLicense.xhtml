@@ -573,8 +573,6 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                         <xf:input bind="fbc_101_bind" id="fbc_101" type="fbc_date">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_101-label[@lang=instance('localized_strings')/current_language]"/>
                             <xf:dispatch ev:event="idega-xforms-ready"
-                                name="idega-validate" target="fbc_101"/>
-                            <xf:dispatch ev:event="idega-xforms-ready"
                                 name="idega-validate2" target="fbc_101"/>
                                 
                             <xf:action ev:event="xforms-value-changed">
@@ -596,14 +594,9 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                                         
                             </xf:action>
                             
-                            <idega:validator ev:event="idega-validate" validateif=". = '' or ( days-from-date(.) &gt; days-from-date(concat(substring(., 1, 4), '-05-01'))-1 and days-from-date(.) &lt; days-from-date(concat(substring(., 1, 4), '-08-31'))+1 )" componentId="fbc_101">
+                            <idega:validator ev:event="idega-validate2" errorif="instance('data-instance')/From_date_fbc_101 != '' and idega:isBeforeNow(instance('data-instance')/From_date_fbc_101)" componentId="fbc_101">
                                 <idega:message errorType="required"
                                     model="data_model" value="instance('localized_strings')/fbc_101-required[@lang=instance('localized_strings')/current_language]"/>
-                                <idega:message errorType="custom"
-                                    model="data_model" value="instance('localized_strings')/fbc_101-wrongInterval[@lang=instance('localized_strings')/current_language]"/>
-                            </idega:validator>
-                            
-                            <idega:validator ev:event="idega-validate2" errorif="instance('data-instance')/From_date_fbc_101 != '' and idega:isBeforeNow(instance('data-instance')/From_date_fbc_101)" componentId="fbc_101">
                                 <idega:message errorType="custom"
                                     model="data_model" value="instance('localized_strings')/fbc_101-beforeNow[@lang=instance('localized_strings')/current_language]"/>
                             </idega:validator>
@@ -746,11 +739,11 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                         </xf:group>
                         
                         <xf:group bind="fbc_104_bind" class="statusIcon">
-                        	<img src="/content/files/public/style/fail.png" alt="" />
+                        	<img src="/content/files/public/style/check.png" alt="" />
                             <xf:output bind="fbc_105a_bind" />
                         </xf:group>
                         <xf:group bind="fbc_105_bind" class="statusIcon">
-                        	<img src="/content/files/public/style/check.png" alt="" />
+                        	<img src="/content/files/public/style/fail.png" alt="" />
                             <xf:output bind="fbc_105a_bind" />
                         </xf:group>
                         
@@ -764,7 +757,7 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                             <xf:output model="data_model" ref="instance('localized_strings')/acceptTerms-label[@lang=instance('localized_strings')/current_language]"/>
 		                </xf:group>
                         
-						<xf:group ref=".[instance('data-instance')/vesselHasValidHaffairisskirteini/result!='true' or instance('data-instance')/vesselLicenseValid/result='true' or instance('data-instance')/vesselHasRevokedLicense/result='true']" class="applicationError">
+						<xf:group ref=".[instance('data-instance')/vesselHasValidHaffairisskirteini/result!='true' or instance('data-instance')/vesselLicenseValid/result!='true' or instance('data-instance')/vesselHasRevokedLicense/result='true']" class="applicationError">
 	                		<xf:output value="concat(substring(now(),9,2),
 					            '.',
 					            substring(now(),6,2),
@@ -793,11 +786,11 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                                     <xf:dispatch
                                     name="xforms-revalidate" target="data_model"/>
                                     <xf:dispatch name="xforms-refresh" target="data_model"/>
-                                    <xf:action if="count-non-empty(instance('error-instance')/error)=0 and instance('data-instance')/vesselHasValidHaffairisskirteini/result='true' and instance('data-instance')/vesselLicenseValid/result!='true' and instance('data-instance')/vesselHasRevokedLicense/result!='true'">
+                                    <xf:action if="count-non-empty(instance('error-instance')/error)=0 and instance('data-instance')/vesselHasValidHaffairisskirteini/result='true' and instance('data-instance')/vesselLicenseValid/result='true' and instance('data-instance')/vesselHasRevokedLicense/result!='true'">
                                     <xf:send submission="submit_data_submission"/>
                                     </xf:action>
                                     <xf:dispatch
-                                    if="count-non-empty(instance('error-instance')/error)!=0 or instance('data-instance')/vesselHasValidHaffairisskirteini/result!='true' or instance('data-instance')/vesselLicenseValid/result='true' or instance('data-instance')/vesselHasRevokedLicense/result='true'"
+                                    if="count-non-empty(instance('error-instance')/error)!=0 or instance('data-instance')/vesselHasValidHaffairisskirteini/result!='true' or instance('data-instance')/vesselLicenseValid/result!='true' or instance('data-instance')/vesselHasRevokedLicense/result='true'"
                                     name="idega-submit-error" target="idega-submission-error"/>
                                 </xf:action>
                             </xf:trigger>

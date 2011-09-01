@@ -27,8 +27,8 @@ import com.idega.io.MemoryOutputStream;
 @Scope(BeanDefinition.SCOPE_SINGLETON)
 public class GumboPDFGenerator {
 	
-	public InputStream generateFishingLicensePDF(String licenseType, VeidileyfiTypeUser license, Company fishery, SkipInfoTypeUser ship, Locale locale) {
-		InputStream pdfStream = getDocumentStream(new FishingLicensePrintingContext(IWMainApplication.getDefaultIWApplicationContext(), licenseType, license, fishery, ship, locale));
+	public InputStream generateFishingLicensePDF(String licenseType, String subType, VeidileyfiTypeUser license, Company fishery, SkipInfoTypeUser ship, Locale locale) {
+		InputStream pdfStream = getDocumentStream(new FishingLicensePrintingContext(IWMainApplication.getDefaultIWApplicationContext(), licenseType, subType, license, fishery, ship, locale));
 		return pdfStream;
 	}
 	

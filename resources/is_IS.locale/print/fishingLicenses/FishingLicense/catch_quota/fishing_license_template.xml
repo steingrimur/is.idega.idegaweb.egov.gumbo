@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document
+	PUBLIC "-//UJAC.org//Print Document//EN" 
+	"http://ujac.sourceforge.net/ujac-print-document.dtd">
+
+<document size="A4"  margin-top="20" margin-bottom="20" margin-left="50" margin-right="50" rotate="false">
+
+	<font-def name="normal" family="Times" size="10" style="normal"/>
+	<font-def name="bold" family="Times" size="10" style="bold"/>
+	<font-def name="big" family="Times" size="14" style="bold"/>
+
+	<image source="fiskistofa.gif" halign="right" height="100" scale-to-fit="true" />
+
+	<table font="normal" padding="0" columns="2" width="100" widths="50,50" spacing-before="12.0" spacing-after="15.0" halign="left" border-style="none">
+		<cell>${fisheryName} (${shipID})</cell>
+		<cell halign="right">Vegna m.s. (${shipID}) ${shipName}</cell>
+		<cell>${fisheryAddress}</cell>
+		<cell halign="right">Kennitala ${fisheryPersonalID}</cell>
+		<cell>${fisheryPostal}</cell>
+		<cell></cell>
+	</table>
+
+	<paragraph halign="center" font="big" spacing-after="18.0">Leyfi til veiða í atvinnuskyni með aflamarki</paragraph>
+
+	<paragraph font="normal" spacing-after="10.0">Veiðileyfi þetta er gefið út fyrir ofangreint fiskiskip á grundvelli laga nr. 116/2006, um stjórn fiskveiða, með síðari breytingum, laga nr. 79/1997, um veiðar í fiskveiðilandhelgi Íslands, með síðari breytingum og gildandi reglugerðar um veiðar í atvinnuskyni.</paragraph>
+
+	<table font="normal" padding="2" columns="2" width="100" widths="4,96" border-style="none" halign="left">
+		<cell valign="top">1.</cell>
+		<cell>Leyfið veitir rétt til veiða á þeim tegundum, sem sæta ákvæðum um leyfilegan heildarafla, í samræmi við aflamark skipsins.  Auk þess veitir leyfið rétt til veiða á þeim tegundum sjávardýra, sem ekki sæta ákvæðum um leyfilegan heildarafla, enda gildi ekki um þær veiðar sérstakar reglur.</cell>
+		<cell valign="top">2.</cell>
+		<cell>Veiðar umfram aflamark eru ólögmætar og varða veiðileyfissviptingu, samanber ákvæði 14. gr. laga nr.  57/1996, með síðari breytingum.<br /><br />Sérstakt gjald er lagt á vegna umframafla samkvæmt ákvæðum laga nr. 37/1992, um sérstakt gjald vegna ólögmæts sjávarafla, með síðari breytingum.</cell>
+		<cell valign="top">3.</cell>
+		<cell>Um vigtun afla vísast til ákvæða III. kafla laga nr. 57/1996, um umgengni um nytjastofna sjávar, með síðari breytingum, og gildandi reglugerðar um vigtun sjávarafla.</cell>
+		<cell valign="top">4.</cell>
+		<cell>Skipstjóra er skylt að halda sérstaka afladagbók sem Fiskistofa leggur til, samanber gildandi reglugerð um afladagbækur.  Upplýsingar í afladagbókum skulu nýtast í vísindalegum tilgangi, sem eftirlitsgögn og til annarra verkefna er varða stjórn fiskveiða.</cell>
+		<cell valign="top">5.</cell>
+		<cell>Brot gegn ákvæðum laga nr. 116/2006, með síðari breytingum, laga nr. 79/1997, með síðari breytingum, laga nr. 57/1996, með síðari breytingum, gildandi reglugerðar um veiðar í atvinnuskyni og ákvæðum leyfisbréfs þessa, varða áminningu eða sviptingu veiðileyfis og öðrum viðurlögum samkvæmt ákvæðum fyrrgreindra laga.  Sama gildir vegna brota á öðrum gildandi lögum og reglugerðum varðandi stjórn fiskveiða.</cell>
+		<cell valign="top">6.</cell>
+		<cell>Veiðileyfið er bundið þeim skilyrðum að skipið hafi gilt haffærisskírteini og sé skrásett á skipaskrá Siglingastofnunar Íslands eða sérstaka skrá stofnunarinnar fyrir báta undir 6 metrum.</cell>
+	</table>
+	
+	<paragraph font="normal" spacing-before="10.0"><phrase font="bold">Leyfið gildir frá og ${dateFrom}.</phrase> Leyfið fellur niður hafi fiskiskipinu ekki verið haldið til fiskveiða í atvinnuskyni í tólf mánuði frá útgáfudegi. Þá fellur veiðileyfi niður ef fiskiskip er tekið af skrá Siglingastofnunar Íslands og ef eigendur eða útgerð þess fullnægir ekki skilyrðum til að stunda fiskveiðar í fiskveiðilandhelgi Íslands sem kveðið er á um í lögum um fjárfestingu erlendra aðila í atvinnurekstri og lögum um veiðar og vinnslu erlendra skipa í fiskveiðilandhelgi Íslands.</paragraph>
+	
+	<paragraph font="normal" spacing-before="10.0">Leyfisbréf þetta er gert ${dateNow} og miðast við gildandi reglur þann dag, sem geta breyst síðar.</paragraph>
+
+	<paragraph font="bold" spacing-before="10.0">Leyfisbréf þetta skal ávallt geymt um borð í fiskiskipinu.</paragraph>
+</document>
