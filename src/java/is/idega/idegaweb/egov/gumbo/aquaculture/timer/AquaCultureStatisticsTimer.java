@@ -25,7 +25,6 @@ public class AquaCultureStatisticsTimer implements TimerListener {
 	@Autowired
 	private CasesBPMDAO casesBPMDAO;
 
-	@Override
 	public void handleTimer(TimerEntry entry) {
 		System.out.println("STARTING AQUA STATISTICS TIMER!!!!");
 

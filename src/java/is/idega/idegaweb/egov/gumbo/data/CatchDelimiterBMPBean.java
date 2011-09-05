@@ -56,16 +56,13 @@ public class CatchDelimiterBMPBean extends AbstractCaseBMPBean implements Case, 
 		setColumn(COLUMN_FILE, attachment);
 	}
 
-	@Override
 	public void addSubscriber(User subscriber) throws IDOAddRelationshipException {
 	}
 
-	@Override
 	public Collection<User> getSubscribers() {
 		return null;
 	}
 
-	@Override
 	public void removeSubscriber(User subscriber) throws IDORemoveRelationshipException {
 	}
 }

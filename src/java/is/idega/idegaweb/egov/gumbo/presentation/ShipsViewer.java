@@ -48,7 +48,6 @@ public class ShipsViewer extends IWBaseComponent implements IWPageEventListener 
 	@Autowired
 	private GumboBusiness business;
 	
-	@Override
 	public boolean actionPerformed(IWContext iwc) throws IWException {
 		if (iwc.isParameterSet(PARAMETER_SHIP)) {
 			SkipInfoTypeUser ship = getClient().getShipInfo(iwc.getParameter(PARAMETER_SHIP));

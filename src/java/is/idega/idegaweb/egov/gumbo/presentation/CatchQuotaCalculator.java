@@ -2,13 +2,12 @@ package is.idega.idegaweb.egov.gumbo.presentation;
 
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.business.GumboSession;
-import is.idega.idegaweb.egov.gumbo.util.GumboUtil;
-import is.idega.idegaweb.egov.gumbo.util.Period;
 
 import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.idega.block.web2.business.JQuery;
 import com.idega.idegaweb.IWBundle;
 import com.idega.presentation.IWBaseComponent;
 import com.idega.presentation.IWContext;
@@ -22,10 +21,14 @@ public class CatchQuotaCalculator extends IWBaseComponent {
 
 	private int width = 573;
 	private int height = 1000;
+	private String type = "";
 
 	@Autowired
 	private GumboSession session;
 	
+	@Autowired
+	private JQuery jQuery;
+
 	public String getBundleIdentifier() {
 		return GumboConstants.IW_BUNDLE_IDENTIFIER;
 	}
@@ -35,17 +38,22 @@ public class CatchQuotaCalculator extends IWBaseComponent {
 		IWContext iwc = IWContext.getIWContext(context);
 		iwb = getBundle(context, getBundleIdentifier());
 
+		PresentationUtil.addJavaScriptSourceLineToHeader(iwc, getJQuery().getBundleURIToJQueryLib());
+		PresentationUtil.addJavaScriptSourceLineToHeader(iwc, iwb.getVirtualPathWithFileNameString("javascript/catchQuotaCalculator.js"));
 		PresentationUtil.addStyleSheetToHeader(iwc, iwb.getVirtualPathWithFileNameString("style/gumbo.css"));
 
 		String url = iwc.getApplicationSettings().getProperty("gumbo.catch.quota.calculator.url");
 		
 		if (getSession().getShip() != null && url != null) {
-			url += "?fyrirsp=&skipnr=" + getSession().getShip().getSkipNr().toString();
-			
-			Period period = GumboUtil.getCurrentPeriod();
-			url += "&kvtime=" + period.getPeriod();
+			url += "?fyrirsp=" + type;
+			url += "&skipnr=" + getSession().getShip().getSkipNr().toString();
+			url += "&kvtime=" + getSession().getSeason();
 			
 			IFrame frame = new IFrame("catchQuotaCalculator", url, getWidth(), getHeight());
+			frame.setId("catchQuotaCalculator");
+			frame.setStyleClass("autoHeight");
+			frame.setScrolling(IFrame.SCROLLING_AUTO);
+			frame.setBorder(0);
 			add(frame);
 		}
 	}
@@ -56,6 +64,14 @@ public class CatchQuotaCalculator extends IWBaseComponent {
 		}
 		
 		return this.session;
+	}
+
+	private JQuery getJQuery() {
+		if (jQuery == null) {
+			ELUtil.getInstance().autowire(this);
+		}
+		
+		return jQuery;
 	}
 
 	private int getWidth() {
@@ -72,5 +88,13 @@ public class CatchQuotaCalculator extends IWBaseComponent {
 
 	public void setHeight(int height) {
 		this.height = height;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 }

@@ -42,7 +42,6 @@ public class DeleteAndRejectClaimHandler implements ActionHandler {
 	private static final Logger LOGGER = Logger
 			.getLogger(DeleteAndRejectClaimHandler.class.getName());
 	
-	@Override
 	public void execute(ExecutionContext executionContext) throws Exception {
 		boolean send = IWMainApplication.getDefaultIWApplicationContext()
 		.getApplicationSettings()

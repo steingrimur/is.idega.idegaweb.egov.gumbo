@@ -12,7 +12,6 @@ public class SendLicenseToApplicantHandler implements ActionHandler {
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Override
 	public void execute(ExecutionContext executionContext) throws Exception {
 		
 		System.out.println("would sendLicenseToApplicant");

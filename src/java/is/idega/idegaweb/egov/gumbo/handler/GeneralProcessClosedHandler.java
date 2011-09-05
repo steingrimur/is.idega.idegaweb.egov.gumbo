@@ -39,7 +39,6 @@ public class GeneralProcessClosedHandler extends DefaultSpringBean implements Ac
 	@Autowired
 	private BPMDAO bpmDAO;
 	
-	@Override
 	public void execute(ExecutionContext executionContext) throws Exception {
 		Object closeMessage = executionContext.getVariable("string_closeMessage");
 		if (closeMessage == null)

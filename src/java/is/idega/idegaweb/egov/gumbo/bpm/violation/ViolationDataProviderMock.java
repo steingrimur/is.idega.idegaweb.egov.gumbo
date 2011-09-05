@@ -27,64 +27,54 @@ import com.idega.util.text.Item;
 @Qualifier(DOFWSClient.MOCK)
 public class ViolationDataProviderMock implements ViolationDataProvider {
 	
-	@Override
 	public PersonData getViolationPersonData(String socialNr) {
 		return new PersonData(socialNr).setName("violation person mock name")
 		        .setAddress("violation person mock address");
 	}
 	
-	@Override
 	public PersonData getViolationCompanyData(String socialNr) {
 		return new PersonData(socialNr).setName(
 		    "Samkvæmt upplýsingum Fiskistofu" + socialNr).setAddress(
 		    "eigi síðar en [&dags&..]" + socialNr);
 	}
-	
-	@Override
+
 	public PersonData getRecipientPersonDataForWriteLetter(String socialNr) {
 		return new PersonData(socialNr).setName("mock name")
 		        .setAddress("mock address").setPostalCode("mock postal code");
 	}
 	
-	@Override
 	public List<Item> getViolationTypes() {
 		return Arrays.asList(new Item[] {
 		        new Item("item1", "violation type 1"),
 		        new Item("item2", "violation type 2") });
 	}
 	
-	@Override
 	public List<Item> getOtherInspectorsThanCurrentlyLoggedIn() {
 		return Arrays.asList(new Item[] {
 		        new Item("insp1", "other inspector 1"),
 		        new Item("insp2", "other inspector 2") });
 	}
 	
-	@Override
 	public List<Item> getFiskistofaOffices() {
 		return Arrays.asList(new Item[] {
 		        new Item("office1", "fiskistofa1 office 1"),
 		        new Item("office2", "fiskistofa2 office 2") });
 	}
 	
-	@Override
 	public List<Item> getHarbours() {
 		return Arrays.asList(new Item[] { new Item("item1", "harbour 1"),
 		        new Item("item2", "harbour 2") });
 	}
 	
-	@Override
 	public List<Item> getDecisionRulings() {
 		return Arrays.asList(new Item[] { new Item("decisions1", "Decision 1"),
 		        new Item("decision2", "Decision 2") });
 	}
 	
-	@Override
 	public String getTypeLabelOfPermissionForViolationCompany(String socialNr) {
 		return "type label for soc nr: " + socialNr;
 	}
 	
-	@Override
 	public EquipmentData getEquipmentData(String byVesselRegistryNr) {
 		
 		return new EquipmentData().setFishingLicense("342435")
@@ -94,7 +84,6 @@ public class ViolationDataProviderMock implements ViolationDataProvider {
 		        .setFisheriesName("FisheriesName mock");
 	}
 	
-	@Override
 	public List<Item> getLawyersUsers() {
 		
 		try {
@@ -139,13 +128,11 @@ public class ViolationDataProviderMock implements ViolationDataProvider {
 		}
 	}
 	
-	@Override
 	public List<Item> getFishingGears() {
 		return Arrays.asList(new Item[] { new Item("item1", "fishing gear 1"),
 		        new Item("item2", "fishing gear 2") });
 	}
 	
-	@Override
 	public ViolationLocationData getViolationPlaceData(String byPostalCode) {
 		
 		return new ViolationLocationData(byPostalCode + " Reykjavik")
