@@ -4,7 +4,13 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd"
     version="1.0">
 
-
+    <entity class="is.idega.idegaweb.egov.gumbo.aquaculture.data.ACStatCaughtForFarming" />
+    <entity class="is.idega.idegaweb.egov.gumbo.aquaculture.data.ACStatEstimates" />
+    <entity class="is.idega.idegaweb.egov.gumbo.aquaculture.data.ACStatFarmingSpace" />
+    <entity class="is.idega.idegaweb.egov.gumbo.aquaculture.data.ACStatHeader" />
+    <entity class="is.idega.idegaweb.egov.gumbo.aquaculture.data.ACStatInventory" />
+    <entity class="is.idega.idegaweb.egov.gumbo.aquaculture.data.ACStatSale" />
+	
     <entity class="is.idega.idegaweb.egov.gumbo.data.AquaCountry" />
     <entity class="is.idega.idegaweb.egov.gumbo.data.AquaEnvironment" />
     <entity class="is.idega.idegaweb.egov.gumbo.data.AquaFarmingType" />
