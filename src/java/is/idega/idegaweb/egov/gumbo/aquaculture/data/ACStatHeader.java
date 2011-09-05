@@ -7,12 +7,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = ACStatHeader.ENTITY_NAME)
+@NamedQueries({
+	@NamedQuery(name = "acStatHeader.findAllByCaseUniqueID", query = "select a from ACStatHeader a where a.caseUniqueID = :caseUniqueID")
+})
 public class ACStatHeader {
 	public static final String ENTITY_NAME = "aqua_stat_header";
 
@@ -21,9 +26,9 @@ public class ACStatHeader {
 	private static final String COLUMN_PERSONAL_ID = "personal_id";
 	private static final String COLUMN_NAME = "name";
 	private static final String COLUMN_ADDRESS = "address";
-	private static final String COLUMN_YEAR = "year";
+	private static final String COLUMN_YEAR = "year_of_report";
 	private static final String COLUMN_FARM = "farm";
-	private static final String COLUMN_COMMENT = "comment";
+	private static final String COLUMN_COMMENT = "user_comment";
 	private static final String COLUMN_CAN_SEND_INFO = "can_send_info";
 	
 	private static final String COLUMN_CASE_UNIQUE_ID = "case_unique_id";

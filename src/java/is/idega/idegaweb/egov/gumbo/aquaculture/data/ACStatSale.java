@@ -20,7 +20,7 @@ public class ACStatSale {
 	private static final String COLUMN_CATEGORY = "category";
 	private static final String COLUMN_METHOD = "method";
 	private static final String COLUMN_ENVIRONMENT = "environment";
-	private static final String COLUMN_TYPE = "type";
+	private static final String COLUMN_TYPE = "species";
 	private static final String COLUMN_PROCESS = "process";
 	private static final String COLUMN_CONDITION = "condition";
 	private static final String COLUMN_NUMBER_OF_UNITS = "number_of_units";

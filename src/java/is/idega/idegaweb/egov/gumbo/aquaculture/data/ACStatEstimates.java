@@ -18,10 +18,10 @@ public class ACStatEstimates {
 	private static final String COLUMN_HEADER_ID = "header_id";
 	
 	private static final String COLUMN_CATEGORY = "category";
-	private static final String COLUMN_TYPE = "type";
+	private static final String COLUMN_TYPE = "species";
 	private static final String COLUMN_NUMBER_OF_UNITS = "number_of_units";
 	private static final String COLUMN_UNIT = "unit";
-	private static final String COLUMN_COMMENT = "comment";
+	private static final String COLUMN_COMMENT = "user_comment";
 	
 	@Id
 	@Column(name = ACStatEstimates.COLUMN_ENTRY_ID)

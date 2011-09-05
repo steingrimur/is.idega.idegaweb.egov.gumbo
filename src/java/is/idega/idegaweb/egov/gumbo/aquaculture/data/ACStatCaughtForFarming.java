@@ -18,7 +18,7 @@ public class ACStatCaughtForFarming {
 	private static final String COLUMN_HEADER_ID = "header_id";
 	
 	private static final String COLUMN_CATEGORY = "category";
-	private static final String COLUMN_TYPE = "type";
+	private static final String COLUMN_TYPE = "species";
 	private static final String COLUMN_UNITS_CAUGHT = "units_caught";
 	private static final String COLUMN_WEIGHT = "weight";
 	private static final String COLUMN_PRICE = "price";
