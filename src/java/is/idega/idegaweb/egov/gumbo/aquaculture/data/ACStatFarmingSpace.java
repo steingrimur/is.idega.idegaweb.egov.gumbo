@@ -20,7 +20,7 @@ public class ACStatFarmingSpace {
 	private static final String COLUMN_CATEGORY = "category";
 	private static final String COLUMN_METHOD = "method";
 	private static final String COLUMN_ENVIRONMENT = "environment";
-	private static final String COLUMN_SIZE = "size";
+	private static final String COLUMN_SIZE = "size_in_units";
 	private static final String COLUMN_UNIT = "unit";
 
 	@Id
