@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<processBundle-config>
+
+    <processBundle beanIdentifier="casesBPMProcessBundle" processManagerType="cases" />
+    
+    <tasks>
+        <task name="Start general process task" initial="true" order="0">
+            <viewResource resourceIdentifier="forms/startGeneralProcess.xhtml" viewType="xforms" viewResourceType="xforms" />
+        </task>
+        <task name="Add comment" order="1">
+            <viewResource resourceIdentifier="forms/addComment.xhtml" viewType="xforms" viewResourceType="xforms" />
+        </task>
+        <task name="inviteParticipantTask" order="5">
+			<viewResource resourceIdentifier="forms/inviteParticipant.xhtml" viewType="xforms" viewResourceType="xforms" />
+		</task>
+		<task name="submitCaseAnswerTask" order="9">
+			<viewResource resourceIdentifier="forms/submitInvitedCaseAnswer.xhtml" viewType="xforms" viewResourceType="xforms" />
+		</task>
+		<task name="closeCaseTask" order="8">
+			<viewResource resourceIdentifier="forms/closeCase.xhtml" viewType="xforms" viewResourceType="xforms" />
+		</task>
+    </tasks>
+    
+</processBundle-config>
