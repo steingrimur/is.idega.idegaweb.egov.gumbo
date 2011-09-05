@@ -270,7 +270,8 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 
 			FSWebserviceAFLAHEIMILDSKERDING_ServiceLocator locator = new FSWebserviceAFLAHEIMILDSKERDING_ServiceLocator();
 			FSWebserviceAFLAHEIMILDSKERDING_PortType port = locator
-					.getFSWebserviceAFLAHEIMILDSKERDINGSoap12HttpPort(new URL(endPoint));
+					.getFSWebserviceAFLAHEIMILDSKERDINGSoap12HttpPort(new URL(
+							endPoint));
 
 			return port;
 		} catch (Exception e) {
@@ -427,7 +428,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#
 	 * getShipInfoByCompanySSN(java.lang.String)
 	 */
-	@Override
+
 	public SkipInfoTypeUser[] getShipInfoByCompanySSN(String companySSN) {
 		/*
 		 * Map cache = getCache(GUMBO_COMPANY_SHIPS_CACHE, 60 * 60 * 24l); if
@@ -462,7 +463,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#
 	 * getShipInfo(java.lang.String)
 	 */
-	@Override
+
 	public SkipInfoTypeUser getShipInfo(String shipID) {
 		/*
 		 * Map cache = getCache(GUMBO_SHIP_INFO_CACHE, 60 * 60 * 24l); if (cache
@@ -499,7 +500,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	 * getCatchInfoByShipNumber(java.math.BigDecimal, java.util.Calendar,
 	 * java.util.Calendar)
 	 */
-	@Override
+
 	public LondunTypeUser[] getCatchInfoByShipNumber(BigDecimal shipNumber,
 			Calendar from, Calendar to) {
 		try {
@@ -519,7 +520,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#
 	 * getCatchInfoByNumberAndPort(java.math.BigDecimal, java.math.BigDecimal)
 	 */
-	@Override
+
 	public LondunTypeUser getCatchInfoByNumberAndPort(BigDecimal catchNumber,
 			BigDecimal port) {
 		try {
@@ -582,7 +583,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#
 	 * getCatchQuota(java.math.BigDecimal, java.lang.String)
 	 */
-	@Override
+
 	public AflamarkTypeUser[] getCatchQuota(BigDecimal shipNumber, String period) {
 		try {
 			GetaflamarkElement parameter = new GetaflamarkElement(shipNumber,
@@ -601,7 +602,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#
 	 * getCatchQuota(java.lang.String, java.lang.String)
 	 */
-	@Override
+
 	public AflamarkTypeUser[] getCatchQuota(String personalID, String period) {
 		Map cache = getCache(GUMBO_COMPANY_CATCH_QUOTA_CACHE, 60 * 60 * 24l);
 		if (cache != null && !cache.isEmpty()) {
@@ -636,7 +637,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#
 	 * getHasValidSeafaringLicense(java.lang.String)
 	 */
-	@Override
+
 	public LicenseCheckContainer getHasValidSeafaringLicense(String shipID) {
 		IWTimestamp now = new IWTimestamp();
 		// now.setDay(14);
@@ -670,7 +671,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#
 	 * getHasValidGeneralFishingLicense(java.lang.String)
 	 */
-	@Override
+
 	public LicenseCheckContainer getHasValidGeneralFishingLicense(String shipID) {
 		GethefurveidileyfiElement parameters = new GethefurveidileyfiElement(
 				new BigDecimal(shipID), IWTimestamp.RightNow().getCalendar());
@@ -694,20 +695,23 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 
 		return new LicenseCheckContainer(false, "error_from_web_service");
 	}
-	
-	@Override
-	public LicenseCheckContainer getHasValidFishingLicense(String shipID, String licenseType) {
+
+	public LicenseCheckContainer getHasValidFishingLicense(String shipID,
+			String licenseType) {
 		if (shipID == null || shipID.length() == 0) {
 			return new LicenseCheckContainer(false, "Ship not selected");
 		}
-		
+
 		if (licenseType == null || licenseType.length() == 0) {
 			return new LicenseCheckContainer(false, "License type not selected");
-		}
-		else if (licenseType.equals(FishingLicenseType.CATCH_QUOTA.toString())) {
-			GeterskipflokkuraflamarkElement parameters = new GeterskipflokkuraflamarkElement(new BigDecimal(shipID), IWTimestamp.RightNow().getCalendar());
+		} else if (licenseType
+				.equals(FishingLicenseType.CATCH_QUOTA.toString())) {
+			GeterskipflokkuraflamarkElement parameters = new GeterskipflokkuraflamarkElement(
+					new BigDecimal(shipID), IWTimestamp.RightNow()
+							.getCalendar());
 			try {
-				GeterskipflokkuraflamarkResponseElement res = getLicensePort().geterskipflokkuraflamark(parameters);
+				GeterskipflokkuraflamarkResponseElement res = getLicensePort()
+						.geterskipflokkuraflamark(parameters);
 				LicenseCheckContainer ret = null;
 				if (res.getResult().getIsok().intValue() > 0) {
 					ret = new LicenseCheckContainer(true, res.getResult()
@@ -721,11 +725,14 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
-		}
-		else if (licenseType.equals(FishingLicenseType.HOOK_CATCH_QUOTA.toString())) {
-			GeterskipflokkurkrokaflamarkElement parameters = new GeterskipflokkurkrokaflamarkElement(new BigDecimal(shipID), IWTimestamp.RightNow().getCalendar());
+		} else if (licenseType.equals(FishingLicenseType.HOOK_CATCH_QUOTA
+				.toString())) {
+			GeterskipflokkurkrokaflamarkElement parameters = new GeterskipflokkurkrokaflamarkElement(
+					new BigDecimal(shipID), IWTimestamp.RightNow()
+							.getCalendar());
 			try {
-				GeterskipflokkurkrokaflamarkResponseElement res = getLicensePort().geterskipflokkurkrokaflamark(parameters);
+				GeterskipflokkurkrokaflamarkResponseElement res = getLicensePort()
+						.geterskipflokkurkrokaflamark(parameters);
 				LicenseCheckContainer ret = null;
 				if (res.getResult().getIsok().intValue() > 0) {
 					ret = new LicenseCheckContainer(true, res.getResult()
@@ -750,7 +757,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#
 	 * getHasValidCoastFishingLicense(java.lang.String)
 	 */
-	@Override
+
 	public LicenseCheckContainer getHasValidCoastFishingLicense(String shipID) {
 		GethefurstrandveidileyfiElement parameters = new GethefurstrandveidileyfiElement(
 				new BigDecimal(shipID), IWTimestamp.RightNow().getCalendar());
@@ -781,8 +788,9 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#
 	 * getHasValidQuotaLimitFishingLicense(java.lang.String)
 	 */
-	@Override
-	public LicenseCheckContainer getHasValidQuotaLimitFishingLicenseDragnot(String shipID) {
+
+	public LicenseCheckContainer getHasValidQuotaLimitFishingLicenseDragnot(
+			String shipID) {
 		GethefuraflamarksveidileyfiElement parameters = new GethefuraflamarksveidileyfiElement(
 				new BigDecimal(shipID), IWTimestamp.RightNow().getCalendar());
 		try {
@@ -812,7 +820,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#
 	 * getHasValidQuotaLimitFishingLicense(java.lang.String)
 	 */
-	@Override
+
 	public LicenseCheckContainer getHasValidQuotaLimitFishingLicense(
 			String shipID) {
 		GethefuraflamarksveidilgrslElement parameters = new GethefuraflamarksveidilgrslElement(
@@ -844,7 +852,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	 * @see is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient#
 	 * getHasValidQuotaLimitFishingLicense(java.lang.String)
 	 */
-	@Override
+
 	public LicenseCheckContainer getHasValidHookQuotaLimitFishingLicense(
 			String shipID) {
 		GethefurkrokaaflamarksveidilElement parameters = new GethefurkrokaaflamarksveidilElement(
@@ -940,7 +948,6 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		}
 	}
 
-	@Override
 	public LicenseCheckContainer getHasRevokedFishingLicense(String shipID) {
 		GetersviptingElement parameters = new GetersviptingElement(
 				new BigDecimal(shipID));
@@ -965,7 +972,6 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		return new LicenseCheckContainer(false, "error_from_web_service");
 	}
 
-	@Override
 	public CodeTypeUser getFishingAreaForDraganotaveidi(String shipId) {
 		GetdragnotvlcodeforskipElement parameters = new GetdragnotvlcodeforskipElement(
 				new BigDecimal(shipId));
@@ -980,7 +986,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 
 		return null;
 	}
-	
+
 	public String getFishingArea(String shipId, Timestamp validFrom) {
 
 		StringBuilder period = new StringBuilder();
@@ -1002,7 +1008,6 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		return "error_from_web_service";
 	}
 
-	@Override
 	public CodeTypeUser getFishingAreaStrandveidi(String postNr) {
 
 		GetstrandvlcodeforpostnrElement parameters = new GetstrandvlcodeforpostnrElement(
@@ -1018,7 +1023,6 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		return null;
 	}
 
-	@Override
 	public CheckReplyTypeUser getFishingCompanyHasValidStrandveidileyfi(
 			String companySSN) {
 		GethefurutgerdstrandvlbyktElement parameters = new GethefurutgerdstrandvlbyktElement(
@@ -1034,11 +1038,11 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		return null;
 	}
 
-	@Override
 	public CompanyData getCompanyForUser(User user) {
 		final Company comp = getGumboBusiness().getCompanyForUser(user);
-		
-		CompanyHolder holder = getSkyrrClient().getCompany(comp.getPersonalID());
+
+		CompanyHolder holder = getSkyrrClient()
+				.getCompany(comp.getPersonalID());
 		UserHolder uHolder = null;
 		if (holder == null) {
 			uHolder = getSkyrrClient().getUser(comp.getPersonalID());
@@ -1049,13 +1053,13 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		if (holder != null) {
 			if (holder.getAddress() != null) {
 				ret.setAddress(holder.getAddress());
-	
+
 				if (holder.getPostalCode() != null) {
 					ret.setPostalCode(holder.getPostalCode());
 				} else {
 					ret.setPostalCode("");
 				}
-	
+
 				if (holder.getPostalAddress() != null) {
 					ret.setPlace(holder.getPostalAddress());
 				} else {
@@ -1081,11 +1085,11 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 				} else {
 					ret.setPlace("");
 				}
-			}			
+			}
 		} else {
 			ret.setAddress("");
 			ret.setPostalCode("");
-			ret.setPlace("");			
+			ret.setPlace("");
 		}
 
 		if (comp.getPhone() != null) {
@@ -1113,7 +1117,6 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		return gumboBusiness;
 	}
 
-	@Override
 	public BigDecimal[] getGrasleppuShipNrByCompanySSN(String companySSN) {
 		GetgrasleppuskipnrutgerdarElement parameters = new GetgrasleppuskipnrutgerdarElement(
 				companySSN);
@@ -1125,7 +1128,6 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		return null;
 	}
 
-	@Override
 	public BigDecimal[] getStrandveidiShipNrByCompanySSN(String companySSN) {
 		GetskipforstrandvlforutgerdElement parameters = new GetskipforstrandvlforutgerdElement(
 				companySSN);
@@ -1137,42 +1139,37 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		return null;
 	}
 
-	@Override
-	public Map<BigDecimal, VeidileyfagerdTypeUser> getAlmennAreas(FishingLicenseType type) {
+	public Map<BigDecimal, VeidileyfagerdTypeUser> getAlmennAreas(
+			FishingLicenseType type) {
 		if (type == FishingLicenseType.CATCH_QUOTA) {
 			return getFishingAreasByType("1", null);
-		}
-		else if (type == FishingLicenseType.HOOK_CATCH_QUOTA) {
+		} else if (type == FishingLicenseType.HOOK_CATCH_QUOTA) {
 			return getFishingAreasByType("32", null);
-		}
-		else {
+		} else {
 			return getFishingAreasByType("1", null);
 		}
 	}
 
-	@Override
 	public Map<BigDecimal, VeidileyfagerdTypeUser> getDragnotaAreas(Date date) {
 		Period period = GumboUtil.getPeriodByDate(date);
 		return getFishingAreasByType("8", period.getPeriod());
 	}
 
-	@Override
 	public Map<BigDecimal, VeidileyfagerdTypeUser> getGrasleppaAreas() {
 		return getFishingAreasByType("11", null);
 	}
 
-	@Override
 	public Map<BigDecimal, VeidileyfagerdTypeUser> getStrandveidiAreas() {
 		return getFishingAreasByType("37", null);
 	}
-	
+
 	private Map<BigDecimal, VeidileyfagerdTypeUser> getFishingAreasByType(
 			String type, String period) {
 		Map cache = getCache(GUMBO_FISHING_AREAS_CACHE, 60 * 60 * 24l);
 		if (cache != null && !cache.isEmpty()) {
 			if (cache.containsKey(type + "_" + period)) {
-				return (Map<BigDecimal, VeidileyfagerdTypeUser>) cache
-						.get(type + "_" + period);
+				return (Map<BigDecimal, VeidileyfagerdTypeUser>) cache.get(type
+						+ "_" + period);
 			}
 
 		}
@@ -1279,7 +1276,6 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		return null;
 	}
 
-	@Override
 	public CheckReplyTypeUser getQuotaTransferCheckForShip(String vesselID) {
 		GetaflamflutningstekkforskipElement parameters = new GetaflamflutningstekkforskipElement(
 				new BigDecimal(vesselID));
@@ -1303,7 +1299,6 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		return true;
 	}
 
-	@Override
 	public List<Item> getDragnotVesselsForUser(String companyPersonalID) {
 		// get all open cases for user
 		List<String> alreadyAppliedShips = new ArrayList<String>();
@@ -1374,12 +1369,15 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		}
 		return items;
 	}
-	
-	public LicenseCheckContainer getIfDragnotVessel(BigDecimal shipID, String validFrom) {
-		GetskipekkiflokkurdragnotElement parameters = new GetskipekkiflokkurdragnotElement(shipID, validFrom);
-		
+
+	public LicenseCheckContainer getIfDragnotVessel(BigDecimal shipID,
+			String validFrom) {
+		GetskipekkiflokkurdragnotElement parameters = new GetskipekkiflokkurdragnotElement(
+				shipID, validFrom);
+
 		try {
-			GetskipekkiflokkurdragnotResponseElement res = getLicensePort().getskipekkiflokkurdragnot(parameters);
+			GetskipekkiflokkurdragnotResponseElement res = getLicensePort()
+					.getskipekkiflokkurdragnot(parameters);
 
 			LicenseCheckContainer ret = null;
 			if (res.getResult().getIsok().intValue() > 0) {
@@ -1398,7 +1396,6 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		return new LicenseCheckContainer(false, "error_from_web_service");
 	}
 
-	@Override
 	public List<Item> getGrasleppaVesselsForUser(String companyPersonalID) {
 		// get all open cases for user
 		List<String> alreadyAppliedShips = new ArrayList<String>();
@@ -1470,7 +1467,6 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		return items;
 	}
 
-	@Override
 	public List<Item> getStrandveidiVesselsForUser(String companyPersonalID) {
 		// get all open cases for user
 		boolean showShips = true;
@@ -1550,7 +1546,6 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		return items;
 	}
 
-	@Override
 	public List<Item> getVesselsForUser(User user) {
 		List<Item> items = null;
 		SkipInfoTypeUser vessels[] = getShipInfoByCompanySSN(user
@@ -1577,92 +1572,97 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	public UserBusiness getUserBusiness() throws IBOLookupException {
 		return (UserBusiness) getServiceInstance(UserBusiness.class);
 	}
-	
-	public is.fiskistofa.webservices.aflaheimildskerding.FSWebserviceAFLAHEIMILDSKERDING_wsdl.SkipInfoTypeUser[] getCatchDelimiterShips(String personalID) {
+
+	public is.fiskistofa.webservices.aflaheimildskerding.FSWebserviceAFLAHEIMILDSKERDING_wsdl.SkipInfoTypeUser[] getCatchDelimiterShips(
+			String personalID) {
 		try {
-			OstadfestSkipEigandaElement parameters = new OstadfestSkipEigandaElement(personalID);
+			OstadfestSkipEigandaElement parameters = new OstadfestSkipEigandaElement(
+					personalID);
 			return getCatchDelimiterPort().ostadfestSkipEiganda(parameters);
-		}
-		catch (RemoteException re) {
+		} catch (RemoteException re) {
 			re.printStackTrace();
 			return null;
 		}
 	}
-	
-	public AflaHeimildSkerdingAlltTypUser getCatchDelimiterShipInfo(BigDecimal shipNumber) {
+
+	public AflaHeimildSkerdingAlltTypUser getCatchDelimiterShipInfo(
+			BigDecimal shipNumber) {
 		try {
-			UpphafsstillaElement parameters = new UpphafsstillaElement(shipNumber);
-			return getCatchDelimiterPort().upphafsstilla(parameters).getResult();
-		}
-		catch (RemoteException re) {
+			UpphafsstillaElement parameters = new UpphafsstillaElement(
+					shipNumber);
+			return getCatchDelimiterPort().upphafsstilla(parameters)
+					.getResult();
+		} catch (RemoteException re) {
 			re.printStackTrace();
 			return null;
 		}
 	}
-	
-	public AflaHeimildSkerdingAlltTypUser calculateCatchDelimiter(AflaHeimildSkerdingAlltTypUser delimiter) {
+
+	public AflaHeimildSkerdingAlltTypUser calculateCatchDelimiter(
+			AflaHeimildSkerdingAlltTypUser delimiter) {
 		try {
 			ReiknaElement parameters = new ReiknaElement(delimiter);
 			return getCatchDelimiterPort().reikna(parameters).getResult();
-		}
-		catch (RemoteException re) {
+		} catch (RemoteException re) {
 			re.printStackTrace();
 			return null;
 		}
 	}
 
-	public AflaHeimildSkerdingAlltTypUser sendCatchDelimiter(AflaHeimildSkerdingAlltTypUser delimiter) {
+	public AflaHeimildSkerdingAlltTypUser sendCatchDelimiter(
+			AflaHeimildSkerdingAlltTypUser delimiter) {
 		try {
 			String user = IWMainApplication.getDefaultIWApplicationContext()
-					.getApplicationSettings().getProperty(LICENSE_UPDATE_USER, "");
-	
-			String password = IWMainApplication.getDefaultIWApplicationContext()
 					.getApplicationSettings()
+					.getProperty(LICENSE_UPDATE_USER, "");
+
+			String password = IWMainApplication
+					.getDefaultIWApplicationContext().getApplicationSettings()
 					.getProperty(LICENSE_UPDATE_PASSWORD, "");
 
-			StadfestaElement parameters = new StadfestaElement(delimiter, user, password);
+			StadfestaElement parameters = new StadfestaElement(delimiter, user,
+					password);
 			return getCatchDelimiterPort().stadfesta(parameters).getResult();
-		}
-		catch (RemoteException re) {
+		} catch (RemoteException re) {
 			re.printStackTrace();
 			return null;
 		}
 	}
-	
+
 	public LicenseCheckContainer getMaximumLength(BigDecimal shipID) {
 		try {
-			GetmestalengdyfirmorkumElement parameters = new GetmestalengdyfirmorkumElement(shipID);
-			GetmestalengdyfirmorkumResponseElement res = getLicensePort().getmestalengdyfirmorkum(parameters);
+			GetmestalengdyfirmorkumElement parameters = new GetmestalengdyfirmorkumElement(
+					shipID);
+			GetmestalengdyfirmorkumResponseElement res = getLicensePort()
+					.getmestalengdyfirmorkum(parameters);
 			CheckReplyTypeUser result = res.getResult();
-			
+
 			if (result.getIsok().intValue() > 0) {
 				return new LicenseCheckContainer(true, result.getMessage());
-			}
-			else {
+			} else {
 				return new LicenseCheckContainer(false, result.getMessage());
 			}
-		}
-		catch (RemoteException re) {
+		} catch (RemoteException re) {
 			re.printStackTrace();
 		}
-		
+
 		return new LicenseCheckContainer(false, "error_from_web_service");
 	}
-	
+
 	public LicenseCheckContainer getMaximumPower(BigDecimal shipID) {
 		try {
-			GetmestiaflvisirElement parameters = new GetmestiaflvisirElement(shipID);
-			GetmestiaflvisirResponseElement res = getLicensePort().getmestiaflvisir(parameters );
+			GetmestiaflvisirElement parameters = new GetmestiaflvisirElement(
+					shipID);
+			GetmestiaflvisirResponseElement res = getLicensePort()
+					.getmestiaflvisir(parameters);
 			CheckReplyTypeUser result = res.getResult();
-			
+
 			if (result.getIsok().intValue() > 0) {
 				return new LicenseCheckContainer(true, result.getMessage());
-			}
-			else {
+			} else {
 				return new LicenseCheckContainer(false, result.getMessage());
 			}
-		}
-		catch (RemoteException re) {
+		} catch (RemoteException re) {
 			re.printStackTrace();
 		}
 

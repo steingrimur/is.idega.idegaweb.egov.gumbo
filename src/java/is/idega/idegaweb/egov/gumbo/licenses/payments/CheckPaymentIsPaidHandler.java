@@ -37,7 +37,6 @@ public class CheckPaymentIsPaidHandler implements ActionHandler {
 	private static final Logger LOGGER = Logger
 			.getLogger(SendLicenseFeeClaimHandler.class.getName());
 
-	@Override
 	public void execute(ExecutionContext executionContext) throws Exception {
 		String shipID = (String) executionContext
 				.getVariable("string_vesselRegistryNr");

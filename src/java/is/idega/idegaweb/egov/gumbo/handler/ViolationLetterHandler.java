@@ -28,7 +28,6 @@ public class ViolationLetterHandler extends DefaultSpringBean implements ActionH
 
 	private Long processInstanceId, taskInstanceId;
 	
-	@Override
 	public void execute(ExecutionContext context) throws Exception {
 		if (getTaskInstanceId() == null) {
 			getLogger().warning("Task instance ID is not provided!");

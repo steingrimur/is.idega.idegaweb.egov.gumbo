@@ -21,7 +21,6 @@ public class DeleteAndActivateClaimHandler implements ActionHandler {
 	private static final Logger LOGGER = Logger
 			.getLogger(DeleteAndActivateClaimHandler.class.getName());*/
 
-	@Override
 	public void execute(ExecutionContext executionContext) throws Exception {
 		executionContext.setVariable("paymentPaid", "true");
 

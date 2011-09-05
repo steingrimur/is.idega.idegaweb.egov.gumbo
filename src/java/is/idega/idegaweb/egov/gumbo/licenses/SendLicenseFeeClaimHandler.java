@@ -54,7 +54,6 @@ public class SendLicenseFeeClaimHandler implements ActionHandler {
 	private static final Logger LOGGER = Logger
 			.getLogger(SendLicenseFeeClaimHandler.class.getName());
 
-	@Override
 	public void execute(ExecutionContext executionContext) throws Exception {
 		CaseProcInstBind bind = getCasesBPMDAO()
 				.getCaseProcInstBindByProcessInstanceId(

@@ -14,7 +14,6 @@ public class SetDraganotveidiValidPeriod implements ActionHandler {
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Override
 	public void execute(ExecutionContext executionContext) throws Exception {
 		
 		final Interval period;

@@ -22,7 +22,6 @@ public class UpdateTimerDateHandler implements ActionHandler {
 	@Autowired
 	private CalendarOperations calendarOperations;
 	
-	@Override
 	public void execute(ExecutionContext executionContext) throws Exception {
 		
 		executionContext.setVariable("date_checkForPaymentTimerDate",

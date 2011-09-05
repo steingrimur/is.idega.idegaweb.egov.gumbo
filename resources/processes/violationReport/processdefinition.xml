@@ -150,6 +150,26 @@
           	<action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
             	<handlerName>violationToFocalHandler</handlerName>
           	</action>
+	        <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+	            <handlerName>casesStatusHandler</handlerName>
+	            <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+	                <entry>
+	                	<key>processInstanceId</key>
+	                	<value>#{mainProcessInstanceId}</value>
+	               	</entry>
+	               	<entry>
+				        <key>commentExpression</key>
+				        <value>
+				        ${
+				        	Map commentMap = new HashMap();
+				        	commentMap.put("en", "Violation report sent");
+				        	commentMap.put("is_IS", "Brotaskýrsla send inn");
+				        	return commentMap;
+				        }
+	                	</value>
+	                </entry>
+	            </propertyMap>
+	        </action>
       </event>
       <transition to="fork1"></transition>
    </start-state>
@@ -264,6 +284,39 @@
          </assignment>
       
       </task>
+	   <event type="node-leave">
+        <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+            <handlerName>casesStatusHandler</handlerName>
+            <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                <entry>
+                	<key>processInstanceId</key>
+                	<value>#{mainProcessInstanceId}</value>
+               	</entry>
+               	<entry>
+			        <key>commentExpression</key>
+			        <value>
+			        ${
+			        	java.util.Locale locale = new java.util.Locale("is", "IS");
+						java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("dd.MM.yyyy", locale);
+			        	String date = format.format(resolver.get("date_timeframeDate"));
+			        
+			        	Map commentMap = new HashMap();
+			        	commentMap.put("en", "Time limit: " + date);
+			        	commentMap.put("is_IS", "Tímamörk: " + date);
+			        	return commentMap;
+			        }
+                	</value>
+                </entry>
+                <entry>
+			       	<key>commentValues</key>
+			       	<value>
+			       		{list: {mv: [{type: "bean", value: "user.name"}]}}
+                	</value>
+                </entry>
+            </propertyMap>
+        </action>
+       </event>
+      
 		<transition to="killOldTimerAndTurnNewOn"></transition>
 	</task-node>
 
@@ -330,6 +383,28 @@
             <variable name="files_additionalAttachments" access="write"></variable>
          </controller>
       </task>
+      <event type="node-leave">
+        <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+            <handlerName>casesStatusHandler</handlerName>
+            <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                <entry>
+                	<key>processInstanceId</key>
+                	<value>#{mainProcessInstanceId}</value>
+               	</entry>
+               	<entry>
+			        <key>commentExpression</key>
+			        <value>
+			        ${
+			        	Map commentMap = new HashMap();
+			        	commentMap.put("en", "Request additional information");
+			        	commentMap.put("is_IS", "Frekar upplýsinga óskað frá stofnanda máls");
+			        	return commentMap;
+			        }
+                	</value>
+                </entry>
+            </propertyMap>
+        </action>
+      </event>
 	  <transition to="fork7"></transition>
 	</task-node>
 
@@ -379,6 +454,27 @@
             <variable name='string_participantEmailBySuperHandler' access='read' mapped-name='participantEmailBySuperHandler' />
             <variable name='string_participantEmailByHandler' access='read' mapped-name='participantEmailByHandler' />
             <variable name='string_participantEmail' access='write' mapped-name='participantEmail' />
+
+        <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+            <handlerName>casesStatusHandler</handlerName>
+            <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                <entry>
+                	<key>processInstanceId</key>
+                	<value>#{mainProcessInstanceId}</value>
+               	</entry>
+               	<entry>
+			        <key>commentExpression</key>
+			        <value>
+			        ${
+			        	Map commentMap = new HashMap();
+			        	commentMap.put("en", "Invite participant: " + resolver.get("string_participantEmail"));
+			        	commentMap.put("is_IS", "Bjóða þátttakanda að máli: " + resolver.get("string_participantEmail"));
+			        	return commentMap;
+			        }
+                	</value>
+                </entry>
+            </propertyMap>
+        </action>
          </script>
       </event>
 		<transition to="fork6"></transition>
@@ -437,6 +533,26 @@
 				</entry>
             </propertyMap>
           	</action>
+	        <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+	            <handlerName>casesStatusHandler</handlerName>
+	            <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+	                <entry>
+	                	<key>processInstanceId</key>
+	                	<value>#{mainProcessInstanceId}</value>
+	               	</entry>
+	               	<entry>
+				        <key>commentExpression</key>
+				        <value>
+				        ${
+				        	Map commentMap = new HashMap();
+				        	commentMap.put("en", "Write letter: " + resolver.get("string_recipientName"));
+				        	commentMap.put("is_IS", "Skrifa bréf: " + resolver.get("string_recipientName"));
+				        	return commentMap;
+				        }
+	                	</value>
+	                </entry>
+	            </propertyMap>
+	        </action>
       </event>
 		<transition to="fork4"></transition>
 	</task-node>
@@ -507,6 +623,28 @@
             <variable name='string_addAttachmentAssignmentExpression' access='write' mapped-name='addAttachmentAssignmentExpression' />
          </script>
         </event>
+	   <event type="node-leave">
+        <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+            <handlerName>casesStatusHandler</handlerName>
+            <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                <entry>
+                	<key>processInstanceId</key>
+                	<value>#{mainProcessInstanceId}</value>
+               	</entry>
+               	<entry>
+			        <key>commentExpression</key>
+			        <value>
+			        ${
+			        	Map commentMap = new HashMap();
+			        	commentMap.put("en", "Attachments added");
+			        	commentMap.put("is_IS", "Viðhengjum bætt við");
+			        	return commentMap;
+			        }
+                	</value>
+                </entry>
+            </propertyMap>
+        </action>
+       </event>
 		<transition to="fork5"></transition>
 	</process-state>
 
@@ -654,6 +792,17 @@
             <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
                     <entry><key>caseStatusMappedName</key><value>caseStatusClosed</value></entry>
                     <entry><key>processInstanceId</key><value>#{mainProcessInstanceId}</value></entry>
+                    <entry>
+                    	<key>commentExpression</key>
+			        	<value>
+			        		${
+					        	Map commentMap = new HashMap();
+					        	commentMap.put("en", "Case closed");
+					        	commentMap.put("is_IS", "Máli lokað");
+					        	return commentMap;
+					        }
+	                	</value>
+                    </entry>
             </propertyMap>
         </action>
        </event>
@@ -672,6 +821,17 @@
                     <entry>
                     	<key>processInstanceId</key>
                     	<value>#{mainProcessInstanceId}</value>
+                    </entry>
+                    <entry>
+                    	<key>commentExpression</key>
+			        	<value>
+			        		${
+					        	Map commentMap = new HashMap();
+					        	commentMap.put("en", "Violation decision: " + resolver.get("string_actionTakenSummary"));
+					        	commentMap.put("is_IS", "Niðurstaða máls: " + resolver.get("string_actionTakenSummary"));
+					        	return commentMap;
+					        }
+	                	</value>
                     </entry>
             </propertyMap>
         </action>
@@ -927,6 +1087,26 @@
 			<action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
             	<handlerName>setProcessDescriptionHandler</handlerName>
           	</action>
+	        <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+	            <handlerName>casesStatusHandler</handlerName>
+	            <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+	                <entry>
+	                	<key>processInstanceId</key>
+	                	<value>#{mainProcessInstanceId}</value>
+	               	</entry>
+	               	<entry>
+				        <key>commentExpression</key>
+				        <value>
+				        ${
+				        	Map commentMap = new HashMap();
+				        	commentMap.put("en", "Violation report edited");
+				        	commentMap.put("is_IS", "Brotaskýrslu breytt");
+				        	return commentMap;
+				        }
+	                	</value>
+	                </entry>
+	            </propertyMap>
+	        </action>
       </event>
 		<transition to="fork8"></transition>
 	</task-node>
@@ -944,14 +1124,13 @@
                 	<key>processInstanceId</key>
                 	<value>#{mainProcessInstanceId}</value>
                	</entry>
-               	<!--
                	<entry>
 			        <key>commentExpression</key>
 			        <value>
 			        ${
 			        	Map commentMap = new HashMap();
-			        	commentMap.put("en", "Hi, {0}.\n Comment was written to the case {1} with identifier {2} and description {3}");
-			        	commentMap.put("is_IS", "Sæl/ll, {0}.\n Comment was written! Hefur tekið að sér málið með nafnið: {3} ({2}) í flokknum : {1}.");
+			        	commentMap.put("en", "Sent to legal department: {0}");
+			        	commentMap.put("is_IS", "Sent til meðferðar: {0}");
 			        	return commentMap;
 			        }
                 	</value>
@@ -959,10 +1138,9 @@
                 <entry>
 			       	<key>commentValues</key>
 			       	<value>
-			       		{list: {mv: [{type: "bean", value: "user.name"}, {type: "bean", value: "piw.processDefinitionW.startTaskName"}, {type: "bean", value: "piw.processIdentifier"}, {type: "bean", value: "piw.processDescription"}]}}
+			       		{list: {mv: [{type: "bean", value: "user.name"}]}}
                 	</value>
                 </entry>
-                -->
             </propertyMap>
         </action>
        </event>

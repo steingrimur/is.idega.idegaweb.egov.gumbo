@@ -127,7 +127,6 @@ public class ViolationDataProviderRealWebservice implements
 		return null;
 	}
 	
-	@Override
 	public PersonData getViolationPersonData(String socialNr) {
 		if (!StringUtil.isEmpty(socialNr)) {
 			return getUser(socialNr);
@@ -135,7 +134,6 @@ public class ViolationDataProviderRealWebservice implements
 		return new PersonData(socialNr);
 	}
 	
-	@Override
 	public PersonData getViolationCompanyData(String socialNr) {
 		if (!StringUtil.isEmpty(socialNr)) {
 			return getCompany(socialNr);
@@ -143,7 +141,6 @@ public class ViolationDataProviderRealWebservice implements
 		return new PersonData(socialNr);
 	}
 	
-	@Override
 	public PersonData getRecipientPersonDataForWriteLetter(String socialNr) {
 		if (!StringUtil.isEmpty(socialNr)) {
 			if (SocialSecurityNumber.isIndividualSocialSecurityNumber(socialNr,
@@ -157,7 +154,6 @@ public class ViolationDataProviderRealWebservice implements
 		return new PersonData(socialNr);
 	}
 	
-	@Override
 	public List<Item> getViolationTypes() {
 		final List<Item> items = new ArrayList<Item>();
 		
@@ -183,7 +179,6 @@ public class ViolationDataProviderRealWebservice implements
 		return items;
 	}
 	
-	@Override
 	public List<Item> getOtherInspectorsThanCurrentlyLoggedIn() {
 		final List<Item> items = new ArrayList<Item>();
 		
@@ -199,8 +194,7 @@ public class ViolationDataProviderRealWebservice implements
 		
 		return items;
 	}
-	
-	@Override
+
 	public List<Item> getFiskistofaOffices() {
 		final List<Item> items = new ArrayList<Item>();
 		
@@ -216,7 +210,6 @@ public class ViolationDataProviderRealWebservice implements
 		return items;
 	}
 	
-	@Override
 	public List<Item> getHarbours() {
 		final List<Item> items = new ArrayList<Item>();
 		
@@ -234,7 +227,6 @@ public class ViolationDataProviderRealWebservice implements
 		return items;
 	}
 	
-	@Override
 	public List<Item> getDecisionRulings() {
 		final List<Item> items = new ArrayList<Item>();
 		
@@ -251,7 +243,6 @@ public class ViolationDataProviderRealWebservice implements
 		return items;
 	}
 	
-	@Override
 	public String getTypeLabelOfPermissionForViolationCompany(String socialNr) {
 		StringBuilder ret = new StringBuilder();
 		GetVigtunarleyfiByKtElement parameters = new GetVigtunarleyfiByKtElement(
@@ -274,7 +265,6 @@ public class ViolationDataProviderRealWebservice implements
 		return ret.toString();
 	}
 	
-	@Override
 	public EquipmentData getEquipmentData(String byVesselRegistryNr) {
 		EquipmentData data = new EquipmentData();
 		GetSkipWithInfoElement parameters = new GetSkipWithInfoElement(
@@ -560,7 +550,6 @@ public class ViolationDataProviderRealWebservice implements
 		return dao;
 	}
 	
-	@Override
 	public List<Item> getLawyersUsers() {
 		
 		try {
@@ -605,7 +594,6 @@ public class ViolationDataProviderRealWebservice implements
 		}
 	}
 	
-	@Override
 	public List<Item> getFishingGears() {
 		final List<Item> items = new ArrayList<Item>();
 		
@@ -621,7 +609,6 @@ public class ViolationDataProviderRealWebservice implements
 		return items;
 	}
 	
-	@Override
 	public ViolationLocationData getViolationPlaceData(String byPostalCode) {
 		return new ViolationLocationData(byPostalCode);
 	}
