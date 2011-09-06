@@ -1049,13 +1049,6 @@
 	                                <xf:label ref="itemLabel"/>
 	                                <xf:value ref="itemValue"/>
 	                            </xf:itemset>
-	                            
-	                            <idega:separateSelectionLabels
-                                   ref="instance('data-instance')/Violation_types_summary"
-                                   val="instance('data-instance')/Violation_type_fbc_156"
-                                   itemsNodeset="instance('fbc_156_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]" 
-                                   ev:event="xforms-value-changed" />
-	                            
 	                            <xf:dispatch ev:event="idega-xforms-ready"
 	                                name="idega-validate" target="fbc_156"/>
 	                            <xf:dispatch ev:event="xforms-value-changed"
@@ -1246,20 +1239,20 @@
                                 class="fbc_button_submit" id="fbc_40" type="fbc_button_save">
                                 <xf:label model="data_model" ref="instance('localized_strings')/fbc_40-label[@lang=instance('localized_strings')/current_language]"/>
                                 <xf:action ev:event="DOMActivate">
-                                    <xf:setvalue
-                                    model="submission_model" ref="instance('saveForm-instance')/savePhase">true</xf:setvalue>
+                                    <xf:setvalue model="submission_model" ref="instance('saveForm-instance')/savePhase">true</xf:setvalue>
                                     <xf:dispatch name="xforms-rebuild" target="data_model"/>
-                                    <xf:dispatch
-                                    name="xforms-recalculate" target="data_model"/>
-                                    <xf:dispatch
-                                    name="xforms-revalidate" target="data_model"/>
+                                    <xf:dispatch name="xforms-recalculate" target="data_model"/>
+                                    <xf:dispatch name="xforms-revalidate" target="data_model"/>
                                     <xf:dispatch name="xforms-refresh" target="data_model"/>
-                                    <idega:saveForm action="save"
-                                    formId="instance('data-instance')/form_id"
-                                    instanceId="data-instance"
-                                    linkLocation="instance('saveForm-instance')/link"
-                                    model="submission_model"
-                                    submissionId="instance('data-instance')/saveFormData/submissionId" submissionIdentifier="instance('data-instance')/*[@nodeType='formIdentifier']"/>
+                                    
+                                    <xf:action ev:event="DOMActivate">
+	                                	<idega:setvalue ref="instance('data-instance')/Violation_types_summary"
+	                                		value="idega:resolveExpression('violationService.getSelectedViolations({0})', '#{instance(`data-instance`)/Violation_type_fbc_156}')" />
+	                                </xf:action>
+                                    
+                                    <idega:saveForm action="save" formId="instance('data-instance')/form_id" instanceId="data-instance"
+                                    	linkLocation="instance('saveForm-instance')/link" model="submission_model"
+                                    	submissionId="instance('data-instance')/saveFormData/submissionId" submissionIdentifier="instance('data-instance')/*[@nodeType='formIdentifier']"/>
                                     <idega:toggle case="fbc_100"/>
                                 </xf:action>
                             </xf:trigger>
@@ -1267,6 +1260,10 @@
                                 id="fbc_66" type="fbc_button_next">
                                 <xf:label model="data_model" ref="instance('localized_strings')/fbc_66-label[@lang=instance('localized_strings')/current_language]"/>
                                 
+                                <xf:action ev:event="DOMActivate">
+                                	<idega:setvalue ref="instance('data-instance')/Violation_types_summary"
+                                		value="idega:resolveExpression('violationService.getSelectedViolations({0})', '#{instance(`data-instance`)/Violation_type_fbc_156}')" />
+                                </xf:action>
                                 <idega:toggle ev:event="DOMActivate" case="fbc_173" />
                             </xf:trigger>
                         </div>
@@ -1337,13 +1334,6 @@
 	                                <xf:label ref="itemLabel"/>
 	                                <xf:value ref="itemValue"/>
 	                            </xf:itemset>
-	                     
-	                            <idega:separateSelectionLabels
-	                               ref="instance('data-instance')/fishingGearsSummary"
-	                               val="instance('data-instance')/Fishing_gear_fbc_192"
-	                               itemsNodeset="instance('fbc_192_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]" 
-	                               ev:event="xforms-value-changed" />
-	                               
 	                        </xf:select>
 	                    </div>
                         <xf:input bind="fbc_192a_bind" id="fbc_192a" type="fbc_text">
@@ -1362,6 +1352,11 @@
                                     <xf:dispatch
                                     name="xforms-revalidate" target="data_model"/>
                                     <xf:dispatch name="xforms-refresh" target="data_model"/>
+                                    
+                                    <xf:action ev:event="DOMActivate">
+	                                	<idega:setvalue ref="instance('data-instance')/fishingGearsSummary" value="idega:resolveExpression('violationService.getSelectedFishingGears({0})', '#{instance(`data-instance`)/Fishing_gear_fbc_192}')" />
+	                                </xf:action>
+                                    
                                     <idega:saveForm action="save"
                                     formId="instance('data-instance')/form_id"
                                     instanceId="data-instance"
@@ -1374,11 +1369,21 @@
                             <xf:trigger bind="bind-controlsButton"
                                 id="fbc_176" type="fbc_button_previous">
                                 <xf:label model="data_model" ref="instance('localized_strings')/fbc_68-label[@lang=instance('localized_strings')/current_language]"/>
+                                
+                                <xf:action ev:event="DOMActivate">
+	                                <idega:setvalue ref="instance('data-instance')/fishingGearsSummary" value="idega:resolveExpression('violationService.getSelectedFishingGears({0})', '#{instance(`data-instance`)/Fishing_gear_fbc_192}')" />
+	                            </xf:action>
+                                
                                 <idega:toggle case="fbc_1" ev:event="DOMActivate"/>
                             </xf:trigger>
                             <xf:trigger bind="bind-controlsButton"
                                 id="fbc_175" type="fbc_button_next">
                                 <xf:label model="data_model" ref="instance('localized_strings')/fbc_66-label[@lang=instance('localized_strings')/current_language]"/>
+                                
+                                <xf:action ev:event="DOMActivate">
+	                                <idega:setvalue ref="instance('data-instance')/fishingGearsSummary" value="idega:resolveExpression('violationService.getSelectedFishingGears({0})', '#{instance(`data-instance`)/Fishing_gear_fbc_192}')" />
+	                            </xf:action>
+                                
                                 <idega:toggle case="fbc_199" ev:event="DOMActivate"/>
                             </xf:trigger>
                         </div>
@@ -1498,12 +1503,6 @@
                                     <xf:label ref="itemLabel"/>
                                     <xf:value ref="itemValue"/>
                                 </xf:itemset>
-                                
-                                <idega:separateSelectionLabels
-                                   ref="instance('data-instance')/Other_inspectors_summary"
-                                   val="instance('data-instance')/Other_inspectors_fbc_221"
-                                   itemsNodeset="instance('fbc_221_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]" 
-                                   ev:event="xforms-value-changed" />
                             </xf:select>
                         </div>
                         <xf:select1 appearance="minimal"
@@ -1531,6 +1530,11 @@
                                     <xf:dispatch
                                     name="xforms-revalidate" target="data_model"/>
                                     <xf:dispatch name="xforms-refresh" target="data_model"/>
+                                    
+                                    <xf:action ev:event="DOMActivate">
+	                                	<idega:setvalue ref="instance('data-instance')/Other_inspectors_summary" value="idega:resolveExpression('violationService.getSelectedOtherInspectors({0})', '#{instance(`data-instance`)/Other_inspectors_fbc_221}')" />
+	                                </xf:action>
+                                    
                                     <idega:saveForm action="save"
                                     formId="instance('data-instance')/form_id"
                                     instanceId="data-instance"
@@ -1543,11 +1547,21 @@
                             <xf:trigger bind="bind-controlsButton"
                                 id="fbc_203" type="fbc_button_previous">
                                 <xf:label model="data_model" ref="instance('localized_strings')/fbc_203-label[@lang=instance('localized_strings')/current_language]"/>
+                                
+                                <xf:action ev:event="DOMActivate">
+	                               	<idega:setvalue ref="instance('data-instance')/Other_inspectors_summary" value="idega:resolveExpression('violationService.getSelectedOtherInspectors({0})', '#{instance(`data-instance`)/Other_inspectors_fbc_221}')" />
+	                            </xf:action>
+                                
                                 <idega:toggle case="fbc_173" ev:event="DOMActivate"/>
                             </xf:trigger>
                             <xf:trigger bind="bind-controlsButton"
                                 id="fbc_204" type="fbc_button_next">
                                 <xf:label model="data_model" ref="instance('localized_strings')/fbc_204-label[@lang=instance('localized_strings')/current_language]"/>
+                                
+                                <xf:action ev:event="DOMActivate">
+	                                <idega:setvalue ref="instance('data-instance')/Other_inspectors_summary" value="idega:resolveExpression('violationService.getSelectedOtherInspectors({0})', '#{instance(`data-instance`)/Other_inspectors_fbc_221}')" />
+	                            </xf:action>
+                                
                                 <idega:toggle case="fbc_41" ev:event="DOMActivate"/>
                             </xf:trigger>
                         </div>

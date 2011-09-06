@@ -66,9 +66,44 @@ public class ViolationService extends DefaultSpringBean {
 		return getViolationDataProvider().getViolationTypes();
 	}
 	
+	public String getSelectedViolations(String value) {
+		return getSelectedLabelsForValue(getViolationTypes(), value);
+	}
+	
+	private String getSelectedLabelsForValue(List<Item> items, String value) {
+		if (ListUtil.isEmpty(items) || StringUtil.isEmpty(value))
+			return CoreConstants.EMPTY;
+		
+		String[] values = value.split(CoreConstants.SPACE);
+		if (ArrayUtil.isEmpty(values))
+			return CoreConstants.EMPTY;
+
+		List<String> valuesList = Arrays.asList(values);
+		
+		List<String> labelsList = new ArrayList<String>();
+		for (Item item: items) {
+			if (valuesList.contains(item.getItemValue()))
+				labelsList.add(item.getItemLabel());
+		}
+		if (ListUtil.isEmpty(labelsList))
+			return CoreConstants.EMPTY;
+		
+		StringBuffer result = new StringBuffer();
+		for (Iterator<String> labelsIter = labelsList.iterator(); labelsIter.hasNext();) {
+			result.append(labelsIter.next());
+			if (labelsIter.hasNext())
+				result.append(CoreConstants.COMMA).append(CoreConstants.SPACE);
+		}
+		return result.toString();
+	}
+	
 	public List<Item> getOtherInspectorsThanCurrentlyLoggedIn() {
 		return getViolationDataProvider()
 		        .getOtherInspectorsThanCurrentlyLoggedIn();
+	}
+	
+	public String getSelectedOtherInspectors(String value) {
+		return getSelectedLabelsForValue(getOtherInspectorsThanCurrentlyLoggedIn(), value);
 	}
 	
 	public List<Item> getFiskistofaOffices() {
@@ -78,6 +113,10 @@ public class ViolationService extends DefaultSpringBean {
 	
 	public List<Item> getFishingGears() {
 		return getViolationDataProvider().getFishingGears();
+	}
+	
+	public String getSelectedFishingGears(String value) {
+		return getSelectedLabelsForValue(getFishingGears(), value);
 	}
 	
 	public List<Item> getLettersTypes() {
@@ -171,33 +210,7 @@ public class ViolationService extends DefaultSpringBean {
 	}
 	
 	public String getSelectedDecisionRulings(String value) {
-		if (StringUtil.isEmpty(value))
-			return CoreConstants.EMPTY;
-		
-		String[] values = value.split(CoreConstants.SPACE);
-		if (ArrayUtil.isEmpty(values))
-			return CoreConstants.EMPTY;
-		List<String> valuesList = Arrays.asList(values);
-		
-		List<Item> rulings = getDecisionRulings();
-		if (ListUtil.isEmpty(rulings))
-			return CoreConstants.EMPTY;
-		
-		List<String> labelsList = new ArrayList<String>();
-		for (Item ruling: rulings) {
-			if (valuesList.contains(ruling.getItemValue()))
-				labelsList.add(ruling.getItemLabel());
-		}
-		if (ListUtil.isEmpty(labelsList))
-			return CoreConstants.EMPTY;
-		
-		StringBuffer result = new StringBuffer();
-		for (Iterator<String> labelsIter = labelsList.iterator(); labelsIter.hasNext();) {
-			result.append(labelsIter.next());
-			if (labelsIter.hasNext())
-				result.append(CoreConstants.COMMA).append(CoreConstants.SPACE);
-		}
-		return result.toString();
+		return getSelectedLabelsForValue(getDecisionRulings(), value);
 	}
 	
 	public List<Item> getHarbours() {
