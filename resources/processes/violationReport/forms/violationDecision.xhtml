@@ -173,20 +173,11 @@
 	                                <xf:label ref="itemLabel"/>
 	                                <xf:value ref="itemValue"/>
 	                            </xf:itemset>
-	                            
-	                            <idega:separateSelectionLabels
-                                   ref="instance('data-instance')/actionTaken"
-                                   val="instance('data-instance')/actionTakenSummary"
-                                   itemsNodeset="instance('fbc_10_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]" 
-                                   ev:event="xforms-value-changed" />
-                                   
-	                            <xf:dispatch ev:event="idega-xforms-ready"
-	                                name="idega-validate" target="fbc_10"/>
-	                            <xf:dispatch ev:event="xforms-value-changed"
-	                                name="idega-validate" target="fbc_10"/>
+                                
+	                            <xf:dispatch ev:event="idega-xforms-ready" name="idega-validate" target="fbc_10"/>
+	                            <xf:dispatch ev:event="xforms-value-changed" name="idega-validate" target="fbc_10"/>
 	                            <idega:validator ev:event="idega-validate">
-	                                <idega:message errorType="required"
-	                                    model="data_model" value="instance('localized_strings')/fbc_5-required[@lang=instance('localized_strings')/current_language]"/>
+	                                <idega:message errorType="required" model="data_model" value="instance('localized_strings')/fbc_5-required[@lang=instance('localized_strings')/current_language]"/>
 	                            </idega:validator>
 	                            <xf:alert ref="instance('error-instance')/error[@for='fbc_10']"/>
 	                        </xf:select>
@@ -253,26 +244,23 @@
                             </xf:repeat>
                         </xf:group>
                         <div class="fbc_button_area" id="fbc_2" type="fbc_button_area">
-                            <xf:trigger bind="bind-submissionButton"
-                                class="fbc_button_submit" id="fbc_3" type="fbc_button_submit">
+                            <xf:trigger bind="bind-submissionButton" class="fbc_button_submit" id="fbc_3" type="fbc_button_submit">
                                 <xf:label model="data_model" ref="instance('localized_strings')/page-1-grant-label[@lang=instance('localized_strings')/current_language]"/>
                                 <xf:action ev:event="DOMActivate">
-                                    <xf:setvalue
-                                    ref="instance('control-instance')/submission" value="'true'"/>
-                                    <idega:dispatch
-                                    name="idega-validate" target="//h:body//*[starts-with(@id, 'fbc_')]"/>
+                                    <xf:setvalue ref="instance('control-instance')/submission" value="'true'"/>
+                                    
+                                    <idega:dispatch name="idega-validate" target="//h:body//*[starts-with(@id, 'fbc_')]"/>
                                     <xf:dispatch name="xforms-rebuild" target="data_model"/>
-                                    <xf:dispatch
-                                    name="xforms-recalculate" target="data_model"/>
-                                    <xf:dispatch
-                                    name="xforms-revalidate" target="data_model"/>
+                                    <xf:dispatch name="xforms-recalculate" target="data_model"/>
+                                    <xf:dispatch name="xforms-revalidate" target="data_model"/>
                                     <xf:dispatch name="xforms-refresh" target="data_model"/>
+                                    
+                                    <idega:setvalue ref="instance('data-instance')/actionTakenSummary" value="idega:resolveExpression('violationService.getSelectedDecisionRulings({0})', '#{instance(`data-instance`)/actionTaken}')" />
+                                    
                                     <xf:action if="count-non-empty(instance('error-instance')/error)=0">
-                                    <xf:send submission="submit_data_submission"/>
+                                    	<xf:send submission="submit_data_submission"/>
                                     </xf:action>
-                                    <xf:dispatch
-                                    if="count-non-empty(instance('error-instance')/error)!=0"
-                                    name="xforms-submit-error" target="submission-error"/>
+                                    <xf:dispatch if="count-non-empty(instance('error-instance')/error)!=0" name="xforms-submit-error" target="submission-error"/>
                                 </xf:action>
                             </xf:trigger>
                         </div>

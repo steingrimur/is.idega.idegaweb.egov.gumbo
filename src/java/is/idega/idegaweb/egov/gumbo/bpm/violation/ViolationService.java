@@ -13,6 +13,7 @@ import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,9 @@ import com.idega.idegaweb.IWMainApplication;
 import com.idega.idegaweb.IWResourceBundle;
 import com.idega.jbpm.identity.Role;
 import com.idega.jbpm.identity.RolesManager;
+import com.idega.util.ArrayUtil;
 import com.idega.util.CoreConstants;
+import com.idega.util.ListUtil;
 import com.idega.util.LocaleUtil;
 import com.idega.util.StringUtil;
 import com.idega.util.text.Item;
@@ -165,6 +168,36 @@ public class ViolationService extends DefaultSpringBean {
 	
 	public List<Item> getDecisionRulings() {
 		return getViolationDataProvider().getDecisionRulings();
+	}
+	
+	public String getSelectedDecisionRulings(String value) {
+		if (StringUtil.isEmpty(value))
+			return CoreConstants.EMPTY;
+		
+		String[] values = value.split(CoreConstants.SPACE);
+		if (ArrayUtil.isEmpty(values))
+			return CoreConstants.EMPTY;
+		List<String> valuesList = Arrays.asList(values);
+		
+		List<Item> rulings = getDecisionRulings();
+		if (ListUtil.isEmpty(rulings))
+			return CoreConstants.EMPTY;
+		
+		List<String> labelsList = new ArrayList<String>();
+		for (Item ruling: rulings) {
+			if (valuesList.contains(ruling.getItemValue()))
+				labelsList.add(ruling.getItemLabel());
+		}
+		if (ListUtil.isEmpty(labelsList))
+			return CoreConstants.EMPTY;
+		
+		StringBuffer result = new StringBuffer();
+		for (Iterator<String> labelsIter = labelsList.iterator(); labelsIter.hasNext();) {
+			result.append(labelsIter.next());
+			if (labelsIter.hasNext())
+				result.append(CoreConstants.COMMA).append(CoreConstants.SPACE);
+		}
+		return result.toString();
 	}
 	
 	public List<Item> getHarbours() {
