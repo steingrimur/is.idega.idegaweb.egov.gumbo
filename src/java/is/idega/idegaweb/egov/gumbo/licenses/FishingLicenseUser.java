@@ -133,12 +133,20 @@ public class FishingLicenseUser extends DefaultSpringBean {
 		return getClient().getFishingAreaForDraganotaveidi(shipId).getText();
 	}
 
-	public XFormsBooleanResult getVesselHasValidGeneralLicense(String shipId, String licenseType) {
+	public XFormsBooleanResult getVesselHasValidGeneralLicense(String shipId, String licenseType, String startOfFishing) {
 		if (shipId == null || shipId.length() == 0 || licenseType == null || licenseType.length() == 0) {
 			return new XFormsBooleanResult(false, "");
 		}
 		
-		LicenseCheckContainer res = getClient().getHasValidFishingLicense(shipId, licenseType);
+		try {
+			new BigDecimal(shipId);
+			new IWTimestamp(startOfFishing);
+		}
+		catch (Exception e) {
+			return new XFormsBooleanResult(false, "");
+		}
+		
+		LicenseCheckContainer res = getClient().getHasValidFishingLicense(shipId, licenseType, new IWTimestamp(startOfFishing).getCalendar());
 		return new XFormsBooleanResult(res.isHasLicense(), res.getMessage());
 	}
 	

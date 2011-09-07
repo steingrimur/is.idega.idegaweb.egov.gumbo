@@ -498,7 +498,7 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
 		                            <idega:setvalue
 		                                multiple="true()"
 		                                placeResponseDocument="true()"
-		                                ref="instance('data-instance')/vesselLicenseValid" value="idega:resolveBeanProperties('fishingLicenseUser.getVesselHasValidGeneralLicense({0}, {1})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}, #{instance(`data-instance`)/Type_of_fishing_license_fbc_35}')"/>
+		                                ref="instance('data-instance')/vesselLicenseValid" value="idega:resolveBeanProperties('fishingLicenseUser.getVesselHasValidGeneralLicense({0}, {1}, {2})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}, #{instance(`data-instance`)/Type_of_fishing_license_fbc_35}, #{instance(`data-instance`)/From_date_fbc_101}')"/>
                                     <xf:setvalue
                                         model="submission_model" ref="instance('data-instance')/vesselLicenseMessage" value="instance('data-instance')/vesselLicenseValid/message" />
 		                                
@@ -510,9 +510,9 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                                         model="submission_model" ref="instance('data-instance')/vesselHasRevokedLicenseMessage" value="instance('data-instance')/vesselHasRevokedLicense/message" />
                                         
                                     <idega:setvalue
-                                    multiple="true()"
-                                    placeResponseDocument="true()"
-                                    ref="instance('data-instance')/userIsInDebt" value="idega:resolveExpression('fishingLicenseUser.getIsInDebt({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
+	                                    multiple="true()"
+	                                    placeResponseDocument="true()"
+	                                    ref="instance('data-instance')/userIsInDebt" value="idega:resolveExpression('fishingLicenseUser.getIsInDebt({0})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}')"/>
                                     
                                 </xf:action>
                             
@@ -545,12 +545,13 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                                 multiple="true()"
                                 ref="instance('data-instance')/licenseTypeLabel" value="instance('fbc_35_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/Type_of_fishing_license_fbc_35]/itemLabel"/>
                             <xf:action ev:event="xforms-value-changed">
-	                          <idega:setvalue
-	                              multiple="true()"
-	                              placeResponseDocument="true()"
-	                              ref="instance('data-instance')/vesselLicenseValid" value="idega:resolveBeanProperties('fishingLicenseUser.getVesselHasValidGeneralLicense({0}, {1})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}, #{instance(`data-instance`)/Type_of_fishing_license_fbc_35}')"/>
+	                            <idega:setvalue
+	                                multiple="true()"
+	                                placeResponseDocument="true()"
+	                                ref="instance('data-instance')/vesselLicenseValid" value="idega:resolveBeanProperties('fishingLicenseUser.getVesselHasValidGeneralLicense({0}, {1}, {2})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}, #{instance(`data-instance`)/Type_of_fishing_license_fbc_35}, #{instance(`data-instance`)/From_date_fbc_101}')"/>
                                 <xf:setvalue
                                     model="submission_model" ref="instance('data-instance')/vesselLicenseMessage" value="instance('data-instance')/vesselLicenseValid/message" />
+	                                
 							</xf:action>		                                
 
                             <xf:dispatch ev:event="idega-xforms-ready"
@@ -592,6 +593,13 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                                 <xf:setvalue
                                     model="submission_model" ref="instance('data-instance')/vesselHasValidHaffairisskirteiniMessage" value="instance('data-instance')/vesselHasValidHaffairisskirteini/message" />
                                         
+	                            <idega:setvalue
+	                                multiple="true()"
+	                                placeResponseDocument="true()"
+	                                ref="instance('data-instance')/vesselLicenseValid" value="idega:resolveBeanProperties('fishingLicenseUser.getVesselHasValidGeneralLicense({0}, {1}, {2})', '#{instance(`data-instance`)/License_for_following_vessel_fbc_37}, #{instance(`data-instance`)/Type_of_fishing_license_fbc_35}, #{instance(`data-instance`)/From_date_fbc_101}')"/>
+                                <xf:setvalue
+                                    model="submission_model" ref="instance('data-instance')/vesselLicenseMessage" value="instance('data-instance')/vesselLicenseValid/message" />
+	                                
                             </xf:action>
                             
                             <idega:validator ev:event="idega-validate2" errorif="instance('data-instance')/From_date_fbc_101 != '' and idega:isBeforeNow(instance('data-instance')/From_date_fbc_101)" componentId="fbc_101">
@@ -638,7 +646,7 @@ Ef viðkomandi skip er ekki í listanum þá skal hafa samband við Fiskistofu.<
                                 <xf:label model="data_model" ref="instance('localized_strings')/fbc_66-label[@lang=instance('localized_strings')/current_language]"/>
                                 <idega:toggle case="fbc_41" ev:event="DOMActivate"/>
                                 
-                                <xf:action if="instance('data-instance')/vesselHasValidHaffairisskirteini/result!='true' or instance('data-instance')/vesselLicenseValid/result='true' or instance('data-instance')/vesselHasRevokedLicense/result='true'">
+                                <xf:action if="instance('data-instance')/vesselHasValidHaffairisskirteini/result!='true' or instance('data-instance')/vesselLicenseValid/result!='true' or instance('data-instance')/vesselHasRevokedLicense/result='true'">
 	                                <idega:execute expression="'fiskistofaLicensesUtil.sendPDFByEmail({0}, {1})', notset, #{instance(`data-instance`)/vesselData/registryNr}"
 	                                	action="saveFormAndGeneratePdf"
 										formId="instance('data-instance')/form_id"
