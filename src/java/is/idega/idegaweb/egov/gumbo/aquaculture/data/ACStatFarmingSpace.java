@@ -42,7 +42,7 @@ public class ACStatFarmingSpace {
 	private String environment;
 
 	@Column(name = ACStatFarmingSpace.COLUMN_SIZE)
-	private String size;
+	private Float size;
 
 	@Column(name = ACStatFarmingSpace.COLUMN_UNIT)
 	private String unit;
@@ -87,11 +87,11 @@ public class ACStatFarmingSpace {
 		this.environment = environment;
 	}
 
-	public String getSize() {
+	public Float getSize() {
 		return size;
 	}
 
-	public void setSize(String size) {
+	public void setSize(Float size) {
 		this.size = size;
 	}
 

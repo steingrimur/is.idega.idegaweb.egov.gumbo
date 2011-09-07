@@ -61,19 +61,19 @@ public class ACStatSale {
 	private String condition;
 
 	@Column(name = ACStatSale.COLUMN_NUMBER_OF_UNITS)
-	private String numberOfUnits;
+	private Float numberOfUnits;
 
 	@Column(name = ACStatSale.COLUMN_UNIT)
 	private String unit;
 
 	@Column(name = ACStatSale.COLUMN_PRICE_PR_UNIT)
-	private String pricePrUnit;
+	private Float pricePrUnit;
 
 	@Column(name = ACStatSale.COLUMN_PRICE_UNIT)
 	private String priceUnit;
 
 	@Column(name = ACStatSale.COLUMN_AMOUNT)
-	private String amount;
+	private Float amount;
 
 	@Column(name = ACStatSale.COLUMN_SOLD_TO)
 	private String soldTo;
@@ -135,11 +135,11 @@ public class ACStatSale {
 		this.condition = condition;
 	}
 
-	public String getNumberOfUnits() {
+	public Float getNumberOfUnits() {
 		return numberOfUnits;
 	}
 
-	public void setNumberOfUnits(String numberOfUnits) {
+	public void setNumberOfUnits(Float numberOfUnits) {
 		this.numberOfUnits = numberOfUnits;
 	}
 
@@ -151,11 +151,11 @@ public class ACStatSale {
 		this.unit = unit;
 	}
 
-	public String getPricePrUnit() {
+	public Float getPricePrUnit() {
 		return pricePrUnit;
 	}
 
-	public void setPricePrUnit(String pricePrUnit) {
+	public void setPricePrUnit(Float pricePrUnit) {
 		this.pricePrUnit = pricePrUnit;
 	}
 
@@ -167,11 +167,11 @@ public class ACStatSale {
 		this.priceUnit = priceUnit;
 	}
 
-	public String getAmount() {
+	public Float getAmount() {
 		return amount;
 	}
 
-	public void setAmount(String amount) {
+	public void setAmount(Float amount) {
 		this.amount = amount;
 	}
 

@@ -20,23 +20,23 @@ public interface AquaDAO extends GenericDao {
 
 	public ACStatCaughtForFarming createACStatsCaughForFarmingEntry(
 			ACStatHeader header, String category, String type,
-			String unitsCaught, String weight, String price);
+			String unitsCaught, Float weight, Float price);
 
 	public ACStatFarmingSpace createACStatFarmingSpace(ACStatHeader header,
-			String category, String method, String environment, String size,
+			String category, String method, String environment, Float size,
 			String unit);
 
 	public ACStatSale createACStatSale(ACStatHeader header, String category,
 			String method, String environment, String type, String process,
-			String condition, String numberOfUnits, String unit,
-			String pricePrUnit, String priceUnit, String amount, String soldTo,
+			String condition, Float numberOfUnits, String unit,
+			Float pricePrUnit, String priceUnit, Float amount, String soldTo,
 			String buyersPersonalID, String buyersName, String farm);
 
 	public ACStatInventory createACStatInventory(ACStatHeader header,
-			String category, String type, String numberOfUnits, String unit,
+			String category, String type, Float numberOfUnits, String unit,
 			String comment);
 
 	public ACStatEstimates createACStatEstimates(ACStatHeader header,
-			String category, String type, String numberOfUnits, String unit,
+			String category, String type, Float numberOfUnits, String unit,
 			String comment);
 }

@@ -18,6 +18,7 @@ import com.idega.idegaweb.IWMainApplication;
 import com.idega.idegaweb.egov.bpm.data.CaseProcInstBind;
 import com.idega.idegaweb.egov.bpm.data.dao.CasesBPMDAO;
 import com.idega.jbpm.bean.VariableInstanceInfo;
+import com.idega.jbpm.bean.VariableInstanceType;
 import com.idega.jbpm.data.VariableInstanceQuerier;
 import com.idega.util.expression.ELUtil;
 import com.idega.util.timer.TimerEntry;
@@ -77,18 +78,19 @@ public class AquaCultureStatisticsTimer implements TimerListener {
 					Long procInstId = bind.getProcInstId();
 					Collection<VariableInstanceInfo> variables = null;
 					try {
-						variables = variablesQuerier.getVariablesByProcessInstanceId(procInstId);
+						variables = variablesQuerier.getFullVariablesByProcessInstanceId(procInstId, false);
 					} catch(Exception e) {
 						LOGGER.log(Level.WARNING, "Error getting variables from process instance: " + procInstId, e);
 					}
 					
 					for (VariableInstanceInfo variable: variables) {	
-						String varName = variable.getName();
-
+						System.out.println("name = " + variable.getName());
+						System.out.println("type = " + variable.getType().toString());
+						
 						if (variable.getValue() != null) {
-							System.out.println("variable " + varName + " = " + (String) variable.getValue());														
+							System.out.println("has value");														
 						} else {
-							System.out.println("variable " + varName + " = " + variable.getValue());							
+							System.out.println("is null");							
 						}
 						
 					}

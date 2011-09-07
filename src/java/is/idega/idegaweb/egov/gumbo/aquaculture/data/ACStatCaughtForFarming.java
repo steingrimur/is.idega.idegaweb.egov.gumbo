@@ -42,10 +42,10 @@ public class ACStatCaughtForFarming {
 	private String unitsCaught;
 	
 	@Column(name = ACStatCaughtForFarming.COLUMN_WEIGHT)
-	private String weight;
+	private Float weight;
 
 	@Column(name = ACStatCaughtForFarming.COLUMN_PRICE)
-	private String price;
+	private Float price;
 
 	public Long getId() {
 		return id;
@@ -87,19 +87,19 @@ public class ACStatCaughtForFarming {
 		this.unitsCaught = unitsCaught;
 	}
 
-	public String getWeight() {
+	public Float getWeight() {
 		return weight;
 	}
 
-	public void setWeight(String weight) {
+	public void setWeight(Float weight) {
 		this.weight = weight;
 	}
 
-	public String getPrice() {
+	public Float getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(Float price) {
 		this.price = price;
 	}	
 

@@ -39,7 +39,7 @@ public class ACStatInventory {
 	private String type;
 
 	@Column(name = ACStatInventory.COLUMN_NUMBER_OF_UNITS)
-	private String numberOfUnits;
+	private Float numberOfUnits;
 
 	@Column(name = ACStatInventory.COLUMN_UNIT)
 	private String unit;
@@ -79,11 +79,11 @@ public class ACStatInventory {
 		this.type = type;
 	}
 
-	public String getNumberOfUnits() {
+	public Float getNumberOfUnits() {
 		return numberOfUnits;
 	}
 
-	public void setNumberOfUnits(String numberOfUnits) {
+	public void setNumberOfUnits(Float numberOfUnits) {
 		this.numberOfUnits = numberOfUnits;
 	}
 
