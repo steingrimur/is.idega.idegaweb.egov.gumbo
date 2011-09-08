@@ -39,7 +39,7 @@ public class ACStatCaughtForFarming {
 	private String type;
 
 	@Column(name = ACStatCaughtForFarming.COLUMN_UNITS_CAUGHT)
-	private String unitsCaught;
+	private Float unitsCaught;
 	
 	@Column(name = ACStatCaughtForFarming.COLUMN_WEIGHT)
 	private Float weight;
@@ -79,11 +79,11 @@ public class ACStatCaughtForFarming {
 		this.type = type;
 	}
 
-	public String getUnitsCaught() {
+	public Float getUnitsCaught() {
 		return unitsCaught;
 	}
 
-	public void setUnitsCaught(String unitsCaught) {
+	public void setUnitsCaught(Float unitsCaught) {
 		this.unitsCaught = unitsCaught;
 	}
 

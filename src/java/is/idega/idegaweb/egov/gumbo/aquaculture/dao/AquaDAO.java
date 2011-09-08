@@ -20,7 +20,7 @@ public interface AquaDAO extends GenericDao {
 
 	public ACStatCaughtForFarming createACStatsCaughForFarmingEntry(
 			ACStatHeader header, String category, String type,
-			String unitsCaught, Float weight, Float price);
+			Float unitsCaught, Float weight, Float price);
 
 	public ACStatFarmingSpace createACStatFarmingSpace(ACStatHeader header,
 			String category, String method, String environment, Float size,

@@ -51,7 +51,7 @@ public class AquaDAOImpl extends GenericDaoImpl implements AquaDAO {
 	@Transactional(readOnly = false)
 	public ACStatCaughtForFarming createACStatsCaughForFarmingEntry(
 			ACStatHeader header, String category, String type,
-			String unitsCaught, Float weight, Float price) {
+			Float unitsCaught, Float weight, Float price) {
 		ACStatCaughtForFarming caught = new ACStatCaughtForFarming();
 		caught.setHeader(header);
 		caught.setCategory(category);
