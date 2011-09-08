@@ -145,6 +145,9 @@ public class FJSWSClient {
 					iStofnaKrofu);
 			getGumboDAO().updateHeader(header, ret.getSvarHaus().getKodi(),
 					ret.getSvarHaus().getSkyring(), ret.getLykill());
+			if (ret.getSvarHaus().getKodi() != 0) {
+				System.out.println("FJS ERROR = " + ret.getSvarHaus().getSkyring() + ", " + ret.getSvarHaus().getNanariSkyring());
+			}
 			return ret.getLykill();
 		} catch (RemoteException e) {
 			getGumboDAO().updateHeader(header, -1l, e.getMessage(), "-1"); // Have to get this to commit somehow, independant of the rest of the process?
