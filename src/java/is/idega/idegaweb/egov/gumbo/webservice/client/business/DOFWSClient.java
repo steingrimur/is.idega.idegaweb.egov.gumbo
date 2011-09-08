@@ -63,7 +63,7 @@ public interface DOFWSClient {
 	
 	public LicenseCheckContainer getHasValidSeafaringLicense(String shipID);
 	
-	public LicenseCheckContainer getHasValidFishingLicense(String shipID, String licenseType);
+	public LicenseCheckContainer getHasValidFishingLicense(String shipID, String licenseType, Calendar date);
 	
 	public LicenseCheckContainer getHasValidGeneralFishingLicense(String shipID);
 	

@@ -103,7 +103,7 @@ public class DOFWSClientMock implements DOFWSClient {
 	}
 
 	public LicenseCheckContainer getHasValidFishingLicense(String shipID,
-			String licenseType) {
+			String licenseType, Calendar date) {
 		return new LicenseCheckContainer(true,
 				"Error message from getHasValidFishingLicense");
 	}

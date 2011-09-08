@@ -697,7 +697,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	}
 
 	public LicenseCheckContainer getHasValidFishingLicense(String shipID,
-			String licenseType) {
+			String licenseType, Calendar date) {
 		if (shipID == null || shipID.length() == 0) {
 			return new LicenseCheckContainer(false, "Ship not selected");
 		}
@@ -707,8 +707,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		} else if (licenseType
 				.equals(FishingLicenseType.CATCH_QUOTA.toString())) {
 			GeterskipflokkuraflamarkElement parameters = new GeterskipflokkuraflamarkElement(
-					new BigDecimal(shipID), IWTimestamp.RightNow()
-							.getCalendar());
+					new BigDecimal(shipID), date);
 			try {
 				GeterskipflokkuraflamarkResponseElement res = getLicensePort()
 						.geterskipflokkuraflamark(parameters);
@@ -728,8 +727,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		} else if (licenseType.equals(FishingLicenseType.HOOK_CATCH_QUOTA
 				.toString())) {
 			GeterskipflokkurkrokaflamarkElement parameters = new GeterskipflokkurkrokaflamarkElement(
-					new BigDecimal(shipID), IWTimestamp.RightNow()
-							.getCalendar());
+					new BigDecimal(shipID), date);
 			try {
 				GeterskipflokkurkrokaflamarkResponseElement res = getLicensePort()
 						.geterskipflokkurkrokaflamark(parameters);
