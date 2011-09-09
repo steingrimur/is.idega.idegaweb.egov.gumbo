@@ -135,7 +135,6 @@
 				<variable name="date_reportDate" access="read,write"></variable>
 				<variable name="string_reportDateLabel" access="read,write"></variable>
 				<variable name="string_fiskistofaOffice" access="read,write"></variable>
-				<variable name="string_fiskistofaOfficeLabel" access="read,write"></variable>
 				<variable name="list_otherInspectors" access="read,write"></variable>
 				<variable name="string_otherInspectorsSummary" access="read,write"></variable>
 
@@ -1075,13 +1074,20 @@
 				<variable name="date_reportDate" access="read,write"></variable>
 				<variable name="string_reportDateLabel" access="read,write"></variable>
 				<variable name="string_fiskistofaOffice" access="read,write"></variable>
-				<variable name="string_fiskistofaOfficeLabel" access="read,write"></variable>
 				<variable name="list_otherInspectors" access="read,write"></variable>
 				<variable name="string_otherInspectorsSummary" access="read,write"></variable>
 
 				<variable name="objlist_equipmentsAndLicenses" access="read,write"></variable>
             
          </controller>
+         <event type="task-end">
+			<script>
+				<expression>
+					taskInstanceId = taskInstance.getId();
+				</expression>
+				<variable name='violationReportOnRepeatTaskInstanceId' access='write' mapped-name='taskInstanceId' />
+			</script>
+		</event>
       </task>
       <event type="node-leave">
 			<action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
@@ -1108,7 +1114,7 @@
 	            </propertyMap>
 	        </action>
       </event>
-		<transition to="fork8"></transition>
+		<transition to="violationReportHandler"></transition>
 	</task-node>
 
 	<node name="changeStatusToInProcess">
@@ -1224,6 +1230,21 @@
 		</event>
 		<transition to="emailsFetcherEnd"></transition>
 	</process-state>
+
+	<node name="violationReportHandler">
+		<event type="node-enter">
+			<action class="com.idega.jbpm.proxy.JbpmHandlerProxy">
+				<handlerName>fiskistofaViolationReportHandler</handlerName>
+				<propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+					<entry>
+						<key>taskInstanceId</key>
+						<value>#{violationReportOnRepeatTaskInstanceId}</value>
+					</entry>
+				</propertyMap>
+			</action>
+		</event>
+		<transition to="fork8"></transition>
+	</node>
 
 	<idg:roles xmlns:idg="http://idega.com/bpm">
         <role name="bpm_violationReport_caseHandler">

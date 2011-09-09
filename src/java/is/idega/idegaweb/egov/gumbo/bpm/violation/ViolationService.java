@@ -12,9 +12,13 @@ import is.idega.idegaweb.egov.gumbo.webservice.client.business.DOFWSClient;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -66,17 +70,33 @@ public class ViolationService extends DefaultSpringBean {
 		return getViolationDataProvider().getViolationTypes();
 	}
 	
+	public Map<Locale, Map<String, String>> getAvailableViolationTypes() {
+		return getAvailableOptions(getViolationTypes());
+	}
+	
 	public String getSelectedViolations(String value) {
 		return getSelectedLabelsForValue(getViolationTypes(), value);
 	}
 	
+	public String getSelectedLabelsForValue(List<Item> items, Collection<?> values) {
+		String value = CoreConstants.EMPTY;
+		if (!ListUtil.isEmpty(values)) {
+			for (Iterator<?> iter = values.iterator(); iter.hasNext();) {
+				value = value.concat(iter.next().toString());
+				if (iter.hasNext())
+					value = value.concat(CoreConstants.SPACE);
+			}
+		}
+		return getSelectedLabelsForValue(items, value);
+	}
+	
 	private String getSelectedLabelsForValue(List<Item> items, String value) {
 		if (ListUtil.isEmpty(items) || StringUtil.isEmpty(value))
-			return CoreConstants.EMPTY;
+			return null;
 		
 		String[] values = value.split(CoreConstants.SPACE);
 		if (ArrayUtil.isEmpty(values))
-			return CoreConstants.EMPTY;
+			return null;
 
 		List<String> valuesList = Arrays.asList(values);
 		
@@ -86,15 +106,15 @@ public class ViolationService extends DefaultSpringBean {
 				labelsList.add(item.getItemLabel());
 		}
 		if (ListUtil.isEmpty(labelsList))
-			return CoreConstants.EMPTY;
+			return null;
 		
-		StringBuffer result = new StringBuffer();
+		StringBuffer labels = new StringBuffer();
 		for (Iterator<String> labelsIter = labelsList.iterator(); labelsIter.hasNext();) {
-			result.append(labelsIter.next());
+			labels.append(labelsIter.next());
 			if (labelsIter.hasNext())
-				result.append(CoreConstants.COMMA).append(CoreConstants.SPACE);
+				labels.append(CoreConstants.COMMA).append(CoreConstants.SPACE);
 		}
-		return result.toString();
+		return labels.toString();
 	}
 	
 	public List<Item> getOtherInspectorsThanCurrentlyLoggedIn() {
@@ -102,17 +122,44 @@ public class ViolationService extends DefaultSpringBean {
 		        .getOtherInspectorsThanCurrentlyLoggedIn();
 	}
 	
+	public Map<Locale, Map<String, String>> getAvailableInspectors() {
+		return getAvailableOptions(getOtherInspectorsThanCurrentlyLoggedIn());
+	}
+	
 	public String getSelectedOtherInspectors(String value) {
 		return getSelectedLabelsForValue(getOtherInspectorsThanCurrentlyLoggedIn(), value);
 	}
 	
 	public List<Item> getFiskistofaOffices() {
-		
 		return getViolationDataProvider().getFiskistofaOffices();
+	}
+	
+	public Map<Locale, Map<String, String>> getAvailableOffices() {
+		return getAvailableOptions(getFiskistofaOffices());
 	}
 	
 	public List<Item> getFishingGears() {
 		return getViolationDataProvider().getFishingGears();
+	}
+	
+	private Map<Locale, Map<String, String>> getAvailableOptions(List<Item> items) {
+		Map<Locale, Map<String, String>> allOptions = new HashMap<Locale, Map<String, String>>();
+
+		Locale locale = getCurrentLocale();
+		Map<String, String> options = new HashMap<String, String>();
+		allOptions.put(locale, options);
+		
+		if (!ListUtil.isEmpty(items)) {
+			for (Item item: items) {
+				options.put(item.getItemValue(), item.getItemLabel());
+			}
+		}
+		
+		return allOptions;
+	}
+	
+	public Map<Locale, Map<String, String>> getAvailableFishingGears() {
+		return getAvailableOptions(getFishingGears());
 	}
 	
 	public String getSelectedFishingGears(String value) {
@@ -217,6 +264,10 @@ public class ViolationService extends DefaultSpringBean {
 		return getViolationDataProvider().getHarbours();
 	}
 	
+	public Map<Locale, Map<String, String>> getAvailableHarbours() {
+		return getAvailableOptions(getHarbours());
+	}
+	
 	public String getTypeLabelOfPermissionForViolationCompany(String socialNr) {
 		return getViolationDataProvider()
 		        .getTypeLabelOfPermissionForViolationCompany(socialNr);
@@ -262,5 +313,23 @@ public class ViolationService extends DefaultSpringBean {
 	
 	private RolesManager getRolesManager() {
 		return rolesManager;
+	}
+	
+	private Map<String, String> offices = new HashMap<String, String>();
+	
+	public Boolean setSelectedOffice(String value, String xformSessionId) {
+		if (StringUtil.isEmpty(xformSessionId))
+			return Boolean.FALSE;
+		
+		if (StringUtil.isEmpty(value))
+			value = CoreConstants.EMPTY;
+		
+		offices.put(xformSessionId, value);
+		
+		return Boolean.TRUE;
+	}
+	
+	public Map<String, String> getOffices() {
+		return offices;
 	}
 }
