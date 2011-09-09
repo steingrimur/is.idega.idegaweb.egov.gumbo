@@ -8,6 +8,7 @@
             <param name="class" value="is.idega.idegaweb.egov.gumbo.bpm.violation.ViolationService" />
             <include method="getLetters"/>
             <include method="getLetterText"/>
+            <include method="setSelectedOffice"/>
         </create>
         
         <convert converter="bean" match="com.idega.util.text.Item" />

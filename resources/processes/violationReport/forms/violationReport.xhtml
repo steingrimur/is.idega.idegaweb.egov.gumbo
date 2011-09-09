@@ -165,7 +165,6 @@
                     <reportDate mapping="date_reportDate" xsi:nil="true" />
                     <reportDateLabel mapping="string_reportDateLabel"/>
                     <Fiskistofa_office_fbc_213 mapping="string_fiskistofaOffice"/>
-                    <Fiskistofa_office_label mapping="string_fiskistofaOfficeLabel"/>
                     <policeInvolvementTrue/>
                     <policeInvolvementFalse/>
                     
@@ -306,10 +305,8 @@
             <xf:bind id="fbc_191_bind" nodeset="equipmentData/fishingLicense"/>
             <xf:bind id="fbc_191a_bind" nodeset="equipmentData/revokeLicense"/>
             <xf:bind id="fbc_191b_bind" nodeset="equipmentData/fisheriesName"/>
-            <xf:bind id="fbc_192_bind" nodeset="Fishing_gear_fbc_192"
-                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
-            <xf:bind id="fbc_192a_bind" nodeset="FishingGearOther"
-                readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+            <xf:bind id="fbc_192_bind" nodeset="Fishing_gear_fbc_192" readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+            <xf:bind id="fbc_192a_bind" nodeset="FishingGearOther" readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
             <xf:bind id="fbc_198_bind" nodeset="fishingGearsSummary" type="xs:string" />
             <xf:bind id="fbc_205_bind"
                 nodeset="Police_involvement_fbc_205"
@@ -339,7 +336,6 @@
             <xf:bind id="fbc_213_bind"
                 nodeset="Fiskistofa_office_fbc_213"
                 readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
-            <xf:bind id="fbc_223_bind" nodeset="Fiskistofa_office_label"/>
             <xf:bind id="fbc_205_policeInvolvementTrue_bind"
                 nodeset="policeInvolvementTrue" relevant="instance('data-instance')/Police_involvement_fbc_205 != ''"/>
             <xf:bind id="fbc_205_policeInvolvementFalse_bind"
@@ -608,22 +604,8 @@
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
             <xf:action ev:event="xforms-ready">
                 <idega:dispatch name="idega-xforms-ready" target="//h:body//*[starts-with(@id, 'fbc_')]"/>
-                <xf:setvalue model="data_model"
-                    ref="instance('localized_strings')/current_language" value="instance('locale-instance')/fb-afk-loginSession.currentLocale"/>
-                <xf:setvalue
-                    if="instance('control-instance')/generatePdf='true'"
-                    model="submission_model"
-                    ref="instance('control-instance')/required" value="'false'"/>
-                <idega:setvalue
-                    ref="instance('fbc_37_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('violationService.getHarbours()')"/>
-                <idega:setvalue
-                    ref="instance('fbc_156_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('violationService.getViolationTypes()')"/>
-                <idega:setvalue
-                    ref="instance('fbc_221_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('violationService.getOtherInspectorsThanCurrentlyLoggedIn()')"/>
-                <idega:setvalue 
-                    ref="instance('fbc_213_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('violationService.getFiskistofaOffices()')"/>
-                <idega:setvalue
-                    ref="instance('fbc_192_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('violationService.getFishingGears()')"/>
+                <xf:setvalue model="data_model" ref="instance('localized_strings')/current_language" value="instance('locale-instance')/fb-afk-loginSession.currentLocale"/>
+                <xf:setvalue if="instance('control-instance')/generatePdf='true'" model="submission_model" ref="instance('control-instance')/required" value="'false'"/>
             </xf:action>
             
             <xf:setvalue
@@ -645,31 +627,19 @@
                     ref="instance('data-instance')/GPS_location_longitude_label" value="concat(instance('data-instance')/violationLocationData/longitudeDegree, '°', instance('data-instance')/violationLocationData/longitudeMinute, ',', instance('data-instance')/violationLocationData/longitudeSecond, '´', instance('data-instance')/violationLocationData/longitudeAngle)"/>
             
             <xf:instance id="fbc_37_lds" xmlns="">
-                <local_src>
-                    <localizedEntries lang="en">
-                        <item/>
-                    </localizedEntries>
-                    <localizedEntries lang="is_IS">
-                        <item/>
-                    </localizedEntries>
-                </local_src>
+                <local_src />
             </xf:instance>
-            <xf:instance id="fbc_37_eds" xmlns="">
+            <xf:instance id="fbc_37_eds" src="expXml:violationService.availableHarbours" xmlns="">
                 <ext_src/>
             </xf:instance>
+            
             <xf:instance id="fbc_156_lds" xmlns="">
-                <local_src>
-                    <localizedEntries lang="en">
-                        <item/>
-                    </localizedEntries>
-                    <localizedEntries lang="is_IS">
-                        <item/>
-                    </localizedEntries>
-                </local_src>
+                <local_src />
             </xf:instance>
-            <xf:instance id="fbc_156_eds" xmlns="">
+            <xf:instance id="fbc_156_eds" src="expXml:violationService.availableViolationTypes" xmlns="">
                 <ext_src/>
             </xf:instance>
+            
             <xf:instance id="fbc_163_lds" xmlns="">
                 <local_src>
                     <localizedEntries lang="en">
@@ -689,19 +659,14 @@
             <xf:instance id="fbc_163_eds" xmlns="">
                 <ext_src/>
             </xf:instance>
+            
             <xf:instance id="fbc_192_lds" xmlns="">
-                <local_src>
-                    <localizedEntries lang="en">
-                        <item/>
-                    </localizedEntries>
-                    <localizedEntries lang="is_IS">
-                        <item/>
-                    </localizedEntries>
-                </local_src>
+                <local_src />
             </xf:instance>
-            <xf:instance id="fbc_192_eds" xmlns="">
+            <xf:instance id="fbc_192_eds" src="expXml:violationService.availableFishingGears" xmlns="">
                 <ext_src/>
             </xf:instance>
+            
            <xf:instance id="fbc_205_lds" xmlns="">
                 <local_src>
                     <localizedEntries lang="en">
@@ -724,30 +689,18 @@
             <xf:instance id="fbc_212_eds" xmlns="">
                 <ext_src/>
             </xf:instance>
+            
             <xf:instance id="fbc_213_lds" xmlns="">
-                <local_src>
-                    <localizedEntries lang="en">
-                        <item/>
-                    </localizedEntries>
-                    <localizedEntries lang="is_IS">
-                        <item/>
-                    </localizedEntries>
-                </local_src>
+                <local_src/>
             </xf:instance>
-            <xf:instance id="fbc_213_eds" xmlns="">
+            <xf:instance id="fbc_213_eds" src="expXml:violationService.availableOffices" xmlns="">
                 <ext_src/>
             </xf:instance>
+            
             <xf:instance id="fbc_221_lds" xmlns="">
-                <local_src>
-                    <localizedEntries lang="en">
-                        <item/>
-                    </localizedEntries>
-                    <localizedEntries lang="is_IS">
-                        <item/>
-                    </localizedEntries>
-                </local_src>
+                <local_src/>
             </xf:instance>
-            <xf:instance id="fbc_221_eds" xmlns="">
+            <xf:instance id="fbc_221_eds" src="expXml:violationService.availableInspectors" xmlns="">
                 <ext_src/>
             </xf:instance>
             
@@ -1045,7 +998,7 @@
 	                        <xf:select class="box" appearance="full" bind="fbc_156_bind"
 	                            id="fbc_156" type="fbc_multiple_select">
 	                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_156-label[@lang=instance('localized_strings')/current_language]"/>
-	                            <xf:itemset model="data_model" nodeset="instance('fbc_156_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
+	                            <xf:itemset model="data_model" nodeset="instance('fbc_156_eds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
 	                                <xf:label ref="itemLabel"/>
 	                                <xf:value ref="itemValue"/>
 	                            </xf:itemset>
@@ -1196,14 +1149,14 @@
                         <xf:select1 appearance="minimal"
                             bind="fbc_37_bind" id="fbc_37" type="fbc_single_select_minimal">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_37-label[@lang=instance('localized_strings')/current_language]"/>
-                            <xf:itemset model="data_model" nodeset="instance('fbc_37_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
+                            <xf:itemset model="data_model" nodeset="instance('fbc_37_eds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
                                 <xf:label ref="itemLabel"/>
                                 <xf:value ref="itemValue"/>
                             </xf:itemset>
                             <idega:setvalue
                                 ev:event="xforms-value-changed"
                                 multiple="true()"
-                                ref="instance('data-instance')/HarbourLabel" value="instance('fbc_37_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/violationLocationData/harbourNr]/itemLabel"/>
+                                ref="instance('data-instance')/HarbourLabel" value="instance('fbc_37_eds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/violationLocationData/harbourNr]/itemLabel"/>
                             <xf:dispatch ev:event="idega-xforms-ready"
                                 name="idega-validate" target="fbc_37"/>
                             <xf:dispatch ev:event="xforms-value-changed"
@@ -1327,10 +1280,9 @@
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_191a-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
                         <div class="threeColumns">
-	                        <xf:select appearance="full" bind="fbc_192_bind"
-	                            id="fbc_192" type="fbc_multiple_select">
+	                        <xf:select appearance="full" bind="fbc_192_bind" id="fbc_192" type="fbc_multiple_select">
 	                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_192-label[@lang=instance('localized_strings')/current_language]"/>
-	                            <xf:itemset model="data_model" nodeset="instance('fbc_192_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
+	                            <xf:itemset model="data_model" nodeset="instance('fbc_192_eds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
 	                                <xf:label ref="itemLabel"/>
 	                                <xf:value ref="itemValue"/>
 	                            </xf:itemset>
@@ -1371,8 +1323,8 @@
                                 <xf:label model="data_model" ref="instance('localized_strings')/fbc_68-label[@lang=instance('localized_strings')/current_language]"/>
                                 
                                 <xf:action ev:event="DOMActivate">
-	                                <idega:setvalue ref="instance('data-instance')/fishingGearsSummary" value="idega:resolveExpression('violationService.getSelectedFishingGears({0})', '#{instance(`data-instance`)/Fishing_gear_fbc_192}')" />
-	                            </xf:action>
+                                	<idega:setvalue ref="instance('data-instance')/fishingGearsSummary" value="idega:resolveExpression('violationService.getSelectedFishingGears({0})', '#{instance(`data-instance`)/Fishing_gear_fbc_192}')" />
+                                </xf:action>
                                 
                                 <idega:toggle case="fbc_1" ev:event="DOMActivate"/>
                             </xf:trigger>
@@ -1381,8 +1333,8 @@
                                 <xf:label model="data_model" ref="instance('localized_strings')/fbc_66-label[@lang=instance('localized_strings')/current_language]"/>
                                 
                                 <xf:action ev:event="DOMActivate">
-	                                <idega:setvalue ref="instance('data-instance')/fishingGearsSummary" value="idega:resolveExpression('violationService.getSelectedFishingGears({0})', '#{instance(`data-instance`)/Fishing_gear_fbc_192}')" />
-	                            </xf:action>
+                                	<idega:setvalue ref="instance('data-instance')/fishingGearsSummary" value="idega:resolveExpression('violationService.getSelectedFishingGears({0})', '#{instance(`data-instance`)/Fishing_gear_fbc_192}')" />
+                                </xf:action>
                                 
                                 <idega:toggle case="fbc_199" ev:event="DOMActivate"/>
                             </xf:trigger>
@@ -1499,7 +1451,7 @@
                         <div class="threeColumns">
                             <xf:select class="box" appearance="full" bind="fbc_221_bind" id="fbc_221" type="fbc_multiple_select_minimal">
                                 <xf:label model="data_model" ref="instance('localized_strings')/fbc_221-label[@lang=instance('localized_strings')/current_language]"/>
-                                <xf:itemset model="data_model" nodeset="instance('fbc_221_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
+                                <xf:itemset model="data_model" nodeset="instance('fbc_221_eds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
                                     <xf:label ref="itemLabel"/>
                                     <xf:value ref="itemValue"/>
                                 </xf:itemset>
@@ -1508,14 +1460,10 @@
                         <xf:select1 appearance="minimal"
                             bind="fbc_213_bind" id="fbc_213" type="fbc_single_select_minimal">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_213-label[@lang=instance('localized_strings')/current_language]"/>
-                            <xf:itemset model="data_model" nodeset="instance('fbc_213_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
+                            <xf:itemset model="data_model" nodeset="instance('fbc_213_eds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item">
                                 <xf:label ref="itemLabel"/>
                                 <xf:value ref="itemValue"/>
                             </xf:itemset>
-                            <idega:setvalue
-                                ev:event="xforms-value-changed"
-                                multiple="true()"
-                                ref="instance('data-instance')/Fiskistofa_office_label" value="instance('fbc_213_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/Fiskistofa_office_fbc_213]/itemLabel"/>
                         </xf:select1>
                         <div class="fbc_button_area" id="fbc_201" type="fbc_button_area">
                             <xf:trigger bind="bind-submissionButton"
@@ -1747,7 +1695,7 @@
                         <xf:output bind="fbc_222_bind" id="fbc_222" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_221-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
-                        <xf:output bind="fbc_223_bind" id="fbc_223" type="fbc_text_output">
+                        <xf:output value="instance('fbc_213_eds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item[./itemValue=instance('data-instance')/Fiskistofa_office_fbc_213]/itemLabel" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_213-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
                         <xf:output bind="fbc_208a_bind" id="fbc_217a" type="fbc_text_output">
@@ -1759,26 +1707,25 @@
                                 <xf:label model="data_model" ref="instance('localized_strings')/fbc_68-label[@lang=instance('localized_strings')/current_language]"/>
                                 <idega:toggle case="fbc_199" ev:event="DOMActivate"/>
                             </xf:trigger>
-                            <xf:trigger bind="bind-submissionButton"
-                                class="fbc_button_submit" id="fbc_69" type="fbc_button_submit">
+                            <xf:trigger bind="bind-submissionButton" class="fbc_button_submit" id="fbc_69" type="fbc_button_submit">
                                 <xf:label model="data_model" ref="instance('localized_strings')/fbc_69-label[@lang=instance('localized_strings')/current_language]"/>
                                 <xf:action ev:event="DOMActivate">
-                                    <xf:setvalue
-                                    ref="instance('control-instance')/submission" value="'true'"/>
-                                    <idega:dispatch
-                                    name="idega-validate" target="//h:body//*[starts-with(@id, 'fbc_')]"/>
+                                    <xf:setvalue ref="instance('control-instance')/submission" value="'true'"/>
+                                    
+                                    <idega:dispatch name="idega-validate" target="//h:body//*[starts-with(@id, 'fbc_')]"/>
                                     <xf:dispatch name="xforms-rebuild" target="data_model"/>
-                                    <xf:dispatch
-                                    name="xforms-recalculate" target="data_model"/>
-                                    <xf:dispatch
-                                    name="xforms-revalidate" target="data_model"/>
+                                    <xf:dispatch name="xforms-recalculate" target="data_model"/>
+                                    <xf:dispatch name="xforms-revalidate" target="data_model"/>
                                     <xf:dispatch name="xforms-refresh" target="data_model"/>
+                                    
+                                    <xf:action ev:event="DOMActivate">
+	                                	<idega:setvalue ref="instance('data-instance')/fishingGearsSummary" value="idega:resolveExpression('violationService.getSelectedFishingGears({0})', '#{instance(`data-instance`)/Fishing_gear_fbc_192}')" />
+	                                </xf:action>
+                                    
                                     <xf:action if="count-non-empty(instance('error-instance')/error)=0">
-                                    <xf:send submission="submit_data_submission"/>
+                                    	<xf:send submission="submit_data_submission"/>
                                     </xf:action>
-                                    <xf:dispatch
-                                    if="count-non-empty(instance('error-instance')/error)!=0"
-                                    name="idega-submit-error" target="idega-submission-error"/>
+                                    <xf:dispatch if="count-non-empty(instance('error-instance')/error)!=0" name="idega-submit-error" target="idega-submission-error"/>
                                 </xf:action>
                             </xf:trigger>
                         </div>

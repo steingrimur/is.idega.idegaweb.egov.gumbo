@@ -101,9 +101,7 @@ jQuery(document).ready(function() {
 				
 				Flux.getNodesetValue("instance('data-instance')/Fiskistofa_office_fbc_213", jQuery("#chibaSessionKey").val(), {
 					callback: function(val) {
-					
 						jQuery("#clone-fbc_213-value").val(val);
-					
 					},
 					errorHandler: handleExceptions
 				});
@@ -126,13 +124,23 @@ jQuery(document).ready(function() {
 	
 	jQuery('#fbc_204-value').click(function() {
 		showLoadingMessage(Localization.LOADING_MSG);
-		LazyLoader.loadMultiple(['/dwr/engine.js', '/dwr/interface/ChibaUtils.js'], function() {
+		LazyLoader.loadMultiple(['/dwr/engine.js', '/dwr/interface/ChibaUtils.js', '/dwr/interface/ViolationService.js'], function() {
 			ChibaUtils.getElementValue(FluxInterfaceHelper.getXFormSessionKey(), 'fbc_207', {
 				callback: function(value) {
 					if (value == null)
 						value = '';
 					jQuery('#fbc_218-value').html(value);
 					closeAllLoadingMessages();
+				}
+			});
+			
+			Flux.getNodesetValue("instance('data-instance')/Fiskistofa_office_fbc_213", FluxInterfaceHelper.getXFormSessionKey(), {
+				callback: function(value) {
+					ViolationService.setSelectedOffice(value, FluxInterfaceHelper.getXFormSessionKey(), {
+						callback: function(result) {
+							closeAllLoadingMessages();
+						}
+					});
 				}
 			});
 		}, null);

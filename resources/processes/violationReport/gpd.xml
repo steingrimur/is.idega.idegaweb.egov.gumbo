@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="ViolationReport" width="1575" height="675">
+<root-container name="ViolationReport" width="1392" height="596">
   <node name="violationReport" x="-272" y="226" width="113" height="34">
     <edge>
       <label x="-16" y="-9"/>
@@ -191,7 +191,7 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="fork8" x="-136" y="368" width="28" height="24">
+  <node name="fork8" x="-23" y="447" width="28" height="24">
     <edge>
       <label x="-226" y="-13"/>
     </edge>
@@ -201,9 +201,14 @@
   </node>
   <node name="end-state1" x="863" y="262" width="132" height="36"/>
   <node name="end-process" x="559" y="42" width="132" height="36"/>
-  <node name="end-state2" x="-204" y="419" width="24" height="21"/>
+  <node name="end-state2" x="-21" y="518" width="24" height="21"/>
   <node name="emailsFetcherEnd" x="0" y="0" width="132" height="36"/>
   <node name="emailsFetcher" x="-228" y="60" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="violationReportHandler" x="-220" y="387" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
