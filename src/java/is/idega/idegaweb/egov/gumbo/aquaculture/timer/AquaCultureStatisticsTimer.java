@@ -53,20 +53,20 @@ public class AquaCultureStatisticsTimer implements TimerListener {
 
 	private static final String GROUP = "speciesGroupOutput";
 	private static final String SPECIES = "speciesOutput";
-	private static final String QUANTITY = "quantityOutput";
+	private static final String QUANTITY = "quantity";
 	private static final String QUANTITY_UNIT = "quantityUnitOutput";
 	private static final String COMMENTS = "comments";
 	private static final String AQUA_METHOD = "aquamethodOutput";
 	private static final String AQUA_ENVIRONMENT = "aquaEnvironmentOutput";
-	private static final String SIZE = "sizeOutput";
+	private static final String SIZE = "size";
 	private static final String UNIT = "unitOutput";
-	private static final String COUNT = "countOutput";
+	private static final String COUNT = "count";
 	private static final String WEIGHT = "weight";
-	private static final String KG = "kgOutput";
+	private static final String KG = "kg";
 	private static final String PROCESS = "farminPurposeOutput";
 	private static final String CONDITION = "statusNowOutput";
 	private static final String SOLD_TO = "soldToOutput";
-	private static final String PRICE = "priceOutput";
+	private static final String PRICE = "price";
 	private static final String PRICE_UNIT = "priceUnitOutput";
 	private static final String AMOUNT = "value";
 	private static final String BUYERS_SSN = "buyerSocialSecurityNrOutput";
