@@ -66,7 +66,6 @@ public class ViolationReportHandler extends DefaultSpringBean implements ActionH
 		}
 	}
 
-	@Override
 	public void execute(ExecutionContext executionContext) throws Exception {
 		if 	(StringUtil.isEmpty(getTaskInstanceId()))
 			return;
