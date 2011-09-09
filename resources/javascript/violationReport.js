@@ -122,11 +122,6 @@ jQuery(document).ready(function() {
 		}
 	});
 	
-	jQuery('#fbc_69-value').click(function() {
-		showLoadingMessage(Localization.LOADING_MSG);
-		
-	});
-	
 	jQuery('#fbc_204-value').click(function() {
 		showLoadingMessage(Localization.LOADING_MSG);
 		LazyLoader.loadMultiple(['/dwr/engine.js', '/dwr/interface/ChibaUtils.js', '/dwr/interface/ViolationService.js'], function() {
