@@ -2,18 +2,22 @@ package is.idega.idegaweb.egov.gumbo.aquaculture.timer;
 
 import is.idega.idegaweb.egov.gumbo.aquaculture.dao.AquaDAO;
 import is.idega.idegaweb.egov.gumbo.aquaculture.data.ACStatHeader;
-import is.idega.idegaweb.egov.gumbo.aquaculture.data.ACStatSale;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.persistence.Column;
-
+import org.directwebremoting.json.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.idega.block.process.business.CaseBusiness;
@@ -26,6 +30,7 @@ import com.idega.idegaweb.egov.bpm.data.dao.CasesBPMDAO;
 import com.idega.jbpm.bean.VariableInstanceInfo;
 import com.idega.jbpm.bean.VariableInstanceType;
 import com.idega.jbpm.data.VariableInstanceQuerier;
+import com.idega.jbpm.utils.JSONUtil;
 import com.idega.util.expression.ELUtil;
 import com.idega.util.timer.TimerEntry;
 import com.idega.util.timer.TimerListener;
@@ -139,42 +144,44 @@ public class AquaCultureStatisticsTimer implements TimerListener {
 								if (name == null) {
 									name = (String) variable.getValue();
 								}
-
 							} else if (COMPANY_SSN.equals(variableName)) {
 								if (personalID == null) {
 									personalID = (String) variable.getValue();
 								}
-
 							} else if (GATHER_INFO.equals(variableName)) {
-								if (name == null) {
-									name = (String) variable.getValue();
-								}
-
-							} else if (FARM_NAME.equals(variableName)) {
-								if (farm == null) {
-									farm = (String) variable.getValue();
-								}
-
-							} else if (YEAR.equals(variableName)) {
 								String tmp = (String) variable.getValue();
 								if ("true".equals(tmp)) {
 									canSendInfo = true;
 								} else {
 									canSendInfo = false;
 								}
+							} else if (FARM_NAME.equals(variableName)) {
+								if (farm == null) {
+									farm = (String) variable.getValue();
+								}
+							} else if (YEAR.equals(variableName)) {
+								if (year == null) {
+									year = (String) variable.getValue();
+								}
 							} else if (COMMENT.equals(variableName)) {
 								if (comment == null) {
 									comment = (String) variable.getValue();
 								}
-
 							}
 						} else if (VariableInstanceType.BYTE_ARRAY.toString()
 								.equals(type)) {
 							Object ret = variable.getValue();
+							JSONUtil jsonUtil = new JSONUtil();
 							if (ret instanceof ArrayList) {
 								ArrayList tmp = (ArrayList) ret;
 								for (Object object : tmp) {
-									Map map = (Map) object;
+									
+									System.out.println("caseId = " + caseId.toString());
+									System.out.println("name = " + variableName);
+									System.out.println("ret = " + ret.toString());
+									System.out.println("object type = " + object.getClass().getName());
+									LinkedHashMap map = (LinkedHashMap) jsonUtil.convertToObject((String) object);
+									System.out.println("map = " + map);
 									if (EXPECTED_QUANTITY_PRODUCED
 											.equals(variableName)) {
 										String group = (String) map.get(GROUP);
@@ -183,8 +190,8 @@ public class AquaCultureStatisticsTimer implements TimerListener {
 											e.setGroup(group);
 											e.setSpecies((String) map
 													.get(SPECIES));
-											e.setQuantity((Float) map
-													.get(QUANTITY));
+											e.setQuantity(new Float((String) map
+													.get(QUANTITY)));
 											e.setQuantityUnit((String) map
 													.get(QUANTITY_UNIT));
 											e.setComments((String) map
@@ -202,7 +209,7 @@ public class AquaCultureStatisticsTimer implements TimerListener {
 													.get(AQUA_METHOD));
 											f.setEnvironment((String) map
 													.get(AQUA_ENVIRONMENT));
-											f.setSize((Float) map.get(SIZE));
+											f.setSize(new Float((String) map.get(SIZE)));
 											f.setUnit((String) map.get(UNIT));
 											farmStructure.add(f);
 										}
@@ -214,9 +221,9 @@ public class AquaCultureStatisticsTimer implements TimerListener {
 											f.setGroup(group);
 											f.setSpecies((String) map
 													.get(SPECIES));
-											f.setCount((Float) map.get(COUNT));
-											f.setWeight((Float) map.get(WEIGHT));
-											f.setKg((Float) map.get(KG));
+											f.setCount(new Float((String) map.get(COUNT)));
+											f.setWeight(new Float((String) map.get(WEIGHT)));
+											f.setKg(new Float((String) map.get(KG)));
 
 											fishedForOnGrowing.add(f);
 										}
@@ -227,8 +234,8 @@ public class AquaCultureStatisticsTimer implements TimerListener {
 											i.setGroup(group);
 											i.setSpecies((String) map
 													.get(SPECIES));
-											i.setQuantity((Float) map
-													.get(QUANTITY));
+											i.setQuantity(new Float((String) map
+													.get(QUANTITY)));
 											i.setQuantityUnit((String) map
 													.get(QUANTITY_UNIT));
 											i.setComments((String) map
@@ -253,15 +260,15 @@ public class AquaCultureStatisticsTimer implements TimerListener {
 													.get(CONDITION));
 											s.setSoldTo((String) map
 													.get(SOLD_TO));
-											s.setNumberOfUnits((Float) map
-													.get(QUANTITY));
+											s.setNumberOfUnits(new Float((String) map
+													.get(QUANTITY)));
 											s.setUnit((String) map
 													.get(QUANTITY_UNIT));
-											s.setPricePrUnit((Float) map
-													.get(PRICE));
+											s.setPricePrUnit(new Float((String) map
+													.get(PRICE)));
 											s.setPriceUnit((String) map
 													.get(PRICE_UNIT));
-											s.setAmount((Float) map.get(AMOUNT));
+											s.setAmount(new Float((String) map.get(AMOUNT)));
 											s.setBuyersPersonalID((String) map
 													.get(BUYERS_SSN));
 											s.setBuyersName((String) map
@@ -697,5 +704,24 @@ public class AquaCultureStatisticsTimer implements TimerListener {
 		}
 		return null;
 	}
-
+	
+	public static void main(String args[]) {
+		JSONUtil util = new JSONUtil();
+		try {
+			File f = new File("/Users/palli/Desktop/jsontest.txt");
+			byte[] buffer = new byte[(int) f.length()];
+		    BufferedInputStream s = new BufferedInputStream(new FileInputStream(f));
+		    s.read(buffer);
+		    
+			Object object = util.convertToObject(new String(buffer));
+			System.out.println("object = " + object.toString());
+			System.out.println("object class = " + object.getClass().getName());
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

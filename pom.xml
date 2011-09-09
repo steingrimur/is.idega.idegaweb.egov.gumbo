@@ -66,5 +66,10 @@
       <groupId>com.idega.block.addon</groupId>
       <artifactId>com.idega.block.form</artifactId>
     </dependency>
+    <dependency>
+	  <groupId>com.googlecode.json-simple</groupId>
+	  <artifactId>json-simple</artifactId>
+	  <version>1.1</version>
+	</dependency>
   </dependencies>
 </project>
