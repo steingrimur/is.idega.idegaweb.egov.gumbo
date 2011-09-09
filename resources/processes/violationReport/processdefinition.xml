@@ -453,6 +453,7 @@
             <variable name='string_participantEmailBySuperHandler' access='read' mapped-name='participantEmailBySuperHandler' />
             <variable name='string_participantEmailByHandler' access='read' mapped-name='participantEmailByHandler' />
             <variable name='string_participantEmail' access='write' mapped-name='participantEmail' />
+         </script>
 
         <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
             <handlerName>casesStatusHandler</handlerName>
@@ -474,7 +475,6 @@
                 </entry>
             </propertyMap>
         </action>
-         </script>
       </event>
 		<transition to="fork6"></transition>
 	</task-node>
