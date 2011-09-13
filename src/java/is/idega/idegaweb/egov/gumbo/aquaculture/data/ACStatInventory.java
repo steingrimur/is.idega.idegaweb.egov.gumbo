@@ -44,7 +44,7 @@ public class ACStatInventory {
 	@Column(name = ACStatInventory.COLUMN_UNIT)
 	private String unit;
 
-	@Column(name = ACStatInventory.COLUMN_COMMENT)
+	@Column(name = ACStatInventory.COLUMN_COMMENT, length = 1000)
 	private String comment;
 	
 	public Long getId() {

@@ -15,7 +15,7 @@ public class IWBundleStarter implements IWBundleStartable {
 		try {
 			mgr.addTimer(1, false, new AquaCultureStatisticsTimer());
 
-			// mgr.addTimer(0, 10, -1, -1, -1, -1, new MentorAbsentTimer(),
+			mgr.addTimer(0, 2, -1, -1, -1, -1, new AquaCultureStatisticsTimer());
 			// "MentorAbsentTimer");
 		} catch (PastDateException e) {
 			e.printStackTrace();

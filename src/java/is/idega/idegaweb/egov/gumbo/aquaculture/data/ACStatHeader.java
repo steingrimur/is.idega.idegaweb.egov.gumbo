@@ -28,6 +28,7 @@ public class ACStatHeader {
 	private static final String COLUMN_ADDRESS = "address";
 	private static final String COLUMN_YEAR = "year_of_report";
 	private static final String COLUMN_FARM = "farm";
+	private static final String COLUMN_FARM_ID = "farm_id";	
 	private static final String COLUMN_COMMENT = "user_comment";
 	private static final String COLUMN_CAN_SEND_INFO = "can_send_info";
 	
@@ -59,7 +60,10 @@ public class ACStatHeader {
 	@Column(name = ACStatHeader.COLUMN_FARM)
 	private String farm;
 
-	@Column(name = ACStatHeader.COLUMN_COMMENT)
+	@Column(name = ACStatHeader.COLUMN_FARM_ID)
+	private Long farmID;
+
+	@Column(name = ACStatHeader.COLUMN_COMMENT, length = 1000)
 	private String comment;
 
 	@Column(name = ACStatHeader.COLUMN_CAN_SEND_INFO)
@@ -157,5 +161,13 @@ public class ACStatHeader {
 
 	public void setCaseUniqueID(String caseUniqueID) {
 		this.caseUniqueID = caseUniqueID;
+	}
+
+	public Long getFarmID() {
+		return farmID;
+	}
+
+	public void setFarmID(Long farmID) {
+		this.farmID = farmID;
 	}
 }

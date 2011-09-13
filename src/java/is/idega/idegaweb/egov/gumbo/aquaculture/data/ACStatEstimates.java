@@ -44,7 +44,7 @@ public class ACStatEstimates {
 	@Column(name = ACStatEstimates.COLUMN_UNIT)
 	private String unit;
 
-	@Column(name = ACStatEstimates.COLUMN_COMMENT)
+	@Column(name = ACStatEstimates.COLUMN_COMMENT, length = 1000)
 	private String comment;
 
 	public Long getId() {

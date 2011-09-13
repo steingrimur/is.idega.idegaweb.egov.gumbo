@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.idega.core.persistence.Param;
 import com.idega.core.persistence.impl.GenericDaoImpl;
+import com.idega.util.IWTimestamp;
 
 @Repository("aquaDao")
 @Transactional(readOnly = true)
@@ -25,7 +26,7 @@ public class AquaDAOImpl extends GenericDaoImpl implements AquaDAO {
 
 	@Transactional(readOnly = false)
 	public ACStatHeader createHeader(String personalID, String name,
-			String address, String farm, String year, String comment,
+			String address, String farm, Long farmID, String year, String comment,
 			boolean canSendInfo, String caseUniqueID) {
 		ACStatHeader header = new ACStatHeader();
 		header.setPersonalID(personalID);
@@ -36,6 +37,8 @@ public class AquaDAOImpl extends GenericDaoImpl implements AquaDAO {
 		header.setComment(comment);
 		header.setSendInfo(canSendInfo);
 		header.setCaseUniqueID(caseUniqueID);
+		header.setCreatedDate(IWTimestamp.getTimestampRightNow());
+		header.setFarmID(farmID);
 		
 		getEntityManager().persist(header);
 		

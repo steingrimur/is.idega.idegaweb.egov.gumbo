@@ -8,16 +8,17 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.directwebremoting.json.JsonUtil;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.idega.block.process.business.CaseBusiness;
@@ -48,6 +49,7 @@ public class AquaCultureStatisticsTimer implements TimerListener {
 	private static final String COMPANY_SSN = "string_companySocialNumber";
 	private static final String GATHER_INFO = "string_gatherInformation";
 	private static final String FARM_NAME = "string_reportForTheFarmOutput";
+	private static final String FARM_NAME_ID = "string_reportForTheFarm";
 	private static final String YEAR = "string_reportForTheYear";
 	private static final String COMMENT = "string_salesComments";
 
@@ -95,21 +97,26 @@ public class AquaCultureStatisticsTimer implements TimerListener {
 				Case procCase = getCaseBusiness().getCase(caseId.intValue());
 				List<ACStatHeader> headers = getAquaDAO()
 						.getACStatHeaderByCaseUniqueID(procCase.getUniqueId());
-				if (headers == null || headers.isEmpty()) {
-
+				if ((headers == null || headers.isEmpty()) && !getCaseBusiness().getCaseStatusDeleted().getStatus().equals(procCase.getCaseStatus().getStatus())) {
 					String personalID = null;
 					String name = null;
 					String address = null;
 					String farm = null;
+					Long farmID = null;
 					String year = null;
 					String comment = null;
 					boolean canSendInfo = false;
 
-					List<ExpectedQuantityProduced> exceptedQuantityProduced = new ArrayList<ExpectedQuantityProduced>();
+					List<ExpectedQuantityProduced> expectedQuantityProduced = new ArrayList<ExpectedQuantityProduced>();
 					List<FarmStructure> farmStructure = new ArrayList<FarmStructure>();
 					List<FishedForOnGrowing> fishedForOnGrowing = new ArrayList<FishedForOnGrowing>();
 					List<InventoryAtYearEnd> inventoryAtYearEnd = new ArrayList<InventoryAtYearEnd>();
 					List<Sales> sales = new ArrayList<Sales>();
+					boolean expectedProducedDone = false;
+					boolean farmStructureDone = false;
+					boolean fishedDone = false;
+					boolean inventoryDone = false;
+					boolean salesDone = false;
 
 					CaseProcInstBind bind = getCasesBPMDAO()
 							.getCaseProcInstBindByCaseId(
@@ -136,6 +143,9 @@ public class AquaCultureStatisticsTimer implements TimerListener {
 						String type = variable.getType().toString();
 						String variableName = variable.getName();
 						if (VariableInstanceType.STRING.toString().equals(type)) {
+							System.out.println("name = " + variableName);
+							System.out.println("value = "
+									+ (String) variable.getValue());
 							if (COMPANY_ADDRESS.equals(variableName)) {
 								if (address == null) {
 									address = (String) variable.getValue();
@@ -158,6 +168,17 @@ public class AquaCultureStatisticsTimer implements TimerListener {
 							} else if (FARM_NAME.equals(variableName)) {
 								if (farm == null) {
 									farm = (String) variable.getValue();
+								} 
+							} else if (FARM_NAME_ID.equals(variableName)) {
+								if (farmID == null) {
+									String tmp = (String) variable.getValue();
+									if (tmp != null && !"".equals(tmp)) {
+										try {
+											farmID = new Long(tmp);
+										} catch (Exception e) {
+											farmID = null;
+										}
+									}
 								}
 							} else if (YEAR.equals(variableName)) {
 								if (year == null) {
@@ -166,119 +187,236 @@ public class AquaCultureStatisticsTimer implements TimerListener {
 							} else if (COMMENT.equals(variableName)) {
 								if (comment == null) {
 									comment = (String) variable.getValue();
+									if (comment != null && comment.length() > 1000) {
+										comment = comment.substring(0, 1000);
+									}
 								}
 							}
 						} else if (VariableInstanceType.BYTE_ARRAY.toString()
 								.equals(type)) {
 							Object ret = variable.getValue();
 							JSONUtil jsonUtil = new JSONUtil();
+							JSONParser parser = new JSONParser();
 							if (ret instanceof ArrayList) {
 								ArrayList tmp = (ArrayList) ret;
 								for (Object object : tmp) {
-									
-									System.out.println("caseId = " + caseId.toString());
-									System.out.println("name = " + variableName);
-									System.out.println("ret = " + ret.toString());
-									System.out.println("object type = " + object.getClass().getName());
-									LinkedHashMap map = (LinkedHashMap) jsonUtil.convertToObject((String) object);
-									System.out.println("map = " + map);
-									if (EXPECTED_QUANTITY_PRODUCED
-											.equals(variableName)) {
-										String group = (String) map.get(GROUP);
-										if (group != null && !"".equals(group)) {
-											ExpectedQuantityProduced e = new ExpectedQuantityProduced();
-											e.setGroup(group);
-											e.setSpecies((String) map
-													.get(SPECIES));
-											e.setQuantity(new Float((String) map
-													.get(QUANTITY)));
-											e.setQuantityUnit((String) map
-													.get(QUANTITY_UNIT));
-											e.setComments((String) map
-													.get(COMMENTS));
+									System.out.println("object = "
+											+ object.toString());
+									Object parsed = parser
+											.parse((String) object);
+									System.out.println("parsed = "
+											+ parsed.toString());
+									ArrayList<LinkedHashMap> maps = new ArrayList<LinkedHashMap>();
+									if (parsed instanceof JSONArray) {
+										JSONArray array = (JSONArray) parsed;
+										for (int count = 0; count < array
+												.size(); count++) {
+											LinkedHashMap map = (LinkedHashMap) jsonUtil
+													.convertToObject(array.get(
+															count).toString());
+											maps.add(map);
+										}
+									} else {
+										LinkedHashMap map = (LinkedHashMap) jsonUtil
+												.convertToObject(parsed
+														.toString());
+										maps.add(map);
+									}
 
-											exceptedQuantityProduced.add(e);
-										}
-									} else if (FARM_STRUCTURE
-											.equals(variableName)) {
-										String group = (String) map.get(GROUP);
-										if (group != null && !"".equals(group)) {
-											FarmStructure f = new FarmStructure();
-											f.setGroup(group);
-											f.setMethod((String) map
-													.get(AQUA_METHOD));
-											f.setEnvironment((String) map
-													.get(AQUA_ENVIRONMENT));
-											f.setSize(new Float((String) map.get(SIZE)));
-											f.setUnit((String) map.get(UNIT));
-											farmStructure.add(f);
-										}
-									} else if (FISHED_FOR_ON_GROWING
-											.equals(variableName)) {
-										String group = (String) map.get(GROUP);
-										if (group != null && !"".equals(group)) {
-											FishedForOnGrowing f = new FishedForOnGrowing();
-											f.setGroup(group);
-											f.setSpecies((String) map
-													.get(SPECIES));
-											f.setCount(new Float((String) map.get(COUNT)));
-											f.setWeight(new Float((String) map.get(WEIGHT)));
-											f.setKg(new Float((String) map.get(KG)));
+									for (int count = 0; count < maps.size(); count++) {
+										LinkedHashMap map = maps.get(count);
+										if (EXPECTED_QUANTITY_PRODUCED
+												.equals(variableName)
+												&& !expectedProducedDone) {
+											String group = (String) map
+													.get(GROUP);
+											if (group != null
+													&& !"".equals(group)) {
+												ExpectedQuantityProduced e = new ExpectedQuantityProduced();
+												e.setGroup(group);
+												e.setSpecies((String) map
+														.get(SPECIES));
+												try {
+													e.setQuantity(new Float(
+															(String) map
+																	.get(QUANTITY)));
+												} catch (Exception ex) {
+													e.setQuantity(0.0f);
+												}
+												e.setQuantityUnit((String) map
+														.get(QUANTITY_UNIT));
+												String c = (String) map.get(COMMENTS);
+												if (c != null && c.length() > 1000) {
+													c = c.substring(0, 1000);
+												}
+												e.setComments(c);
 
-											fishedForOnGrowing.add(f);
-										}
-									} else if (INVENTORY.equals(variableName)) {
-										String group = (String) map.get(GROUP);
-										if (group != null && !"".equals(group)) {
-											InventoryAtYearEnd i = new InventoryAtYearEnd();
-											i.setGroup(group);
-											i.setSpecies((String) map
-													.get(SPECIES));
-											i.setQuantity(new Float((String) map
-													.get(QUANTITY)));
-											i.setQuantityUnit((String) map
-													.get(QUANTITY_UNIT));
-											i.setComments((String) map
-													.get(COMMENTS));
+												expectedQuantityProduced.add(e);
+											}
+										} else if (FARM_STRUCTURE
+												.equals(variableName)
+												&& !farmStructureDone) {
+											String group = (String) map
+													.get(GROUP);
+											if (group != null
+													&& !"".equals(group)) {
+												FarmStructure f = new FarmStructure();
+												f.setGroup(group);
+												f.setMethod((String) map
+														.get(AQUA_METHOD));
+												f.setEnvironment((String) map
+														.get(AQUA_ENVIRONMENT));
+												try {
+													f.setSize(new Float(
+															(String) map
+																	.get(SIZE)));
+												} catch (Exception ex) {
+													f.setSize(0.0f);
+												}
+												f.setUnit((String) map
+														.get(UNIT));
+												farmStructure.add(f);
+											}
+										} else if (FISHED_FOR_ON_GROWING
+												.equals(variableName)
+												&& !fishedDone) {
+											String group = (String) map
+													.get(GROUP);
+											if (group != null
+													&& !"".equals(group)) {
+												FishedForOnGrowing f = new FishedForOnGrowing();
+												f.setGroup(group);
+												f.setSpecies((String) map
+														.get(SPECIES));
+												try {
+													f.setCount(new Float(
+															(String) map
+																	.get(QUANTITY)));
+												} catch (Exception ex) {
+													f.setCount(0.0f);
+												}
+												try {
+													f.setWeight(new Float(
+															(String) map
+																	.get(WEIGHT)));
+												} catch (Exception ex) {
+													f.setWeight(0.0f);
+												}
+												try {
+													f.setKg(new Float(
+															(String) map
+																	.get(KG)));
+												} catch (Exception ex) {
+													f.setKg(0.0f);
+												}
 
-											inventoryAtYearEnd.add(i);
+												fishedForOnGrowing.add(f);
+											}
+										} else if (INVENTORY
+												.equals(variableName)
+												&& !inventoryDone) {
+											String group = (String) map
+													.get(GROUP);
+											if (group != null
+													&& !"".equals(group)) {
+												InventoryAtYearEnd i = new InventoryAtYearEnd();
+												i.setGroup(group);
+												i.setSpecies((String) map
+														.get(SPECIES));
+												try {
+													i.setQuantity(new Float(
+															(String) map
+																	.get(QUANTITY)));
+												} catch (Exception ex) {
+													i.setQuantity(0.0f);
+												}
+												i.setQuantityUnit((String) map
+														.get(QUANTITY_UNIT));
+												String c = (String) map.get(COMMENTS);
+												if (c != null && c.length() > 1000) {
+													c = c.substring(0, 1000);
+												}
+												i.setComments(c);
+
+												inventoryAtYearEnd.add(i);
+											}
+										} else if (SALES.equals(variableName)
+												&& !salesDone) {
+											String group = (String) map
+													.get(GROUP);
+											if (group != null
+													&& !"".equals(group)) {
+												Sales s = new Sales();
+												s.setGroup(group);
+												s.setSpecies((String) map
+														.get(SPECIES));
+												s.setMethod((String) map
+														.get(AQUA_METHOD));
+												s.setEnvironment((String) map
+														.get(AQUA_ENVIRONMENT));
+												s.setProcess((String) map
+														.get(PROCESS));
+												s.setCondition((String) map
+														.get(CONDITION));
+												s.setSoldTo((String) map
+														.get(SOLD_TO));
+												try {
+													s.setNumberOfUnits(new Float(
+															(String) map
+																	.get(QUANTITY)));
+												} catch (Exception ex) {
+													s.setNumberOfUnits(0.0f);
+												}
+												s.setUnit((String) map
+														.get(QUANTITY_UNIT));
+												try {
+													s.setPricePrUnit(new Float(
+															(String) map
+																	.get(PRICE)));
+												} catch (Exception ex) {
+													s.setPricePrUnit(0.0f);
+												}
+												s.setPriceUnit((String) map
+														.get(PRICE_UNIT));
+												try {
+													s.setAmount(new Float(
+															(String) map
+																	.get(AMOUNT)));
+												} catch (Exception ex) {
+													s.setAmount(0.0f);
+												}
+												s.setBuyersPersonalID((String) map
+														.get(BUYERS_SSN));
+												s.setBuyersName((String) map
+														.get(BUYERS_NAME));
+												s.setFarm((String) map
+														.get(SOLD_TO_FARM));
+												sales.add(s);
+											}
 										}
-									} else if (SALES.equals(variableName)) {
-										String group = (String) map.get(GROUP);
-										if (group != null && !"".equals(group)) {
-											Sales s = new Sales();
-											s.setGroup(group);
-											s.setSpecies((String) map
-													.get(SPECIES));
-											s.setMethod((String) map
-													.get(AQUA_METHOD));
-											s.setEnvironment((String) map
-													.get(AQUA_ENVIRONMENT));
-											s.setProcess((String) map
-													.get(PROCESS));
-											s.setCondition((String) map
-													.get(CONDITION));
-											s.setSoldTo((String) map
-													.get(SOLD_TO));
-											s.setNumberOfUnits(new Float((String) map
-													.get(QUANTITY)));
-											s.setUnit((String) map
-													.get(QUANTITY_UNIT));
-											s.setPricePrUnit(new Float((String) map
-													.get(PRICE)));
-											s.setPriceUnit((String) map
-													.get(PRICE_UNIT));
-											s.setAmount(new Float((String) map.get(AMOUNT)));
-											s.setBuyersPersonalID((String) map
-													.get(BUYERS_SSN));
-											s.setBuyersName((String) map
-													.get(BUYERS_NAME));
-											s.setFarm((String) map
-													.get(SOLD_TO_FARM));
-											sales.add(s);
-										}
+
 									}
 								}
+							}
+
+							if (!expectedQuantityProduced.isEmpty()) {
+								expectedProducedDone = true;
+							}
+
+							if (!farmStructure.isEmpty()) {
+								farmStructureDone = true;
+							}
+
+							if (!fishedForOnGrowing.isEmpty()) {
+								fishedDone = true;
+							}
+
+							if (!inventoryAtYearEnd.isEmpty()) {
+								inventoryDone = true;
+							}
+
+							if (!sales.isEmpty()) {
+								salesDone = true;
 							}
 						} else {
 							LOGGER.log(Level.WARNING, "Not handling type = "
@@ -287,11 +425,11 @@ public class AquaCultureStatisticsTimer implements TimerListener {
 					}
 
 					ACStatHeader header = getAquaDAO().createHeader(personalID,
-							name, address, farm, year, comment, canSendInfo,
+							name, address, farm, farmID, year, comment, canSendInfo,
 							procCase.getUniqueId());
 
-					if (!exceptedQuantityProduced.isEmpty()) {
-						for (ExpectedQuantityProduced e : exceptedQuantityProduced) {
+					if (!expectedQuantityProduced.isEmpty()) {
+						for (ExpectedQuantityProduced e : expectedQuantityProduced) {
 							getAquaDAO().createACStatEstimates(header,
 									e.getGroup(), e.getSpecies(),
 									e.getQuantity(), e.getQuantityUnit(),
@@ -704,23 +842,33 @@ public class AquaCultureStatisticsTimer implements TimerListener {
 		}
 		return null;
 	}
-	
+
 	public static void main(String args[]) {
-		JSONUtil util = new JSONUtil();
+		JSONParser parser = new JSONParser();
+		JSONUtil jsonUtil = new JSONUtil();
 		try {
 			File f = new File("/Users/palli/Desktop/jsontest.txt");
 			byte[] buffer = new byte[(int) f.length()];
-		    BufferedInputStream s = new BufferedInputStream(new FileInputStream(f));
-		    s.read(buffer);
-		    
-			Object object = util.convertToObject(new String(buffer));
-			System.out.println("object = " + object.toString());
-			System.out.println("object class = " + object.getClass().getName());
+			BufferedInputStream s = new BufferedInputStream(
+					new FileInputStream(f));
+			s.read(buffer);
+
+			JSONArray array = (JSONArray) parser.parse(new String(buffer));
+			for (int i = 0; i < array.size(); i++) {
+				LinkedHashMap map = (LinkedHashMap) jsonUtil
+						.convertToObject(array.get(i).toString());
+				System.out.println("keyset = " + map.keySet().size());
+				System.out.println("key = "
+						+ map.keySet().iterator().next().toString());
+				System.out.println("map = " + map.toString());
+				System.out.println("map.get(speciesGroupOutput) = "
+						+ map.get("speciesGroupOutput"));
+			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 	}
