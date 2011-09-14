@@ -143,9 +143,6 @@ public class AquaCultureStatisticsTimer implements TimerListener {
 						String type = variable.getType().toString();
 						String variableName = variable.getName();
 						if (VariableInstanceType.STRING.toString().equals(type)) {
-							System.out.println("name = " + variableName);
-							System.out.println("value = "
-									+ (String) variable.getValue());
 							if (COMPANY_ADDRESS.equals(variableName)) {
 								if (address == null) {
 									address = (String) variable.getValue();
@@ -200,12 +197,8 @@ public class AquaCultureStatisticsTimer implements TimerListener {
 							if (ret instanceof ArrayList) {
 								ArrayList tmp = (ArrayList) ret;
 								for (Object object : tmp) {
-									System.out.println("object = "
-											+ object.toString());
 									Object parsed = parser
 											.parse((String) object);
-									System.out.println("parsed = "
-											+ parsed.toString());
 									ArrayList<LinkedHashMap> maps = new ArrayList<LinkedHashMap>();
 									if (parsed instanceof JSONArray) {
 										JSONArray array = (JSONArray) parsed;
@@ -291,9 +284,15 @@ public class AquaCultureStatisticsTimer implements TimerListener {
 												try {
 													f.setCount(new Float(
 															(String) map
-																	.get(QUANTITY)));
+																	.get(COUNT)));
 												} catch (Exception ex) {
-													f.setCount(0.0f);
+													try {
+														f.setCount(new Float(
+															(String) map
+																	.get(QUANTITY)));
+													} catch(Exception e) {
+														f.setCount(0.0f);
+													}
 												}
 												try {
 													f.setWeight(new Float(
