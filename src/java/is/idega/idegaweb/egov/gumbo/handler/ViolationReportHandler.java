@@ -2,6 +2,7 @@ package is.idega.idegaweb.egov.gumbo.handler;
 
 import is.idega.idegaweb.egov.gumbo.bpm.violation.ViolationService;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ import com.idega.util.ListUtil;
 import com.idega.util.StringHandler;
 import com.idega.util.StringUtil;
 import com.idega.util.expression.ELUtil;
+import com.idega.util.text.Item;
 
 @Service("fiskistofaViolationReportHandler")
 @Scope("session")
@@ -80,17 +82,37 @@ public class ViolationReportHandler extends DefaultSpringBean implements ActionH
 			getViolationService().getSelectedLabelsForValue(getViolationService().getViolationTypes(), (Collection<?>) violationTypes) : null);
 		
 		//	Fishing gears
-		Object selectedFishingGears = executionContext.getVariable("list_vesselFishingGear");
+		List<Item> fishingGears = getViolationService().getFishingGears();
+		Object selectedFishingGears = getSelectedItems(executionContext, "list_vesselFishingGear", fishingGears);
 		setValue(query, "string_vesselFishingGearsSummary", selectedFishingGears instanceof Collection<?> ?
-				getViolationService().getSelectedLabelsForValue(getViolationService().getFishingGears(), (Collection<?>) selectedFishingGears) : null);
+				getViolationService().getSelectedLabelsForValue(fishingGears, (Collection<?>) selectedFishingGears) : null);
 		
 		//	Other inspectors
-		Object otherInspectors = executionContext.getVariable("list_otherInspectors");
+		List<Item> inspectors = getViolationService().getOtherInspectorsThanCurrentlyLoggedIn();
+		Object otherInspectors = getSelectedItems(executionContext, "list_otherInspectors", inspectors);
 		setValue(query, "string_otherInspectorsSummary", otherInspectors instanceof Collection<?> ?
-			getViolationService().getSelectedLabelsForValue(getViolationService().getOtherInspectorsThanCurrentlyLoggedIn(), (Collection<?>) otherInspectors) : null);
+			getViolationService().getSelectedLabelsForValue(inspectors, (Collection<?>) otherInspectors) : null);
 		
 		//	Office
 		updateOffice(executionContext.getVariable("string_fiskistofaOffice"), query, piId);
+	}
+	
+	private Object getSelectedItems(ExecutionContext context, String variableName, List<Item> availableItems) {
+		Object items = null;
+		if (!ListUtil.isEmpty(availableItems)) {
+			items = context.getVariable(variableName);
+			if (items instanceof Collection<?>) {
+				Collection<?> providedItems = (Collection<?>) items;
+				Collection<String> itemsToSubmit = new ArrayList<String>();
+				for (Item item: availableItems) {
+					if (providedItems.contains(item.getItemValue()))
+						itemsToSubmit.add(item.getItemValue());
+				}
+				items = itemsToSubmit;
+			}
+		}
+		context.setVariable(variableName, items);
+		return items;
 	}
 	
 	private void updateOffice(Object value, String query, Long piId) {
