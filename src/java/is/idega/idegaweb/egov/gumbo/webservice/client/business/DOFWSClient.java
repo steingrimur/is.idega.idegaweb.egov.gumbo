@@ -111,6 +111,7 @@ public interface DOFWSClient {
 	public abstract List<Item> getDragnotVesselsForUser(String companyPersonalID);
 	public abstract List<Item> getGrasleppaVesselsForUser(String companyPersonalID);
 	public abstract List<Item> getStrandveidiVesselsForUser(String companyPersonalID);
+	public abstract List<Item> getGeneralVesselsForUser(String companyPersonalID);
 	
 	public abstract List<Item> getVesselsForUser(User user);
 

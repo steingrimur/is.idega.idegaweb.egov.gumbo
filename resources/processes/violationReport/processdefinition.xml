@@ -978,7 +978,7 @@
 	                            {list: {mv: [{type: "bean", value: "user.name"},  {type: "bean", value: "piw.processDefinitionW.startTaskName"}, {type: "bean", value: "piw.processIdentifier"}, {type: "bean", value: "piw.processDescription"},{type: "bean", value: "caseUser.urlToTheCase"}]}}
 	                        </value>
 	                    </entry>
-	                    <entry><key>sendToRoles</key><value>bpm_violationReport_superHandler bpm_violationReport_handler</value></entry>
+	                    <entry><key>sendToRoles</key><value>bpm_violationReport_superHandler bpm_violationReport_caseHandler</value></entry>
 	                </propertyMap>
 	        </action>
 	      </event>

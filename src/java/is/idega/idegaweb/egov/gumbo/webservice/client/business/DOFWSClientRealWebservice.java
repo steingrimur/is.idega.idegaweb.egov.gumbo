@@ -1368,6 +1368,77 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 		return items;
 	}
 
+	public List<Item> getGeneralVesselsForUser(String companyPersonalID) {
+		// get all open cases for user
+		List<String> alreadyAppliedShips = new ArrayList<String>();
+		User user = null;
+		try {
+			user = getUserBusiness().getUser(companyPersonalID);
+			// INPR,PEND,UBEH,OMPR,WFPA,WAIT
+			List<String> statusesToShow = new ArrayList<String>();
+			statusesToShow.add("INPR");
+			statusesToShow.add("PEND");
+			statusesToShow.add("UBEH");
+			statusesToShow.add("OMPR");
+			statusesToShow.add("WFPA");
+			statusesToShow.add("WAIT");
+
+			List<String> names = new ArrayList<String>();
+			names.add("string_vesselRegistryNr");
+
+			List<Integer> ids = getCaseManagersProvider().getCaseManager()
+					.getCaseIds(user,
+							CasesRetrievalManager.CASE_LIST_TYPE_OPEN, null,
+							null, statusesToShow, false, false);
+			if (ids != null) {
+				List<CaseProcInstBind> binds = getCasesBPMDAO()
+						.getCasesProcInstBindsByCasesIds(ids);
+				for (CaseProcInstBind caseProcInstBind : binds) {
+					ProcessInstanceW inst = getBPMFactory()
+							.getProcessInstanceW(
+									caseProcInstBind.getProcInstId());
+					if ("FishingLicense".equals(inst.getProcessDefinitionW()
+							.getProcessDefinition().getName())) {
+						List<Long> procIds = new ArrayList<Long>();
+						procIds.add(inst.getProcessInstanceId());
+						Collection<VariableInstanceInfo> info = getVariablesQuerier()
+								.getVariablesByProcessInstanceIdAndVariablesNames(
+										procIds, names);
+						if (info != null) {
+							for (VariableInstanceInfo variableInstanceInfo : info) {
+								alreadyAppliedShips
+										.add((String) variableInstanceInfo
+												.getValue());
+							}
+						}
+					}
+				}
+			}
+		} catch (IBOLookupException e) {
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		} catch (FinderException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		List<Item> items = null;
+		if (user != null) {
+			List<Item> ships = getVesselsForUser(user);
+			if (ships != null && ships.size() > 0) {
+				items = new ArrayList<Item>(ships.size());
+				for (Item item : ships) {
+					if (!alreadyAppliedShips.contains(item.getItemValue())) {
+						items.add(item);
+					}
+				}
+			}
+		}
+		return items;
+	}
+
 	public LicenseCheckContainer getIfDragnotVessel(BigDecimal shipID,
 			String validFrom) {
 		GetskipekkiflokkurdragnotElement parameters = new GetskipekkiflokkurdragnotElement(

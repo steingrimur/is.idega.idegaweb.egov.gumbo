@@ -292,17 +292,18 @@ public class DOFWSClientMock implements DOFWSClient {
 	}
 
 	public List<Item> getDragnotVesselsForUser(String companyPersonalID) {
-
 		return getVesselsForUser(null);
 	}
 
 	public List<Item> getGrasleppaVesselsForUser(String companyPersonalID) {
-
 		return getVesselsForUser(null);
 	}
 
 	public List<Item> getStrandveidiVesselsForUser(String companyPersonalID) {
-
+		return getVesselsForUser(null);
+	}
+	
+	public List<Item> getGeneralVesselsForUser(String companyPersonalID) {
 		return getVesselsForUser(null);
 	}
 
