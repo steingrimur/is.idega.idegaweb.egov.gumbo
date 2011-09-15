@@ -167,3 +167,9 @@ form#catchQuotaDelimiter div.buttonLayer {
 form#catchQuotaDelimiter div.buttonLayer .submit {
 	float: right;
 }
+
+iframe {
+	overflow-x: hidden !important;
+	padding: 0 !important;
+	margin: 0 !important;
+}
