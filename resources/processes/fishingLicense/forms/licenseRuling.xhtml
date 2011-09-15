@@ -133,7 +133,7 @@
             <xf:bind id="fbc_110_bind" nodeset="vesselHasValidHaffairisskirteiniMessage"/>
             
             <xf:bind id="fbc_104_bind" nodeset="vesselLicenseValid" relevant="instance('data-instance')/vesselLicenseValid/result = 'true'"/>
-            <xf:bind id="fbc_105_bind" nodeset="vesselLicenseInvalid" relevant="instance('data-instance')/vesselLicenseInvalid/result != 'true'"/>
+            <xf:bind id="fbc_105_bind" nodeset="vesselLicenseInvalid" relevant="instance('data-instance')/vesselLicenseValid/result != 'true'"/>
             <xf:bind id="fbc_105a_bind" nodeset="vesselLicenseMessage"/>
             
             <xf:bind id="fbc_112_bind" nodeset="vesselHasRevokedLicense" relevant="instance('data-instance')/vesselHasRevokedLicense/result = 'true'"/>
