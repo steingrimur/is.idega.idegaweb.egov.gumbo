@@ -95,6 +95,10 @@
             <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
        		      <handlerName>aquaCultureReportDescriptionHandler</handlerName>
           	</action>
+          	<action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+            	<handlerName>aquaCultureReportToFocalHandler</handlerName>
+          	</action>
+          	
       </event>
 		<transition to="doNothing"></transition>
    </start-state>
