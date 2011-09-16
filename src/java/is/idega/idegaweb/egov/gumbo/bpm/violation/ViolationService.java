@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -143,10 +144,10 @@ public class ViolationService extends DefaultSpringBean {
 	}
 	
 	private Map<Locale, Map<String, String>> getAvailableOptions(List<Item> items) {
-		Map<Locale, Map<String, String>> allOptions = new HashMap<Locale, Map<String, String>>();
+		Map<Locale, Map<String, String>> allOptions = new LinkedHashMap<Locale, Map<String, String>>();
 
 		Locale locale = getCurrentLocale();
-		Map<String, String> options = new HashMap<String, String>();
+		Map<String, String> options = new LinkedHashMap<String, String>();
 		allOptions.put(locale, options);
 		
 		if (!ListUtil.isEmpty(items)) {

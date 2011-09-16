@@ -51,8 +51,7 @@ public class CatchQuotaCalculator extends IWBaseComponent {
 			
 			IFrame frame = new IFrame("catchQuotaCalculator", url, getWidth(), getHeight());
 			frame.setId("catchQuotaCalculator");
-			frame.setStyleClass("autoHeight");
-			frame.setScrolling(IFrame.SCROLLING_AUTO);
+			frame.setScrolling(IFrame.SCROLLING_NO);
 			frame.setBorder(0);
 			add(frame);
 		}

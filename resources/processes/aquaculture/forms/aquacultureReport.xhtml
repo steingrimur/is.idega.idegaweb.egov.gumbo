@@ -1687,11 +1687,6 @@
 	                    </div>
 
                         <div class="fbc_button_area" id="fbc_2" type="fbc_button_area">
-                            <xf:trigger bind="bind-controlsButton"
-                                id="fbc_18" type="fbc_button_next">
-                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_18-label[@lang=instance('localized_strings')/current_language]"/>
-                                <idega:toggle case="fbc_17" ev:event="DOMActivate"/>
-                            </xf:trigger>
                             <xf:trigger bind="bind-submissionButton" class="fbc_button_submit" id="fbc_988" type="fbc_button_save">
                                 <xf:label model="data_model" ref="instance('localized_strings')/fbc_988-label[@lang=instance('localized_strings')/current_language]"/>
                                 <xf:action ev:event="DOMActivate">
@@ -1711,6 +1706,11 @@
                                     submissionId="instance('data-instance')/saveFormData/submissionId" submissionIdentifier="instance('data-instance')/*[@nodeType='formIdentifier']"/>
                                     <idega:toggle case="fbc_100"/>
                                 </xf:action>
+                            </xf:trigger>
+                            <xf:trigger bind="bind-controlsButton"
+                                id="fbc_18" type="fbc_button_next">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_18-label[@lang=instance('localized_strings')/current_language]"/>
+                                <idega:toggle case="fbc_17" ev:event="DOMActivate"/>
                             </xf:trigger>
                         </div>
                         
@@ -2007,11 +2007,6 @@
                     
                     <div class="fbc_button_area" id="fbc_19" type="fbc_button_area">
                     
-                            <xf:trigger bind="bind-controlsButton"
-                                id="fbc_20" type="fbc_button_previous">
-                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_20-label[@lang=instance('localized_strings')/current_language]"/>
-                                <idega:toggle case="fbc_1" ev:event="DOMActivate"/>
-                            </xf:trigger>
                     		<xf:trigger bind="bind-submissionButton" class="fbc_button_submit" id="fbc_989" type="fbc_button_save">
                                 <xf:label model="data_model" ref="instance('localized_strings')/fbc_989-label[@lang=instance('localized_strings')/current_language]"/>
                                 <xf:action ev:event="DOMActivate">
@@ -2031,6 +2026,11 @@
                                     submissionId="instance('data-instance')/saveFormData/submissionId" submissionIdentifier="instance('data-instance')/*[@nodeType='formIdentifier']"/>
                                     <idega:toggle case="fbc_100"/>
                                 </xf:action>
+                            </xf:trigger>
+                            <xf:trigger bind="bind-controlsButton"
+                                id="fbc_20" type="fbc_button_previous">
+                                <xf:label model="data_model" ref="instance('localized_strings')/fbc_20-label[@lang=instance('localized_strings')/current_language]"/>
+                                <idega:toggle case="fbc_1" ev:event="DOMActivate"/>
                             </xf:trigger>
                             <xf:trigger bind="bind-submissionButton"
                                 class="fbc_button_submit" id="fbc_3" type="fbc_button_submit">

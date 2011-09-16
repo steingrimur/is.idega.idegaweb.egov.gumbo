@@ -8,6 +8,7 @@ import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,11 +21,16 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import com.idega.bpm.xformsview.converters.DateConverter;
+import com.idega.business.IBOLookup;
+import com.idega.business.IBOLookupException;
 import com.idega.core.cache.IWCacheManager2;
 import com.idega.idegaweb.IWMainApplication;
+import com.idega.user.business.UserBusiness;
+import com.idega.user.data.User;
 import com.idega.util.CoreConstants;
 import com.idega.util.IWTimestamp;
 import com.idega.util.StringUtil;
+import com.idega.util.text.Name;
 
 @Service("gumboUtil")
 @Scope(BeanDefinition.SCOPE_SINGLETON)
@@ -37,6 +43,28 @@ public class GumboUtil {
 	private static final String SHIP_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceSKIPSoap12HttpPort";
 	private static final String SHIP_ENDPOINT_ATTRIBUTE_NAME = "dofws_ship_endpoint";
 
+	public static String getUserName(Object userPK) {
+		try {
+			UserBusiness business = (UserBusiness) IBOLookup.getServiceInstance(IWMainApplication.getDefaultIWApplicationContext(), UserBusiness.class);
+			User user = business.getUser(new Integer(userPK.toString()));
+			if (user != null) {
+				Name name = new Name(user.getFirstName(), user.getMiddleName(), user.getLastName());
+				return name.getName(IWMainApplication.getDefaultIWApplicationContext().getApplicationSettings().getDefaultLocale());
+			}
+		}
+		catch (IBOLookupException e) {
+			e.printStackTrace();
+		}
+		catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
+		catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		
+		return "";
+	}
+	
 	public static List<Period> getPeriods() {
 		List<Period> periods = new ArrayList<Period>();
 

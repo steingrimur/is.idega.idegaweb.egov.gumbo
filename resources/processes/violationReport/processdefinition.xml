@@ -161,8 +161,8 @@
 				        <value>
 				        ${
 				        	Map commentMap = new HashMap();
-				        	commentMap.put("en", "Violation report sent");
-				        	commentMap.put("is_IS", "Brotaskýrsla send inn");
+				        	commentMap.put("en", "Violation report sent: ");
+				        	commentMap.put("is_IS", "Brotaskýrsla send inn: ");
 				        	return commentMap;
 				        }
 	                	</value>
@@ -395,8 +395,8 @@
 			        <value>
 			        ${
 			        	Map commentMap = new HashMap();
-			        	commentMap.put("en", "Request additional information");
-			        	commentMap.put("is_IS", "Frekar upplýsinga óskað frá stofnanda máls");
+			        	commentMap.put("en", "Request additional information: ");
+			        	commentMap.put("is_IS", "Frekar upplýsinga óskað frá stofnanda máls: ");
 			        	return commentMap;
 			        }
                 	</value>
@@ -1105,8 +1105,8 @@
 				        <value>
 				        ${
 				        	Map commentMap = new HashMap();
-				        	commentMap.put("en", "Violation report edited");
-				        	commentMap.put("is_IS", "Brotaskýrslu breytt");
+				        	commentMap.put("en", "Violation report edited: ");
+				        	commentMap.put("is_IS", "Brotaskýrslu breytt: ");
 				        	return commentMap;
 				        }
 	                	</value>
@@ -1134,17 +1134,13 @@
 			        <key>commentExpression</key>
 			        <value>
 			        ${
+			        	String userName = is.idega.idegaweb.egov.gumbo.util.GumboUtil.getUserName(resolver.get("string_lawyerUserId"));
+			        
 			        	Map commentMap = new HashMap();
-			        	commentMap.put("en", "Sent to legal department: {0}");
-			        	commentMap.put("is_IS", "Sent til meðferðar: {0}");
+			        	commentMap.put("en", "Sent to legal department: " + userName);
+			        	commentMap.put("is_IS", "Sent til meðferðar: " + userName);
 			        	return commentMap;
 			        }
-                	</value>
-                </entry>
-                <entry>
-			       	<key>commentValues</key>
-			       	<value>
-			       		{list: {mv: [{type: "bean", value: "user.name"}]}}
                 	</value>
                 </entry>
             </propertyMap>
