@@ -254,6 +254,7 @@
                 <idega:setvalue
                     ref="instance('fbc_7_lds')/localizedEntries[@lang=instance('localized_strings')/current_language]/item" value="idega:resolveExpression('violationService.getLettersTypes()')"/>
                 <xf:setvalue bind="fbc_13_bind"
+                    if="instance('control-instance')/generatePdf!='true' and instance('control-instance')/readonly!='true'"
                     id="fbc_13-autofill-setvalue"
                     model="submission_model" value="instance('fbc_13_autofill-instance')/fb-afk-loginSession.user.name"/>
                 <xf:setvalue

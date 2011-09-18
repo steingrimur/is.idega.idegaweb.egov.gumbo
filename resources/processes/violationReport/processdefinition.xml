@@ -467,8 +467,8 @@
 			        <value>
 			        ${
 			        	Map commentMap = new HashMap();
-			        	commentMap.put("en", "Invite participant: " + resolver.get("string_participantEmail"));
-			        	commentMap.put("is_IS", "Bjóða þátttakanda að máli: " + resolver.get("string_participantEmail"));
+			        	commentMap.put("en", "Invite participant: " + resolver.get("string_participantName") + " - " + resolver.get("string_participantEmail"));
+			        	commentMap.put("is_IS", "Bjóða þátttakanda að máli: " + resolver.get("string_participantName") + " - " + resolver.get("string_participantEmail"));
 			        	return commentMap;
 			        }
                 	</value>
@@ -622,28 +622,6 @@
             <variable name='string_addAttachmentAssignmentExpression' access='write' mapped-name='addAttachmentAssignmentExpression' />
          </script>
         </event>
-	   <event type="node-leave">
-        <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
-            <handlerName>casesStatusHandler</handlerName>
-            <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
-                <entry>
-                	<key>processInstanceId</key>
-                	<value>#{mainProcessInstanceId}</value>
-               	</entry>
-               	<entry>
-			        <key>commentExpression</key>
-			        <value>
-			        ${
-			        	Map commentMap = new HashMap();
-			        	commentMap.put("en", "Attachments added");
-			        	commentMap.put("is_IS", "Viðhengjum bætt við");
-			        	return commentMap;
-			        }
-                	</value>
-                </entry>
-            </propertyMap>
-        </action>
-       </event>
 		<transition to="fork5"></transition>
 	</process-state>
 
@@ -783,6 +761,29 @@
       </task>
 		<transition to="end-state1"></transition>
 	</task-node>
+
+	<node name="setCaseStatusSame">
+	   <event type="node-enter">
+        <action class="com.idega.jbpm.proxy.JbpmHandlerProxy"> 
+            <handlerName>casesStatusHandler</handlerName>
+            <propertyMap key-type='java.lang.String' value-type='java.lang.String'>
+                    <entry><key>processInstanceId</key><value>#{mainProcessInstanceId}</value></entry>
+                    <entry>
+                    	<key>commentExpression</key>
+			        	<value>
+			        		${
+					        	Map commentMap = new HashMap();
+					        	commentMap.put("en", "Attachments added");
+					        	commentMap.put("is_IS", "Viðhengjum bætt við");
+					        	return commentMap;
+					        }
+	                	</value>
+                    </entry>
+            </propertyMap>
+        </action>
+       </event>
+	   <transition to="end-process"></transition>
+	</node>
 
 	<node name="setCaseStatusToClosed">
 	   <event type="node-enter">
@@ -1179,6 +1180,7 @@
 	<fork name="fork5">
 		<transition to="end-state1" name="toEnd-state1"></transition>
 		<transition to="deleteTimeframeMetTimer" name="toDeleteTimeframeMetTimer"></transition>
+		<transition to="setCaseStatusSame" name="toSetCaseStatusSame"></transition>
 	</fork>
 
 	<fork name="fork6">
