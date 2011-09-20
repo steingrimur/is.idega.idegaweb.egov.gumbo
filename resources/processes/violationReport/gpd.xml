@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="ViolationReport" width="1392" height="596">
+<root-container name="ViolationReport" width="1392" height="581">
   <node name="violationReport" x="-272" y="226" width="113" height="34">
     <edge>
       <label x="-16" y="-9"/>
