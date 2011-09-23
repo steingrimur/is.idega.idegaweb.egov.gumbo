@@ -34,6 +34,7 @@
                                     <place mapping="string_ownerMunicipality"/>
                     </companyData>
                     
+                    <licenseTypeLabel mapping="string_licenseTypeLabel"/>
                     <License_for_following_vessel_fbc_37 mapping="string_vessel"/>
                     <Your_comments_fbc_38 mapping="string_ownerComments"/>
                     
@@ -118,6 +119,7 @@
             <xf:bind id="fbc_33_bind" nodeset="companyData/email" readonly="instance('control-instance')/readonly = 'true'" type="string"/>
             <xf:bind id="fbc_34_bind" nodeset="companyData/faxNumber" readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
             
+            <xf:bind id="fbc_58_bind" nodeset="licenseTypeLabel"/>
             <xf:bind id="fbc_37_bind" nodeset="License_for_following_vessel_fbc_37"
                 readonly="instance('control-instance')/readonly = 'true'"
                 required="instance('control-instance')/required = 'true'" type="xs:string"/>
@@ -194,8 +196,8 @@
                     <fbc_48-text lang="en">Fishing company</fbc_48-text>
                     <fbc_50-label lang="is_IS">Kennitala</fbc_50-label>
                     <fbc_50-label lang="en">Social security number</fbc_50-label>
-                    <startOfFishing-label lang="is_IS">Byrjunardagsetning</startOfFishing-label>
-                    <startOfFishing-label lang="en">Start date</startOfFishing-label>
+                    <startOfFishing-label lang="is_IS">Veiðileyfi tekur gildi þann</startOfFishing-label>
+                    <startOfFishing-label lang="en">Validity from</startOfFishing-label>
                     <fbc_51-label lang="is_IS">Heimilisfang</fbc_51-label>
                     <fbc_51-label lang="en">Address</fbc_51-label>
                     <fbc_52-label lang="is_IS">Póstnúmer</fbc_52-label>
@@ -208,8 +210,10 @@
                     <fbc_55-label lang="en">Fax</fbc_55-label>
                     <fbc_56-label lang="is_IS">Netfang</fbc_56-label>
                     <fbc_56-label lang="en">Email</fbc_56-label>
-                    <fbc_57-text lang="is_IS">Gildistími</fbc_57-text>
-                    <fbc_57-text lang="en">Validity</fbc_57-text>
+                    <fbc_57-text lang="is_IS">Tegund veiðileyfis og gildistími</fbc_57-text>
+                    <fbc_57-text lang="en">Fishing license type and validity</fbc_57-text>
+                    <fbc_58-label lang="is_IS">Tegund veiðileyfis</fbc_58-label>
+                    <fbc_58-label lang="en">Type of fishing license</fbc_58-label>
                     <fbc_59-text lang="is_IS">Skip</fbc_59-text>
                     <fbc_59-text lang="en">Vessel</fbc_59-text>
                     <fbc_61-label lang="is_IS">Nafn skips</fbc_61-label>
@@ -301,6 +305,9 @@
                         <div class="fbc_header_text" id="fbc_57" type="fbc_header_text">
                             <xf:output model="data_model" ref="instance('localized_strings')/fbc_57-text[@lang=instance('localized_strings')/current_language]"/>
                         </div>
+						<xf:output bind="fbc_58_bind" id="fbc_58" type="fbc_text_output">
+                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_58-label[@lang=instance('localized_strings')/current_language]"/>
+                        </xf:output>
                         <xf:output bind="fbc_103_bind" id="fbc_154a" type="fbc_text_output">
                             <xf:label model="data_model" ref="instance('localized_strings')/startOfFishing-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
