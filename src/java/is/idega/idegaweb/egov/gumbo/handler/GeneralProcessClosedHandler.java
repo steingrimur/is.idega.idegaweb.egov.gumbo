@@ -2,6 +2,7 @@ package is.idega.idegaweb.egov.gumbo.handler;
 
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
 
+import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -71,8 +72,12 @@ public class GeneralProcessClosedHandler extends DefaultSpringBean implements Ac
 		String from = getApplication().getSettings().getProperty(MessagingSettings.PROP_MESSAGEBOX_FROM_ADDRESS, "info@idega.com");
 		IWResourceBundle iwrb = getResourceBundle(getBundle(GumboConstants.IW_BUNDLE_IDENTIFIER));
 		String subject = (caseIdentifier == null ? CoreConstants.EMPTY : caseIdentifier.toString().concat(": "))
-			.concat(iwrb.getLocalizedString("case_was_closed", "Case was closed"));
-		SendMail.send(from, email.getEmailAddress(), null, null, null, subject, closeMessage.toString());
+			.concat(iwrb.getLocalizedString("case_closed.subject", "Case was closed"));
+		
+		Object[] arguments = { closeMessage.toString() };
+		String body = iwrb.getLocalizedString("case_closed.body", "Fiskistofa has closed the case with the following comment: {0}\n\nYou can follow the case further under 'My Cases'.");
+		
+		SendMail.send(from, email.getEmailAddress(), null, null, null, subject, MessageFormat.format(body, arguments));
 	}
 
 	public Long getProcessInstanceId() {

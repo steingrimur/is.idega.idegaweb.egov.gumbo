@@ -20,7 +20,7 @@ public class CatchQuotaCalculator extends IWBaseComponent {
 	private IWBundle iwb;
 
 	private int width = 573;
-	private int height = 1000;
+	private int height = 2700;
 	private String type = "";
 
 	@Autowired

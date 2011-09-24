@@ -72,10 +72,10 @@
             
             <xf:bind id="fbc_10_bind" nodeset="Participant_name_fbc_10"  readonly="instance('control-instance')/readonly = 'true'" required="true() and instance('control-instance')/generatePdf != 'true'"
                   type="xs:string"/>
-            <xf:bind id="fbc_11_bind" nodeset="Participant_email_fbc_11"  readonly="instance('control-instance')/readonly = 'true'"  required="instance('data-instance')/showSuperHandlerSection = 'true' and instance('control-instance')/generatePdf != 'true'"
+            <xf:bind id="fbc_11_bind" nodeset="Participant_email_fbc_11"  readonly="instance('control-instance')/readonly = 'true'"  required="instance('data-instance')/showSuperHandlerSection = 'false' and instance('control-instance')/generatePdf != 'true'"
                   type="fbc_11fb_email"/>
                   
-            <xf:bind id="fbc_12_bind" nodeset="Participant_email_prefix_fbc_12"  readonly="instance('control-instance')/readonly = 'true'"  required="true() and instance('control-instance')/generatePdf != 'true'"
+            <xf:bind id="fbc_12_bind" nodeset="Participant_email_prefix_fbc_12"  readonly="instance('control-instance')/readonly = 'true'"  required="instance('data-instance')/showSuperHandlerSection = true() and instance('control-instance')/generatePdf != 'true'"
                   type="fbc_12fb_emailPrefix"/>
           <xf:bind id="fbc_8_bind" nodeset="Multi_file_upload_with_description_fbc_8/group" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'">
                 <xf:bind id="fbc_8-entries" nodeset="../entry[position() != last()]" type="xs:anyURI"/>
@@ -225,7 +225,7 @@
                                
                               </xf:input>
                               
-                              <xf:group bind="showSuperHandlerSection" appearance="full">
+                        <xf:group bind="showSuperHandlerSection" appearance="full">
                         
                             <xf:input bind="fbc_11_bind" id="fbc_11">
                                     <xf:label model="data_model"
