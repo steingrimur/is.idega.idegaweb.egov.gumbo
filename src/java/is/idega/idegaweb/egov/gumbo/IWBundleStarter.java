@@ -1,6 +1,7 @@
 package is.idega.idegaweb.egov.gumbo;
 
 import is.idega.idegaweb.egov.gumbo.aquaculture.timer.AquaCultureStatisticsTimer;
+import is.idega.idegaweb.egov.gumbo.timer.FocalTimer;
 
 import com.idega.idegaweb.IWBundle;
 import com.idega.idegaweb.IWBundleStartable;
@@ -13,7 +14,7 @@ public class IWBundleStarter implements IWBundleStartable {
 		TimerManager mgr = new TimerManager();
 
 		try {
-			mgr.addTimer(1, false, new AquaCultureStatisticsTimer());
+			mgr.addTimer(1, false, new FocalTimer());
 
 			mgr.addTimer(0, 2, -1, -1, -1, -1, new AquaCultureStatisticsTimer());
 			// "MentorAbsentTimer");

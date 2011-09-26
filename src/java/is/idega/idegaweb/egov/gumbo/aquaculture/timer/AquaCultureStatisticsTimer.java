@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.logging.Level;
@@ -481,7 +482,6 @@ public class AquaCultureStatisticsTimer implements TimerListener {
 		}
 
 		System.out.println("AQUA STATISTICS TIMER DONE!!!!");
-
 	}
 
 	private class ExpectedQuantityProduced {
@@ -844,7 +844,7 @@ public class AquaCultureStatisticsTimer implements TimerListener {
 
 	public static void main(String args[]) {
 		JSONParser parser = new JSONParser();
-		JSONUtil jsonUtil = new JSONUtil();
+		//JSONUtil jsonUtil = new JSONUtil();
 		try {
 			File f = new File("/Users/palli/Desktop/jsontest.txt");
 			byte[] buffer = new byte[(int) f.length()];
@@ -852,16 +852,22 @@ public class AquaCultureStatisticsTimer implements TimerListener {
 					new FileInputStream(f));
 			s.read(buffer);
 
-			JSONArray array = (JSONArray) parser.parse(new String(buffer));
-			for (int i = 0; i < array.size(); i++) {
-				LinkedHashMap map = (LinkedHashMap) jsonUtil
-						.convertToObject(array.get(i).toString());
-				System.out.println("keyset = " + map.keySet().size());
-				System.out.println("key = "
-						+ map.keySet().iterator().next().toString());
-				System.out.println("map = " + map.toString());
-				System.out.println("map.get(speciesGroupOutput) = "
-						+ map.get("speciesGroupOutput"));
+			JSONObject obj = (JSONObject) parser.parse(new String(buffer));
+			Iterator it = obj.keySet().iterator();
+			while (it.hasNext()) {
+				Object key = it.next();
+				JSONObject obj2 = (JSONObject) parser.parse(obj.get(key).toString());
+				Iterator it2 = obj2.keySet().iterator();
+				while (it2.hasNext()) {
+					Object key2 = it2.next();
+					JSONObject obj3 = (JSONObject) parser.parse((String)obj2.get(key2));
+					Iterator it3 = obj3.keySet().iterator();
+					while (it3.hasNext()) {
+						Object key3 = it3.next();
+						JSONObject file = (JSONObject) obj3.get(key3);
+						System.out.println("filename = " + file.get("identifier"));
+					}					
+				}
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

@@ -20,6 +20,7 @@
     <entity class="is.idega.idegaweb.egov.gumbo.data.AquaSpeciesGroup" />
     <entity class="is.idega.idegaweb.egov.gumbo.data.FishFarm" />
     <entity class="is.idega.idegaweb.egov.gumbo.data.FishingGear" />
+    <entity class="is.idega.idegaweb.egov.gumbo.data.FocalCase" />
     <entity class="is.idega.idegaweb.egov.gumbo.data.Inspector" />
     <entity class="is.idega.idegaweb.egov.gumbo.data.Letter" />
     <entity class="is.idega.idegaweb.egov.gumbo.data.Office" />

@@ -10,6 +10,7 @@ import is.idega.idegaweb.egov.gumbo.data.AquaSpecies;
 import is.idega.idegaweb.egov.gumbo.data.AquaSpeciesGroup;
 import is.idega.idegaweb.egov.gumbo.data.FishFarm;
 import is.idega.idegaweb.egov.gumbo.data.FishingGear;
+import is.idega.idegaweb.egov.gumbo.data.FocalCase;
 import is.idega.idegaweb.egov.gumbo.data.Inspector;
 import is.idega.idegaweb.egov.gumbo.data.Letter;
 import is.idega.idegaweb.egov.gumbo.data.Office;
@@ -99,4 +100,8 @@ public interface GumboDao extends GenericDao {
 	public AquaSpeciesGroup getAquaSpeciesGroup(Long id);
 
 	public AquaMethod getAquaMethod(Long id);
+	
+	public FocalCase getFocalCaseByCaseUniqueID(String caseUniqueID);
+	public FocalCase getFocalCaseByFocalCaseID(String focalCaseID);
+	public FocalCase createFocalCase(String focalCaseID, String caseUniqueID, long numberOfAttachments, boolean error, String errorMessage);
 }
