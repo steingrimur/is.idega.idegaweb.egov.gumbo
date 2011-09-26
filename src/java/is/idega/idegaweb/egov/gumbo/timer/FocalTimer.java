@@ -1,9 +1,11 @@
 package is.idega.idegaweb.egov.gumbo.timer;
 
 import is.idega.idegaweb.egov.gumbo.business.GumboBusiness;
+import is.idega.idegaweb.egov.gumbo.business.GumboProcessException;
 import is.idega.idegaweb.egov.gumbo.dao.GumboDao;
 import is.idega.idegaweb.egov.gumbo.data.CatchDelimiter;
 import is.idega.idegaweb.egov.gumbo.data.FocalCase;
+import is.idega.idegaweb.egov.gumbo.data.ProcessFocalCode;
 import is.idega.idegaweb.egov.gumbo.webservice.client.business.FocalWSClient;
 
 import java.io.File;
@@ -11,6 +13,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,6 +21,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.idega.block.process.business.CaseBusiness;
 import com.idega.block.process.data.Case;
 import com.idega.block.process.data.CaseHome;
 import com.idega.business.IBOLookup;
@@ -95,10 +99,10 @@ public class FocalTimer implements TimerListener {
 				.getApplicationSettings()
 				.getBoolean("dof_send_case_to_focal", true);
 
-		/*if (!send) {
+		if (!send) {
 			System.out.println("NOT RUNNING FOCAL TIMER!!!!");
 			return;
-		}*/
+		}
 
 		String topFolderName = IWMainApplication
 				.getDefaultIWApplicationContext().getApplicationSettings()
@@ -119,17 +123,18 @@ public class FocalTimer implements TimerListener {
 				// handling for older aqua report cases
 				if (procCase.getExternalId() != null
 						&& !"".equals(procCase.getExternalId())) {
-					FocalCase fc = getGumboDAO().getFocalCaseByCaseUniqueID(procCase.getUniqueId());
+					FocalCase fc = getGumboDAO().getFocalCaseByCaseUniqueID(
+							procCase.getUniqueId());
 					if (fc != null) {
-						//Already sent this case over to focal, go on to next case
+						// Already sent this case over to focal, go on to next
+						// case
 						continue;
 					}
-					
+
 					folder = new File(topFolderName, procCase.getPrimaryKey()
 							.toString());
-					System.out.println("folder = " + folder);
 					folder.mkdirs();
-					boolean sendToFocal = true;
+					boolean gotAttachmentsWithoutError = true;
 					String error = null;
 
 					if (procCase.getCaseCode().getCode().equals("CATCHDE")) {
@@ -137,8 +142,6 @@ public class FocalTimer implements TimerListener {
 								.getCatchDelimiter(procCase.getPrimaryKey());
 						ICFile file = delim.getAttachment();
 						if (file != null) {
-							System.out.println("File = " + file.getName()
-									+ " for " + procCase.getExternalId());
 							String normalizedName = StringHandler
 									.stripNonRomanCharacters(file.getName(),
 											new char[] { '0', '1', '2', '3',
@@ -157,134 +160,119 @@ public class FocalTimer implements TimerListener {
 								}
 							} catch (Exception e) {
 								e.printStackTrace();
-								sendToFocal = false;
+								gotAttachmentsWithoutError = false;
 								error = e.getMessage();
 							} finally {
 								outputStream.close();
 								in.close();
 							}
 						} else {
-							System.out.println("File is null for "
+							LOGGER.log(Level.WARNING, "File is null for "
 									+ procCase.getExternalId());
 						}
 					} else {
 						System.out
 								.println("case = " + procCase.getExternalId());
 
-						FocalCase focalCase = getGumboDAO()
-								.getFocalCaseByFocalCaseID(
-										procCase.getExternalId());
-						// focalCase == null -> not handled before so handle it
-						if (focalCase == null) {
-							CaseProcInstBind bind = getCasesBPMDAO()
-									.getCaseProcInstBindByCaseId(
-											(Integer) procCase.getPrimaryKey());
-							if (bind == null) {
-								LOGGER.warning("Case and process instance bind can not be found by case ID: "
-										+ procCase.getPrimaryKey());
-								continue;
-							}
+						CaseProcInstBind bind = getCasesBPMDAO()
+								.getCaseProcInstBindByCaseId(
+										(Integer) procCase.getPrimaryKey());
+						if (bind == null) {
+							LOGGER.warning("Case and process instance bind can not be found by case ID: "
+									+ procCase.getPrimaryKey());
+							continue;
+						}
 
-							Long procInstId = bind.getProcInstId();
-							Collection<VariableInstanceInfo> variables = null;
-							try {
-								variables = variablesQuerier
-										.getFullVariablesByProcessInstanceId(
-												procInstId, false);
-							} catch (Exception e) {
-								LOGGER.log(Level.WARNING,
-										"Error getting variables from process instance: "
-												+ procInstId, e);
-							}
+						Long procInstId = bind.getProcInstId();
+						Collection<VariableInstanceInfo> variables = null;
+						try {
+							variables = variablesQuerier
+									.getFullVariablesByProcessInstanceId(
+											procInstId, false);
+						} catch (Exception e) {
+							LOGGER.log(Level.WARNING,
+									"Error getting variables from process instance: "
+											+ procInstId, e);
+						}
 
-							for (VariableInstanceInfo variable : variables) {
-								String variableName = variable.getName();
+						for (VariableInstanceInfo variable : variables) {
+							String variableName = variable.getName();
 
-								if (variableName != null) {
-									if (VAR1.equals(variableName)
-											|| VAR2.equals(variableName)
-											|| VAR3.equals(variableName)
-											|| VAR4.equals(variableName)
-											|| VAR5.equals(variableName)
-											|| VAR6.equals(variableName)) {
-										// get filename from stringvalues (json)
-										Object ret = variable.getValue();
-										JSONParser parser = new JSONParser();
-										JSONObject obj = (JSONObject) parser
-												.parse(ret.toString());
-										Iterator it = obj.keySet().iterator();
-										while (it.hasNext()) {
-											Object key = it.next();
-											JSONObject obj2 = (JSONObject) parser
-													.parse(obj.get(key)
-															.toString());
-											Iterator it2 = obj2.keySet()
+							if (variableName != null) {
+								if (VAR1.equals(variableName)
+										|| VAR2.equals(variableName)
+										|| VAR3.equals(variableName)
+										|| VAR4.equals(variableName)
+										|| VAR5.equals(variableName)
+										|| VAR6.equals(variableName)) {
+									// get filename from stringvalues (json)
+									Object ret = variable.getValue();
+									JSONParser parser = new JSONParser();
+									JSONObject obj = (JSONObject) parser
+											.parse(ret.toString());
+									Iterator it = obj.keySet().iterator();
+									while (it.hasNext()) {
+										Object key = it.next();
+										JSONObject obj2 = (JSONObject) parser
+												.parse(obj.get(key).toString());
+										Iterator it2 = obj2.keySet().iterator();
+										while (it2.hasNext()) {
+											Object key2 = it2.next();
+											JSONObject obj3 = (JSONObject) parser
+													.parse((String) obj2
+															.get(key2));
+											Iterator it3 = obj3.keySet()
 													.iterator();
-											while (it2.hasNext()) {
-												Object key2 = it2.next();
-												JSONObject obj3 = (JSONObject) parser
-														.parse((String) obj2
-																.get(key2));
-												Iterator it3 = obj3.keySet()
-														.iterator();
-												while (it3.hasNext()) {
-													Object key3 = it3.next();
-													JSONObject file = (JSONObject) obj3
-															.get(key3);
-													String filePath = (String) file
-															.get("identifier");
-													String fileName = (String) file
-															.get("fileName");
-													System.out
-															.println("filename = "
-																	+ filePath);
-													System.out
-															.println("filename = "
-																	+ fileName);
+											while (it3.hasNext()) {
+												Object key3 = it3.next();
+												JSONObject file = (JSONObject) obj3
+														.get(key3);
+												String filePath = (String) file
+														.get("identifier");
+												String fileName = (String) file
+														.get("fileName");
 
-													String normalizedName = StringHandler
-															.stripNonRomanCharacters(
-																	fileName,
-																	new char[] {
-																			'0',
-																			'1',
-																			'2',
-																			'3',
-																			'4',
-																			'5',
-																			'6',
-																			'7',
-																			'8',
-																			'9',
-																			'-',
-																			'.' });
+												String normalizedName = StringHandler
+														.stripNonRomanCharacters(
+																fileName,
+																new char[] {
+																		'0',
+																		'1',
+																		'2',
+																		'3',
+																		'4',
+																		'5',
+																		'6',
+																		'7',
+																		'8',
+																		'9',
+																		'-',
+																		'.' });
 
-													File output = new File(
-															folder,
-															normalizedName);
-													FileOutputStream outputStream = new FileOutputStream(
-															output);
-													InputStream in = getSlideService()
-															.getInputStream(
-																	filePath);
+												File output = new File(folder,
+														normalizedName);
+												FileOutputStream outputStream = new FileOutputStream(
+														output);
+												InputStream in = getSlideService()
+														.getInputStream(
+																filePath);
 
-													byte[] buffer = new byte[4096];
-													int bytes_read;
-													try {
-														while ((bytes_read = in
-																.read(buffer)) != -1) {
-															outputStream.write(
-																	buffer, 0,
-																	bytes_read);
-														}
-													} catch (Exception e) {
-														e.printStackTrace();
-														sendToFocal = false;
-														error = e.getMessage();
-													} finally {
-														outputStream.close();
-														in.close();
+												byte[] buffer = new byte[4096];
+												int bytes_read;
+												try {
+													while ((bytes_read = in
+															.read(buffer)) != -1) {
+														outputStream.write(
+																buffer, 0,
+																bytes_read);
 													}
+												} catch (Exception e) {
+													e.printStackTrace();
+													gotAttachmentsWithoutError = false;
+													error = e.getMessage();
+												} finally {
+													outputStream.close();
+													in.close();
 												}
 											}
 										}
@@ -294,25 +282,195 @@ public class FocalTimer implements TimerListener {
 						}
 					}
 
-					getGumboDAO().createFocalCase(procCase.getExternalId(),
-							procCase.getUniqueId(), 1, false, "");
+					if (gotAttachmentsWithoutError) { // send to focal and
+														// create FocalCase
+						// entry
+						XMLDocument ret = getFocalWSClient().closeFocalCase(
+								procCase.getExternalId(),
+								procCase.getPrimaryKey().toString());
+						if (hasAnswerErrors(ret)) {
+							getGumboDAO().createFocalCase(
+									procCase.getExternalId(),
+									procCase.getUniqueId(), -1, true,
+									getAnswerErrors(ret));
 
-					/*
-					 * if (sendToFocal) { // send to focal and create FocalCase
-					 * entry XMLDocument ret =
-					 * getFocalWSClient().closeFocalCase(
-					 * procCase.getExternalId(),
-					 * procCase.getPrimaryKey().toString()); if
-					 * (hasAnswerErrors(ret)) { getGumboDAO().createFocalCase(
-					 * procCase.getExternalId(), procCase.getUniqueId(), -1,
-					 * true, getAnswerErrors(ret));
-					 * 
-					 * } else { int noa = getNumberOfAttachements(ret);
-					 * getGumboDAO().createFocalCase( procCase.getExternalId(),
-					 * procCase.getUniqueId(), noa, false, ""); } } else {
-					 * getGumboDAO().createFocalCase(procCase.getExternalId(),
-					 * procCase.getUniqueId(), -1, true, error); }
-					 */
+						} else {
+							int noa = getNumberOfAttachements(ret);
+							getGumboDAO().createFocalCase(
+									procCase.getExternalId(),
+									procCase.getUniqueId(), noa, false, "");
+						}
+					} else {
+						getGumboDAO().createFocalCase(procCase.getExternalId(),
+								procCase.getUniqueId(), -1, true, error);
+					}
+
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("FOCAL TIMER - STARTING AQUACULTURE PART!!!!");
+
+		// Aquaculture reports
+		try {
+			List<Long> cases = getCasesBPMDAO().getCaseIdsByProcessDefinition(
+					"Aquaculture");
+			for (Long caseId : cases) {
+				Case procCase = getCaseBusiness().getCase(caseId.intValue());
+				FocalCase fc = getGumboDAO().getFocalCaseByCaseUniqueID(
+						procCase.getUniqueId());
+				if (fc == null) {
+					if (procCase.getExternalId() == null
+							|| "".equals(procCase.getExternalId().trim())) {
+						ProcessFocalCode focalCode = getGumboDAO()
+								.getProcessFocalCode("Aquaculture");
+						String focalKey = getFocalWSClient().createFocalCase(
+								procCase.getPrimaryKey().toString(),
+								procCase.getCaseIdentifier(),
+								procCase.getSubject(),
+								procCase.getOwner().getPersonalID(),
+								procCase.getOwner().getDisplayName(),
+								focalCode.getFocalProjectID(),
+								focalCode.getFocalDocumentKey());
+
+						if (focalKey == null || "".equals(focalKey)) {
+							LOGGER.warning("Could no send case to Focal case ID: "
+									+ procCase.getPrimaryKey());
+							continue;
+						}
+
+						procCase.setExternalId(focalKey);
+						procCase.store();
+					}
+
+					folder = new File(topFolderName, procCase.getPrimaryKey()
+							.toString());
+					folder.mkdirs();
+					boolean gotAttachmentsWithoutError = true;
+					String error = null;
+
+					CaseProcInstBind bind = getCasesBPMDAO()
+							.getCaseProcInstBindByCaseId(
+									(Integer) procCase.getPrimaryKey());
+					if (bind == null) {
+						LOGGER.warning("Case and process instance bind can not be found by case ID: "
+								+ procCase.getPrimaryKey());
+						continue;
+					}
+
+					Long procInstId = bind.getProcInstId();
+					Collection<VariableInstanceInfo> variables = null;
+					try {
+						variables = variablesQuerier
+								.getFullVariablesByProcessInstanceId(
+										procInstId, false);
+					} catch (Exception e) {
+						LOGGER.log(Level.WARNING,
+								"Error getting variables from process instance: "
+										+ procInstId, e);
+					}
+
+					for (VariableInstanceInfo variable : variables) {
+						String variableName = variable.getName();
+
+						if (variableName != null) {
+							if (VAR1.equals(variableName)
+									|| VAR2.equals(variableName)
+									|| VAR3.equals(variableName)
+									|| VAR4.equals(variableName)
+									|| VAR5.equals(variableName)
+									|| VAR6.equals(variableName)) {
+								// get filename from stringvalues (json)
+								Object ret = variable.getValue();
+								JSONParser parser = new JSONParser();
+								JSONObject obj = (JSONObject) parser.parse(ret
+										.toString());
+								Iterator it = obj.keySet().iterator();
+								while (it.hasNext()) {
+									Object key = it.next();
+									JSONObject obj2 = (JSONObject) parser
+											.parse(obj.get(key).toString());
+									Iterator it2 = obj2.keySet().iterator();
+									while (it2.hasNext()) {
+										Object key2 = it2.next();
+										JSONObject obj3 = (JSONObject) parser
+												.parse((String) obj2.get(key2));
+										Iterator it3 = obj3.keySet().iterator();
+										while (it3.hasNext()) {
+											Object key3 = it3.next();
+											JSONObject file = (JSONObject) obj3
+													.get(key3);
+											String filePath = (String) file
+													.get("identifier");
+											String fileName = (String) file
+													.get("fileName");
+
+											String normalizedName = StringHandler
+													.stripNonRomanCharacters(
+															fileName,
+															new char[] { '0',
+																	'1', '2',
+																	'3', '4',
+																	'5', '6',
+																	'7', '8',
+																	'9', '-',
+																	'.' });
+
+											File output = new File(folder,
+													normalizedName);
+											FileOutputStream outputStream = new FileOutputStream(
+													output);
+											InputStream in = getSlideService()
+													.getInputStream(filePath);
+
+											byte[] buffer = new byte[4096];
+											int bytes_read;
+											try {
+												while ((bytes_read = in
+														.read(buffer)) != -1) {
+													outputStream.write(buffer,
+															0, bytes_read);
+												}
+											} catch (Exception e) {
+												e.printStackTrace();
+												gotAttachmentsWithoutError = false;
+												error = e.getMessage();
+											} finally {
+												outputStream.close();
+												in.close();
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+
+					if (gotAttachmentsWithoutError) { // send to focal and
+														// create FocalCase
+														// entry
+						XMLDocument ret = getFocalWSClient().closeFocalCase(
+								procCase.getExternalId(),
+								procCase.getPrimaryKey().toString());
+						if (hasAnswerErrors(ret)) {
+							getGumboDAO().createFocalCase(
+									procCase.getExternalId(),
+									procCase.getUniqueId(), -1, true,
+									getAnswerErrors(ret));
+
+						} else {
+							int noa = getNumberOfAttachements(ret);
+							getGumboDAO().createFocalCase(
+									procCase.getExternalId(),
+									procCase.getUniqueId(), noa, false, "");
+						}
+					} else {
+						getGumboDAO().createFocalCase(procCase.getExternalId(),
+								procCase.getUniqueId(), -1, true, error);
+					}
+
 				}
 			}
 		} catch (Exception e) {
@@ -320,6 +478,17 @@ public class FocalTimer implements TimerListener {
 		}
 
 		System.out.println("FOCAL TIMER DONE!!!!");
+	}
+
+	CaseBusiness getCaseBusiness() {
+		try {
+			return IBOLookup.getServiceInstance(
+					IWMainApplication.getDefaultIWApplicationContext(),
+					CaseBusiness.class);
+		} catch (IBOLookupException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	private boolean hasAnswerErrors(XMLDocument answer) {
