@@ -11,6 +11,7 @@ import is.idega.idegaweb.egov.gumbo.data.AquaSpecies;
 import is.idega.idegaweb.egov.gumbo.data.AquaSpeciesGroup;
 import is.idega.idegaweb.egov.gumbo.data.FishFarm;
 import is.idega.idegaweb.egov.gumbo.data.FishingGear;
+import is.idega.idegaweb.egov.gumbo.data.FocalCase;
 import is.idega.idegaweb.egov.gumbo.data.Inspector;
 import is.idega.idegaweb.egov.gumbo.data.Letter;
 import is.idega.idegaweb.egov.gumbo.data.Office;
@@ -256,5 +257,36 @@ public class GumboDaoImpl extends GenericDaoImpl implements GumboDao {
 
 	public AquaMethod getAquaMethod(Long id) {
 		return find(AquaMethod.class, id);		
+	}
+	
+	public FocalCase getFocalCaseByCaseUniqueID(String caseUniqueID) {
+		Param param = new Param("caseUniqueID", caseUniqueID);
+		return getSingleResult("focalCase.findByCaseUniqueID",
+				FocalCase.class, param);
+
+	}
+	
+	public FocalCase getFocalCaseByFocalCaseID(String focalCaseID) {
+		Param param = new Param("focalCaseID", focalCaseID);
+		return getSingleResult("focalCase.findByFocalCaseID",
+				FocalCase.class, param);
+	}
+	
+	@Transactional(readOnly = false)
+	public FocalCase createFocalCase(String focalCaseID, String caseUniqueID, long numberOfAttachments, boolean error, String errorMessage) {
+		FocalCase focalCase = new FocalCase();
+		focalCase.setFocalCaseID(focalCaseID);
+		focalCase.setCaseUniqueID(caseUniqueID);
+		focalCase.setSentDate(IWTimestamp.getTimestampRightNow());
+		focalCase.setNumberOfAttachments(numberOfAttachments);
+		focalCase.setError(error);
+		if (errorMessage != null && errorMessage.length() > 1000) {
+			errorMessage = errorMessage.substring(0, 1000);
+		}
+		focalCase.setErrorMessage(errorMessage);
+		
+		getEntityManager().persist(focalCase);
+		
+		return focalCase;
 	}
 }

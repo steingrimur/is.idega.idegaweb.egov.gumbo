@@ -68,8 +68,47 @@ public class FocalWSClient {
 		return null;
 	}
 
-	public void closeFocalCase(String focalID) {
-		//getPort().
+	public boolean addAttachment(String focalID, String filePath) {
+		String access = IWMainApplication.getDefaultIWApplicationContext()
+				.getApplicationSettings()
+				.getProperty(FOCAL_ACCESS_ATTRIBUTE_NAME, "");
+
+		try {
+			String ret = getPort().ADDATTACHMENTTOIDEGACASE(focalID, filePath, access);
+
+			XMLDocument retDoc = parseFocalAnswer(ret);
+			if (hasAnswerErrors(retDoc)) {
+				System.out.println("error = " + getFocalKeyFromAnswer(retDoc, "error"));
+				return false;
+			}
+
+			return true;
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
+	public XMLDocument closeFocalCase(String focalID, String path) {
+		String access = IWMainApplication.getDefaultIWApplicationContext()
+				.getApplicationSettings()
+				.getProperty(FOCAL_ACCESS_ATTRIBUTE_NAME, "");
+		
+		try {
+			String ret = getPort().CLOSEIDEGACASE(focalID, path, access);
+			XMLDocument retDoc = parseFocalAnswer(ret);
+/*			if (hasAnswerErrors(retDoc)) {
+				System.out.println("error = " + getFocalKeyFromAnswer(retDoc, "error"));
+				return false;
+			}*/
+
+			return retDoc;
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 	
 	private String createCaseXML(String id, String caseID, String caseName,
