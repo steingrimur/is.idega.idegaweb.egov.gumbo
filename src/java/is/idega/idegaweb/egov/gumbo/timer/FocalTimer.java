@@ -125,7 +125,7 @@ public class FocalTimer implements TimerListener {
 						continue;
 					}
 					
-					folder = new File(TOP_FOLDER, procCase.getPrimaryKey()
+					folder = new File(topFolderName, procCase.getPrimaryKey()
 							.toString());
 					System.out.println("folder = " + folder);
 					folder.mkdirs();
