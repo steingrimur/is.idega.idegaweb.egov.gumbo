@@ -66,15 +66,16 @@ jQuery(document).ready(function() {
 	
 	jQuery(document).bind('ChibaWorkarounds-UIUpdatedEvent', function(event, updateUIData) {
 		
-		if(updateUIData && ChibaWorkarounds.insertFor != null && substitutionsNeedToBeUpdated(updateUIData)) {
-			
+		if (updateUIData && ChibaWorkarounds.insertFor != null && substitutionsNeedToBeUpdated(updateUIData)) {
 			jQuery(".repeat."+ChibaWorkarounds.insertFor+" .substitute input").each(function() {
-				
 				var me = jQuery(this);
-				if(!me.attr("substituted")) {
-				
+				if (!me.attr("substituted")) {
 					updateSubstitutions(me);
 				}
+			});
+			
+			jQuery("textarea", "div.xFormTextAreaMask_limit-1000").each(function() {
+				FluxInterfaceHelper.initializeCharactersCounter(jQuery(this), null, 1000);
 			});
 			
 			ChibaWorkarounds.insertFor = null;
