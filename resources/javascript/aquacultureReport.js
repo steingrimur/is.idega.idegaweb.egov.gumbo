@@ -47,14 +47,20 @@ jQuery(document).ready(function() {
 		return null;
 	};
 	
-	var copyOptions = function(from, to) {
+	var copyOptions = function(from, to, originalValue) {
+		if (from == null || to == null)
+			return;
 		
 		var options = from.get(0).options;
 		
 		for ( var i = 0; i < options.length; i++) {
 			var opt = options[i];
 			
-			to.append('<option value="' + opt.value + '">' + opt.text + '</option>');
+			var selectedCode = "";
+			if (originalValue != null && opt.value == originalValue) {
+				selectedCode = " selected='true'";
+			}
+			to.append('<option value="' + opt.value + '"' + selectedCode + '>' + opt.text + '</option>');
 		}
 	};
 	
@@ -109,7 +115,7 @@ jQuery(document).ready(function() {
 		
 		var substituteId = getSubstituteId(substitutableInput.parent(0));
 		
-		copyOptions(jQuery(".selectorItems."+substituteId+" select.value"), select);
+		copyOptions(jQuery(".selectorItems."+substituteId+" select.value"), select, substitutableInput.attr('value'));
 
 		div.addClass("select1");
 		
