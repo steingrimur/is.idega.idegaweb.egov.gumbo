@@ -1016,7 +1016,7 @@
                                 </xf:input>
                                 
                                 
-                                <xf:input bind="sizeBind" id="fbc_10_repeat_id_input_size">
+                                <xf:input bind="sizeBind" id="fbc_10_repeat_id_input_size" class="xFormInputMask_positiveNumber">
                                     <xf:label model="data_model" ref="instance('localized_strings')/fbc_10-col-size-label[@lang=instance('localized_strings')/current_language]"/>
                                     
                                     <xf:dispatch ev:event="xforms-value-changed"
@@ -1106,11 +1106,10 @@
                                     
                                 </xf:input>
                                 
-                                <xf:input bind="count_fbc_26" id="fbc_26_repeat_id_input_count">
+                                <xf:input bind="count_fbc_26" id="fbc_26_repeat_id_input_count" class="xFormInputMask_positiveNumber">
                                     <xf:label model="data_model" ref="instance('localized_strings')/fbc_78-col-count-label[@lang=instance('localized_strings')/current_language]"/>
                                     
-                                    <xf:dispatch ev:event="xforms-value-changed"
-                                        name="idega-validate" target="fbc_26_repeat_id_input_count"/>
+                                    <xf:dispatch ev:event="xforms-value-changed" name="idega-validate" target="fbc_26_repeat_id_input_count"/>
                                     
                                     <xf:setvalue
                                             ev:event="xforms-value-changed"
@@ -1327,7 +1326,7 @@
 	                                </xf:input>
 	                                
 	                                
-	                                <xf:input bind="quantityBind_fbc_43" id="fbc_43_repeat_id_input_quantity">
+	                                <xf:input bind="quantityBind_fbc_43" id="fbc_43_repeat_id_input_quantity" class="xFormInputMask_positiveNumber">
 	                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-col-quantity-label[@lang=instance('localized_strings')/current_language]"/>
 	                                    
 	                                    <xf:dispatch ev:event="xforms-value-changed"
@@ -1543,7 +1542,7 @@
                                 </xf:input>
                                 
                                 
-                                <xf:input bind="quantityBind_fbc_69" id="fbc_69_repeat_id_input_quantity">
+                                <xf:input bind="quantityBind_fbc_69" id="fbc_69_repeat_id_input_quantity" class="xFormInputMask_positiveNumber">
                                     <xf:label model="data_model" ref="instance('localized_strings')/fbc_69-col-quantity-label[@lang=instance('localized_strings')/current_language]"/>
                                     
                                     <xf:dispatch ev:event="xforms-value-changed"
@@ -1649,7 +1648,7 @@
                                 </xf:input>
                                 
                                 
-                                <xf:input bind="quantityBind_fbc_78" id="fbc_78_repeat_id_input_quantity">
+                                <xf:input bind="quantityBind_fbc_78" id="fbc_78_repeat_id_input_quantity" class="xFormInputMask_positiveNumber">
                                     <xf:label model="data_model" ref="instance('localized_strings')/fbc_78-col-quantity-label[@lang=instance('localized_strings')/current_language]"/>
                                     
                                     <xf:dispatch ev:event="xforms-value-changed"
