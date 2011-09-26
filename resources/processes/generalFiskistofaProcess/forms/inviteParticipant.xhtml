@@ -72,10 +72,10 @@
             
             <xf:bind id="fbc_10_bind" nodeset="Participant_name_fbc_10"  readonly="instance('control-instance')/readonly = 'true'" required="true() and instance('control-instance')/generatePdf != 'true'"
                   type="xs:string"/>
-            <xf:bind id="fbc_11_bind" nodeset="Participant_email_fbc_11"  readonly="instance('control-instance')/readonly = 'true'"  required="instance('data-instance')/showSuperHandlerSection = 'false' and instance('control-instance')/generatePdf != 'true'"
+            <xf:bind id="fbc_11_bind" nodeset="Participant_email_fbc_11"  readonly="instance('control-instance')/readonly = 'true'"  required="instance('data-instance')/showSuperHandlerSection = 'true' and instance('control-instance')/generatePdf != 'true'"
                   type="fbc_11fb_email"/>
                   
-            <xf:bind id="fbc_12_bind" nodeset="Participant_email_prefix_fbc_12"  readonly="instance('control-instance')/readonly = 'true'"  required="instance('data-instance')/showSuperHandlerSection = true() and instance('control-instance')/generatePdf != 'true'"
+            <xf:bind id="fbc_12_bind" nodeset="Participant_email_prefix_fbc_12"  readonly="instance('control-instance')/readonly = 'true'"  required="instance('data-instance')/showSuperHandlerSection != 'true' and instance('control-instance')/generatePdf != 'true'"
                   type="fbc_12fb_emailPrefix"/>
           <xf:bind id="fbc_8_bind" nodeset="Multi_file_upload_with_description_fbc_8/group" relevant="instance('control-instance')/readonly != 'true' and instance('control-instance')/generatePdf != 'true'">
                 <xf:bind id="fbc_8-entries" nodeset="../entry[position() != last()]" type="xs:anyURI"/>
@@ -112,7 +112,7 @@
                         <fbc_11-validation lang="is_IS">Netfang stenst ekki prófanir</fbc_11-validation>
                         <fbc_11-validation lang="en">Invalid email</fbc_11-validation>
                         <fbc_11-required lang="en">Email cannot be empty</fbc_11-required>
-                        <fbc_11-required lang="is_IS">Netfang viðtakanda verður að vera útfyllt</fbc_11-required>
+                        <fbc_11-required lang="is_IS">Netfang starfsmanns verður að vera útfyllt</fbc_11-required>
                         
                         <fbc_12-title lang="en">Invited participant email</fbc_12-title>
                         <fbc_12-title lang="is_IS">Netfang</fbc_12-title>
@@ -252,7 +252,13 @@
                                 	<idega:message errorType="validation" model="data_model" value="instance('localized_strings')/fbc_12-validation[@lang=instance('localized_strings')/current_language]"/>
                             	</idega:validator>
                             	<xf:alert ref="instance('error-instance')/error[@for='fbc_12']"/>
-	                        </xf:input>
+                            
+                            <xf:setvalue
+                                    ev:event="xforms-value-changed"
+                                    ref="instance('data-instance')/Participant_email_fbc_12" value="concat(instance('data-instance')/Participant_email_prefix_fbc_12, '@fiskistofa.is')"/>
+                            
+                              </xf:input>
+                              <xf:output class="fiskistofaEmailText" ref="instance('localized_strings')/fbc_12-fiskistofaEmailPostfix[@lang=instance('localized_strings')/current_language]"/>
                         </xf:group>
                               
                               
