@@ -2,18 +2,27 @@ package is.idega.idegaweb.egov.gumbo.search;
 
 import is.idega.idegaweb.egov.gumbo.GumboConstants;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
+import java.util.logging.Level;
+
+import javax.ejb.FinderException;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import com.idega.builder.bean.AdvancedProperty;
+import com.idega.builder.business.AdvancedPropertyComparator;
 import com.idega.jbpm.bean.BPMProcessVariable;
 import com.idega.jbpm.bean.VariableInstanceInfo;
 import com.idega.jbpm.variables.MultipleSelectionVariablesResolver;
+import com.idega.user.business.UserBusiness;
+import com.idega.user.data.User;
 import com.idega.util.CoreConstants;
 import com.idega.util.ListUtil;
 import com.idega.util.StringUtil;
@@ -42,7 +51,10 @@ public class ViolatorsPersonsResolver extends MultipleSelectionVariablesResolver
 			return values;
 		}
 		
-		for (AdvancedProperty prop: converted) {
+		List<AdvancedProperty> persons = new ArrayList<AdvancedProperty>(converted);
+		Collections.sort(persons, new AdvancedPropertyComparator(getCurrentLocale()));
+		
+		for (AdvancedProperty prop: persons) {
 			String value = prop.getValue();
 			value = value == null ? CoreConstants.EMPTY : value;
 			
@@ -111,4 +123,37 @@ public class ViolatorsPersonsResolver extends MultipleSelectionVariablesResolver
 		String result = concatinatedValues.toString();
 		return StringUtil.isEmpty(result) ? CoreConstants.MINUS : result;
 	}
+	
+	protected String getName(String personalId) {
+		if (StringUtil.isEmpty(personalId))
+			return null;
+		
+		UserBusiness userBusiness = getServiceInstance(UserBusiness.class);
+		User user = null;
+		try {
+			user = userBusiness.getUser(personalId);
+		} catch (RemoteException e) {
+			getLogger().log(Level.WARNING, "Error getting user by personal ID: " + personalId, e);
+		} catch (FinderException e) {
+		}
+		
+		return user == null ? null : user.getName();
+	}
+
+	@Override
+	protected AdvancedProperty getValueFromString(String value) {
+		AdvancedProperty person = super.getValueFromString(value);
+		if (person == null)
+			return null;
+		
+		String name = person.getValue();
+		if (StringUtil.isEmpty(name) || "No user found".equals(name)) {
+			String personName = getName(person.getId());
+			name = StringUtil.isEmpty(personName) ? name : personName;
+			person.setValue(name);
+		}
+		
+		return person;
+	}
+
 }
