@@ -1,7 +1,6 @@
 package is.idega.idegaweb.egov.gumbo.timer;
 
 import is.idega.idegaweb.egov.gumbo.business.GumboBusiness;
-import is.idega.idegaweb.egov.gumbo.business.GumboProcessException;
 import is.idega.idegaweb.egov.gumbo.dao.GumboDao;
 import is.idega.idegaweb.egov.gumbo.data.CatchDelimiter;
 import is.idega.idegaweb.egov.gumbo.data.FocalCase;
@@ -70,6 +69,7 @@ public class FocalTimer implements TimerListener {
 	private static final String VAR6 = "files_processRullingAttachments";
 
 	private static final String TOP_FOLDER = "focal_top_folder";
+	private static final String FOCAL_FOLDER = "focal_mount_folder";
 
 	private static void rmChildDir(final File folder, boolean isTop) {
 		// check if folder file is a real folder
@@ -108,10 +108,17 @@ public class FocalTimer implements TimerListener {
 				.getDefaultIWApplicationContext().getApplicationSettings()
 				.getProperty(TOP_FOLDER, "/opt/tomcat/focal/");
 
+		String focalFolderName = IWMainApplication
+				.getDefaultIWApplicationContext().getApplicationSettings()
+				.getProperty(FOCAL_FOLDER, "/opt/tomcat/focal/");
+
 		File folder = new File(topFolderName);
 		if (folder.exists()) {
 			rmChildDir(folder, true);
+		} else {
+			folder.mkdirs();
 		}
+		folder.setExecutable(true, false);
 
 		String statuses[] = { "SHUT" };
 		try {
@@ -124,7 +131,7 @@ public class FocalTimer implements TimerListener {
 				if (procCase.getExternalId() != null
 						&& !"".equals(procCase.getExternalId())) {
 					FocalCase fc = getGumboDAO().getFocalCaseByCaseUniqueID(
-							procCase.getUniqueId());
+							procCase.getPrimaryKey().toString());
 					if (fc != null) {
 						// Already sent this case over to focal, go on to next
 						// case
@@ -134,6 +141,7 @@ public class FocalTimer implements TimerListener {
 					folder = new File(topFolderName, procCase.getPrimaryKey()
 							.toString());
 					folder.mkdirs();
+					folder.setExecutable(true, false);
 					boolean gotAttachmentsWithoutError = true;
 					String error = null;
 
@@ -148,6 +156,7 @@ public class FocalTimer implements TimerListener {
 													'4', '5', '6', '7', '8',
 													'9', '-', '.' });
 							File output = new File(folder, normalizedName);
+							output.setReadable(true, false);
 							FileOutputStream outputStream = new FileOutputStream(
 									output);
 							InputStream in = file.getFileValue();
@@ -251,6 +260,7 @@ public class FocalTimer implements TimerListener {
 
 												File output = new File(folder,
 														normalizedName);
+												output.setReadable(true, false);
 												FileOutputStream outputStream = new FileOutputStream(
 														output);
 												InputStream in = getSlideService()
@@ -320,7 +330,7 @@ public class FocalTimer implements TimerListener {
 			for (Long caseId : cases) {
 				Case procCase = getCaseBusiness().getCase(caseId.intValue());
 				FocalCase fc = getGumboDAO().getFocalCaseByCaseUniqueID(
-						procCase.getUniqueId());
+						procCase.getPrimaryKey().toString());
 				if (fc == null) {
 					if (procCase.getExternalId() == null
 							|| "".equals(procCase.getExternalId().trim())) {
@@ -348,6 +358,7 @@ public class FocalTimer implements TimerListener {
 					folder = new File(topFolderName, procCase.getPrimaryKey()
 							.toString());
 					folder.mkdirs();
+					folder.setExecutable(true,  false);
 					boolean gotAttachmentsWithoutError = true;
 					String error = null;
 
@@ -420,6 +431,7 @@ public class FocalTimer implements TimerListener {
 
 											File output = new File(folder,
 													normalizedName);
+											output.setReadable(true,  false);
 											FileOutputStream outputStream = new FileOutputStream(
 													output);
 											InputStream in = getSlideService()
@@ -453,28 +465,33 @@ public class FocalTimer implements TimerListener {
 														// entry
 						XMLDocument ret = getFocalWSClient().closeFocalCase(
 								procCase.getExternalId(),
-								procCase.getPrimaryKey().toString());
+								focalFolderName + procCase.getPrimaryKey().toString());
 						if (hasAnswerErrors(ret)) {
 							getGumboDAO().createFocalCase(
 									procCase.getExternalId(),
-									procCase.getUniqueId(), -1, true,
+									procCase.getPrimaryKey().toString(), -1, true,
 									getAnswerErrors(ret));
 
 						} else {
 							int noa = getNumberOfAttachements(ret);
 							getGumboDAO().createFocalCase(
 									procCase.getExternalId(),
-									procCase.getUniqueId(), noa, false, "");
+									procCase.getPrimaryKey().toString(), noa, false, "");
 						}
 					} else {
 						getGumboDAO().createFocalCase(procCase.getExternalId(),
-								procCase.getUniqueId(), -1, true, error);
+								procCase.getPrimaryKey().toString(), -1, true, error);
 					}
 
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+
+		folder = new File(topFolderName);
+		if (folder.exists()) {
+			rmChildDir(folder, true);
 		}
 
 		System.out.println("FOCAL TIMER DONE!!!!");
