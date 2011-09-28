@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="generalFiskistofaProcess" width="1134" height="610">
-  <node name="startGeneralProcess" x="424" y="31" width="132" height="36">
+<root-container name="generalFiskistofaProcess" width="1135" height="579">
+  <node name="startGeneralProcess" x="418" y="16" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="end-state1" x="403" y="344" width="132" height="36"/>
-  <node name="fork1" x="354" y="136" width="252" height="24">
+  <node name="end-state1" x="463" y="464" width="132" height="36"/>
+  <node name="fork1" x="360" y="91" width="252" height="24">
     <edge>
       <label x="5" y="-10"/>
     </edge>
@@ -20,9 +20,52 @@
     <edge>
       <label x="5" y="-10"/>
     </edge>
+  </node>
+  <node name="closeCase" x="130" y="129" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
+  </node>
+  <node name="setCaseStatusToClosed" x="117" y="216" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="end-process" x="123" y="318" width="132" height="36"/>
+  <node name="addAttachment" x="612" y="189" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="addComment" x="357" y="187" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="inviteParticipant" x="773" y="128" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="fork2" x="840" y="249" width="252" height="24">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="inviteParticipantProcess" x="916" y="329" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="submitCaseAnswer" x="927" y="406" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="addInvitedAttachment" x="0" y="0" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>

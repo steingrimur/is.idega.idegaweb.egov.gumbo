@@ -327,6 +327,7 @@
 
 	<fork name="fork2">
 		<transition to="inviteParticipantProcess" name="toInviteParticipantProcess"></transition>
+		<transition to="addInvitedAttachment" name="to addInvitedAttachment"></transition>
 	</fork>
 
 	<process-state name="inviteParticipantProcess">
@@ -371,8 +372,9 @@
                 <entry><key>expression</key>
                     <value>
                         {taskAssignment: {roles: {role: [
-                           {roleName: "bpm_general_gumbo_handler", accesses: {access: [read, write]}},
-                           {roleName: "bpm_general_gumbo_owner", accesses: {access: [read]}}
+                           {roleName: "bpm_general_gumbo_handler", accesses: {access: [read]}},
+                           {roleName: "bpm_general_gumbo_owner", accesses: {access: [read]}},
+                           {roleName: "bpm_general_gumbo_invited", accesses: {access: [read, write]}}
                         ]} }}
                     </value>
                 </entry>
@@ -389,6 +391,21 @@
       </task>
 		<transition to="end-state1"></transition>
 	</task-node>
+
+	<process-state name="addInvitedAttachment">
+		<sub-process name="addAttachments" binding="late" />
+        <variable name="string_addAttachmentAssignmentExpression" access="read" />
+        <variable name='mainProcessInstanceId' access='read' />
+        <event type="node-enter">
+         <script>
+            <expression>
+                addAttachmentAssignmentExpression = "{taskAssignment: {roles: {role: [{roleName: \"bpm_general_gumbo_handler\", accesses: {access: [read]}}, {roleName: \"bpm_general_gumbo_invited\", accesses: {access: [read, write]}}, {roleName: \"bpm_general_gumbo_owner\", accesses: {access: [read]}}]}}}";
+            </expression>
+            <variable name='string_addAttachmentAssignmentExpression' access='write' mapped-name='addAttachmentAssignmentExpression' />
+         </script>
+        </event>
+		<transition to="end-state1"></transition>
+	</process-state>
 
 	<idg:roles xmlns:idg="http://idega.com/bpm">
         <role name="bpm_general_gumbo_caseHandler">
