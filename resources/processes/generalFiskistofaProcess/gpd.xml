@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="generalFiskistofaProcess" width="1135" height="579">
+<root-container name="generalFiskistofaProcess" width="1134" height="578">
   <node name="startGeneralProcess" x="418" y="16" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
@@ -65,7 +65,7 @@
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="addInvitedAttachment" x="0" y="0" width="132" height="36">
+  <node name="addInvitedAttachment" x="668" y="323" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
