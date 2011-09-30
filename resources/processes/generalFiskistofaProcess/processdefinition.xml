@@ -246,7 +246,7 @@
         <event type="node-enter">
          <script>
             <expression>
-                addAttachmentAssignmentExpression = "{taskAssignment: {roles: {role: [{roleName: \"bpm_general_gumbo_handler\", accesses: {access: [read, write]}}, {roleName: \"bpm_general_gumbo_owner\", accesses: {access: [read]}}]}}}";
+                addAttachmentAssignmentExpression = "{taskAssignment: {roles: {role: [{roleName: \"bpm_general_gumbo_handler\", accesses: {access: [read, write]}}, {roleName: \"bpm_general_gumbo_invited\", accesses: {access: [read, write]}}, {roleName: \"bpm_general_gumbo_owner\", accesses: {access: [read]}}]}}}";
             </expression>
             <variable name='string_addAttachmentAssignmentExpression' access='write' mapped-name='addAttachmentAssignmentExpression' />
          </script>
@@ -264,6 +264,7 @@
                     	<value>
                         	{taskAssignment: {roles: {role: [
                            		{roleName: "bpm_general_gumbo_handler", accesses: {access: [read, write]}},
+                           		{roleName: "bpm_general_gumbo_invited", accesses: {access: [read, write]}},
                            		{roleName: "bpm_general_gumbo_owner", accesses: {access: [read, write]}}
                         	]} }}
                     	</value>
@@ -271,7 +272,7 @@
             	</propertyMap>
          	</assignment>
          	<controller>
-            	<variable name="string_generalProcessComment" access="read,write"></variable>
+            	<variable name="string_generalProcessComment" access="write"></variable>
 			</controller>
 		</task>
 		<transition to="end-state1"></transition>
@@ -283,9 +284,9 @@
             <variable name="string_caseIdentifier" access="read"></variable>
             <variable name="string_caseDescription" access="read"></variable>
             <variable name="string_inviteText" access="write,required"></variable>
-            <variable name="string_participantEmailBySuperHandler" access="read,write"></variable>
-            <variable name="string_participantEmailByHandler" access="read,write"></variable>
-            <variable name="string_participantEmailPrefixByHandler" access="read,write"></variable>
+            <variable name="string_participantEmailBySuperHandler" access="write"></variable>
+            <variable name="string_participantEmailByHandler" access="write"></variable>
+            <variable name="string_participantEmailPrefixByHandler" access="write"></variable>
             <variable name="string_participantName" access="write,required"></variable>
             <variable access="write" name="files_inviteParticipantAttachments"></variable>
                 
@@ -330,7 +331,6 @@
 
 	<fork name="fork2">
 		<transition to="inviteParticipantProcess" name="toInviteParticipantProcess"></transition>
-		<transition to="addInvitedAttachment" name="to addInvitedAttachment"></transition>
 	</fork>
 
 	<process-state name="inviteParticipantProcess">
@@ -394,21 +394,6 @@
       </task>
 		<transition to="end-state1"></transition>
 	</task-node>
-
-	<process-state name="addInvitedAttachment">
-		<sub-process name="addAttachments" binding="late" />
-        <variable name="string_addAttachmentAssignmentExpression" access="read" />
-        <variable name='mainProcessInstanceId' access='read' />
-        <event type="node-enter">
-         <script>
-            <expression>
-                addAttachmentAssignmentExpression = "{taskAssignment: {roles: {role: [{roleName: \"bpm_general_gumbo_handler\", accesses: {access: [read]}}, {roleName: \"bpm_general_gumbo_invited\", accesses: {access: [read, write]}}, {roleName: \"bpm_general_gumbo_owner\", accesses: {access: [read]}}]}}}";
-            </expression>
-            <variable name='string_addAttachmentAssignmentExpression' access='write' mapped-name='addAttachmentAssignmentExpression' />
-         </script>
-        </event>
-		<transition to="end-state1"></transition>
-	</process-state>
 
 	<idg:roles xmlns:idg="http://idega.com/bpm">
         <role name="bpm_general_gumbo_caseHandler">
