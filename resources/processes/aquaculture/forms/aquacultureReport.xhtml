@@ -690,8 +690,8 @@
                     <fbc_26-col-kg-label lang="en">Kr/Kg</fbc_26-col-kg-label>
                     <fbc_26-col-kg-label lang="is_IS">Kr/Kg</fbc_26-col-kg-label>
                     
+                    <fbc_43-label lang="en">Sala</fbc_43-label>
                     <fbc_43-label lang="is_IS">Sala</fbc_43-label>
-                    <fbc_43-label lang="en">Sales</fbc_43-label>
                     <fbc_43-insert-label lang="en">Insert</fbc_43-insert-label>
                     <fbc_43-insert-label lang="is_IS">Bæta við röð</fbc_43-insert-label>
                     <fbc_43-delete-label lang="en">Delete</fbc_43-delete-label>
@@ -781,9 +781,9 @@
                     <fbc_989-label lang="is_IS">Vista og geyma</fbc_989-label>
                     <fbc_989-label lang="en">Save</fbc_989-label>
                     <page-3-label lang="en">The form was saved</page-3-label>
-                    <page-3-label lang="is_IS">Umsóknin var vistuð og þú getur nálgast hana aftur með hlekknum hér að neðan</page-3-label>
+                    <page-3-label lang="is_IS">Umsókn vistuð</page-3-label>
                     <page-3-info lang="en"/>
-                    <page-3-info lang="is_IS">Brotaskýrsla – Hlekkur á vistaða skýrslu</page-3-info>
+                    <page-3-info lang="is_IS">Umsóknin var vistuð og er aðgengileg undir 'Vistaðar skýrslur' í vallistanum til vinstri á síðunni.</page-3-info>
                     <fbc_500-title lang="is_IS">Geymdu þennan hlekk til að geta haldið síðar áfram með skýrsluna.</fbc_500-title>
                     <fbc_500-title lang="en">Link</fbc_500-title>
                 </localized_strings>
@@ -1867,7 +1867,7 @@
                 </xf:group>
                 
                 <xf:group appereance="full" id="fbc_47">
-                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-label[@lang=instance('localized_strings')/current_language]"/>    
+                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-label[@lang=instance('localized_strings')/current_language]"/>
                     <div class="slideContent">
 	                    <xf:repeat appearance="compact" bind="fbc_43_bind" id="fbc_48_repeat_id">
                             
@@ -2060,13 +2060,13 @@
                     <xf:group appearance="full">
                         <idega:setError ev:event="idega-validation-error" id="sendLinkSetErrorHandler" if="idega:instance('submission_model', 'saveForm-instance')/savePhase = 'true'" ref="instance('error-instance')/sendLinkError"/>
                         <xf:label model="data_model" ref="instance('localized_strings')/page-3-label[@lang=instance('localized_strings')/current_language]"/>
-                        <xf:output model="data_model" ref="instance('localized_strings')/page-3-info[@lang=instance('localized_strings')/current_language]"/>
+                        <!-- <xf:output model="data_model" ref="instance('localized_strings')/page-3-info[@lang=instance('localized_strings')/current_language]"/>
                         <xf:output model="data_model" ref="instance('localized_strings')/fbc_500-title[@lang=instance('localized_strings')/current_language]"/>
                         <xf:trigger appearance="minimal" class="link" id="fbc_855">
                             <xf:label model="submission_model" ref="instance('saveForm-instance')/link"/>
                             <xf:load ev:event="DOMActivate"
                                 ref="instance('saveForm-instance')/link" show="replace"/>
-                        </xf:trigger>
+                        </xf:trigger> -->
                     </xf:group>
                 </idega:case>
                 <idega:case id="fbc_4" type="thx_page">
