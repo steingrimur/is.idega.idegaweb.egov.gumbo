@@ -16,7 +16,6 @@ public class GeneralProcessToFocalHandler extends DefaultFocalHandler {
 
 	private static final long serialVersionUID = 123543256773631726L;
 
-	@Override
 	public void execute(ExecutionContext executionContext) throws Exception {
 		if (!isNeededToSendToFocal())
 			return;

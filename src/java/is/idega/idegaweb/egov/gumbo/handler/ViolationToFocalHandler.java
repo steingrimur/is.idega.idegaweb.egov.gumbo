@@ -21,7 +21,6 @@ public class ViolationToFocalHandler extends DefaultFocalHandler {
 
 	private static final long serialVersionUID = -274242404613438684L;
 
-	@Override
 	public void execute(ExecutionContext context) throws Exception {
 		if (!isNeededToSendToFocal())
 			return;

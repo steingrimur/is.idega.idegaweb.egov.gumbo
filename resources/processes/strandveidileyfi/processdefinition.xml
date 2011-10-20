@@ -616,7 +616,7 @@
 	<fork name="fork3">
 		<transition to="keepMeAlive" name="toKeepMeAlive"></transition>
 		<transition to="licenseRuling" name="toLicenseRuling"></transition>
-		<transition to="emailsFetcher" name="to emailsFetcher"></transition>
+		<transition to="emailsFetcher" name="toEmailsFetcher"></transition>
 	</fork>
 
 	<fork name="fork2">

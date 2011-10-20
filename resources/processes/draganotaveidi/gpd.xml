@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="Draganotaveidi" width="1266" height="1258">
+<root-container name="Draganotaveidi" width="1258" height="1249">
   <node name="applicationForFishingLicense" x="195" y="37" width="164" height="34">
     <edge>
       <label x="5" y="-10"/>
@@ -26,7 +26,7 @@
   <node name="end-state1" x="481" y="1223" width="23" height="24"/>
   <node name="end-state3" x="550" y="345" width="24" height="24"/>
   <node name="end-state4" x="624" y="159" width="24" height="24"/>
-  <node name="emailsFetcherEnd" x="14" y="167" width="132" height="36"/>
+  <node name="emailsFetcherEnd" x="863" y="215" width="132" height="36"/>
   <node name="end-state5" x="815" y="798" width="132" height="36"/>
   <node name="updateCaseStatusToLicenseGrantedClaimUnpaid" x="366" y="579" width="247" height="36">
     <edge>

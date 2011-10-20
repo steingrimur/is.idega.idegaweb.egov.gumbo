@@ -191,6 +191,7 @@
 		<transition to="addComment" name="toAddComment"></transition>
 		<transition to="inviteParticipant" name="toInviteParticipant"></transition>
 		<transition to="closeCase" name="toCloseCase"></transition>
+		<transition to="emailsFetcher" name="toEmailsFetcher"></transition>
 	</fork>
 	
 	<task-node name="closeCase">
@@ -394,6 +395,30 @@
       </task>
 		<transition to="end-state1"></transition>
 	</task-node>
+
+	<end-state name="emailsFetcherEnd"></end-state>
+
+	<process-state name="emailsFetcher">
+		<sub-process name="fetchEmails" binding="late" />
+		<variable name="string_emailReadAssignmentExpression" access="read"
+			mapped-name="string_emailReadAssignmentExpression" />
+		<variable name='mainProcessInstanceId' access='read' />
+		<event type="node-enter">
+			<script>
+				<expression>
+					emailReadAssignmentExpression =
+					"{taskAssignment: {roles: {role: ["
+					+"{roleName: \""+handlerRoleName+"\", accesses: {access: [read]}}"
+					+"]} }}";
+            </expression>
+				<variable name='string_emailReadAssignmentExpression'
+					access='write' mapped-name='emailReadAssignmentExpression' />
+				<variable name='handlerRoleName' access='read' />
+
+			</script>
+		</event>
+		<transition to="emailsFetcherEnd"></transition>
+	</process-state>
 
 	<idg:roles xmlns:idg="http://idega.com/bpm">
         <role name="bpm_general_gumbo_caseHandler">
