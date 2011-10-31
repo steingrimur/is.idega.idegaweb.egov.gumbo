@@ -14,7 +14,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = ViolationType.ENTITY_NAME)
 @NamedQueries({
-	@NamedQuery(name = "violationType.findAll", query = "select v from ViolationType v order by number")
+	@NamedQuery(name = "violationType.findAll", query = "select v from ViolationType v order by number"),
+	@NamedQuery(name = ViolationType.QUERY_FIND_BY_IDS, query = "select v from ViolationType v where v.id in (:violationTypeIds) order by v.number")
 })
 public class ViolationType implements Serializable {
 
@@ -26,6 +27,8 @@ public class ViolationType implements Serializable {
 	private static final String COLUMN_NAME = "name";
 	private static final String COLUMN_NUMBER = "violation_number";
 	private static final String COLUMN_DEPTH = "depth";
+	
+	public static final String QUERY_FIND_BY_IDS = "gumboViolationTypes.findByIds";
 	
 	@Id
 	@Column(name = COLUMN_VIOLATION_TYPE_ID)

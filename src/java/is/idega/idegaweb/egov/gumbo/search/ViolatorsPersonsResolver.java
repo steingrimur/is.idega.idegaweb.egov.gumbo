@@ -33,9 +33,8 @@ public class ViolatorsPersonsResolver extends MultipleSelectionVariablesResolver
 
 	@Override
 	public Collection<AdvancedProperty> getValues(String procDefId, String variableName) {
-		if (values != null) {
+		if (values != null)
 			return values;
-		}
 		
 		values = new ArrayList<AdvancedProperty>();
 		
