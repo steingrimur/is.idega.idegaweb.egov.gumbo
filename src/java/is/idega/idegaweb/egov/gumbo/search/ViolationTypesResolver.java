@@ -41,6 +41,24 @@ public class ViolationTypesResolver extends MultipleSelectionVariablesResolver {
 	}
 	
 	@Override
+	public Collection<AdvancedProperty> getBinaryVariablesValues(Collection<VariableInstanceInfo> vars) {
+		if (ListUtil.isEmpty(vars))
+			return null;
+		
+		Collection<AdvancedProperty> values = new ArrayList<AdvancedProperty>();
+		for (VariableInstanceInfo var: vars) {
+			Serializable value = var.getValue();
+			if (value instanceof Collection<?>) {
+				Collection<?> ids = (Collection<?>) value;
+				for (Object id: ids) {
+					values.add(new AdvancedProperty((String) id));
+				}
+			}
+		}
+		return values;
+	}
+	
+	@Override
 	public Collection<AdvancedProperty> getValues(String procDefId, String variableName) {
 		if (values != null)
 			return values;
