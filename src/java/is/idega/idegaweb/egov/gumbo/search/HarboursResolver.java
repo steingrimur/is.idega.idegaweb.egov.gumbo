@@ -47,12 +47,6 @@ public class HarboursResolver extends MultipleSelectionVariablesResolver {
 		
 		values = new ArrayList<AdvancedProperty>();
 		
-		Collection<VariableInstanceInfo> vars = getVariables(getProcessDefNameByProcessDefId(procDefId), variableName);
-		if (ListUtil.isEmpty(vars)) {
-			addEmptyLabel(GumboConstants.IW_BUNDLE_IDENTIFIER);
-			return values;
-		}
-		
 		List<Item> harbours = getViolationService().getHarbours();
 		if (ListUtil.isEmpty(harbours)) {
 			addEmptyLabel(GumboConstants.IW_BUNDLE_IDENTIFIER);
@@ -60,20 +54,8 @@ public class HarboursResolver extends MultipleSelectionVariablesResolver {
 		}
 		
 		List<AdvancedProperty> harboursToSearch = new ArrayList<AdvancedProperty>();
-		Map<String, String> allHarbours = new HashMap<String, String>();
 		for (Item harbour: harbours) {
-			allHarbours.put(harbour.getItemValue(), harbour.getItemLabel());
-		}
-		List<String> addedHarbours = new ArrayList<String>();
-		for (VariableInstanceInfo var: vars) {
-			String value = var.getValue().toString();
-			String label = allHarbours.get(value);
-			if (StringUtil.isEmpty(label))
-				continue;
-			if (!addedHarbours.contains(value)) {
-				harboursToSearch.add(new AdvancedProperty(value, label));
-				addedHarbours.add(value);
-			}
+			harboursToSearch.add(new AdvancedProperty(harbour.getItemValue(), harbour.getItemLabel()));
 		}
 		
 		Collections.sort(harboursToSearch, new AdvancedPropertyComparator(getCurrentLocale()));

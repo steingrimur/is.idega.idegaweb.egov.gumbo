@@ -8,10 +8,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -43,57 +41,25 @@ public class ViolationTypesResolver extends MultipleSelectionVariablesResolver {
 	}
 	
 	@Override
-	public Collection<AdvancedProperty> getBinaryVariablesValues(Collection<VariableInstanceInfo> vars) {
-		if (ListUtil.isEmpty(vars))
-			return null;
-		
-		List<ViolationType> allViolations = getGumboDao().getViolationTypes();
-		if (ListUtil.isEmpty(allViolations))
-			return null;
-		
-		Map<Long, String> violations = new HashMap<Long, String>();
-		for (ViolationType violation: allViolations) {
-			violations.put(violation.getId(), violation.getNumber().concat(CoreConstants.SPACE).concat(violation.getName()));
-		}
-		
-		List<String> addedIds = new ArrayList<String>();
-		List<AdvancedProperty> results = new ArrayList<AdvancedProperty>();
-		for (VariableInstanceInfo var: vars) {
-			Serializable value = var.getValue();
-			if (value instanceof Collection<?>) {
-				Collection<?> ids = (Collection<?>) value;
-				for (Object id: ids) {
-					Long violationId = Long.valueOf(id.toString());
-					String violationTypeValue = violations.get(violationId);
-					if (!StringUtil.isEmpty(violationTypeValue) && !addedIds.contains(String.valueOf(violationId))) {
-						results.add(new AdvancedProperty(String.valueOf(violationId), violationTypeValue));
-						addedIds.add(String.valueOf(violationId));
-					}
-				}
-			}
-		}
-		Collections.sort(results, new AdvancedPropertyComparator(getCurrentLocale()));
-		return results;
-	}
-	
-	@Override
 	public Collection<AdvancedProperty> getValues(String procDefId, String variableName) {
 		if (values != null)
 			return values;
 		
 		values = new ArrayList<AdvancedProperty>();
-		
-		Collection<VariableInstanceInfo> vars = getVariables(getProcessDefNameByProcessDefId(procDefId), variableName);
-		if (ListUtil.isEmpty(vars)) {
+
+		List<ViolationType> allViolations = getGumboDao().getViolationTypes();
+		if (ListUtil.isEmpty(allViolations)) {
 			addEmptyLabel(GumboConstants.IW_BUNDLE_IDENTIFIER);
 			return values;
 		}
 		
-		Collection<AdvancedProperty> realValues = getBinaryVariablesValues(vars);
-		if (ListUtil.isEmpty(realValues)) {
-			addEmptyLabel(GumboConstants.IW_BUNDLE_IDENTIFIER);
-			return values;
+		List<AdvancedProperty> realValues = new ArrayList<AdvancedProperty>();
+		for (ViolationType violation: allViolations) {
+			String number = violation.getNumber();
+			realValues.add(new AdvancedProperty(String.valueOf(violation.getId()),
+					StringUtil.isEmpty(number) ? violation.getName() : number.concat(CoreConstants.SPACE).concat(violation.getName())));
 		}
+		Collections.sort(realValues, new AdvancedPropertyComparator(getCurrentLocale()));
 		
 		values = realValues;
 		return values;
