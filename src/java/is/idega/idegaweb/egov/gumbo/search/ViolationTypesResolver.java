@@ -40,22 +40,40 @@ public class ViolationTypesResolver extends MultipleSelectionVariablesResolver {
 		return gumboDAO;
 	}
 	
+	private Collection<VariableInstanceInfo> finalSearchResult;
+	
 	@Override
-	public Collection<AdvancedProperty> getBinaryVariablesValues(Collection<VariableInstanceInfo> vars) {
-		if (ListUtil.isEmpty(vars))
+	public Collection<AdvancedProperty> getBinaryVariablesValues(Collection<VariableInstanceInfo> vars, Collection<?> values) {
+		if (ListUtil.isEmpty(vars) || ListUtil.isEmpty(values))
 			return null;
 		
-		Collection<AdvancedProperty> values = new ArrayList<AdvancedProperty>();
+		finalSearchResult = new ArrayList<VariableInstanceInfo>();
+		List<String> addedIds = new ArrayList<String>();
+		Collection<AdvancedProperty> resolved = new ArrayList<AdvancedProperty>();
 		for (VariableInstanceInfo var: vars) {
 			Serializable value = var.getValue();
 			if (value instanceof Collection<?>) {
 				Collection<?> ids = (Collection<?>) value;
-				for (Object id: ids) {
-					values.add(new AdvancedProperty((String) id));
+				if (ids.size() == values.size()) {
+					boolean containsAll = true;
+					for (Iterator<?> idsIter = ids.iterator(); (idsIter.hasNext() && containsAll);) {
+						containsAll = values.contains(idsIter.next());
+					}
+					if (!containsAll)
+						continue;
+					
+					for (Object id: ids) {
+						String objectId = (String) id;
+						if (!addedIds.contains(objectId)) {
+							resolved.add(new AdvancedProperty(objectId));
+							addedIds.add(objectId);
+						}
+					}
+					finalSearchResult.add(var);
 				}
 			}
 		}
-		return values;
+		return resolved;
 	}
 	
 	@Override
@@ -165,4 +183,8 @@ public class ViolationTypesResolver extends MultipleSelectionVariablesResolver {
 		return getPresentation(idsExpression.toString());
 	}
 
+	@Override
+	public Collection<VariableInstanceInfo> getFinalSearchResult() {
+		return finalSearchResult;
+	}
 }
