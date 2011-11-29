@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -59,8 +60,37 @@ public class HarboursResolver extends MultipleSelectionVariablesResolver {
 		}
 		
 		Collections.sort(harboursToSearch, new AdvancedPropertyComparator(getCurrentLocale()));
-		values = harboursToSearch;
+		
+		String unknownZone = getResourceBundle(getBundle(GumboConstants.IW_BUNDLE_IDENTIFIER)).getLocalizedString("unknown_harbour_territory", "Unknown zone");
+		Map<String, List<AdvancedProperty>> harboursByZones = new TreeMap<String, List<AdvancedProperty>>();
+		for (AdvancedProperty harbour: harboursToSearch) {
+			String zone = getHarbourZone(harbour.getId());
+			if (StringUtil.isEmpty(zone))
+				zone = unknownZone;
+			
+			List<AdvancedProperty> harboursInZone = harboursByZones.get(zone);
+			if (harboursInZone == null) {
+				harboursInZone = new ArrayList<AdvancedProperty>();
+				harboursByZones.put(zone, harboursInZone);
+			}
+			harboursInZone.add(harbour);
+		}
+		List<AdvancedProperty> harboursToRepresent = new ArrayList<AdvancedProperty>();
+		for (String harbourZone: harboursByZones.keySet()) {
+			AdvancedProperty harbourTerritory = new AdvancedProperty(CoreConstants.EMPTY, harbourZone);
+			harbourTerritory.setSelected(Boolean.TRUE);
+			harboursToRepresent.add(harbourTerritory);
+			
+			harboursToRepresent.addAll(harboursByZones.get(harbourZone));
+		}
+		
+		values = harboursToRepresent;
 		return values;
+	}
+	
+	private String getHarbourZone(String harbourId) {
+		getLogger().warning("Implement zone resolver by harbour ID (" + harbourId + ")");
+		return null;//	TODO: implement
 	}
 
 	@Override
