@@ -7,6 +7,8 @@
 
 package is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl;
 
+import is.idega.idegaweb.egov.gumbo.GumboConstants;
+
 public class FSWebServiceVEIDILEYFI_ServiceLocator extends org.apache.axis.client.Service implements is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.FSWebServiceVEIDILEYFI_Service {
 
     public FSWebServiceVEIDILEYFI_ServiceLocator() {
@@ -22,7 +24,7 @@ public class FSWebServiceVEIDILEYFI_ServiceLocator extends org.apache.axis.clien
     }
 
     // Use to get a proxy class for FSWebServiceVEIDILEYFISoap12HttpPort
-    private java.lang.String FSWebServiceVEIDILEYFISoap12HttpPort_address = "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceVEIDILEYFISoap12HttpPort";
+    private java.lang.String FSWebServiceVEIDILEYFISoap12HttpPort_address = GumboConstants.WEB_SERVICE_URL + "FSWebServiceVEIDILEYFISoap12HttpPort";
 
     public java.lang.String getFSWebServiceVEIDILEYFISoap12HttpPortAddress() {
         return FSWebServiceVEIDILEYFISoap12HttpPort_address;
@@ -70,7 +72,8 @@ public class FSWebServiceVEIDILEYFI_ServiceLocator extends org.apache.axis.clien
      * If this service has no port for the given interface,
      * then ServiceException is thrown.
      */
-    public java.rmi.Remote getPort(Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
+    @Override
+	public java.rmi.Remote getPort(Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
         try {
             if (is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.FSWebServiceVEIDILEYFI_PortType.class.isAssignableFrom(serviceEndpointInterface)) {
                 is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.FSWebServiceVEIDILEYFISoap12HttpStub _stub = new is.fiskistofa.webservices.veidileyfi.FSWebServiceVEIDILEYFI_wsdl.FSWebServiceVEIDILEYFISoap12HttpStub(new java.net.URL(FSWebServiceVEIDILEYFISoap12HttpPort_address), this);
@@ -89,7 +92,8 @@ public class FSWebServiceVEIDILEYFI_ServiceLocator extends org.apache.axis.clien
      * If this service has no port for the given interface,
      * then ServiceException is thrown.
      */
-    public java.rmi.Remote getPort(javax.xml.namespace.QName portName, Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
+    @Override
+	public java.rmi.Remote getPort(javax.xml.namespace.QName portName, Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
         if (portName == null) {
             return getPort(serviceEndpointInterface);
         }
@@ -104,13 +108,15 @@ public class FSWebServiceVEIDILEYFI_ServiceLocator extends org.apache.axis.clien
         }
     }
 
-    public javax.xml.namespace.QName getServiceName() {
+    @Override
+	public javax.xml.namespace.QName getServiceName() {
         return new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "FSWebServiceVEIDILEYFI");
     }
 
     private java.util.HashSet ports = null;
 
-    public java.util.Iterator getPorts() {
+    @Override
+	public java.util.Iterator getPorts() {
         if (ports == null) {
             ports = new java.util.HashSet();
             ports.add(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/veidileyfi/FSWebServiceVEIDILEYFI.wsdl", "FSWebServiceVEIDILEYFISoap12HttpPort"));

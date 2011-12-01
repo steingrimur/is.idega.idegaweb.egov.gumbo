@@ -7,6 +7,8 @@
 
 package is.fiskistofa.webservices.aflaheimildskerding.FSWebserviceAFLAHEIMILDSKERDING_wsdl;
 
+import is.idega.idegaweb.egov.gumbo.GumboConstants;
+
 public class FSWebserviceAFLAHEIMILDSKERDING_ServiceLocator extends org.apache.axis.client.Service implements is.fiskistofa.webservices.aflaheimildskerding.FSWebserviceAFLAHEIMILDSKERDING_wsdl.FSWebserviceAFLAHEIMILDSKERDING_Service {
 
     public FSWebserviceAFLAHEIMILDSKERDING_ServiceLocator() {
@@ -22,7 +24,7 @@ public class FSWebserviceAFLAHEIMILDSKERDING_ServiceLocator extends org.apache.a
     }
 
     // Use to get a proxy class for FSWebserviceAFLAHEIMILDSKERDINGSoap12HttpPort
-    private java.lang.String FSWebserviceAFLAHEIMILDSKERDINGSoap12HttpPort_address = "http://hafrok.hafro.is/FSWebServices_dev/FSWebserviceAFLAHEIMILDSKERDINGSoap12HttpPort";
+    private java.lang.String FSWebserviceAFLAHEIMILDSKERDINGSoap12HttpPort_address = GumboConstants.WEB_SERVICE_URL_DEV + "FSWebserviceAFLAHEIMILDSKERDINGSoap12HttpPort";
 
     public java.lang.String getFSWebserviceAFLAHEIMILDSKERDINGSoap12HttpPortAddress() {
         return FSWebserviceAFLAHEIMILDSKERDINGSoap12HttpPort_address;
@@ -70,7 +72,8 @@ public class FSWebserviceAFLAHEIMILDSKERDING_ServiceLocator extends org.apache.a
      * If this service has no port for the given interface,
      * then ServiceException is thrown.
      */
-    public java.rmi.Remote getPort(Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
+    @Override
+	public java.rmi.Remote getPort(Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
         try {
             if (is.fiskistofa.webservices.aflaheimildskerding.FSWebserviceAFLAHEIMILDSKERDING_wsdl.FSWebserviceAFLAHEIMILDSKERDING_PortType.class.isAssignableFrom(serviceEndpointInterface)) {
                 is.fiskistofa.webservices.aflaheimildskerding.FSWebserviceAFLAHEIMILDSKERDING_wsdl.FSWebserviceAFLAHEIMILDSKERDINGSoap12HttpStub _stub = new is.fiskistofa.webservices.aflaheimildskerding.FSWebserviceAFLAHEIMILDSKERDING_wsdl.FSWebserviceAFLAHEIMILDSKERDINGSoap12HttpStub(new java.net.URL(FSWebserviceAFLAHEIMILDSKERDINGSoap12HttpPort_address), this);
@@ -89,7 +92,8 @@ public class FSWebserviceAFLAHEIMILDSKERDING_ServiceLocator extends org.apache.a
      * If this service has no port for the given interface,
      * then ServiceException is thrown.
      */
-    public java.rmi.Remote getPort(javax.xml.namespace.QName portName, Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
+    @Override
+	public java.rmi.Remote getPort(javax.xml.namespace.QName portName, Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
         if (portName == null) {
             return getPort(serviceEndpointInterface);
         }
@@ -104,13 +108,15 @@ public class FSWebserviceAFLAHEIMILDSKERDING_ServiceLocator extends org.apache.a
         }
     }
 
-    public javax.xml.namespace.QName getServiceName() {
+    @Override
+	public javax.xml.namespace.QName getServiceName() {
         return new javax.xml.namespace.QName("http://is/fiskistofa/webservices/aflaheimildskerding/FSWebserviceAFLAHEIMILDSKERDING.wsdl", "FSWebserviceAFLAHEIMILDSKERDING");
     }
 
     private java.util.HashSet ports = null;
 
-    public java.util.Iterator getPorts() {
+    @Override
+	public java.util.Iterator getPorts() {
         if (ports == null) {
             ports = new java.util.HashSet();
             ports.add(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/aflaheimildskerding/FSWebserviceAFLAHEIMILDSKERDING.wsdl", "FSWebserviceAFLAHEIMILDSKERDINGSoap12HttpPort"));

@@ -16,4 +16,8 @@ public class GumboConstants {
 	
 	public static final String CATCH_DELIMITER_CASE_CODE = "CATCHDE";
 
+	private static final String WEB_SERVICES_HOST = "http://hafrok.hafro.is/";
+	public static final String	WEB_SERVICE_URL = WEB_SERVICES_HOST + "FSWebServices_testing/",
+								WEB_SERVICE_URL_DEV = WEB_SERVICES_HOST + "FSWebServices_dev/";
+	
 }

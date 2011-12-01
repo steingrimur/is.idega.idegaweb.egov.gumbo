@@ -5,6 +5,7 @@ import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.FSWebServiceSKIP_Ser
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.GetskipinfoElement;
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.GetskipinfoResponseElement;
 import is.fiskistofa.webservices.skip.FSWebServiceSKIP_wsdl.SkipInfoTypeUser;
+import is.idega.idegaweb.egov.gumbo.GumboConstants;
 
 import java.math.BigDecimal;
 import java.net.URL;
@@ -40,7 +41,7 @@ public class GumboUtil {
 	private DateConverter dateConverter;
 
 	private static final String GUMBO_SHIP_INFO_CACHE = "ship_info_cache";
-	private static final String SHIP_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceSKIPSoap12HttpPort";
+	private static final String SHIP_DEFAULT_ENDPOINT = GumboConstants.WEB_SERVICE_URL + "FSWebServiceSKIPSoap12HttpPort";
 	private static final String SHIP_ENDPOINT_ATTRIBUTE_NAME = "dofws_ship_endpoint";
 
 	public static String getUserName(Object userPK) {

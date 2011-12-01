@@ -93,6 +93,7 @@ import is.fiskistofa.webservices.veidileyfi.FSWebServiceVeidileyfiUpdate_wsdl.Vi
 import is.idega.block.nationalregister.webservice.client.business.CompanyHolder;
 import is.idega.block.nationalregister.webservice.client.business.SkyrrClient;
 import is.idega.block.nationalregister.webservice.client.business.UserHolder;
+import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.business.GumboBusiness;
 import is.idega.idegaweb.egov.gumbo.licenses.FishingLicenseType;
 import is.idega.idegaweb.egov.gumbo.licenses.FishingLicenseUser.CompanyData;
@@ -117,6 +118,7 @@ import javax.xml.rpc.ServiceException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -138,36 +140,36 @@ import com.idega.util.IWTimestamp;
 import com.idega.util.expression.ELUtil;
 import com.idega.util.text.Item;
 
-@Scope("singleton")
+@Scope(BeanDefinition.SCOPE_SINGLETON)
 @Service("dofWSClient")
 @Qualifier(DOFWSClient.WEB_SERVICE)
-public class DOFWSClientRealWebservice extends DefaultSpringBean implements
-		DOFWSClient {
-	private static final String SHIP_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceSKIPSoap12HttpPort";
+public class DOFWSClientRealWebservice extends DefaultSpringBean implements DOFWSClient {
+	
+	private static final String SHIP_DEFAULT_ENDPOINT = GumboConstants.WEB_SERVICE_URL + "FSWebServiceSKIPSoap12HttpPort";
 	private static final String SHIP_ENDPOINT_ATTRIBUTE_NAME = "dofws_ship_endpoint";
 
-	private static final String CATCH_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceLANDANIRSoap12HttpPort";
+	private static final String CATCH_DEFAULT_ENDPOINT = GumboConstants.WEB_SERVICE_URL + "FSWebServiceLANDANIRSoap12HttpPort";
 	private static final String CATCH_ENDPOINT_ATTRIBUTE_NAME = "dofws_catch_endpoint";
 
-	private static final String CATCH_QUOTA_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceAFLAMARKSoap12HttpPort";
+	private static final String CATCH_QUOTA_DEFAULT_ENDPOINT = GumboConstants.WEB_SERVICE_URL + "FSWebServiceAFLAMARKSoap12HttpPort";
 	private static final String CATCH_QUOTA_ENDPOINT_ATTRIBUTE_NAME = "dofws_catch_quota_endpoint";
 
-	private static final String LICENSE_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceVEIDILEYFISoap12HttpPort";
+	private static final String LICENSE_DEFAULT_ENDPOINT = GumboConstants.WEB_SERVICE_URL + "FSWebServiceVEIDILEYFISoap12HttpPort";
 	private static final String LICENSE_ENDPOINT_ATTRIBUTE_NAME = "dofws_license_endpoint";
 
-	private static final String LICENSE_UPDATE_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceVeidileyfiUpdateSoap12HttpPort";
+	private static final String LICENSE_UPDATE_DEFAULT_ENDPOINT = GumboConstants.WEB_SERVICE_URL + "FSWebServiceVeidileyfiUpdateSoap12HttpPort";
 	private static final String LICENSE_UPDATE_ENDPOINT_ATTRIBUTE_NAME = "dofws_license_update_endpoint";
 
 	private static final String LICENSE_UPDATE_USER = "dofws_license_update_user";
 	private static final String LICENSE_UPDATE_PASSWORD = "dofws_license_update_password";
 
-	private static final String PORTION_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices_testing/FSWebserviceHLUTDEILDSoap12HttpPort";
+	private static final String PORTION_DEFAULT_ENDPOINT = GumboConstants.WEB_SERVICE_URL + "FSWebserviceHLUTDEILDSoap12HttpPort";
 	private static final String PORTION_ENDPOINT_ATTRIBUTE_NAME = "dofws_portion_endpoint";
 
-	private static final String TRANSFERS_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices_testing/FSWebserviceMILLIFAERSLURSoap12HttpPort";
+	private static final String TRANSFERS_DEFAULT_ENDPOINT = GumboConstants.WEB_SERVICE_URL + "FSWebserviceMILLIFAERSLURSoap12HttpPort";
 	private static final String TRANSFERS_ENDPOINT_ATTRIBUTE_NAME = "dofws_transfers_endpoint";
 
-	private static final String CATCH_DELIMITER_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices_dev/FSWebserviceAFLAHEIMILDSKERDINGSoap12HttpPort";
+	private static final String CATCH_DELIMITER_DEFAULT_ENDPOINT = GumboConstants.WEB_SERVICE_URL_DEV + "FSWebserviceAFLAHEIMILDSKERDINGSoap12HttpPort";
 	private static final String CATCH_DELIMITER_ENDPOINT_ATTRIBUTE_NAME = "dofws_catch_delimiter_endpoint";
 
 	private static final String GUMBO_FISHING_AREAS_CACHE = "fishing_areas_cache";
@@ -884,7 +886,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 				"ws4idega");
 
 		try {
-			String endPoint = "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceVeidileyfiUpdateSoap12HttpPort";
+			String endPoint = GumboConstants.WEB_SERVICE_URL + "FSWebServiceVeidileyfiUpdateSoap12HttpPort";
 
 			FSWebServiceVeidileyfiUpdate_ServiceLocator locator = new FSWebServiceVeidileyfiUpdate_ServiceLocator();
 			FSWebServiceVeidileyfiUpdate_PortType port = locator
@@ -908,7 +910,7 @@ public class DOFWSClientRealWebservice extends DefaultSpringBean implements
 	public void doSecurityTest() {
 		try {
 			// String endPoint =
-			// "http://hafrok.hafro.is/FSWebServices_testing/FSWebServiceVeidileyfiUpdateSoap12HttpPort";
+			// GumboConstants.WEB_SERVICE_URL + "FSWebServiceVeidileyfiUpdateSoap12HttpPort";
 			String endPoint = "http://localhost:8080/FSWebServices_testing/FSWebServiceVeidileyfiUpdateSoap12HttpPort";
 
 			FSWebServiceVeidileyfiUpdate_ServiceLocator locator = new FSWebServiceVeidileyfiUpdate_ServiceLocator();
