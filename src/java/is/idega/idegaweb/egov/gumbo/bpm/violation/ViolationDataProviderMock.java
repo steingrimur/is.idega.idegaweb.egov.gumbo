@@ -143,4 +143,9 @@ public class ViolationDataProviderMock implements ViolationDataProvider {
 		        .setLongitudeDegree("004").setLongitudeMinute("05")
 		        .setLongitudeSecond("006").setLongitudeAngle("E");
 	}
+
+	@Override
+	public String getZoneNumber(String harbourId) {
+		return "Zone " + harbourId;
+	}
 }

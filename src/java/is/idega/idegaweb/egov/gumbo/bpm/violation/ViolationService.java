@@ -333,4 +333,25 @@ public class ViolationService extends DefaultSpringBean {
 	public Map<String, String> getOffices() {
 		return offices;
 	}
+	
+	public String getZoneNumber(String harbourId) {
+		if (StringUtil.isEmpty(harbourId)) {
+			getLogger().warning("Harbour nr. is not provided!");
+			return null;
+		}
+		
+		Map<String, String> zonesCache = getCache("gumboHarbourZones");
+		String zone = zonesCache.get(harbourId);
+		if (!StringUtil.isEmpty(zone))
+			return zone;
+		
+		zone = getViolationDataProvider().getZoneNumber(harbourId);
+		if (StringUtil.isEmpty(zone)) {
+			getLogger().warning("Zone can not be found by provided harbour nr: " + harbourId);
+			return null;
+		}
+		
+		zonesCache.put(harbourId, zone);
+		return zone;
+	}
 }

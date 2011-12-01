@@ -7,8 +7,11 @@
 
 package is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types;
 
-public class CodeTypeUser  extends is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.CodeTypeBase  implements java.io.Serializable {
-    private java.lang.String code;
+public class CodeTypeUser extends is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.CodeTypeBase  implements java.io.Serializable {
+
+	private static final long serialVersionUID = -7892483886432699765L;
+
+	private java.lang.String code;
 
     private java.lang.String text;
 
@@ -63,10 +66,10 @@ public class CodeTypeUser  extends is.fiskistofa.webservices.brotamal.FSWebservi
     }
 
     private java.lang.Object __equalsCalc = null;
-    public synchronized boolean equals(java.lang.Object obj) {
+    @Override
+	public synchronized boolean equals(java.lang.Object obj) {
         if (!(obj instanceof CodeTypeUser)) return false;
         CodeTypeUser other = (CodeTypeUser) obj;
-        if (obj == null) return false;
         if (this == obj) return true;
         if (__equalsCalc != null) {
             return (__equalsCalc == obj);
@@ -85,7 +88,8 @@ public class CodeTypeUser  extends is.fiskistofa.webservices.brotamal.FSWebservi
     }
 
     private boolean __hashCodeCalc = false;
-    public synchronized int hashCode() {
+    @Override
+	public synchronized int hashCode() {
         if (__hashCodeCalc) {
             return 0;
         }
@@ -143,13 +147,8 @@ public class CodeTypeUser  extends is.fiskistofa.webservices.brotamal.FSWebservi
     /**
      * Get Custom Deserializer
      */
-    public static org.apache.axis.encoding.Deserializer getDeserializer(
-           java.lang.String mechType, 
-           java.lang.Class _javaType,  
-           javax.xml.namespace.QName _xmlType) {
-        return 
-          new  org.apache.axis.encoding.ser.BeanDeserializer(
-            _javaType, _xmlType, typeDesc);
+    public static org.apache.axis.encoding.Deserializer getDeserializer(java.lang.String mechType, java.lang.Class _javaType, javax.xml.namespace.QName _xmlType) {
+        return new org.apache.axis.encoding.ser.BeanDeserializer(_javaType, _xmlType, typeDesc);
     }
 
 }

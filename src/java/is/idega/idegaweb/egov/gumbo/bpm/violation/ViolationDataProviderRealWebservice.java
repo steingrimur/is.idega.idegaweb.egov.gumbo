@@ -4,6 +4,7 @@ import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.FSWebservice
 import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.FSWebserviceBROTAMAL_Service;
 import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.FSWebserviceBROTAMAL_ServiceLocator;
 import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.CodeTypeUser;
+import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.GetLandsvaediElement;
 import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.GetSkipWithInfoElement;
 import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.GetSkipWithInfoResponseElement;
 import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.GetVigtunarleyfiByKtElement;
@@ -28,6 +29,8 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.ejb.CreateException;
 import javax.ejb.FinderException;
@@ -63,10 +66,11 @@ import com.idega.util.text.SocialSecurityNumber;
 @Service
 @Scope(BeanDefinition.SCOPE_SINGLETON)
 @Qualifier(DOFWSClient.WEB_SERVICE)
-public class ViolationDataProviderRealWebservice implements
-        ViolationDataProvider {
+public class ViolationDataProviderRealWebservice implements ViolationDataProvider {
 	
-	private static final String VIOLATION_DEFAULT_ENDPOINT = "http://hafrok.hafro.is/FSWebServices_testing/FSWebserviceBROTAMALSoap12HttpPort";
+	private static final Logger LOGGER = Logger.getLogger(ViolationDataProviderRealWebservice.class.getName());
+	
+	private static final String VIOLATION_DEFAULT_ENDPOINT = GumboConstants.WEB_SERVICE_URL_DEV + "FSWebserviceBROTAMALSoap12HttpPort";
 	private static final String VIOLATION_ENDPOINT_ATTRIBUTE_NAME = "dofws_violation_endpoint";
 	
 	private static final String USE_WEBSERVICE_FOR_COMPANY_LOOKUP = "COMPANY_WS_LOOKUP";
@@ -80,9 +84,8 @@ public class ViolationDataProviderRealWebservice implements
 	public static void main(String[] arguments) {
 		try {
 			FSWebserviceBROTAMAL_Service locator = new FSWebserviceBROTAMAL_ServiceLocator();
-			FSWebserviceBROTAMAL_PortType port = locator
-			        .getFSWebserviceBROTAMALSoap12HttpPort(new URL(
-			                "http://hafrok.hafro.is/FSWebServices_testing/FSWebserviceBROTAMALSoap12HttpPort"));
+			FSWebserviceBROTAMAL_PortType port = locator.getFSWebserviceBROTAMALSoap12HttpPort(
+					new URL(GumboConstants.WEB_SERVICE_URL + "FSWebserviceBROTAMALSoap12HttpPort"));
 			
 			StringBuilder ret = new StringBuilder();
 			GetVigtunarleyfiByKtElement parameters = new GetVigtunarleyfiByKtElement(
@@ -225,6 +228,16 @@ public class ViolationDataProviderRealWebservice implements
 		}
 		
 		return items;
+	}
+	
+	public String getZoneNumber(String harbourId) {
+		CodeTypeUser response = null;
+		try {
+			response = getViolationPort().getLandsvaedi(new GetLandsvaediElement(new BigDecimal(harbourId)));
+		} catch (RemoteException e) {
+			LOGGER.log(Level.WARNING, "Error getting zone number by harbor nr: " + harbourId, e);
+		}
+		return response == null ? null : response.getCode();
 	}
 	
 	public List<Item> getDecisionRulings() {

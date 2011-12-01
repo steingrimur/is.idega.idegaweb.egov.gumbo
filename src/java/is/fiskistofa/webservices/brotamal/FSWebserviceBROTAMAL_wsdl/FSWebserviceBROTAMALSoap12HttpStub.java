@@ -7,6 +7,13 @@
 
 package is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl;
 
+import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.CodeTypeUser;
+import is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.GetLandsvaediElement;
+
+import java.rmi.RemoteException;
+
+import com.idega.util.ArrayUtil;
+
 public class FSWebserviceBROTAMALSoap12HttpStub extends org.apache.axis.client.Stub implements is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.FSWebserviceBROTAMAL_PortType {
     private java.util.Vector cachedSerClasses = new java.util.Vector();
     private java.util.Vector cachedSerQNames = new java.util.Vector();
@@ -16,7 +23,7 @@ public class FSWebserviceBROTAMALSoap12HttpStub extends org.apache.axis.client.S
     static org.apache.axis.description.OperationDesc [] _operations;
 
     static {
-        _operations = new org.apache.axis.description.OperationDesc[3];
+        _operations = new org.apache.axis.description.OperationDesc[4];
         _initOperationDesc1();
     }
 
@@ -59,7 +66,19 @@ public class FSWebserviceBROTAMALSoap12HttpStub extends org.apache.axis.client.S
         oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         _operations[2] = oper;
-
+        
+        oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("getLandsvaedi");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/brotamal/FSWebserviceBROTAMAL.wsdl/types/", "getLandsvaediElement"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://is/fiskistofa/webservices/brotamal/FSWebserviceBROTAMAL.wsdl/types/", ">getLandsvaediElement"), GetLandsvaediElement.class, false, false);
+        oper.addParameter(param);
+        oper.setReturnType(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/brotamal/FSWebserviceBROTAMAL.wsdl/types/", ">getLandsvaediResponseElement"));
+        oper.setReturnClass(is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.CodeTypeUser[].class);
+        oper.setReturnQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/brotamal/FSWebserviceBROTAMAL.wsdl/types/", "getLandsvaediResponseElement"));
+        param = oper.getReturnParamDesc();
+        param.setItemQName(new javax.xml.namespace.QName("http://is/fiskistofa/webservices/brotamal/FSWebserviceBROTAMAL.wsdl/types/", "result"));
+        oper.setStyle(org.apache.axis.constants.Style.DOCUMENT);
+        oper.setUse(org.apache.axis.constants.Use.LITERAL);
+        _operations[3] = oper;
     }
 
     public FSWebserviceBROTAMALSoap12HttpStub() throws org.apache.axis.AxisFault {
@@ -101,6 +120,15 @@ public class FSWebserviceBROTAMALSoap12HttpStub extends org.apache.axis.client.S
             qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/brotamal/FSWebserviceBROTAMAL.wsdl/types/", ">getHafnalistiResponseElement");
             cachedSerQNames.add(qName);
             cls = is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.CodeTypeUser[].class;
+            cachedSerClasses.add(cls);
+            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/brotamal/FSWebserviceBROTAMAL.wsdl/types/", "CodeTypeUser");
+            qName2 = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/brotamal/FSWebserviceBROTAMAL.wsdl/types/", "result");
+            cachedSerFactories.add(new org.apache.axis.encoding.ser.ArraySerializerFactory(qName, qName2));
+            cachedDeserFactories.add(new org.apache.axis.encoding.ser.ArrayDeserializerFactory());
+            
+            qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/brotamal/FSWebserviceBROTAMAL.wsdl/types/", ">getLandsvaediResponseElement");
+            cachedSerQNames.add(qName);
+            cls = is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.CodeTypeUser.class;
             cachedSerClasses.add(cls);
             qName = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/brotamal/FSWebserviceBROTAMAL.wsdl/types/", "CodeTypeUser");
             qName2 = new javax.xml.namespace.QName("http://is/fiskistofa/webservices/brotamal/FSWebserviceBROTAMAL.wsdl/types/", "result");
@@ -238,7 +266,6 @@ public class FSWebserviceBROTAMALSoap12HttpStub extends org.apache.axis.client.S
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
-
     }
 
     protected org.apache.axis.client.Call createCall() throws java.rmi.RemoteException {
@@ -372,6 +399,43 @@ public class FSWebserviceBROTAMALSoap12HttpStub extends org.apache.axis.client.S
   throw axisFaultException;
 }
     }
+    
+    @Override
+	public CodeTypeUser getLandsvaedi(GetLandsvaediElement parameters) throws RemoteException {
+    	if (super.cachedEndpoint == null) {
+            throw new org.apache.axis.NoEndPointException();
+        }
+        org.apache.axis.client.Call _call = createCall();
+        _call.setOperation(_operations[3]);
+        _call.setUseSOAPAction(true);
+        _call.setSOAPActionURI("http://is/fiskistofa/webservices/brotamal/FSWebserviceBROTAMAL.wsdl/getLandsvaedi");
+        _call.setEncodingStyle(null);
+        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP12_CONSTANTS);
+        _call.setOperationName(new javax.xml.namespace.QName("", "getLandsvaedi"));
+
+        setRequestHeaders(_call);
+        setAttachments(_call);
+        try {        
+        	java.lang.Object _resp = _call.invoke(new java.lang.Object[] {parameters});
+        	
+        	if (_resp instanceof java.rmi.RemoteException) {
+        		throw (java.rmi.RemoteException)_resp;
+        	} else {
+        		extractAttachments(_call);
+        		CodeTypeUser[] result = null;
+	            try {
+	            	result = (CodeTypeUser[]) _resp;
+	            } catch (java.lang.Exception _exception) {
+	            	result = (CodeTypeUser[]) org.apache.axis.utils.JavaUtils.convert(_resp, is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.GetLandsvaediElement.class);
+	            }
+	            return ArrayUtil.isEmpty(result) ? null : result[0];
+        	}
+        } catch (org.apache.axis.AxisFault axisFaultException) {
+        	throw axisFaultException;
+        }
+	}
 
     public is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.VigtunarleyfiTypeUser[] getVigtunarleyfiByKt(is.fiskistofa.webservices.brotamal.FSWebserviceBROTAMAL_wsdl.types.GetVigtunarleyfiByKtElement parameters) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {

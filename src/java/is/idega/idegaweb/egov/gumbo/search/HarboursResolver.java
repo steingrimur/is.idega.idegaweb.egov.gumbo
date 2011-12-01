@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import com.idega.builder.bean.AdvancedProperty;
 import com.idega.builder.business.AdvancedPropertyComparator;
+import com.idega.idegaweb.IWResourceBundle;
 import com.idega.jbpm.bean.BPMProcessVariable;
 import com.idega.jbpm.bean.VariableInstanceInfo;
 import com.idega.jbpm.variables.MultipleSelectionVariablesResolver;
@@ -61,23 +62,34 @@ public class HarboursResolver extends MultipleSelectionVariablesResolver {
 		
 		Collections.sort(harboursToSearch, new AdvancedPropertyComparator(getCurrentLocale()));
 		
-		String unknownZone = getResourceBundle(getBundle(GumboConstants.IW_BUNDLE_IDENTIFIER)).getLocalizedString("unknown_harbour_territory", "Unknown zone");
-		Map<String, List<AdvancedProperty>> harboursByZones = new TreeMap<String, List<AdvancedProperty>>();
+		IWResourceBundle iwrb = getResourceBundle(getBundle(GumboConstants.IW_BUNDLE_IDENTIFIER));
+		String zone = iwrb.getLocalizedString("harbour_territory", "Zone");
+		String foreignZone = iwrb.getLocalizedString("zone_foreign_countries", "foreign countries");
+		Map<Integer, List<AdvancedProperty>> harboursByZones = new TreeMap<Integer, List<AdvancedProperty>>();
 		for (AdvancedProperty harbour: harboursToSearch) {
-			String zone = getHarbourZone(harbour.getId());
-			if (StringUtil.isEmpty(zone))
-				zone = unknownZone;
+			String zoneNumber = getHarbourZone(harbour.getId());
+			if (StringUtil.isEmpty(zoneNumber))
+				continue;
 			
-			List<AdvancedProperty> harboursInZone = harboursByZones.get(zone);
+			Integer zoneId = Integer.valueOf(zoneNumber);
+			if (zoneId.intValue() == -1)
+				zoneId = Integer.MAX_VALUE;
+			List<AdvancedProperty> harboursInZone = harboursByZones.get(zoneId);
 			if (harboursInZone == null) {
 				harboursInZone = new ArrayList<AdvancedProperty>();
-				harboursByZones.put(zone, harboursInZone);
+				harboursByZones.put(zoneId, harboursInZone);
 			}
 			harboursInZone.add(harbour);
 		}
 		List<AdvancedProperty> harboursToRepresent = new ArrayList<AdvancedProperty>();
-		for (String harbourZone: harboursByZones.keySet()) {
-			AdvancedProperty harbourTerritory = new AdvancedProperty(CoreConstants.EMPTY, harbourZone);
+		for (Integer harbourZone: harboursByZones.keySet()) {
+			String zoneLabel = null;
+			if (Integer.MAX_VALUE == harbourZone.intValue())
+				zoneLabel = foreignZone;
+			else
+				zoneLabel = String.valueOf(harbourZone);
+			
+			AdvancedProperty harbourTerritory = new AdvancedProperty(CoreConstants.EMPTY, zone.concat(CoreConstants.COLON).concat(CoreConstants.SPACE).concat(zoneLabel));
 			harbourTerritory.setSelected(Boolean.TRUE);
 			harboursToRepresent.add(harbourTerritory);
 			
@@ -89,8 +101,7 @@ public class HarboursResolver extends MultipleSelectionVariablesResolver {
 	}
 	
 	private String getHarbourZone(String harbourId) {
-		getLogger().warning("Implement zone resolver by harbour ID (" + harbourId + ")");
-		return null;//	TODO: implement
+		return getViolationService().getZoneNumber(harbourId);
 	}
 
 	@Override

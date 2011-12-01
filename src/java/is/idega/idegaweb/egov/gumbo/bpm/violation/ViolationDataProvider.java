@@ -27,6 +27,8 @@ public interface ViolationDataProvider {
 	
 	public abstract List<Item> getHarbours();
 	
+	public String getZoneNumber(String harbourId);
+	
 	public abstract List<Item> getDecisionRulings();
 	
 	public abstract String getTypeLabelOfPermissionForViolationCompany(
