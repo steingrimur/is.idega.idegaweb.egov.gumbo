@@ -1508,6 +1508,12 @@
                                 
                                 <xf:action ev:event="DOMActivate">
 	                                <idega:setvalue ref="instance('data-instance')/Other_inspectors_summary" value="idega:resolveExpression('violationService.getSelectedOtherInspectors({0})', '#{instance(`data-instance`)/Other_inspectors_fbc_221}')" />
+	                                
+	                                <!-- Uncomment this if the coordinates expression needs to be-recalculated -->
+	                                <!--
+	                                <xf:setvalue model="submission_model" ref="instance('data-instance')/GPS_location_latitude_label" value="concat(instance('data-instance')/violationLocationData/latitudeDegree, '°', instance('data-instance')/violationLocationData/latitudeMinute, ',', instance('data-instance')/violationLocationData/latitudeSecond, '´', instance('data-instance')/violationLocationData/latitudePole)"/>
+                    				<xf:setvalue  model="submission_model" ref="instance('data-instance')/GPS_location_longitude_label" value="concat(instance('data-instance')/violationLocationData/longitudeDegree, '°', instance('data-instance')/violationLocationData/longitudeMinute, ',', instance('data-instance')/violationLocationData/longitudeSecond, '´', instance('data-instance')/violationLocationData/longitudeAngle)"/>
+	                            	-->
 	                            </xf:action>
                                 
                                 <idega:toggle case="fbc_41" ev:event="DOMActivate"/>
