@@ -3,7 +3,9 @@ package is.idega.idegaweb.egov.gumbo.handler;
 import is.idega.idegaweb.egov.gumbo.bpm.violation.ViolationService;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -23,8 +25,8 @@ import com.idega.util.StringUtil;
 import com.idega.util.expression.ELUtil;
 import com.idega.util.text.Item;
 
-@Service("fiskistofaViolationReportHandler")
 @Scope("session")
+@Service("fiskistofaViolationReportHandler")
 public class ViolationReportHandler extends DefaultSpringBean implements ActionHandler {
 
 	private static final long serialVersionUID = -2164372283418007751L;
@@ -68,6 +70,13 @@ public class ViolationReportHandler extends DefaultSpringBean implements ActionH
 		}
 	}
 
+	private static final List<String> FIXED_VARIABLES = Collections.unmodifiableList(Arrays.asList(
+			"string_violationTypesSummary",		//	0
+			"string_vesselFishingGearsSummary",	//	1
+			"string_otherInspectorsSummary",	//	2
+			"string_fiskistofaOffice"			//	3
+	));
+	
 	public void execute(ExecutionContext executionContext) throws Exception {
 		if 	(StringUtil.isEmpty(getTaskInstanceId()))
 			return;
@@ -78,23 +87,23 @@ public class ViolationReportHandler extends DefaultSpringBean implements ActionH
 		
 		// Violation types
 		Object violationTypes = executionContext.getVariable("list_violationTypes");
-		setValue(query, "string_violationTypesSummary", violationTypes instanceof Collection<?> ?
-			getViolationService().getSelectedLabelsForValue(getViolationService().getViolationTypes(), (Collection<?>) violationTypes) : null);
+		setValue(query, FIXED_VARIABLES.get(0), violationTypes instanceof Collection<?> ?
+				getViolationService().getSelectedLabelsForValue(getViolationService().getViolationTypes(), (Collection<?>) violationTypes) : null);
 		
 		//	Fishing gears
 		List<Item> fishingGears = getViolationService().getFishingGears();
 		Object selectedFishingGears = getSelectedItems(executionContext, "list_vesselFishingGear", fishingGears);
-		setValue(query, "string_vesselFishingGearsSummary", selectedFishingGears instanceof Collection<?> ?
+		setValue(query, FIXED_VARIABLES.get(1), selectedFishingGears instanceof Collection<?> ?
 				getViolationService().getSelectedLabelsForValue(fishingGears, (Collection<?>) selectedFishingGears) : null);
 		
 		//	Other inspectors
 		List<Item> inspectors = getViolationService().getOtherInspectorsThanCurrentlyLoggedIn();
 		Object otherInspectors = getSelectedItems(executionContext, "list_otherInspectors", inspectors);
-		setValue(query, "string_otherInspectorsSummary", otherInspectors instanceof Collection<?> ?
+		setValue(query, FIXED_VARIABLES.get(2), otherInspectors instanceof Collection<?> ?
 			getViolationService().getSelectedLabelsForValue(inspectors, (Collection<?>) otherInspectors) : null);
 		
 		//	Office
-		updateOffice(executionContext.getVariable("string_fiskistofaOffice"), query, piId);
+		updateOffice(executionContext.getVariable(FIXED_VARIABLES.get(3)), query, piId);
 	}
 	
 	private Object getSelectedItems(ExecutionContext context, String variableName, List<Item> availableItems) {
@@ -135,9 +144,10 @@ public class ViolationReportHandler extends DefaultSpringBean implements ActionH
 				continue;
 			
 			if (!previousValue.equals(office)) {
-				setValue(query, "string_fiskistofaOffice", StringUtil.isEmpty(office) ? null : office);
+				setValue(query, FIXED_VARIABLES.get(3), StringUtil.isEmpty(office) ? null : office);
 				setValue("update jbpm_variableinstance set stringvalue_ = $value$ where processinstance_ = " + piId +
-							" and taskinstance_ is null and name_ = 'string_fiskistofaOffice' and TOKENVARIABLEMAP_ is not null", null, StringUtil.isEmpty(office) ? null : office);
+							" and taskinstance_ is null and name_ = '" + FIXED_VARIABLES.get(3) + "' and TOKENVARIABLEMAP_ is not null", null,
+							StringUtil.isEmpty(office) ? null : office);
 			}
 		}
 	}
