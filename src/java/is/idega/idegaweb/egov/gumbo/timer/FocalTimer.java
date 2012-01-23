@@ -131,7 +131,7 @@ public class FocalTimer implements TimerListener {
 				if (procCase.getExternalId() != null
 						&& !"".equals(procCase.getExternalId())) {
 					FocalCase fc = getGumboDAO().getFocalCaseByCaseUniqueID(
-							procCase.getPrimaryKey().toString());
+							procCase.getUniqueId());
 					if (fc != null) {
 						// Already sent this case over to focal, go on to next
 						// case
@@ -330,7 +330,7 @@ public class FocalTimer implements TimerListener {
 			for (Long caseId : cases) {
 				Case procCase = getCaseBusiness().getCase(caseId.intValue());
 				FocalCase fc = getGumboDAO().getFocalCaseByCaseUniqueID(
-						procCase.getPrimaryKey().toString());
+						procCase.getUniqueId());
 				if (fc == null) {
 					if (procCase.getExternalId() == null
 							|| "".equals(procCase.getExternalId().trim())) {
@@ -469,18 +469,18 @@ public class FocalTimer implements TimerListener {
 						if (hasAnswerErrors(ret)) {
 							getGumboDAO().createFocalCase(
 									procCase.getExternalId(),
-									procCase.getPrimaryKey().toString(), -1, true,
+									procCase.getUniqueId(), -1, true,
 									getAnswerErrors(ret));
 
 						} else {
 							int noa = getNumberOfAttachements(ret);
 							getGumboDAO().createFocalCase(
 									procCase.getExternalId(),
-									procCase.getPrimaryKey().toString(), noa, false, "");
+									procCase.getUniqueId(), noa, false, "");
 						}
 					} else {
 						getGumboDAO().createFocalCase(procCase.getExternalId(),
-								procCase.getPrimaryKey().toString(), -1, true, error);
+								procCase.getUniqueId(), -1, true, error);
 					}
 
 				}
