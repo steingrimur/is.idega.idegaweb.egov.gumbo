@@ -14,6 +14,7 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import com.idega.block.process.business.ProcessConstants;
 import com.idega.core.business.DefaultSpringBean;
 import com.idega.core.contact.data.Email;
 import com.idega.core.messaging.MessagingSettings;
@@ -45,7 +46,7 @@ public class GeneralProcessClosedHandler extends DefaultSpringBean implements Ac
 		if (closeMessage == null)
 			throw new XFormsException("Closing message can not be resolved for process instance: " + getProcessInstanceId());
 		
-		Object caseIdentifier = executionContext.getVariable("string_caseIdentifier");
+		Object caseIdentifier = executionContext.getVariable(ProcessConstants.CASE_IDENTIFIER);
 		
 		List<Actor> creators = getBpmDAO().getResultList(Actor.getSetByRoleNamesAndPIId, Actor.class,
 				new Param(Actor.processRoleNameProperty, Arrays.asList("bpm_general_gumbo_owner")),
