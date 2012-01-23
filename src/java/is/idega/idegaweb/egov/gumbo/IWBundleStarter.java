@@ -14,7 +14,7 @@ public class IWBundleStarter implements IWBundleStartable {
 		TimerManager mgr = new TimerManager();
 
 		try {
-			//mgr.addTimer(30, true, new FocalTimer());
+			mgr.addTimer(30, true, new FocalTimer());
 
 			mgr.addTimer(0, 2, -1, -1, -1, -1, new AquaCultureStatisticsTimer());
 			// "MentorAbsentTimer");
