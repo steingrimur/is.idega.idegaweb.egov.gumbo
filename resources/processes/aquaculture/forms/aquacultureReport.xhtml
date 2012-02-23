@@ -690,7 +690,7 @@
                     <fbc_26-col-kg-label lang="en">Kr/Kg</fbc_26-col-kg-label>
                     <fbc_26-col-kg-label lang="is_IS">Kr/Kg</fbc_26-col-kg-label>
                     
-                    <fbc_43-label lang="en">Sala</fbc_43-label>
+                    <fbc_43-label lang="en">Sales</fbc_43-label>
                     <fbc_43-label lang="is_IS">Sala</fbc_43-label>
                     <fbc_43-insert-label lang="en">Insert</fbc_43-insert-label>
                     <fbc_43-insert-label lang="is_IS">Bæta við röð</fbc_43-insert-label>
@@ -735,8 +735,8 @@
                     <fbc_67-label lang="is_IS">Athugasemdir</fbc_67-label>
                     <fbc_67-label lang="en">Comments</fbc_67-label>
                     
-                    <fbc_69-label lang="is_IS">Birgðastaða um áramót 2010</fbc_69-label>
-                    <fbc_69-label lang="en">Inventory at year end 2010</fbc_69-label>
+                    <fbc_69-label lang="is_IS">Birgðastaða um áramót</fbc_69-label>
+                    <fbc_69-label lang="en">Inventory at year end</fbc_69-label>
                     <fbc_69-insert-label lang="en">Insert</fbc_69-insert-label>
                     <fbc_69-insert-label lang="is_IS">Bæta við röð</fbc_69-insert-label>
                     <fbc_69-delete-label lang="en">Delete</fbc_69-delete-label>
@@ -1473,7 +1473,9 @@
                         
                         <!-- inventory at year end -->
                         <xf:group appereance="full" id="fbc_69" class="smallerCells">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_69-label[@lang=instance('localized_strings')/current_language]"/>
+                            <xf:output bind="fbc_8_bind" type="fbc_text_output">
+                            	<xf:label model="data_model" ref="instance('localized_strings')/fbc_69-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
                               
                             <xf:dispatch ev:event="xforms-value-changed" name="idega-validate" target="fbc_69"/>
 
