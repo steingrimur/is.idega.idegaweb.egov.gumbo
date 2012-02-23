@@ -786,6 +786,9 @@
                     <page-3-info lang="is_IS">Umsóknin var vistuð og er aðgengileg undir 'Vistaðar skýrslur' í vallistanum til vinstri á síðunni.</page-3-info>
                     <fbc_500-title lang="is_IS">Geymdu þennan hlekk til að geta haldið síðar áfram með skýrsluna.</fbc_500-title>
                     <fbc_500-title lang="en">Link</fbc_500-title>
+                    
+                    <fbc_8-invalid_year lang="en">Year must be from the past or you have already submitted report for this year</fbc_8-invalid_year>
+                    <fbc_8-invalid_year lang="is_IS">Year must be from the past or you have already submitted report for this year</fbc_8-invalid_year>
                 </localized_strings>
             </xf:instance>
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
@@ -884,9 +887,17 @@
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_7-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
                         
-                        <xf:output bind="fbc_8_bind" id="fbc_8" type="fbc_text_output">
+                        <xf:input bind="fbc_8_bind" id="fbc_8" type="fbc_text_output" class="xFormInputMask_year">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_8-label[@lang=instance('localized_strings')/current_language]"/>
-                        </xf:output>
+                        	<xf:dispatch ev:event="xforms-value-changed" name="idega-validate_report_year" target="fbc_8"/>
+                        	
+                        	<idega:validator ev:event="idega-validate_report_year" errorif="idega:resolveExpression('aquaCultureService.isReportYearCorrect({0}) == false', '#{instance(`data-instance`)/reportForTheYear}')">
+                                <idega:message errorType="required" model="data_model" value="instance('localized_strings')/fbc_8-invalid_year[@lang=instance('localized_strings')/current_language]"/>
+				                <idega:message errorType="validation" model="data_model" value="instance('localized_strings')/fbc_8-invalid_year[@lang=instance('localized_strings')/current_language]"/>
+					            <idega:message errorType="custom" model="data_model" value="instance('localized_strings')/fbc_8-invalid_year[@lang=instance('localized_strings')/current_language]"/>
+                            </idega:validator>
+                            <xf:alert ref="instance('error-instance')/error[@for='fbc_8']"/>
+                        </xf:input>
                         
                         <xf:select1 appearance="minimal"
                             bind="fbc_9_bind"

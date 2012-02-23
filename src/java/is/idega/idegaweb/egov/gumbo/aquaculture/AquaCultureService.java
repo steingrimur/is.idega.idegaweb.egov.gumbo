@@ -14,10 +14,13 @@ import is.idega.idegaweb.egov.gumbo.data.AquaSpecies;
 import is.idega.idegaweb.egov.gumbo.data.AquaSpeciesGroup;
 import is.idega.idegaweb.egov.gumbo.data.FishFarm;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.logging.Level;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,11 +37,18 @@ import com.idega.core.business.DefaultSpringBean;
 import com.idega.core.localisation.business.ICLocaleBusiness;
 import com.idega.core.persistence.Param;
 import com.idega.idegaweb.IWMainApplication;
+import com.idega.idegaweb.egov.bpm.data.dao.CasesBPMDAO;
+import com.idega.jbpm.bean.VariableInstanceInfo;
+import com.idega.jbpm.data.VariableInstanceQuerier;
+import com.idega.presentation.IWContext;
 import com.idega.user.business.UserBusiness;
 import com.idega.user.data.User;
 import com.idega.util.CoreConstants;
+import com.idega.util.CoreUtil;
 import com.idega.util.IWTimestamp;
+import com.idega.util.ListUtil;
 import com.idega.util.StringUtil;
+import com.idega.util.datastructures.map.MapUtil;
 import com.idega.util.expression.ELUtil;
 import com.idega.util.text.Item;
 
@@ -47,7 +57,7 @@ import com.idega.util.text.Item;
 public class AquaCultureService extends DefaultSpringBean {
 
 	private List<String> countriesRequiringBuyerSocialId = Arrays.asList("is_IS");
-	
+
 	@Autowired
 	private GumboBusiness gumboBusiness;
 
@@ -56,6 +66,12 @@ public class AquaCultureService extends DefaultSpringBean {
 
 	@Autowired
 	private SkyrrClient skyrrClient;
+
+	@Autowired
+	private VariableInstanceQuerier querier;
+
+	@Autowired
+	private CasesBPMDAO casesBPMDAO;
 
 	public AquaCultureCompanyData getCompanyForCurrentUser() {
 		Company comp = getGumboBusiness().getCompanyForUser(getCurrentUser());
@@ -142,7 +158,7 @@ public class AquaCultureService extends DefaultSpringBean {
 		}
 
 		if (name == null) {
-			name = "";
+			name = CoreConstants.EMPTY;
 		}
 		return name;
 	}
@@ -163,7 +179,7 @@ public class AquaCultureService extends DefaultSpringBean {
 
 		List<AquaMethod> method = getDao().getAquaMethods();
 		for (AquaMethod aquaMethod : method) {
-			items.add(new Item(aquaMethod.getId().toString(), aquaMethod.getMethodName()));			
+			items.add(new Item(aquaMethod.getId().toString(), aquaMethod.getMethodName()));
 		}
 
 		return items;
@@ -185,7 +201,7 @@ public class AquaCultureService extends DefaultSpringBean {
 
 		List<AquaSpecies> species = getDao().getAquaSpecies();
 		for (AquaSpecies aquaSpecies : species) {
-			items.add(new Item(aquaSpecies.getId().toString(), aquaSpecies.getSpeciesName()));			
+			items.add(new Item(aquaSpecies.getId().toString(), aquaSpecies.getSpeciesName()));
 		}
 
 		return items;
@@ -196,14 +212,13 @@ public class AquaCultureService extends DefaultSpringBean {
 
 		List<AquaFarmingType> farmingType = getDao().getAquaFarmingTypes();
 		for (AquaFarmingType aquaFarmingType : farmingType) {
-			items.add(new Item(aquaFarmingType.getId().toString(), aquaFarmingType.getFarmingTypeName()));						
+			items.add(new Item(aquaFarmingType.getId().toString(), aquaFarmingType.getFarmingTypeName()));
 		}
 
 		return items;
 	}
 
 	public List<Item> getStatusNows() {
-
 		final List<Item> items = new ArrayList<Item>();
 
 		List<AquaProcessingMethod> method = getDao().getAquaProcessingMethods();
@@ -219,9 +234,9 @@ public class AquaCultureService extends DefaultSpringBean {
 
 		List<AquaCountry> countries = getDao().getAquaCountries();
 		for (AquaCountry aquaCountry : countries) {
-			items.add(new Item(aquaCountry.getId().toString(), aquaCountry.getCountryName()));			
+			items.add(new Item(aquaCountry.getId().toString(), aquaCountry.getCountryName()));
 		}
-		
+
 		return items;
 	}
 
@@ -229,14 +244,14 @@ public class AquaCultureService extends DefaultSpringBean {
 		if (StringUtil.isEmpty(aquamethodId)) {
 			return CoreConstants.EMPTY;
 		}
-		
+
 		try {
 			Long id = new Long(aquamethodId);
 			AquaMethod method = getDao().getAquaMethod(id);
 			return method.getUnit();
 		} catch (Exception e) {
 		}
-		
+
 		return CoreConstants.EMPTY;
 	}
 
@@ -251,7 +266,7 @@ public class AquaCultureService extends DefaultSpringBean {
 			return method.getUnitLabel();
 		} catch (Exception e) {
 		}
-		
+
 		return CoreConstants.EMPTY;
 	}
 
@@ -267,8 +282,8 @@ public class AquaCultureService extends DefaultSpringBean {
 			return group.getQuantityUnit();
 		} catch (Exception e) {
 		}
-		
-		return CoreConstants.EMPTY;		
+
+		return CoreConstants.EMPTY;
 	}
 
 	public String getQuantityUnitOutputBySpeciesGroupIdForQuantity(
@@ -283,8 +298,8 @@ public class AquaCultureService extends DefaultSpringBean {
 			return group.getQuantityUnitLabel();
 		} catch (Exception e) {
 		}
-		
-		return CoreConstants.EMPTY;				
+
+		return CoreConstants.EMPTY;
 	}
 
 	public String getQuantityUnitBySpeciesGroupIdForPrice(String speciesGroupId) {
@@ -298,8 +313,8 @@ public class AquaCultureService extends DefaultSpringBean {
 			return group.getPriceUnit();
 		} catch (Exception e) {
 		}
-		
-		return CoreConstants.EMPTY;		
+
+		return CoreConstants.EMPTY;
 	}
 
 	public String getQuantityUnitOutputBySpeciesGroupIdForPrice(
@@ -314,8 +329,8 @@ public class AquaCultureService extends DefaultSpringBean {
 			return group.getPriceUnitLabel();
 		} catch (Exception e) {
 		}
-		
-		return CoreConstants.EMPTY;		
+
+		return CoreConstants.EMPTY;
 	}
 
 	public static final class AquaCultureCompanyData {
@@ -385,11 +400,11 @@ public class AquaCultureService extends DefaultSpringBean {
 		}
 		return skyrrClient;
 	}
-	
+
 	public boolean isSocialIdRequired(String aquaCountryId) {
 		if (StringUtil.isEmpty(aquaCountryId))
 			return false;
-		
+
 		AquaCountry country = null;
 		try {
 			country = getDao().getSingleResult(AquaCountry.QUERY_FIND_BY_ID, AquaCountry.class,
@@ -397,33 +412,91 @@ public class AquaCultureService extends DefaultSpringBean {
 		} catch (Exception e) {
 			getLogger().log(Level.WARNING, "Error getting aqua contry by ID: " + aquaCountryId, e);
 		}
-		
+
 		return isCountryRequiringBuyerSocialId(country);
 	}
-	
+
 	private boolean isCountryRequiringBuyerSocialId(AquaCountry country) {
 		if (country == null)
 			return false;
-		
+
 		String countryName = country.getCountryName();
 		if (StringUtil.isEmpty(countryName))
 			return false;
-		
+
 		Locale currentLocale = getCurrentLocale();
 		if (currentLocale == null)
 			return false;
-		
+
 		for (String localeId: countriesRequiringBuyerSocialId) {
 			Locale locale = ICLocaleBusiness.getLocaleFromLocaleString(localeId);
 			if (locale == null) {
 				getLogger().warning("Unable to get locale by ID: " + localeId);
 				continue;
 			}
-			
+
 			if (countryName.equals(locale.getDisplayCountry(currentLocale)))
 				return true;
 		}
-		
+
 		return false;
+	}
+
+	public boolean isAbleToSubmitReport(String reportYear) {
+		if (StringUtil.isEmpty(reportYear))
+			return false;		//	Year must be provided
+
+		IWContext iwc = CoreUtil.getIWContext();
+		if (iwc == null)
+			return false;		//	A request must be issued
+
+		if (!iwc.isLoggedOn())
+			return false;		//	User must be logged on
+
+		if (iwc.hasRole("bpm_aquaculture_handler"))
+			return true;		//	Handler can submit unlimited amount of reports
+
+		User user = getCurrentUser();
+		if (user == null)
+			return false;		//	User must be logged on
+
+		List<Long> userCasesIds = casesBPMDAO.getCaseIdsByUserIds(user.getId());
+		if (ListUtil.isEmpty(userCasesIds))
+			return true;		//	Current user has not submitted any case yet
+
+		Map<String, List<Serializable>> values = new HashMap<String, List<Serializable>>();
+		values.put("string_reportForTheYear", Arrays.asList((Serializable) reportYear));
+		Map<Long, Map<String, VariableInstanceInfo>> data = querier.getVariablesByNamesAndValuesByProcesses(values, null,
+				Arrays.asList("Aquaculture"), null, null);
+		if (MapUtil.isEmpty(data))
+			return true;		//	The report was not submitted for the given year
+
+		List<Long> allCasesIds = casesBPMDAO.getCaseIdsByProcessInstanceIds(new ArrayList<Long>(data.keySet()));
+		if (ListUtil.isEmpty(allCasesIds))
+			return true;		//	No applications submitted yet
+
+		for (Long userCaseId: userCasesIds) {
+			if (allCasesIds.contains(userCaseId))
+				return false;	//	Such report was already submitted by the current user
+		}
+
+		return true;
+	}
+
+	public boolean isReportYearCorrect(String year) {
+		if (StringUtil.isEmpty(year))
+			return false;
+
+		Integer yearFromThePast = null;
+		try {
+			yearFromThePast = Integer.valueOf(year);
+		} catch (NumberFormatException e) {
+			getLogger().warning("Error converting provided value '" + year + "' to the years");
+		}
+		if (yearFromThePast == null)
+			return false;
+
+		int currentYear = IWTimestamp.RightNow().getYear();
+		return yearFromThePast < currentYear && isAbleToSubmitReport(String.valueOf(yearFromThePast));
 	}
 }
