@@ -1964,7 +1964,9 @@
                 </xf:output>
                 
                 <xf:group appereance="full" id="fbc_72">
-                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_69-label[@lang=instance('localized_strings')/current_language]"/>    
+                    <xf:output bind="fbc_8_bind" type="fbc_text_output">
+                    	<xf:label model="data_model" ref="instance('localized_strings')/fbc_69-label[@lang=instance('localized_strings')/current_language]"/>
+                    </xf:output>
                     <xf:repeat appearance="compact" bind="fbc_69_bind" id="fbc_72_repeat_id">
                             
                                 <xf:output id="fbc_73"
@@ -1991,7 +1993,9 @@
                 </xf:group>
                 
                 <xf:group appereance="full" id="fbc_81">
-                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_78-label[@lang=instance('localized_strings')/current_language]"/>    
+                    <xf:output bind="fbc_next-year_bind">
+                    	<xf:label model="data_model" ref="instance('localized_strings')/fbc_78-label[@lang=instance('localized_strings')/current_language]"/>
+                    </xf:output>
                     <xf:repeat appearance="compact" bind="fbc_78_bind" id="fbc_81_repeat_id">
                             
                                 <xf:output id="fbc_82"
