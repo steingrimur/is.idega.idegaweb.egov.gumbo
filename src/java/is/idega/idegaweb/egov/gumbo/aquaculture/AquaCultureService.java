@@ -499,4 +499,20 @@ public class AquaCultureService extends DefaultSpringBean {
 		int currentYear = IWTimestamp.RightNow().getYear();
 		return yearFromThePast < currentYear && isAbleToSubmitReport(String.valueOf(yearFromThePast));
 	}
+
+	public String getNextYear(String year) {
+		if (StringUtil.isEmpty(year))
+			return null;
+
+		Integer yearFromThePast = null;
+		try {
+			yearFromThePast = Integer.valueOf(year);
+		} catch (NumberFormatException e) {
+			getLogger().warning("Error converting provided value '" + year + "' to the years");
+		}
+		if (yearFromThePast == null)
+			return year;
+
+		return String.valueOf(yearFromThePast + 1);
+	}
 }

@@ -29,6 +29,7 @@
                     </companyData>
                     
                     <reportForTheYear mapping="string_reportForTheYear"/>
+                    <nextYear />
                     <reportForTheFarm mapping="string_reportForTheFarm"/>
                     <reportForTheFarmOutput mapping="string_reportForTheFarmOutput"/>
                     
@@ -268,8 +269,9 @@
                 nodeset="companyData/name" readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
             <xf:bind id="fbc_7_bind"
                 nodeset="companyData/address" readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
-            <xf:bind id="fbc_8_bind"
-                nodeset="reportForTheYear" readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+            
+            <xf:bind id="fbc_8_bind" nodeset="reportForTheYear" readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+            <xf:bind id="fbc_next-year_bind" nodeset="nextYear" readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
                 
             <xf:bind id="fbc_9_bind"
                 nodeset="reportForTheFarm" 
@@ -754,7 +756,7 @@
                     <fbc_69-col-comments-label lang="is_IS">Athugasemdir</fbc_69-col-comments-label>
                     
                     
-                    <fbc_78-label lang="is_IS">Áætlað magn frá stöðinni á árinu 2011</fbc_78-label>
+                    <fbc_78-label lang="is_IS">Áætlað magn frá stöðinni á árinu</fbc_78-label>
                     <fbc_78-label lang="en">Expected quantity produced next year</fbc_78-label>
                     <fbc_78-insert-label lang="en">Insert</fbc_78-insert-label>
                     <fbc_78-insert-label lang="is_IS">Bæta við röð</fbc_78-insert-label>
@@ -890,6 +892,10 @@
                         <xf:input bind="fbc_8_bind" id="fbc_8" type="fbc_text_output" class="xFormInputMask_year">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_8-label[@lang=instance('localized_strings')/current_language]"/>
                         	<xf:dispatch ev:event="xforms-value-changed" name="idega-validate_report_year" target="fbc_8"/>
+                        	
+                        	<xf:action ev:event="xforms-value-changed">
+                        		<idega:setvalue ref="instance('data-instance')/nextYear" value="idega:resolveExpression('aquaCultureService.getNextYear({0})', '#{instance(`data-instance`)/reportForTheYear}')"/>
+                        	</xf:action>
                         	
                         	<idega:validator ev:event="idega-validate_report_year" errorif="idega:resolveExpression('aquaCultureService.isReportYearCorrect({0}) == false', '#{instance(`data-instance`)/reportForTheYear}')">
                                 <idega:message errorType="required" model="data_model" value="instance('localized_strings')/fbc_8-invalid_year[@lang=instance('localized_strings')/current_language]"/>
@@ -1589,8 +1595,10 @@
                         
                         <!-- expected quantity produced -->
                         <xf:group appereance="full" id="fbc_78" class="smallerCells">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_78-label[@lang=instance('localized_strings')/current_language]"/>
-                              
+                        	<xf:output bind="fbc_next-year_bind">
+                            	<xf:label model="data_model" ref="instance('localized_strings')/fbc_78-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            
                             <xf:dispatch ev:event="xforms-value-changed" name="idega-validate" target="fbc_78"/>
 
 <!-- TODO                            
