@@ -29,6 +29,7 @@
                     </companyData>
                     
                     <reportForTheYear mapping="string_reportForTheYear"/>
+                    <nextYear />
                     <reportForTheFarm mapping="string_reportForTheFarm"/>
                     <reportForTheFarmOutput mapping="string_reportForTheFarmOutput"/>
                     
@@ -268,8 +269,9 @@
                 nodeset="companyData/name" readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
             <xf:bind id="fbc_7_bind"
                 nodeset="companyData/address" readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
-            <xf:bind id="fbc_8_bind"
-                nodeset="reportForTheYear" readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+            
+            <xf:bind id="fbc_8_bind" nodeset="reportForTheYear" readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
+            <xf:bind id="fbc_next-year_bind" nodeset="nextYear" readonly="instance('control-instance')/readonly = 'true'" type="xs:string"/>
                 
             <xf:bind id="fbc_9_bind"
                 nodeset="reportForTheFarm" 
@@ -690,7 +692,7 @@
                     <fbc_26-col-kg-label lang="en">Kr/Kg</fbc_26-col-kg-label>
                     <fbc_26-col-kg-label lang="is_IS">Kr/Kg</fbc_26-col-kg-label>
                     
-                    <fbc_43-label lang="en">Sala</fbc_43-label>
+                    <fbc_43-label lang="en">Sales</fbc_43-label>
                     <fbc_43-label lang="is_IS">Sala</fbc_43-label>
                     <fbc_43-insert-label lang="en">Insert</fbc_43-insert-label>
                     <fbc_43-insert-label lang="is_IS">Bæta við röð</fbc_43-insert-label>
@@ -735,8 +737,8 @@
                     <fbc_67-label lang="is_IS">Athugasemdir</fbc_67-label>
                     <fbc_67-label lang="en">Comments</fbc_67-label>
                     
-                    <fbc_69-label lang="is_IS">Birgðastaða um áramót 2010</fbc_69-label>
-                    <fbc_69-label lang="en">Inventory at year end 2010</fbc_69-label>
+                    <fbc_69-label lang="is_IS">Birgðastaða um áramót</fbc_69-label>
+                    <fbc_69-label lang="en">Inventory at year end</fbc_69-label>
                     <fbc_69-insert-label lang="en">Insert</fbc_69-insert-label>
                     <fbc_69-insert-label lang="is_IS">Bæta við röð</fbc_69-insert-label>
                     <fbc_69-delete-label lang="en">Delete</fbc_69-delete-label>
@@ -754,7 +756,7 @@
                     <fbc_69-col-comments-label lang="is_IS">Athugasemdir</fbc_69-col-comments-label>
                     
                     
-                    <fbc_78-label lang="is_IS">Áætlað magn frá stöðinni á árinu 2011</fbc_78-label>
+                    <fbc_78-label lang="is_IS">Áætlað magn frá stöðinni á árinu</fbc_78-label>
                     <fbc_78-label lang="en">Expected quantity produced next year</fbc_78-label>
                     <fbc_78-insert-label lang="en">Insert</fbc_78-insert-label>
                     <fbc_78-insert-label lang="is_IS">Bæta við röð</fbc_78-insert-label>
@@ -786,6 +788,9 @@
                     <page-3-info lang="is_IS">Umsóknin var vistuð og er aðgengileg undir 'Vistaðar skýrslur' í vallistanum til vinstri á síðunni.</page-3-info>
                     <fbc_500-title lang="is_IS">Geymdu þennan hlekk til að geta haldið síðar áfram með skýrsluna.</fbc_500-title>
                     <fbc_500-title lang="en">Link</fbc_500-title>
+                    
+                    <fbc_8-invalid_year lang="en">Year must be from the past or you have already submitted report for this year</fbc_8-invalid_year>
+                    <fbc_8-invalid_year lang="is_IS">Year must be from the past or you have already submitted report for this year</fbc_8-invalid_year>
                 </localized_strings>
             </xf:instance>
             <xf:instance id="locale-instance" relevant="false()" src="context:fb-afk-loginSession.currentLocale"/>
@@ -884,9 +889,21 @@
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_7-label[@lang=instance('localized_strings')/current_language]"/>
                         </xf:output>
                         
-                        <xf:output bind="fbc_8_bind" id="fbc_8" type="fbc_text_output">
+                        <xf:input bind="fbc_8_bind" id="fbc_8" type="fbc_text_output" class="xFormInputMask_year">
                             <xf:label model="data_model" ref="instance('localized_strings')/fbc_8-label[@lang=instance('localized_strings')/current_language]"/>
-                        </xf:output>
+                        	<xf:dispatch ev:event="xforms-value-changed" name="idega-validate_report_year" target="fbc_8"/>
+                        	
+                        	<xf:action ev:event="xforms-value-changed">
+                        		<idega:setvalue ref="instance('data-instance')/nextYear" value="idega:resolveExpression('aquaCultureService.getNextYear({0})', '#{instance(`data-instance`)/reportForTheYear}')"/>
+                        	</xf:action>
+                        	
+                        	<idega:validator ev:event="idega-validate_report_year" errorif="idega:resolveExpression('aquaCultureService.isReportYearCorrect({0}) == false', '#{instance(`data-instance`)/reportForTheYear}')">
+                                <idega:message errorType="required" model="data_model" value="instance('localized_strings')/fbc_8-invalid_year[@lang=instance('localized_strings')/current_language]"/>
+				                <idega:message errorType="validation" model="data_model" value="instance('localized_strings')/fbc_8-invalid_year[@lang=instance('localized_strings')/current_language]"/>
+					            <idega:message errorType="custom" model="data_model" value="instance('localized_strings')/fbc_8-invalid_year[@lang=instance('localized_strings')/current_language]"/>
+                            </idega:validator>
+                            <xf:alert ref="instance('error-instance')/error[@for='fbc_8']"/>
+                        </xf:input>
                         
                         <xf:select1 appearance="minimal"
                             bind="fbc_9_bind"
@@ -1118,7 +1135,7 @@
                                             
                                 </xf:input>
                                 
-                                <xf:input bind="weightBind" id="fbc_26_repeat_id_input_weight">
+                                <xf:input bind="weightBind" id="fbc_26_repeat_id_input_weight" class="xFormInputMask_positiveNumber">
                                     <xf:label model="data_model" ref="instance('localized_strings')/fbc_26-col-weight-label[@lang=instance('localized_strings')/current_language]"/>
                                     
                                     <xf:dispatch ev:event="xforms-value-changed"
@@ -1131,7 +1148,7 @@
                                             
                                 </xf:input>
                                 
-                                <xf:input bind="kgBind" id="fbc_26_repeat_id_input_kg">
+                                <xf:input bind="kgBind" id="fbc_26_repeat_id_input_kg" class="xFormInputMask_positiveNumber">
                                     <xf:label model="data_model" ref="instance('localized_strings')/fbc_26-col-kg-label[@lang=instance('localized_strings')/current_language]"/>
                                     
                                     <xf:dispatch ev:event="xforms-value-changed"
@@ -1347,7 +1364,7 @@
 	                                        <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-col-quantityUnitOutput-label[@lang=instance('localized_strings')/current_language]"/>
 	                                </xf:output>
 	                                
-	                                <xf:input bind="priceBind" id="fbc_43_repeat_id_input_price">
+	                                <xf:input bind="priceBind" id="fbc_43_repeat_id_input_price" class="xFormInputMask_positiveNumber">
 	                                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_43-col-price-label[@lang=instance('localized_strings')/current_language]"/>
 	                                    
 	                                    <xf:dispatch ev:event="xforms-value-changed"
@@ -1462,7 +1479,9 @@
                         
                         <!-- inventory at year end -->
                         <xf:group appereance="full" id="fbc_69" class="smallerCells">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_69-label[@lang=instance('localized_strings')/current_language]"/>
+                            <xf:output bind="fbc_8_bind" type="fbc_text_output">
+                            	<xf:label model="data_model" ref="instance('localized_strings')/fbc_69-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
                               
                             <xf:dispatch ev:event="xforms-value-changed" name="idega-validate" target="fbc_69"/>
 
@@ -1576,8 +1595,10 @@
                         
                         <!-- expected quantity produced -->
                         <xf:group appereance="full" id="fbc_78" class="smallerCells">
-                            <xf:label model="data_model" ref="instance('localized_strings')/fbc_78-label[@lang=instance('localized_strings')/current_language]"/>
-                              
+                        	<xf:output bind="fbc_next-year_bind">
+                            	<xf:label model="data_model" ref="instance('localized_strings')/fbc_78-label[@lang=instance('localized_strings')/current_language]"/>
+                            </xf:output>
+                            
                             <xf:dispatch ev:event="xforms-value-changed" name="idega-validate" target="fbc_78"/>
 
 <!-- TODO                            
@@ -1943,7 +1964,9 @@
                 </xf:output>
                 
                 <xf:group appereance="full" id="fbc_72">
-                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_69-label[@lang=instance('localized_strings')/current_language]"/>    
+                    <xf:output bind="fbc_8_bind" type="fbc_text_output">
+                    	<xf:label model="data_model" ref="instance('localized_strings')/fbc_69-label[@lang=instance('localized_strings')/current_language]"/>
+                    </xf:output>
                     <xf:repeat appearance="compact" bind="fbc_69_bind" id="fbc_72_repeat_id">
                             
                                 <xf:output id="fbc_73"
@@ -1970,7 +1993,9 @@
                 </xf:group>
                 
                 <xf:group appereance="full" id="fbc_81">
-                    <xf:label model="data_model" ref="instance('localized_strings')/fbc_78-label[@lang=instance('localized_strings')/current_language]"/>    
+                    <xf:output bind="fbc_next-year_bind">
+                    	<xf:label model="data_model" ref="instance('localized_strings')/fbc_78-label[@lang=instance('localized_strings')/current_language]"/>
+                    </xf:output>
                     <xf:repeat appearance="compact" bind="fbc_78_bind" id="fbc_81_repeat_id">
                             
                                 <xf:output id="fbc_82"
