@@ -1,30 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE document
-	PUBLIC "-//UJAC.org//Print Document//EN" 
+<!-- edited with XMLSpy v2012 rel. 2 (http://www.altova.com) by Steigrimur Gudjonsson (Fiskistofa (Directorat of fisheries)) -->
+<!DOCTYPE document PUBLIC "-//UJAC.org//Print Document//EN" 
 	"http://ujac.sourceforge.net/ujac-print-document.dtd">
-
-<document size="A4"  margin-top="20" margin-bottom="20" margin-left="50" margin-right="50" rotate="false">
-
+<document size="A4" margin-top="20" margin-bottom="20" margin-left="50" margin-right="50" rotate="false">
 	<font-def name="normal" family="Times" size="10" style="normal"/>
 	<font-def name="bold" family="Times" size="10" style="bold"/>
 	<font-def name="big" family="Times" size="14" style="bold"/>
-
-	<image source="fiskistofa.gif" halign="right" height="100" scale-to-fit="true" />
-
+	<image source="fiskistofa.gif" halign="right" height="100" scale-to-fit="true"/>
 	<table font="normal" padding="0" columns="2" width="100" widths="50,50" spacing-before="12.0" spacing-after="15.0" halign="left" border-style="none">
 		<cell>${fisheryName} (${shipID})</cell>
 		<cell halign="right">Vegna m.s. (${shipID}) ${shipName}</cell>
 		<cell>${fisheryAddress}</cell>
 		<cell halign="right">Kennitala ${fisheryPersonalID}</cell>
 		<cell>${fisheryPostal}</cell>
-		<cell></cell>
+		<cell/>
 	</table>
-
-	<paragraph halign="center" font="big" spacing-after="6.0">Leyfi til grásleppuveiða á vertíðinni 2011</paragraph>
+	<paragraph halign="center" font="big" spacing-after="6.0">Leyfi til grásleppuveiða á vertíðinni 2012</paragraph>
 	<paragraph halign="center" font="big" spacing-after="18.0">Svæði: ${fishingArea} - ${fishingAreaName}</paragraph>
-
-	<paragraph font="normal" spacing-after="10.0">Veiðileyfi þetta er gefið út fyrir ofangreindan bát á grundvelli ákvæða laga nr. 79/1997, um veiðar í fiskveiðilandhelgi Íslands, með síðari breytingum, og reglugerðar nr. 196/2009, um hrognkelsaveiðar, með síðari breytingum.  Vakin er sérstök athygli á eftirgreindum reglum um veiðarnar:</paragraph>
-
+	<paragraph font="normal" spacing-after="10.0">Veiðileyfi þetta er gefið út fyrir ofangreindan bát á grundvelli ákvæða laga nr. 79/1997, um veiðar í fiskveiðilandhelgi Íslands, með síðari breytingum, og reglugerðar nr. 165/2012, um hrognkelsaveiðar, með síðari breytingum.  Vakin er sérstök athygli á eftirgreindum reglum um veiðarnar:</paragraph>
 	<table font="normal" padding="2" columns="2" width="100" widths="4,96" border-style="none" halign="left">
 		<cell valign="top">1.</cell>
 		<cell>Veiðileyfið gildir frá og með <phrase font="bold">${dateFrom}</phrase> til og með <phrase font="bold">${dateTo}</phrase> og er óheimilt að leggja grásleppunet fyrir kl. 08:00 fyrsta dag þessa tímabils.</cell>
@@ -35,7 +28,7 @@
 		<cell valign="top">4.</cell>
 		<cell>Heimilt er að hafa 100 hrognkelsanet í sjó fyrir hvern mann sem lögskráður er á bát. Aldrei er þó heimilt að eiga fleiri en 300 net í sjó. Takmörkun þessi á netafjölda miðast við 60 faðma ófellda slöngu en sé notuð 120 faðma ófelld slanga, miðast takmörkunin við helmingi færri net.</cell>
 		<cell valign="top">5.</cell>
-		<cell>Lágmarksmöskvastærð grásleppuneta er 10,5 þumlungar (267 mm).</cell>
+		<cell>Leyfileg möskvastærð grásleppuneta er 10,5 þumlungar (267 mm) - til 11,5 þumlungar (292 mm)</cell>
 		<cell valign="top">6.</cell>
 		<cell>Netabaujur skulu vera á báðum endum netatrossu og allar merktar með flaggi, sem komið er fyrir efst á baujustönginni. Á flaggið skal mála umdæmisnúmer eða skipaskrárnúmer þess skips, sem notar netin. Auk þessa skulu allir belgir merktir með umdæmisnúmeri eða skipaskrárnúmeri þess skips, sem notar þá. Merkingar á baujuflöggum og belgjum skulu vera greinilegar og skulu stafir stórir og skýrir. Allar niðurstöður skulu, með varanlegri merkingu, vera greinilega merktir umdæmisnúmeri eða skipaskrárnúmeri þess skips sem þá notar.     Skylt er að númera netatrossur sem hver bátur á í sjó frá einum til þess fjölda trossa, sem hann á í sjó. Númer netatrossu skal skráð skýrum tölustöfum á baujuflagg eða belg á báðum endum trossu.</cell>
 		<cell valign="top">7.</cell>
@@ -47,9 +40,7 @@
 		<cell valign="top">10.</cell>
 		<cell>Óheimilt er að stunda veiðar með rauðmaganetum frá og með 15. júní til og með 31. desember ár hvert. Óheimilt er að nota til rauðmagaveiða net með minna en 7 þumlunga möskva og net dýpri en 20 möskva. Þá er óheimilt að nota til rauðmagaveiða net með stærri möskva en 8 þumlunga (203 mm). Þá er bátum sem leyfi hafa til veiða með krókaaflamarki óheimilt að stunda veiðar með rauðmaganetum nema að fengnu sérstöku leyfi Fiskistofu.</cell>
 		<cell valign="top">11.</cell>
-		<cell>Að öðru leyti vísast til ákvæða reglugerðar nr. 196/2009, um hrognkelsaveiðar, með síðari breytingum og reglugerðar nr. 662/2010, um veiðar í atvinnuskyni fiskveiðiárið 2010/2011.</cell>
+		<cell>Að öðru leyti vísast til ákvæða reglugerðar nr. 165/2012, um hrognkelsaveiðar, með síðari breytingum og reglugerðar nr. 689/2011, um veiðar í atvinnuskyni fiskveiðiárið 2011/2012.</cell>
 	</table>
-		
 	<paragraph font="normal" spacing-before="10.0">Leyfisbréf þetta er gert ${dateNow} og miðast við gildandi reglur þann dag, sem geta breyst síðar.</paragraph>
-	
 </document>
