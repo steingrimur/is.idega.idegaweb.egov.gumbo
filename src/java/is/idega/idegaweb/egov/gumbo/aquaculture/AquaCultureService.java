@@ -74,7 +74,8 @@ public class AquaCultureService extends DefaultSpringBean {
 	private CasesBPMDAO casesBPMDAO;
 
 	public AquaCultureCompanyData getCompanyForCurrentUser() {
-		Company comp = getGumboBusiness().getCompanyForUser(getCurrentUser());
+		User currentUser = getCurrentUser();
+		Company comp = currentUser == null ? null : getGumboBusiness().getCompanyForUser(currentUser);
 		if (comp != null) {
 			AquaCultureCompanyData ret = new AquaCultureCompanyData(
 					comp.getPersonalID());

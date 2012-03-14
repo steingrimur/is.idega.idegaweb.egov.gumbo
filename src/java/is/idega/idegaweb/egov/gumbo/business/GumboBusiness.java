@@ -20,6 +20,7 @@ import javax.ejb.CreateException;
 import javax.ejb.FinderException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -46,13 +47,13 @@ import com.idega.user.data.User;
 import com.idega.util.IWTimestamp;
 import com.idega.util.expression.ELUtil;
 
-@Scope("singleton")
 @Service("gumboBusiness")
+@Scope(BeanDefinition.SCOPE_SINGLETON)
 public class GumboBusiness {
 
 	@Autowired
 	private CompanyPortalBusiness companyBusiness;
-	
+
 	@Autowired
 	FocalWSClient focalClient;
 
@@ -60,10 +61,13 @@ public class GumboBusiness {
 	private GumboDao gumboDAO;
 
 	public Company getCompanyForUser(User user) {
+		if (user == null)
+			return null;
+
 		List<Group> companies = getCompanyPortalBusiness().getAllUserCompanies(user);
 		if (companies != null && companies.size() > 0) {
 			Group group = companies.iterator().next();
-			
+
 			String personalID = group.getMetaData("COMPANY_PERSONAL_ID");
 			if (personalID != null) {
 				try {
@@ -77,15 +81,15 @@ public class GumboBusiness {
 				}
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	private CompanyPortalBusiness getCompanyPortalBusiness() {
 		if (this.companyBusiness == null) {
 			ELUtil.getInstance().autowire(this);
 		}
-		
+
 		return this.companyBusiness;
 	}
 
@@ -93,7 +97,7 @@ public class GumboBusiness {
 		if (this.focalClient == null) {
 			ELUtil.getInstance().autowire(this);
 		}
-		
+
 		return focalClient;
 	}
 
@@ -101,10 +105,10 @@ public class GumboBusiness {
 		if (this.gumboDAO == null) {
 			ELUtil.getInstance().autowire(this);
 		}
-		
+
 		return gumboDAO;
 	}
-	
+
 	private CompanyBusiness getCompanyBusiness() {
 		try {
 			return IBOLookup.getServiceInstance(IWMainApplication.getDefaultIWApplicationContext(), CompanyBusiness.class);
@@ -131,7 +135,7 @@ public class GumboBusiness {
 			throw new IBORuntimeException(ile);
 		}
 	}
-	
+
 	private ICFileHome getICFileHome() {
 		try {
 			return (ICFileHome) IDOLookup.getHome(ICFile.class);
@@ -140,7 +144,7 @@ public class GumboBusiness {
 			throw new IBORuntimeException(ile);
 		}
 	}
-	
+
 	public CatchDelimiter getCatchDelimiter(Object pk) {
 		try {
 			return getDelimiterHome().findByPrimaryKey(new Integer(pk.toString()));
@@ -150,25 +154,25 @@ public class GumboBusiness {
 			return null;
 		}
 	}
-	
+
 	public void storeCatchDelimiterInfo(AflaHeimildSkerdingAlltTypUser shipInfo, ApplicationBean appBean, User performer) {
 		try {
 			IWBundle iwb = IWMainApplication.getDefaultIWMainApplication().getBundle(GumboConstants.IW_BUNDLE_IDENTIFIER);
 			IWResourceBundle iwrb = iwb.getResourceBundle(IWMainApplication.getDefaultIWApplicationContext().getApplicationSettings().getDefaultLocale());
-			
+
 			String subject = iwrb.getLocalizedString("catch_delimiter.case_name", "Catch delimiter: ") + shipInfo.getSkipNr().toString();
-			
+
 			CatchDelimiter delimiter = getDelimiterHome().create();
 			delimiter.setSubject(subject);
 			delimiter.setOwner(performer);
 			delimiter.setShipID(shipInfo.getSkipNr().intValue());
 			delimiter.setCaseIdentifier(new IWTimestamp(delimiter.getCreated()).getDateString("yyyyMMddHHmmss") + "-" + delimiter.getShipID().toString());
-			
+
 			ICFile file = generatePDF(iwrb, shipInfo, appBean);
 			delimiter.setAttachment(file);
-			
+
 			getCaseBusiness().changeCaseStatus(delimiter, getCaseBusiness().getCaseStatus("SHUT"), performer);
-			
+
 			ProcessFocalCode focalCode = getGumboDAO().getProcessFocalCode(GumboConstants.CATCH_DELIMITER_CASE_CODE);
 
 			if (focalCode != null) {
@@ -178,14 +182,14 @@ public class GumboBusiness {
 						performer.getPersonalID(),
 						performer.getDisplayName(),
 						focalCode.getFocalProjectID(), focalCode.getFocalDocumentKey());
-				
+
 				if (key != null) {
 					delimiter.setExternalId(key);
 					delimiter.store();
 				}
 			}
-		}		
-		
+		}
+
 		catch (CreateException ce) {
 			ce.printStackTrace();
 		}
@@ -193,7 +197,7 @@ public class GumboBusiness {
 			throw new IBORuntimeException(re);
 		}
 	}
-	
+
 	public ICFile generatePDF(IWResourceBundle iwrb, AflaHeimildSkerdingAlltTypUser shipInfo, ApplicationBean appBean) throws CreateException {
 		CatchDelimiterPrintingContext context = new CatchDelimiterPrintingContext(IWMainApplication.getDefaultIWApplicationContext(), shipInfo, appBean, IWMainApplication.getDefaultIWApplicationContext().getApplicationSettings().getDefaultLocale());
 
@@ -205,7 +209,7 @@ public class GumboBusiness {
 			context.setDocumentStream(mos);
 
 			getPrintingService().printDocument(context);
-			
+
 			ICFile file = createFile(null, iwrb.getLocalizedString("gumbo_delimiter.filename", "DelimiterValues-") + shipInfo.getSkipNr().toString(), mis, buffer.length());
 			return file;
 		}
@@ -213,7 +217,7 @@ public class GumboBusiness {
 			throw new IBORuntimeException(re);
 		}
 	}
-	
+
 	private ICFile createFile(ICFile file, String fileName, InputStream is, int length) throws CreateException {
 		if (file == null) {
 			file = getICFileHome().create();
@@ -240,5 +244,5 @@ public class GumboBusiness {
 			throw new IBORuntimeException(e.getMessage());
 		}
 	}
-	
+
 }
