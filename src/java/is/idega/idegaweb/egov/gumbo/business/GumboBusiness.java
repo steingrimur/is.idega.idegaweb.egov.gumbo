@@ -31,6 +31,7 @@ import com.idega.business.IBOLookupException;
 import com.idega.business.IBORuntimeException;
 import com.idega.company.business.CompanyBusiness;
 import com.idega.company.data.Company;
+import com.idega.core.business.DefaultSpringBean;
 import com.idega.core.file.data.ICFile;
 import com.idega.core.file.data.ICFileHome;
 import com.idega.core.file.util.MimeTypeUtil;
@@ -49,7 +50,7 @@ import com.idega.util.expression.ELUtil;
 
 @Service("gumboBusiness")
 @Scope(BeanDefinition.SCOPE_SINGLETON)
-public class GumboBusiness {
+public class GumboBusiness extends DefaultSpringBean {
 
 	@Autowired
 	private CompanyPortalBusiness companyBusiness;
@@ -61,8 +62,10 @@ public class GumboBusiness {
 	private GumboDao gumboDAO;
 
 	public Company getCompanyForUser(User user) {
-		if (user == null)
+		if (user == null) {
+			getLogger().warning("User is not provided, unable to resolve companies");
 			return null;
+		}
 
 		List<Group> companies = getCompanyPortalBusiness().getAllUserCompanies(user);
 		if (companies != null && companies.size() > 0) {
@@ -72,11 +75,9 @@ public class GumboBusiness {
 			if (personalID != null) {
 				try {
 					return getCompanyBusiness().getCompany(personalID);
-				}
-				catch (FinderException fe) {
+				} catch (FinderException fe) {
 					fe.printStackTrace();
-				}
-				catch (RemoteException re) {
+				} catch (RemoteException re) {
 					throw new IBORuntimeException(re);
 				}
 			}
