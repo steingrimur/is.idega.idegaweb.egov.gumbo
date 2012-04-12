@@ -1,5 +1,6 @@
 package is.idega.idegaweb.egov.gumbo.aquaculture.timer;
 
+import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.aquaculture.dao.AquaDAO;
 import is.idega.idegaweb.egov.gumbo.aquaculture.data.ACStatHeader;
 
@@ -51,7 +52,7 @@ public class AquaCultureStatisticsTimer implements TimerListener {
 	private static final String GATHER_INFO = "string_gatherInformation";
 	private static final String FARM_NAME = "string_reportForTheFarmOutput";
 	private static final String FARM_NAME_ID = "string_reportForTheFarm";
-	private static final String YEAR = "string_reportForTheYear";
+	private static final String YEAR = GumboConstants.VARIABLE_AQUA_REPORT_YEAR;
 	private static final String COMMENT = "string_salesComments";
 
 	private static final String GROUP = "speciesGroupOutput";
@@ -88,6 +89,7 @@ public class AquaCultureStatisticsTimer implements TimerListener {
 	private static final Logger LOGGER = Logger
 			.getLogger(AquaCultureStatisticsTimer.class.getName());
 
+	@Override
 	public void handleTimer(TimerEntry entry) {
 		System.out.println("STARTING AQUA STATISTICS TIMER!!!!");
 
@@ -166,7 +168,7 @@ public class AquaCultureStatisticsTimer implements TimerListener {
 							} else if (FARM_NAME.equals(variableName)) {
 								if (farm == null) {
 									farm = (String) variable.getValue();
-								} 
+								}
 							} else if (FARM_NAME_ID.equals(variableName)) {
 								if (farmID == null) {
 									String tmp = (String) variable.getValue();
@@ -866,7 +868,7 @@ public class AquaCultureStatisticsTimer implements TimerListener {
 						Object key3 = it3.next();
 						JSONObject file = (JSONObject) obj3.get(key3);
 						System.out.println("filename = " + file.get("identifier"));
-					}					
+					}
 				}
 			}
 		} catch (FileNotFoundException e) {

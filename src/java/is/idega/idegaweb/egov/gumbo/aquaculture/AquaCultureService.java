@@ -3,6 +3,7 @@ package is.idega.idegaweb.egov.gumbo.aquaculture;
 import is.idega.block.nationalregister.webservice.client.business.CompanyHolder;
 import is.idega.block.nationalregister.webservice.client.business.SkyrrClient;
 import is.idega.block.nationalregister.webservice.client.business.UserHolder;
+import is.idega.idegaweb.egov.gumbo.GumboConstants;
 import is.idega.idegaweb.egov.gumbo.business.GumboBusiness;
 import is.idega.idegaweb.egov.gumbo.dao.GumboDao;
 import is.idega.idegaweb.egov.gumbo.data.AquaCountry;
@@ -444,7 +445,7 @@ public class AquaCultureService extends DefaultSpringBean {
 			return true;		//	Current user has not submitted any case yet
 
 		Map<String, List<Serializable>> values = new HashMap<String, List<Serializable>>();
-		values.put("string_reportForTheYear", Arrays.asList((Serializable) reportYear));
+		values.put(GumboConstants.VARIABLE_AQUA_REPORT_YEAR, Arrays.asList((Serializable) reportYear));
 		Map<Long, Map<String, VariableInstanceInfo>> data = querier.getVariablesByNamesAndValuesByProcesses(values, null,
 				Arrays.asList("Aquaculture"), null, null);
 		if (MapUtil.isEmpty(data))
