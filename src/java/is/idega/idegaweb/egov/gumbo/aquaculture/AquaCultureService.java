@@ -28,15 +28,11 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import com.idega.business.IBOLookup;
-import com.idega.business.IBOLookupException;
-import com.idega.business.IBORuntimeException;
 import com.idega.company.business.CompanyBusiness;
 import com.idega.company.data.Company;
 import com.idega.core.business.DefaultSpringBean;
 import com.idega.core.localisation.business.ICLocaleBusiness;
 import com.idega.core.persistence.Param;
-import com.idega.idegaweb.IWMainApplication;
 import com.idega.idegaweb.egov.bpm.data.dao.CasesBPMDAO;
 import com.idega.jbpm.bean.VariableInstanceInfo;
 import com.idega.jbpm.data.VariableInstanceQuerier;
@@ -76,19 +72,14 @@ public class AquaCultureService extends DefaultSpringBean {
 	public AquaCultureCompanyData getCompanyForCurrentUser() {
 		User currentUser = getCurrentUser();
 		Company comp = currentUser == null ? null : getGumboBusiness().getCompanyForUser(currentUser);
-		if (comp != null) {
-			AquaCultureCompanyData ret = new AquaCultureCompanyData(
-					comp.getPersonalID());
-			ret.setName(comp.getName());
-			if (comp.getAddress() != null) {
-				ret.setAddress(comp.getAddress().getStreetAddress());
-			}
+		if (comp == null)
+			return new AquaCultureCompanyData("4252345234").setName("company name").setAddress("company address");
 
-			return ret;
-		}
-
-		return new AquaCultureCompanyData("4252345234").setName("company name")
-				.setAddress("company address");
+		AquaCultureCompanyData ret = new AquaCultureCompanyData(comp.getPersonalID());
+		ret.setName(comp.getName());
+		if (comp.getAddress() != null)
+			ret.setAddress(comp.getAddress().getStreetAddress());
+		return ret;
 	}
 
 	public String getReportForTheYear() {
@@ -98,32 +89,35 @@ public class AquaCultureService extends DefaultSpringBean {
 	}
 
 	public List<Item> getFarms() {
-		final List<Item> items = new ArrayList<Item>();
+		List<Item> items = new ArrayList<Item>();
 
-		Company comp = getGumboBusiness().getCompanyForUser(getCurrentUser());
-		if (comp != null) {
-			List<FishFarm> fishFarms = getDao().getFishFarms(
-					comp.getPersonalID());
-			for (FishFarm fishFarm : fishFarms) {
-				items.add(new Item(fishFarm.getId().toString(), fishFarm
-						.getName() + " (" + fishFarm.getAddress() + ")"));
-			}
+		User user = getCurrentUser();
+		Company comp = getGumboBusiness().getCompanyForUser(user);
+		if (comp == null) {
+			getLogger().warning("There are no companies for the user " + user + (user == null ? CoreConstants.EMPTY : ", ID: " + user.getId()));
+			return items;
 		}
+
+		List<FishFarm> fishFarms = getDao().getFishFarms(comp.getPersonalID());
+		for (FishFarm fishFarm : fishFarms)
+			items.add(new Item(fishFarm.getId().toString(), fishFarm.getName() + " (" + fishFarm.getAddress() + ")"));
 
 		return items;
 	}
 
 	public List<Item> getAllFarms() {
-		final List<Item> items = new ArrayList<Item>();
+		List<Item> items = new ArrayList<Item>();
 
-		Company comp = getGumboBusiness().getCompanyForUser(getCurrentUser());
-		if (comp != null) {
-			List<FishFarm> fishFarms = getDao().getAllFishFarms();
-			for (FishFarm fishFarm : fishFarms) {
-				items.add(new Item(fishFarm.getId().toString(), fishFarm
-						.getName() + " (" + fishFarm.getAddress() + ")"));
-			}
+		User user = getCurrentUser();
+		Company comp = getGumboBusiness().getCompanyForUser(user);
+		if (comp == null) {
+			getLogger().warning("There are no companies for the user " + user + (user == null ? CoreConstants.EMPTY : ", ID: " + user.getId()));
+			return items;
 		}
+
+		List<FishFarm> fishFarms = getDao().getAllFishFarms();
+		for (FishFarm fishFarm : fishFarms)
+			items.add(new Item(fishFarm.getId().toString(), fishFarm.getName() + " (" + fishFarm.getAddress() + ")"));
 
 		return items;
 	}
@@ -134,24 +128,21 @@ public class AquaCultureService extends DefaultSpringBean {
 		try {
 			Company company = getCompanyBusiness().getCompany(personalID);
 			name = company.getName();
-		} catch (Exception e) {
-		}
+		} catch (Exception e) {}
 
 		try {
 			if (name == null) {
 				User user = getUserBusiness().getUser(personalID);
 				name = user.getName();
 			}
-		} catch (Exception e) {
-		}
+		} catch (Exception e) {}
 
 		if (name == null) {
 			CompanyHolder holder = getSkyrrClient().getCompany(personalID);
 			if (holder != null) {
 				name = holder.getName();
 			} else {
-				UserHolder userHolder = getSkyrrClient().getUser(
-						personalID);
+				UserHolder userHolder = getSkyrrClient().getUser(personalID);
 				if (userHolder != null) {
 					name = userHolder.getName();
 				}
@@ -376,29 +367,16 @@ public class AquaCultureService extends DefaultSpringBean {
 	}
 
 	private CompanyBusiness getCompanyBusiness() {
-		try {
-			return IBOLookup.getServiceInstance(
-					IWMainApplication.getDefaultIWApplicationContext(),
-					CompanyBusiness.class);
-		} catch (IBOLookupException ile) {
-			throw new IBORuntimeException(ile);
-		}
+		return getServiceInstance(CompanyBusiness.class);
 	}
 
 	private UserBusiness getUserBusiness() {
-		try {
-			return IBOLookup.getServiceInstance(
-					IWMainApplication.getDefaultIWApplicationContext(),
-					UserBusiness.class);
-		} catch (IBOLookupException ile) {
-			throw new IBORuntimeException(ile);
-		}
+		return getServiceInstance(UserBusiness.class);
 	}
 
 	public SkyrrClient getSkyrrClient() {
-		if (skyrrClient == null) {
+		if (skyrrClient == null)
 			ELUtil.getInstance().autowire(this);
-		}
 		return skyrrClient;
 	}
 
